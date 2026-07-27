@@ -27,7 +27,9 @@ public static class MothershipClientApiUnity
 
 	private static MothershipWebSocketDispatcher websocketDispatcher;
 
-	private static LoginCompleteDelegateWrapper auth;
+	private static MothershipLogCallback logCallback;
+
+	private static MothershipAuthCallback auth;
 
 	private static MothershipAuthRefreshRequiredCallback authRefreshRequiredCallback;
 
@@ -60,6 +62,12 @@ public static class MothershipClientApiUnity
 	private static MothershipGetMySubscriptionCallback getMySubscriptionCallback;
 
 	private static MothershipGetRoomPlayersSubscriptionsCallback getRoomPlayersSubscriptionsCallback;
+
+	private static MothershipInitSteamSubscriptionPurchaseCallback initSteamSubPurchaseCallback;
+
+	private static MothershipFinalizeSteamSubscriptionPurchaseCallback finalizeSteamSubPurchaseCallback;
+
+	private static MothershipGetFileDetailsCompleteCallback getFileDetailsCompleteCallback;
 
 	public static event Action<nint> OnOpenNotificationSocket;
 
@@ -133,6 +141,12 @@ public static class MothershipClientApiUnity
 				client.SetClientGetMySubscriptionsDelegateWrapper(getMySubscriptionCallback);
 				getRoomPlayersSubscriptionsCallback = new MothershipGetRoomPlayersSubscriptionsCallback();
 				client.SetClientBulkGetSubscriptionsDelegateWrapper(getRoomPlayersSubscriptionsCallback);
+				initSteamSubPurchaseCallback = new MothershipInitSteamSubscriptionPurchaseCallback();
+				client.SetClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper(initSteamSubPurchaseCallback);
+				finalizeSteamSubPurchaseCallback = new MothershipFinalizeSteamSubscriptionPurchaseCallback();
+				client.SetClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper(finalizeSteamSubPurchaseCallback);
+				getFileDetailsCompleteCallback = new MothershipGetFileDetailsCompleteCallback();
+				client.SetGetFileCompleteDelegateWrapper(getFileDetailsCompleteCallback);
 			}
 			catch (Exception exception)
 			{
@@ -166,7 +180,7 @@ public static class MothershipClientApiUnity
 		}
 		else
 		{
-			client.TickRetryQueue(deltaTime);
+			client.Tick(deltaTime);
 		}
 	}
 
@@ -174,6 +188,17 @@ public static class MothershipClientApiUnity
 	{
 		Debug.Log("[MothershipClient] Set language to " + newLanguage);
 		client.SetAcceptLanguage(newLanguage);
+	}
+
+	public static void SetLogCallback(Action<MothershipLogLevel, string> callback)
+	{
+		if (!isEnabled)
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled");
+			return;
+		}
+		logCallback = new MothershipLogCallback(callback);
+		client.SetLogDelegate(logCallback);
 	}
 
 	public static void SetAuthRefreshedCallback(Action<string> callback)
@@ -548,5 +573,50 @@ public static class MothershipClientApiUnity
 			errorCallback = errorAction
 		});
 		return false;
+	}
+
+	public static bool InitSteamSubscriptionTransaction(string sku, string frequencyUnit, int frequency, int priceInUSDCents, Action<InitSteamSubscriptionPurchaseResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<InitSteamSubscriptionPurchaseResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.ClientInitSteamSubscriptionPurchase(MothershipClientContext.MothershipId, sku, priceInUSDCents, frequency, frequencyUnit, userData);
+	}
+
+	public static bool FinalizeSteamSubscriptionTransaction(string steamOrderId, Action<FinalizeSteamSubscriptionPurchaseResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<FinalizeSteamSubscriptionPurchaseResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.ClientFinalizeSteamSubscriptionPurchase(MothershipClientContext.MothershipId, steamOrderId, userData);
+	}
+
+	public static bool GetDLCFileDetails(string fileId, Action<SharedDownloadableFileResult> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<SharedDownloadableFileResult>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.ClientGetFileById(MothershipClientContext.MothershipId, fileId, userData);
 	}
 }

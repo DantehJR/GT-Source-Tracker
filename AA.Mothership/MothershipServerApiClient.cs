@@ -685,6 +685,25 @@ public class MothershipServerApiClient : MothershipApiClient
 		return result;
 	}
 
+	public void SetRefreshSubscriptionsForPlayerCompleteDelegateWrapper(ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetRefreshSubscriptionsForPlayerCompleteDelegateWrapper(swigCPtr, ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool RefreshSubscriptionsForPlayer(string playerId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_RefreshSubscriptionsForPlayer(swigCPtr, playerId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	public void SetServerBulkGetSubscriptionsCompleteDelegateWrapper(ServerGetBulkSubscriptionsCompleteDelegateWrapper wrapper)
 	{
 		MothershipApiPINVOKE.MothershipServerApiClient_SetServerBulkGetSubscriptionsCompleteDelegateWrapper(swigCPtr, ServerGetBulkSubscriptionsCompleteDelegateWrapper.getCPtr(wrapper));
@@ -697,6 +716,111 @@ public class MothershipServerApiClient : MothershipApiClient
 	public bool ServerBulkGetSubscriptions(StringVector players, PlatformAndSkuVector platformSkus, StringVector catalogIds, IntPtr userData)
 	{
 		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ServerBulkGetSubscriptions(swigCPtr, StringVector.getCPtr(players), PlatformAndSkuVector.getCPtr(platformSkus), StringVector.getCPtr(catalogIds), userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetListGameSessionsCompleteDelegateWrapper(ListGameSessionsCompleteServerDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetListGameSessionsCompleteDelegateWrapper(swigCPtr, ListGameSessionsCompleteServerDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ListGameSessions(int page_size, int page_offset, string region, string partition, int min_empty_slots, int max_empty_slots, string session_name_search, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ListGameSessions(swigCPtr, page_size, page_offset, region, partition, min_empty_slots, max_empty_slots, session_name_search, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetUpdateGameSessionCompleteDelegateWrapper(UpdateGameSessionCompleteServerDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetUpdateGameSessionCompleteDelegateWrapper(swigCPtr, UpdateGameSessionCompleteServerDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool UpdateGameSession(string id, int currentPlayerCount, StringStringMap extraProperties, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_UpdateGameSession(swigCPtr, id, currentPlayerCount, StringStringMap.getCPtr(extraProperties), userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetRegisterGameSessionCompleteDelegateWrapper(RegisterGameSessionCompleteServerDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetRegisterGameSessionCompleteDelegateWrapper(swigCPtr, RegisterGameSessionCompleteServerDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool RegisterGameSession(string gameSessionId, string provider, string gameSessionName, string ip, int port, string requiredTags, int maxPlayerCount, string region, string partition, StringStringMap extraProperties, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_RegisterGameSession(swigCPtr, gameSessionId, provider, gameSessionName, ip, port, requiredTags, maxPlayerCount, region, partition, StringStringMap.getCPtr(extraProperties), userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetUnregisterGameSessionCompleteDelegateWrapper(UnregisterGameSessionCompleteServerDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetUnregisterGameSessionCompleteDelegateWrapper(swigCPtr, UnregisterGameSessionCompleteServerDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool UnregisterGameSession(string id, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_UnregisterGameSession(swigCPtr, id, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetGetFileCompleteDelegateWrapper(GetFileCompleteServerDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetGetFileCompleteDelegateWrapper(swigCPtr, GetFileCompleteServerDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ServerGetFileById(string fileId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ServerGetFileById(swigCPtr, fileId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public bool ServerGetFileByNameOrAliasAndVersion(string fileNameOrAlias, string versionOrLatest, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ServerGetFileByNameOrAliasAndVersion(swigCPtr, fileNameOrAlias, versionOrLatest, userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

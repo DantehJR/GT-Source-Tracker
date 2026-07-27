@@ -1,4 +1,5 @@
 using GorillaExtensions;
+using GorillaNetworking;
 using UnityEngine;
 
 public class CosmeticButton : GorillaPressableButton
@@ -16,6 +17,8 @@ public class CosmeticButton : GorillaPressableButton
 
 	protected Vector3 posOffset;
 
+	public string SetCosmeticItemID;
+
 	public bool Initialized { get; private set; }
 
 	public void Awake()
@@ -26,6 +29,12 @@ public class CosmeticButton : GorillaPressableButton
 
 	public override void UpdateColor()
 	{
+		if (isSubscriberOnlyButton && !_localPlayerSubscribed)
+		{
+			SetUnsubscribedMaterial();
+			SetOffText(myText.IsNotNull(), myTmpText.IsNotNull(), myTmpText2.IsNotNull());
+			return;
+		}
 		if (!base.enabled)
 		{
 			buttonRenderer.material = disabledMaterial;
@@ -70,5 +79,14 @@ public class CosmeticButton : GorillaPressableButton
 		{
 			myTmpText2.transform.position += posOffset;
 		}
+	}
+
+	protected override bool AllowNonSubscribedPress()
+	{
+		if (CosmeticsController.instance == null || string.IsNullOrEmpty(SetCosmeticItemID) || !CosmeticsController.instance.currentWornSet.HasItem(SetCosmeticItemID))
+		{
+			return false;
+		}
+		return true;
 	}
 }

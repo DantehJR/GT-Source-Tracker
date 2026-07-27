@@ -606,24 +606,24 @@ public class BodyDockPositions : MonoBehaviour
 			if (num < 0 || num >= allObjects.Length)
 			{
 				Debug.LogError($"Transferrable object index {num} out of range, expected [0..{allObjects.Length})");
+				continue;
 			}
-			else
+			string displayName = allObjects[num]?.gameObject.name;
+			string itemNameFromDisplayName = CosmeticsController.instance.GetItemNameFromDisplayName(displayName);
+			if (!myRig.IsItemAllowed(itemNameFromDisplayName))
 			{
-				if (!myRig.IsItemAllowed(CosmeticsController.instance.GetItemNameFromDisplayName(allObjects[num]?.gameObject.name)))
+				continue;
+			}
+			int num2 = myRig.ActiveTransferrableObjectIndex(i);
+			if (!(allObjects[num2] == null))
+			{
+				if (allObjects[num2].gameObject.activeSelf)
 				{
-					continue;
+					allObjects[num2].objectIndex = i;
 				}
-				int num2 = myRig.ActiveTransferrableObjectIndex(i);
-				if (!(allObjects[num2] == null))
+				else
 				{
-					if (allObjects[num2].gameObject.activeSelf)
-					{
-						allObjects[num2].objectIndex = i;
-					}
-					else
-					{
-						objectsToEnable.Add(i);
-					}
+					objectsToEnable.Add(i);
 				}
 			}
 		}
@@ -652,7 +652,8 @@ public class BodyDockPositions : MonoBehaviour
 		}
 		foreach (int item2 in objectsToEnable)
 		{
-			EnableTransferrableGameObject(myRig.ActiveTransferrableObjectIndex(item2), myRig.TransferrableDockPosition(item2), myRig.TransferrablePosStates(item2));
+			int allItemsIndex = myRig.ActiveTransferrableObjectIndex(item2);
+			EnableTransferrableGameObject(allItemsIndex, myRig.TransferrableDockPosition(item2), myRig.TransferrablePosStates(item2));
 		}
 		UpdateHandState();
 	}

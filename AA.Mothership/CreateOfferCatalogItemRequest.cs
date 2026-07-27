@@ -13,6 +13,8 @@ public class CreateOfferCatalogItemRequest : MothershipRequest
 
 	public static readonly string discount_percent_name = MothershipApiPINVOKE.CreateOfferCatalogItemRequest_discount_percent_name_get();
 
+	public static readonly string subscription_catalog_item_id_name = MothershipApiPINVOKE.CreateOfferCatalogItemRequest_subscription_catalog_item_id_name_get();
+
 	public string titleId
 	{
 		get
@@ -112,6 +114,27 @@ public class CreateOfferCatalogItemRequest : MothershipRequest
 		set
 		{
 			MothershipApiPINVOKE.CreateOfferCatalogItemRequest_bundle_pricing_set(swigCPtr, OfferEntitlementMap.getCPtr(value));
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public string subscription_catalog_item_id
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.CreateOfferCatalogItemRequest_subscription_catalog_item_id_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.CreateOfferCatalogItemRequest_subscription_catalog_item_id_set(swigCPtr, value);
 			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 			{
 				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

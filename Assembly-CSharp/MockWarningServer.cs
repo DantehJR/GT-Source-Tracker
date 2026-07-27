@@ -7,17 +7,11 @@ using UnityEngine;
 
 internal class MockWarningServer : WarningsServer
 {
-	public struct ButtonSetup
+	public struct ButtonSetup(string txt, WarningButtonResult result)
 	{
-		public string buttonText;
+		public string buttonText = txt;
 
-		public WarningButtonResult buttonResult;
-
-		public ButtonSetup(string txt, WarningButtonResult result)
-		{
-			buttonText = txt;
-			buttonResult = result;
-		}
+		public WarningButtonResult buttonResult = result;
 	}
 
 	private const string SHOWN_SCREEN_PREFIX = "screen-shown-";

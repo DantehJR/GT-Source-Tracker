@@ -101,6 +101,12 @@ public class CodeRedemption : MonoBehaviour
 				GorillaComputer.instance.RedemptionStatus = GorillaComputer.RedemptionResult.TooLate;
 				return;
 			}
+			if (codeRedemptionResponse.result.Contains("AlreadyGranted", StringComparison.OrdinalIgnoreCase))
+			{
+				Debug.Log("[CodeRedemption] Item has already been granted!");
+				GorillaComputer.instance.RedemptionStatus = GorillaComputer.RedemptionResult.AlreadyGranted;
+				return;
+			}
 			playFabItemName = codeRedemptionResponse.playFabItemName;
 		}
 		catch (Exception ex)

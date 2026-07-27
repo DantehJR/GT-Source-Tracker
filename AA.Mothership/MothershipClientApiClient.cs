@@ -58,6 +58,15 @@ public class MothershipClientApiClient : MothershipApiClient
 		}
 	}
 
+	public override void Tick(float deltaTimeInSeconds)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_Tick(swigCPtr, deltaTimeInSeconds);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
 	public void SetAuthRefreshRequiredDelegateWrapper(AuthRefreshRequiredDelegateWrapper wrapper)
 	{
 		MothershipApiPINVOKE.MothershipClientApiClient_SetAuthRefreshRequiredDelegateWrapper(swigCPtr, AuthRefreshRequiredDelegateWrapper.getCPtr(wrapper));
@@ -129,6 +138,16 @@ public class MothershipClientApiClient : MothershipApiClient
 	public bool LoginWithApple(string signature, string gamePlayerId, string teamPlayerId, string certUri, string salt, string timestamp, IntPtr userData)
 	{
 		bool result = MothershipApiPINVOKE.MothershipClientApiClient_LoginWithApple(swigCPtr, signature, gamePlayerId, teamPlayerId, certUri, salt, timestamp, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public long GetServerTime(string callerId)
+	{
+		long result = MothershipApiPINVOKE.MothershipClientApiClient_GetServerTime(swigCPtr, callerId);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -412,6 +431,44 @@ public class MothershipClientApiClient : MothershipApiClient
 		}
 	}
 
+	public void SetListGameSessionsCompleteDelegateWrapper(ListGameSessionsCompleteClientDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetListGameSessionsCompleteDelegateWrapper(swigCPtr, ListGameSessionsCompleteClientDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ListGameSessions(string callerId, int pageSize, int pageOffset, string region, string partition, int minEmptySlots, int maxEmptySlots, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ListGameSessions(swigCPtr, callerId, pageSize, pageOffset, region, partition, minEmptySlots, maxEmptySlots, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetRequestJoinGameSessionCompleteDelegateWrapper(RequestJoinGameSessionCompleteClientDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetRequestJoinGameSessionCompleteDelegateWrapper(swigCPtr, RequestJoinGameSessionCompleteClientDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool RequestJoinGameSession(string callerId, string requestSessionId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_RequestJoinGameSession(swigCPtr, callerId, requestSessionId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	public void SetCreateSharedGroupCompleteDelegateWrapper(CreateSharedGroupCompleteClientDelegateWrapper wrapper)
 	{
 		MothershipApiPINVOKE.MothershipClientApiClient_SetCreateSharedGroupCompleteDelegateWrapper(swigCPtr, CreateSharedGroupCompleteClientDelegateWrapper.getCPtr(wrapper));
@@ -640,6 +697,44 @@ public class MothershipClientApiClient : MothershipApiClient
 		return result;
 	}
 
+	public void SetClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper(ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper(swigCPtr, ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ClientInitSteamSubscriptionPurchase(string callerId, string sku, int priceInUSDCents, int subscriptionBillingFrequency, string subscriptionBillingFrequencyUnit, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientInitSteamSubscriptionPurchase(swigCPtr, callerId, sku, priceInUSDCents, subscriptionBillingFrequency, subscriptionBillingFrequencyUnit, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper(ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper(swigCPtr, ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ClientFinalizeSteamSubscriptionPurchase(string callerId, string steamOrderId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientFinalizeSteamSubscriptionPurchase(swigCPtr, callerId, steamOrderId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	public void SetClientBulkGetSubscriptionsDelegateWrapper(ClientGetBulkSubscriptionsCompleteDelegateWrapper wrapper)
 	{
 		MothershipApiPINVOKE.MothershipClientApiClient_SetClientBulkGetSubscriptionsDelegateWrapper(swigCPtr, ClientGetBulkSubscriptionsCompleteDelegateWrapper.getCPtr(wrapper));
@@ -652,6 +747,35 @@ public class MothershipClientApiClient : MothershipApiClient
 	public bool ClientBulkGetSubscriptions(string callerId, StringVector players, PlatformAndSkuVector platformSkus, StringVector catalogIds, IntPtr userData)
 	{
 		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientBulkGetSubscriptions(swigCPtr, callerId, StringVector.getCPtr(players), PlatformAndSkuVector.getCPtr(platformSkus), StringVector.getCPtr(catalogIds), userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetGetFileCompleteDelegateWrapper(GetFileCompleteClientDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetGetFileCompleteDelegateWrapper(swigCPtr, GetFileCompleteClientDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ClientGetFileById(string callerId, string fileId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientGetFileById(swigCPtr, callerId, fileId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public bool ClientGetFileByNameOrAliasAndVersion(string callerId, string fileNameOrAlias, string versionOrLatest, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientGetFileByNameOrAliasAndVersion(swigCPtr, callerId, fileNameOrAlias, versionOrLatest, userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

@@ -357,7 +357,7 @@ public class GrowingSnowballThrowable : SnowballThrowable
 
 	protected virtual SlingshotProjectile LaunchSnowballLocal(Vector3 location, Vector3 velocity, float scale)
 	{
-		return LaunchSnowballLocal(location, velocity, scale, randomizeColour: false, Color.white);
+		return LaunchSnowballLocal(location, velocity, scale, false, Color.white);
 	}
 
 	protected override SlingshotProjectile LaunchSnowballLocal(Vector3 location, Vector3 velocity, float scale, bool randomizeColour, Color colour)

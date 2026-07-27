@@ -266,9 +266,4 @@ public class SIPurchaseTerminal : MonoBehaviour, ITouchScreenStation
 			break;
 		}
 	}
-
-	GameObject ITouchScreenStation.get_gameObject()
-	{
-		return base.gameObject;
-	}
 }

@@ -7,7 +7,11 @@ public class PlayerPrefFlags
 	{
 		SHOW_1P_COSMETICS = 1,
 		SWAP_HELD_COSMETICS = 2,
-		GAME_MODE_SELECTOR_IS_SUPER = 4
+		GAME_MODE_SELECTOR_IS_SUPER = 4,
+		GTV_MUTED = 8,
+		ANTI_NAUSEA_ON = 0x10,
+		GRAVDASH_FLIP_X = 0x20,
+		GRAVDASH_FLIP_Y = 0x40
 	}
 
 	public static Action<Flag, bool> OnFlagChange;

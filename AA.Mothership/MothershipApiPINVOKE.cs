@@ -887,6 +887,90 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetPermissionsFailedError")]
 	public static extern void delete_GetPermissionsFailedError(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsFailedError__SWIG_0")]
+	public static extern IntPtr new_ListGameSessionsFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsFailedError__SWIG_1")]
+	public static extern IntPtr new_ListGameSessionsFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsFailedError__SWIG_2")]
+	public static extern IntPtr new_ListGameSessionsFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsFailedError")]
+	public static extern void delete_ListGameSessionsFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionFailedError__SWIG_0")]
+	public static extern IntPtr new_RegisterGameSessionFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionFailedError__SWIG_1")]
+	public static extern IntPtr new_RegisterGameSessionFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionFailedError__SWIG_2")]
+	public static extern IntPtr new_RegisterGameSessionFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RegisterGameSessionFailedError")]
+	public static extern void delete_RegisterGameSessionFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionFailedError__SWIG_0")]
+	public static extern IntPtr new_UpdateGameSessionFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionFailedError__SWIG_1")]
+	public static extern IntPtr new_UpdateGameSessionFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionFailedError__SWIG_2")]
+	public static extern IntPtr new_UpdateGameSessionFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UpdateGameSessionFailedError")]
+	public static extern void delete_UpdateGameSessionFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionFailedError__SWIG_0")]
+	public static extern IntPtr new_UnregisterGameSessionFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionFailedError__SWIG_1")]
+	public static extern IntPtr new_UnregisterGameSessionFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionFailedError__SWIG_2")]
+	public static extern IntPtr new_UnregisterGameSessionFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UnregisterGameSessionFailedError")]
+	public static extern void delete_UnregisterGameSessionFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RequestJoinGameSessionFailedError__SWIG_0")]
+	public static extern IntPtr new_RequestJoinGameSessionFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RequestJoinGameSessionFailedError__SWIG_1")]
+	public static extern IntPtr new_RequestJoinGameSessionFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RequestJoinGameSessionFailedError__SWIG_2")]
+	public static extern IntPtr new_RequestJoinGameSessionFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RequestJoinGameSessionFailedError")]
+	public static extern void delete_RequestJoinGameSessionFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamSubPurchaseError__SWIG_0")]
+	public static extern IntPtr new_InitSteamSubPurchaseError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamSubPurchaseError__SWIG_1")]
+	public static extern IntPtr new_InitSteamSubPurchaseError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamSubPurchaseError__SWIG_2")]
+	public static extern IntPtr new_InitSteamSubPurchaseError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_InitSteamSubPurchaseError")]
+	public static extern void delete_InitSteamSubPurchaseError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamSubPurchaseError__SWIG_0")]
+	public static extern IntPtr new_FinalizeSteamSubPurchaseError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamSubPurchaseError__SWIG_1")]
+	public static extern IntPtr new_FinalizeSteamSubPurchaseError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamSubPurchaseError__SWIG_2")]
+	public static extern IntPtr new_FinalizeSteamSubPurchaseError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeSteamSubPurchaseError")]
+	public static extern void delete_FinalizeSteamSubPurchaseError(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MOTHERSHIP_ORG_ID_HEADER_get")]
 	public static extern string MOTHERSHIP_ORG_ID_HEADER_get();
 
@@ -1331,8 +1415,8 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipApiClient_ReceiveWebsocketMessage")]
 	public static extern void MothershipApiClient_ReceiveWebsocketMessage(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipApiClient_TickRetryQueue")]
-	public static extern void MothershipApiClient_TickRetryQueue(HandleRef jarg1, float jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipApiClient_Tick")]
+	public static extern void MothershipApiClient_Tick(HandleRef jarg1, float jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipApiClient_SetLogDelegate")]
 	public static extern void MothershipApiClient_SetLogDelegate(HandleRef jarg1, HandleRef jarg2);
@@ -2152,6 +2236,18 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_last_updated_at_get")]
 	public static extern string MothershipPurchaseResult_last_updated_at_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_name_set")]
+	public static extern void MothershipPurchaseResult_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_name_get")]
+	public static extern string MothershipPurchaseResult_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_in_game_id_set")]
+	public static extern void MothershipPurchaseResult_in_game_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_in_game_id_get")]
+	public static extern string MothershipPurchaseResult_in_game_id_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_ParseFromString")]
 	public static extern bool MothershipPurchaseResult_ParseFromString(HandleRef jarg1, string jarg2);
@@ -4130,6 +4226,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_last_updated_time_get")]
 	public static extern string OfferCatalogItem_last_updated_time_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_subscription_catalog_item_id_set")]
+	public static extern void OfferCatalogItem_subscription_catalog_item_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_subscription_catalog_item_id_get")]
+	public static extern string OfferCatalogItem_subscription_catalog_item_id_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_sunset_set")]
 	public static extern void OfferCatalogItem_sunset_set(HandleRef jarg1, bool jarg2);
 
@@ -4162,6 +4264,9 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_last_updated_time_name_get")]
 	public static extern string OfferCatalogItem_last_updated_time_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_subscription_catalog_item_id_name_get")]
+	public static extern string OfferCatalogItem_subscription_catalog_item_id_name_get();
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_sunset_name_get")]
 	public static extern string OfferCatalogItem_sunset_name_get();
@@ -4436,6 +4541,102 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListAccountAssociationsResponse")]
 	public static extern void delete_ListAccountAssociationsResponse(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingAndTerms_PriceInUSDCents_set")]
+	public static extern void SubscriptionPricingAndTerms_PriceInUSDCents_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingAndTerms_PriceInUSDCents_get")]
+	public static extern int SubscriptionPricingAndTerms_PriceInUSDCents_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingAndTerms_SubscriptionBillingFrequency_set")]
+	public static extern void SubscriptionPricingAndTerms_SubscriptionBillingFrequency_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingAndTerms_SubscriptionBillingFrequency_get")]
+	public static extern int SubscriptionPricingAndTerms_SubscriptionBillingFrequency_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingAndTerms_SubscriptionBillingFrequencyUnit_set")]
+	public static extern void SubscriptionPricingAndTerms_SubscriptionBillingFrequencyUnit_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingAndTerms_SubscriptionBillingFrequencyUnit_get")]
+	public static extern string SubscriptionPricingAndTerms_SubscriptionBillingFrequencyUnit_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingAndTerms_ParseFromString")]
+	public static extern bool SubscriptionPricingAndTerms_ParseFromString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingAndTerms_ParseFromJson")]
+	public static extern bool SubscriptionPricingAndTerms_ParseFromJson(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingAndTerms")]
+	public static extern IntPtr new_SubscriptionPricingAndTerms();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionPricingAndTerms")]
+	public static extern void delete_SubscriptionPricingAndTerms(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_id_set")]
+	public static extern void SubscriptionCatalogItem_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_id_get")]
+	public static extern string SubscriptionCatalogItem_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_created_time_set")]
+	public static extern void SubscriptionCatalogItem_created_time_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_created_time_get")]
+	public static extern string SubscriptionCatalogItem_created_time_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_last_updated_time_set")]
+	public static extern void SubscriptionCatalogItem_last_updated_time_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_last_updated_time_get")]
+	public static extern string SubscriptionCatalogItem_last_updated_time_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_pricing_and_terms_set")]
+	public static extern void SubscriptionCatalogItem_pricing_and_terms_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_pricing_and_terms_get")]
+	public static extern IntPtr SubscriptionCatalogItem_pricing_and_terms_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_name_set")]
+	public static extern void SubscriptionCatalogItem_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_name_get")]
+	public static extern string SubscriptionCatalogItem_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_sku_set")]
+	public static extern void SubscriptionCatalogItem_sku_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_sku_get")]
+	public static extern string SubscriptionCatalogItem_sku_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_external_service_name_set")]
+	public static extern void SubscriptionCatalogItem_external_service_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_external_service_name_get")]
+	public static extern string SubscriptionCatalogItem_external_service_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_title_id_set")]
+	public static extern void SubscriptionCatalogItem_title_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_title_id_get")]
+	public static extern string SubscriptionCatalogItem_title_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_env_id_set")]
+	public static extern void SubscriptionCatalogItem_env_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_env_id_get")]
+	public static extern string SubscriptionCatalogItem_env_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_ParseFromString")]
+	public static extern bool SubscriptionCatalogItem_ParseFromString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItem_ParseFromJson")]
+	public static extern bool SubscriptionCatalogItem_ParseFromJson(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItem")]
+	public static extern IntPtr new_SubscriptionCatalogItem();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionCatalogItem")]
+	public static extern void delete_SubscriptionCatalogItem(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_Subscription_id_set")]
 	public static extern void Subscription_id_set(HandleRef jarg1, string jarg2);
 
@@ -4615,6 +4816,345 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_BulkGetSubscriptionsResponse")]
 	public static extern IntPtr new_BulkGetSubscriptionsResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_id_set")]
+	public static extern void JoinableGameSession_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_id_get")]
+	public static extern string JoinableGameSession_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_game_session_name_set")]
+	public static extern void JoinableGameSession_game_session_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_game_session_name_get")]
+	public static extern string JoinableGameSession_game_session_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_current_player_count_set")]
+	public static extern void JoinableGameSession_current_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_current_player_count_get")]
+	public static extern int JoinableGameSession_current_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_max_player_count_set")]
+	public static extern void JoinableGameSession_max_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_max_player_count_get")]
+	public static extern int JoinableGameSession_max_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_region_set")]
+	public static extern void JoinableGameSession_region_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_region_get")]
+	public static extern string JoinableGameSession_region_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_created_at_set")]
+	public static extern void JoinableGameSession_created_at_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_created_at_get")]
+	public static extern string JoinableGameSession_created_at_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_updated_at_set")]
+	public static extern void JoinableGameSession_updated_at_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_updated_at_get")]
+	public static extern string JoinableGameSession_updated_at_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_extra_properties_set")]
+	public static extern void JoinableGameSession_extra_properties_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_extra_properties_get")]
+	public static extern IntPtr JoinableGameSession_extra_properties_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_id_name_get")]
+	public static extern string JoinableGameSession_id_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_game_session_name_name_get")]
+	public static extern string JoinableGameSession_game_session_name_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_current_player_count_name_get")]
+	public static extern string JoinableGameSession_current_player_count_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_max_player_count_name_get")]
+	public static extern string JoinableGameSession_max_player_count_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_region_name_get")]
+	public static extern string JoinableGameSession_region_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_created_at_name_get")]
+	public static extern string JoinableGameSession_created_at_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_updated_at_name_get")]
+	public static extern string JoinableGameSession_updated_at_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_extra_properties_name_get")]
+	public static extern string JoinableGameSession_extra_properties_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSession_ParseFromJson")]
+	public static extern bool JoinableGameSession_ParseFromJson(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSession")]
+	public static extern IntPtr new_JoinableGameSession();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_JoinableGameSession")]
+	public static extern void delete_JoinableGameSession(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_id_set")]
+	public static extern void GameSession_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_id_get")]
+	public static extern string GameSession_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_game_session_id_set")]
+	public static extern void GameSession_game_session_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_game_session_id_get")]
+	public static extern string GameSession_game_session_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_provider_set")]
+	public static extern void GameSession_provider_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_provider_get")]
+	public static extern string GameSession_provider_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_game_session_name_set")]
+	public static extern void GameSession_game_session_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_game_session_name_get")]
+	public static extern string GameSession_game_session_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_ip_set")]
+	public static extern void GameSession_ip_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_ip_get")]
+	public static extern string GameSession_ip_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_port_set")]
+	public static extern void GameSession_port_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_port_get")]
+	public static extern int GameSession_port_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_required_tags_set")]
+	public static extern void GameSession_required_tags_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_required_tags_get")]
+	public static extern string GameSession_required_tags_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_current_player_count_set")]
+	public static extern void GameSession_current_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_current_player_count_get")]
+	public static extern int GameSession_current_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_max_player_count_set")]
+	public static extern void GameSession_max_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_max_player_count_get")]
+	public static extern int GameSession_max_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_region_set")]
+	public static extern void GameSession_region_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_region_get")]
+	public static extern string GameSession_region_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_partition_set")]
+	public static extern void GameSession_partition_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_partition_get")]
+	public static extern string GameSession_partition_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_created_at_set")]
+	public static extern void GameSession_created_at_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_created_at_get")]
+	public static extern string GameSession_created_at_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_updated_at_set")]
+	public static extern void GameSession_updated_at_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_updated_at_get")]
+	public static extern string GameSession_updated_at_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_extra_properties_set")]
+	public static extern void GameSession_extra_properties_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_extra_properties_get")]
+	public static extern IntPtr GameSession_extra_properties_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_id_name_get")]
+	public static extern string GameSession_id_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_game_session_id_name_get")]
+	public static extern string GameSession_game_session_id_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_provider_name_get")]
+	public static extern string GameSession_provider_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_game_session_name_name_get")]
+	public static extern string GameSession_game_session_name_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_ip_name_get")]
+	public static extern string GameSession_ip_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_port_name_get")]
+	public static extern string GameSession_port_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_required_tags_name_get")]
+	public static extern string GameSession_required_tags_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_current_player_count_name_get")]
+	public static extern string GameSession_current_player_count_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_max_player_count_name_get")]
+	public static extern string GameSession_max_player_count_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_region_name_get")]
+	public static extern string GameSession_region_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_partition_name_get")]
+	public static extern string GameSession_partition_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_created_at_name_get")]
+	public static extern string GameSession_created_at_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_updated_at_name_get")]
+	public static extern string GameSession_updated_at_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_extra_properties_name_get")]
+	public static extern string GameSession_extra_properties_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSession_ParseFromJson")]
+	public static extern bool GameSession_ParseFromJson(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSession")]
+	public static extern IntPtr new_GameSession();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GameSession")]
+	public static extern void delete_GameSession(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_BASE_PATH_DLC_get")]
+	public static extern string BASE_PATH_DLC_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SharedGetFileByIdRequest")]
+	public static extern void delete_SharedGetFileByIdRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_ToHttpRequest")]
+	public static extern IntPtr SharedGetFileByIdRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_title_id_set")]
+	public static extern void SharedGetFileByIdRequest_title_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_title_id_get")]
+	public static extern string SharedGetFileByIdRequest_title_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_env_id_set")]
+	public static extern void SharedGetFileByIdRequest_env_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_env_id_get")]
+	public static extern string SharedGetFileByIdRequest_env_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_deployment_id_set")]
+	public static extern void SharedGetFileByIdRequest_deployment_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_deployment_id_get")]
+	public static extern string SharedGetFileByIdRequest_deployment_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_file_id_set")]
+	public static extern void SharedGetFileByIdRequest_file_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_file_id_get")]
+	public static extern string SharedGetFileByIdRequest_file_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SharedGetFileByIdRequest")]
+	public static extern IntPtr new_SharedGetFileByIdRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SharedGetFileByNameAndVersionRequest")]
+	public static extern void delete_SharedGetFileByNameAndVersionRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_ToHttpRequest")]
+	public static extern IntPtr SharedGetFileByNameAndVersionRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_title_id_set")]
+	public static extern void SharedGetFileByNameAndVersionRequest_title_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_title_id_get")]
+	public static extern string SharedGetFileByNameAndVersionRequest_title_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_env_id_set")]
+	public static extern void SharedGetFileByNameAndVersionRequest_env_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_env_id_get")]
+	public static extern string SharedGetFileByNameAndVersionRequest_env_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_deployment_id_set")]
+	public static extern void SharedGetFileByNameAndVersionRequest_deployment_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_deployment_id_get")]
+	public static extern string SharedGetFileByNameAndVersionRequest_deployment_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_file_name_set")]
+	public static extern void SharedGetFileByNameAndVersionRequest_file_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_file_name_get")]
+	public static extern string SharedGetFileByNameAndVersionRequest_file_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_file_version_set")]
+	public static extern void SharedGetFileByNameAndVersionRequest_file_version_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_file_version_get")]
+	public static extern string SharedGetFileByNameAndVersionRequest_file_version_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SharedGetFileByNameAndVersionRequest")]
+	public static extern IntPtr new_SharedGetFileByNameAndVersionRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_ParseFromResponseString")]
+	public static extern bool SharedDownloadableFileResult_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_FromMothershipResponse")]
+	public static extern IntPtr SharedDownloadableFileResult_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_file_id_set")]
+	public static extern void SharedDownloadableFileResult_file_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_file_id_get")]
+	public static extern string SharedDownloadableFileResult_file_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_file_name_set")]
+	public static extern void SharedDownloadableFileResult_file_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_file_name_get")]
+	public static extern string SharedDownloadableFileResult_file_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_aliases_set")]
+	public static extern void SharedDownloadableFileResult_aliases_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_aliases_get")]
+	public static extern IntPtr SharedDownloadableFileResult_aliases_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_version_set")]
+	public static extern void SharedDownloadableFileResult_version_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_version_get")]
+	public static extern string SharedDownloadableFileResult_version_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_tags_set")]
+	public static extern void SharedDownloadableFileResult_tags_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_tags_get")]
+	public static extern IntPtr SharedDownloadableFileResult_tags_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_url_set")]
+	public static extern void SharedDownloadableFileResult_url_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_url_get")]
+	public static extern string SharedDownloadableFileResult_url_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SharedDownloadableFileResult")]
+	public static extern IntPtr new_SharedDownloadableFileResult();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SharedDownloadableFileResult")]
+	public static extern void delete_SharedDownloadableFileResult(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_CreateEntitlementCatalogItemRequest")]
 	public static extern void delete_CreateEntitlementCatalogItemRequest(HandleRef jarg1);
@@ -9665,6 +10205,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_CreateOfferCatalogItemRequest_bundle_pricing_get")]
 	public static extern IntPtr CreateOfferCatalogItemRequest_bundle_pricing_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_CreateOfferCatalogItemRequest_subscription_catalog_item_id_set")]
+	public static extern void CreateOfferCatalogItemRequest_subscription_catalog_item_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_CreateOfferCatalogItemRequest_subscription_catalog_item_id_get")]
+	public static extern string CreateOfferCatalogItemRequest_subscription_catalog_item_id_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_CreateOfferCatalogItemRequest_discount_percent_set")]
 	public static extern void CreateOfferCatalogItemRequest_discount_percent_set(HandleRef jarg1, int jarg2);
 
@@ -9682,6 +10228,9 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_CreateOfferCatalogItemRequest_discount_percent_name_get")]
 	public static extern string CreateOfferCatalogItemRequest_discount_percent_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_CreateOfferCatalogItemRequest_subscription_catalog_item_id_name_get")]
+	public static extern string CreateOfferCatalogItemRequest_subscription_catalog_item_id_name_get();
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_CreateOfferCatalogItemRequest")]
 	public static extern IntPtr new_CreateOfferCatalogItemRequest();
@@ -10265,6 +10814,480 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AutomationGetSubscriptionsResponse")]
 	public static extern IntPtr new_AutomationGetSubscriptionsResponse();
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AutomationCreateSubscriptionCatalogItemRequest")]
+	public static extern void delete_AutomationCreateSubscriptionCatalogItemRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_ToHttpRequest")]
+	public static extern IntPtr AutomationCreateSubscriptionCatalogItemRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_titleId_set")]
+	public static extern void AutomationCreateSubscriptionCatalogItemRequest_titleId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_titleId_get")]
+	public static extern string AutomationCreateSubscriptionCatalogItemRequest_titleId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_envId_set")]
+	public static extern void AutomationCreateSubscriptionCatalogItemRequest_envId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_envId_get")]
+	public static extern string AutomationCreateSubscriptionCatalogItemRequest_envId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_external_service_name_set")]
+	public static extern void AutomationCreateSubscriptionCatalogItemRequest_external_service_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_external_service_name_get")]
+	public static extern string AutomationCreateSubscriptionCatalogItemRequest_external_service_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_name_set")]
+	public static extern void AutomationCreateSubscriptionCatalogItemRequest_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_name_get")]
+	public static extern string AutomationCreateSubscriptionCatalogItemRequest_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_pricing_and_terms_set")]
+	public static extern void AutomationCreateSubscriptionCatalogItemRequest_pricing_and_terms_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_pricing_and_terms_get")]
+	public static extern IntPtr AutomationCreateSubscriptionCatalogItemRequest_pricing_and_terms_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_sku_set")]
+	public static extern void AutomationCreateSubscriptionCatalogItemRequest_sku_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_sku_get")]
+	public static extern string AutomationCreateSubscriptionCatalogItemRequest_sku_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AutomationCreateSubscriptionCatalogItemRequest")]
+	public static extern IntPtr new_AutomationCreateSubscriptionCatalogItemRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AutomationCreateSubscriptionCatalogItemResponse")]
+	public static extern void delete_AutomationCreateSubscriptionCatalogItemResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemResponse_ParseFromResponseString")]
+	public static extern bool AutomationCreateSubscriptionCatalogItemResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemResponse_FromMothershipResponse")]
+	public static extern IntPtr AutomationCreateSubscriptionCatalogItemResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AutomationCreateSubscriptionCatalogItemResponse")]
+	public static extern IntPtr new_AutomationCreateSubscriptionCatalogItemResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper")]
+	public static extern void delete_AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper")]
+	public static extern IntPtr new_AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper_director_connect")]
+	public static extern void AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper_director_connect(HandleRef jarg1, AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper.SwigDelegateAutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AutomationListSubscriptionCatalogItemsRequest")]
+	public static extern void delete_AutomationListSubscriptionCatalogItemsRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsRequest_ToHttpRequest")]
+	public static extern IntPtr AutomationListSubscriptionCatalogItemsRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsRequest_titleId_set")]
+	public static extern void AutomationListSubscriptionCatalogItemsRequest_titleId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsRequest_titleId_get")]
+	public static extern string AutomationListSubscriptionCatalogItemsRequest_titleId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsRequest_envId_set")]
+	public static extern void AutomationListSubscriptionCatalogItemsRequest_envId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsRequest_envId_get")]
+	public static extern string AutomationListSubscriptionCatalogItemsRequest_envId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AutomationListSubscriptionCatalogItemsRequest")]
+	public static extern IntPtr new_AutomationListSubscriptionCatalogItemsRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AutomationListSubscriptionCatalogItemsResponse")]
+	public static extern void delete_AutomationListSubscriptionCatalogItemsResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsResponse_Results_set")]
+	public static extern void AutomationListSubscriptionCatalogItemsResponse_Results_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsResponse_Results_get")]
+	public static extern IntPtr AutomationListSubscriptionCatalogItemsResponse_Results_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsResponse_ParseFromResponseString")]
+	public static extern bool AutomationListSubscriptionCatalogItemsResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsResponse_FromMothershipResponse")]
+	public static extern IntPtr AutomationListSubscriptionCatalogItemsResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AutomationListSubscriptionCatalogItemsResponse")]
+	public static extern IntPtr new_AutomationListSubscriptionCatalogItemsResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper")]
+	public static extern void delete_AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper")]
+	public static extern IntPtr new_AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper_director_connect")]
+	public static extern void AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper_director_connect(HandleRef jarg1, AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper.SwigDelegateAutomationListSubscriptionCatalogItemsCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_titleId_set")]
+	public static extern void ListGameSessionsAutomationRequest_titleId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_titleId_get")]
+	public static extern string ListGameSessionsAutomationRequest_titleId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_envId_set")]
+	public static extern void ListGameSessionsAutomationRequest_envId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_envId_get")]
+	public static extern string ListGameSessionsAutomationRequest_envId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_page_size_set")]
+	public static extern void ListGameSessionsAutomationRequest_page_size_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_page_size_get")]
+	public static extern int ListGameSessionsAutomationRequest_page_size_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_page_offset_set")]
+	public static extern void ListGameSessionsAutomationRequest_page_offset_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_page_offset_get")]
+	public static extern int ListGameSessionsAutomationRequest_page_offset_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_region_set")]
+	public static extern void ListGameSessionsAutomationRequest_region_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_region_get")]
+	public static extern string ListGameSessionsAutomationRequest_region_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_partition_set")]
+	public static extern void ListGameSessionsAutomationRequest_partition_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_partition_get")]
+	public static extern string ListGameSessionsAutomationRequest_partition_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_min_empty_slots_set")]
+	public static extern void ListGameSessionsAutomationRequest_min_empty_slots_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_min_empty_slots_get")]
+	public static extern int ListGameSessionsAutomationRequest_min_empty_slots_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_max_empty_slots_set")]
+	public static extern void ListGameSessionsAutomationRequest_max_empty_slots_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_max_empty_slots_get")]
+	public static extern int ListGameSessionsAutomationRequest_max_empty_slots_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_session_name_search_set")]
+	public static extern void ListGameSessionsAutomationRequest_session_name_search_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_session_name_search_get")]
+	public static extern string ListGameSessionsAutomationRequest_session_name_search_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsAutomationRequest")]
+	public static extern void delete_ListGameSessionsAutomationRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_ToHttpRequest")]
+	public static extern IntPtr ListGameSessionsAutomationRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsAutomationRequest")]
+	public static extern IntPtr new_ListGameSessionsAutomationRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationResponse_ParseFromResponseString")]
+	public static extern bool ListGameSessionsAutomationResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationResponse_FromMothershipResponse")]
+	public static extern IntPtr ListGameSessionsAutomationResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationResponse_Results_set")]
+	public static extern void ListGameSessionsAutomationResponse_Results_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationResponse_Results_get")]
+	public static extern IntPtr ListGameSessionsAutomationResponse_Results_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsAutomationResponse")]
+	public static extern IntPtr new_ListGameSessionsAutomationResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsAutomationResponse")]
+	public static extern void delete_ListGameSessionsAutomationResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsCompleteAutomationDelegateWrapper")]
+	public static extern void delete_ListGameSessionsCompleteAutomationDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsCompleteAutomationDelegateWrapper")]
+	public static extern IntPtr new_ListGameSessionsCompleteAutomationDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsCompleteAutomationDelegateWrapper_director_connect")]
+	public static extern void ListGameSessionsCompleteAutomationDelegateWrapper_director_connect(HandleRef jarg1, ListGameSessionsCompleteAutomationDelegateWrapper.SwigDelegateListGameSessionsCompleteAutomationDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_titleId_set")]
+	public static extern void RegisterGameSessionAutomationRequest_titleId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_titleId_get")]
+	public static extern string RegisterGameSessionAutomationRequest_titleId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_envId_set")]
+	public static extern void RegisterGameSessionAutomationRequest_envId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_envId_get")]
+	public static extern string RegisterGameSessionAutomationRequest_envId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_game_session_id_set")]
+	public static extern void RegisterGameSessionAutomationRequest_game_session_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_game_session_id_get")]
+	public static extern string RegisterGameSessionAutomationRequest_game_session_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_provider_set")]
+	public static extern void RegisterGameSessionAutomationRequest_provider_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_provider_get")]
+	public static extern string RegisterGameSessionAutomationRequest_provider_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_game_session_name_set")]
+	public static extern void RegisterGameSessionAutomationRequest_game_session_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_game_session_name_get")]
+	public static extern string RegisterGameSessionAutomationRequest_game_session_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_required_tags_set")]
+	public static extern void RegisterGameSessionAutomationRequest_required_tags_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_required_tags_get")]
+	public static extern string RegisterGameSessionAutomationRequest_required_tags_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_ip_set")]
+	public static extern void RegisterGameSessionAutomationRequest_ip_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_ip_get")]
+	public static extern string RegisterGameSessionAutomationRequest_ip_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_port_set")]
+	public static extern void RegisterGameSessionAutomationRequest_port_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_port_get")]
+	public static extern int RegisterGameSessionAutomationRequest_port_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_max_player_count_set")]
+	public static extern void RegisterGameSessionAutomationRequest_max_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_max_player_count_get")]
+	public static extern int RegisterGameSessionAutomationRequest_max_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_region_set")]
+	public static extern void RegisterGameSessionAutomationRequest_region_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_region_get")]
+	public static extern string RegisterGameSessionAutomationRequest_region_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_partition_set")]
+	public static extern void RegisterGameSessionAutomationRequest_partition_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_partition_get")]
+	public static extern string RegisterGameSessionAutomationRequest_partition_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_extra_properties_set")]
+	public static extern void RegisterGameSessionAutomationRequest_extra_properties_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_extra_properties_get")]
+	public static extern IntPtr RegisterGameSessionAutomationRequest_extra_properties_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RegisterGameSessionAutomationRequest")]
+	public static extern void delete_RegisterGameSessionAutomationRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_ToHttpRequest")]
+	public static extern IntPtr RegisterGameSessionAutomationRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionAutomationRequest")]
+	public static extern IntPtr new_RegisterGameSessionAutomationRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationResponse_ParseFromResponseString")]
+	public static extern bool RegisterGameSessionAutomationResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationResponse_FromMothershipResponse")]
+	public static extern IntPtr RegisterGameSessionAutomationResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationResponse_Result_set")]
+	public static extern void RegisterGameSessionAutomationResponse_Result_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationResponse_Result_get")]
+	public static extern IntPtr RegisterGameSessionAutomationResponse_Result_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionAutomationResponse")]
+	public static extern IntPtr new_RegisterGameSessionAutomationResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RegisterGameSessionAutomationResponse")]
+	public static extern void delete_RegisterGameSessionAutomationResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RegisterGameSessionCompleteAutomationDelegateWrapper")]
+	public static extern void delete_RegisterGameSessionCompleteAutomationDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionCompleteAutomationDelegateWrapper")]
+	public static extern IntPtr new_RegisterGameSessionCompleteAutomationDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionCompleteAutomationDelegateWrapper_director_connect")]
+	public static extern void RegisterGameSessionCompleteAutomationDelegateWrapper_director_connect(HandleRef jarg1, RegisterGameSessionCompleteAutomationDelegateWrapper.SwigDelegateRegisterGameSessionCompleteAutomationDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_titleId_set")]
+	public static extern void UpdateGameSessionAutomationRequest_titleId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_titleId_get")]
+	public static extern string UpdateGameSessionAutomationRequest_titleId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_envId_set")]
+	public static extern void UpdateGameSessionAutomationRequest_envId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_envId_get")]
+	public static extern string UpdateGameSessionAutomationRequest_envId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_id_set")]
+	public static extern void UpdateGameSessionAutomationRequest_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_id_get")]
+	public static extern string UpdateGameSessionAutomationRequest_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_game_session_id_set")]
+	public static extern void UpdateGameSessionAutomationRequest_game_session_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_game_session_id_get")]
+	public static extern string UpdateGameSessionAutomationRequest_game_session_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_provider_set")]
+	public static extern void UpdateGameSessionAutomationRequest_provider_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_provider_get")]
+	public static extern string UpdateGameSessionAutomationRequest_provider_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_game_session_name_set")]
+	public static extern void UpdateGameSessionAutomationRequest_game_session_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_game_session_name_get")]
+	public static extern string UpdateGameSessionAutomationRequest_game_session_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_ip_set")]
+	public static extern void UpdateGameSessionAutomationRequest_ip_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_ip_get")]
+	public static extern string UpdateGameSessionAutomationRequest_ip_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_port_set")]
+	public static extern void UpdateGameSessionAutomationRequest_port_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_port_get")]
+	public static extern int UpdateGameSessionAutomationRequest_port_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_current_player_count_set")]
+	public static extern void UpdateGameSessionAutomationRequest_current_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_current_player_count_get")]
+	public static extern int UpdateGameSessionAutomationRequest_current_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_max_player_count_set")]
+	public static extern void UpdateGameSessionAutomationRequest_max_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_max_player_count_get")]
+	public static extern int UpdateGameSessionAutomationRequest_max_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_region_set")]
+	public static extern void UpdateGameSessionAutomationRequest_region_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_region_get")]
+	public static extern string UpdateGameSessionAutomationRequest_region_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_extra_properties_set")]
+	public static extern void UpdateGameSessionAutomationRequest_extra_properties_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_extra_properties_get")]
+	public static extern IntPtr UpdateGameSessionAutomationRequest_extra_properties_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UpdateGameSessionAutomationRequest")]
+	public static extern void delete_UpdateGameSessionAutomationRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_ToHttpRequest")]
+	public static extern IntPtr UpdateGameSessionAutomationRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionAutomationRequest")]
+	public static extern IntPtr new_UpdateGameSessionAutomationRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationResponse_ParseFromResponseString")]
+	public static extern bool UpdateGameSessionAutomationResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationResponse_FromMothershipResponse")]
+	public static extern IntPtr UpdateGameSessionAutomationResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationResponse_Result_set")]
+	public static extern void UpdateGameSessionAutomationResponse_Result_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationResponse_Result_get")]
+	public static extern IntPtr UpdateGameSessionAutomationResponse_Result_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionAutomationResponse")]
+	public static extern IntPtr new_UpdateGameSessionAutomationResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UpdateGameSessionAutomationResponse")]
+	public static extern void delete_UpdateGameSessionAutomationResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UpdateGameSessionCompleteAutomationDelegateWrapper")]
+	public static extern void delete_UpdateGameSessionCompleteAutomationDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionCompleteAutomationDelegateWrapper")]
+	public static extern IntPtr new_UpdateGameSessionCompleteAutomationDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionCompleteAutomationDelegateWrapper_director_connect")]
+	public static extern void UpdateGameSessionCompleteAutomationDelegateWrapper_director_connect(HandleRef jarg1, UpdateGameSessionCompleteAutomationDelegateWrapper.SwigDelegateUpdateGameSessionCompleteAutomationDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationRequest_titleId_set")]
+	public static extern void UnregisterGameSessionAutomationRequest_titleId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationRequest_titleId_get")]
+	public static extern string UnregisterGameSessionAutomationRequest_titleId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationRequest_envId_set")]
+	public static extern void UnregisterGameSessionAutomationRequest_envId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationRequest_envId_get")]
+	public static extern string UnregisterGameSessionAutomationRequest_envId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationRequest_id_set")]
+	public static extern void UnregisterGameSessionAutomationRequest_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationRequest_id_get")]
+	public static extern string UnregisterGameSessionAutomationRequest_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UnregisterGameSessionAutomationRequest")]
+	public static extern void delete_UnregisterGameSessionAutomationRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationRequest_ToHttpRequest")]
+	public static extern IntPtr UnregisterGameSessionAutomationRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionAutomationRequest")]
+	public static extern IntPtr new_UnregisterGameSessionAutomationRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationResponse_ParseFromResponseString")]
+	public static extern bool UnregisterGameSessionAutomationResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationResponse_FromMothershipResponse")]
+	public static extern IntPtr UnregisterGameSessionAutomationResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationResponse_Result_set")]
+	public static extern void UnregisterGameSessionAutomationResponse_Result_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationResponse_Result_get")]
+	public static extern IntPtr UnregisterGameSessionAutomationResponse_Result_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionAutomationResponse")]
+	public static extern IntPtr new_UnregisterGameSessionAutomationResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UnregisterGameSessionAutomationResponse")]
+	public static extern void delete_UnregisterGameSessionAutomationResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UnregisterGameSessionCompleteAutomationDelegateWrapper")]
+	public static extern void delete_UnregisterGameSessionCompleteAutomationDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionCompleteAutomationDelegateWrapper")]
+	public static extern IntPtr new_UnregisterGameSessionCompleteAutomationDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionCompleteAutomationDelegateWrapper_director_connect")]
+	public static extern void UnregisterGameSessionCompleteAutomationDelegateWrapper_director_connect(HandleRef jarg1, UnregisterGameSessionCompleteAutomationDelegateWrapper.SwigDelegateUnregisterGameSessionCompleteAutomationDelegateWrapper_0 delegate0);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipAutomationApiClient__SWIG_0")]
 	public static extern IntPtr new_MothershipAutomationApiClient__SWIG_0(string jarg1, string jarg2, string jarg3, bool jarg4, string jarg5, string jarg6);
 
@@ -10653,7 +11676,7 @@ internal class MothershipApiPINVOKE
 	public static extern void MothershipAutomationApiClient_SetCreateOfferCatalogItemCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_CreateOfferCatalogItem")]
-	public static extern bool MothershipAutomationApiClient_CreateOfferCatalogItem(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, HandleRef jarg6, int jarg7, IntPtr jarg8);
+	public static extern bool MothershipAutomationApiClient_CreateOfferCatalogItem(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, HandleRef jarg6, int jarg7, string jarg8, IntPtr jarg9);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_SetListOffersDisplayCompleteDelegateWrapper")]
 	public static extern void MothershipAutomationApiClient_SetListOffersDisplayCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
@@ -10871,6 +11894,42 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_GetSubscriptionsForPlayer")]
 	public static extern bool MothershipAutomationApiClient_GetSubscriptionsForPlayer(HandleRef jarg1, string jarg2, string jarg3, string jarg4, IntPtr jarg5);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_SetCreateSubscriptionCatalogItemCompleteDelegateWrapper")]
+	public static extern void MothershipAutomationApiClient_SetCreateSubscriptionCatalogItemCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_CreateSubscriptionCatalogItem")]
+	public static extern bool MothershipAutomationApiClient_CreateSubscriptionCatalogItem(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, HandleRef jarg6, string jarg7, IntPtr jarg8);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_SetListSubscriptionCatalogItemsCompleteDelegateWrapper")]
+	public static extern void MothershipAutomationApiClient_SetListSubscriptionCatalogItemsCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_ListSubscriptionCatalogItems")]
+	public static extern bool MothershipAutomationApiClient_ListSubscriptionCatalogItems(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_SetListGameSessionsCompleteDelegateWrapper")]
+	public static extern void MothershipAutomationApiClient_SetListGameSessionsCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_ListGameSessions")]
+	public static extern bool MothershipAutomationApiClient_ListGameSessions(HandleRef jarg1, string jarg2, string jarg3, int jarg4, int jarg5, string jarg6, string jarg7, int jarg8, int jarg9, string jarg10, IntPtr jarg11);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_SetRegisterGameSessionCompleteDelegateWrapper")]
+	public static extern void MothershipAutomationApiClient_SetRegisterGameSessionCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_RegisterGameSession")]
+	public static extern bool MothershipAutomationApiClient_RegisterGameSession(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, string jarg6, string jarg7, string jarg8, int jarg9, int jarg10, string jarg11, string jarg12, HandleRef jarg13, IntPtr jarg14);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_SetUpdateGameSessionCompleteDelegateWrapper")]
+	public static extern void MothershipAutomationApiClient_SetUpdateGameSessionCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_UpdateGameSession")]
+	public static extern bool MothershipAutomationApiClient_UpdateGameSession(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, string jarg6, string jarg7, string jarg8, int jarg9, int jarg10, int jarg11, string jarg12, HandleRef jarg13, IntPtr jarg14);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_SetUnregisterGameSessionCompleteDelegateWrapper")]
+	public static extern void MothershipAutomationApiClient_SetUnregisterGameSessionCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_UnregisterGameSession")]
+	public static extern bool MothershipAutomationApiClient_UnregisterGameSession(HandleRef jarg1, string jarg2, string jarg3, string jarg4, IntPtr jarg5);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_WriteEventsCompleteClientDelegateWrapper")]
 	public static extern void delete_WriteEventsCompleteClientDelegateWrapper(HandleRef jarg1);
 
@@ -11011,6 +12070,18 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_DisplayIndex_get")]
 	public static extern int MothershipNormalizedOffer_DisplayIndex_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_SubscriptionSku_set")]
+	public static extern void MothershipNormalizedOffer_SubscriptionSku_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_SubscriptionSku_get")]
+	public static extern string MothershipNormalizedOffer_SubscriptionSku_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_PricingAndTerms_set")]
+	public static extern void MothershipNormalizedOffer_PricingAndTerms_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_PricingAndTerms_get")]
+	public static extern IntPtr MothershipNormalizedOffer_PricingAndTerms_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_ParseFromString")]
 	public static extern bool MothershipNormalizedOffer_ParseFromString(HandleRef jarg1, string jarg2);
@@ -11675,11 +12746,17 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_LoginResponse_ExternalAccountId_get")]
 	public static extern string LoginResponse_ExternalAccountId_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LoginResponse_ServerTime_set")]
+	public static extern void LoginResponse_ServerTime_set(HandleRef jarg1, long jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LoginResponse_ServerTime_get")]
+	public static extern long LoginResponse_ServerTime_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_LoginResponse_ExpirationTime_set")]
-	public static extern void LoginResponse_ExpirationTime_set(HandleRef jarg1, HandleRef jarg2);
+	public static extern void LoginResponse_ExpirationTime_set(HandleRef jarg1, long jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_LoginResponse_ExpirationTime_get")]
-	public static extern IntPtr LoginResponse_ExpirationTime_get(HandleRef jarg1);
+	public static extern long LoginResponse_ExpirationTime_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_LoginResponse_Tags_set")]
 	public static extern void LoginResponse_Tags_set(HandleRef jarg1, HandleRef jarg2);
@@ -11708,11 +12785,32 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_Token_get")]
 	public static extern string ClientAuthToken_Token_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_ClientTimeOffset_set")]
+	public static extern void ClientAuthToken_ClientTimeOffset_set(HandleRef jarg1, long jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_ClientTimeOffset_get")]
+	public static extern long ClientAuthToken_ClientTimeOffset_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_ExpirationTime_set")]
-	public static extern void ClientAuthToken_ExpirationTime_set(HandleRef jarg1, HandleRef jarg2);
+	public static extern void ClientAuthToken_ExpirationTime_set(HandleRef jarg1, long jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_ExpirationTime_get")]
-	public static extern IntPtr ClientAuthToken_ExpirationTime_get(HandleRef jarg1);
+	public static extern long ClientAuthToken_ExpirationTime_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_LastRefreshRequestTime_set")]
+	public static extern void ClientAuthToken_LastRefreshRequestTime_set(HandleRef jarg1, long jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_LastRefreshRequestTime_get")]
+	public static extern long ClientAuthToken_LastRefreshRequestTime_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_GetServerTime")]
+	public static extern long ClientAuthToken_GetServerTime(HandleRef jarg1, long jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_IsExpired")]
+	public static extern bool ClientAuthToken_IsExpired(HandleRef jarg1, long jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthToken_HasRefreshCooldownElapsed")]
+	public static extern bool ClientAuthToken_HasRefreshCooldownElapsed(HandleRef jarg1, long jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ClientAuthToken")]
 	public static extern IntPtr new_ClientAuthToken();
@@ -11894,6 +12992,24 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientGetBulkSubscriptionsCompleteDelegateWrapper_director_connect")]
 	public static extern void ClientGetBulkSubscriptionsCompleteDelegateWrapper_director_connect(HandleRef jarg1, ClientGetBulkSubscriptionsCompleteDelegateWrapper.SwigDelegateClientGetBulkSubscriptionsCompleteDelegateWrapper_0 delegate0);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper")]
+	public static extern void delete_ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper")]
+	public static extern IntPtr new_ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper_director_connect")]
+	public static extern void ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper_director_connect(HandleRef jarg1, ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper.SwigDelegateClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper")]
+	public static extern void delete_ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper")]
+	public static extern IntPtr new_ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper_director_connect")]
+	public static extern void ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper_director_connect(HandleRef jarg1, ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper.SwigDelegateClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper_0 delegate0);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetMySubscriptionsRequest")]
 	public static extern void delete_GetMySubscriptionsRequest(HandleRef jarg1);
 
@@ -11921,6 +13037,243 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetMySubscriptionsResponse")]
 	public static extern IntPtr new_GetMySubscriptionsResponse();
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_Sku_set")]
+	public static extern void InitSteamSubscriptionPurchaseRequest_Sku_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_Sku_get")]
+	public static extern string InitSteamSubscriptionPurchaseRequest_Sku_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_PriceInUSDCents_set")]
+	public static extern void InitSteamSubscriptionPurchaseRequest_PriceInUSDCents_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_PriceInUSDCents_get")]
+	public static extern int InitSteamSubscriptionPurchaseRequest_PriceInUSDCents_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_SubscriptionBillingFrequency_set")]
+	public static extern void InitSteamSubscriptionPurchaseRequest_SubscriptionBillingFrequency_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_SubscriptionBillingFrequency_get")]
+	public static extern int InitSteamSubscriptionPurchaseRequest_SubscriptionBillingFrequency_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_SubscriptionBillingFrequencyUnit_set")]
+	public static extern void InitSteamSubscriptionPurchaseRequest_SubscriptionBillingFrequencyUnit_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_SubscriptionBillingFrequencyUnit_get")]
+	public static extern string InitSteamSubscriptionPurchaseRequest_SubscriptionBillingFrequencyUnit_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_InitSteamSubscriptionPurchaseRequest")]
+	public static extern void delete_InitSteamSubscriptionPurchaseRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_ToHttpRequest")]
+	public static extern IntPtr InitSteamSubscriptionPurchaseRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamSubscriptionPurchaseRequest")]
+	public static extern IntPtr new_InitSteamSubscriptionPurchaseRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseResponse_SteamOrderId_set")]
+	public static extern void InitSteamSubscriptionPurchaseResponse_SteamOrderId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseResponse_SteamOrderId_get")]
+	public static extern string InitSteamSubscriptionPurchaseResponse_SteamOrderId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseResponse_SteamTransactionId_set")]
+	public static extern void InitSteamSubscriptionPurchaseResponse_SteamTransactionId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseResponse_SteamTransactionId_get")]
+	public static extern string InitSteamSubscriptionPurchaseResponse_SteamTransactionId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_InitSteamSubscriptionPurchaseResponse")]
+	public static extern void delete_InitSteamSubscriptionPurchaseResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseResponse_ParseFromResponseString")]
+	public static extern bool InitSteamSubscriptionPurchaseResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseResponse_FromMothershipResponse")]
+	public static extern IntPtr InitSteamSubscriptionPurchaseResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamSubscriptionPurchaseResponse")]
+	public static extern IntPtr new_InitSteamSubscriptionPurchaseResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseRequest_SteamOrderId_set")]
+	public static extern void FinalizeSteamSubscriptionPurchaseRequest_SteamOrderId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseRequest_SteamOrderId_get")]
+	public static extern string FinalizeSteamSubscriptionPurchaseRequest_SteamOrderId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeSteamSubscriptionPurchaseRequest")]
+	public static extern void delete_FinalizeSteamSubscriptionPurchaseRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseRequest_ToHttpRequest")]
+	public static extern IntPtr FinalizeSteamSubscriptionPurchaseRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamSubscriptionPurchaseRequest")]
+	public static extern IntPtr new_FinalizeSteamSubscriptionPurchaseRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseResponse_SteamOrderId_set")]
+	public static extern void FinalizeSteamSubscriptionPurchaseResponse_SteamOrderId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseResponse_SteamOrderId_get")]
+	public static extern string FinalizeSteamSubscriptionPurchaseResponse_SteamOrderId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseResponse_SteamTransactionId_set")]
+	public static extern void FinalizeSteamSubscriptionPurchaseResponse_SteamTransactionId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseResponse_SteamTransactionId_get")]
+	public static extern string FinalizeSteamSubscriptionPurchaseResponse_SteamTransactionId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeSteamSubscriptionPurchaseResponse")]
+	public static extern void delete_FinalizeSteamSubscriptionPurchaseResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseResponse_ParseFromResponseString")]
+	public static extern bool FinalizeSteamSubscriptionPurchaseResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseResponse_FromMothershipResponse")]
+	public static extern IntPtr FinalizeSteamSubscriptionPurchaseResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamSubscriptionPurchaseResponse")]
+	public static extern IntPtr new_FinalizeSteamSubscriptionPurchaseResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_page_size_set")]
+	public static extern void ListGameSessionsClientRequest_page_size_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_page_size_get")]
+	public static extern int ListGameSessionsClientRequest_page_size_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_page_offset_set")]
+	public static extern void ListGameSessionsClientRequest_page_offset_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_page_offset_get")]
+	public static extern int ListGameSessionsClientRequest_page_offset_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_region_set")]
+	public static extern void ListGameSessionsClientRequest_region_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_region_get")]
+	public static extern string ListGameSessionsClientRequest_region_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_partition_set")]
+	public static extern void ListGameSessionsClientRequest_partition_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_partition_get")]
+	public static extern string ListGameSessionsClientRequest_partition_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_min_empty_slots_set")]
+	public static extern void ListGameSessionsClientRequest_min_empty_slots_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_min_empty_slots_get")]
+	public static extern int ListGameSessionsClientRequest_min_empty_slots_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_max_empty_slots_set")]
+	public static extern void ListGameSessionsClientRequest_max_empty_slots_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_max_empty_slots_get")]
+	public static extern int ListGameSessionsClientRequest_max_empty_slots_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_session_name_search_set")]
+	public static extern void ListGameSessionsClientRequest_session_name_search_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_session_name_search_get")]
+	public static extern string ListGameSessionsClientRequest_session_name_search_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsClientRequest")]
+	public static extern void delete_ListGameSessionsClientRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_ToHttpRequest")]
+	public static extern IntPtr ListGameSessionsClientRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsClientRequest")]
+	public static extern IntPtr new_ListGameSessionsClientRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientResponse_ParseFromResponseString")]
+	public static extern bool ListGameSessionsClientResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientResponse_FromMothershipResponse")]
+	public static extern IntPtr ListGameSessionsClientResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientResponse_Results_set")]
+	public static extern void ListGameSessionsClientResponse_Results_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientResponse_Results_get")]
+	public static extern IntPtr ListGameSessionsClientResponse_Results_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsClientResponse")]
+	public static extern IntPtr new_ListGameSessionsClientResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsClientResponse")]
+	public static extern void delete_ListGameSessionsClientResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsCompleteClientDelegateWrapper")]
+	public static extern void delete_ListGameSessionsCompleteClientDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsCompleteClientDelegateWrapper")]
+	public static extern IntPtr new_ListGameSessionsCompleteClientDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsCompleteClientDelegateWrapper_director_connect")]
+	public static extern void ListGameSessionsCompleteClientDelegateWrapper_director_connect(HandleRef jarg1, ListGameSessionsCompleteClientDelegateWrapper.SwigDelegateListGameSessionsCompleteClientDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientRequest_id_set")]
+	public static extern void RequestJoinGameSessionClientRequest_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientRequest_id_get")]
+	public static extern string RequestJoinGameSessionClientRequest_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RequestJoinGameSessionClientRequest")]
+	public static extern void delete_RequestJoinGameSessionClientRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientRequest_ToHttpRequest")]
+	public static extern IntPtr RequestJoinGameSessionClientRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RequestJoinGameSessionClientRequest")]
+	public static extern IntPtr new_RequestJoinGameSessionClientRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_ParseFromResponseString")]
+	public static extern bool RequestJoinGameSessionClientResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_FromMothershipResponse")]
+	public static extern IntPtr RequestJoinGameSessionClientResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_Id_set")]
+	public static extern void RequestJoinGameSessionClientResponse_Id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_Id_get")]
+	public static extern string RequestJoinGameSessionClientResponse_Id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_Ip_set")]
+	public static extern void RequestJoinGameSessionClientResponse_Ip_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_Ip_get")]
+	public static extern string RequestJoinGameSessionClientResponse_Ip_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_Port_set")]
+	public static extern void RequestJoinGameSessionClientResponse_Port_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_Port_get")]
+	public static extern int RequestJoinGameSessionClientResponse_Port_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RequestJoinGameSessionClientResponse")]
+	public static extern IntPtr new_RequestJoinGameSessionClientResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RequestJoinGameSessionClientResponse")]
+	public static extern void delete_RequestJoinGameSessionClientResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RequestJoinGameSessionCompleteClientDelegateWrapper")]
+	public static extern void delete_RequestJoinGameSessionCompleteClientDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RequestJoinGameSessionCompleteClientDelegateWrapper")]
+	public static extern IntPtr new_RequestJoinGameSessionCompleteClientDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionCompleteClientDelegateWrapper_director_connect")]
+	public static extern void RequestJoinGameSessionCompleteClientDelegateWrapper_director_connect(HandleRef jarg1, RequestJoinGameSessionCompleteClientDelegateWrapper.SwigDelegateRequestJoinGameSessionCompleteClientDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetFileCompleteClientDelegateWrapper")]
+	public static extern void delete_GetFileCompleteClientDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetFileCompleteClientDelegateWrapper")]
+	public static extern IntPtr new_GetFileCompleteClientDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetFileCompleteClientDelegateWrapper_director_connect")]
+	public static extern void GetFileCompleteClientDelegateWrapper_director_connect(HandleRef jarg1, GetFileCompleteClientDelegateWrapper.SwigDelegateGetFileCompleteClientDelegateWrapper_0 delegate0);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AuthRefreshRequiredDelegateWrapper")]
 	public static extern void delete_AuthRefreshRequiredDelegateWrapper(HandleRef jarg1);
 
@@ -11938,6 +13291,9 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MothershipClientApiClient")]
 	public static extern void delete_MothershipClientApiClient(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_Tick")]
+	public static extern void MothershipClientApiClient_Tick(HandleRef jarg1, float jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetAuthRefreshRequiredDelegateWrapper")]
 	public static extern void MothershipClientApiClient_SetAuthRefreshRequiredDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
@@ -11962,6 +13318,9 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_LoginWithApple")]
 	public static extern bool MothershipClientApiClient_LoginWithApple(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, string jarg6, string jarg7, IntPtr jarg8);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_GetServerTime")]
+	public static extern long MothershipClientApiClient_GetServerTime(HandleRef jarg1, string jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetSetUserDataCompleteClientDelegateWrapper")]
 	public static extern void MothershipClientApiClient_SetSetUserDataCompleteClientDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
@@ -12050,6 +13409,18 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetAcceptLanguage")]
 	public static extern void MothershipClientApiClient_SetAcceptLanguage(HandleRef jarg1, string jarg2);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetListGameSessionsCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetListGameSessionsCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ListGameSessions")]
+	public static extern bool MothershipClientApiClient_ListGameSessions(HandleRef jarg1, string jarg2, int jarg3, int jarg4, string jarg5, string jarg6, int jarg7, int jarg8, IntPtr jarg9);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetRequestJoinGameSessionCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetRequestJoinGameSessionCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_RequestJoinGameSession")]
+	public static extern bool MothershipClientApiClient_RequestJoinGameSession(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetCreateSharedGroupCompleteDelegateWrapper")]
 	public static extern void MothershipClientApiClient_SetCreateSharedGroupCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
 
@@ -12122,11 +13493,32 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientGetMySubscriptions")]
 	public static extern bool MothershipClientApiClient_ClientGetMySubscriptions(HandleRef jarg1, string jarg2, IntPtr jarg3);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientInitSteamSubscriptionPurchase")]
+	public static extern bool MothershipClientApiClient_ClientInitSteamSubscriptionPurchase(HandleRef jarg1, string jarg2, string jarg3, int jarg4, int jarg5, string jarg6, IntPtr jarg7);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientFinalizeSteamSubscriptionPurchase")]
+	public static extern bool MothershipClientApiClient_ClientFinalizeSteamSubscriptionPurchase(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetClientBulkGetSubscriptionsDelegateWrapper")]
 	public static extern void MothershipClientApiClient_SetClientBulkGetSubscriptionsDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientBulkGetSubscriptions")]
 	public static extern bool MothershipClientApiClient_ClientBulkGetSubscriptions(HandleRef jarg1, string jarg2, HandleRef jarg3, HandleRef jarg4, HandleRef jarg5, IntPtr jarg6);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetGetFileCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetGetFileCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientGetFileById")]
+	public static extern bool MothershipClientApiClient_ClientGetFileById(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientGetFileByNameOrAliasAndVersion")]
+	public static extern bool MothershipClientApiClient_ClientGetFileByNameOrAliasAndVersion(HandleRef jarg1, string jarg2, string jarg3, string jarg4, IntPtr jarg5);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RunTransactionCompleteServerDelegateWrapper")]
 	public static extern void delete_RunTransactionCompleteServerDelegateWrapper(HandleRef jarg1);
@@ -12208,6 +13600,12 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_VerifyTokenResponse_ExternalAccountId_get")]
 	public static extern string VerifyTokenResponse_ExternalAccountId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_VerifyTokenResponse_ExternalAccountOrgScopedId_set")]
+	public static extern void VerifyTokenResponse_ExternalAccountOrgScopedId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_VerifyTokenResponse_ExternalAccountOrgScopedId_get")]
+	public static extern string VerifyTokenResponse_ExternalAccountOrgScopedId_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_VerifyTokenResponse_ExternalAccountType_set")]
 	public static extern void VerifyTokenResponse_ExternalAccountType_set(HandleRef jarg1, string jarg2);
@@ -12953,6 +14351,15 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerGetPermissionsCompleteDelegateWrapper_director_connect")]
 	public static extern void ServerGetPermissionsCompleteDelegateWrapper_director_connect(HandleRef jarg1, ServerGetPermissionsCompleteDelegateWrapper.SwigDelegateServerGetPermissionsCompleteDelegateWrapper_0 delegate0);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper")]
+	public static extern void delete_ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper")]
+	public static extern IntPtr new_ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper_director_connect")]
+	public static extern void ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper_director_connect(HandleRef jarg1, ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper.SwigDelegateServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper_0 delegate0);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ServerGetBulkSubscriptionsCompleteDelegateWrapper")]
 	public static extern void delete_ServerGetBulkSubscriptionsCompleteDelegateWrapper(HandleRef jarg1);
 
@@ -12961,6 +14368,318 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerGetBulkSubscriptionsCompleteDelegateWrapper_director_connect")]
 	public static extern void ServerGetBulkSubscriptionsCompleteDelegateWrapper_director_connect(HandleRef jarg1, ServerGetBulkSubscriptionsCompleteDelegateWrapper.SwigDelegateServerGetBulkSubscriptionsCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ServerRefreshSubscriptionsForPlayerRequest")]
+	public static extern void delete_ServerRefreshSubscriptionsForPlayerRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerRequest_ToHttpRequest")]
+	public static extern IntPtr ServerRefreshSubscriptionsForPlayerRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerRequest_playerId_set")]
+	public static extern void ServerRefreshSubscriptionsForPlayerRequest_playerId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerRequest_playerId_get")]
+	public static extern string ServerRefreshSubscriptionsForPlayerRequest_playerId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ServerRefreshSubscriptionsForPlayerRequest")]
+	public static extern IntPtr new_ServerRefreshSubscriptionsForPlayerRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerResponse_Results_set")]
+	public static extern void ServerRefreshSubscriptionsForPlayerResponse_Results_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerResponse_Results_get")]
+	public static extern IntPtr ServerRefreshSubscriptionsForPlayerResponse_Results_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ServerRefreshSubscriptionsForPlayerResponse")]
+	public static extern void delete_ServerRefreshSubscriptionsForPlayerResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerResponse_ParseFromResponseString")]
+	public static extern bool ServerRefreshSubscriptionsForPlayerResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerResponse_FromMothershipResponse")]
+	public static extern IntPtr ServerRefreshSubscriptionsForPlayerResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ServerRefreshSubscriptionsForPlayerResponse")]
+	public static extern IntPtr new_ServerRefreshSubscriptionsForPlayerResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_game_session_id_set")]
+	public static extern void RegisterGameSessionServerRequest_game_session_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_game_session_id_get")]
+	public static extern string RegisterGameSessionServerRequest_game_session_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_provider_set")]
+	public static extern void RegisterGameSessionServerRequest_provider_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_provider_get")]
+	public static extern string RegisterGameSessionServerRequest_provider_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_game_session_name_set")]
+	public static extern void RegisterGameSessionServerRequest_game_session_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_game_session_name_get")]
+	public static extern string RegisterGameSessionServerRequest_game_session_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_ip_set")]
+	public static extern void RegisterGameSessionServerRequest_ip_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_ip_get")]
+	public static extern string RegisterGameSessionServerRequest_ip_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_port_set")]
+	public static extern void RegisterGameSessionServerRequest_port_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_port_get")]
+	public static extern int RegisterGameSessionServerRequest_port_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_required_tags_set")]
+	public static extern void RegisterGameSessionServerRequest_required_tags_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_required_tags_get")]
+	public static extern string RegisterGameSessionServerRequest_required_tags_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_max_player_count_set")]
+	public static extern void RegisterGameSessionServerRequest_max_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_max_player_count_get")]
+	public static extern int RegisterGameSessionServerRequest_max_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_region_set")]
+	public static extern void RegisterGameSessionServerRequest_region_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_region_get")]
+	public static extern string RegisterGameSessionServerRequest_region_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_partition_set")]
+	public static extern void RegisterGameSessionServerRequest_partition_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_partition_get")]
+	public static extern string RegisterGameSessionServerRequest_partition_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_extra_properties_set")]
+	public static extern void RegisterGameSessionServerRequest_extra_properties_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_extra_properties_get")]
+	public static extern IntPtr RegisterGameSessionServerRequest_extra_properties_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RegisterGameSessionServerRequest")]
+	public static extern void delete_RegisterGameSessionServerRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_ToHttpRequest")]
+	public static extern IntPtr RegisterGameSessionServerRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionServerRequest")]
+	public static extern IntPtr new_RegisterGameSessionServerRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerResponse_ParseFromResponseString")]
+	public static extern bool RegisterGameSessionServerResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerResponse_FromMothershipResponse")]
+	public static extern IntPtr RegisterGameSessionServerResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerResponse_Result_set")]
+	public static extern void RegisterGameSessionServerResponse_Result_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerResponse_Result_get")]
+	public static extern IntPtr RegisterGameSessionServerResponse_Result_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionServerResponse")]
+	public static extern IntPtr new_RegisterGameSessionServerResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RegisterGameSessionServerResponse")]
+	public static extern void delete_RegisterGameSessionServerResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RegisterGameSessionCompleteServerDelegateWrapper")]
+	public static extern void delete_RegisterGameSessionCompleteServerDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_RegisterGameSessionCompleteServerDelegateWrapper")]
+	public static extern IntPtr new_RegisterGameSessionCompleteServerDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionCompleteServerDelegateWrapper_director_connect")]
+	public static extern void RegisterGameSessionCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, RegisterGameSessionCompleteServerDelegateWrapper.SwigDelegateRegisterGameSessionCompleteServerDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerRequest_id_set")]
+	public static extern void UpdateGameSessionServerRequest_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerRequest_id_get")]
+	public static extern string UpdateGameSessionServerRequest_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerRequest_current_player_count_set")]
+	public static extern void UpdateGameSessionServerRequest_current_player_count_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerRequest_current_player_count_get")]
+	public static extern int UpdateGameSessionServerRequest_current_player_count_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerRequest_extra_properties_set")]
+	public static extern void UpdateGameSessionServerRequest_extra_properties_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerRequest_extra_properties_get")]
+	public static extern IntPtr UpdateGameSessionServerRequest_extra_properties_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UpdateGameSessionServerRequest")]
+	public static extern void delete_UpdateGameSessionServerRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerRequest_ToHttpRequest")]
+	public static extern IntPtr UpdateGameSessionServerRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionServerRequest")]
+	public static extern IntPtr new_UpdateGameSessionServerRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerResponse_ParseFromResponseString")]
+	public static extern bool UpdateGameSessionServerResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerResponse_FromMothershipResponse")]
+	public static extern IntPtr UpdateGameSessionServerResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerResponse_Result_set")]
+	public static extern void UpdateGameSessionServerResponse_Result_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerResponse_Result_get")]
+	public static extern IntPtr UpdateGameSessionServerResponse_Result_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionServerResponse")]
+	public static extern IntPtr new_UpdateGameSessionServerResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UpdateGameSessionServerResponse")]
+	public static extern void delete_UpdateGameSessionServerResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UpdateGameSessionCompleteServerDelegateWrapper")]
+	public static extern void delete_UpdateGameSessionCompleteServerDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UpdateGameSessionCompleteServerDelegateWrapper")]
+	public static extern IntPtr new_UpdateGameSessionCompleteServerDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionCompleteServerDelegateWrapper_director_connect")]
+	public static extern void UpdateGameSessionCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, UpdateGameSessionCompleteServerDelegateWrapper.SwigDelegateUpdateGameSessionCompleteServerDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerRequest_id_set")]
+	public static extern void UnregisterGameSessionServerRequest_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerRequest_id_get")]
+	public static extern string UnregisterGameSessionServerRequest_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UnregisterGameSessionServerRequest")]
+	public static extern void delete_UnregisterGameSessionServerRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerRequest_ToHttpRequest")]
+	public static extern IntPtr UnregisterGameSessionServerRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionServerRequest")]
+	public static extern IntPtr new_UnregisterGameSessionServerRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerResponse_ParseFromResponseString")]
+	public static extern bool UnregisterGameSessionServerResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerResponse_FromMothershipResponse")]
+	public static extern IntPtr UnregisterGameSessionServerResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerResponse_Result_set")]
+	public static extern void UnregisterGameSessionServerResponse_Result_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerResponse_Result_get")]
+	public static extern IntPtr UnregisterGameSessionServerResponse_Result_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionServerResponse")]
+	public static extern IntPtr new_UnregisterGameSessionServerResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UnregisterGameSessionServerResponse")]
+	public static extern void delete_UnregisterGameSessionServerResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UnregisterGameSessionCompleteServerDelegateWrapper")]
+	public static extern void delete_UnregisterGameSessionCompleteServerDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UnregisterGameSessionCompleteServerDelegateWrapper")]
+	public static extern IntPtr new_UnregisterGameSessionCompleteServerDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionCompleteServerDelegateWrapper_director_connect")]
+	public static extern void UnregisterGameSessionCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, UnregisterGameSessionCompleteServerDelegateWrapper.SwigDelegateUnregisterGameSessionCompleteServerDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_page_size_set")]
+	public static extern void ListGameSessionsServerRequest_page_size_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_page_size_get")]
+	public static extern int ListGameSessionsServerRequest_page_size_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_page_offset_set")]
+	public static extern void ListGameSessionsServerRequest_page_offset_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_page_offset_get")]
+	public static extern int ListGameSessionsServerRequest_page_offset_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_region_set")]
+	public static extern void ListGameSessionsServerRequest_region_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_region_get")]
+	public static extern string ListGameSessionsServerRequest_region_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_partition_set")]
+	public static extern void ListGameSessionsServerRequest_partition_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_partition_get")]
+	public static extern string ListGameSessionsServerRequest_partition_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_min_empty_slots_set")]
+	public static extern void ListGameSessionsServerRequest_min_empty_slots_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_min_empty_slots_get")]
+	public static extern int ListGameSessionsServerRequest_min_empty_slots_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_max_empty_slots_set")]
+	public static extern void ListGameSessionsServerRequest_max_empty_slots_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_max_empty_slots_get")]
+	public static extern int ListGameSessionsServerRequest_max_empty_slots_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_session_name_search_set")]
+	public static extern void ListGameSessionsServerRequest_session_name_search_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_session_name_search_get")]
+	public static extern string ListGameSessionsServerRequest_session_name_search_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsServerRequest")]
+	public static extern void delete_ListGameSessionsServerRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_ToHttpRequest")]
+	public static extern IntPtr ListGameSessionsServerRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsServerRequest")]
+	public static extern IntPtr new_ListGameSessionsServerRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerResponse_ParseFromResponseString")]
+	public static extern bool ListGameSessionsServerResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerResponse_FromMothershipResponse")]
+	public static extern IntPtr ListGameSessionsServerResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerResponse_Results_set")]
+	public static extern void ListGameSessionsServerResponse_Results_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerResponse_Results_get")]
+	public static extern IntPtr ListGameSessionsServerResponse_Results_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsServerResponse")]
+	public static extern IntPtr new_ListGameSessionsServerResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsServerResponse")]
+	public static extern void delete_ListGameSessionsServerResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListGameSessionsCompleteServerDelegateWrapper")]
+	public static extern void delete_ListGameSessionsCompleteServerDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListGameSessionsCompleteServerDelegateWrapper")]
+	public static extern IntPtr new_ListGameSessionsCompleteServerDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsCompleteServerDelegateWrapper_director_connect")]
+	public static extern void ListGameSessionsCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, ListGameSessionsCompleteServerDelegateWrapper.SwigDelegateListGameSessionsCompleteServerDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetFileCompleteServerDelegateWrapper")]
+	public static extern void delete_GetFileCompleteServerDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetFileCompleteServerDelegateWrapper")]
+	public static extern IntPtr new_GetFileCompleteServerDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetFileCompleteServerDelegateWrapper_director_connect")]
+	public static extern void GetFileCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, GetFileCompleteServerDelegateWrapper.SwigDelegateGetFileCompleteServerDelegateWrapper_0 delegate0);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipServerApiClient")]
 	public static extern IntPtr new_MothershipServerApiClient(string jarg1, string jarg2, string jarg3, string jarg4, bool jarg5);
@@ -13166,11 +14885,50 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ServerGetPermissions")]
 	public static extern bool MothershipServerApiClient_ServerGetPermissions(HandleRef jarg1, HandleRef jarg2, IntPtr jarg3);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetRefreshSubscriptionsForPlayerCompleteDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetRefreshSubscriptionsForPlayerCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_RefreshSubscriptionsForPlayer")]
+	public static extern bool MothershipServerApiClient_RefreshSubscriptionsForPlayer(HandleRef jarg1, string jarg2, IntPtr jarg3);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetServerBulkGetSubscriptionsCompleteDelegateWrapper")]
 	public static extern void MothershipServerApiClient_SetServerBulkGetSubscriptionsCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ServerBulkGetSubscriptions")]
 	public static extern bool MothershipServerApiClient_ServerBulkGetSubscriptions(HandleRef jarg1, HandleRef jarg2, HandleRef jarg3, HandleRef jarg4, IntPtr jarg5);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetListGameSessionsCompleteDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetListGameSessionsCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ListGameSessions")]
+	public static extern bool MothershipServerApiClient_ListGameSessions(HandleRef jarg1, int jarg2, int jarg3, string jarg4, string jarg5, int jarg6, int jarg7, string jarg8, IntPtr jarg9);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetUpdateGameSessionCompleteDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetUpdateGameSessionCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_UpdateGameSession")]
+	public static extern bool MothershipServerApiClient_UpdateGameSession(HandleRef jarg1, string jarg2, int jarg3, HandleRef jarg4, IntPtr jarg5);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetRegisterGameSessionCompleteDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetRegisterGameSessionCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_RegisterGameSession")]
+	public static extern bool MothershipServerApiClient_RegisterGameSession(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, int jarg6, string jarg7, int jarg8, string jarg9, string jarg10, HandleRef jarg11, IntPtr jarg12);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetUnregisterGameSessionCompleteDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetUnregisterGameSessionCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_UnregisterGameSession")]
+	public static extern bool MothershipServerApiClient_UnregisterGameSession(HandleRef jarg1, string jarg2, IntPtr jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetGetFileCompleteDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetGetFileCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ServerGetFileById")]
+	public static extern bool MothershipServerApiClient_ServerGetFileById(HandleRef jarg1, string jarg2, IntPtr jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ServerGetFileByNameOrAliasAndVersion")]
+	public static extern bool MothershipServerApiClient_ServerGetFileByNameOrAliasAndVersion(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_Clear")]
 	public static extern void HeadersVector_Clear(HandleRef jarg1);
@@ -16352,6 +18110,312 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionsByPlayerMap")]
 	public static extern void delete_SubscriptionsByPlayerMap(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Clear")]
+	public static extern void SubscriptionPricingVector_Clear(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Add")]
+	public static extern void SubscriptionPricingVector_Add(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_size")]
+	public static extern uint SubscriptionPricingVector_size(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_capacity")]
+	public static extern uint SubscriptionPricingVector_capacity(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_reserve")]
+	public static extern void SubscriptionPricingVector_reserve(HandleRef jarg1, uint jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingVector__SWIG_0")]
+	public static extern IntPtr new_SubscriptionPricingVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingVector__SWIG_1")]
+	public static extern IntPtr new_SubscriptionPricingVector__SWIG_1(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingVector__SWIG_2")]
+	public static extern IntPtr new_SubscriptionPricingVector__SWIG_2(int jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_getitemcopy")]
+	public static extern IntPtr SubscriptionPricingVector_getitemcopy(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_getitem")]
+	public static extern IntPtr SubscriptionPricingVector_getitem(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_setitem")]
+	public static extern void SubscriptionPricingVector_setitem(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_AddRange")]
+	public static extern void SubscriptionPricingVector_AddRange(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_GetRange")]
+	public static extern IntPtr SubscriptionPricingVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Insert")]
+	public static extern void SubscriptionPricingVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_InsertRange")]
+	public static extern void SubscriptionPricingVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_RemoveAt")]
+	public static extern void SubscriptionPricingVector_RemoveAt(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_RemoveRange")]
+	public static extern void SubscriptionPricingVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Repeat")]
+	public static extern IntPtr SubscriptionPricingVector_Repeat(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Reverse__SWIG_0")]
+	public static extern void SubscriptionPricingVector_Reverse__SWIG_0(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Reverse__SWIG_1")]
+	public static extern void SubscriptionPricingVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_SetRange")]
+	public static extern void SubscriptionPricingVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionPricingVector")]
+	public static extern void delete_SubscriptionPricingVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Clear")]
+	public static extern void SubscriptionCatalogItemVector_Clear(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Add")]
+	public static extern void SubscriptionCatalogItemVector_Add(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_size")]
+	public static extern uint SubscriptionCatalogItemVector_size(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_capacity")]
+	public static extern uint SubscriptionCatalogItemVector_capacity(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_reserve")]
+	public static extern void SubscriptionCatalogItemVector_reserve(HandleRef jarg1, uint jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItemVector__SWIG_0")]
+	public static extern IntPtr new_SubscriptionCatalogItemVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItemVector__SWIG_1")]
+	public static extern IntPtr new_SubscriptionCatalogItemVector__SWIG_1(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItemVector__SWIG_2")]
+	public static extern IntPtr new_SubscriptionCatalogItemVector__SWIG_2(int jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_getitemcopy")]
+	public static extern IntPtr SubscriptionCatalogItemVector_getitemcopy(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_getitem")]
+	public static extern IntPtr SubscriptionCatalogItemVector_getitem(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_setitem")]
+	public static extern void SubscriptionCatalogItemVector_setitem(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_AddRange")]
+	public static extern void SubscriptionCatalogItemVector_AddRange(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_GetRange")]
+	public static extern IntPtr SubscriptionCatalogItemVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Insert")]
+	public static extern void SubscriptionCatalogItemVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_InsertRange")]
+	public static extern void SubscriptionCatalogItemVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_RemoveAt")]
+	public static extern void SubscriptionCatalogItemVector_RemoveAt(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_RemoveRange")]
+	public static extern void SubscriptionCatalogItemVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Repeat")]
+	public static extern IntPtr SubscriptionCatalogItemVector_Repeat(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Reverse__SWIG_0")]
+	public static extern void SubscriptionCatalogItemVector_Reverse__SWIG_0(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Reverse__SWIG_1")]
+	public static extern void SubscriptionCatalogItemVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_SetRange")]
+	public static extern void SubscriptionCatalogItemVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionCatalogItemVector")]
+	public static extern void delete_SubscriptionCatalogItemVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Clear")]
+	public static extern void JoinableGameSessionVector_Clear(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Add")]
+	public static extern void JoinableGameSessionVector_Add(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_size")]
+	public static extern uint JoinableGameSessionVector_size(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_capacity")]
+	public static extern uint JoinableGameSessionVector_capacity(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_reserve")]
+	public static extern void JoinableGameSessionVector_reserve(HandleRef jarg1, uint jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSessionVector__SWIG_0")]
+	public static extern IntPtr new_JoinableGameSessionVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSessionVector__SWIG_1")]
+	public static extern IntPtr new_JoinableGameSessionVector__SWIG_1(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSessionVector__SWIG_2")]
+	public static extern IntPtr new_JoinableGameSessionVector__SWIG_2(int jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_getitemcopy")]
+	public static extern IntPtr JoinableGameSessionVector_getitemcopy(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_getitem")]
+	public static extern IntPtr JoinableGameSessionVector_getitem(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_setitem")]
+	public static extern void JoinableGameSessionVector_setitem(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_AddRange")]
+	public static extern void JoinableGameSessionVector_AddRange(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_GetRange")]
+	public static extern IntPtr JoinableGameSessionVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Insert")]
+	public static extern void JoinableGameSessionVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_InsertRange")]
+	public static extern void JoinableGameSessionVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_RemoveAt")]
+	public static extern void JoinableGameSessionVector_RemoveAt(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_RemoveRange")]
+	public static extern void JoinableGameSessionVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Repeat")]
+	public static extern IntPtr JoinableGameSessionVector_Repeat(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Reverse__SWIG_0")]
+	public static extern void JoinableGameSessionVector_Reverse__SWIG_0(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Reverse__SWIG_1")]
+	public static extern void JoinableGameSessionVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_SetRange")]
+	public static extern void JoinableGameSessionVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_JoinableGameSessionVector")]
+	public static extern void delete_JoinableGameSessionVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Clear")]
+	public static extern void GameSessionVector_Clear(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Add")]
+	public static extern void GameSessionVector_Add(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_size")]
+	public static extern uint GameSessionVector_size(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_capacity")]
+	public static extern uint GameSessionVector_capacity(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_reserve")]
+	public static extern void GameSessionVector_reserve(HandleRef jarg1, uint jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionVector__SWIG_0")]
+	public static extern IntPtr new_GameSessionVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionVector__SWIG_1")]
+	public static extern IntPtr new_GameSessionVector__SWIG_1(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionVector__SWIG_2")]
+	public static extern IntPtr new_GameSessionVector__SWIG_2(int jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_getitemcopy")]
+	public static extern IntPtr GameSessionVector_getitemcopy(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_getitem")]
+	public static extern IntPtr GameSessionVector_getitem(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_setitem")]
+	public static extern void GameSessionVector_setitem(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_AddRange")]
+	public static extern void GameSessionVector_AddRange(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_GetRange")]
+	public static extern IntPtr GameSessionVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Insert")]
+	public static extern void GameSessionVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_InsertRange")]
+	public static extern void GameSessionVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_RemoveAt")]
+	public static extern void GameSessionVector_RemoveAt(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_RemoveRange")]
+	public static extern void GameSessionVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Repeat")]
+	public static extern IntPtr GameSessionVector_Repeat(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Reverse__SWIG_0")]
+	public static extern void GameSessionVector_Reverse__SWIG_0(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Reverse__SWIG_1")]
+	public static extern void GameSessionVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_SetRange")]
+	public static extern void GameSessionVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GameSessionVector")]
+	public static extern void delete_GameSessionVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringStringMap__SWIG_0")]
+	public static extern IntPtr new_StringStringMap__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringStringMap__SWIG_1")]
+	public static extern IntPtr new_StringStringMap__SWIG_1(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_size")]
+	public static extern uint StringStringMap_size(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_empty")]
+	public static extern bool StringStringMap_empty(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_Clear")]
+	public static extern void StringStringMap_Clear(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_getitem")]
+	public static extern string StringStringMap_getitem(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_setitem")]
+	public static extern void StringStringMap_setitem(HandleRef jarg1, string jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_ContainsKey")]
+	public static extern bool StringStringMap_ContainsKey(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_Add")]
+	public static extern void StringStringMap_Add(HandleRef jarg1, string jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_Remove")]
+	public static extern bool StringStringMap_Remove(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_create_iterator_begin")]
+	public static extern IntPtr StringStringMap_create_iterator_begin(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_get_next_key")]
+	public static extern string StringStringMap_get_next_key(HandleRef jarg1, IntPtr jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_destroy_iterator")]
+	public static extern void StringStringMap_destroy_iterator(HandleRef jarg1, IntPtr jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StringStringMap")]
+	public static extern void delete_StringStringMap(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthenticationFailedError_SWIGUpcast")]
 	public static extern IntPtr ClientAuthenticationFailedError_SWIGUpcast(IntPtr jarg1);
 
@@ -16498,6 +18562,27 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GetPermissionsFailedError_SWIGUpcast")]
 	public static extern IntPtr GetPermissionsFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsFailedError_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionFailedError_SWIGUpcast")]
+	public static extern IntPtr RegisterGameSessionFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionFailedError_SWIGUpcast")]
+	public static extern IntPtr UpdateGameSessionFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionFailedError_SWIGUpcast")]
+	public static extern IntPtr UnregisterGameSessionFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionFailedError_SWIGUpcast")]
+	public static extern IntPtr RequestJoinGameSessionFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubPurchaseError_SWIGUpcast")]
+	public static extern IntPtr InitSteamSubPurchaseError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubPurchaseError_SWIGUpcast")]
+	public static extern IntPtr FinalizeSteamSubPurchaseError_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRequestShared_SWIGUpcast")]
 	public static extern IntPtr MothershipRequestShared_SWIGUpcast(IntPtr jarg1);
@@ -16672,6 +18757,15 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_BulkGetSubscriptionsResponse_SWIGUpcast")]
 	public static extern IntPtr BulkGetSubscriptionsResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_SWIGUpcast")]
+	public static extern IntPtr SharedGetFileByIdRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByNameAndVersionRequest_SWIGUpcast")]
+	public static extern IntPtr SharedGetFileByNameAndVersionRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedDownloadableFileResult_SWIGUpcast")]
+	public static extern IntPtr SharedDownloadableFileResult_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_CreateEntitlementCatalogItemRequest_SWIGUpcast")]
 	public static extern IntPtr CreateEntitlementCatalogItemRequest_SWIGUpcast(IntPtr jarg1);
@@ -17420,6 +19514,60 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationGetSubscriptionsResponse_SWIGUpcast")]
 	public static extern IntPtr AutomationGetSubscriptionsResponse_SWIGUpcast(IntPtr jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemRequest_SWIGUpcast")]
+	public static extern IntPtr AutomationCreateSubscriptionCatalogItemRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemResponse_SWIGUpcast")]
+	public static extern IntPtr AutomationCreateSubscriptionCatalogItemResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr AutomationCreateSubscriptionCatalogItemCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsRequest_SWIGUpcast")]
+	public static extern IntPtr AutomationListSubscriptionCatalogItemsRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsResponse_SWIGUpcast")]
+	public static extern IntPtr AutomationListSubscriptionCatalogItemsResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr AutomationListSubscriptionCatalogItemsCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationRequest_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsAutomationRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsAutomationResponse_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsAutomationResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsCompleteAutomationDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsCompleteAutomationDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationRequest_SWIGUpcast")]
+	public static extern IntPtr RegisterGameSessionAutomationRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionAutomationResponse_SWIGUpcast")]
+	public static extern IntPtr RegisterGameSessionAutomationResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionCompleteAutomationDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr RegisterGameSessionCompleteAutomationDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationRequest_SWIGUpcast")]
+	public static extern IntPtr UpdateGameSessionAutomationRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionAutomationResponse_SWIGUpcast")]
+	public static extern IntPtr UpdateGameSessionAutomationResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionCompleteAutomationDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr UpdateGameSessionCompleteAutomationDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationRequest_SWIGUpcast")]
+	public static extern IntPtr UnregisterGameSessionAutomationRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionAutomationResponse_SWIGUpcast")]
+	public static extern IntPtr UnregisterGameSessionAutomationResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionCompleteAutomationDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr UnregisterGameSessionCompleteAutomationDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipAutomationApiClient_SWIGUpcast")]
 	public static extern IntPtr MothershipAutomationApiClient_SWIGUpcast(IntPtr jarg1);
 
@@ -17588,11 +19736,50 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientGetBulkSubscriptionsCompleteDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr ClientGetBulkSubscriptionsCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr ClientInitSteamSubscriptionPurchaseCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr ClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMySubscriptionsRequest_SWIGUpcast")]
 	public static extern IntPtr GetMySubscriptionsRequest_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMySubscriptionsResponse_SWIGUpcast")]
 	public static extern IntPtr GetMySubscriptionsResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseRequest_SWIGUpcast")]
+	public static extern IntPtr InitSteamSubscriptionPurchaseRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamSubscriptionPurchaseResponse_SWIGUpcast")]
+	public static extern IntPtr InitSteamSubscriptionPurchaseResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseRequest_SWIGUpcast")]
+	public static extern IntPtr FinalizeSteamSubscriptionPurchaseRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubscriptionPurchaseResponse_SWIGUpcast")]
+	public static extern IntPtr FinalizeSteamSubscriptionPurchaseResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientRequest_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsClientRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsClientResponse_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsClientResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsCompleteClientDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientRequest_SWIGUpcast")]
+	public static extern IntPtr RequestJoinGameSessionClientRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionClientResponse_SWIGUpcast")]
+	public static extern IntPtr RequestJoinGameSessionClientResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionCompleteClientDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr RequestJoinGameSessionCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetFileCompleteClientDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr GetFileCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SWIGUpcast")]
 	public static extern IntPtr MothershipClientApiClient_SWIGUpcast(IntPtr jarg1);
@@ -17750,8 +19937,56 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerGetPermissionsCompleteDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr ServerGetPermissionsCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr ServerRefreshSubscriptionsForPlayerCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerGetBulkSubscriptionsCompleteDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr ServerGetBulkSubscriptionsCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerRequest_SWIGUpcast")]
+	public static extern IntPtr ServerRefreshSubscriptionsForPlayerRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerRefreshSubscriptionsForPlayerResponse_SWIGUpcast")]
+	public static extern IntPtr ServerRefreshSubscriptionsForPlayerResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerRequest_SWIGUpcast")]
+	public static extern IntPtr RegisterGameSessionServerRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionServerResponse_SWIGUpcast")]
+	public static extern IntPtr RegisterGameSessionServerResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_RegisterGameSessionCompleteServerDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr RegisterGameSessionCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerRequest_SWIGUpcast")]
+	public static extern IntPtr UpdateGameSessionServerRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionServerResponse_SWIGUpcast")]
+	public static extern IntPtr UpdateGameSessionServerResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UpdateGameSessionCompleteServerDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr UpdateGameSessionCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerRequest_SWIGUpcast")]
+	public static extern IntPtr UnregisterGameSessionServerRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionServerResponse_SWIGUpcast")]
+	public static extern IntPtr UnregisterGameSessionServerResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UnregisterGameSessionCompleteServerDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr UnregisterGameSessionCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerRequest_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsServerRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsServerResponse_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsServerResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsCompleteServerDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr ListGameSessionsCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetFileCompleteServerDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr GetFileCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SWIGUpcast")]
 	public static extern IntPtr MothershipServerApiClient_SWIGUpcast(IntPtr jarg1);

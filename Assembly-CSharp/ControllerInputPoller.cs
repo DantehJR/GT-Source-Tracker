@@ -15,27 +15,16 @@ public class ControllerInputPoller : MonoBehaviour
 		Held
 	}
 
-	private struct _InputCallback
+	private struct _InputCallback(EControllerInputPressFlags flags, Action<EHandednessFlags> callback)
 	{
-		public readonly EControllerInputPressFlags flags;
+		public readonly EControllerInputPressFlags flags = flags;
 
-		public readonly Action<EHandednessFlags> callback;
-
-		public _InputCallback(EControllerInputPressFlags flags, Action<EHandednessFlags> callback)
-		{
-			this.flags = flags;
-			this.callback = callback;
-		}
+		public readonly Action<EHandednessFlags> callback = callback;
 	}
 
-	private struct _InputCallbacksCadenceInfo
+	private struct _InputCallbacksCadenceInfo(int initialCapacity)
 	{
-		public readonly List<_InputCallback> list;
-
-		public _InputCallbacksCadenceInfo(int initialCapacity)
-		{
-			list = new List<_InputCallback>(initialCapacity);
-		}
+		public readonly List<_InputCallback> list = new List<_InputCallback>(initialCapacity);
 	}
 
 	public const int k_defaultExecutionOrder = -400;
@@ -396,6 +385,11 @@ public class ControllerInputPoller : MonoBehaviour
 			CalculateGrabState(leftControllerGripFloat, ref leftGrab, ref leftGrabRelease, out leftGrabMomentary, out leftGrabReleaseMomentary, 0.1f, 0.01f);
 			CalculateGrabState(rightControllerGripFloat, ref rightGrab, ref rightGrabRelease, out rightGrabMomentary, out rightGrabReleaseMomentary, 0.1f, 0.01f);
 		}
+	}
+
+	public static bool HandTrackingActive()
+	{
+		return instance.handTrackingActive;
 	}
 
 	public static bool GetIndexPressed(XRNode node)

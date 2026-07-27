@@ -68,11 +68,11 @@ public class LoginResponse : MothershipResponse
 		}
 	}
 
-	public SWIGTYPE_p_int64_t ExpirationTime
+	public long ServerTime
 	{
 		get
 		{
-			SWIGTYPE_p_int64_t result = new SWIGTYPE_p_int64_t(MothershipApiPINVOKE.LoginResponse_ExpirationTime_get(swigCPtr), futureUse: true);
+			long result = MothershipApiPINVOKE.LoginResponse_ServerTime_get(swigCPtr);
 			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 			{
 				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -81,7 +81,28 @@ public class LoginResponse : MothershipResponse
 		}
 		set
 		{
-			MothershipApiPINVOKE.LoginResponse_ExpirationTime_set(swigCPtr, SWIGTYPE_p_int64_t.getCPtr(value));
+			MothershipApiPINVOKE.LoginResponse_ServerTime_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public long ExpirationTime
+	{
+		get
+		{
+			long result = MothershipApiPINVOKE.LoginResponse_ExpirationTime_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.LoginResponse_ExpirationTime_set(swigCPtr, value);
 			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 			{
 				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

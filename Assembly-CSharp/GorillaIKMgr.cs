@@ -34,20 +34,13 @@ public class GorillaIKMgr : MonoBehaviour
 		public Quaternion bodyRot;
 	}
 
-	private struct IKOutput
+	private struct IKOutput(Quaternion upperArmLocalRot_, Quaternion lowerArmLocalRot_, Vector3 _handLocalPosition)
 	{
-		public Quaternion upperArmLocalRot;
+		public Quaternion upperArmLocalRot = upperArmLocalRot_;
 
-		public Quaternion lowerArmLocalRot;
+		public Quaternion lowerArmLocalRot = lowerArmLocalRot_;
 
-		public Vector3 handLocalPosition;
-
-		public IKOutput(Quaternion upperArmLocalRot_, Quaternion lowerArmLocalRot_, Vector3 _handLocalPosition)
-		{
-			upperArmLocalRot = upperArmLocalRot_;
-			lowerArmLocalRot = lowerArmLocalRot_;
-			handLocalPosition = _handLocalPosition;
-		}
+		public Vector3 handLocalPosition = _handLocalPosition;
 	}
 
 	[BurstCompile]

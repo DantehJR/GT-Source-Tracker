@@ -221,6 +221,49 @@ public class MothershipNormalizedOffer : IDisposable
 		}
 	}
 
+	public string SubscriptionSku
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipNormalizedOffer_SubscriptionSku_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipNormalizedOffer_SubscriptionSku_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public SubscriptionPricingVector PricingAndTerms
+	{
+		get
+		{
+			IntPtr intPtr = MothershipApiPINVOKE.MothershipNormalizedOffer_PricingAndTerms_get(swigCPtr);
+			SubscriptionPricingVector result = ((intPtr == IntPtr.Zero) ? null : new SubscriptionPricingVector(intPtr, cMemoryOwn: false));
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipNormalizedOffer_PricingAndTerms_set(swigCPtr, SubscriptionPricingVector.getCPtr(value));
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
 	internal MothershipNormalizedOffer(IntPtr cPtr, bool cMemoryOwn)
 	{
 		swigCMemOwn = cMemoryOwn;

@@ -162,9 +162,4 @@ public class HandHold : MonoBehaviour, IGorillaGrabable
 		rotatePlayerWhenHeld = handHoldSettings.rotatePlayerWhenHeld;
 		forceMomentary = !handHoldSettings.allowPreGrab;
 	}
-
-	string IGorillaGrabable.get_name()
-	{
-		return base.name;
-	}
 }

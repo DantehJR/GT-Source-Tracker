@@ -25,6 +25,8 @@ public class OfferCatalogItem : IDisposable
 
 	public static readonly string last_updated_time_name = MothershipApiPINVOKE.OfferCatalogItem_last_updated_time_name_get();
 
+	public static readonly string subscription_catalog_item_id_name = MothershipApiPINVOKE.OfferCatalogItem_subscription_catalog_item_id_name_get();
+
 	public static readonly string sunset_name = MothershipApiPINVOKE.OfferCatalogItem_sunset_name_get();
 
 	public string offer_id
@@ -210,6 +212,27 @@ public class OfferCatalogItem : IDisposable
 		set
 		{
 			MothershipApiPINVOKE.OfferCatalogItem_last_updated_time_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public string subscription_catalog_item_id
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.OfferCatalogItem_subscription_catalog_item_id_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.OfferCatalogItem_subscription_catalog_item_id_set(swigCPtr, value);
 			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 			{
 				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

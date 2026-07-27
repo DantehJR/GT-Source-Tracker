@@ -28,11 +28,11 @@ public class ClientAuthToken : IDisposable
 		}
 	}
 
-	public SWIGTYPE_p_int64_t ExpirationTime
+	public long ClientTimeOffset
 	{
 		get
 		{
-			SWIGTYPE_p_int64_t result = new SWIGTYPE_p_int64_t(MothershipApiPINVOKE.ClientAuthToken_ExpirationTime_get(swigCPtr), futureUse: true);
+			long result = MothershipApiPINVOKE.ClientAuthToken_ClientTimeOffset_get(swigCPtr);
 			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 			{
 				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -41,7 +41,49 @@ public class ClientAuthToken : IDisposable
 		}
 		set
 		{
-			MothershipApiPINVOKE.ClientAuthToken_ExpirationTime_set(swigCPtr, SWIGTYPE_p_int64_t.getCPtr(value));
+			MothershipApiPINVOKE.ClientAuthToken_ClientTimeOffset_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public long ExpirationTime
+	{
+		get
+		{
+			long result = MothershipApiPINVOKE.ClientAuthToken_ExpirationTime_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.ClientAuthToken_ExpirationTime_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public long LastRefreshRequestTime
+	{
+		get
+		{
+			long result = MothershipApiPINVOKE.ClientAuthToken_LastRefreshRequestTime_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.ClientAuthToken_LastRefreshRequestTime_set(swigCPtr, value);
 			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 			{
 				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -101,6 +143,36 @@ public class ClientAuthToken : IDisposable
 				swigCPtr = new HandleRef(null, IntPtr.Zero);
 			}
 		}
+	}
+
+	public long GetServerTime(long nowMs)
+	{
+		long result = MothershipApiPINVOKE.ClientAuthToken_GetServerTime(swigCPtr, nowMs);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public bool IsExpired(long nowMs)
+	{
+		bool result = MothershipApiPINVOKE.ClientAuthToken_IsExpired(swigCPtr, nowMs);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public bool HasRefreshCooldownElapsed(long nowMs)
+	{
+		bool result = MothershipApiPINVOKE.ClientAuthToken_HasRefreshCooldownElapsed(swigCPtr, nowMs);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
 	}
 
 	public ClientAuthToken()

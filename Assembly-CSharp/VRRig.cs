@@ -50,17 +50,11 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		Shirt
 	}
 
-	public struct VelocityTime
+	public struct VelocityTime(Vector3 velocity, double velTime)
 	{
-		public Vector3 vel;
+		public Vector3 vel = velocity;
 
-		public double time;
-
-		public VelocityTime(Vector3 velocity, double velTime)
-		{
-			vel = velocity;
-			time = velTime;
-		}
+		public double time = velTime;
 	}
 
 	private bool _isListeningFor_OnPostInstantiateAllPrefabs;
@@ -422,6 +416,13 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	public bool inTempCosmSpace;
 
+	[NonSerialized]
+	public Dictionary<string, CosmeticsController.CollectionState> remoteCycleStates = new Dictionary<string, CosmeticsController.CollectionState>();
+
+	private readonly List<CosmeticCollectionDisplay> scratchDisplayList = new List<CosmeticCollectionDisplay>();
+
+	private int[] cycleStatesArray = Array.Empty<int>();
+
 	public bool muted;
 
 	private float lastScaleFactor = 1f;
@@ -435,8 +436,6 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public float doNotLerpConstant = 1f;
 
 	public string tempString;
-
-	private Player tempPlayer;
 
 	internal NetPlayer creator;
 
@@ -722,6 +721,8 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	private float frameScale;
 
 	private SubscriptionManager.SubscriptionDetails subDataCache;
+
+	private List<Renderer> deactivatedRenderers = new List<Renderer>();
 
 	private const bool SHOW_SCREENS = false;
 
@@ -1570,9 +1571,8 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			{
 				ScaleUpdate();
 			}
-			base.transform.eulerAngles = new Vector3(0f, mainCamera.transform.rotation.eulerAngles.y, 0f);
 			syncPos = mainCamera.transform.position + headConstraint.rotation * head.trackingPositionOffset * lastScaleFactor + base.transform.rotation * headBodyOffset * lastScaleFactor;
-			base.transform.position = syncPos;
+			base.transform.SetPositionAndRotation(syncPos, GTPlayerTransform.BodyRotation);
 			head.MapMine(lastScaleFactor, playerOffsetTransform);
 			rightHand.MapMine(lastScaleFactor, playerOffsetTransform);
 			leftHand.MapMine(lastScaleFactor, playerOffsetTransform);
@@ -1871,6 +1871,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		InputStruct result = new InputStruct
 		{
 			headRotation = BitPackUtils.PackQuaternionForNetwork(head.rigTarget.localRotation),
+			rotation = BitPackUtils.PackQuaternionForNetwork(base.transform.rotation),
 			usingNewIK = ShouldUseNewIKMethod(myIk.usingUpdatedIK)
 		};
 		if (result.usingNewIK)
@@ -1884,12 +1885,11 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		result.position = BitPackUtils.PackWorldPosForNetwork(base.transform.position);
 		result.handPosition = ReturnHandPosition();
 		result.taggedById = (short)taggedById;
-		int num = Mathf.Clamp(Mathf.RoundToInt(base.transform.rotation.eulerAngles.y + 360f) % 360, 0, 360);
-		int num2 = Mathf.RoundToInt(Mathf.Clamp01(SpeakingLoudness) * 255f);
+		int num = Mathf.RoundToInt(Mathf.Clamp01(SpeakingLoudness) * 255f);
 		bool flag = leftHandLink.IsLinkActive() || rightHandLink.IsLinkActive();
 		GorillaGameManager activeGameMode = GorillaGameModes.GameMode.ActiveGameMode;
 		bool flag2 = (object)activeGameMode != null && activeGameMode.GameType() == GameModeType.PropHunt;
-		int packedFields = num + (remoteUseReplacementVoice ? 512 : 0) + ((grabbedRopeIndex != -1) ? 1024 : 0) + (grabbedRopeIsPhotonView ? 2048 : 0) + (flag ? 4096 : 0) + (hoverboardVisual.IsHeld ? 8192 : 0) + (hoverboardVisual.IsLeftHanded ? 16384 : 0) + ((mountedMovingSurfaceId != -1) ? 32768 : 0) + (flag2 ? 65536 : 0) + (propHuntHandFollower.IsLeftHand ? 131072 : 0) + (leftHandLink.CanBeGrabbed() ? 262144 : 0) + (rightHandLink.CanBeGrabbed() ? 524288 : 0) + (leftHandLink.IsTentacleGrab ? 1048576 : 0) + (rightHandLink.IsTentacleGrab ? 2097152 : 0) + (ShowGoldNameTag ? 4194304 : 0) + (num2 << 24);
+		int packedFields = 0 + (remoteUseReplacementVoice ? 512 : 0) + ((grabbedRopeIndex != -1) ? 1024 : 0) + (grabbedRopeIsPhotonView ? 2048 : 0) + (flag ? 4096 : 0) + (hoverboardVisual.IsHeld ? 8192 : 0) + (hoverboardVisual.IsLeftHanded ? 16384 : 0) + ((mountedMovingSurfaceId != -1) ? 32768 : 0) + (flag2 ? 65536 : 0) + (propHuntHandFollower.IsLeftHand ? 131072 : 0) + (leftHandLink.CanBeGrabbed() ? 262144 : 0) + (rightHandLink.CanBeGrabbed() ? 524288 : 0) + (leftHandLink.IsTentacleGrab ? 1048576 : 0) + (rightHandLink.IsTentacleGrab ? 2097152 : 0) + (ShowGoldNameTag ? 4194304 : 0) + (num << 24);
 		result.packedFields = packedFields;
 		result.packedCompetitiveData = PackCompetitiveData();
 		if (grabbedRopeIndex != -1)
@@ -1949,9 +1949,8 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		leftHand.syncRotation.SetValueSafe(in tempQuat);
 		syncPos = BitPackUtils.UnpackWorldPosFromNetwork(data.position);
 		handSync = data.handPosition;
+		syncRotation.SetValueSafe(BitPackUtils.UnpackQuaternionFromNetwork(data.rotation));
 		int packedFields = data.packedFields;
-		int num = packedFields & 0x1FF;
-		syncRotation.eulerAngles = SanitizeVector3(new Vector3(0f, num, 0f));
 		remoteUseReplacementVoice = (packedFields & 0x200) != 0;
 		if ((packedFields & 0x400000) != 0 && SubscriptionManager.GetSubscriptionDetails(this).active)
 		{
@@ -1961,14 +1960,14 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		{
 			playerText1.color = Color.white;
 		}
-		int num2 = (packedFields >> 24) & 0xFF;
-		SpeakingLoudness = (float)num2 / 255f;
+		int num = (packedFields >> 24) & 0xFF;
+		SpeakingLoudness = (float)num / 255f;
 		UpdateReplacementVoice();
 		UnpackCompetitiveData(data.packedCompetitiveData);
 		taggedById = data.taggedById;
-		bool num3 = (packedFields & 0x400) != 0;
+		bool num2 = (packedFields & 0x400) != 0;
 		grabbedRopeIsPhotonView = (packedFields & 0x800) != 0;
-		if (num3)
+		if (num2)
 		{
 			grabbedRopeIndex = data.grabbedRopeIndex;
 			grabbedRopeBoneIndex = data.ropeBoneIndex;
@@ -1981,7 +1980,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			grabbedRopeIndex = -1;
 		}
 		bool flag = (packedFields & 0x8000) != 0;
-		if (!num3 && flag)
+		if (!num2 && flag)
 		{
 			mountedMovingSurfaceId = data.grabbedRopeIndex;
 			mountedMovingSurfaceIsLeft = data.ropeGrabIsLeft;
@@ -1993,9 +1992,9 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		{
 			mountedMovingSurfaceId = -1;
 		}
-		bool num4 = (packedFields & 0x2000) != 0;
+		bool num3 = (packedFields & 0x2000) != 0;
 		bool isHeldLeftHanded = (packedFields & 0x4000) != 0;
-		if (num4)
+		if (num3)
 		{
 			BitPackUtils.UnpackHandPosRotFromNetwork(data.hoverboardPosRot, out var localPos, out var handRot);
 			Color boardColor = BitPackUtils.UnpackColorFromNetwork(data.hoverboardColor);
@@ -2018,9 +2017,8 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		{
 			localGrabOverrideBlend = -1f;
 		}
-		Vector3 position = base.transform.position;
-		leftHandLink.Read(leftHand.syncPos, syncRotation, position, data.isGroundedHand, data.isGroundedButt, (packedFields & 0x40000) != 0, (packedFields & 0x100000) != 0, data.leftHandGrabbedActorNumber, data.leftGrabbedHandIsLeft);
-		rightHandLink.Read(rightHand.syncPos, syncRotation, position, data.isGroundedHand, data.isGroundedButt, (packedFields & 0x80000) != 0, (packedFields & 0x200000) != 0, data.rightHandGrabbedActorNumber, data.rightGrabbedHandIsLeft);
+		leftHandLink.Read(leftHand.syncPos, syncRotation, syncPos, data.isGroundedHand, data.isGroundedButt, (packedFields & 0x40000) != 0, (packedFields & 0x100000) != 0, data.leftHandGrabbedActorNumber, data.leftGrabbedHandIsLeft);
+		rightHandLink.Read(rightHand.syncPos, syncRotation, syncPos, data.isGroundedHand, data.isGroundedButt, (packedFields & 0x80000) != 0, (packedFields & 0x200000) != 0, data.rightHandGrabbedActorNumber, data.rightGrabbedHandIsLeft);
 		LastTouchedGroundAtNetworkTime = data.lastTouchedGroundAtTime;
 		LastHandTouchedGroundAtNetworkTime = data.lastHandTouchedGroundAtTime;
 		UpdateRopeData();
@@ -2047,6 +2045,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	{
 		InputStruct inputStruct = SerializeWriteShared();
 		stream.SendNext(inputStruct.headRotation);
+		stream.SendNext(inputStruct.rotation);
 		stream.SendNext(inputStruct.usingNewIK);
 		if (inputStruct.usingNewIK)
 		{
@@ -2104,6 +2103,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		InputStruct data = new InputStruct
 		{
 			headRotation = (int)stream.ReceiveNext(),
+			rotation = (int)stream.ReceiveNext(),
 			usingNewIK = (bool)stream.ReceiveNext()
 		};
 		if (data.usingNewIK)
@@ -2417,7 +2417,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public void PlayTaggedEffect()
 	{
 		TagEffectPack tagEffectPack = null;
-		quaternion quaternion = base.transform.rotation;
+		quaternion quaternion2 = base.transform.rotation;
 		TagEffectsLibrary.EffectType effectType = ((!(LocalRig == this)) ? TagEffectsLibrary.EffectType.THIRD_PERSON : TagEffectsLibrary.EffectType.FIRST_PERSON);
 		if (GorillaGameManager.instance != null && OwningNetPlayer != null)
 		{
@@ -2429,10 +2429,10 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			tagEffectPack = playerRig.Rig.CosmeticEffectPack;
 			if ((bool)tagEffectPack && tagEffectPack.shouldFaceTagger && effectType == TagEffectsLibrary.EffectType.THIRD_PERSON)
 			{
-				quaternion = Quaternion.LookRotation((playerRig.Rig.transform.position - base.transform.position).normalized);
+				quaternion2 = Quaternion.LookRotation((playerRig.Rig.transform.position - base.transform.position).normalized);
 			}
 		}
-		TagEffectsLibrary.PlayEffect(base.transform, isLeftHand: false, scaleFactor, effectType, CosmeticEffectPack, tagEffectPack, quaternion);
+		TagEffectsLibrary.PlayEffect(base.transform, isLeftHand: false, scaleFactor, effectType, CosmeticEffectPack, tagEffectPack, quaternion2);
 	}
 
 	public void ToggleMatParticles(bool enabled)
@@ -2585,7 +2585,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			{
 				if (text.Length > 12)
 				{
-					text = text.Substring(0, 11);
+					text = text.Substring(0, 12);
 				}
 				text = text.ToUpper();
 			}
@@ -2620,16 +2620,36 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public void RequestCosmetics(PhotonMessageInfoWrapped info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		if (netView.IsMine && CosmeticsController.hasInstance)
+		if (!netView.IsMine || !CosmeticsController.hasInstance)
 		{
-			if (CosmeticsController.instance.isHidingCosmeticsFromRemotePlayers)
+			return;
+		}
+		if (CosmeticsController.instance.isHidingCosmeticsFromRemotePlayers)
+		{
+			netView.SendRPC("RPC_HideAllCosmetics", info.Sender);
+			return;
+		}
+		int[] array = CosmeticsController.instance.currentWornSet.ToPackedIDArray();
+		int[] array2 = CosmeticsController.instance.tryOnSet.ToPackedIDArray();
+		netView.SendRPC("RPC_UpdateCosmeticsWithTryonPacked", player, array, array2, false);
+		CosmeticCollectionDisplay.GetDisplaysForRig(GorillaTagger.Instance.offlineVRRig, scratchDisplayList);
+		if (scratchDisplayList.Count > 0)
+		{
+			int num = scratchDisplayList.Count * 3;
+			if (cycleStatesArray.Length != num)
 			{
-				netView.SendRPC("RPC_HideAllCosmetics", info.Sender);
-				return;
+				cycleStatesArray = new int[num];
 			}
-			int[] array = CosmeticsController.instance.currentWornSet.ToPackedIDArray();
-			int[] array2 = CosmeticsController.instance.tryOnSet.ToPackedIDArray();
-			netView.SendRPC("RPC_UpdateCosmeticsWithTryonPacked", player, array, array2, false);
+			for (int i = 0; i < scratchDisplayList.Count; i++)
+			{
+				CosmeticCollectionDisplay cosmeticCollectionDisplay = scratchDisplayList[i];
+				string parentPlayFabID = cosmeticCollectionDisplay.ParentPlayFabID;
+				cycleStatesArray[i * 3] = parentPlayFabID[0] - 65 + 26 * (parentPlayFabID[1] - 65 + 26 * (parentPlayFabID[2] - 65 + 26 * (parentPlayFabID[3] - 65 + 26 * (parentPlayFabID[4] - 65))));
+				CosmeticsController.CosmeticItem? activeCollectable = cosmeticCollectionDisplay.ActiveCollectable;
+				cycleStatesArray[i * 3 + 1] = ((activeCollectable.HasValue && CosmeticsController.hasInstance) ? CosmeticsController.instance.GetCanonicalCollectableIndex(parentPlayFabID, activeCollectable.Value.itemName) : cosmeticCollectionDisplay.ActiveIndex);
+				cycleStatesArray[i * 3 + 2] = cosmeticCollectionDisplay.VisibleMask;
+			}
+			netView.SendRPC("RPC_UpdateCosmeticsWithCollectablesPacked", player, cycleStatesArray);
 		}
 	}
 
@@ -2756,9 +2776,9 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 		else
 		{
-			Quaternion quaternion = vRMap.rigTarget.parent.rotation * vRMap.syncRotation;
+			Quaternion obj = vRMap.rigTarget.parent.rotation * vRMap.syncRotation;
 			Vector3 vector3 = netSyncPos.GetPredictedFuture() - base.transform.position;
-			Vector3 vector2 = quaternion * vRMap.trackingPositionOffset * scaleFactor;
+			Vector3 vector2 = obj * vRMap.trackingPositionOffset * scaleFactor;
 			effectContext.position = vRMap.rigTarget.parent.TransformPoint(vRMap.netSyncPos.GetPredictedFuture()) - vector2 + vector + vector3;
 		}
 		GTPlayer.MaterialData handSurfaceData = GetHandSurfaceData(audioClipIndex);
@@ -3026,6 +3046,107 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 	}
 
+	public void UpdateCosmeticsWithCollectables(int[] cycleStatesPacked, PhotonMessageInfoWrapped info)
+	{
+		IncrementRPC(info, "RPC_UpdateCosmeticsWithCollectablesPacked");
+		if (info.Sender != netView.Owner || cycleStatesPacked == null || cycleStatesPacked.Length % 3 != 0 || cycleStatesPacked.Length > 96)
+		{
+			return;
+		}
+		int num = cycleStatesPacked.Length / 3;
+		remoteCycleStates.Clear();
+		char[] array = new char[6] { '\0', '\0', '\0', '\0', '\0', '.' };
+		for (int i = 0; i < num; i++)
+		{
+			int num2 = cycleStatesPacked[i * 3];
+			int num3 = cycleStatesPacked[i * 3 + 1];
+			int visibleMask = cycleStatesPacked[i * 3 + 2];
+			if (num3 >= 0)
+			{
+				array[0] = (char)(65 + num2 % 26);
+				array[1] = (char)(65 + num2 / 26 % 26);
+				array[2] = (char)(65 + num2 / 676 % 26);
+				array[3] = (char)(65 + num2 / 17576 % 26);
+				array[4] = (char)(65 + num2 / 456976 % 26);
+				string text = new string(array);
+				CosmeticsController.CollectionState value = new CosmeticsController.CollectionState
+				{
+					activeIndex = num3,
+					visibleMask = visibleMask
+				};
+				remoteCycleStates[text] = value;
+				CosmeticCollectionDisplay cosmeticCollectionDisplay = CosmeticCollectionDisplay.FindForRig(this, text);
+				if (cosmeticCollectionDisplay != null)
+				{
+					cosmeticCollectionDisplay.SetVisibleMask(visibleMask);
+					cosmeticCollectionDisplay.SetActiveIndex(num3);
+				}
+			}
+		}
+	}
+
+	public void BroadcastSubCosmeticSignal(int packedParentID, int signal, PhotonMessageInfoWrapped info)
+	{
+		IncrementRPC(info, "RPC_BroadcastSubCosmeticSignal");
+		if (info.Sender != netView.Owner)
+		{
+			return;
+		}
+		char[] array = new char[6];
+		array[5] = '.';
+		array[0] = (char)(65 + packedParentID % 26);
+		array[1] = (char)(65 + packedParentID / 26 % 26);
+		array[2] = (char)(65 + packedParentID / 676 % 26);
+		array[3] = (char)(65 + packedParentID / 17576 % 26);
+		array[4] = (char)(65 + packedParentID / 456976 % 26);
+		string parentID = new string(array);
+		CosmeticCollectionDisplay cosmeticCollectionDisplay = CosmeticCollectionDisplay.FindForRig(this, parentID);
+		if (cosmeticCollectionDisplay != null)
+		{
+			SubCosmeticCycleController subCosmeticCycleController = cosmeticCollectionDisplay.GetComponent<SubCosmeticCycleController>();
+			if (subCosmeticCycleController == null)
+			{
+				subCosmeticCycleController = cosmeticCollectionDisplay.GetComponentInChildren<SubCosmeticCycleController>(includeInactive: true);
+			}
+			if (subCosmeticCycleController != null)
+			{
+				subCosmeticCycleController.ReceiveNetworkSignal(signal);
+			}
+		}
+	}
+
+	public void SetCollectionCycleIndex(int packedParentID, int activeIndex, int visibleMask, PhotonMessageInfoWrapped info)
+	{
+		IncrementRPC(info, "RPC_SetCollectionCycleIndex");
+		if (info.Sender != netView.Owner)
+		{
+			return;
+		}
+		char[] array = new char[6];
+		array[5] = '.';
+		array[0] = (char)(65 + packedParentID % 26);
+		array[1] = (char)(65 + packedParentID / 26 % 26);
+		array[2] = (char)(65 + packedParentID / 676 % 26);
+		array[3] = (char)(65 + packedParentID / 17576 % 26);
+		array[4] = (char)(65 + packedParentID / 456976 % 26);
+		string text = new string(array);
+		if (remoteCycleStates.Count < 64 || remoteCycleStates.ContainsKey(text))
+		{
+			CosmeticsController.CollectionState value = new CosmeticsController.CollectionState
+			{
+				activeIndex = activeIndex,
+				visibleMask = visibleMask
+			};
+			remoteCycleStates[text] = value;
+			CosmeticCollectionDisplay cosmeticCollectionDisplay = CosmeticCollectionDisplay.FindForRig(this, text);
+			if (cosmeticCollectionDisplay != null)
+			{
+				cosmeticCollectionDisplay.SetVisibleMask(visibleMask);
+				cosmeticCollectionDisplay.SetActiveIndex(activeIndex);
+			}
+		}
+	}
+
 	public void LocalUpdateCosmeticsWithTryon(CosmeticsController.CosmeticSet newSet, CosmeticsController.CosmeticSet newTryOnSet, bool playfx)
 	{
 		cosmeticSet = newSet;
@@ -3085,19 +3206,18 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		{
 			PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), delegate(GetUserInventoryResult result)
 			{
-				Dictionary<string, string> dictionary = new Dictionary<string, string>();
 				foreach (ItemInstance item in result.Inventory)
 				{
-					if (!dictionary.ContainsKey(item.ItemId))
+					if (item.CatalogVersion == CosmeticsController.instance.catalog)
 					{
-						dictionary[item.ItemId] = item.ItemId;
-						if (item.CatalogVersion == CosmeticsController.instance.catalog)
+						if (item.PurchaseDate.HasValue)
+						{
+							int daysOwned = (int)(DateTime.UtcNow - item.PurchaseDate.Value).TotalDays;
+							AddCosmetic(item.ItemId, daysOwned);
+						}
+						else
 						{
 							AddCosmetic(item.ItemId);
-							if (item.PurchaseDate.HasValue)
-							{
-								_playerOwnedCosmeticsAge[item.ItemId] = (int)(DateTime.UtcNow - item.PurchaseDate.Value).TotalDays;
-							}
 						}
 					}
 				}
@@ -3444,6 +3564,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 		bodyRenderer.SetDefaults();
 		SetInvisibleToLocalPlayer(invisible: false);
+		ReactivateAllRenderers();
 		if (isOfflineVRRig)
 		{
 			HandHold.HandPositionRequestOverride += HandHold_HandPositionRequestOverride;
@@ -3547,6 +3668,10 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			_rankedInfoUpdated = false;
 			TemporaryCosmeticEffects.Clear();
 			m_sentRankedScore = false;
+			if (inDuplicationZone)
+			{
+				ClearDuplicationZone(duplicationZone);
+			}
 			try
 			{
 				CallLimitType<CallLimiter>[] callSettings = fxSettings.callSettings;
@@ -4085,14 +4210,53 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		CheckForEarlyAccess();
 	}
 
-	internal void AddCosmetic(string cosmeticId)
+	internal void AddCosmetic(string cosmeticId, int daysOwned = 0)
 	{
-		_playerOwnedCosmetics.Add(cosmeticId);
+		bool flag = _playerOwnedCosmetics.Add(cosmeticId);
+		if (daysOwned >= 1)
+		{
+			int num = daysOwned;
+			if (!flag && _playerOwnedCosmeticsAge.TryGetValue(cosmeticId, out var value))
+			{
+				num = Mathf.Max(value, num);
+				_playerOwnedCosmeticsAge[cosmeticId] = num;
+			}
+			else
+			{
+				_playerOwnedCosmeticsAge[cosmeticId] = num;
+			}
+		}
 	}
 
 	internal bool HasCosmetic(string cosmeticId)
 	{
 		return _playerOwnedCosmetics.Contains(cosmeticId);
+	}
+
+	public void DeactivateAllRenderers()
+	{
+		Renderer[] componentsInChildren = GetComponentsInChildren<Renderer>();
+		for (int i = 0; i < componentsInChildren.Length; i++)
+		{
+			if (componentsInChildren[i].enabled && !componentsInChildren[i].forceRenderingOff)
+			{
+				componentsInChildren[i].forceRenderingOff = true;
+				deactivatedRenderers.Add(componentsInChildren[i]);
+			}
+		}
+	}
+
+	public void ReactivateAllRenderers()
+	{
+		for (int i = 0; i < deactivatedRenderers.Count; i++)
+		{
+			Renderer renderer = deactivatedRenderers[i];
+			if (renderer.IsNotNull())
+			{
+				renderer.forceRenderingOff = false;
+			}
+		}
+		deactivatedRenderers.Clear();
 	}
 
 	private short PackCompetitiveData()

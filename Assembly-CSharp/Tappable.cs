@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Photon.Pun;
 using UnityEngine;
 
-public class Tappable : MonoBehaviour
+public class Tappable : MonoBehaviour, IClickable
 {
 	public int tappableId;
 
@@ -17,6 +17,12 @@ public class Tappable : MonoBehaviour
 	public TappableManager manager;
 
 	public RpcTarget rpcTarget;
+
+	[Tooltip("If true, OnTapped only fires on the client of the player who initiated the tap. Offline play counts as local, so the event still fires when not in a room.")]
+	[SerializeField]
+	protected bool localOnly;
+
+	public bool IsLocalOnly => localOnly;
 
 	public void Validate()
 	{
@@ -42,9 +48,18 @@ public class Tappable : MonoBehaviour
 		return true;
 	}
 
+	public void OnTap()
+	{
+		OnTap(1f);
+	}
+
 	public void OnTap(float tapStrength)
 	{
-		if (NetworkSystem.Instance.InRoom && (bool)manager)
+		if (localOnly || !NetworkSystem.Instance.InRoom)
+		{
+			OnTapLocal(tapStrength, Time.time, PhotonMessageInfoWrapped.GetLocalDefault());
+		}
+		else if ((bool)manager)
 		{
 			manager.photonView.RPC("SendOnTapRPC", RpcTarget.All, tappableId, tapStrength);
 		}
@@ -52,7 +67,11 @@ public class Tappable : MonoBehaviour
 
 	public void OnGrab()
 	{
-		if (NetworkSystem.Instance.InRoom && (bool)manager)
+		if (localOnly || !NetworkSystem.Instance.InRoom)
+		{
+			OnGrabLocal(Time.time, default(PhotonMessageInfoWrapped));
+		}
+		else if ((bool)manager)
 		{
 			manager.photonView.RPC("SendOnGrabRPC", RpcTarget.All, tappableId);
 		}
@@ -60,7 +79,11 @@ public class Tappable : MonoBehaviour
 
 	public void OnRelease()
 	{
-		if (NetworkSystem.Instance.InRoom && (bool)manager)
+		if (!NetworkSystem.Instance.InRoom)
+		{
+			OnReleaseLocal(Time.time, default(PhotonMessageInfoWrapped));
+		}
+		else if ((bool)manager)
 		{
 			manager.photonView.RPC("SendOnReleaseRPC", RpcTarget.All, tappableId);
 		}
@@ -110,5 +133,10 @@ public class Tappable : MonoBehaviour
 	private void OnValidate()
 	{
 		CalculateId();
+	}
+
+	public void Click(bool leftHand = false)
+	{
+		OnTap();
 	}
 }

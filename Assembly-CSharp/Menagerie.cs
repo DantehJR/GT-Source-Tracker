@@ -129,7 +129,7 @@ public class Menagerie : MonoBehaviour
 
 	private void CritterDepositedInDonationBox(MenagerieCritter critter)
 	{
-		if (newCritterPen.Contains(critter.Slot))
+		if (Enumerable.Contains(newCritterPen, critter.Slot))
 		{
 			critter.currentState = MenagerieCritter.MenagerieCritterState.Donating;
 			DonateCritter(critter.CritterData);
@@ -142,7 +142,7 @@ public class Menagerie : MonoBehaviour
 
 	private void CritterDepositedInFavoriteBox(MenagerieCritter critter)
 	{
-		if (collection.Contains(critter.Slot))
+		if (Enumerable.Contains(collection, critter.Slot))
 		{
 			_savedCritters.favoriteCritter = critter.CritterData.critterType;
 			Save();
@@ -153,7 +153,7 @@ public class Menagerie : MonoBehaviour
 
 	private void CritterDepositedInCollectionBox(MenagerieCritter critter)
 	{
-		if (newCritterPen.Contains(critter.Slot))
+		if (Enumerable.Contains(newCritterPen, critter.Slot))
 		{
 			AddCritterToCollection(critter.CritterData);
 			_savedCritters.newCritters.Remove(critter.CritterData);

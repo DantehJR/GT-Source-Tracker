@@ -4,17 +4,11 @@ using UnityEngine;
 namespace MathGeoLib;
 
 [PublicAPI]
-public struct Line3
+public struct Line3(Vector3 point1, Vector3 point2)
 {
-	public readonly Vector3 Point1;
+	public readonly Vector3 Point1 = point1;
 
-	public readonly Vector3 Point2;
-
-	public Line3(Vector3 point1, Vector3 point2)
-	{
-		Point1 = point1;
-		Point2 = point2;
-	}
+	public readonly Vector3 Point2 = point2;
 
 	public override string ToString()
 	{

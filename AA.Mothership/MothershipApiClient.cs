@@ -460,9 +460,9 @@ public class MothershipApiClient : IDisposable
 		}
 	}
 
-	public virtual void TickRetryQueue(float deltaTimeInSeconds)
+	public virtual void Tick(float deltaTimeInSeconds)
 	{
-		MothershipApiPINVOKE.MothershipApiClient_TickRetryQueue(swigCPtr, deltaTimeInSeconds);
+		MothershipApiPINVOKE.MothershipApiClient_Tick(swigCPtr, deltaTimeInSeconds);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

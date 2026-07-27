@@ -34,5 +34,12 @@ public enum GTZone
 	ghostReactorDrill,
 	forestWithCity,
 	GTFC,
-	GTFCWithCity
+	GTFCWithCity,
+	VIMExperience1,
+	VIMExperience2,
+	VIMExperience3,
+	VIMExperience4,
+	drill,
+	eventZone,
+	spaceMap
 }

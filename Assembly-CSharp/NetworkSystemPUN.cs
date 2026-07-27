@@ -37,8 +37,9 @@ public class NetworkSystemPUN : NetworkSystem
 		Searching_Connected,
 		Searching_Joining,
 		Searching_Joined,
-		Searching_JoinFailed,
+		Searching_JoinFailed_NotFound,
 		Searching_JoinFailed_Full,
+		Searching_JoinFailed_Other,
 		Searching_Creating,
 		Searching_Created,
 		Searching_CreateFailed,
@@ -173,7 +174,6 @@ public class NetworkSystemPUN : NetworkSystem
 		NetworkSystem.reusableSB.Append(", ");
 		AppendStringFromDict(customProperties, "mmrTier", 8, NetworkSystem.reusableSB);
 		NetworkSystem.reusableSB.Append("}");
-		Debug.Log(NetworkSystem.reusableSB.ToString());
 		return NetworkSystem.reusableSB.ToString();
 	}
 
@@ -282,7 +282,7 @@ public class NetworkSystemPUN : NetworkSystem
 	private async Task WaitForState(CancellationToken ct, InternalState[] desiredStates, float timeout)
 	{
 		float timeoutTime = Time.realtimeSinceStartup + timeout;
-		while (!desiredStates.Contains(this.internalState))
+		while (!Enumerable.Contains(desiredStates, this.internalState))
 		{
 			if (ct.IsCancellationRequested)
 			{
@@ -348,6 +348,10 @@ public class NetworkSystemPUN : NetworkSystem
 		{
 			return await TryCreateRoom(roomName, opts);
 		}
+		if (internalState != InternalState.Searching_Joined)
+		{
+			return NetJoinResult.Failed_Other;
+		}
 		return NetJoinResult.Success;
 	}
 
@@ -378,20 +382,17 @@ public class NetworkSystemPUN : NetworkSystem
 		}
 		internalState = InternalState.Searching_Joining;
 		PhotonNetwork.JoinRoom(roomName);
-		if (!(await WaitForStateCheck(new InternalState[3]
+		if (!(await WaitForStateCheck(new InternalState[4]
 		{
 			InternalState.Searching_Joined,
-			InternalState.Searching_JoinFailed,
-			InternalState.Searching_JoinFailed_Full
+			InternalState.Searching_JoinFailed_NotFound,
+			InternalState.Searching_JoinFailed_Full,
+			InternalState.Searching_JoinFailed_Other
 		})))
 		{
 			return false;
 		}
-		if (internalState == InternalState.Searching_JoinFailed_Full)
-		{
-			return true;
-		}
-		bool foundRoom = internalState == InternalState.Searching_Joined;
+		bool foundRoom = internalState != InternalState.Searching_JoinFailed_NotFound;
 		if (!foundRoom)
 		{
 			PhotonNetwork.Disconnect();
@@ -460,21 +461,23 @@ public class NetworkSystemPUN : NetworkSystem
 		internalState = InternalState.Searching_Joining;
 		if (opts.IsJoiningWithFriends)
 		{
-			PhotonNetwork.JoinRandomRoom(opts.CustomProps, opts.MaxPlayers, MatchmakingMode.RandomMatching, null, null, opts.joinFriendIDs.ToArray());
+			PhotonNetwork.JoinRandomRoom(opts.EffectiveSearchFilter, opts.MaxPlayers, MatchmakingMode.RandomMatching, null, null, opts.joinFriendIDs.ToArray());
 		}
 		else
 		{
-			PhotonNetwork.JoinRandomRoom(opts.CustomProps, opts.MaxPlayers, MatchmakingMode.FillRoom, null, null);
+			PhotonNetwork.JoinRandomRoom(opts.EffectiveSearchFilter, opts.MaxPlayers, MatchmakingMode.FillRoom, null, null);
 		}
-		if (!(await WaitForStateCheck(new InternalState[2]
+		if (!(await WaitForStateCheck(new InternalState[4]
 		{
 			InternalState.Searching_Joined,
-			InternalState.Searching_JoinFailed
+			InternalState.Searching_JoinFailed_NotFound,
+			InternalState.Searching_JoinFailed_Full,
+			InternalState.Searching_JoinFailed_Other
 		})))
 		{
 			return NetJoinResult.Failed_Other;
 		}
-		if (internalState == InternalState.Searching_JoinFailed)
+		if (internalState != InternalState.Searching_Joined)
 		{
 			internalState = InternalState.Searching_Creating;
 			string text = "";
@@ -766,22 +769,24 @@ public class NetworkSystemPUN : NetworkSystem
 			localRecorder.VoiceDetectionThreshold = VoiceSettings.Threshold;
 			localRecorder.VoiceDetectionDelayMs = VoiceSettings.Delay;
 			localRecorder.DebugEchoMode = VoiceSettings.DebugEcho;
-			if (!SubscriptionManager.IsLocalSubscribed())
-			{
-				localRecorder.SamplingRate = VoiceSettings.SamplingRate;
-				localRecorder.Bitrate = VoiceSettings.Bitrate;
-			}
-			else
+			bool num2 = SubscriptionManager.IsLocalSubscribed();
+			bool flag = NetworkSystem.Instance.SessionIsSubscription || PhotonNetwork.CurrentRoom.Name.EndsWith(":GTFC");
+			if (num2 || flag)
 			{
 				localRecorder.SamplingRate = VoiceSettings.SubsSamplingRate;
 				localRecorder.Bitrate = VoiceSettings.SubsBitrate;
+			}
+			else
+			{
+				localRecorder.SamplingRate = VoiceSettings.SamplingRate;
+				localRecorder.Bitrate = VoiceSettings.Bitrate;
 			}
 			VoiceNetworkObject.AddComponent<VoiceToLoudness>();
 			punVoice.PrimaryRecorder = localRecorder;
 		}
 		catch (Exception ex)
 		{
-			Debug.LogError("An exception was thrown when trying to setup photon voice, please check microphone permissions.:/n" + ex.ToString());
+			Debug.LogError("An exception was thrown when trying to setup photon voice, please check microphone permissions:\n" + ex.ToString());
 		}
 	}
 
@@ -935,6 +940,7 @@ public class NetworkSystemPUN : NetworkSystem
 		else
 		{
 			PlayerPrefs.SetString("playerName", id);
+			_ = PhotonNetwork.LocalPlayer.NickName;
 			PhotonNetwork.LocalPlayer.NickName = id;
 		}
 	}
@@ -1211,22 +1217,27 @@ public class NetworkSystemPUN : NetworkSystem
 
 	public void OnJoinRoomFailed(short returnCode, string message)
 	{
-		Debug.Log("onJoinRoomFailed " + returnCode + message);
+		PersistLog.Log("OnJoinRoomFailed " + returnCode + " " + message);
 		if (internalState == InternalState.Searching_Joining)
 		{
-			if (returnCode == 32765)
+			switch (returnCode)
 			{
+			case 32758:
+				internalState = InternalState.Searching_JoinFailed_NotFound;
+				break;
+			case 32765:
 				internalState = InternalState.Searching_JoinFailed_Full;
-			}
-			else
-			{
-				internalState = InternalState.Searching_JoinFailed;
+				break;
+			default:
+				internalState = InternalState.Searching_JoinFailed_Other;
+				break;
 			}
 		}
 	}
 
 	public void OnCreateRoomFailed(short returnCode, string message)
 	{
+		PersistLog.Log("OnCreateRoomFailed " + returnCode + " " + message);
 		if (internalState == InternalState.Searching_Creating)
 		{
 			internalState = InternalState.Searching_CreateFailed;

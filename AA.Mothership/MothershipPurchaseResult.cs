@@ -175,6 +175,48 @@ public class MothershipPurchaseResult : IDisposable
 		}
 	}
 
+	public string name
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipPurchaseResult_name_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipPurchaseResult_name_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public string in_game_id
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipPurchaseResult_in_game_id_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipPurchaseResult_in_game_id_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
 	internal MothershipPurchaseResult(IntPtr cPtr, bool cMemoryOwn)
 	{
 		swigCMemOwn = cMemoryOwn;

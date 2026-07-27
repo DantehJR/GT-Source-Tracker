@@ -632,7 +632,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 	private void PlayerStateChangeRPC(int playerResponsibleNumber, int playerActorNumber, int newState, PhotonMessageInfo info)
 	{
 		bool flag = IsValidClientRPC(info.Sender);
-		bool num = newState == 1 && info.Sender.ActorNumber == playerActorNumber;
+		bool num = newState == 1 && info.Sender.ActorNumber == playerActorNumber && IsZoneActive();
 		bool flag2 = newState == 0 && flag;
 		if (!(num || flag2))
 		{
@@ -1900,7 +1900,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 		if (gameEntity.heldByActorNumber >= 0 && GamePlayer.TryGetGamePlayer(gameEntity.heldByActorNumber, out var out_gamePlayer))
 		{
 			int handIndex = out_gamePlayer.FindHandIndex(entityId);
-			out_gamePlayer.ClearGrabbedIfHeld(entityId);
+			out_gamePlayer.ClearGrabbedIfHeld(entityId, gameEntityManager);
 			if (gameEntity.heldByActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
 			{
 				GamePlayerLocal.instance.gamePlayer.ClearGrabbed(handIndex);

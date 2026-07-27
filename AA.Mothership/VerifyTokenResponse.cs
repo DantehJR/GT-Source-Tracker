@@ -68,6 +68,27 @@ public class VerifyTokenResponse : MothershipResponse
 		}
 	}
 
+	public string ExternalAccountOrgScopedId
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.VerifyTokenResponse_ExternalAccountOrgScopedId_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.VerifyTokenResponse_ExternalAccountOrgScopedId_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
 	public string ExternalAccountType
 	{
 		get

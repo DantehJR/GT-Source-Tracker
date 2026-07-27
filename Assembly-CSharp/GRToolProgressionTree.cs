@@ -416,19 +416,16 @@ public class GRToolProgressionTree
 
 	private EmployeeLevelRequirement GetEmployeeLevel(List<string> rawRequiredEntitlements)
 	{
-		using (List<string>.Enumerator enumerator = rawRequiredEntitlements.GetEnumerator())
+		foreach (string rawRequiredEntitlement in rawRequiredEntitlements)
 		{
-			while (enumerator.MoveNext())
+			switch (rawRequiredEntitlement.Trim())
 			{
-				switch (enumerator.Current.Trim())
-				{
-				case "Intern":
-					return EmployeeLevelRequirement.Intern;
-				case "PartTime":
-					return EmployeeLevelRequirement.PartTime;
-				case "FullTime":
-					return EmployeeLevelRequirement.FullTime;
-				}
+			case "Intern":
+				return EmployeeLevelRequirement.Intern;
+			case "PartTime":
+				return EmployeeLevelRequirement.PartTime;
+			case "FullTime":
+				return EmployeeLevelRequirement.FullTime;
 			}
 		}
 		return EmployeeLevelRequirement.None;

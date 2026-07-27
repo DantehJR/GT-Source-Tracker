@@ -353,6 +353,19 @@ public class MothershipApi
 		}
 	}
 
+	public static string BASE_PATH_DLC
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.BASE_PATH_DLC_get();
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+	}
+
 	public static string ParseForErrorMessage(string body)
 	{
 		string result = MothershipApiPINVOKE.ParseForErrorMessage(body);

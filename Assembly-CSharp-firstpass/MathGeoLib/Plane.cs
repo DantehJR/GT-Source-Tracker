@@ -4,17 +4,11 @@ using UnityEngine;
 namespace MathGeoLib;
 
 [PublicAPI]
-public struct Plane
+public struct Plane(Vector3 normal, float distance)
 {
-	public readonly Vector3 Normal;
+	public readonly Vector3 Normal = normal;
 
-	public readonly float Distance;
-
-	public Plane(Vector3 normal, float distance)
-	{
-		Normal = normal;
-		Distance = distance;
-	}
+	public readonly float Distance = distance;
 
 	public override string ToString()
 	{

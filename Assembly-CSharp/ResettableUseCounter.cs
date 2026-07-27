@@ -1,24 +1,16 @@
 using System;
 
-public struct ResettableUseCounter
+public struct ResettableUseCounter(int maxRegularUses, int maxSuperchargeUses, Action<bool> onReadyChanged = null)
 {
-	private int usesRemaining;
+	private int usesRemaining = maxRegularUses;
 
-	private int maxRegularUses;
+	private int maxRegularUses = maxRegularUses;
 
-	private int maxSuperchargeUses;
+	private int maxSuperchargeUses = maxSuperchargeUses;
 
-	private Action<bool> onReadyChanged;
+	private Action<bool> onReadyChanged = onReadyChanged;
 
 	public bool IsReady => usesRemaining > 0;
-
-	public ResettableUseCounter(int maxRegularUses, int maxSuperchargeUses, Action<bool> onReadyChanged = null)
-	{
-		this.maxRegularUses = maxRegularUses;
-		this.maxSuperchargeUses = maxSuperchargeUses;
-		usesRemaining = maxRegularUses;
-		this.onReadyChanged = onReadyChanged;
-	}
 
 	public bool TryUse()
 	{

@@ -22,29 +22,19 @@ public class RankedMultiplayerScore : MonoBehaviourTick
 		public float PointsOnDefense;
 	}
 
-	public struct PlayerScoreInRound
+	public struct PlayerScoreInRound(int id, bool initInfected = false)
 	{
-		public int PlayerId;
+		public int PlayerId = id;
 
-		public int NumTags;
+		public int NumTags = 0;
 
-		public float PointsOnDefense;
+		public float PointsOnDefense = 0f;
 
-		public float JoinTime;
+		public float JoinTime = Time.time;
 
-		public float TaggedTime;
+		public float TaggedTime = (initInfected ? Time.time : 0f);
 
-		public bool Infected;
-
-		public PlayerScoreInRound(int id, bool initInfected = false)
-		{
-			PlayerId = id;
-			NumTags = 0;
-			PointsOnDefense = 0f;
-			JoinTime = Time.time;
-			Infected = initInfected;
-			TaggedTime = (initInfected ? Time.time : 0f);
-		}
+		public bool Infected = initInfected;
 	}
 
 	public struct ResultData
