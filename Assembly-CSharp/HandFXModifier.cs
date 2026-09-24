@@ -18,17 +18,17 @@ public class HandFXModifier : FXModifier
 
 	private void Awake()
 	{
-		originalScale = base.transform.localScale;
+		originalScale = transform.localScale;
 	}
 
 	private void OnDisable()
 	{
-		base.transform.localScale = originalScale;
+		transform.localScale = originalScale;
 	}
 
 	public override void UpdateScale(float scale, Color color)
 	{
 		scale = Mathf.Clamp(scale, minScale, maxScale);
-		base.transform.localScale = originalScale * scale;
+		transform.localScale = originalScale * scale;
 	}
 }

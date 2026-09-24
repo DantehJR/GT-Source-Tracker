@@ -150,7 +150,7 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 	{
 		base.ResetToDefaultState();
 		balloonState = BalloonStates.Normal;
-		base.transform.localScale = Vector3.one;
+		transform.localScale = Vector3.one;
 	}
 
 	protected override void OnWorldShareableItemSpawn()
@@ -194,7 +194,7 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 		{
 			balloonDynamics.ReParent();
 		}
-		base.transform.parent = DefaultAnchor();
+		transform.parent = DefaultAnchor();
 		base.OnItemDestroyedOrDisabled();
 	}
 
@@ -343,7 +343,7 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 		case BalloonStates.WaitForReDock:
 			if (Attached())
 			{
-				fullyInflatedScale = base.transform.localScale;
+				fullyInflatedScale = transform.localScale;
 				ReDock();
 				balloonState = BalloonStates.Waiting;
 			}
@@ -358,7 +358,7 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 			}
 			else
 			{
-				base.transform.localScale = new Vector3(beginScale, beginScale, beginScale);
+				transform.localScale = new Vector3(beginScale, beginScale, beginScale);
 			}
 			break;
 		case BalloonStates.Refilling:
@@ -366,7 +366,7 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 			float num = Time.time - timer;
 			if (num >= scaleTimerLength)
 			{
-				base.transform.localScale = fullyInflatedScale;
+				transform.localScale = fullyInflatedScale;
 				balloonState = BalloonStates.Normal;
 				if (gripInteractor != null)
 				{
@@ -375,7 +375,7 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 			}
 			num = Mathf.Clamp01(num / scaleTimerLength);
 			float num2 = Mathf.Lerp(beginScale, 1f, num);
-			base.transform.localScale = fullyInflatedScale * num2;
+			transform.localScale = fullyInflatedScale * num2;
 			break;
 		}
 		case BalloonStates.Returning:
@@ -420,9 +420,9 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 		if (InHand() && detatchOnGrab)
 		{
 			float num = ((targetRig != null) ? targetRig.transform.localScale.x : 1f);
-			base.transform.localScale = Vector3.one * num;
+			transform.localScale = Vector3.one * num;
 		}
-		if (Dropped() && balloonState == BalloonStates.Normal && maxDistanceFromOwner > 0f && (!NetworkSystem.Instance.InRoom || originalOwner.IsLocal) && (VRRig.LocalRig.transform.position - base.transform.position).IsLongerThan(maxDistanceFromOwner * base.transform.localScale.x))
+		if (Dropped() && balloonState == BalloonStates.Normal && maxDistanceFromOwner > 0f && (!NetworkSystem.Instance.InRoom || originalOwner.IsLocal) && (VRRig.LocalRig.transform.position - transform.position).IsLongerThan(maxDistanceFromOwner * transform.localScale.x))
 		{
 			OwnerPopBalloon();
 		}
@@ -448,14 +448,14 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 			if (detatchOnGrab)
 			{
 				float num = ((targetRig != null) ? targetRig.transform.localScale.x : 1f);
-				base.transform.localScale = Vector3.one * num;
+				transform.localScale = Vector3.one * num;
 				EnableDynamics(enable: true, collider: true);
 				balloonDynamics.EnableDistanceConstraints(v: true, num);
 				lineRenderer.enabled = true;
 			}
 			else
 			{
-				base.transform.localScale = Vector3.one;
+				transform.localScale = Vector3.one;
 			}
 		}
 	}
@@ -469,7 +469,7 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 		else if (balloonDynamics != null)
 		{
 			float num = ((targetRig != null) ? targetRig.transform.localScale.x : 1f);
-			base.transform.localScale = Vector3.one * num;
+			transform.localScale = Vector3.one * num;
 			EnableDynamics(enable: true, collider: true);
 			balloonDynamics.EnableDistanceConstraints(v: false, num);
 			lineRenderer.enabled = false;
@@ -501,7 +501,7 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 				forceAppliedAsRemote = force;
 				collisionPtAsRemote = collisionPt;
 			}
-			component.RequestOwnershipImmediately(delegate
+			component.RequestOwnershipImmediately(() =>
 			{
 			});
 		}
@@ -529,9 +529,9 @@ public class BalloonHoldable : TransferrableObject, IFXContext
 
 	void IFXContext.OnPlayFX()
 	{
-		GameObject obj = ObjectPools.instance.Instantiate(balloonPopFXPrefab);
-		obj.transform.SetPositionAndRotation(base.transform.position, base.transform.rotation);
-		GorillaColorizableBase componentInChildren = obj.GetComponentInChildren<GorillaColorizableBase>();
+		GameObject gameObject = ObjectPools.instance.Instantiate(balloonPopFXPrefab);
+		gameObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
+		GorillaColorizableBase componentInChildren = gameObject.GetComponentInChildren<GorillaColorizableBase>();
 		if (componentInChildren != null)
 		{
 			componentInChildren.SetColor(balloonPopFXColor);

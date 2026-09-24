@@ -20,9 +20,9 @@ public class TransformRotator : MonoBehaviour
 
 	private async void Start()
 	{
-		baseRotation = base.transform.localRotation;
-		base.gameObject.SetActive(value: false);
-		while (((bool)base.gameObject && GorillaComputer.instance == null) || GorillaComputer.instance.GetServerTime().Year < 2000)
+		baseRotation = transform.localRotation;
+		gameObject.SetActive(value: false);
+		while (((bool)gameObject && GorillaComputer.instance == null) || GorillaComputer.instance.GetServerTime().Year < 2000)
 		{
 			await Task.Yield();
 		}
@@ -33,9 +33,9 @@ public class TransformRotator : MonoBehaviour
 			await Task.Yield();
 		}
 		Debug.Log($"TransformRotator :: anchor = {anchor}");
-		if ((bool)base.gameObject)
+		if ((bool)gameObject)
 		{
-			base.gameObject.SetActive(value: true);
+			gameObject.SetActive(value: true);
 		}
 	}
 
@@ -52,6 +52,6 @@ public class TransformRotator : MonoBehaviour
 			num = sinAmp * Mathf.Sin(num / sinAmp);
 		}
 		Quaternion quaternion = Quaternion.AngleAxis(num, axis);
-		base.transform.localRotation = baseRotation * quaternion;
+		transform.localRotation = baseRotation * quaternion;
 	}
 }

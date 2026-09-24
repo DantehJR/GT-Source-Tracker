@@ -46,7 +46,7 @@ public class PlayerCollection : MonoBehaviour
 		Collider[] components = GetComponents<Collider>();
 		for (int i = 0; i < components.Length; i++)
 		{
-			if (Physics.ComputePenetration(components[i], base.transform.position, base.transform.rotation, component, component.transform.position, component.transform.rotation, out var _, out var _))
+			if (Physics.ComputePenetration(components[i], transform.position, transform.rotation, component, component.transform.position, component.transform.rotation, out var _, out var _))
 			{
 				return;
 			}

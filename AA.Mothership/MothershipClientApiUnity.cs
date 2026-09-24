@@ -45,6 +45,8 @@ public static class MothershipClientApiUnity
 
 	private static MothershipGetUserInventoryCallback getUserInventoryCallback;
 
+	private static MothershipGetMergedInventoryCallback getMergedInventoryCallback;
+
 	private static MothershipGetStorefrontCallback getStorefrontCallback;
 
 	private static MothershipPurchaseOfferCallback purchaseOfferCallback;
@@ -68,6 +70,14 @@ public static class MothershipClientApiUnity
 	private static MothershipFinalizeSteamSubscriptionPurchaseCallback finalizeSteamSubPurchaseCallback;
 
 	private static MothershipGetFileDetailsCompleteCallback getFileDetailsCompleteCallback;
+
+	private static MothershipConsumeCompleteCallback consumeConsumableCompleteCallback;
+
+	private static MothershipSteamInitTransactionCallback initSteamPurchaseCallback;
+
+	private static MothershipSteamFinalizeTransactionCallback finalizeSteamPurchaseCallback;
+
+	private static MothershipRefreshIAPCallback refreshIAPCallback;
 
 	public static event Action<nint> OnOpenNotificationSocket;
 
@@ -116,6 +126,8 @@ public static class MothershipClientApiUnity
 				client.SetCreateReportCompleteClientDelegateWrapper(createReportCallback);
 				getUserInventoryCallback = new MothershipGetUserInventoryCallback();
 				client.SetGetUserInventoryCompleteClientDelegateWrapper(getUserInventoryCallback);
+				getMergedInventoryCallback = new MothershipGetMergedInventoryCallback();
+				client.SetGetMergedInventoryCompleteClientDelegateWrapper(getMergedInventoryCallback);
 				getStorefrontCallback = new MothershipGetStorefrontCallback();
 				client.SetGetStorefrontCompleteClientDelegateWrapper(getStorefrontCallback);
 				purchaseOfferCallback = new MothershipPurchaseOfferCallback();
@@ -147,6 +159,14 @@ public static class MothershipClientApiUnity
 				client.SetClientFinalizeSteamSubscriptionPurchaseCompleteDelegateWrapper(finalizeSteamSubPurchaseCallback);
 				getFileDetailsCompleteCallback = new MothershipGetFileDetailsCompleteCallback();
 				client.SetGetFileCompleteDelegateWrapper(getFileDetailsCompleteCallback);
+				consumeConsumableCompleteCallback = new MothershipConsumeCompleteCallback();
+				client.SetConsumeConsumableCompleteClientDelegateWrapper(consumeConsumableCompleteCallback);
+				initSteamPurchaseCallback = new MothershipSteamInitTransactionCallback();
+				client.SetInitSteamPurchaseCompleteDelegateWrapper(initSteamPurchaseCallback);
+				finalizeSteamPurchaseCallback = new MothershipSteamFinalizeTransactionCallback();
+				client.SetFinalizeSteamPurchaseCompleteDelegateWrapper(finalizeSteamPurchaseCallback);
+				refreshIAPCallback = new MothershipRefreshIAPCallback();
+				client.SetMothershipRefreshIAPCompleteDelegateWrapper(refreshIAPCallback);
 			}
 			catch (Exception exception)
 			{
@@ -347,6 +367,21 @@ public static class MothershipClientApiUnity
 		return client.CompleteSteamAuth(nonce, steamTicket, userData);
 	}
 
+	public static bool LogInWithSynthesisVR(long DeviceId, Action<LoginResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled)
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<LoginResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.LoginWithSynthesisVR(DeviceId, userData);
+	}
+
 	public static bool GetUserDataValue(string keyName, Action<MothershipUserData> successAction, Action<MothershipError, int> errorAction, string targetId = "")
 	{
 		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
@@ -410,6 +445,21 @@ public static class MothershipClientApiUnity
 		return client.GetUserInventory(MothershipClientContext.MothershipId, userData);
 	}
 
+	public static bool GetUserInventory(string TargetPlayerMothershipId, Action<MothershipGetMergedInventoryResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<MothershipGetMergedInventoryResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.GetMergedInventory(MothershipClientContext.MothershipId, TargetPlayerMothershipId, userData);
+	}
+
 	public static bool GetStorefront(string[] offerDisplays, Action<MothershipGetStorefrontResponse> successAction, Action<MothershipError, int> errorAction)
 	{
 		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
@@ -440,6 +490,66 @@ public static class MothershipClientApiUnity
 		return client.PurchaseOffer(MothershipClientContext.MothershipId, offerDisplayId, offerId, displayIndex, userData);
 	}
 
+	public static bool ConsumeConsumable(string entitlementId, Action<MothershipConsumeConsumableResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<MothershipConsumeConsumableResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.ConsumeConsumable(MothershipClientContext.MothershipId, entitlementId, userData);
+	}
+
+	public static bool RefreshMetaIAP(Action<MothershipRefreshIAPResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<MothershipRefreshIAPResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.RefreshIAP(MothershipClientContext.MothershipId, userData);
+	}
+
+	public static bool InitSteamPurchase(string displayId, string offerId, int displayIndex, Action<InitSteamPurchaseResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<InitSteamPurchaseResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.InitSteamPurchase(MothershipClientContext.MothershipId, displayId, offerId, displayIndex, userData);
+	}
+
+	public static bool FinalizeSteamPurchase(string steamOrderId, Action<FinalizeSteamPurchaseResponse> successAction, Action<MothershipError, int> errorAction)
+	{
+		if (!isEnabled || !MothershipClientContext.IsClientLoggedIn())
+		{
+			Debug.LogError("Tried to call a Mothership API, but Mothership is not enabled or the user hasn't ever logged in");
+			return false;
+		}
+		IntPtr userData = (IntPtr)GCHandle.Alloc(new CallbackPair<FinalizeSteamPurchaseResponse>
+		{
+			successCallback = successAction,
+			errorCallback = errorAction
+		});
+		return client.FinalizeSteamPurchase(MothershipClientContext.MothershipId, steamOrderId, userData);
+	}
+
 	public static bool OpenNotificationsSocket()
 	{
 		if (notificationWrapper.SocketState == WebSocketState.Open)
@@ -462,25 +572,25 @@ public static class MothershipClientApiUnity
 
 	private static void InvokeOpenNotificationSocket(nint userData)
 	{
-		MothershipClientApiUnity.OnOpenNotificationSocket?.Invoke(userData);
+		OnOpenNotificationSocket?.Invoke(userData);
 		Debug.Log("NOTIFICATIONS opened");
 	}
 
 	private static void InvokeMessageNotificationSocket(NotificationsMessageResponse notification, nint userData)
 	{
-		MothershipClientApiUnity.OnMessageNotificationSocket?.Invoke(notification, userData);
+		OnMessageNotificationSocket?.Invoke(notification, userData);
 		Debug.Log("NOTIFICATIONS messaged \n" + notification.Title + "\n" + notification.Body);
 	}
 
 	private static void InvokeCloseNotificationSocket(nint userData)
 	{
-		MothershipClientApiUnity.OnCloseNotificationSocket?.Invoke(userData);
+		OnCloseNotificationSocket?.Invoke(userData);
 		Debug.Log("NOTIFICATIONS closed");
 	}
 
 	private static void InvokeErrorNotificationSocket(nint userData)
 	{
-		MothershipClientApiUnity.OnErrorNotificationSocket?.Invoke(userData);
+		OnErrorNotificationSocket?.Invoke(userData);
 		Debug.Log("NOTIFICATIONS errored");
 	}
 

@@ -41,7 +41,7 @@ public class FlagEvents<T> where T : Enum
 		int num = Convert.ToInt32(test);
 		for (int i = 0; i < list.Length; i++)
 		{
-			if ((num & list[i].flagsAsInt) != 0 && (!list[i].runOnlyLocally || isLocal))
+			if ((num & list[i].flagsAsInt) != 0 && (!list[i].runOnlyLocally | isLocal))
 			{
 				list[i].anyFlagTrue?.Invoke();
 			}

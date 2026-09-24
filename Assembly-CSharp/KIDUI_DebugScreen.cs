@@ -6,7 +6,7 @@ public class KIDUI_DebugScreen : MonoBehaviour
 
 	private void Awake()
 	{
-		Object.DestroyImmediate(base.gameObject);
+		Object.DestroyImmediate(gameObject);
 	}
 
 	public void OnResetUserAndQuit()

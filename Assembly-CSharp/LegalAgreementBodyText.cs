@@ -52,7 +52,7 @@ public class LegalAgreementBodyText : MonoBehaviour
 			Text text2;
 			if (i >= textCollection.Count)
 			{
-				text2 = UnityEngine.Object.Instantiate(textBox, base.transform);
+				text2 = UnityEngine.Object.Instantiate(textBox, transform);
 				textCollection.Add(text2);
 			}
 			else

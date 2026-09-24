@@ -80,7 +80,7 @@ public sealed class AlarmClock : MonoBehaviour
 			yield return null;
 		}
 		_VIMLabel.SetActive(IsVIMOnly);
-		_button.isSubscriberOnlyButton = IsVIMOnly;
+		_button.SetIsSubscriberButton(IsVIMOnly);
 		if (AlarmClockManager.Instance.ActiveKey == _key)
 		{
 			OnActivateCallback();
@@ -105,8 +105,14 @@ public sealed class AlarmClock : MonoBehaviour
 		if (Initialized && !(Time.time < _lastTouchTime + 0.25f) && ShouldBePressable)
 		{
 			_lastTouchTime = Time.time;
-			AlarmClockManager.ToggleAlarmClock(this);
+			ToggleAlarmClock();
 		}
+	}
+
+	[ContextMenu("Set Alarm Clock")]
+	private void ToggleAlarmClock()
+	{
+		AlarmClockManager.ToggleAlarmClock(this);
 	}
 
 	private void OnActivateCallback()

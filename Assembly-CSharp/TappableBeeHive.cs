@@ -28,8 +28,8 @@ public class TappableBeeHive : Tappable
 	{
 		if (swarmEmergeFromPoint == null || swarmEmergeToPoint == null)
 		{
-			Debug.LogError("TappableBeeHive: Disabling because swarmEmergePoint is null at: " + base.transform.GetPath(), this);
-			base.enabled = false;
+			Debug.LogError("TappableBeeHive: Disabling because swarmEmergePoint is null at: " + transform.GetPath(), this);
+			enabled = false;
 		}
 		else
 		{

@@ -209,7 +209,7 @@ public class GRKiosk : MonoBehaviour
 			ItemId = _cosmeticForPurchase.itemName,
 			Price = _cosmeticForPurchase.cost,
 			VirtualCurrency = "SR"
-		}, delegate(PurchaseItemResult result)
+		}, (PurchaseItemResult result) =>
 		{
 			_purchaseState = ((result.Items.Count > 0) ? PurchaseState.AlreadyOwned : PurchaseState.AvailableForPurchase);
 			if (_purchaseParticles != null)
@@ -218,7 +218,7 @@ public class GRKiosk : MonoBehaviour
 			}
 			GorillaTagger.Instance.offlineVRRig.AddCosmetic(_cosmeticForPurchase.itemName);
 			ProcessPurchaseItemState(null);
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.LogError(error.ToString());
 		});

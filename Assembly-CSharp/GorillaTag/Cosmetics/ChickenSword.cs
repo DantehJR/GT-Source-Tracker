@@ -66,8 +66,20 @@ public class ChickenSword : MonoBehaviour
 	{
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((transferrableObject.myOnlineRig != null) ? transferrableObject.myOnlineRig.creator : ((!(transferrableObject.myRig != null)) ? null : ((transferrableObject.myRig.creator != null) ? transferrableObject.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (transferrableObject.myOnlineRig != null)
+			{
+				netPlayer = transferrableObject.myOnlineRig.creator;
+			}
+			else if (transferrableObject.myRig != null)
+			{
+				netPlayer = ((transferrableObject.myRig.creator != null) ? transferrableObject.myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);
@@ -153,7 +165,7 @@ public class ChickenSword : MonoBehaviour
 		if (sender == target)
 		{
 			MonkeAgent.IncrementRPCCall(info, "OnReachedLastTransformationStep");
-			if (callLimiter.CheckCallTime(Time.time) && VRRigCache.Instance.TryGetVrrig(NetworkSystem.Instance.GetPlayer(info.Sender.ActorNumber), out var playerRig) && playerRig.Rig.IsPositionInRange(base.transform.position, 6f))
+			if (callLimiter.CheckCallTime(Time.time) && VRRigCache.Instance.TryGetVrrig(NetworkSystem.Instance.GetPlayer(info.Sender.ActorNumber), out var playerRig) && playerRig.Rig.IsPositionInRange(transform.position, 6f))
 			{
 				OnReachedLastTransformationStepShared?.Invoke(playerRig.Rig);
 			}

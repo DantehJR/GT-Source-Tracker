@@ -180,7 +180,7 @@ public class VerletLine : MonoBehaviour
 		segmentLength = Mathf.Lerp(segmentLength, segmentTargetLength, resizeSpeed * resizeScale * Time.deltaTime);
 		if (scaleLineWidth)
 		{
-			line.widthMultiplier = base.transform.lossyScale.x;
+			line.widthMultiplier = transform.lossyScale.x;
 		}
 	}
 

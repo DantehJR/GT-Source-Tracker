@@ -8,13 +8,13 @@ public static class JsonObjectExtensions
 	{
 		if (!obj.TryGetValue(key, out var value))
 		{
-			return default(T);
+			return default;
 		}
 		if (value is T)
 		{
 			return (T)value;
 		}
-		return default(T);
+		return default;
 	}
 
 	public static bool TryGetValue<T>(this JsonObject obj, string key, out T? t)

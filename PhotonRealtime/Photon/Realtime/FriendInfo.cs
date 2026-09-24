@@ -27,6 +27,16 @@ public class FriendInfo
 
 	public override string ToString()
 	{
-		return string.Format("{0}\t is: {1}", UserId, (!IsOnline) ? "offline" : (IsInRoom ? "playing" : "on master"));
+		string userId = UserId;
+		string arg;
+		if (IsOnline)
+		{
+			arg = (IsInRoom ? "playing" : "on master");
+		}
+		else
+		{
+			arg = "offline";
+		}
+		return $"{userId}\t is: {arg}";
 	}
 }

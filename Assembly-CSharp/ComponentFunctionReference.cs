@@ -41,7 +41,7 @@ public sealed class ComponentFunctionReference<TResult>
 		{
 			yield break;
 		}
-		yield return new ValueDropdownItem<MethodRef>("NONE", default(MethodRef));
+		yield return new ValueDropdownItem<MethodRef>("NONE", default);
 		Type type = typeof(GameObject);
 		BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 		MethodInfo[] methods = type.GetMethods(flags);
@@ -77,7 +77,7 @@ public sealed class ComponentFunctionReference<TResult>
 		}
 		if (_cached == null)
 		{
-			return default(TResult);
+			return default;
 		}
 		return _cached();
 	}

@@ -75,16 +75,16 @@ public class PaintbrawlBalloons : MonoBehaviour
 		}
 		else if (GorillaGameManager.instance != null)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 		UpdateBalloonColors();
 	}
 
 	private void PopBalloon(int i)
 	{
-		GameObject obj = ObjectPools.instance.Instantiate(balloonPopFXPrefab);
-		obj.transform.position = balloons[i].transform.position;
-		GorillaColorizableBase componentInChildren = obj.GetComponentInChildren<GorillaColorizableBase>();
+		GameObject gameObject = ObjectPools.instance.Instantiate(balloonPopFXPrefab);
+		gameObject.transform.position = balloons[i].transform.position;
+		GorillaColorizableBase componentInChildren = gameObject.GetComponentInChildren<GorillaColorizableBase>();
 		if (componentInChildren != null)
 		{
 			componentInChildren.SetColor(teamColor);

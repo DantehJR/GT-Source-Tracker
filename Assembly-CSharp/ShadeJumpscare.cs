@@ -50,7 +50,7 @@ public class ShadeJumpscare : MonoBehaviour
 	{
 		float num = Time.time - startTime;
 		float time = num / animationTime;
-		shadeTransform.SetPositionAndRotation(base.transform.position + new Vector3(0f, shadeHeightFunction.Evaluate(time), 0f), Quaternion.Euler(0f, startAngle + num * shadeRotationSpeed, 0f));
+		shadeTransform.SetPositionAndRotation(transform.position + new Vector3(0f, shadeHeightFunction.Evaluate(time), 0f), Quaternion.Euler(0f, startAngle + num * shadeRotationSpeed, 0f));
 		float num2 = shadeScaleFunction.Evaluate(time);
 		shadeTransform.localScale = new Vector3(num2, num2 * shadeYScaleMultFunction.Evaluate(time), num2);
 		audioSource.volume = soundVolumeFunction.Evaluate(time);

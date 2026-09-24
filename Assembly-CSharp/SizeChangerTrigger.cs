@@ -21,17 +21,17 @@ public class SizeChangerTrigger : MonoBehaviour, IBuilderPieceComponent
 
 	public void OnTriggerEnter(Collider other)
 	{
-		if (this.OnEnter != null)
+		if (OnEnter != null)
 		{
-			this.OnEnter(other);
+			OnEnter(other);
 		}
 	}
 
 	public void OnTriggerExit(Collider other)
 	{
-		if (this.OnExit != null)
+		if (OnExit != null)
 		{
-			this.OnExit(other);
+			OnExit(other);
 		}
 	}
 

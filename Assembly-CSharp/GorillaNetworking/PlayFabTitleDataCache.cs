@@ -173,7 +173,7 @@ public class PlayFabTitleDataCache : MonoBehaviour
 				}
 			}
 			bool finished = false;
-			if (!MothershipClientApiUnity.ListMothershipTitleData(MothershipClientApiUnity.TitleId, MothershipClientApiUnity.EnvironmentId, MothershipClientApiUnity.DeploymentId, stringVector, delegate(ListClientMothershipTitleDataResponse response)
+			if (!MothershipClientApiUnity.ListMothershipTitleData(MothershipClientApiUnity.TitleId, MothershipClientApiUnity.EnvironmentId, MothershipClientApiUnity.DeploymentId, stringVector, (ListClientMothershipTitleDataResponse response) =>
 			{
 				if (response != null && response.Results != null)
 				{
@@ -199,7 +199,7 @@ public class PlayFabTitleDataCache : MonoBehaviour
 					UnityEngine.Debug.LogError("[PlayFabTitleDataCache::UpdateDataCo] " + mothershipError);
 				}
 				finished = true;
-			}, delegate(MothershipError error, int statusCode)
+			}, (MothershipError error, int statusCode) =>
 			{
 				mothershipError = string.Format("Error fetching title data: {0} (Status: {1})", error?.Message ?? "Unknown error", statusCode);
 				UnityEngine.Debug.LogError("[PlayFabTitleDataCache::UpdateDataCo] Mothership API error callback - " + mothershipError);

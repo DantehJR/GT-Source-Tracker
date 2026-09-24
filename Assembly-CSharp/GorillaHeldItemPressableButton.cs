@@ -49,7 +49,7 @@ public class GorillaHeldItemPressableButton : MonoBehaviour, IDelayedExecListene
 
 	protected void OnTriggerEnter(Collider collider)
 	{
-		if (!base.enabled || !(touchTime + delayBetweenSuccessfulPresses < Time.time))
+		if (!enabled || !(touchTime + delayBetweenSuccessfulPresses < Time.time))
 		{
 			return;
 		}
@@ -78,14 +78,14 @@ public class GorillaHeldItemPressableButton : MonoBehaviour, IDelayedExecListene
 		{
 		case HeldItemButtonMode.OneShot:
 			onPressButton?.Invoke(componentInParent);
-			this.onPressed?.Invoke(this, componentInParent, componentInParent.InLeftHand());
+			onPressed?.Invoke(this, componentInParent, componentInParent.InLeftHand());
 			ButtonActivation(componentInParent);
 			ButtonActivationWithHand(componentInParent, componentInParent.InLeftHand());
 			break;
 		case HeldItemButtonMode.ResetAfterDelay:
 			isOn = true;
 			onPressButton?.Invoke(componentInParent);
-			this.onPressed?.Invoke(this, componentInParent, componentInParent.InLeftHand());
+			onPressed?.Invoke(this, componentInParent, componentInParent.InLeftHand());
 			ButtonActivation(componentInParent);
 			ButtonActivationWithHand(componentInParent, componentInParent.InLeftHand());
 			GTDelayedExec.Add(this, delayBetweenSuccessfulPresses, 0);
@@ -95,14 +95,14 @@ public class GorillaHeldItemPressableButton : MonoBehaviour, IDelayedExecListene
 			if (isOn)
 			{
 				onPressButton?.Invoke(componentInParent);
-				this.onPressed?.Invoke(this, componentInParent, componentInParent.InLeftHand());
+				onPressed?.Invoke(this, componentInParent, componentInParent.InLeftHand());
 				ButtonActivation(componentInParent);
 				ButtonActivationWithHand(componentInParent, componentInParent.InLeftHand());
 			}
 			else
 			{
 				onReleaseButton?.Invoke(componentInParent);
-				this.onReleased?.Invoke(this, componentInParent, componentInParent.InLeftHand());
+				onReleased?.Invoke(this, componentInParent, componentInParent.InLeftHand());
 			}
 			break;
 		}
@@ -137,7 +137,7 @@ public class GorillaHeldItemPressableButton : MonoBehaviour, IDelayedExecListene
 	{
 		isOn = false;
 		onReleaseButton?.Invoke(null);
-		this.onReleased?.Invoke(this, null, arg3: false);
+		onReleased?.Invoke(this, null, arg3: false);
 	}
 
 	public void OnDelayedAction(int contextIndex)

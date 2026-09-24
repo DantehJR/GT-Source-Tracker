@@ -2,6 +2,7 @@ using System;
 using GorillaExtensions;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR;
 
 namespace GorillaTag.Cosmetics;
 
@@ -22,7 +23,11 @@ public class FingerFlexEvent2 : MonoBehaviour, ITickSystemTick
 			Index,
 			Middle,
 			IndexAndMiddle,
-			IndexOrMiddle
+			IndexOrMiddle,
+			StickLeft,
+			StickRight,
+			StickUp,
+			StickDown
 		}
 
 		public enum HandType
@@ -215,7 +220,7 @@ public class FingerFlexEvent2 : MonoBehaviour, ITickSystemTick
 
 	private void CalcFlex(bool disable)
 	{
-		float num2 = default(float);
+		float num2 = default;
 		for (int i = 0; i < list.Length; i++)
 		{
 			FlexEvent flexEvent = list[i];
@@ -239,13 +244,13 @@ public class FingerFlexEvent2 : MonoBehaviour, ITickSystemTick
 				{
 					flag = myTransferrable.currentState == TransferrableObject.PositionState.InLeftHand;
 					flag2 = myTransferrable.currentState == TransferrableObject.PositionState.InRightHand;
-					flag3 = flag || flag2;
+					flag3 = flag | flag2;
 				}
 				else if (myHeldItem != null)
 				{
 					flag = myHeldItem.InLeftHand();
 					flag2 = !flag && myHeldItem.InHand();
-					flag3 = flag || flag2;
+					flag3 = flag | flag2;
 				}
 				break;
 			case FlexEvent.HandType.EquippedSide:
@@ -253,7 +258,7 @@ public class FingerFlexEvent2 : MonoBehaviour, ITickSystemTick
 				flag2 = (myTransferrable.storedZone & (BodyDockPositions.DropPositions.RightArm | BodyDockPositions.DropPositions.RightBack)) != 0;
 				break;
 			}
-			if ((flag && flag2) || (!flag && !flag2 && !flexEvent.wasHeld))
+			if ((flag & flag2) || (!flag && !flag2 && !flexEvent.wasHeld))
 			{
 				continue;
 			}
@@ -282,8 +287,20 @@ public class FingerFlexEvent2 : MonoBehaviour, ITickSystemTick
 				case FlexEvent.FingerType.IndexOrMiddle:
 					num2 = (flag ? Mathf.Max(myRig.leftIndex.calcT, myRig.leftMiddle.calcT) : Mathf.Max(myRig.rightIndex.calcT, myRig.rightMiddle.calcT));
 					break;
+				case FlexEvent.FingerType.StickLeft:
+					num2 = Mathf.Max(0f, 0f - ControllerInputPoller.Primary2DAxis(flag ? XRNode.LeftHand : XRNode.RightHand).x);
+					break;
+				case FlexEvent.FingerType.StickRight:
+					num2 = Mathf.Max(0f, ControllerInputPoller.Primary2DAxis(flag ? XRNode.LeftHand : XRNode.RightHand).x);
+					break;
+				case FlexEvent.FingerType.StickUp:
+					num2 = Mathf.Max(0f, ControllerInputPoller.Primary2DAxis(flag ? XRNode.LeftHand : XRNode.RightHand).y);
+					break;
+				case FlexEvent.FingerType.StickDown:
+					num2 = Mathf.Max(0f, 0f - ControllerInputPoller.Primary2DAxis(flag ? XRNode.LeftHand : XRNode.RightHand).y);
+					break;
 				default:
-					global::_003CPrivateImplementationDetails_003E.ThrowSwitchExpressionException(fingerType);
+					_003CPrivateImplementationDetails_003E.ThrowSwitchExpressionException(fingerType);
 					break;
 				}
 				num = num2;

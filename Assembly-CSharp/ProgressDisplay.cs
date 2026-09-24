@@ -18,7 +18,7 @@ public class ProgressDisplay : MonoBehaviour
 
 	private void Reset()
 	{
-		root = base.gameObject;
+		root = gameObject;
 	}
 
 	public void SetVisible(bool visible)

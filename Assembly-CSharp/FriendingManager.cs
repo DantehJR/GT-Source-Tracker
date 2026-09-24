@@ -104,7 +104,7 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 
 	private void AuthorityUpdate()
 	{
-		if (!PhotonNetwork.InRoom || !base.photonView.IsMine)
+		if (!PhotonNetwork.InRoom || !photonView.IsMine)
 		{
 			return;
 		}
@@ -122,7 +122,7 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 				}
 				else
 				{
-					base.photonView.RPC("NotifyClientsFriendRequestReadyRPC", RpcTarget.All, value.zone);
+					photonView.RPC("NotifyClientsFriendRequestReadyRPC", RpcTarget.All, value.zone);
 					value.state = FriendStationState.WaitingOnRequestBoth;
 				}
 				activeFriendStationData[i] = value;
@@ -197,7 +197,7 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 		{
 			localPlayerZone = zone;
 		}
-		if (!PhotonNetwork.InRoom || !base.photonView.IsMine)
+		if (!PhotonNetwork.InRoom || !photonView.IsMine)
 		{
 			return;
 		}
@@ -239,7 +239,7 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 			}
 			if (activeFriendStationData[i].state == FriendStationState.WaitingOnFriendStatusBoth)
 			{
-				base.photonView.RPC("CheckFriendStatusRequestRPC", RpcTarget.All, activeFriendStationData[i].zone, activeFriendStationData[i].actorNumberA, activeFriendStationData[i].actorNumberB);
+				photonView.RPC("CheckFriendStatusRequestRPC", RpcTarget.All, activeFriendStationData[i].zone, activeFriendStationData[i].actorNumberA, activeFriendStationData[i].actorNumberB);
 			}
 			break;
 		}
@@ -262,7 +262,7 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 		{
 			localPlayerZone = GTZone.none;
 		}
-		if (!PhotonNetwork.InRoom || !base.photonView.IsMine)
+		if (!PhotonNetwork.InRoom || !photonView.IsMine)
 		{
 			return;
 		}
@@ -300,14 +300,14 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 		UpdateFriendingStations();
 		if (num >= 0)
 		{
-			base.photonView.RPC("StationNoLongerActiveRPC", RpcTarget.Others, activeFriendStationData[num].zone);
+			photonView.RPC("StationNoLongerActiveRPC", RpcTarget.Others, activeFriendStationData[num].zone);
 			activeFriendStationData.RemoveAt(num);
 		}
 	}
 
 	private void PlayerPressedButton(GTZone zone, int playerId)
 	{
-		if (!PhotonNetwork.InRoom || !base.photonView.IsMine)
+		if (!PhotonNetwork.InRoom || !photonView.IsMine)
 		{
 			return;
 		}
@@ -345,7 +345,7 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 
 	private void PlayerUnpressedButton(GTZone zone, int playerId)
 	{
-		if (!PhotonNetwork.InRoom || !base.photonView.IsMine)
+		if (!PhotonNetwork.InRoom || !photonView.IsMine)
 		{
 			return;
 		}
@@ -407,11 +407,11 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 				}
 				if (num != -1 && FriendSystem.Instance.CheckFriendshipWithPlayer(num))
 				{
-					base.photonView.RPC("CheckFriendStatusResponseRPC", RpcTarget.MasterClient, localPlayerZone, num, true);
+					photonView.RPC("CheckFriendStatusResponseRPC", RpcTarget.MasterClient, localPlayerZone, num, true);
 				}
 				else
 				{
-					base.photonView.RPC("CheckFriendStatusResponseRPC", RpcTarget.MasterClient, localPlayerZone, num, false);
+					photonView.RPC("CheckFriendStatusResponseRPC", RpcTarget.MasterClient, localPlayerZone, num, false);
 				}
 				break;
 			}
@@ -420,7 +420,7 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 
 	private void CheckFriendStatusResponse(GTZone zone, int responderActorNumber, int friendTargetActorNumber, bool friends)
 	{
-		if (!PhotonNetwork.InRoom || !base.photonView.IsMine)
+		if (!PhotonNetwork.InRoom || !photonView.IsMine)
 		{
 			return;
 		}
@@ -505,7 +505,7 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 
 	private void FriendRequestCompletedAuthority(GTZone zone, int playerId, bool succeeded)
 	{
-		if (!PhotonNetwork.InRoom || !base.photonView.IsMine)
+		if (!PhotonNetwork.InRoom || !photonView.IsMine)
 		{
 			return;
 		}
@@ -548,12 +548,12 @@ public class FriendingManager : MonoBehaviourPun, IPunObservable, IGorillaSlicea
 
 	private void FriendRequestCallback(GTZone zone, int localId, int friendId, bool success)
 	{
-		if (base.photonView.IsMine)
+		if (photonView.IsMine)
 		{
 			FriendRequestCompletedAuthority(zone, PhotonNetwork.LocalPlayer.ActorNumber, success);
 			return;
 		}
-		base.photonView.RPC("FriendRequestCompletedRPC", RpcTarget.MasterClient, zone, success);
+		photonView.RPC("FriendRequestCompletedRPC", RpcTarget.MasterClient, zone, success);
 	}
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

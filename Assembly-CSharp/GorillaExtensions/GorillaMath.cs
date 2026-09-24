@@ -86,7 +86,7 @@ public static class GorillaMath
 		{
 			return 0f;
 		}
-		FloatIntUnion floatIntUnion = default(FloatIntUnion);
+		FloatIntUnion floatIntUnion = default;
 		floatIntUnion.tmp = 0;
 		float num = 0.5f * z;
 		floatIntUnion.f = z;

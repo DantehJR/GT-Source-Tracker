@@ -96,7 +96,7 @@ public class RigEventGate : MonoBehaviour, IBuildValidation
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.TryGetComponent<RigEventVolumeTrigger>(out var component) && !(base.transform.InverseTransformPoint(component.transform.position).z < 0f) && gameObjects.Contains(component))
+		if (other.gameObject.TryGetComponent<RigEventVolumeTrigger>(out var component) && !(transform.InverseTransformPoint(component.transform.position).z < 0f) && gameObjects.Contains(component))
 		{
 			int num = ((rigCollection == null) ? 1 : rigCollection.Rigs.Count);
 			int count = gameObjects.Count;
@@ -107,7 +107,7 @@ public class RigEventGate : MonoBehaviour, IBuildValidation
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.gameObject.TryGetComponent<RigEventVolumeTrigger>(out var component) && !(base.transform.InverseTransformPoint(component.transform.position).z < 0f) && !gameObjects.Contains(component))
+		if (other.gameObject.TryGetComponent<RigEventVolumeTrigger>(out var component) && !(transform.InverseTransformPoint(component.transform.position).z < 0f) && !gameObjects.Contains(component))
 		{
 			int num = ((rigCollection == null) ? 1 : rigCollection.Rigs.Count);
 			int count = gameObjects.Count;
@@ -135,7 +135,7 @@ public class RigEventGate : MonoBehaviour, IBuildValidation
 	{
 		if (mode == Mode.RELATIVE && rigCollection == null)
 		{
-			Debug.Log("RigEventGate on " + base.name + " is set to RELATIVE mode but has no Player Count Source. This will crash!");
+			Debug.Log("RigEventGate on " + name + " is set to RELATIVE mode but has no Player Count Source. This will crash!");
 			return false;
 		}
 		return true;

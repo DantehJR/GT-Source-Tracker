@@ -30,7 +30,7 @@ public class SuperInfectionSnapPoint : MonoBehaviour
 		VRRig componentInParent = GetComponentInParent<VRRig>(includeInactive: true);
 		if (componentInParent == null)
 		{
-			throw new NullReferenceException("[SuperInfectionSnapPoint]  ERROR!!!  Expected a VRRig to be in parent hierarchy. Path=\"" + base.transform.GetPathQ() + "\"");
+			throw new NullReferenceException("[SuperInfectionSnapPoint]  ERROR!!!  Expected a VRRig to be in parent hierarchy. Path=\"" + transform.GetPathQ() + "\"");
 		}
 		if (!GTHardCodedBones.TryGetBoneXforms(componentInParent, out var outBoneXforms, out var outErrorMsg))
 		{
@@ -44,14 +44,14 @@ public class SuperInfectionSnapPoint : MonoBehaviour
 		{
 			throw new NullReferenceException("[SuperInfectionSnapPoint]  ERROR!!!  " + $"Could not find bone Transform `{parentBone}`.");
 		}
-		Vector3 localPosition = base.transform.localPosition;
-		Vector3 localEulerAngles = base.transform.localEulerAngles;
+		Vector3 localPosition = transform.localPosition;
+		Vector3 localEulerAngles = transform.localEulerAngles;
 		if (parentTransform != null)
 		{
-			base.transform.SetParent(parentTransform, worldPositionStays: false);
+			transform.SetParent(parentTransform, worldPositionStays: false);
 		}
-		base.transform.localPosition = localPosition;
-		base.transform.localEulerAngles = localEulerAngles;
+		transform.localPosition = localPosition;
+		transform.localEulerAngles = localEulerAngles;
 	}
 
 	public void Clear()

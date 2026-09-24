@@ -70,7 +70,7 @@ public class KIDAgeGate : MonoBehaviour
 		if (_activeReference != null)
 		{
 			Debug.LogError("[KID::Age_Gate] Age Gate already exists, this is a duplicate, deleting the new one");
-			Object.DestroyImmediate(base.gameObject);
+			Object.DestroyImmediate(gameObject);
 		}
 		else
 		{
@@ -236,7 +236,7 @@ public class KIDAgeGate : MonoBehaviour
 		if (!requestCancellationSource.IsCancellationRequested)
 		{
 			Debug.Log("[KID::AGE_GATE] Age gate completed");
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 

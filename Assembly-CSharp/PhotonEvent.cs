@@ -341,7 +341,7 @@ public class PhotonEvent : IEquatable<PhotonEvent>
 		}
 		catch (Exception arg)
 		{
-			PhotonEvent.OnError?.Invoke(evData, arg);
+			OnError?.Invoke(evData, arg);
 		}
 	}
 

@@ -40,7 +40,7 @@ internal static class SpeakerVoiceToLoudnessConfig
 
 	private static void OnTitleDataCacheResponse(string json)
 	{
-		SerializedConfig serializedConfig = default(SerializedConfig);
+		SerializedConfig serializedConfig = default;
 		try
 		{
 			serializedConfig = JsonUtility.FromJson<SerializedConfig>(json);

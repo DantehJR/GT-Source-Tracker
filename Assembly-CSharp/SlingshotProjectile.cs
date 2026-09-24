@@ -149,9 +149,9 @@ public class SlingshotProjectile : MonoBehaviour
 		particleLaunched = true;
 		timeCreated = Time.time;
 		launchPosition = position;
-		Transform obj = base.transform;
-		obj.position = position;
-		obj.localScale = Vector3.one * scale;
+		Transform transform = base.transform;
+		transform.position = position;
+		transform.localScale = Vector3.one * scale;
 		GetComponent<Collider>().contactOffset = 0.01f * scale;
 		RigidbodyWaterInteraction component = GetComponent<RigidbodyWaterInteraction>();
 		if (component != null)
@@ -188,32 +188,32 @@ public class SlingshotProjectile : MonoBehaviour
 		}
 		projectileRigidbody = GetComponent<Rigidbody>();
 		forceComponent = GetComponent<ConstantForce>();
-		initialScale = base.transform.localScale.x;
+		initialScale = transform.localScale.x;
 		matPropBlock = new MaterialPropertyBlock();
 		spawnWorldEffects = GetComponent<SpawnWorldEffects>();
 		remainingLifeTime = lifeTime;
 		gravityController = GetComponent<MonkeGravityController>();
 		if (gravityController == null)
 		{
-			gravityController = base.gameObject.AddComponent<MonkeGravityController>();
+			gravityController = gameObject.AddComponent<MonkeGravityController>();
 		}
 	}
 
 	public void Deactivate()
 	{
-		base.transform.localScale = Vector3.one * initialScale;
+		transform.localScale = Vector3.one * initialScale;
 		projectileRigidbody.useGravity = true;
 		if ((bool)forceComponent)
 		{
 			forceComponent.force = Vector3.zero;
 		}
-		this.OnImpact = null;
+		OnImpact = null;
 		aoeKnockbackConfig = null;
 		impactSoundVolumeOverride = null;
 		impactSoundPitchOverride = null;
 		impactEffectScaleMultiplier = 1f;
 		projectileRigidbody.isKinematic = false;
-		ObjectPools.instance.Destroy(base.gameObject);
+		ObjectPools.instance.Destroy(gameObject);
 	}
 
 	private void SpawnImpactEffect(GameObject prefab, Vector3 position, Vector3 normal)
@@ -221,21 +221,21 @@ public class SlingshotProjectile : MonoBehaviour
 		if (!(prefab == null))
 		{
 			Vector3 position2 = position + normal * impactEffectOffset;
-			GameObject obj = ObjectPools.instance.Instantiate(prefab, position2);
-			Vector3 localScale = base.transform.localScale;
-			obj.transform.localScale = localScale * impactEffectScaleMultiplier;
-			obj.transform.up = normal;
-			GorillaColorizableBase component = obj.GetComponent<GorillaColorizableBase>();
+			GameObject gameObject = ObjectPools.instance.Instantiate(prefab, position2);
+			Vector3 localScale = transform.localScale;
+			gameObject.transform.localScale = localScale * impactEffectScaleMultiplier;
+			gameObject.transform.up = normal;
+			GorillaColorizableBase component = gameObject.GetComponent<GorillaColorizableBase>();
 			if (component != null)
 			{
 				component.SetColor(teamColor);
 			}
-			SurfaceImpactFX component2 = obj.GetComponent<SurfaceImpactFX>();
+			SurfaceImpactFX component2 = gameObject.GetComponent<SurfaceImpactFX>();
 			if (component2 != null)
 			{
 				component2.SetScale(localScale.x * impactEffectScaleMultiplier);
 			}
-			SoundBankPlayer component3 = obj.GetComponent<SoundBankPlayer>();
+			SoundBankPlayer component3 = gameObject.GetComponent<SoundBankPlayer>();
 			if (component3 != null && !component3.playOnEnable)
 			{
 				component3.Play(impactSoundVolumeOverride, impactSoundPitchOverride);
@@ -283,13 +283,33 @@ public class SlingshotProjectile : MonoBehaviour
 		}
 		else
 		{
-			teamColor = (blueTeam ? blueColor : (orangeTeam ? orangeColor : defaultColor));
+			ref Color reference = ref teamColor;
+			Color color;
+			if (blueTeam)
+			{
+				color = blueColor;
+			}
+			else
+			{
+				color = (orangeTeam ? orangeColor : defaultColor);
+			}
+			reference = color;
 		}
 		blueBall.enabled = blueTeam;
 		orangeBall.enabled = orangeTeam;
 		defaultBall.enabled = !blueTeam && !orangeTeam;
-		teamRenderer = (blueTeam ? blueBall : (orangeTeam ? orangeBall : defaultBall));
-		ApplyColor(teamRenderer, (colorizeBalls || shouldOverrideColor) ? teamColor : Color.white);
+		ref Renderer reference2 = ref teamRenderer;
+		Renderer renderer;
+		if (blueTeam)
+		{
+			renderer = blueBall;
+		}
+		else
+		{
+			renderer = (orangeTeam ? orangeBall : defaultBall);
+		}
+		reference2 = renderer;
+		ApplyColor(teamRenderer, (colorizeBalls | shouldOverrideColor) ? teamColor : Color.white);
 	}
 
 	protected void OnEnable()
@@ -330,7 +350,7 @@ public class SlingshotProjectile : MonoBehaviour
 
 	public void DestroyAfterRelease()
 	{
-		SpawnImpactEffect(surfaceImpactEffectPrefab, base.transform.position, Vector3.up);
+		SpawnImpactEffect(surfaceImpactEffectPrefab, transform.position, Vector3.up);
 		Deactivate();
 	}
 
@@ -346,7 +366,7 @@ public class SlingshotProjectile : MonoBehaviour
 
 	public float GetDistanceTraveled()
 	{
-		return (base.transform.position - launchPosition).magnitude;
+		return (transform.position - launchPosition).magnitude;
 	}
 
 	private void SettleProjectile()
@@ -354,7 +374,7 @@ public class SlingshotProjectile : MonoBehaviour
 		if (!isSettled)
 		{
 			int value = floorLayerMask.value;
-			if (Physics.Raycast(base.transform.position, Vector3.down, out var hitInfo, 0.1f, value, QueryTriggerInteraction.Ignore) && Vector3.Angle(hitInfo.normal, Vector3.up) < 40f)
+			if (Physics.Raycast(transform.position, Vector3.down, out var hitInfo, 0.1f, value, QueryTriggerInteraction.Ignore) && Vector3.Angle(hitInfo.normal, Vector3.up) < 40f)
 			{
 				if ((bool)forceComponent)
 				{
@@ -363,14 +383,14 @@ public class SlingshotProjectile : MonoBehaviour
 				projectileRigidbody.angularVelocity = Vector3.zero;
 				projectileRigidbody.linearVelocity = Vector3.zero;
 				projectileRigidbody.isKinematic = true;
-				base.transform.position = hitInfo.point + Vector3.up * placementOffset;
+				transform.position = hitInfo.point + Vector3.up * placementOffset;
 				isSettled = true;
 			}
 		}
 		else if (keepRotationUpright)
 		{
-			Quaternion rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(base.transform.up, Vector3.up).normalized, Vector3.up);
-			base.transform.rotation = rotation;
+			Quaternion rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.up, Vector3.up).normalized, Vector3.up);
+			transform.rotation = rotation;
 		}
 	}
 
@@ -385,7 +405,7 @@ public class SlingshotProjectile : MonoBehaviour
 			ContactPoint contact = collision.GetContact(0);
 			CheckForAOEKnockback(contact.point, collision.relativeVelocity.magnitude);
 			SpawnImpactEffect(surfaceImpactEffectPrefab, contact.point, contact.normal);
-			this.OnImpact?.Invoke(this, contact.point, null);
+			OnImpact?.Invoke(this, contact.point, null);
 			Deactivate();
 		}
 	}
@@ -401,7 +421,7 @@ public class SlingshotProjectile : MonoBehaviour
 			ContactPoint contact = collision.GetContact(0);
 			CheckForAOEKnockback(contact.point, collision.relativeVelocity.magnitude);
 			SpawnImpactEffect(surfaceImpactEffectPrefab, contact.point, contact.normal);
-			this.OnImpact?.Invoke(this, contact.point, null);
+			OnImpact?.Invoke(this, contact.point, null);
 			Deactivate();
 		}
 	}
@@ -440,19 +460,19 @@ public class SlingshotProjectile : MonoBehaviour
 			{
 				return;
 			}
-			this.OnImpact?.Invoke(this, base.transform.position, netPlayer);
+			OnImpact?.Invoke(this, transform.position, netPlayer);
 			if (NetworkSystem.Instance.LocalPlayer == netPlayer || ((bool)component2 && !component2.LocalCanHit(NetworkSystem.Instance.LocalPlayer, netPlayer)))
 			{
 				return;
 			}
 			if ((bool)component2 && (bool)GameMode.ActiveNetworkHandler)
 			{
-				GameMode.ActiveNetworkHandler.SendRPC("RPC_ReportSlingshotHit", false, (netPlayer as PunNetPlayer).PlayerRef, base.transform.position, myProjectileCount);
+				GameMode.ActiveNetworkHandler.SendRPC("RPC_ReportSlingshotHit", false, (netPlayer as PunNetPlayer).PlayerRef, transform.position, myProjectileCount);
 				PlayerGameEvents.GameModeObjectiveTriggered();
 			}
 			if (m_sendNetworkedImpact)
 			{
-				RoomSystem.SendImpactEffect(base.transform.position, teamColor.r, teamColor.g, teamColor.b, teamColor.a, myProjectileCount);
+				RoomSystem.SendImpactEffect(transform.position, teamColor.r, teamColor.g, teamColor.b, teamColor.a, myProjectileCount);
 			}
 			Deactivate();
 		}

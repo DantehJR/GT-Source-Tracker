@@ -39,11 +39,11 @@ public class ObjectHierarchyFlattener : MonoBehaviour, IGorillaSimpleBackgroundW
 	{
 		if (initialized && (!(originalParentGO != null) || !originalParentGO.activeInHierarchy))
 		{
-			base.transform.SetParent(originalParentTransform);
+			transform.SetParent(originalParentTransform);
 			isAttachedToOverride = false;
-			base.transform.localPosition = originalLocalPosition;
-			base.transform.localRotation = originalLocalRotation;
-			base.transform.localScale = originalScale;
+			transform.localPosition = originalLocalPosition;
+			transform.localRotation = originalLocalRotation;
+			transform.localScale = originalScale;
 			initialized = false;
 		}
 	}
@@ -67,10 +67,10 @@ public class ObjectHierarchyFlattener : MonoBehaviour, IGorillaSimpleBackgroundW
 	{
 		if (maintainRelativeScale)
 		{
-			base.transform.localScale = Vector3.Scale(originalParentTransform.lossyScale, originalScale);
+			transform.localScale = Vector3.Scale(originalParentTransform.lossyScale, originalScale);
 		}
-		base.transform.rotation = originalParentTransform.rotation * originalLocalRotation;
-		base.transform.position = originalParentTransform.position + base.transform.rotation * calcOffset * (originalParentTransform.lossyScale.x / originalParentScale) * originalParentScale;
+		transform.rotation = originalParentTransform.rotation * originalLocalRotation;
+		transform.position = originalParentTransform.position + transform.rotation * calcOffset * (originalParentTransform.lossyScale.x / originalParentScale) * originalParentScale;
 	}
 
 	private void OnEnable()
@@ -83,7 +83,7 @@ public class ObjectHierarchyFlattener : MonoBehaviour, IGorillaSimpleBackgroundW
 	{
 		abandonWork = true;
 		ObjectHierarchyFlattenerManager.UnregisterOHF(this);
-		if (base.enabled)
+		if (enabled)
 		{
 			Invoke("ResetTransformIfStillDisabled", 0f);
 		}
@@ -96,7 +96,7 @@ public class ObjectHierarchyFlattener : MonoBehaviour, IGorillaSimpleBackgroundW
 
 	private void ResetTransformIfStillDisabled()
 	{
-		if (!base.isActiveAndEnabled)
+		if (!isActiveAndEnabled)
 		{
 			ResetTransform();
 		}
@@ -114,12 +114,12 @@ public class ObjectHierarchyFlattener : MonoBehaviour, IGorillaSimpleBackgroundW
 		}
 		if (!isAttachedToOverride)
 		{
-			originalParentTransform = base.transform.parent;
+			originalParentTransform = transform.parent;
 			originalParentGO = originalParentTransform.gameObject;
-			originalLocalPosition = base.transform.localPosition;
-			originalLocalRotation = base.transform.localRotation;
-			originalParentScale = base.transform.parent.lossyScale.x;
-			originalScale = base.transform.localScale;
+			originalLocalPosition = transform.localPosition;
+			originalLocalRotation = transform.localRotation;
+			originalParentScale = transform.parent.lossyScale.x;
+			originalScale = transform.localScale;
 			calcOffset = Vector3.Scale(originalLocalPosition, originalScale);
 			FlattenerCrumb flattenerCrumb = originalParentGO.GetComponent<FlattenerCrumb>();
 			if (flattenerCrumb == null)
@@ -128,7 +128,7 @@ public class ObjectHierarchyFlattener : MonoBehaviour, IGorillaSimpleBackgroundW
 			}
 			flattenerCrumb.AddFlattenerReference(this);
 		}
-		base.transform.SetParent((overrideParentTransform != null) ? overrideParentTransform : null);
+		transform.SetParent((overrideParentTransform != null) ? overrideParentTransform : null);
 		isAttachedToOverride = true;
 		initialized = true;
 	}

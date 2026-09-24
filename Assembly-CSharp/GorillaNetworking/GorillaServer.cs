@@ -1,15 +1,36 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.CloudScriptModels;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace GorillaNetworking;
 
 public class GorillaServer : MonoBehaviour, ISerializationCallbackReceiver
 {
+	[Serializable]
+	public class ReconcileBundleRewardsResponse
+	{
+		public bool success { get; set; }
+
+		public string errorMessage { get; set; }
+
+		public int? reconciledBundleCount { get; set; }
+
+		public List<string> grantedBundles { get; set; }
+	}
+
+	[Serializable]
+	public class ClaimItemResponse
+	{
+		public bool granted { get; set; }
+	}
+
 	public static volatile GorillaServer Instance;
 
 	public string FeatureFlagsTitleDataKey = "DeployFeatureFlags";
@@ -83,6 +104,97 @@ public class GorillaServer : MonoBehaviour, ISerializationCallbackReceiver
 		}, successCallback, errorCallback);
 	}
 
+	public void ReconcileBundleRewards(Action<ReconcileBundleRewardsResponse> successCallback, Action<string> errorCallback)
+	{
+		successCallback = DebugWrapCb(successCallback, "ReconcileBundleRewards result");
+		errorCallback = DebugWrapCb(errorCallback, "ReconcileBundleRewards error");
+		if (!MothershipClientContext.IsClientLoggedIn())
+		{
+			errorCallback("Not logged in to Mothership");
+		}
+		else
+		{
+			StartCoroutine(SendReconcileBundleRewards(successCallback, errorCallback));
+		}
+	}
+
+	private IEnumerator SendReconcileBundleRewards(Action<ReconcileBundleRewardsResponse> successCallback, Action<string> errorCallback)
+	{
+		string s = JsonConvert.SerializeObject(new
+		{
+			mothershipId = MothershipClientContext.MothershipId,
+			mothershipToken = MothershipClientContext.Token,
+			mothershipEnvId = MothershipClientApiUnity.EnvironmentId,
+			mothershipDeploymentId = MothershipClientApiUnity.DeploymentId
+		});
+		using UnityWebRequest www = new UnityWebRequest(PlayFabAuthenticatorSettings.IapApiBaseUrl + "/api/ReconcileBundleRewards", "POST");
+		www.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(s));
+		www.downloadHandler = new DownloadHandlerBuffer();
+		www.SetRequestHeader("Content-Type", "application/json");
+		www.timeout = 15;
+		yield return www.SendWebRequest();
+		if (www.result != UnityWebRequest.Result.Success)
+		{
+			errorCallback($"{www.responseCode}: {www.downloadHandler.text}");
+			yield break;
+		}
+		ReconcileBundleRewardsResponse reconcileBundleRewardsResponse = JsonConvert.DeserializeObject<ReconcileBundleRewardsResponse>(www.downloadHandler.text);
+		if (reconcileBundleRewardsResponse == null)
+		{
+			errorCallback($"{www.responseCode}: {www.downloadHandler.text}");
+		}
+		else
+		{
+			successCallback(reconcileBundleRewardsResponse);
+		}
+	}
+
+	public void ClaimItem(string playFabItemId, Action<ClaimItemResponse> successCallback, Action<string> errorCallback)
+	{
+		successCallback = DebugWrapCb(successCallback, "ClaimItem result");
+		errorCallback = DebugWrapCb(errorCallback, "ClaimItem error");
+		if (!MothershipClientContext.IsClientLoggedIn())
+		{
+			errorCallback("Not logged in to Mothership");
+		}
+		else
+		{
+			StartCoroutine(SendClaimItem(playFabItemId, successCallback, errorCallback));
+		}
+	}
+
+	private IEnumerator SendClaimItem(string playFabItemId, Action<ClaimItemResponse> successCallback, Action<string> errorCallback)
+	{
+		string s = JsonConvert.SerializeObject(new
+		{
+			mothershipId = MothershipClientContext.MothershipId,
+			mothershipToken = MothershipClientContext.Token,
+			mothershipEnvId = MothershipClientApiUnity.EnvironmentId,
+			mothershipDeploymentId = MothershipClientApiUnity.DeploymentId,
+			playFabItemId = playFabItemId
+		});
+		using UnityWebRequest www = new UnityWebRequest(PlayFabAuthenticatorSettings.IapApiBaseUrl + "/api/ClaimItem", "POST");
+		www.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(s));
+		www.downloadHandler = new DownloadHandlerBuffer();
+		www.SetRequestHeader("Content-Type", "application/json");
+		www.timeout = 15;
+		yield return www.SendWebRequest();
+		if (www.result != UnityWebRequest.Result.Success)
+		{
+			errorCallback($"{www.responseCode}: {www.downloadHandler.text}");
+			yield break;
+		}
+		ClaimItemResponse claimItemResponse = JsonConvert.DeserializeObject<ClaimItemResponse>(www.downloadHandler.text);
+		if (claimItemResponse == null)
+		{
+			errorCallback($"{www.responseCode}: {www.downloadHandler.text}");
+		}
+		else
+		{
+			successCallback(claimItemResponse);
+		}
+	}
+
 	public void AddOrRemoveDLCOwnership(Action<ExecuteFunctionResult> successCallback, Action<PlayFabError> errorCallback)
 	{
 		successCallback = DebugWrapCb(successCallback, "AddOrRemoveDLCOwnership result");
@@ -115,13 +227,13 @@ public class GorillaServer : MonoBehaviour, ISerializationCallbackReceiver
 			FunctionName = "UpdatePersonalCosmeticsList",
 			FunctionParameter = new { },
 			GeneratePlayStreamEvent = false
-		}, delegate
+		}, (ExecuteFunctionResult result) =>
 		{
 			if (CosmeticsController.instance != null)
 			{
 				CosmeticsController.instance.CheckCosmeticsSharedGroup();
 			}
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 		});
 	}
@@ -136,7 +248,7 @@ public class GorillaServer : MonoBehaviour, ISerializationCallbackReceiver
 			FunctionName = "GetAcceptedAgreements",
 			FunctionParameter = string.Join(",", request.AgreementKeys),
 			GeneratePlayStreamEvent = false
-		}, delegate(ExecuteFunctionResult result)
+		}, (ExecuteFunctionResult result) =>
 		{
 			try
 			{
@@ -175,9 +287,9 @@ public class GorillaServer : MonoBehaviour, ISerializationCallbackReceiver
 			FunctionName = "Gorillanalytics",
 			FunctionParameter = uploadData,
 			GeneratePlayStreamEvent = false
-		}, delegate
+		}, (ExecuteFunctionResult result) =>
 		{
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 		});
 	}
@@ -246,7 +358,7 @@ public class GorillaServer : MonoBehaviour, ISerializationCallbackReceiver
 
 	private Action<T> DebugWrapCb<T>(Action<T> cb, string label)
 	{
-		return delegate(T arg)
+		return (T arg) =>
 		{
 			_ = debug;
 			cb(arg);
@@ -366,5 +478,10 @@ public class GorillaServer : MonoBehaviour, ISerializationCallbackReceiver
 	public bool CheckRoomControlsEnabledForAnyone()
 	{
 		return featureFlags.IsEnabledForAnyone("2026-05-RoomControlsEnabled");
+	}
+
+	public bool CheckAlarmClocksEnabled()
+	{
+		return featureFlags.IsEnabled("2026-09-AlarmClocksEnabled");
 	}
 }

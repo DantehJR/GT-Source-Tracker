@@ -11,7 +11,7 @@ public class KIDUI_MessageScreen : MonoBehaviour
 
 	public void Show(string errorMessage)
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		if (errorMessage != null && errorMessage.Length > 0)
 		{
 			_errorTxt.text = errorMessage;
@@ -20,7 +20,7 @@ public class KIDUI_MessageScreen : MonoBehaviour
 
 	public void OnClose()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_mainScreen.ShowMainScreen(EMainScreenStatus.Pending);
 	}
 

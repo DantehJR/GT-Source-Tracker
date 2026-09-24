@@ -96,10 +96,18 @@ public class PrerequisiteLevelVector : IDisposable, IEnumerable, IEnumerable<Pre
 	{
 		get
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to get an out of bounds element from this vector");
+			}
 			return getitem(index);
 		}
 		set
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to set an out of bounds element from this vector");
+			}
 			setitem(index, value);
 		}
 	}
@@ -119,6 +127,8 @@ public class PrerequisiteLevelVector : IDisposable, IEnumerable, IEnumerable<Pre
 			reserve((uint)value);
 		}
 	}
+
+	public bool IsEmpty => empty();
 
 	public int Count => (int)size();
 
@@ -204,6 +214,80 @@ public class PrerequisiteLevelVector : IDisposable, IEnumerable, IEnumerable<Pre
 		}
 	}
 
+	public void Insert(int index, PrerequisiteLevel value)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insert(index, value);
+	}
+
+	public void InsertRange(int index, PrerequisiteLevelVector values)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insertRange(index, values);
+	}
+
+	public void RemoveAt(int index)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		_removeAt(index);
+	}
+
+	public void RemoveRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("count", "Tried to remove a negative count from this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_removeRange(index, count);
+	}
+
+	public void ReverseRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse from an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse an invalid count in this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_reverseRange(index, count);
+	}
+
+	public void SetRange(int index, PrerequisiteLevelVector values)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		if (index < 0 || index > Count || index + values.Count > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		_setRange(index, values);
+	}
+
 	public void CopyTo(PrerequisiteLevel[] array)
 	{
 		CopyTo(0, array, 0, Count);
@@ -242,6 +326,10 @@ public class PrerequisiteLevelVector : IDisposable, IEnumerable, IEnumerable<Pre
 		}
 		for (int i = 0; i < count; i++)
 		{
+			if (i > array.Length - 1)
+			{
+				throw new ArgumentOutOfRangeException("Somehow we tried to copy to an array index that's out of bounds");
+			}
 			array.SetValue(getitemcopy(index + i), arrayIndex + i);
 		}
 	}
@@ -266,6 +354,24 @@ public class PrerequisiteLevelVector : IDisposable, IEnumerable, IEnumerable<Pre
 	public PrerequisiteLevelVectorEnumerator GetEnumerator()
 	{
 		return new PrerequisiteLevelVectorEnumerator(this);
+	}
+
+	public PrerequisiteLevelVector()
+		: this(MothershipApiPINVOKE.new_PrerequisiteLevelVector__SWIG_0(), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public PrerequisiteLevelVector(PrerequisiteLevelVector other)
+		: this(MothershipApiPINVOKE.new_PrerequisiteLevelVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
 	}
 
 	public void Clear()
@@ -296,6 +402,16 @@ public class PrerequisiteLevelVector : IDisposable, IEnumerable, IEnumerable<Pre
 		return result;
 	}
 
+	private bool empty()
+	{
+		bool result = MothershipApiPINVOKE.PrerequisiteLevelVector_empty(swigCPtr);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private uint capacity()
 	{
 		uint result = MothershipApiPINVOKE.PrerequisiteLevelVector_capacity(swigCPtr);
@@ -309,24 +425,6 @@ public class PrerequisiteLevelVector : IDisposable, IEnumerable, IEnumerable<Pre
 	private void reserve(uint n)
 	{
 		MothershipApiPINVOKE.PrerequisiteLevelVector_reserve(swigCPtr, n);
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public PrerequisiteLevelVector()
-		: this(MothershipApiPINVOKE.new_PrerequisiteLevelVector__SWIG_0(), cMemoryOwn: true)
-	{
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public PrerequisiteLevelVector(PrerequisiteLevelVector other)
-		: this(MothershipApiPINVOKE.new_PrerequisiteLevelVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
-	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -380,85 +478,63 @@ public class PrerequisiteLevelVector : IDisposable, IEnumerable, IEnumerable<Pre
 		}
 	}
 
-	public PrerequisiteLevelVector GetRange(int index, int count)
+	private void _insert(int index, PrerequisiteLevel x)
 	{
-		IntPtr intPtr = MothershipApiPINVOKE.PrerequisiteLevelVector_GetRange(swigCPtr, index, count);
-		PrerequisiteLevelVector result = ((intPtr == IntPtr.Zero) ? null : new PrerequisiteLevelVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
-	}
-
-	public void Insert(int index, PrerequisiteLevel x)
-	{
-		MothershipApiPINVOKE.PrerequisiteLevelVector_Insert(swigCPtr, index, PrerequisiteLevel.getCPtr(x));
+		MothershipApiPINVOKE.PrerequisiteLevelVector__insert(swigCPtr, index, PrerequisiteLevel.getCPtr(x));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void InsertRange(int index, PrerequisiteLevelVector values)
+	private void _insertRange(int index, PrerequisiteLevelVector values)
 	{
-		MothershipApiPINVOKE.PrerequisiteLevelVector_InsertRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.PrerequisiteLevelVector__insertRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveAt(int index)
+	private void _removeAt(int index)
 	{
-		MothershipApiPINVOKE.PrerequisiteLevelVector_RemoveAt(swigCPtr, index);
+		MothershipApiPINVOKE.PrerequisiteLevelVector__removeAt(swigCPtr, index);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveRange(int index, int count)
+	private void _removeRange(int index, int count)
 	{
-		MothershipApiPINVOKE.PrerequisiteLevelVector_RemoveRange(swigCPtr, index, count);
+		MothershipApiPINVOKE.PrerequisiteLevelVector__removeRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
-	}
-
-	public static PrerequisiteLevelVector Repeat(PrerequisiteLevel value, int count)
-	{
-		IntPtr intPtr = MothershipApiPINVOKE.PrerequisiteLevelVector_Repeat(PrerequisiteLevel.getCPtr(value), count);
-		PrerequisiteLevelVector result = ((intPtr == IntPtr.Zero) ? null : new PrerequisiteLevelVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
 	}
 
 	public void Reverse()
 	{
-		MothershipApiPINVOKE.PrerequisiteLevelVector_Reverse__SWIG_0(swigCPtr);
+		MothershipApiPINVOKE.PrerequisiteLevelVector_Reverse(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void Reverse(int index, int count)
+	private void _reverseRange(int index, int count)
 	{
-		MothershipApiPINVOKE.PrerequisiteLevelVector_Reverse__SWIG_1(swigCPtr, index, count);
+		MothershipApiPINVOKE.PrerequisiteLevelVector__reverseRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void SetRange(int index, PrerequisiteLevelVector values)
+	private void _setRange(int index, PrerequisiteLevelVector values)
 	{
-		MothershipApiPINVOKE.PrerequisiteLevelVector_SetRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.PrerequisiteLevelVector__setRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

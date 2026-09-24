@@ -757,8 +757,8 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 		case BuilderActionType.DetachFromPiece:
 		{
 			BuilderPiece piece3 = piece;
-			bool num3 = piece.state == BuilderPiece.State.GrabbedLocal;
-			if (num3)
+			bool flag4 = piece.state == BuilderPiece.State.GrabbedLocal;
+			if (flag4)
 			{
 				piece3 = piece.GetRootPiece();
 			}
@@ -774,7 +774,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			piece.ClearParentHeld();
 			piece.ClearParentPiece();
 			piece.transform.localScale = Vector3.one;
-			if (num3)
+			if (flag4)
 			{
 				BuilderPieceInteractor.instance.OnCountChangedForRoot(piece3);
 			}
@@ -874,9 +874,9 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			{
 				return false;
 			}
-			BuilderPiece obj = ((rootA.parentPiece != null) ? rootA.parentPiece : rootA);
-			BuilderPiece obj2 = ((rootB.parentPiece != null) ? rootB.parentPiece : rootB);
-			return obj.Equals(obj2);
+			BuilderPiece builderPiece = ((rootA.parentPiece != null) ? rootA.parentPiece : rootA);
+			BuilderPiece obj = ((rootB.parentPiece != null) ? rootB.parentPiece : rootB);
+			return builderPiece.Equals(obj);
 		}
 		default:
 			return false;
@@ -1622,7 +1622,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 	{
 		this.inBuilderZone = inBuilderZone;
 		ShowPieces(inBuilderZone);
-		bool flag = inRoom && inBuilderZone;
+		bool flag = inRoom & inBuilderZone;
 		if (flag && tableState == TableState.WaitingForZoneAndRoom)
 		{
 			SetTableState(TableState.WaitingForInitalBuild);
@@ -1704,7 +1704,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 		}
 		case TableState.Ready:
 		{
-			JobHandle jobHandle = default(JobHandle);
+			JobHandle jobHandle = default;
 			if (isTableMutable)
 			{
 				conveyorManager.UpdateManager();
@@ -2077,13 +2077,13 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			{
 				BuilderConveyor builderConveyor = conveyors[shelfId];
 				bool flag2 = IsPlayerHandNearAction(NetPlayer.Get(player), builderConveyor.transform.position, isLeftHand: false, checkBothHands: true, 4f);
-				flag = flag && flag2;
+				flag &= flag2;
 			}
 			else
 			{
 				BuilderDispenserShelf builderDispenserShelf = dispenserShelves[shelfId];
 				bool flag3 = IsPlayerHandNearAction(NetPlayer.Get(player), builderDispenserShelf.transform.position, isLeftHand: false, checkBothHands: true, 4f);
-				flag = flag && flag3;
+				flag &= flag3;
 			}
 		}
 		return flag;
@@ -2335,11 +2335,11 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 		bool flag = true;
 		if (player != null && VRRigCache.Instance != null && VRRigCache.Instance.TryGetVrrig(player, out var playerRig))
 		{
-			if (isLeftHand || checkBothHands)
+			if (isLeftHand | checkBothHands)
 			{
 				flag = (worldPosition - playerRig.Rig.leftHandTransform.position).sqrMagnitude < acceptableRadius * acceptableRadius;
 			}
-			if (!isLeftHand || checkBothHands)
+			if (!isLeftHand | checkBothHands)
 			{
 				float sqrMagnitude = (worldPosition - playerRig.Rig.rightHandTransform.position).sqrMagnitude;
 				flag = flag && sqrMagnitude < acceptableRadius * acceptableRadius;
@@ -2393,20 +2393,20 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			}
 			if (piece3 != null)
 			{
-				bool num = (long)(twist % 2) == 1;
+				bool flag = (long)(twist % 2) == 1;
 				BuilderAttachGridPlane builderAttachGridPlane = piece2.gridPlanes[attachIndex];
-				int num2 = (num ? builderAttachGridPlane.length : builderAttachGridPlane.width);
-				int num3 = (num ? builderAttachGridPlane.width : builderAttachGridPlane.length);
+				int num = (flag ? builderAttachGridPlane.length : builderAttachGridPlane.width);
+				int num2 = (flag ? builderAttachGridPlane.width : builderAttachGridPlane.length);
 				BuilderAttachGridPlane builderAttachGridPlane2 = piece3.gridPlanes[parentAttachIndex];
-				int num4 = Mathf.FloorToInt((float)builderAttachGridPlane2.width / 2f);
-				int num5 = num4 - (builderAttachGridPlane2.width - 1);
-				if (bumpOffsetX < num5 - num2 || bumpOffsetX > num4 + num2)
+				int num3 = Mathf.FloorToInt((float)builderAttachGridPlane2.width / 2f);
+				int num4 = num3 - (builderAttachGridPlane2.width - 1);
+				if (bumpOffsetX < num4 - num || bumpOffsetX > num3 + num)
 				{
 					return false;
 				}
-				int num6 = Mathf.FloorToInt((float)builderAttachGridPlane2.length / 2f);
-				int num7 = num6 - (builderAttachGridPlane2.length - 1);
-				if (bumpOffsetZ < num7 - num3 || bumpOffsetZ > num6 + num3)
+				int num5 = Mathf.FloorToInt((float)builderAttachGridPlane2.length / 2f);
+				int num6 = num5 - (builderAttachGridPlane2.length - 1);
+				if (bumpOffsetZ < num6 - num2 || bumpOffsetZ > num5 + num2)
 				{
 					return false;
 				}
@@ -2777,20 +2777,20 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			return false;
 		}
 		UnpackPiecePlacement(piecePlacement, out var twist, out var xOffset, out var zOffset);
-		bool num = (long)(twist % 2) == 1;
+		bool flag = (long)(twist % 2) == 1;
 		BuilderAttachGridPlane builderAttachGridPlane = piece.gridPlanes[attachIndex];
-		int num2 = (num ? builderAttachGridPlane.length : builderAttachGridPlane.width);
-		int num3 = (num ? builderAttachGridPlane.width : builderAttachGridPlane.length);
+		int num = (flag ? builderAttachGridPlane.length : builderAttachGridPlane.width);
+		int num2 = (flag ? builderAttachGridPlane.width : builderAttachGridPlane.length);
 		BuilderAttachGridPlane builderAttachGridPlane2 = piece2.gridPlanes[parentAttachIndex];
-		int num4 = Mathf.FloorToInt((float)builderAttachGridPlane2.width / 2f);
-		int num5 = num4 - (builderAttachGridPlane2.width - 1);
-		if (xOffset < num5 - num2 || xOffset > num4 + num2)
+		int num3 = Mathf.FloorToInt((float)builderAttachGridPlane2.width / 2f);
+		int num4 = num3 - (builderAttachGridPlane2.width - 1);
+		if (xOffset < num4 - num || xOffset > num3 + num)
 		{
 			return false;
 		}
-		int num6 = Mathf.FloorToInt((float)builderAttachGridPlane2.length / 2f);
-		int num7 = num6 - (builderAttachGridPlane2.length - 1);
-		if (zOffset < num7 - num3 || zOffset > num6 + num3)
+		int num5 = Mathf.FloorToInt((float)builderAttachGridPlane2.length / 2f);
+		int num6 = num5 - (builderAttachGridPlane2.length - 1);
+		if (zOffset < num6 - num2 || zOffset > num5 + num2)
 		{
 			return false;
 		}
@@ -3130,12 +3130,12 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 		{
 			return;
 		}
-		bool num = PhotonNetwork.CurrentRoom.GetPlayer(piece.heldByPlayerActorNumber) != null;
-		bool flag = BuilderPiece.IsDroppedState(piece.state);
-		bool flag2 = piece.state == BuilderPiece.State.OnConveyor || piece.state == BuilderPiece.State.OnShelf || piece.state == BuilderPiece.State.Displayed;
+		bool flag = PhotonNetwork.CurrentRoom.GetPlayer(piece.heldByPlayerActorNumber) != null;
+		bool flag2 = BuilderPiece.IsDroppedState(piece.state);
+		bool flag3 = piece.state == BuilderPiece.State.OnConveyor || piece.state == BuilderPiece.State.OnShelf || piece.state == BuilderPiece.State.Displayed;
 		BuilderAction action = BuilderActions.CreateAttachToPlayer(localCommandId, pieceId, cmd.localPosition, cmd.localRotation, actorNumber, cmd.isLeft);
 		BuilderAction action2 = BuilderActions.CreateDetachFromPlayer(localCommandId, pieceId, actorNumber);
-		if (num)
+		if (flag)
 		{
 			BuilderAction action3 = BuilderActions.CreateDetachFromPlayer(localCommandId, pieceId, piece.heldByPlayerActorNumber);
 			if (cmd.canRollback)
@@ -3148,7 +3148,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			ExecuteAction(action3);
 			ExecuteAction(action);
 		}
-		else if (flag2)
+		else if (flag3)
 		{
 			BuilderAction action5;
 			if (piece.state == BuilderPiece.State.OnConveyor)
@@ -3178,7 +3178,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			ExecuteAction(action6);
 			ExecuteAction(action);
 		}
-		else if (flag)
+		else if (flag2)
 		{
 			BuilderAction action8 = BuilderActions.CreateMakeRoot(localCommandId, pieceId);
 			BuilderPiece rootPiece2 = piece.GetRootPiece();
@@ -4093,7 +4093,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 
 	public bool TryPlaceGridPlane(BuilderPiece piece, BuilderAttachGridPlane gridPlane, List<BuilderAttachGridPlane> checkGridPlanes, out BuilderPotentialPlacement potentialPlacement)
 	{
-		potentialPlacement = default(BuilderPotentialPlacement);
+		potentialPlacement = default;
 		potentialPlacement.Reset();
 		Vector3 position = gridPlane.transform.position;
 		Quaternion rotation = gridPlane.transform.rotation;
@@ -4161,7 +4161,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 		float num4 = Vector3.Dot(lhs, Vector3.right);
 		bool flag = Mathf.Abs(num3) > maxTwistDotProduct;
 		bool flag2 = Mathf.Abs(num4) > maxTwistDotProduct;
-		if (!(flag || flag2))
+		if (!(flag | flag2))
 		{
 			return false;
 		}
@@ -4346,7 +4346,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 
 	public bool TryPlacePieceOnTableNoDrop(bool leftHand, BuilderPiece testPiece, List<BuilderAttachGridPlane> checkGridPlanesMale, List<BuilderAttachGridPlane> checkGridPlanesFemale, out BuilderPotentialPlacement potentialPlacement)
 	{
-		potentialPlacement = default(BuilderPotentialPlacement);
+		potentialPlacement = default;
 		potentialPlacement.Reset();
 		if (this == null)
 		{
@@ -4362,7 +4362,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 
 	public bool TryPlacePieceOnTableNoDropJobs(NativeList<BuilderGridPlaneData> gridPlaneData, NativeList<BuilderPieceData> pieceData, NativeList<BuilderGridPlaneData> checkGridPlaneData, NativeList<BuilderPieceData> checkPieceData, out BuilderPotentialPlacement potentialPlacement, List<BuilderPotentialPlacement> allPlacements)
 	{
-		potentialPlacement = default(BuilderPotentialPlacement);
+		potentialPlacement = default;
 		potentialPlacement.Reset();
 		if (this == null)
 		{
@@ -4382,7 +4382,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			localToWorldRot = Quaternion.identity,
 			potentialPlacements = nativeQueue.AsParallelWriter()
 		}, gridPlaneData.Length, 32).Complete();
-		BuilderPotentialPlacementData builderPotentialPlacementData = default(BuilderPotentialPlacementData);
+		BuilderPotentialPlacementData builderPotentialPlacementData = default;
 		bool flag = false;
 		while (!nativeQueue.IsEmpty())
 		{
@@ -4529,7 +4529,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 
 	public bool TryPlacePieceGridPlanesOnTableInternal(BuilderPiece testPiece, int recurse, List<BuilderAttachGridPlane> checkGridPlanesMale, List<BuilderAttachGridPlane> checkGridPlanesFemale, out BuilderPotentialPlacement potentialPlacement)
 	{
-		potentialPlacement = default(BuilderPotentialPlacement);
+		potentialPlacement = default;
 		potentialPlacement.Reset();
 		bool result = false;
 		bool flag = false;
@@ -4764,7 +4764,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 
 	private Vector3 ReadVector3(BinaryReader reader)
 	{
-		Vector3 result = default(Vector3);
+		Vector3 result = default;
 		result.x = reader.ReadSingle();
 		result.y = reader.ReadSingle();
 		result.z = reader.ReadSingle();
@@ -4773,7 +4773,7 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 
 	private Quaternion ReadQuaternion(BinaryReader reader)
 	{
-		Quaternion result = default(Quaternion);
+		Quaternion result = default;
 		result.x = reader.ReadSingle();
 		result.y = reader.ReadSingle();
 		result.z = reader.ReadSingle();

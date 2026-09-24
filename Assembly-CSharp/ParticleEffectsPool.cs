@@ -40,11 +40,11 @@ public class ParticleEffectsPool : MonoBehaviour
 
 	private void MoveToSceneWorldRoot()
 	{
-		Transform obj = base.transform;
-		obj.parent = null;
-		obj.position = Vector3.zero;
-		obj.rotation = Quaternion.identity;
-		obj.localScale = Vector3.one;
+		Transform transform = base.transform;
+		transform.parent = null;
+		transform.position = Vector3.zero;
+		transform.rotation = Quaternion.identity;
+		transform.localScale = Vector3.one;
 	}
 
 	private RingBuffer<ParticleEffect> InitPoolForPrefab(int index, ParticleEffect prefab)
@@ -53,7 +53,7 @@ public class ParticleEffectsPool : MonoBehaviour
 		string arg = prefab.name.Trim();
 		for (int i = 0; i < poolSize; i++)
 		{
-			ParticleEffect particleEffect = Object.Instantiate(prefab, base.transform);
+			ParticleEffect particleEffect = Object.Instantiate(prefab, transform);
 			particleEffect.gameObject.SetActive(value: false);
 			particleEffect.pool = this;
 			particleEffect.poolIndex = index;

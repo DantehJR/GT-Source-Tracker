@@ -96,21 +96,21 @@ public class ModIOTermsOfUse_v1 : MonoBehaviour
 		await WaitForAcknowledgement();
 		termsAcknowledgedCallback?.Invoke(accepted);
 		PrivateUIRoom.RemoveUI(uiParent);
-		UnityEngine.Object.Destroy(base.gameObject);
+		UnityEngine.Object.Destroy(gameObject);
 	}
 
 	private async Task<bool> UpdateTextFromTerms()
 	{
 		tmpTitle.text = title;
 		tmpBody.text = "Loading...";
-		bool num = await UpdateTextWithFullTerms();
-		if (!num)
+		bool flag = await UpdateTextWithFullTerms();
+		if (!flag)
 		{
 			tmpBody.text = "Failed to retrieve full Terms of Use text from mod.io.\n\nPlease restart the game and try again.";
 			tmpBody.pageToDisplay = 1;
 			tmpPage.text = string.Empty;
 		}
-		return num;
+		return flag;
 	}
 
 	public async Task<bool> UpdateTextWithFullTerms()

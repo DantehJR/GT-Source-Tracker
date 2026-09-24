@@ -25,7 +25,7 @@ public class LoudSpeakerActivator : MonoBehaviour
 		_isLocal = IsParentedToLocalRig();
 		if (!_isLocal)
 		{
-			_nonlocalRig = base.transform.root.GetComponent<VRRig>();
+			_nonlocalRig = transform.root.GetComponent<VRRig>();
 		}
 	}
 
@@ -35,7 +35,7 @@ public class LoudSpeakerActivator : MonoBehaviour
 		{
 			return false;
 		}
-		Transform parent = base.transform.parent;
+		Transform parent = transform.parent;
 		while (parent != null)
 		{
 			if (parent == VRRigCache.Instance.localRig.transform)

@@ -4,12 +4,12 @@ public class Positionable : MonoBehaviour
 {
 	public void CopyPostion(Transform t)
 	{
-		base.transform.position = t.position;
+		transform.position = t.position;
 	}
 
 	public void StickRightUnder(Transform t)
 	{
-		base.transform.position = t.position;
-		base.transform.localPosition = Vector3.zero;
+		transform.position = t.position;
+		transform.localPosition = Vector3.zero;
 	}
 }

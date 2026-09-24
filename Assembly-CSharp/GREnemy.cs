@@ -20,19 +20,19 @@ public class GREnemy : MonoBehaviour, IGameEntityComponent, IGameHittable
 
 	public void OnEntityInit()
 	{
-		if (gameEntity != null)
+		if (this.gameEntity != null)
 		{
-			GameEntity obj = gameEntity;
-			obj.OnTick = (Action)Delegate.Combine(obj.OnTick, new Action(OnUpdate));
+			GameEntity gameEntity = this.gameEntity;
+			gameEntity.OnTick = (Action)Delegate.Combine(gameEntity.OnTick, new Action(OnUpdate));
 		}
 	}
 
 	public void OnEntityDestroy()
 	{
-		if (gameEntity != null)
+		if (this.gameEntity != null)
 		{
-			GameEntity obj = gameEntity;
-			obj.OnTick = (Action)Delegate.Combine(obj.OnTick, new Action(OnUpdate));
+			GameEntity gameEntity = this.gameEntity;
+			gameEntity.OnTick = (Action)Delegate.Combine(gameEntity.OnTick, new Action(OnUpdate));
 		}
 	}
 

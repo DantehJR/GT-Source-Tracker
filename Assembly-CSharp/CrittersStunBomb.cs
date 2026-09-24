@@ -14,7 +14,7 @@ public class CrittersStunBomb : CrittersToolThrowable
 		{
 			return;
 		}
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		List<CrittersPawn> crittersPawns = CrittersManager.instance.crittersPawns;
 		for (int i = 0; i < crittersPawns.Count; i++)
 		{

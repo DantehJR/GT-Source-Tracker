@@ -39,7 +39,7 @@ public class GameSnappable : MonoBehaviour
 	{
 		foreach (SnapJointOffset snapOffset in snapOffsets)
 		{
-			if ((snapOffset.jointType & jointType) != SnapJointType.None)
+			if ((snapOffset.jointType & jointType) != 0)
 			{
 				positionOffset = snapOffset.positionOffset;
 				rotationOffset = Quaternion.Euler(snapOffset.rotationOffset);
@@ -57,45 +57,45 @@ public class GameSnappable : MonoBehaviour
 		{
 			return null;
 		}
-		bool num = GamePlayer.IsLeftHand(heldByHandIndex);
-		SnapJointType snapJointType = (num ? SnapJointType.HandL : SnapJointType.HandR);
-		SnapJointType snapJointType2 = (num ? SnapJointType.ForearmL : SnapJointType.ForearmR);
+		bool flag = GamePlayer.IsLeftHand(heldByHandIndex);
+		SnapJointType snapJointType = (flag ? SnapJointType.HandL : SnapJointType.HandR);
+		SnapJointType snapJointType2 = (flag ? SnapJointType.ForearmL : SnapJointType.ForearmR);
 		List<SuperInfectionSnapPoint> snapPoints = GamePlayerLocal.instance.gamePlayer.snapPointManager.SnapPoints;
-		float num2 = float.MaxValue;
-		int num3 = -1;
+		float num = float.MaxValue;
+		int num2 = -1;
 		for (int i = 0; i < snapPoints.Count; i++)
 		{
-			if (snapPoints[i].jointType != snapJointType && snapPoints[i].jointType != snapJointType2 && (snapPoints[i].jointType & snapLocationTypes) != SnapJointType.None && !snapPoints[i].HasSnapped())
+			if (snapPoints[i].jointType != snapJointType && snapPoints[i].jointType != snapJointType2 && (snapPoints[i].jointType & snapLocationTypes) != 0 && !snapPoints[i].HasSnapped())
 			{
 				GetSnapOffset(snapPoints[i].jointType, out var positionOffset, out var rotationOffset);
-				float num4 = Vector3.Distance(snapPoints[i].transform.TransformPoint(rotationOffset * positionOffset), base.transform.position);
-				float num5 = snapRadius + snapPoints[i].snapPointRadius;
-				if (num4 < num2 && num4 < num5)
+				float num3 = Vector3.Distance(snapPoints[i].transform.TransformPoint(rotationOffset * positionOffset), transform.position);
+				float num4 = snapRadius + snapPoints[i].snapPointRadius;
+				if (num3 < num && num3 < num4)
 				{
-					num3 = i;
-					num2 = num4;
+					num2 = i;
+					num = num3;
 				}
 			}
 		}
-		if (num3 >= 0)
+		if (num2 >= 0)
 		{
-			return snapPoints[num3];
+			return snapPoints[num2];
 		}
-		if ((snapLocationTypes & SnapJointType.Holster) != SnapJointType.None)
+		if ((snapLocationTypes & SnapJointType.Holster) != 0)
 		{
 			IEnumerable<SuperInfectionSnapPoint> points = (GamePlayerLocal.instance.currGameEntityManager?.superInfectionManager).GetPoints(SnapJointType.Holster);
 			SuperInfectionSnapPoint superInfectionSnapPoint = null;
-			float num6 = snapRadius;
+			float num5 = snapRadius;
 			foreach (SuperInfectionSnapPoint item in points)
 			{
 				if (!item.HasSnapped())
 				{
 					GetSnapOffset(item.jointType, out var positionOffset2, out var rotationOffset2);
-					float num7 = Vector3.Distance(item.transform.TransformPoint(rotationOffset2 * positionOffset2), base.transform.position);
-					if (num7 < num6)
+					float num6 = Vector3.Distance(item.transform.TransformPoint(rotationOffset2 * positionOffset2), transform.position);
+					if (num6 < num5)
 					{
 						superInfectionSnapPoint = item;
-						num6 = num7;
+						num5 = num6;
 					}
 				}
 			}
@@ -121,10 +121,10 @@ public class GameSnappable : MonoBehaviour
 		int num2 = -1;
 		for (int i = 0; i < snapPoints.Count; i++)
 		{
-			if (snapPoints[i].jointType != snapJointType && snapPoints[i].jointType != snapJointType2 && (snapPoints[i].jointType & snapLocationTypes) != SnapJointType.None && snapPoints[i].HasSnapped())
+			if (snapPoints[i].jointType != snapJointType && snapPoints[i].jointType != snapJointType2 && (snapPoints[i].jointType & snapLocationTypes) != 0 && snapPoints[i].HasSnapped())
 			{
 				GetSnapOffset(snapPoints[i].jointType, out var positionOffset, out var rotationOffset);
-				float num3 = Vector3.Distance(snapPoints[i].transform.TransformPoint(rotationOffset * positionOffset), base.transform.position);
+				float num3 = Vector3.Distance(snapPoints[i].transform.TransformPoint(rotationOffset * positionOffset), transform.position);
 				float num4 = snapRadius + snapPoints[i].snapPointRadius;
 				if (num3 < num && num3 < num4)
 				{

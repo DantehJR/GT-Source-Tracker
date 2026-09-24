@@ -155,8 +155,7 @@ public class LocalVoice : IDisposable
 	{
 		while (true)
 		{
-			FrameFlags flags;
-			ArraySegment<byte> compressed = encoder.DequeueOutput(out flags);
+			ArraySegment<byte> compressed = encoder.DequeueOutput(out var flags);
 			if (compressed.Count == 0)
 			{
 				break;

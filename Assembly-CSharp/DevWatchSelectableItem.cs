@@ -18,7 +18,7 @@ public class DevWatchSelectableItem : MonoBehaviour
 	{
 		SelectedObject = obj;
 		ItemName.text = obj.name;
-		Button.onClick.AddListener(delegate
+		Button.onClick.AddListener(() =>
 		{
 			OnSelected(ItemName.text, SelectedObject);
 		});

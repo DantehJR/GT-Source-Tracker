@@ -11,29 +11,29 @@ public enum ClientState
 	JoinedLobby = 4,
 	DisconnectingFromMasterServer = 5,
 	[Obsolete("Renamed to DisconnectingFromMasterServer")]
-	DisconnectingFromMasterserver = 5,
+	DisconnectingFromMasterserver = DisconnectingFromMasterServer,
 	ConnectingToGameServer = 6,
 	[Obsolete("Renamed to ConnectingToGameServer")]
-	ConnectingToGameserver = 6,
+	ConnectingToGameserver = ConnectingToGameServer,
 	ConnectedToGameServer = 7,
 	[Obsolete("Renamed to ConnectedToGameServer")]
-	ConnectedToGameserver = 7,
+	ConnectedToGameserver = ConnectedToGameServer,
 	Joining = 8,
 	Joined = 9,
 	Leaving = 10,
 	DisconnectingFromGameServer = 11,
 	[Obsolete("Renamed to DisconnectingFromGameServer")]
-	DisconnectingFromGameserver = 11,
+	DisconnectingFromGameserver = DisconnectingFromGameServer,
 	ConnectingToMasterServer = 12,
 	[Obsolete("Renamed to ConnectingToMasterServer.")]
-	ConnectingToMasterserver = 12,
+	ConnectingToMasterserver = ConnectingToMasterServer,
 	Disconnecting = 13,
 	Disconnected = 14,
 	ConnectedToMasterServer = 15,
 	[Obsolete("Renamed to ConnectedToMasterServer.")]
-	ConnectedToMasterserver = 15,
+	ConnectedToMasterserver = ConnectedToMasterServer,
 	[Obsolete("Renamed to ConnectedToMasterServer.")]
-	ConnectedToMaster = 15,
+	ConnectedToMaster = ConnectedToMasterServer,
 	ConnectingToNameServer = 16,
 	ConnectedToNameServer = 17,
 	DisconnectingFromNameServer = 18,

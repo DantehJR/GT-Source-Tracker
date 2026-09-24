@@ -105,17 +105,17 @@ public class SubEmitterListener : MonoBehaviour
 
 	public void Enable()
 	{
-		if (!base.enabled)
+		if (!enabled)
 		{
-			base.enabled = true;
+			enabled = true;
 		}
 	}
 
 	public void Disable()
 	{
-		if (base.enabled)
+		if (enabled)
 		{
-			base.enabled = false;
+			enabled = false;
 		}
 	}
 }

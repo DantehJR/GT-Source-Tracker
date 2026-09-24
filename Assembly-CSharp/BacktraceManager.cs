@@ -17,14 +17,14 @@ public class BacktraceManager : MonoBehaviour
 
 	private void Start()
 	{
-		PlayFabTitleDataCache.Instance.GetTitleData("BacktraceSampleRate", delegate(string data)
+		PlayFabTitleDataCache.Instance.GetTitleData("BacktraceSampleRate", (string data) =>
 		{
 			if (data != null)
 			{
 				double.TryParse(data.Trim('"'), NumberStyles.Any, CultureInfo.InvariantCulture, out backtraceSampleRate);
 				Debug.Log($"Set backtrace sample rate to: {backtraceSampleRate}");
 			}
-		}, delegate(PlayFabError e)
+		}, (PlayFabError e) =>
 		{
 			Debug.LogError($"Error getting Backtrace sample rate: {e}");
 		});

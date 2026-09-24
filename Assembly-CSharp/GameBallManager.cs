@@ -65,12 +65,12 @@ public class GameBallManager : NetworkComponent
 		{
 			return false;
 		}
-		bool num = _callLimiters[(int)rpcCall].CheckCallTime(Time.time);
-		if (!num)
+		bool flag = _callLimiters[(int)rpcCall].CheckCallTime(Time.time);
+		if (!flag)
 		{
 			ReportRPCCall(rpcCall, info, "Too many RPC Calls!");
 		}
-		return num;
+		return flag;
 	}
 
 	private void ReportRPCCall(RPC rpcCall, PhotonMessageInfo info, string susReason)
@@ -82,7 +82,7 @@ public class GameBallManager : NetworkComponent
 	{
 		int count = gameBallData.Count;
 		gameBalls.Add(gameBall);
-		gameBallData.Add(default(GameBallData));
+		gameBallData.Add(default);
 		gameBall.id = new GameBallId(count);
 		return gameBall.id;
 	}
@@ -229,7 +229,7 @@ public class GameBallManager : NetworkComponent
 		{
 			gameBallPlayer.ClearGrabbedIfHeld(gameBallId);
 			num2 = gameBallPlayer.teamId;
-			if (num != -1 && flag)
+			if ((num != -1) & flag)
 			{
 				GameBallPlayerLocal.instance.ClearGrabbed(num);
 			}
@@ -254,7 +254,7 @@ public class GameBallManager : NetworkComponent
 		if (component2 != null)
 		{
 			component2.OnGrabbed();
-			if (!flag2 && flag3)
+			if (!flag2 & flag3)
 			{
 				component2.OnSwitchHeldByTeam(gamePlayer.teamId);
 			}
@@ -345,7 +345,7 @@ public class GameBallManager : NetworkComponent
 			ReportRPCCall(RPC.ThrowBall, info, "ValidateThrowBallParams are invalid.");
 			return;
 		}
-		if ((base.transform.position - position).sqrMagnitude > 6400f)
+		if ((transform.position - position).sqrMagnitude > 6400f)
 		{
 			ReportRPCCall(RPC.ThrowBall, info, "gameBall distance exceeds max distance from arena.");
 			return;
@@ -409,10 +409,10 @@ public class GameBallManager : NetworkComponent
 		{
 			monkeBall.ClearCannotGrabTeamId();
 		}
-		bool num = thrownByPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
+		bool flag = thrownByPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
 		int handIndex = GameBallPlayer.GetHandIndex(isLeftHand);
 		RigContainer playerRig;
-		if (num)
+		if (flag)
 		{
 			GameBallPlayerLocal.instance.gamePlayer.ClearGrabbed(handIndex);
 			GameBallPlayerLocal.instance.ClearGrabbed(handIndex);
@@ -553,7 +553,7 @@ public class GameBallManager : NetworkComponent
 				ReportRPCCall(RPC.TeleportBall, info, "Ball params are invalid.");
 				return;
 			}
-			if ((base.transform.position - position).sqrMagnitude > 6400f)
+			if ((transform.position - position).sqrMagnitude > 6400f)
 			{
 				ReportRPCCall(RPC.ThrowBall, info, "gameBall distance exceeds max distance from arena.");
 				return;
@@ -615,7 +615,7 @@ public class GameBallManager : NetworkComponent
 		{
 			return;
 		}
-		if ((gameBall.transform.position - base.transform.position).sqrMagnitude > 6400f)
+		if ((gameBall.transform.position - transform.position).sqrMagnitude > 6400f)
 		{
 			ReportRPCCall(RPC.RequestSetBallPosition, info, "Ball position is outside of arena.");
 			return;

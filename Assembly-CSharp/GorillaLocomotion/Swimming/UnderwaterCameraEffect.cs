@@ -59,14 +59,14 @@ public class UnderwaterCameraEffect : MonoBehaviour
 
 	private void SetOffScreenPosition()
 	{
-		base.transform.localScale = new Vector3(2f * (frustumPlaneExtents.x + 0.04f), 0f, 1f);
-		base.transform.localPosition = new Vector3(0f, 0f - (frustumPlaneExtents.y + 0.04f), distanceFromCamera);
+		transform.localScale = new Vector3(2f * (frustumPlaneExtents.x + 0.04f), 0f, 1f);
+		transform.localPosition = new Vector3(0f, 0f - (frustumPlaneExtents.y + 0.04f), distanceFromCamera);
 	}
 
 	private void SetFullScreenPosition()
 	{
-		base.transform.localScale = new Vector3(2f * (frustumPlaneExtents.x + 0.04f), 2f * (frustumPlaneExtents.y + 0.04f), 1f);
-		base.transform.localPosition = new Vector3(0f, 0f, distanceFromCamera);
+		transform.localScale = new Vector3(2f * (frustumPlaneExtents.x + 0.04f), 2f * (frustumPlaneExtents.y + 0.04f), 1f);
+		transform.localPosition = new Vector3(0f, 0f, distanceFromCamera);
 	}
 
 	private void OnEnable()
@@ -119,7 +119,7 @@ public class UnderwaterCameraEffect : MonoBehaviour
 		Vector3 position = targetCamera.transform.position;
 		for (int i = 0; i < player.HeadOverlappingWaterVolumes.Count; i++)
 		{
-			if (!player.HeadOverlappingWaterVolumes[i].GetSurfaceQueryForPoint(position, out var result))
+			if (player.HeadOverlappingWaterVolumes[i] == null || !player.HeadOverlappingWaterVolumes[i].GetSurfaceQueryForPoint(position, out var result))
 			{
 				continue;
 			}
@@ -161,10 +161,10 @@ public class UnderwaterCameraEffect : MonoBehaviour
 					num4 += GetFrustumCoverageDistance(-normalized) + 0.04f;
 					float num5 = GetFrustumCoverageDistance(direction) + 0.04f;
 					num5 += GetFrustumCoverageDistance(-direction) + 0.04f;
-					base.transform.localScale = new Vector3(num5, num4, 1f);
-					base.transform.localPosition = normalized * (num3 - num4 * 0.5f) + new Vector3(0f, 0f, distanceFromCamera);
+					transform.localScale = new Vector3(num5, num4, 1f);
+					transform.localPosition = normalized * (num3 - num4 * 0.5f) + new Vector3(0f, 0f, distanceFromCamera);
 					float angle = Vector3.SignedAngle(Vector3.up, normalized, Vector3.forward);
-					base.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+					transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 					SetCameraOverlapState(CameraOverlapWaterState.PartiallySubmerged);
 				}
 				if (debugDraw)

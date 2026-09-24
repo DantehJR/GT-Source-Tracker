@@ -65,7 +65,7 @@ public class ScavengerManager : MonoBehaviour
 
 		public bool Collect(ScavengerTarget target, bool initialLoad = false)
 		{
-			if (!Targets.Contains<ScavengerTarget>(target))
+			if (!Targets.Contains(target))
 			{
 				return false;
 			}
@@ -86,11 +86,11 @@ public class ScavengerManager : MonoBehaviour
 
 		public void RegisterTarget(ScavengerTarget target)
 		{
-			if (Targets.Contains<ScavengerTarget>(target))
+			if (Targets.Contains(target))
 			{
 				return;
 			}
-			if (!Enumerable.Contains<string>(TargetNames, target.TargetName))
+			if (!Enumerable.Contains(TargetNames, target.TargetName))
 			{
 				Debug.LogError("Scavenger hunt " + Name + " tried to register target " + target.TargetName + " even though it is not defined in the hunt in ScavengerManager.");
 				return;
@@ -336,7 +336,7 @@ public class ScavengerManager : MonoBehaviour
 		{
 			throw new Exception("No hunt found with name " + target.HuntName + ".");
 		}
-		if (!hunt.Targets.Contains<ScavengerTarget>(target))
+		if (!hunt.Targets.Contains(target))
 		{
 			hunt.RegisterTarget(target);
 		}

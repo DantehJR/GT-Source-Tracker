@@ -144,7 +144,7 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 	{
 		if ((bool)Instance)
 		{
-			GTDev.LogError("Duplicate GorillaTagCompetitiveServerApi detected. Destroying self.", base.gameObject);
+			GTDev.LogError("Duplicate GorillaTagCompetitiveServerApi detected. Destroying self.", gameObject);
 			UnityEngine.Object.Destroy(this);
 		}
 		else

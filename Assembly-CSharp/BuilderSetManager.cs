@@ -163,7 +163,7 @@ public class BuilderSetManager : MonoBehaviour
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 			return;
 		}
 		Init();
@@ -660,7 +660,7 @@ public class BuilderSetManager : MonoBehaviour
 			Price = (int)storeItem.cost,
 			VirtualCurrency = currencyName,
 			CatalogVersion = catalog
-		}, delegate(PurchaseItemResult result)
+		}, (PurchaseItemResult result) =>
 		{
 			if (result.Items.Count > 0)
 			{
@@ -681,7 +681,7 @@ public class BuilderSetManager : MonoBehaviour
 				Debug.Log("BuilderSetManager: no items purchased ");
 				resultCallback?.Invoke(obj: false);
 			}
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.LogErrorFormat("BuilderSetManager: purchase {0} Error {1}", setID, error.ErrorMessage);
 			resultCallback?.Invoke(obj: false);
@@ -699,7 +699,7 @@ public class BuilderSetManager : MonoBehaviour
 			{
 				Keys = new List<string> { "Inventory" },
 				SharedGroupId = PhotonNetwork.LocalPlayer.UserId + "Inventory"
-			}, delegate(GetSharedGroupDataResult result)
+			}, (GetSharedGroupDataResult result) =>
 			{
 				attempts++;
 				foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> datum in result.Data)
@@ -714,7 +714,7 @@ public class BuilderSetManager : MonoBehaviour
 					}
 				}
 				_ = foundCosmetic;
-			}, delegate(PlayFabError error)
+			}, (PlayFabError error) =>
 			{
 				attempts++;
 				CosmeticsController.instance.ReauthOrBan(error);

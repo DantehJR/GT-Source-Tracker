@@ -83,7 +83,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 
 	private float localStateStartTime;
 
-	public Vector3 Position => base.transform.position;
+	public Vector3 Position => transform.position;
 
 	public float WakeUpRadius => wakeupRadius;
 
@@ -91,15 +91,15 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 	{
 		rb = GetComponent<Rigidbody>();
 		GhostReactor.instance.sleepableEntities.Add(this);
-		gameEntity.OnStateChanged += OnStateChanged;
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(OnGrabbed));
-		GameEntity obj2 = gameEntity;
-		obj2.OnReleased = (Action)Delegate.Combine(obj2.OnReleased, new Action(OnReleased));
-		GameEntity obj3 = gameEntity;
-		obj3.OnSnapped = (Action)Delegate.Combine(obj3.OnSnapped, new Action(OnSnapped));
-		GameEntity obj4 = gameEntity;
-		obj4.OnDetached = (Action)Delegate.Combine(obj4.OnDetached, new Action(OnDetached));
+		this.gameEntity.OnStateChanged += OnStateChanged;
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(OnGrabbed));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnReleased = (Action)Delegate.Combine(gameEntity2.OnReleased, new Action(OnReleased));
+		GameEntity gameEntity3 = this.gameEntity;
+		gameEntity3.OnSnapped = (Action)Delegate.Combine(gameEntity3.OnSnapped, new Action(OnSnapped));
+		GameEntity gameEntity4 = this.gameEntity;
+		gameEntity4.OnDetached = (Action)Delegate.Combine(gameEntity4.OnDetached, new Action(OnDetached));
 		Sleep();
 	}
 
@@ -109,17 +109,17 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 		{
 			GhostReactor.instance.sleepableEntities.Remove(this);
 		}
-		if (gameEntity != null)
+		if (this.gameEntity != null)
 		{
-			gameEntity.OnStateChanged -= OnStateChanged;
-			GameEntity obj = gameEntity;
-			obj.OnGrabbed = (Action)Delegate.Remove(obj.OnGrabbed, new Action(OnGrabbed));
-			GameEntity obj2 = gameEntity;
-			obj2.OnReleased = (Action)Delegate.Remove(obj2.OnReleased, new Action(OnReleased));
-			GameEntity obj3 = gameEntity;
-			obj3.OnSnapped = (Action)Delegate.Remove(obj3.OnSnapped, new Action(OnSnapped));
-			GameEntity obj4 = gameEntity;
-			obj4.OnDetached = (Action)Delegate.Remove(obj4.OnDetached, new Action(OnDetached));
+			this.gameEntity.OnStateChanged -= OnStateChanged;
+			GameEntity gameEntity = this.gameEntity;
+			gameEntity.OnGrabbed = (Action)Delegate.Remove(gameEntity.OnGrabbed, new Action(OnGrabbed));
+			GameEntity gameEntity2 = this.gameEntity;
+			gameEntity2.OnReleased = (Action)Delegate.Remove(gameEntity2.OnReleased, new Action(OnReleased));
+			GameEntity gameEntity3 = this.gameEntity;
+			gameEntity3.OnSnapped = (Action)Delegate.Remove(gameEntity3.OnSnapped, new Action(OnSnapped));
+			GameEntity gameEntity4 = this.gameEntity;
+			gameEntity4.OnDetached = (Action)Delegate.Remove(gameEntity4.OnDetached, new Action(OnDetached));
 		}
 	}
 
@@ -140,7 +140,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 			localStateStartTime = Time.time;
 		}
 		sleepRequested = false;
-		base.enabled = true;
+		enabled = true;
 	}
 
 	public void Sleep()
@@ -154,7 +154,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 		{
 			sleepRequested = false;
 		}
-		else if (!base.enabled)
+		else if (!enabled)
 		{
 			WakeUp();
 		}
@@ -187,7 +187,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 	{
 		if (debugDraw)
 		{
-			DebugUtil.DrawSphere(base.transform.position, 0.15f, 12, 12, Color.cyan);
+			DebugUtil.DrawSphere(transform.position, 0.15f, 12, 12, Color.cyan);
 		}
 		if (gameEntity.IsAuthority())
 		{
@@ -250,7 +250,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 			{
 				timeUntilNextAlert = UnityEngine.Random.Range(timeRangeBetweenAlerts.x, timeRangeBetweenAlerts.y);
 				alertEnemiesSound.Play(null);
-				GRNoiseEventManager.instance.AddNoiseEvent(base.transform.position, alertNoiseEventMagnitude, enemyAlertDuration);
+				GRNoiseEventManager.instance.AddNoiseEvent(transform.position, alertNoiseEventMagnitude, enemyAlertDuration);
 			}
 			break;
 		case SentientCoreState.Asleep:
@@ -267,7 +267,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 		switch (localState)
 		{
 		default:
-			base.enabled = false;
+			enabled = false;
 			break;
 		case SentientCoreState.Awake:
 			if (visualCore != null && visualCore.transform.localScale != Vector3.one)
@@ -310,7 +310,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 				DrawJumpPath(Color.yellow);
 			}
 			float deltaTime2 = Time.deltaTime;
-			Vector3 vector3 = base.transform.position + jumpVelocity * deltaTime2;
+			Vector3 vector3 = transform.position + jumpVelocity * deltaTime2;
 			Vector3 vector4 = (useSurfaceNormalForGravityDirection ? (-surfaceNormal) : Vector3.down);
 			jumpVelocity += vector4 * (jumpGravityAccel * deltaTime2);
 			float magnitude2 = jumpVelocity.magnitude;
@@ -318,16 +318,16 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 			{
 				jumpVelocity *= maxSpeed / magnitude2;
 			}
-			float magnitude3 = (vector3 - base.transform.position).magnitude;
-			Vector3 vector5 = ((magnitude3 > 0.001f) ? ((vector3 - base.transform.position) / magnitude3) : Vector3.zero);
-			if (Physics.SphereCast(new Ray(base.transform.position, vector5), radius, out var hitInfo2, magnitude3, GTPlayer.Instance.locomotionEnabledLayers.value, QueryTriggerInteraction.Ignore))
+			float magnitude3 = (vector3 - transform.position).magnitude;
+			Vector3 vector5 = ((magnitude3 > 0.001f) ? ((vector3 - transform.position) / magnitude3) : Vector3.zero);
+			if (Physics.SphereCast(new Ray(transform.position, vector5), radius, out var hitInfo2, magnitude3, GTPlayer.Instance.locomotionEnabledLayers.value, QueryTriggerInteraction.Ignore))
 			{
-				vector3 = base.transform.position + vector5 * hitInfo2.distance;
+				vector3 = transform.position + vector5 * hitInfo2.distance;
 				surfaceNormal = hitInfo2.normal;
 				SetState(SentientCoreState.Awake);
 				landSound.Play(null);
 			}
-			base.transform.position = vector3;
+			transform.position = vector3;
 			break;
 		}
 		case SentientCoreState.Held:
@@ -345,7 +345,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 			{
 				isPlayingAlert = true;
 				alertEnemiesSound.Play(null);
-				GRNoiseEventManager.instance.AddNoiseEvent(base.transform.position, alertNoiseEventMagnitude, enemyAlertDuration);
+				GRNoiseEventManager.instance.AddNoiseEvent(transform.position, alertNoiseEventMagnitude, enemyAlertDuration);
 			}
 			if (Time.time - localStateStartTime > enemyAlertDuration)
 			{
@@ -364,14 +364,14 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 		case SentientCoreState.Dropped:
 		{
 			float deltaTime = Time.deltaTime;
-			Vector3 vector = base.transform.position + rb.linearVelocity * deltaTime;
-			float magnitude = (vector - base.transform.position).magnitude;
-			Vector3 vector2 = ((magnitude > 0.001f) ? ((vector - base.transform.position) / magnitude) : Vector3.zero);
-			if (Physics.SphereCast(new Ray(base.transform.position, vector2), radius, out var hitInfo, magnitude, GTPlayer.Instance.locomotionEnabledLayers.value, QueryTriggerInteraction.Ignore))
+			Vector3 vector = transform.position + rb.linearVelocity * deltaTime;
+			float magnitude = (vector - transform.position).magnitude;
+			Vector3 vector2 = ((magnitude > 0.001f) ? ((vector - transform.position) / magnitude) : Vector3.zero);
+			if (Physics.SphereCast(new Ray(transform.position, vector2), radius, out var hitInfo, magnitude, GTPlayer.Instance.locomotionEnabledLayers.value, QueryTriggerInteraction.Ignore))
 			{
-				vector = base.transform.position + vector2 * hitInfo.distance;
+				vector = transform.position + vector2 * hitInfo.distance;
 				surfaceNormal = hitInfo.normal;
-				base.transform.position = vector;
+				transform.position = vector;
 				rb.isKinematic = true;
 				SetState(SentientCoreState.Awake);
 			}
@@ -397,11 +397,11 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 	{
 		if (PhotonNetwork.InRoom)
 		{
-			if (!base.enabled || IsSleeping())
+			if (!enabled || IsSleeping())
 			{
 				WakeUp();
 			}
-			base.transform.position = startPos;
+			transform.position = startPos;
 			float num = Mathf.Clamp((float)(jumpNetworkTime - PhotonNetwork.Time), 0f, jumpAnticipationTime);
 			jumpStartTime = Time.time + num;
 			jumpDirection = direction;
@@ -452,7 +452,7 @@ public class GRSentientCore : MonoBehaviour, IGRSleepableEntity
 			Vector3 direction = Quaternion.AngleAxis(90f - num, Vector3.Cross(surfaceNormal, vector)) * surfaceNormal;
 			direction.Normalize();
 			SetState(SentientCoreState.JumpInitiated);
-			gameEntity.manager.ghostReactorManager.RequestSentientCorePerformJump(gameEntity, base.transform.position, surfaceNormal, direction, jumpAnticipationTime);
+			gameEntity.manager.ghostReactorManager.RequestSentientCorePerformJump(gameEntity, transform.position, surfaceNormal, direction, jumpAnticipationTime);
 		}
 	}
 }

@@ -173,11 +173,10 @@ public class ParameterDictionary : IEnumerable<KeyValuePair<byte, object>>, IEnu
 
 	public bool TryGetValue<T>(byte key, out T value) where T : struct
 	{
-		object val;
-		bool flag = paramDict.TryGetValue(key, out val);
+		bool flag = paramDict.TryGetValue(key, out var val);
 		if (!flag)
 		{
-			value = default(T);
+			value = default;
 			return false;
 		}
 		if (val is StructWrapper<T> structWrapper)

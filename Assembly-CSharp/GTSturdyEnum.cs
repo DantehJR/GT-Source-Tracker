@@ -87,7 +87,7 @@ public struct GTSturdyEnum<TEnum> : ISerializationCallbackReceiver where TEnum :
 			}
 			else
 			{
-				Value = default(TEnum);
+				Value = default;
 			}
 		}
 		else if (shared.IsBitMaskCompatible)

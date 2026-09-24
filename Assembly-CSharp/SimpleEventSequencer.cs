@@ -195,7 +195,7 @@ public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 				StartSequenceDelayed(enabledNodes[idx - 1].Time);
 				break;
 			case OnCompleteAction.Disable:
-				base.gameObject.SetActive(value: false);
+				gameObject.SetActive(value: false);
 				break;
 			}
 		}
@@ -232,21 +232,21 @@ public class SimpleEventSequencer : MonoBehaviour, IGorillaSliceableSimple
 
 	public void TempAudio(string text)
 	{
-		Debug.Log("SimpleEventSequencer :: " + base.name + " :: TempAudio :: " + text);
+		Debug.Log("SimpleEventSequencer :: " + name + " :: TempAudio :: " + text);
 	}
 
 	public void TempVFX(string text)
 	{
-		Debug.Log("SimpleEventSequencer :: " + base.name + " :: TempVFX :: " + text);
+		Debug.Log("SimpleEventSequencer :: " + name + " :: TempVFX :: " + text);
 	}
 
 	public void Temp(string text)
 	{
-		Debug.Log("SimpleEventSequencer :: " + base.name + " :: Temp :: " + text);
+		Debug.Log("SimpleEventSequencer :: " + name + " :: Temp :: " + text);
 	}
 
 	public void DebugLog(string text)
 	{
-		Debug.Log("SimpleEventSequencer :: " + base.name + " :: DEBUG :: " + text);
+		Debug.Log("SimpleEventSequencer :: " + name + " :: DEBUG :: " + text);
 	}
 }

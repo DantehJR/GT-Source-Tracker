@@ -66,7 +66,7 @@ public class BuilderAttachGridPlane : MonoBehaviour
 	{
 		if (center == null)
 		{
-			center = base.transform;
+			center = transform;
 		}
 	}
 
@@ -74,8 +74,8 @@ public class BuilderAttachGridPlane : MonoBehaviour
 	{
 		this.piece = piece;
 		this.attachIndex = attachIndex;
-		pieceToGridPosition = piece.transform.InverseTransformPoint(base.transform.position);
-		pieceToGridRotation = Quaternion.Inverse(piece.transform.rotation) * base.transform.rotation;
+		pieceToGridPosition = piece.transform.InverseTransformPoint(transform.position);
+		pieceToGridRotation = Quaternion.Inverse(piece.transform.rotation) * transform.rotation;
 		float num = (float)(width + 2) * gridSize;
 		float num2 = (float)(length + 2) * gridSize;
 		boundingRadius = Mathf.Sqrt(num * num + num2 * num2);
@@ -300,8 +300,8 @@ public class BuilderAttachGridPlane : MonoBehaviour
 		int num = otherGridPlane.width;
 		int num2 = otherGridPlane.length;
 		Quaternion quaternion = otherPieceLocalRot * otherGridPlane.pieceToGridRotation;
-		_ = base.transform.lossyScale;
-		otherPieceLocalPos.Scale(base.transform.lossyScale);
+		_ = transform.lossyScale;
+		otherPieceLocalPos.Scale(transform.lossyScale);
 		Vector3 vector = otherPieceLocalPos + otherPieceLocalRot * otherGridPlane.pieceToGridPosition;
 		if (Mathf.Abs(Vector3.Dot(quaternion * Vector3.forward, Vector3.forward)) < 0.707f)
 		{

@@ -275,9 +275,9 @@ public class GRToolUpgradeStation : MonoBehaviour
 		{
 			int researchCost = selectedToolUpgrades[selectedUpgradeIndex].researchCost;
 			GRPlayer gRPlayer = GRPlayer.Get(VRRig.LocalRig);
-			bool num = researchCost <= gRPlayer.ShiftCredits;
+			bool flag = researchCost <= gRPlayer.ShiftCredits;
 			bool unlocked = selectedToolUpgrades[selectedUpgradeIndex].unlocked;
-			if (num && unlocked)
+			if (flag & unlocked)
 			{
 				IDCardScanner.onSucceeded?.Invoke();
 				StartUpgrade(PhotonNetwork.Time);

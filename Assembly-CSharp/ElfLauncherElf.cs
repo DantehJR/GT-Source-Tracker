@@ -25,7 +25,7 @@ public class ElfLauncherElf : MonoBehaviour
 	private IEnumerator ReturnToPoolAfterDelayCo()
 	{
 		yield return new WaitForSeconds(destroyAfterDuration);
-		ObjectPools.instance.Destroy(base.gameObject);
+		ObjectPools.instance.Destroy(gameObject);
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -39,6 +39,6 @@ public class ElfLauncherElf : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		rb.AddForce(base.transform.lossyScale.x * Physics.gravity * rb.mass, ForceMode.Force);
+		rb.AddForce(transform.lossyScale.x * Physics.gravity * rb.mass, ForceMode.Force);
 	}
 }

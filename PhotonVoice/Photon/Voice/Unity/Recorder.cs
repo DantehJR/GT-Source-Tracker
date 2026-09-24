@@ -177,9 +177,9 @@ public class Recorder : VoiceComponent
 			{
 				if (microphoneDeviceChangeDetected == value)
 				{
-					if (base.Logger.IsWarningEnabled)
+					if (Logger.IsWarningEnabled)
 					{
-						base.Logger.LogWarning("Unexpected: MicrophoneDeviceChangeDetected to be overriden with same value: {0}", value);
+						Logger.LogWarning("Unexpected: MicrophoneDeviceChangeDetected to be overriden with same value: {0}", value);
 					}
 				}
 				else
@@ -276,9 +276,9 @@ public class Recorder : VoiceComponent
 			}
 			if (InterestGroup != 0)
 			{
-				if (base.Logger.IsWarningEnabled)
+				if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("Cannot enable DebugEchoMode when InterestGroup value ({0}) is different than 0.", interestGroup);
+					Logger.LogWarning("Cannot enable DebugEchoMode when InterestGroup value ({0}) is different than 0.", interestGroup);
 				}
 			}
 			else
@@ -337,9 +337,9 @@ public class Recorder : VoiceComponent
 			}
 			if (value < 0f || value > 1f)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Value out of range: VAD Threshold needs to be between [0..1], requested value: {0}", value);
+					Logger.LogError("Value out of range: VAD Threshold needs to be between [0..1], requested value: {0}", value);
 				}
 			}
 			else
@@ -387,7 +387,7 @@ public class Recorder : VoiceComponent
 				if (IsRecording)
 				{
 					RequiresRestart = true;
-					_ = base.Logger.IsInfoEnabled;
+					_ = Logger.IsInfoEnabled;
 				}
 			}
 		}
@@ -409,9 +409,9 @@ public class Recorder : VoiceComponent
 			if (IsRecording && SourceType == InputSourceType.Factory)
 			{
 				RequiresRestart = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "InputFactory");
+					Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "InputFactory");
 				}
 			}
 		}
@@ -435,9 +435,9 @@ public class Recorder : VoiceComponent
 		{
 			if (!IsValidUnityMic(unityMicrophoneDevice))
 			{
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("\"{0}\" is not a valid Unity microphone device, switching to default", unityMicrophoneDevice);
+					Logger.LogInfo("\"{0}\" is not a valid Unity microphone device, switching to default", unityMicrophoneDevice);
 				}
 				unityMicrophoneDevice = null;
 				if (UnityMicrophone.devices.Length != 0)
@@ -451,9 +451,9 @@ public class Recorder : VoiceComponent
 		{
 			if (!IsValidUnityMic(value))
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("\"{0}\" is not a valid Unity microphone device", value);
+					Logger.LogError("\"{0}\" is not a valid Unity microphone device", value);
 				}
 			}
 			else
@@ -470,9 +470,9 @@ public class Recorder : VoiceComponent
 				if (IsRecording && SourceType == InputSourceType.Microphone && MicrophoneType == MicType.Unity)
 				{
 					RequiresRestart = true;
-					if (base.Logger.IsInfoEnabled)
+					if (Logger.IsInfoEnabled)
 					{
-						base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "UnityMicrophoneDevice");
+						Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "UnityMicrophoneDevice");
 					}
 				}
 				CheckAndSetSamplingRate();
@@ -486,9 +486,9 @@ public class Recorder : VoiceComponent
 		{
 			if (!IsValidPhotonMic())
 			{
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("\"{0}\" is not a valid Photon microphone device ID, switching to default (-1)", photonMicrophoneDeviceId);
+					Logger.LogInfo("\"{0}\" is not a valid Photon microphone device ID, switching to default (-1)", photonMicrophoneDeviceId);
 				}
 				photonMicrophoneDeviceId = -1;
 			}
@@ -498,9 +498,9 @@ public class Recorder : VoiceComponent
 		{
 			if (!IsValidPhotonMic(value))
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("\"{0}\" is not a valid Photon microphone device ID", value);
+					Logger.LogError("\"{0}\" is not a valid Photon microphone device ID", value);
 				}
 			}
 			else
@@ -513,9 +513,9 @@ public class Recorder : VoiceComponent
 				if (IsRecording && SourceType == InputSourceType.Microphone && MicrophoneType == MicType.Photon)
 				{
 					RequiresRestart = true;
-					if (base.Logger.IsInfoEnabled)
+					if (Logger.IsInfoEnabled)
 					{
-						base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "PhotonMicrophoneDeviceId");
+						Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "PhotonMicrophoneDeviceId");
 					}
 				}
 			}
@@ -558,9 +558,9 @@ public class Recorder : VoiceComponent
 			if (debugEchoMode && value != 0)
 			{
 				debugEchoMode = false;
-				if (base.Logger.IsWarningEnabled)
+				if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("DebugEchoMode disabled because InterestGroup changed to {0}. DebugEchoMode works only with Interest Group 0.", value);
+					Logger.LogWarning("DebugEchoMode disabled because InterestGroup changed to {0}. DebugEchoMode works only with Interest Group 0.", value);
 				}
 			}
 			interestGroup = value;
@@ -622,9 +622,9 @@ public class Recorder : VoiceComponent
 			if (IsRecording)
 			{
 				RequiresRestart = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "Source");
+					Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "Source");
 				}
 			}
 			CheckAndSetSamplingRate();
@@ -647,9 +647,9 @@ public class Recorder : VoiceComponent
 			if (IsRecording && SourceType == InputSourceType.Microphone)
 			{
 				RequiresRestart = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "MicrophoneType");
+					Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "MicrophoneType");
 				}
 			}
 			CheckAndSetSamplingRate();
@@ -675,9 +675,9 @@ public class Recorder : VoiceComponent
 			if (IsRecording && SourceType == InputSourceType.AudioClip)
 			{
 				RequiresRestart = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "AudioClip");
+					Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "AudioClip");
 				}
 			}
 			CheckAndSetSamplingRate();
@@ -703,9 +703,9 @@ public class Recorder : VoiceComponent
 				{
 					audioClipWrapper.Loop = value;
 				}
-				else if (base.Logger.IsErrorEnabled)
+				else if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Unexpected: Recorder inputSource is not of AudioClipWrapper type or is null.");
+					Logger.LogError("Unexpected: Recorder inputSource is not of AudioClipWrapper type or is null.");
 				}
 			}
 		}
@@ -739,9 +739,9 @@ public class Recorder : VoiceComponent
 			if (IsRecording)
 			{
 				RequiresRestart = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "FrameDuration");
+					Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "FrameDuration");
 				}
 			}
 		}
@@ -761,9 +761,9 @@ public class Recorder : VoiceComponent
 			}
 			if (value < 6000 || value > 510000)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Unsupported bitrate value {0}, valid range: {1}-{2}", value, 6000, 510000);
+					Logger.LogError("Unsupported bitrate value {0}, valid range: {1}-{2}", value, 6000, 510000);
 				}
 				return;
 			}
@@ -771,9 +771,9 @@ public class Recorder : VoiceComponent
 			if (IsRecording)
 			{
 				RequiresRestart = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "Bitrate");
+					Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "Bitrate");
 				}
 			}
 		}
@@ -863,7 +863,7 @@ public class Recorder : VoiceComponent
 			recordOnlyWhenEnabled = value;
 			if (recordOnlyWhenEnabled)
 			{
-				if (!base.isActiveAndEnabled && IsRecording)
+				if (!isActiveAndEnabled && IsRecording)
 				{
 					StopRecordingInternal();
 				}
@@ -915,9 +915,9 @@ public class Recorder : VoiceComponent
 			if (IsRecording && SourceType == InputSourceType.Microphone && MicrophoneType == MicType.Unity)
 			{
 				RequiresRestart = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "UseOnAudioFilterRead");
+					Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "UseOnAudioFilterRead");
 				}
 			}
 		}
@@ -1028,36 +1028,36 @@ public class Recorder : VoiceComponent
 	{
 		if ((object)connection == null)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("voiceConnection is null.");
+				Logger.LogError("voiceConnection is null.");
 			}
 			return;
 		}
 		if (!connection)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("voiceConnection is destroyed.");
+				Logger.LogError("voiceConnection is destroyed.");
 			}
 			return;
 		}
-		if (!base.IgnoreGlobalLogLevel)
+		if (!IgnoreGlobalLogLevel)
 		{
-			base.LogLevel = connection.GlobalRecordersLogLevel;
+			LogLevel = connection.GlobalRecordersLogLevel;
 		}
 		if (IsInitialized)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Recorder already initialized.");
+				Logger.LogWarning("Recorder already initialized.");
 			}
 		}
 		else if (connection.VoiceClient == null)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("voiceConnection.VoiceClient is null.");
+				Logger.LogError("voiceConnection.VoiceClient is null.");
 			}
 		}
 		else
@@ -1079,15 +1079,15 @@ public class Recorder : VoiceComponent
 	{
 		if (!force && !RequiresRestart)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Recorder does not require restart.");
+				Logger.LogWarning("Recorder does not require restart.");
 			}
 			return;
 		}
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Restarting recording, RequiresRestart?={0} forcedRestart?={1}", RequiresRestart, force);
+			Logger.LogDebug("Restarting recording, RequiresRestart?={0} forcedRestart?={1}", RequiresRestart, force);
 		}
 		StopRecording();
 		StartRecording();
@@ -1101,13 +1101,13 @@ public class Recorder : VoiceComponent
 		}
 		if (!TransmitEnabled)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Cannot start voice detection calibration when transmission is not enabled");
+				Logger.LogWarning("Cannot start voice detection calibration when transmission is not enabled");
 			}
 			return;
 		}
-		voiceAudio.VoiceDetectorCalibrate(durationMs, delegate
+		voiceAudio.VoiceDetectorCalibrate(durationMs, (float newThreshold) =>
 		{
 			GetThresholdFromDetector();
 			if (detectionEndedCallback != null)
@@ -1121,30 +1121,30 @@ public class Recorder : VoiceComponent
 	{
 		if (IsRecording)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Recorder is already started.");
+				Logger.LogWarning("Recorder is already started.");
 			}
 		}
 		else if (!IsInitialized)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Recording can't be started if Recorder is not initialized. Call Recorder.Init(VoiceConnection) first.");
+				Logger.LogWarning("Recording can't be started if Recorder is not initialized. Call Recorder.Init(VoiceConnection) first.");
 			}
 		}
-		else if (RecordOnlyWhenEnabled && !base.isActiveAndEnabled)
+		else if (RecordOnlyWhenEnabled && !isActiveAndEnabled)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Recording can't be started because RecordOnlyWhenEnabled is true and Recorder is not enabled or its GameObject is not active in hierarchy.");
+				Logger.LogWarning("Recording can't be started because RecordOnlyWhenEnabled is true and Recorder is not enabled or its GameObject is not active in hierarchy.");
 			}
 		}
 		else if (RecordOnlyWhenJoined && voiceConnection.Client != null && !voiceConnection.Client.InRoom)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Recording can't be started because RecordOnlyWhenJoined is true and voice networking client is not joined to a room.");
+				Logger.LogWarning("Recording can't be started because RecordOnlyWhenJoined is true and voice networking client is not joined to a room.");
 			}
 		}
 		else
@@ -1158,9 +1158,9 @@ public class Recorder : VoiceComponent
 		wasRecordingBeforePause = false;
 		if (!IsRecording)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Recorder is not started.");
+				Logger.LogWarning("Recorder is not started.");
 			}
 		}
 		else
@@ -1174,16 +1174,16 @@ public class Recorder : VoiceComponent
 	{
 		if (inputSource != null && inputSource is IResettable)
 		{
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Resetting local audio.");
+				Logger.LogInfo("Resetting local audio.");
 			}
 			(inputSource as IResettable).Reset();
 			return true;
 		}
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("InputSource is null or not resettable.");
+			Logger.LogDebug("InputSource is null or not resettable.");
 		}
 		return false;
 	}
@@ -1215,9 +1215,9 @@ public class Recorder : VoiceComponent
 		voice = CreateLocalVoiceAudioAndSource();
 		if (voice == LocalVoiceAudioDummy.Dummy)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Local input source setup and voice stream creation failed. No recording or transmission will be happening. See previous error log messages for more details.");
+				Logger.LogError("Local input source setup and voice stream creation failed. No recording or transmission will be happening. See previous error log messages for more details.");
 			}
 			if (inputSource != null)
 			{
@@ -1261,9 +1261,9 @@ public class Recorder : VoiceComponent
 		{
 			if (!CheckIfThereIsAtLeastOneMic())
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("No microphone detected.");
+					Logger.LogError("No microphone detected.");
 				}
 				return LocalVoiceAudioDummy.Dummy;
 			}
@@ -1275,9 +1275,9 @@ public class Recorder : VoiceComponent
 			}
 			if (micType != MicType.Photon)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("unknown MicrophoneType value {0}", MicrophoneType);
+					Logger.LogError("unknown MicrophoneType value {0}", MicrophoneType);
 				}
 				return LocalVoiceAudioDummy.Dummy;
 			}
@@ -1287,9 +1287,9 @@ public class Recorder : VoiceComponent
 		{
 			if ((object)AudioClip == null)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("AudioClip property must be set for AudioClip audio source");
+					Logger.LogError("AudioClip property must be set for AudioClip audio source");
 				}
 				return LocalVoiceAudioDummy.Dummy;
 			}
@@ -1301,47 +1301,47 @@ public class Recorder : VoiceComponent
 		case InputSourceType.Factory:
 			if (InputFactory == null)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Recorder.InputFactory must be specified if Recorder.Source set to Factory");
+					Logger.LogError("Recorder.InputFactory must be specified if Recorder.Source set to Factory");
 				}
 				return LocalVoiceAudioDummy.Dummy;
 			}
 			inputSource = InputFactory();
-			if (inputSource.Error != null && base.Logger.IsErrorEnabled)
+			if (inputSource.Error != null && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("InputFactory creation failure: {0}.", inputSource.Error);
+				Logger.LogError("InputFactory creation failure: {0}.", inputSource.Error);
 			}
 			break;
 		default:
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("unknown Source value {0}", SourceType);
+					Logger.LogError("unknown Source value {0}", SourceType);
 				}
 				return LocalVoiceAudioDummy.Dummy;
 			}
 			IL_014d:
 			microphoneDevice = MicrophoneDevice;
 			deviceID = (microphoneDevice.IsDefault ? (-1) : microphoneDevice.IDInt);
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Setting recorder's source to Photon microphone device={0}", microphoneDevice);
+				Logger.LogInfo("Setting recorder's source to Photon microphone device={0}", microphoneDevice);
 			}
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Setting recorder's source to WindowsAudioInPusher");
+				Logger.LogInfo("Setting recorder's source to WindowsAudioInPusher");
 			}
-			inputSource = new WindowsAudioInPusher(deviceID, base.Logger);
+			inputSource = new WindowsAudioInPusher(deviceID, Logger);
 			if (inputSource != null)
 			{
 				if (inputSource.Error == null)
 				{
 					break;
 				}
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Photon microphone input source creation failure: {0}", inputSource.Error);
+					Logger.LogError("Photon microphone input source creation failure: {0}", inputSource.Error);
 				}
 			}
 			if (!UseMicrophoneTypeFallback || flag)
@@ -1349,22 +1349,22 @@ public class Recorder : VoiceComponent
 				break;
 			}
 			flag = true;
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Photon microphone failed. Falling back to Unity microphone");
+				Logger.LogError("Photon microphone failed. Falling back to Unity microphone");
 			}
 			goto IL_0075;
 			IL_0075:
 			text = UnityMicrophoneDevice;
-			_ = base.Logger.IsInfoEnabled;
+			_ = Logger.IsInfoEnabled;
 			if (UseOnAudioFilterRead)
 			{
 				Debug.Log("Using MicWrapperPusher");
-				inputSource = new MicWrapperPusher(text, base.transform, num, base.Logger);
+				inputSource = new MicWrapperPusher(text, transform, num, Logger);
 			}
 			else
 			{
-				inputSource = CreateMicWrapper(text, num, base.Logger);
+				inputSource = CreateMicWrapper(text, num, Logger);
 			}
 			if (inputSource != null)
 			{
@@ -1372,9 +1372,9 @@ public class Recorder : VoiceComponent
 				{
 					break;
 				}
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Unity microphone input source creation failure: {0}", inputSource.Error);
+					Logger.LogError("Unity microphone input source creation failure: {0}", inputSource.Error);
 				}
 			}
 			if (!UseMicrophoneTypeFallback || flag)
@@ -1382,9 +1382,9 @@ public class Recorder : VoiceComponent
 				break;
 			}
 			flag = true;
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Unity microphone failed. Falling back to Photon microphone");
+				Logger.LogError("Unity microphone failed. Falling back to Photon microphone");
 			}
 			goto IL_014d;
 		}
@@ -1394,18 +1394,18 @@ public class Recorder : VoiceComponent
 		}
 		if (inputSource.Channels == 0)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("inputSource.Channels is zero");
+				Logger.LogError("inputSource.Channels is zero");
 			}
 			return LocalVoiceAudioDummy.Dummy;
 		}
 		if (TrySamplingRateMatch && inputSource.SamplingRate != num)
 		{
 			samplingRate = GetSupportedSamplingRate(inputSource.SamplingRate);
-			if (samplingRate != this.samplingRate && base.Logger.IsWarningEnabled)
+			if (samplingRate != this.samplingRate && Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Sampling rate requested ({0}Hz) is not used, input source is expecting {1}Hz instead so switching to the closest supported value: {1}Hz.", num, inputSource.SamplingRate, (int)samplingRate);
+				Logger.LogWarning("Sampling rate requested ({0}Hz) is not used, input source is expecting {1}Hz instead so switching to the closest supported value: {1}Hz.", num, inputSource.SamplingRate, (int)samplingRate);
 			}
 		}
 		AudioSampleType sampleType = AudioSampleType.Source;
@@ -1413,23 +1413,23 @@ public class Recorder : VoiceComponent
 		if ((object)component != null && (bool)component && component.enabled)
 		{
 			sampleType = AudioSampleType.Short;
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Type Conversion set to Short. Audio samples will be converted if source samples types differ.");
+				Logger.LogInfo("Type Conversion set to Short. Audio samples will be converted if source samples types differ.");
 			}
 			switch (samplingRate)
 			{
 			case SamplingRate.Sampling12000:
-				if (base.Logger.IsWarningEnabled)
+				if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("Sampling rate requested (12kHz) is not supported by WebRTC Audio DSP, switching to the closest supported value: 16kHz.");
+					Logger.LogWarning("Sampling rate requested (12kHz) is not supported by WebRTC Audio DSP, switching to the closest supported value: 16kHz.");
 				}
 				samplingRate = SamplingRate.Sampling16000;
 				break;
 			case SamplingRate.Sampling24000:
-				if (base.Logger.IsWarningEnabled)
+				if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("Sampling rate requested (24kHz) is not supported by WebRTC Audio DSP, switching to the closest supported value: 48kHz.");
+					Logger.LogWarning("Sampling rate requested (24kHz) is not supported by WebRTC Audio DSP, switching to the closest supported value: 48kHz.");
 				}
 				samplingRate = SamplingRate.Sampling48000;
 				break;
@@ -1437,9 +1437,9 @@ public class Recorder : VoiceComponent
 			OpusCodec.FrameDuration frameDuration = FrameDuration;
 			if (frameDuration == OpusCodec.FrameDuration.Frame2dot5ms || frameDuration == OpusCodec.FrameDuration.Frame5ms)
 			{
-				if (base.Logger.IsWarningEnabled)
+				if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("Frame duration requested ({0}ms) is not supported by WebRTC Audio DSP (it needs to be N x 10ms), switching to the closest supported value: 10ms.", (int)FrameDuration / 1000);
+					Logger.LogWarning("Frame duration requested ({0}ms) is not supported by WebRTC Audio DSP (it needs to be N x 10ms), switching to the closest supported value: 10ms.", (int)FrameDuration / 1000);
 				}
 				FrameDuration = OpusCodec.FrameDuration.Frame10ms;
 			}
@@ -1456,7 +1456,7 @@ public class Recorder : VoiceComponent
 
 	protected virtual void SendPhotonVoiceCreatedMessage()
 	{
-		base.gameObject.SendMessage("PhotonVoiceCreated", new Photon.Voice.Unity.PhotonVoiceCreatedParams
+		gameObject.SendMessage("PhotonVoiceCreated", new Photon.Voice.Unity.PhotonVoiceCreatedParams
 		{
 			Voice = voice,
 			AudioDesc = inputSource
@@ -1465,9 +1465,9 @@ public class Recorder : VoiceComponent
 
 	private void OnDestroy()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Recorder is about to be destroyed, removing local voice.");
+			Logger.LogDebug("Recorder is about to be destroyed, removing local voice.");
 		}
 		RemoveVoice();
 		if (IsInitialized)
@@ -1478,9 +1478,9 @@ public class Recorder : VoiceComponent
 
 	private void RemoveVoice()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("RemovingVoice()");
+			Logger.LogDebug("RemovingVoice()");
 		}
 		if (subscribedToSystemChanges)
 		{
@@ -1504,18 +1504,18 @@ public class Recorder : VoiceComponent
 			inputSource.Dispose();
 			inputSource = null;
 		}
-		base.gameObject.SendMessage("PhotonVoiceRemoved", SendMessageOptions.DontRequireReceiver);
+		gameObject.SendMessage("PhotonVoiceRemoved", SendMessageOptions.DontRequireReceiver);
 		isRecording = false;
 		RequiresRestart = false;
 	}
 
 	private void OnAudioConfigChanged(bool deviceWasChanged)
 	{
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("OnAudioConfigChanged deviceWasChanged={0}", deviceWasChanged);
+			Logger.LogInfo("OnAudioConfigChanged deviceWasChanged={0}", deviceWasChanged);
 		}
-		if (SkipDeviceChangeChecks || deviceWasChanged)
+		if (SkipDeviceChangeChecks | deviceWasChanged)
 		{
 			MicrophoneDeviceChangeDetected = true;
 		}
@@ -1523,18 +1523,18 @@ public class Recorder : VoiceComponent
 
 	private void PhotonMicrophoneChangeDetected()
 	{
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Microphones change detected by Photon native plugin");
+			Logger.LogInfo("Microphones change detected by Photon native plugin");
 		}
 		MicrophoneDeviceChangeDetected = true;
 	}
 
 	internal void HandleDeviceChange()
 	{
-		if (!MicrophoneDeviceChangeDetected && base.Logger.IsWarningEnabled)
+		if (!MicrophoneDeviceChangeDetected && Logger.IsWarningEnabled)
 		{
-			base.Logger.LogWarning("Unexpected: HandleDeviceChange called while MicrophoneDeviceChangedDetected is false.");
+			Logger.LogWarning("Unexpected: HandleDeviceChange called while MicrophoneDeviceChangedDetected is false.");
 		}
 		if (photonMicrophoneEnumerator != null)
 		{
@@ -1566,24 +1566,24 @@ public class Recorder : VoiceComponent
 			if (ResetLocalAudio())
 			{
 				MicrophoneDeviceChangeDetected = false;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Local audio reset as a result of audio config/device change.");
+					Logger.LogInfo("Local audio reset as a result of audio config/device change.");
 				}
 				return;
 			}
 			RequiresRestart = true;
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Restarting Recording as a result of audio config/device change.");
+				Logger.LogInfo("Restarting Recording as a result of audio config/device change.");
 			}
 			RestartRecording();
 		}
 		else
 		{
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("A microphone device may have been made available: will check auto start conditions and if all good will attempt to start recording.");
+				Logger.LogInfo("A microphone device may have been made available: will check auto start conditions and if all good will attempt to start recording.");
 			}
 			CheckAndAutoStart(autoStartFlag: true);
 		}
@@ -1591,50 +1591,50 @@ public class Recorder : VoiceComponent
 
 	private void SubscribeToSystemChanges()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Subscribing to system (audio) changes.");
+			Logger.LogDebug("Subscribing to system (audio) changes.");
 		}
 		if (!ReactOnSystemChanges)
 		{
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("ReactOnSystemChanges is false, not subscribed to system (audio) changes.");
+				Logger.LogDebug("ReactOnSystemChanges is false, not subscribed to system (audio) changes.");
 			}
 			return;
 		}
 		if (subscribedToSystemChanges)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Already subscribed to system (audio) changes.");
+				Logger.LogWarning("Already subscribed to system (audio) changes.");
 			}
 			return;
 		}
-		photonMicChangeNotifier = Platform.CreateAudioInChangeNotifier(PhotonMicrophoneChangeDetected, base.Logger);
+		photonMicChangeNotifier = Platform.CreateAudioInChangeNotifier(PhotonMicrophoneChangeDetected, Logger);
 		if (photonMicChangeNotifier.IsSupported)
 		{
 			if (photonMicChangeNotifier.Error == null)
 			{
 				subscribedToSystemChangesPhoton = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Subscribed to audio in change notifications via Photon plugin.");
+					Logger.LogInfo("Subscribed to audio in change notifications via Photon plugin.");
 				}
 				return;
 			}
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Error creating instance of photonMicChangeNotifier: {0}", photonMicChangeNotifier.Error);
+				Logger.LogError("Error creating instance of photonMicChangeNotifier: {0}", photonMicChangeNotifier.Error);
 			}
 		}
 		photonMicChangeNotifier.Dispose();
 		photonMicChangeNotifier = null;
 		AudioSettings.OnAudioConfigurationChanged += OnAudioConfigChanged;
 		subscribedToSystemChangesUnity = true;
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Subscribed to audio configuration changes via Unity callback.");
+			Logger.LogInfo("Subscribed to audio configuration changes via Unity callback.");
 		}
 	}
 
@@ -1644,9 +1644,9 @@ public class Recorder : VoiceComponent
 		{
 			AudioSettings.OnAudioConfigurationChanged -= OnAudioConfigChanged;
 			subscribedToSystemChangesUnity = false;
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Unsubscribed from audio configuration changes via Unity callback.");
+				Logger.LogInfo("Unsubscribed from audio configuration changes via Unity callback.");
 			}
 		}
 		if (!subscribedToSystemChangesPhoton)
@@ -1655,9 +1655,9 @@ public class Recorder : VoiceComponent
 		}
 		if (photonMicChangeNotifier == null)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Unexpected: photonMicChangeNotifier is null while subscribedToSystemChangesPhoton is true.");
+				Logger.LogError("Unexpected: photonMicChangeNotifier is null while subscribedToSystemChangesPhoton is true.");
 			}
 		}
 		else
@@ -1666,9 +1666,9 @@ public class Recorder : VoiceComponent
 			photonMicChangeNotifier = null;
 		}
 		subscribedToSystemChangesPhoton = false;
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Unsubscribed from audio in change notifications via Photon plugin.");
+			Logger.LogInfo("Unsubscribed from audio in change notifications via Photon plugin.");
 		}
 	}
 
@@ -1680,15 +1680,15 @@ public class Recorder : VoiceComponent
 		}
 		if (VoiceDetector.Threshold <= 1f && VoiceDetector.Threshold >= 0f)
 		{
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("VoiceDetectionThreshold automatically changed from {0} to {1}", voiceDetectionThreshold, VoiceDetector.Threshold);
+				Logger.LogDebug("VoiceDetectionThreshold automatically changed from {0} to {1}", voiceDetectionThreshold, VoiceDetector.Threshold);
 			}
 			voiceDetectionThreshold = VoiceDetector.Threshold;
 		}
-		else if (base.Logger.IsWarningEnabled)
+		else if (Logger.IsWarningEnabled)
 		{
-			base.Logger.LogWarning("VoiceDetector.Threshold has unexpected value {0}", VoiceDetector.Threshold);
+			Logger.LogWarning("VoiceDetector.Threshold has unexpected value {0}", VoiceDetector.Threshold);
 		}
 	}
 
@@ -1696,9 +1696,9 @@ public class Recorder : VoiceComponent
 	{
 		if (IsRecording && VoiceDetector != null && voiceDetectionDelayMs != VoiceDetector.ActivityDelayMs)
 		{
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("VoiceDetectionDelayMs automatically changed from {0} to {1}", voiceDetectionDelayMs, VoiceDetector.ActivityDelayMs);
+				Logger.LogDebug("VoiceDetectionDelayMs automatically changed from {0} to {1}", voiceDetectionDelayMs, VoiceDetector.ActivityDelayMs);
 			}
 			voiceDetectionDelayMs = VoiceDetector.ActivityDelayMs;
 		}
@@ -1708,9 +1708,9 @@ public class Recorder : VoiceComponent
 	{
 		if (IsRecording && VoiceDetector != null && voiceDetection != VoiceDetector.On)
 		{
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("VoiceDetection automatically changed from {0} to {1}", voiceDetection, VoiceDetector.On);
+				Logger.LogDebug("VoiceDetection automatically changed from {0} to {1}", voiceDetection, VoiceDetector.On);
 			}
 			voiceDetection = VoiceDetector.On;
 		}
@@ -1771,27 +1771,27 @@ public class Recorder : VoiceComponent
 
 	private void OnApplicationPause(bool paused)
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("OnApplicationPause({0})", paused);
+			Logger.LogDebug("OnApplicationPause({0})", paused);
 		}
 		HandleApplicationPause(paused);
 	}
 
 	private void OnApplicationFocus(bool focused)
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("OnApplicationFocus({0})", focused);
+			Logger.LogDebug("OnApplicationFocus({0})", focused);
 		}
 		HandleApplicationPause(!focused);
 	}
 
 	private void HandleApplicationPause(bool paused)
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("App paused?= {0}, isPausedOrInBackground = {1}, wasRecordingBeforePause = {2}, StopRecordingWhenPaused = {3}, IsRecording = {4}", paused, isPausedOrInBackground, wasRecordingBeforePause, StopRecordingWhenPaused, IsRecording);
+			Logger.LogDebug("App paused?= {0}, isPausedOrInBackground = {1}, wasRecordingBeforePause = {2}, StopRecordingWhenPaused = {3}, IsRecording = {4}", paused, isPausedOrInBackground, wasRecordingBeforePause, StopRecordingWhenPaused, IsRecording);
 		}
 		if (isPausedOrInBackground == paused)
 		{
@@ -1803,9 +1803,9 @@ public class Recorder : VoiceComponent
 			isPausedOrInBackground = true;
 			if (StopRecordingWhenPaused && IsRecording)
 			{
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Stopping recording as application went to background or paused");
+					Logger.LogInfo("Stopping recording as application went to background or paused");
 				}
 				RemoveVoice();
 			}
@@ -1813,24 +1813,24 @@ public class Recorder : VoiceComponent
 		}
 		if (!StopRecordingWhenPaused)
 		{
-			if (ResetLocalAudio() && base.Logger.IsInfoEnabled)
+			if (ResetLocalAudio() && Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Local audio reset as application is back from background or unpaused");
+				Logger.LogInfo("Local audio reset as application is back from background or unpaused");
 			}
 		}
 		else if (wasRecordingBeforePause)
 		{
 			if (!IsRecording)
 			{
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Starting recording as application is back from background or unpaused");
+					Logger.LogInfo("Starting recording as application is back from background or unpaused");
 				}
 				Setup();
 			}
-			else if (base.Logger.IsWarningEnabled)
+			else if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Unexpected: Application back from background or unpaused, isPausedOrInBackground = true, wasRecordingBeforePause = true, StopRecordingWhenPaused = true, IsRecording = true");
+				Logger.LogWarning("Unexpected: Application back from background or unpaused, isPausedOrInBackground = true, wasRecordingBeforePause = true, StopRecordingWhenPaused = true, IsRecording = true");
 			}
 		}
 		wasRecordingBeforePause = false;
@@ -1929,9 +1929,9 @@ public class Recorder : VoiceComponent
 			{
 				return;
 			}
-			if (supportedSamplingRate != sR && base.Logger.IsWarningEnabled)
+			if (supportedSamplingRate != sR && Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Sampling rate requested ({0}Hz) not supported using closest value ({1}Hz)", (int)sR, (int)supportedSamplingRate);
+				Logger.LogWarning("Sampling rate requested ({0}Hz) not supported using closest value ({1}Hz)", (int)sR, (int)supportedSamplingRate);
 			}
 			samplingRate = supportedSamplingRate;
 		}
@@ -1946,9 +1946,9 @@ public class Recorder : VoiceComponent
 		if (IsRecording)
 		{
 			RequiresRestart = true;
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "SamplingRate");
+				Logger.LogInfo("Recorder.{0} changed, Recorder requires restart for this to take effect.", "SamplingRate");
 			}
 		}
 	}
@@ -1960,9 +1960,9 @@ public class Recorder : VoiceComponent
 
 	internal void StopRecordingInternal()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Stopping recording");
+			Logger.LogDebug("Stopping recording");
 		}
 		wasRecordingBeforePause = false;
 		RemoveVoice();
@@ -1983,78 +1983,78 @@ public class Recorder : VoiceComponent
 		if (!autoStartFlag)
 		{
 			flag = false;
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("Auto start check failure: autoStart flag is false.");
+				Logger.LogDebug("Auto start check failure: autoStart flag is false.");
 			}
 		}
 		if (!IsInitialized)
 		{
 			flag = false;
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("Auto start check failure: recorder not initialized.");
+				Logger.LogDebug("Auto start check failure: recorder not initialized.");
 			}
 		}
 		if (isRecording)
 		{
 			flag = false;
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("Auto start check failure: recorder is already started.");
+				Logger.LogDebug("Auto start check failure: recorder is already started.");
 			}
 		}
 		if (recordingStoppedExplicitly)
 		{
 			flag = false;
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("Auto start check failure: recorder was previously stopped explicitly.");
+				Logger.LogDebug("Auto start check failure: recorder was previously stopped explicitly.");
 			}
 		}
-		if (recordOnlyWhenEnabled && !base.isActiveAndEnabled)
+		if (recordOnlyWhenEnabled && !isActiveAndEnabled)
 		{
 			flag = false;
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("Auto start check failure: recorder not enabled and this is required.");
+				Logger.LogDebug("Auto start check failure: recorder not enabled and this is required.");
 			}
 		}
 		if (recordOnlyWhenJoined && ((object)voiceConnection == null || !voiceConnection || voiceConnection.Client == null || !voiceConnection.Client.InRoom))
 		{
 			flag = false;
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("Auto start check failure: voice client not joined to a room yet and this is required.");
+				Logger.LogDebug("Auto start check failure: voice client not joined to a room yet and this is required.");
 			}
 		}
 		if (SourceType == InputSourceType.Microphone && !CheckIfThereIsAtLeastOneMic())
 		{
 			flag = false;
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("Auto start check failure: no microphone detected.");
+				Logger.LogDebug("Auto start check failure: no microphone detected.");
 			}
 		}
 		if (flag)
 		{
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("AutoStart requirements met: going to auto start recording");
+				Logger.LogDebug("AutoStart requirements met: going to auto start recording");
 			}
 			StartRecordingInternal();
 		}
-		else if (base.Logger.IsDebugEnabled)
+		else if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("AutoStart requirements NOT met: NOT going to auto start recording");
+			Logger.LogDebug("AutoStart requirements NOT met: NOT going to auto start recording");
 		}
 	}
 
 	internal void StartRecordingInternal()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Starting recording");
+			Logger.LogDebug("Starting recording");
 		}
 		wasRecordingBeforePause = false;
 		recordingStoppedExplicitly = false;
@@ -2068,21 +2068,21 @@ public class Recorder : VoiceComponent
 		case MicType.Unity:
 			if (unityMicrophonesEnumerator == null)
 			{
-				unityMicrophonesEnumerator = new AudioInEnumerator(base.Logger);
-				if (!unityMicrophonesEnumerator.IsSupported && base.Logger.IsWarningEnabled)
+				unityMicrophonesEnumerator = new AudioInEnumerator(Logger);
+				if (!unityMicrophonesEnumerator.IsSupported && Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("UnityMicrophonesEnumerator is not supported on this platform {0}.", VoiceComponent.CurrentPlatform);
+					Logger.LogWarning("UnityMicrophonesEnumerator is not supported on this platform {0}.", VoiceComponent.CurrentPlatform);
 				}
-				else if (unityMicrophonesEnumerator.Error != null && base.Logger.IsErrorEnabled)
+				else if (unityMicrophonesEnumerator.Error != null && Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError(unityMicrophonesEnumerator.Error);
+					Logger.LogError(unityMicrophonesEnumerator.Error);
 				}
 			}
 			return unityMicrophonesEnumerator;
 		case MicType.Photon:
 			if (photonMicrophonesEnumerator == null)
 			{
-				photonMicrophonesEnumerator = CreatePhotonDeviceEnumerator(base.Logger);
+				photonMicrophonesEnumerator = CreatePhotonDeviceEnumerator(Logger);
 			}
 			return photonMicrophonesEnumerator;
 		default:

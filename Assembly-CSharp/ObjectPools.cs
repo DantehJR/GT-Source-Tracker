@@ -25,7 +25,7 @@ public class ObjectPools : MonoBehaviour, IBuildValidation
 					Vector3 position = ((reference.xform != null) ? reference.xform.TransformPoint(reference.pos) : reference.pos);
 					instance.Instantiate(reference.prefabHash, position);
 				}
-				reference = default(DelayedSpawnData);
+				reference = default;
 				_delayedFreeNext[contextId] = _delayedFreeHead;
 				_delayedFreeHead = contextId;
 			}
@@ -77,7 +77,7 @@ public class ObjectPools : MonoBehaviour, IBuildValidation
 		lookUp = new Dictionary<int, SinglePool>();
 		foreach (SinglePool pool in pools)
 		{
-			pool.Initialize(base.gameObject);
+			pool.Initialize(gameObject);
 			int num = pool.PoolGUID();
 			if (lookUp.ContainsKey(num))
 			{
@@ -131,38 +131,38 @@ public class ObjectPools : MonoBehaviour, IBuildValidation
 
 	public GameObject Instantiate(int hash, Vector3 position, bool setActive = true)
 	{
-		GameObject obj = Instantiate(hash, setActive);
-		obj.transform.position = position;
-		return obj;
+		GameObject gameObject = Instantiate(hash, setActive);
+		gameObject.transform.position = position;
+		return gameObject;
 	}
 
 	public GameObject Instantiate(int hash, Vector3 position, Quaternion rotation, bool setActive = true)
 	{
-		GameObject obj = Instantiate(hash, setActive);
-		obj.transform.SetPositionAndRotation(position, rotation);
-		return obj;
+		GameObject gameObject = Instantiate(hash, setActive);
+		gameObject.transform.SetPositionAndRotation(position, rotation);
+		return gameObject;
 	}
 
 	public GameObject Instantiate(GameObject obj, Vector3 position, bool setActive = true)
 	{
-		GameObject obj2 = Instantiate(obj, setActive);
-		obj2.transform.position = position;
-		return obj2;
+		GameObject gameObject = Instantiate(obj, setActive);
+		gameObject.transform.position = position;
+		return gameObject;
 	}
 
 	public GameObject Instantiate(GameObject obj, Vector3 position, Quaternion rotation, bool setActive = true)
 	{
-		GameObject obj2 = Instantiate(obj, setActive);
-		obj2.transform.SetPositionAndRotation(position, rotation);
-		return obj2;
+		GameObject gameObject = Instantiate(obj, setActive);
+		gameObject.transform.SetPositionAndRotation(position, rotation);
+		return gameObject;
 	}
 
 	public GameObject Instantiate(GameObject obj, Vector3 position, Quaternion rotation, float scale, bool setActive = true)
 	{
-		GameObject obj2 = Instantiate(obj, setActive);
-		obj2.transform.SetPositionAndRotation(position, rotation);
-		obj2.transform.localScale = Vector3.one * scale;
-		return obj2;
+		GameObject gameObject = Instantiate(obj, setActive);
+		gameObject.transform.SetPositionAndRotation(position, rotation);
+		gameObject.transform.localScale = Vector3.one * scale;
+		return gameObject;
 	}
 
 	public void Destroy(GameObject obj)

@@ -91,7 +91,7 @@ public class GorillaGrabber : MonoBehaviour
 	{
 		if (!(currentGrabbedTransform == null))
 		{
-			return Vector3.Distance(base.transform.position, currentGrabbedTransform.TransformPoint(localGrabbedPosition)) > breakDistance;
+			return Vector3.Distance(transform.position, currentGrabbedTransform.TransformPoint(localGrabbedPosition)) > breakDistance;
 		}
 		return true;
 	}
@@ -111,14 +111,14 @@ public class GorillaGrabber : MonoBehaviour
 	private IGorillaGrabable TryGrab(bool momentary)
 	{
 		IGorillaGrabable gorillaGrabable = null;
-		Debug.DrawRay(base.transform.position, base.transform.forward * (grabRadius * player.scale), Color.blue, 1f);
-		int num = Physics.OverlapSphereNonAlloc(base.transform.position, grabRadius * player.scale, grabCastResults);
+		Debug.DrawRay(transform.position, transform.forward * (grabRadius * player.scale), Color.blue, 1f);
+		int num = Physics.OverlapSphereNonAlloc(transform.position, grabRadius * player.scale, grabCastResults);
 		float num2 = float.MaxValue;
 		for (int i = 0; i < num; i++)
 		{
 			if (grabCastResults[i].TryGetComponent<IGorillaGrabable>(out var component))
 			{
-				float num3 = Vector3.Distance(base.transform.position, FindClosestPoint(grabCastResults[i], base.transform.position));
+				float num3 = Vector3.Distance(transform.position, FindClosestPoint(grabCastResults[i], transform.position));
 				if (num3 < num2)
 				{
 					num2 = num3;
@@ -126,7 +126,7 @@ public class GorillaGrabber : MonoBehaviour
 				}
 			}
 		}
-		if (gorillaGrabable != null && (!gorillaGrabable.MomentaryGrabOnly() || momentary) && gorillaGrabable.CanBeGrabbed(this))
+		if (gorillaGrabable != null && (!gorillaGrabable.MomentaryGrabOnly() | momentary) && gorillaGrabable.CanBeGrabbed(this))
 		{
 			gorillaGrabable.OnGrabbed(this, out currentGrabbedTransform, out localGrabbedPosition);
 			PlayerGameEvents.GrabbedObject(gorillaGrabable.name);

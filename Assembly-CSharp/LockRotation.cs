@@ -6,11 +6,11 @@ public class LockRotation : MonoBehaviour
 
 	private void Start()
 	{
-		lockedRot = base.transform.rotation;
+		lockedRot = transform.rotation;
 	}
 
 	private void LateUpdate()
 	{
-		base.transform.rotation = lockedRot;
+		transform.rotation = lockedRot;
 	}
 }

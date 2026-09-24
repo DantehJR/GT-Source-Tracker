@@ -112,7 +112,7 @@ internal static class ProjectileTracker
 
 	public static (bool, ProjectileInfo) GetAndRemoveRemotePlayerProjectile(NetPlayer player, int index)
 	{
-		(bool, ProjectileInfo) result = (false, default(ProjectileInfo));
+		(bool, ProjectileInfo) result = (false, default);
 		if (index < 0 || index >= m_localProjectiles.Length || !m_playerProjectiles.TryGetValue(player, out var value))
 		{
 			return result;
@@ -122,7 +122,7 @@ internal static class ProjectileTracker
 		{
 			result.Item1 = true;
 			result.Item2 = item;
-			value[index] = default(ProjectileInfo);
+			value[index] = default;
 		}
 		return result;
 	}

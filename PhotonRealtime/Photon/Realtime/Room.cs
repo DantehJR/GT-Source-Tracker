@@ -217,8 +217,8 @@ public class Room : RoomInfo
 			{
 				return false;
 			}
-			base.CustomProperties.Merge(hashtable);
-			base.CustomProperties.StripKeysWithNullValues();
+			CustomProperties.Merge(hashtable);
+			CustomProperties.StripKeysWithNullValues();
 			LoadBalancingClient.InRoomCallbackTargets.OnRoomPropertiesUpdate(propertiesToSet);
 			return true;
 		}
@@ -326,6 +326,6 @@ public class Room : RoomInfo
 
 	public new string ToStringFull()
 	{
-		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.\ncustomProps: {5}", name, isVisible ? "visible" : "hidden", isOpen ? "open" : "closed", maxPlayers, PlayerCount, base.CustomProperties.ToStringFull());
+		return string.Format("Room: '{0}' {1},{2} {4}/{3} players.\ncustomProps: {5}", name, isVisible ? "visible" : "hidden", isOpen ? "open" : "closed", maxPlayers, PlayerCount, CustomProperties.ToStringFull());
 	}
 }

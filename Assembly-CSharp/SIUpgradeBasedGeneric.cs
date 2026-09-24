@@ -7,7 +7,7 @@ internal struct SIUpgradeBasedGeneric<T>
 
 	public bool TryGetActiveValue(SIUpgradeSet withUpgrades, out T out_value)
 	{
-		out_value = default(T);
+		out_value = default;
 		bool result = false;
 		for (int i = 0; i < entries.Length; i++)
 		{

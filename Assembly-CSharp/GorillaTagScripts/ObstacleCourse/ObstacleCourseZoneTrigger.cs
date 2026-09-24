@@ -16,7 +16,7 @@ public class ObstacleCourseZoneTrigger : MonoBehaviour
 	{
 		if ((bool)other.GetComponent<SphereCollider>() && other.attachedRigidbody.gameObject.CompareTag("GorillaPlayer"))
 		{
-			this.OnPlayerTriggerEnter?.Invoke(other);
+			OnPlayerTriggerEnter?.Invoke(other);
 		}
 	}
 
@@ -24,7 +24,7 @@ public class ObstacleCourseZoneTrigger : MonoBehaviour
 	{
 		if ((bool)other.GetComponent<SphereCollider>() && other.attachedRigidbody.gameObject.CompareTag("GorillaPlayer"))
 		{
-			this.OnPlayerTriggerExit?.Invoke(other);
+			OnPlayerTriggerExit?.Invoke(other);
 		}
 	}
 }

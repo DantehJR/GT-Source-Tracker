@@ -34,17 +34,17 @@ public class RemoteVoiceLink : IEquatable<RemoteVoiceLink>
 
 	private void OnRemoteVoiceRemoveAction()
 	{
-		if (this.RemoteVoiceRemoved != null)
+		if (RemoteVoiceRemoved != null)
 		{
-			this.RemoteVoiceRemoved();
+			RemoteVoiceRemoved();
 		}
 	}
 
 	private void OnDecodedFrameFloatAction(FrameOut<float> floats)
 	{
-		if (this.FloatFrameDecoded != null)
+		if (FloatFrameDecoded != null)
 		{
-			this.FloatFrameDecoded(floats);
+			FloatFrameDecoded(floats);
 		}
 	}
 

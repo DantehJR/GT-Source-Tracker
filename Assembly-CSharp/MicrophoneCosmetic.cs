@@ -46,7 +46,7 @@ public class MicrophoneCosmetic : MonoBehaviour
 
 	private void Update()
 	{
-		Vector3 vector = mouthTransform.position - base.transform.position;
+		Vector3 vector = mouthTransform.position - transform.position;
 		float sqrMagnitude = vector.sqrMagnitude;
 		float num = 0f;
 		if (sqrMagnitude < mouthProximityRampRange.x * mouthProximityRampRange.x)

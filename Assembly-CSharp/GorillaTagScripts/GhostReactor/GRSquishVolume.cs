@@ -58,7 +58,7 @@ public class GRSquishVolume : MonoBehaviour, IGorillaSliceableSimple
 
 	public void SliceUpdate()
 	{
-		SetCollider(!overrideDisabled && base.transform.position.y < squishHeight && Vector3.Angle(-base.transform.forward, Quaternion.Euler(rotationOffset) * Vector3.down) < facingDownDegrees);
+		SetCollider(!overrideDisabled && transform.position.y < squishHeight && Vector3.Angle(-transform.forward, Quaternion.Euler(rotationOffset) * Vector3.down) < facingDownDegrees);
 	}
 
 	public void SetCollider(bool colliderEnabled)
@@ -98,8 +98,8 @@ public class GRSquishVolume : MonoBehaviour, IGorillaSliceableSimple
 	private Vector3 GetLaunchVector()
 	{
 		Vector3 position = GRPlayer.GetLocal().transform.position;
-		Vector3 lhs = position - base.transform.position;
-		Vector3 vector = base.transform.position + base.transform.right * Vector3.Dot(lhs, base.transform.right);
+		Vector3 lhs = position - transform.position;
+		Vector3 vector = transform.position + transform.right * Vector3.Dot(lhs, transform.right);
 		Vector3 normalized = (position - vector).normalized;
 		Vector3 vector2 = Vector3.RotateTowards(new Vector3(normalized.x, 0f, normalized.y).normalized, maxRadiansDelta: UnityEngine.Random.Range(_launchDeflectionDegrees / 2f, _launchDeflectionDegrees) * (MathF.PI / 180f), target: Vector3.up, maxMagnitudeDelta: 0f);
 		return _launchStrength * vector2.normalized;

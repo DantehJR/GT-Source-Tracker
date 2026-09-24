@@ -199,7 +199,7 @@ public class GameHitter : MonoBehaviour, IGameEntityComponent
 		GameHittable parentEnemy = GetParentEnemy<GameHittable>(collider);
 		if (parentEnemy != null && parentEnemy.IsColliderValid(collision.collider))
 		{
-			Vector3 vector = parentEnemy.transform.position - base.transform.position;
+			Vector3 vector = parentEnemy.transform.position - transform.position;
 			vector.Normalize();
 			if (!flag && gamePlayer != null)
 			{

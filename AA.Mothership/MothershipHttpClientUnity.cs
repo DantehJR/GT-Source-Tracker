@@ -38,7 +38,7 @@ public class MothershipHttpClientUnity : MothershipSendHTTPRequestDelegateWrappe
 			unityWebRequest.SetRequestHeader(requestHeader.Name, requestHeader.Value);
 		}
 		unityWebRequest.timeout = 15;
-		MothershipHttpRunner.instance.SendRequest(unityWebRequest, request, delegate(MothershipHTTPResponse Response)
+		MothershipHttpRunner.instance.SendRequest(unityWebRequest, request, (MothershipHTTPResponse Response) =>
 		{
 			if (isRequestLoggingEnabled)
 			{

@@ -48,9 +48,9 @@ public class FusionPlayerProperties : NetworkBehaviour
 	public PlayerAttributeOnChanged playerAttributeOnChanged;
 
 	[Capacity(20)]
-	private NetworkDictionary<PlayerRef, PlayerInfo> netPlayerAttributes => default(NetworkDictionary<PlayerRef, PlayerInfo>);
+	private NetworkDictionary<PlayerRef, PlayerInfo> netPlayerAttributes => default;
 
-	public PlayerInfo PlayerProperties => netPlayerAttributes[base.Runner.LocalPlayer];
+	public PlayerInfo PlayerProperties => netPlayerAttributes[Runner.LocalPlayer];
 
 	private void OnAttributesChanged()
 	{
@@ -67,14 +67,14 @@ public class FusionPlayerProperties : NetworkBehaviour
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void FusionPlayerProperties::RPC_UpdatePlayerAttributes(FusionPlayerProperties/PlayerInfo,Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void FusionPlayerProperties::RPC_UpdatePlayerAttributes(FusionPlayerProperties/PlayerInfo,Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			int num = 8;
@@ -84,22 +84,22 @@ public class FusionPlayerProperties : NetworkBehaviour
 				NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void FusionPlayerProperties::RPC_UpdatePlayerAttributes(FusionPlayerProperties/PlayerInfo,Fusion.RpcInfo)", num);
 				return;
 			}
-			if (base.Runner.HasAnyActiveConnections())
+			if (Runner.HasAnyActiveConnections())
 			{
-				SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+				SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 				byte* ptr2 = (byte*)ptr + 28;
-				*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, base.ObjectIndex, 1);
+				*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, base.ObjectIndex, 1);
 				int num2 = 8;
 				*(PlayerInfo*)(ptr2 + num2) = newInfo;
 				num2 += 960;
 				ptr->Offset = num2 * 8;
-				base.Runner.SendRpc(ptr);
+				Runner.SendRpc(ptr);
 			}
 			if ((localAuthorityMask & 7) == 0)
 			{
 				return;
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		Debug.Log("Update Player attributes triggered");
 		PlayerRef source = info.Source;
@@ -119,7 +119,7 @@ public class FusionPlayerProperties : NetworkBehaviour
 	public override void Spawned()
 	{
 		Debug.Log("Player props SPAWNED!");
-		if (base.Runner.Mode == SimulationModes.Client)
+		if (Runner.Mode == SimulationModes.Client)
 		{
 			Debug.Log("SET Player Properties manager!");
 		}
@@ -132,7 +132,7 @@ public class FusionPlayerProperties : NetworkBehaviour
 
 	public string GetLocalDisplayName()
 	{
-		return netPlayerAttributes[base.Runner.LocalPlayer].NickName.Value;
+		return netPlayerAttributes[Runner.LocalPlayer].NickName.Value;
 	}
 
 	public bool GetProperty(PlayerRef player, string propertyName, out string propertyValue)
@@ -153,7 +153,7 @@ public class FusionPlayerProperties : NetworkBehaviour
 
 	public void RemovePlayerEntry(PlayerRef player)
 	{
-		if (base.Object.HasStateAuthority)
+		if (Object.HasStateAuthority)
 		{
 			string value = netPlayerAttributes[player].NickName.Value;
 			netPlayerAttributes.Remove(player);

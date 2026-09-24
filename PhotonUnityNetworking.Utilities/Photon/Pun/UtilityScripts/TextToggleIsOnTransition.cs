@@ -35,7 +35,17 @@ public class TextToggleIsOnTransition : MonoBehaviour, IPointerEnterHandler, IEv
 
 	public void OnValueChanged(bool isOn)
 	{
-		_text.color = ((!isOn) ? (isHover ? NormalOffColor : NormalOffColor) : (isHover ? HoverOnColor : HoverOnColor));
+		Text text = _text;
+		Color color;
+		if (isOn)
+		{
+			color = (isHover ? HoverOnColor : HoverOnColor);
+		}
+		else
+		{
+			color = (isHover ? NormalOffColor : NormalOffColor);
+		}
+		text.color = color;
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)

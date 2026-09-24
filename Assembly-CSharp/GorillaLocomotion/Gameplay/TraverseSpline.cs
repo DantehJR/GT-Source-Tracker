@@ -80,7 +80,7 @@ public class TraverseSpline : NetworkComponent
 
 	protected virtual void FixedUpdate()
 	{
-		if (!base.IsMine && progressLerpStartTime + 1f > Time.time)
+		if (!IsMine && progressLerpStartTime + 1f > Time.time)
 		{
 			progress = Mathf.Lerp(progressLerpStart, progressLerpEnd, (Time.time - progressLerpStartTime) / 1f);
 		}
@@ -125,10 +125,10 @@ public class TraverseSpline : NetworkComponent
 			}
 		}
 		Vector3 point = spline.GetPoint(progress, constantVelocity);
-		base.transform.position = point;
+		transform.position = point;
 		if (lookForward)
 		{
-			base.transform.LookAt(base.transform.position + spline.GetDirection(progress, constantVelocity));
+			transform.LookAt(transform.position + spline.GetDirection(progress, constantVelocity));
 		}
 	}
 

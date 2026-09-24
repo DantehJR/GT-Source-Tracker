@@ -14,7 +14,7 @@ public class GorillaPlayerCounter : MonoBehaviour
 
 	private void Awake()
 	{
-		text = base.gameObject.GetComponent<Text>();
+		text = gameObject.GetComponent<Text>();
 	}
 
 	private void Update()

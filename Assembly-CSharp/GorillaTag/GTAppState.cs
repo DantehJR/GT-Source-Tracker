@@ -11,7 +11,7 @@ public static class GTAppState
 	private static void HandleOnSubsystemRegistration()
 	{
 		isQuitting = false;
-		Application.quitting += delegate
+		Application.quitting += () =>
 		{
 			isQuitting = true;
 		};

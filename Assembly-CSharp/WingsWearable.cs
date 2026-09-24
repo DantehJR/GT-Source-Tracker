@@ -20,7 +20,7 @@ public class WingsWearable : MonoBehaviour, IGorillaSliceableSimple
 	{
 		if (animator == null)
 		{
-			GTDev.LogError("WingsWearable on " + base.gameObject.name + " missing animator");
+			GTDev.LogError("WingsWearable on " + gameObject.name + " missing animator");
 		}
 		else
 		{

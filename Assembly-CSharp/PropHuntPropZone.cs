@@ -93,11 +93,11 @@ public class PropHuntPropZone : MonoBehaviour, IDelayedExecListener
 			if (hasBoxCollider)
 			{
 				Vector3 position = new Vector3(sRand.NextFloat(0f - boxCollider.size.x, boxCollider.size.x) / 2f, sRand.NextFloat(0f - boxCollider.size.y, boxCollider.size.y) / 2f, sRand.NextFloat(0f - boxCollider.size.z, boxCollider.size.z) / 2f);
-				position2 = base.transform.TransformPoint(position);
+				position2 = transform.TransformPoint(position);
 			}
 			else
 			{
-				position2 = base.transform.position + sRand.NextPointInsideSphere(radius);
+				position2 = transform.position + sRand.NextPointInsideSphere(radius);
 			}
 			out_prop.gameObject.SetActive(value: false);
 			out_prop.transform.SetParent(null, worldPositionStays: false);
@@ -136,7 +136,7 @@ public class PropHuntPropZone : MonoBehaviour, IDelayedExecListener
 		}
 		else
 		{
-			propPlacementRB = Object.Instantiate(propPlacementPrefab, base.transform);
+			propPlacementRB = Object.Instantiate(propPlacementPrefab, transform);
 			propPlacementRBs.Add(propPlacementRB);
 		}
 		nextUnusedPropPlacement++;

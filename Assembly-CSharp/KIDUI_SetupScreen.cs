@@ -58,7 +58,7 @@ public class KIDUI_SetupScreen : MonoBehaviour
 
 	public void OnStartSetup()
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		TelemetryData telemetryData = new TelemetryData
 		{
 			EventName = "kid_screen_shown",
@@ -92,7 +92,7 @@ public class KIDUI_SetupScreen : MonoBehaviour
 	{
 		PlayerPrefs.SetString(KIDManager.GetEmailForUserPlayerPrefRef, _emailInputField.text);
 		PlayerPrefs.Save();
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_confirmScreen.OnEmailSubmitted(_emailInputField.text);
 	}
 
@@ -100,7 +100,7 @@ public class KIDUI_SetupScreen : MonoBehaviour
 	{
 		PlayerPrefs.SetString(KIDManager.GetEmailForUserPlayerPrefRef, _emailInputField.text);
 		PlayerPrefs.Save();
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_mainScreen.ShowMainScreen(EMainScreenStatus.Previous);
 	}
 }

@@ -96,10 +96,18 @@ public class ComplexNodeVector : IDisposable, IEnumerable, IEnumerable<SWIGTYPE_
 	{
 		get
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to get an out of bounds element from this vector");
+			}
 			return getitem(index);
 		}
 		set
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to set an out of bounds element from this vector");
+			}
 			setitem(index, value);
 		}
 	}
@@ -119,6 +127,8 @@ public class ComplexNodeVector : IDisposable, IEnumerable, IEnumerable<SWIGTYPE_
 			reserve((uint)value);
 		}
 	}
+
+	public bool IsEmpty => empty();
 
 	public int Count => (int)size();
 
@@ -204,6 +214,80 @@ public class ComplexNodeVector : IDisposable, IEnumerable, IEnumerable<SWIGTYPE_
 		}
 	}
 
+	public void Insert(int index, SWIGTYPE_p_std__variantT_MothershipApiShared__NodeReference_MothershipApiShared__ComplexPrerequisiteNodes_t value)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insert(index, value);
+	}
+
+	public void InsertRange(int index, ComplexNodeVector values)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insertRange(index, values);
+	}
+
+	public void RemoveAt(int index)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		_removeAt(index);
+	}
+
+	public void RemoveRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("count", "Tried to remove a negative count from this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_removeRange(index, count);
+	}
+
+	public void ReverseRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse from an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse an invalid count in this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_reverseRange(index, count);
+	}
+
+	public void SetRange(int index, ComplexNodeVector values)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		if (index < 0 || index > Count || index + values.Count > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		_setRange(index, values);
+	}
+
 	public void CopyTo(SWIGTYPE_p_std__variantT_MothershipApiShared__NodeReference_MothershipApiShared__ComplexPrerequisiteNodes_t[] array)
 	{
 		CopyTo(0, array, 0, Count);
@@ -242,6 +326,10 @@ public class ComplexNodeVector : IDisposable, IEnumerable, IEnumerable<SWIGTYPE_
 		}
 		for (int i = 0; i < count; i++)
 		{
+			if (i > array.Length - 1)
+			{
+				throw new ArgumentOutOfRangeException("Somehow we tried to copy to an array index that's out of bounds");
+			}
 			array.SetValue(getitemcopy(index + i), arrayIndex + i);
 		}
 	}
@@ -266,6 +354,24 @@ public class ComplexNodeVector : IDisposable, IEnumerable, IEnumerable<SWIGTYPE_
 	public ComplexNodeVectorEnumerator GetEnumerator()
 	{
 		return new ComplexNodeVectorEnumerator(this);
+	}
+
+	public ComplexNodeVector()
+		: this(MothershipApiPINVOKE.new_ComplexNodeVector__SWIG_0(), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public ComplexNodeVector(ComplexNodeVector other)
+		: this(MothershipApiPINVOKE.new_ComplexNodeVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
 	}
 
 	public void Clear()
@@ -296,6 +402,16 @@ public class ComplexNodeVector : IDisposable, IEnumerable, IEnumerable<SWIGTYPE_
 		return result;
 	}
 
+	private bool empty()
+	{
+		bool result = MothershipApiPINVOKE.ComplexNodeVector_empty(swigCPtr);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private uint capacity()
 	{
 		uint result = MothershipApiPINVOKE.ComplexNodeVector_capacity(swigCPtr);
@@ -309,24 +425,6 @@ public class ComplexNodeVector : IDisposable, IEnumerable, IEnumerable<SWIGTYPE_
 	private void reserve(uint n)
 	{
 		MothershipApiPINVOKE.ComplexNodeVector_reserve(swigCPtr, n);
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public ComplexNodeVector()
-		: this(MothershipApiPINVOKE.new_ComplexNodeVector__SWIG_0(), cMemoryOwn: true)
-	{
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public ComplexNodeVector(ComplexNodeVector other)
-		: this(MothershipApiPINVOKE.new_ComplexNodeVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
-	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -380,85 +478,63 @@ public class ComplexNodeVector : IDisposable, IEnumerable, IEnumerable<SWIGTYPE_
 		}
 	}
 
-	public ComplexNodeVector GetRange(int index, int count)
+	private void _insert(int index, SWIGTYPE_p_std__variantT_MothershipApiShared__NodeReference_MothershipApiShared__ComplexPrerequisiteNodes_t x)
 	{
-		IntPtr intPtr = MothershipApiPINVOKE.ComplexNodeVector_GetRange(swigCPtr, index, count);
-		ComplexNodeVector result = ((intPtr == IntPtr.Zero) ? null : new ComplexNodeVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
-	}
-
-	public void Insert(int index, SWIGTYPE_p_std__variantT_MothershipApiShared__NodeReference_MothershipApiShared__ComplexPrerequisiteNodes_t x)
-	{
-		MothershipApiPINVOKE.ComplexNodeVector_Insert(swigCPtr, index, SWIGTYPE_p_std__variantT_MothershipApiShared__NodeReference_MothershipApiShared__ComplexPrerequisiteNodes_t.getCPtr(x));
+		MothershipApiPINVOKE.ComplexNodeVector__insert(swigCPtr, index, SWIGTYPE_p_std__variantT_MothershipApiShared__NodeReference_MothershipApiShared__ComplexPrerequisiteNodes_t.getCPtr(x));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void InsertRange(int index, ComplexNodeVector values)
+	private void _insertRange(int index, ComplexNodeVector values)
 	{
-		MothershipApiPINVOKE.ComplexNodeVector_InsertRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.ComplexNodeVector__insertRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveAt(int index)
+	private void _removeAt(int index)
 	{
-		MothershipApiPINVOKE.ComplexNodeVector_RemoveAt(swigCPtr, index);
+		MothershipApiPINVOKE.ComplexNodeVector__removeAt(swigCPtr, index);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveRange(int index, int count)
+	private void _removeRange(int index, int count)
 	{
-		MothershipApiPINVOKE.ComplexNodeVector_RemoveRange(swigCPtr, index, count);
+		MothershipApiPINVOKE.ComplexNodeVector__removeRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
-	}
-
-	public static ComplexNodeVector Repeat(SWIGTYPE_p_std__variantT_MothershipApiShared__NodeReference_MothershipApiShared__ComplexPrerequisiteNodes_t value, int count)
-	{
-		IntPtr intPtr = MothershipApiPINVOKE.ComplexNodeVector_Repeat(SWIGTYPE_p_std__variantT_MothershipApiShared__NodeReference_MothershipApiShared__ComplexPrerequisiteNodes_t.getCPtr(value), count);
-		ComplexNodeVector result = ((intPtr == IntPtr.Zero) ? null : new ComplexNodeVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
 	}
 
 	public void Reverse()
 	{
-		MothershipApiPINVOKE.ComplexNodeVector_Reverse__SWIG_0(swigCPtr);
+		MothershipApiPINVOKE.ComplexNodeVector_Reverse(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void Reverse(int index, int count)
+	private void _reverseRange(int index, int count)
 	{
-		MothershipApiPINVOKE.ComplexNodeVector_Reverse__SWIG_1(swigCPtr, index, count);
+		MothershipApiPINVOKE.ComplexNodeVector__reverseRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void SetRange(int index, ComplexNodeVector values)
+	private void _setRange(int index, ComplexNodeVector values)
 	{
-		MothershipApiPINVOKE.ComplexNodeVector_SetRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.ComplexNodeVector__setRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

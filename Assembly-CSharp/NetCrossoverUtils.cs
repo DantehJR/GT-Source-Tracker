@@ -25,7 +25,7 @@ public static class NetCrossoverUtils
 			Debug.LogError("Attempted to write data to a reading stream!");
 			return;
 		}
-		IntPtr intPtr = default(IntPtr);
+		IntPtr intPtr = default;
 		try
 		{
 			int num = Marshal.SizeOf(typeof(T));
@@ -51,7 +51,7 @@ public static class NetCrossoverUtils
 			Debug.LogError("Attmpted to read data from a writing stream!");
 			return null;
 		}
-		IntPtr intPtr = default(IntPtr);
+		IntPtr intPtr = default;
 		try
 		{
 			Type typeFromHandle = typeof(T);
@@ -83,7 +83,7 @@ public static class NetCrossoverUtils
 			Debug.LogError("Attempted to write data to a reading stream!");
 			return;
 		}
-		IntPtr intPtr = default(IntPtr);
+		IntPtr intPtr = default;
 		try
 		{
 			int num = Marshal.SizeOf(data.GetType());
@@ -104,7 +104,7 @@ public static class NetCrossoverUtils
 
 	public static void SerializeToRPCData<T>(this ref RPCArgBuffer<T> argBuffer) where T : struct
 	{
-		IntPtr intPtr = default(IntPtr);
+		IntPtr intPtr = default;
 		try
 		{
 			int num = Marshal.SizeOf(typeof(T));
@@ -120,7 +120,7 @@ public static class NetCrossoverUtils
 
 	public static void PopulateWithRPCData<T>(this ref RPCArgBuffer<T> argBuffer, byte[] data) where T : struct
 	{
-		IntPtr intPtr = default(IntPtr);
+		IntPtr intPtr = default;
 		try
 		{
 			int num = Marshal.SizeOf(typeof(T));

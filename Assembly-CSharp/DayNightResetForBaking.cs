@@ -15,7 +15,7 @@ public class DayNightResetForBaking : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogError("a material is missing from day night supported materials in the daynightmanager! something might have gotten deleted inappropriately, or an entry should be manually removed.", base.gameObject);
+				Debug.LogError("a material is missing from day night supported materials in the daynightmanager! something might have gotten deleted inappropriately, or an entry should be manually removed.", gameObject);
 			}
 		}
 		dayNightSupportedMaterials = dayNightManager.dayNightSupportedMaterialsCutout;
@@ -27,7 +27,7 @@ public class DayNightResetForBaking : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogError("a material is missing from day night supported materials cutout in the daynightmanager! something might have gotten deleted inappropriately, or an entry should be manually removed.", base.gameObject);
+				Debug.LogError("a material is missing from day night supported materials cutout in the daynightmanager! something might have gotten deleted inappropriately, or an entry should be manually removed.", gameObject);
 			}
 		}
 	}
@@ -43,7 +43,7 @@ public class DayNightResetForBaking : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogError("a material is missing from day night supported materials in the daynightmanager! something might have gotten deleted inappropriately, or an entry should be manually removed.", base.gameObject);
+				Debug.LogError("a material is missing from day night supported materials in the daynightmanager! something might have gotten deleted inappropriately, or an entry should be manually removed.", gameObject);
 			}
 		}
 		dayNightSupportedMaterials = dayNightManager.dayNightSupportedMaterialsCutout;
@@ -55,7 +55,7 @@ public class DayNightResetForBaking : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogError("a material is missing from day night supported materialsc cutout in the daynightmanager! something might have gotten deleted inappropriately, or an entry should be manually removed.", base.gameObject);
+				Debug.LogError("a material is missing from day night supported materialsc cutout in the daynightmanager! something might have gotten deleted inappropriately, or an entry should be manually removed.", gameObject);
 			}
 		}
 	}

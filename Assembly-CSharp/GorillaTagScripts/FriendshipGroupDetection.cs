@@ -356,8 +356,7 @@ public class FriendshipGroupDetection : NetworkSceneObject, ITickSystemTick
 		using (profiler_updateProvisionalGroup.Auto())
 		{
 			playersInProvisionalGroup.Clear();
-			bool isLeftHand;
-			VRMap makingFist = VRRig.LocalRig.GetMakingFist(debug, out isLeftHand);
+			VRMap makingFist = VRRig.LocalRig.GetMakingFist(debug, out var isLeftHand);
 			if (makingFist == null || !NetworkSystem.Instance.InRoom || VRRig.LocalRig.leftHandLink.IsLinkActive() || VRRig.LocalRig.rightHandLink.IsLinkActive() || VRRigCache.ActiveRigs.Count == 0 || Time.time < suppressPartyCreationUntilTimestamp || (GorillaGameModes.GameMode.ActiveGameMode != null && !GorillaGameModes.GameMode.ActiveGameMode.CanJoinFrienship(NetworkSystem.Instance.LocalPlayer)))
 			{
 				midpoint = Vector3.zero;
@@ -372,8 +371,7 @@ public class FriendshipGroupDetection : NetworkSceneObject, ITickSystemTick
 			foreach (RigContainer activeRigContainer in VRRigCache.ActiveRigContainers)
 			{
 				VRRig rig = activeRigContainer.Rig;
-				bool isLeftHand2;
-				VRMap makingFist2 = rig.GetMakingFist(debug, out isLeftHand2);
+				VRMap makingFist2 = rig.GetMakingFist(debug, out var isLeftHand2);
 				if (makingFist2 != null && !rig.leftHandLink.IsLinkActive() && !rig.rightHandLink.IsLinkActive() && (!GorillaGameModes.GameMode.ActiveGameMode.IsNotNull() || GorillaGameModes.GameMode.ActiveGameMode.CanJoinFrienship(rig.OwningNetPlayer)))
 				{
 					PlayerFist item = new PlayerFist
@@ -435,8 +433,6 @@ public class FriendshipGroupDetection : NetworkSceneObject, ITickSystemTick
 
 	private void UpdateWarningSigns()
 	{
-		_ = GorillaTagger.Instance.offlineVRRig.zoneEntity;
-		_ = PhotonNetworkController.Instance.CurrentRoomZone;
 		GroupJoinZoneAB groupJoinZoneAB = 0;
 		if (myPartyMemberIDs != null)
 		{

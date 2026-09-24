@@ -25,7 +25,7 @@ public class KIDUI_SendUpgradeEmailScreen : MonoBehaviour
 			_mainScreen.ShowMainScreen(EMainScreenStatus.Pending);
 			return;
 		}
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		_animatedEllipsis.StartAnimation();
 		UpgradeSessionData upgradeSessionData = await KIDManager.TryUpgradeSession(requestedPermissions);
 		if (upgradeSessionData == null)
@@ -41,7 +41,7 @@ public class KIDUI_SendUpgradeEmailScreen : MonoBehaviour
 		{
 			if (KIDManager.CurrentSession.ManagedBy == Session.ManagedByEnum.PLAYER)
 			{
-				base.gameObject.SetActive(value: false);
+				gameObject.SetActive(value: false);
 				return;
 			}
 			var (flag, errorMessage) = await KIDManager.TrySendUpgradeSessionChallengeEmail();
@@ -63,19 +63,19 @@ public class KIDUI_SendUpgradeEmailScreen : MonoBehaviour
 
 	public void OnCancel()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_mainScreen.ShowMainScreen(EMainScreenStatus.None);
 	}
 
 	private void OnSuccess()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_successScreen.Show(null);
 	}
 
 	private void OnFailure(string errorMessage)
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_errorScreen.Show(errorMessage);
 	}
 }

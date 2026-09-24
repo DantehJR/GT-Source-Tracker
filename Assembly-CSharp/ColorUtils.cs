@@ -37,10 +37,10 @@ public static class ColorUtils
 
 	public static (Color baseColor, float intensity) DecomposeHDR(Color hdrColor)
 	{
-		Color32 color = default(Color32);
+		Color32 color = default;
 		float item = 0f;
 		float maxColorComponent = hdrColor.maxColorComponent;
-		if (maxColorComponent == 0f || (maxColorComponent <= 1f && maxColorComponent >= 0.003921569f))
+		if (maxColorComponent == 0f || (maxColorComponent <= 1f && maxColorComponent >= 1f / 255f))
 		{
 			color.r = (byte)Mathf.RoundToInt(hdrColor.r * 255f);
 			color.g = (byte)Mathf.RoundToInt(hdrColor.g * 255f);

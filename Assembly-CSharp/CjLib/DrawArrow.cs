@@ -25,6 +25,6 @@ public class DrawArrow : DrawBase
 
 	protected override void Draw(Color color, DebugUtil.Style style, bool depthTest)
 	{
-		DebugUtil.DrawArrow(base.transform.position, base.transform.position + base.transform.TransformVector(LocalEndVector), ConeRadius, ConeHeight, NumSegments, StemThickness, color, depthTest, style);
+		DebugUtil.DrawArrow(transform.position, transform.position + transform.TransformVector(LocalEndVector), ConeRadius, ConeHeight, NumSegments, StemThickness, color, depthTest, style);
 	}
 }

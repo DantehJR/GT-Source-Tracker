@@ -153,11 +153,11 @@ public class FirecrackerProjectile : MonoBehaviour, ITickSystemTick, IProjectile
 		{
 		case TransferrableObject.SyncOptions.Bool:
 		{
-			bool num = (state & 1) != 0;
-			bool flag = (state & 2) != 0;
-			bool flag2 = (state & 4) != 0;
-			bool flag3 = (state & 8) != 0;
-			if (num)
+			bool flag = (state & 1) != 0;
+			bool flag2 = (state & 2) != 0;
+			bool flag3 = (state & 4) != 0;
+			bool flag4 = (state & 8) != 0;
+			if (flag)
 			{
 				OnItemStateBoolATrue?.Invoke();
 			}
@@ -165,7 +165,7 @@ public class FirecrackerProjectile : MonoBehaviour, ITickSystemTick, IProjectile
 			{
 				OnItemStateBoolAFalse?.Invoke();
 			}
-			if (flag)
+			if (flag2)
 			{
 				OnItemStateBoolBTrue?.Invoke();
 			}
@@ -173,7 +173,7 @@ public class FirecrackerProjectile : MonoBehaviour, ITickSystemTick, IProjectile
 			{
 				OnItemStateBoolBFalse?.Invoke();
 			}
-			if (flag2)
+			if (flag3)
 			{
 				OnItemStateBoolCTrue?.Invoke();
 			}
@@ -181,7 +181,7 @@ public class FirecrackerProjectile : MonoBehaviour, ITickSystemTick, IProjectile
 			{
 				OnItemStateBoolCFalse?.Invoke();
 			}
-			if (flag3)
+			if (flag4)
 			{
 				OnItemStateBoolDTrue?.Invoke();
 			}
@@ -199,9 +199,9 @@ public class FirecrackerProjectile : MonoBehaviour, ITickSystemTick, IProjectile
 
 	public void Launch(Vector3 startPosition, Quaternion startRotation, Vector3 velocity, float chargeFrac, VRRig ownerRig, int progress)
 	{
-		base.transform.position = startPosition;
-		base.transform.rotation = startRotation;
-		base.transform.localScale = Vector3.one * ownerRig.scaleFactor;
+		transform.position = startPosition;
+		transform.rotation = startRotation;
+		transform.localScale = Vector3.one * ownerRig.scaleFactor;
 		rb.linearVelocity = velocity;
 	}
 
@@ -239,10 +239,10 @@ public class FirecrackerProjectile : MonoBehaviour, ITickSystemTick, IProjectile
 	private void Detonate(Vector3 contactPoint, Vector3 normal)
 	{
 		timeExploded = Time.time;
-		GameObject obj = ObjectPools.instance.Instantiate(explosionEffect, contactPoint);
-		obj.transform.up = normal;
-		obj.transform.position = base.transform.position;
-		if (obj.TryGetComponent<SoundBankPlayer>(out var component) && (bool)component.soundBank)
+		GameObject gameObject = ObjectPools.instance.Instantiate(explosionEffect, contactPoint);
+		gameObject.transform.up = normal;
+		gameObject.transform.position = transform.position;
+		if (gameObject.TryGetComponent<SoundBankPlayer>(out var component) && (bool)component.soundBank)
 		{
 			component.Play();
 		}

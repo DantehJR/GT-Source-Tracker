@@ -1,3 +1,4 @@
+using GorillaExtensions;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -14,7 +15,7 @@ public class ReparentOnAwakeWithRenderer : MonoBehaviour, IBuildValidation
 	{
 		if (GetComponent<MeshRenderer>() != null && myRenderer == null)
 		{
-			Debug.Log(base.name + " needs a reference to its renderer since it has one - ");
+			Debug.Log(name + " needs a reference to its renderer since it has one - ");
 			return false;
 		}
 		return true;
@@ -22,20 +23,23 @@ public class ReparentOnAwakeWithRenderer : MonoBehaviour, IBuildValidation
 
 	private void OnEnable()
 	{
-		base.transform.SetParent(newParent, worldPositionStays: true);
-		if (sortLast)
+		if (newParent.IsNotNull())
 		{
-			base.transform.SetAsLastSibling();
-		}
-		else
-		{
-			base.transform.SetAsFirstSibling();
-		}
-		if (myRenderer != null)
-		{
-			myRenderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
-			myRenderer.lightProbeUsage = LightProbeUsage.Off;
-			myRenderer.probeAnchor = newParent;
+			transform.SetParent(newParent, worldPositionStays: true);
+			if (sortLast)
+			{
+				transform.SetAsLastSibling();
+			}
+			else
+			{
+				transform.SetAsFirstSibling();
+			}
+			if (myRenderer != null)
+			{
+				myRenderer.reflectionProbeUsage = ReflectionProbeUsage.Off;
+				myRenderer.lightProbeUsage = LightProbeUsage.Off;
+				myRenderer.probeAnchor = newParent;
+			}
 		}
 	}
 

@@ -100,7 +100,7 @@ public class GRNoiseEventManager : MonoBehaviourTick
 		}
 		if (num3 < 0)
 		{
-			outEvent = default(GameNoiseEvent);
+			outEvent = default;
 			return false;
 		}
 		outEvent = noiseEvents[num3];

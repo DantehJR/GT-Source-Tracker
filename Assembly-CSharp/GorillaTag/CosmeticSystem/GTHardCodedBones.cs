@@ -103,7 +103,7 @@ public static class GTHardCodedBones
 		Shirt = 2,
 		Pants = 48,
 		Back = 45,
-		Arms = 2,
+		Arms = Shirt,
 		TagEffect = 0
 	}
 
@@ -750,7 +750,7 @@ public static class GTHardCodedBones
 		BodyDockPositions.DropPositions[] array = values;
 		foreach (BodyDockPositions.DropPositions dropPositions in array)
 		{
-			if (dropPositions != BodyDockPositions.DropPositions.All && dropPositions != BodyDockPositions.DropPositions.None && dropPositions != BodyDockPositions.DropPositions.MaxDropPostions && (enumFlags & dropPositions) != BodyDockPositions.DropPositions.None)
+			if (dropPositions != BodyDockPositions.DropPositions.All && dropPositions != BodyDockPositions.DropPositions.None && dropPositions != BodyDockPositions.DropPositions.MaxDropPostions && (enumFlags & dropPositions) != 0)
 			{
 				list.Add(_k_bodyDockDropPosition_to_eBone[dropPositions]);
 			}
@@ -766,7 +766,7 @@ public static class GTHardCodedBones
 		TransferrableObject.PositionState[] array = values;
 		foreach (TransferrableObject.PositionState positionState in array)
 		{
-			if (positionState != TransferrableObject.PositionState.None && positionState != TransferrableObject.PositionState.Dropped && (enumFlags & positionState) != TransferrableObject.PositionState.None)
+			if (positionState != TransferrableObject.PositionState.None && positionState != TransferrableObject.PositionState.Dropped && (enumFlags & positionState) != 0)
 			{
 				list.Add(_k_transferrablePosState_to_eBone[positionState]);
 			}

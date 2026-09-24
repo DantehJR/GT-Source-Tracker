@@ -239,19 +239,19 @@ public class HalloweenGhostChaser : NetworkComponent
 
 	private new void Start()
 	{
-		NetworkSystem.Instance.RegisterSceneNetworkItem(base.gameObject);
+		NetworkSystem.Instance.RegisterSceneNetworkItem(gameObject);
 		RoomSystem.JoinedRoomEvent += new Action(OnJoinedRoom);
 	}
 
 	private void InitializeGhost()
 	{
-		if (NetworkSystem.Instance.InRoom && base.IsMine)
+		if (NetworkSystem.Instance.InRoom && IsMine)
 		{
 			lastHeadAngleTime = 0f;
 			nextHeadAngleTime = lastHeadAngleTime + UnityEngine.Random.value * maxTimeToNextHeadAngle;
 			nextTimeToChasePlayer = Time.time + UnityEngine.Random.Range(minGrabCooldown, maxNextTimeToChasePlayer);
 			ghostBody.transform.localPosition = Vector3.zero;
-			base.transform.eulerAngles = Vector3.zero;
+			transform.eulerAngles = Vector3.zero;
 			lastSpeedIncreased = 0f;
 			currentSpeed = 0f;
 		}
@@ -265,7 +265,7 @@ public class HalloweenGhostChaser : NetworkComponent
 			UpdateState();
 			return;
 		}
-		if (base.IsMine)
+		if (IsMine)
 		{
 			switch (currentState)
 			{
@@ -369,7 +369,7 @@ public class HalloweenGhostChaser : NetworkComponent
 		case ChaseState.InitialRise:
 			if (NetworkSystem.Instance.InRoom)
 			{
-				if (base.IsMine)
+				if (IsMine)
 				{
 					RiseHost();
 				}
@@ -379,7 +379,7 @@ public class HalloweenGhostChaser : NetworkComponent
 		case ChaseState.Chasing:
 			if (NetworkSystem.Instance.InRoom)
 			{
-				if (base.IsMine)
+				if (IsMine)
 				{
 					ChaseHost();
 				}
@@ -410,7 +410,7 @@ public class HalloweenGhostChaser : NetworkComponent
 			{
 				ghostBody.SetActive(value: false);
 			}
-			if (base.IsMine)
+			if (IsMine)
 			{
 				targetPlayer = null;
 				InitializeGhost();
@@ -426,11 +426,11 @@ public class HalloweenGhostChaser : NetworkComponent
 			{
 				ghostBody.SetActive(value: true);
 			}
-			if (base.IsMine)
+			if (IsMine)
 			{
 				ChooseRandomTarget();
 				SetInitialSpawnPoint();
-				base.transform.position = spawnTransforms[spawnIndex].position;
+				transform.position = spawnTransforms[spawnIndex].position;
 			}
 			timeGongStarted = Time.time;
 			laugh.volume = 1f;
@@ -443,7 +443,7 @@ public class HalloweenGhostChaser : NetworkComponent
 			{
 				ghostBody.SetActive(value: true);
 			}
-			if (base.IsMine)
+			if (IsMine)
 			{
 				if (!isSummoned)
 				{
@@ -585,8 +585,8 @@ public class HalloweenGhostChaser : NetworkComponent
 			{
 				spawnIndex = 0;
 			}
-			base.transform.position = spawnTransforms[spawnIndex].position + Vector3.up * (Time.time - timeRiseStarted) / totalTimeToRise * riseDistance;
-			base.transform.rotation = spawnTransforms[spawnIndex].rotation;
+			transform.position = spawnTransforms[spawnIndex].position + Vector3.up * (Time.time - timeRiseStarted) / totalTimeToRise * riseDistance;
+			transform.rotation = spawnTransforms[spawnIndex].rotation;
 		}
 	}
 
@@ -614,14 +614,14 @@ public class HalloweenGhostChaser : NetworkComponent
 		}
 		points[points.Count - 1] = destination;
 		Vector3 vector = points[currentTargetIdx];
-		base.transform.position = Vector3.MoveTowards(base.transform.position, vector, currentSpeed * Time.deltaTime);
-		Vector3 eulerAngles = Quaternion.LookRotation(vector - base.transform.position).eulerAngles;
+		transform.position = Vector3.MoveTowards(transform.position, vector, currentSpeed * Time.deltaTime);
+		Vector3 eulerAngles = Quaternion.LookRotation(vector - transform.position).eulerAngles;
 		if (Mathf.Abs(eulerAngles.x) > 45f)
 		{
 			eulerAngles.x = 0f;
 		}
-		base.transform.rotation = Quaternion.Euler(eulerAngles);
-		if (currentTargetIdx + 1 < points.Count && (base.transform.position - vector).sqrMagnitude < 0.1f)
+		transform.rotation = Quaternion.Euler(eulerAngles);
+		if (currentTargetIdx + 1 < points.Count && (transform.position - vector).sqrMagnitude < 0.1f)
 		{
 			if (nextPathTimestamp <= Time.time)
 			{
@@ -637,7 +637,7 @@ public class HalloweenGhostChaser : NetworkComponent
 	private void GetNewPath(Vector3 destination)
 	{
 		path = new NavMeshPath();
-		NavMesh.SamplePosition(base.transform.position, out var hit, 5f, 1);
+		NavMesh.SamplePosition(transform.position, out var hit, 5f, 1);
 		targetIsOnNavMesh = NavMesh.SamplePosition(destination, out var hit2, 5f, 1);
 		NavMesh.CalculatePath(hit.position, hit2.position, -1, path);
 		points = new List<Vector3>();
@@ -670,8 +670,8 @@ public class HalloweenGhostChaser : NetworkComponent
 				UpdateFollowPath(followTarget.position, currentSpeed);
 				return;
 			}
-			base.transform.position = Vector3.MoveTowards(base.transform.position, followTarget.position, currentSpeed * Time.deltaTime);
-			base.transform.rotation = Quaternion.LookRotation(followTarget.position - base.transform.position, Vector3.up);
+			transform.position = Vector3.MoveTowards(transform.position, followTarget.position, currentSpeed * Time.deltaTime);
+			transform.rotation = Quaternion.LookRotation(followTarget.position - transform.position, Vector3.up);
 		}
 	}
 
@@ -687,8 +687,8 @@ public class HalloweenGhostChaser : NetworkComponent
 	{
 		if (followTarget != null)
 		{
-			base.transform.rotation = followTarget.rotation;
-			base.transform.position = followTarget.position;
+			transform.rotation = followTarget.rotation;
+			transform.position = followTarget.position;
 		}
 	}
 

@@ -578,7 +578,7 @@ public struct MaterialFingerprint
 				return new TexFormatInfo(texture2D);
 			}
 		}
-		return default(TexFormatInfo);
+		return default;
 	}
 
 	private static string _GetTexPropGuid(Material mat, int texPropId, int usedCount)

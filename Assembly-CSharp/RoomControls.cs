@@ -86,7 +86,7 @@ public static class RoomControls
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	private static void SubscribeToRoomEvents()
 	{
-		RoomSystem.JoinedRoomEvent += (Action)delegate
+		RoomSystem.JoinedRoomEvent += (Action)(() =>
 		{
 			if (RoomSystem.WasRoomSubscription)
 			{
@@ -94,14 +94,14 @@ public static class RoomControls
 				ApplyRoomProperties(PhotonNetwork.CurrentRoom.CustomProperties);
 				OnRoomStateLoaded.InvokeSafe();
 			}
-		};
-		RoomSystem.LeftRoomEvent += (Action)delegate
+		});
+		RoomSystem.LeftRoomEvent += (Action)(() =>
 		{
 			PhotonNetwork.RemoveCallbackTarget(punCallbacks);
 			roomControlsEnabled = false;
 			blockedPlayers.Clear();
 			mutedPlayers.Clear();
-		};
+		});
 	}
 
 	[OnExitPlay_Run]

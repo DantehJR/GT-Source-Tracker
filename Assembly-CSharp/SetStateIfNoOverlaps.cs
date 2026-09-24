@@ -11,11 +11,11 @@ public class SetStateIfNoOverlaps : SetStateConditional
 
 	protected override bool CanSetState(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		bool num = _volume.CheckOverlaps();
-		if (num)
+		bool flag = _volume.CheckOverlaps();
+		if (flag)
 		{
 			_sinceEnter = 0f;
 		}
-		return !num;
+		return !flag;
 	}
 }

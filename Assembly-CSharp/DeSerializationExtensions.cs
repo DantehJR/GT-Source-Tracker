@@ -2,7 +2,7 @@ public static class DeSerializationExtensions
 {
 	public static bool TryDeserializeTo<T1>(this object[] eventData, out T1 v1)
 	{
-		v1 = default(T1);
+		v1 = default;
 		if (eventData == null || eventData.Length != 1)
 		{
 			return false;
@@ -17,8 +17,8 @@ public static class DeSerializationExtensions
 
 	public static bool TryDeserializeTo<T1, T2>(this object[] eventData, out T1 v1, out T2 v2)
 	{
-		v1 = default(T1);
-		v2 = default(T2);
+		v1 = default;
+		v2 = default;
 		if (eventData == null || eventData.Length != 2)
 		{
 			return false;
@@ -34,9 +34,9 @@ public static class DeSerializationExtensions
 
 	public static bool TryDeserializeTo<T1, T2, T3>(this object[] eventData, out T1 v1, out T2 v2, out T3 v3)
 	{
-		v1 = default(T1);
-		v2 = default(T2);
-		v3 = default(T3);
+		v1 = default;
+		v2 = default;
+		v3 = default;
 		if (eventData == null || eventData.Length != 3)
 		{
 			return false;
@@ -53,10 +53,10 @@ public static class DeSerializationExtensions
 
 	public static bool TryDeserializeTo<T1, T2, T3, T4>(this object[] eventData, out T1 v1, out T2 v2, out T3 v3, out T4 v4)
 	{
-		v1 = default(T1);
-		v2 = default(T2);
-		v3 = default(T3);
-		v4 = default(T4);
+		v1 = default;
+		v2 = default;
+		v3 = default;
+		v4 = default;
 		if (eventData == null || eventData.Length != 4)
 		{
 			return false;
@@ -74,11 +74,11 @@ public static class DeSerializationExtensions
 
 	public static bool TryDeserializeTo<T1, T2, T3, T4, T5>(this object[] eventData, out T1 v1, out T2 v2, out T3 v3, out T4 v4, out T5 v5)
 	{
-		v1 = default(T1);
-		v2 = default(T2);
-		v3 = default(T3);
-		v4 = default(T4);
-		v5 = default(T5);
+		v1 = default;
+		v2 = default;
+		v3 = default;
+		v4 = default;
+		v5 = default;
 		if (eventData == null || eventData.Length != 5)
 		{
 			return false;
@@ -97,12 +97,12 @@ public static class DeSerializationExtensions
 
 	public static bool TryDeserializeTo<T1, T2, T3, T4, T5, T6>(this object[] eventData, out T1 v1, out T2 v2, out T3 v3, out T4 v4, out T5 v5, out T6 v6)
 	{
-		v1 = default(T1);
-		v2 = default(T2);
-		v3 = default(T3);
-		v4 = default(T4);
-		v5 = default(T5);
-		v6 = default(T6);
+		v1 = default;
+		v2 = default;
+		v3 = default;
+		v4 = default;
+		v5 = default;
+		v6 = default;
 		if (eventData == null || eventData.Length != 6)
 		{
 			return false;

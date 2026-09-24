@@ -43,20 +43,20 @@ public class SaveIncomingStreamToFile : VoiceComponent
 	{
 		int bits = 32;
 		string filePath = GetFilePath(remoteVoiceLink);
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Incoming stream, output file path: {0}", filePath);
+			Logger.LogInfo("Incoming stream, output file path: {0}", filePath);
 		}
 		WaveWriter waveWriter = new WaveWriter(filePath, new WaveFormat(remoteVoiceLink.Info.SamplingRate, bits, remoteVoiceLink.Info.Channels));
-		remoteVoiceLink.FloatFrameDecoded += delegate(FrameOut<float> f)
+		remoteVoiceLink.FloatFrameDecoded += (FrameOut<float> f) =>
 		{
 			waveWriter.WriteSamples(f.Buf, 0, f.Buf.Length);
 		};
-		remoteVoiceLink.RemoteVoiceRemoved += delegate
+		remoteVoiceLink.RemoteVoiceRemoved += () =>
 		{
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Remote voice stream removed: Saving wav file.");
+				Logger.LogInfo("Remote voice stream removed: Saving wav file.");
 			}
 			waveWriter.Dispose();
 		};

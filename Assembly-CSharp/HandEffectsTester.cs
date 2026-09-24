@@ -21,7 +21,7 @@ public class HandEffectsTester : MonoBehaviour, IHandEffectsTrigger
 
 	public bool Static => isStatic;
 
-	Transform IHandEffectsTrigger.Transform => base.transform;
+	Transform IHandEffectsTrigger.Transform => transform;
 
 	VRRig IHandEffectsTrigger.Rig => null;
 
@@ -95,7 +95,7 @@ public class HandEffectsTester : MonoBehaviour, IHandEffectsTrigger
 
 	public bool InTriggerZone(IHandEffectsTrigger t)
 	{
-		if (!(base.transform.position - t.Transform.position).IsShorterThan(triggerZone.bounds.size))
+		if (!(transform.position - t.Transform.position).IsShorterThan(triggerZone.bounds.size))
 		{
 			return false;
 		}

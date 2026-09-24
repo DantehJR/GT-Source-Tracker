@@ -48,8 +48,16 @@ public class GlowBugsInJar : MonoBehaviour
 		UpdateGlow(0f);
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((transferrableObject.myOnlineRig != null) ? transferrableObject.myOnlineRig.creator : ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (transferrableObject.myOnlineRig != null)
+			{
+				netPlayer = transferrableObject.myOnlineRig.creator;
+			}
+			else
+			{
+				netPlayer = ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null);
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);
@@ -131,7 +139,7 @@ public class GlowBugsInJar : MonoBehaviour
 	{
 		if (shakeStarted)
 		{
-			shakeTimer += 1f;
+			shakeTimer++;
 			if (shakeTimer >= glowUpdateInterval && currentGlowAmount < 1f)
 			{
 				currentGlowAmount += glowIncreaseStepAmount;
@@ -141,7 +149,7 @@ public class GlowBugsInJar : MonoBehaviour
 		}
 		else
 		{
-			shakeTimer += 1f;
+			shakeTimer++;
 			if (shakeTimer >= glowUpdateInterval && currentGlowAmount > 0f)
 			{
 				currentGlowAmount -= glowDecreaseStepAmount;

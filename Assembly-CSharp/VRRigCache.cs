@@ -92,7 +92,7 @@ public class VRRigCache : MonoBehaviour
 		if (localRig != null && localRig.Rig != null)
 		{
 			VRRig rig = localRig.Rig;
-			rig.OnNameChanged = (Action<RigContainer>)Delegate.Combine(rig.OnNameChanged, VRRigCache.OnRigNameChanged);
+			rig.OnNameChanged = (Action<RigContainer>)Delegate.Combine(rig.OnNameChanged, OnRigNameChanged);
 			if (localRig.Rig.bodyRenderer != null)
 			{
 				localRig.Rig.bodyRenderer.SetupAsLocalPlayerBody();
@@ -113,7 +113,7 @@ public class VRRigCache : MonoBehaviour
 		if (localRig != null && localRig.Rig != null)
 		{
 			VRRig rig = localRig.Rig;
-			rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, VRRigCache.OnRigNameChanged);
+			rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, OnRigNameChanged);
 		}
 	}
 
@@ -131,11 +131,11 @@ public class VRRigCache : MonoBehaviour
 		Instance = this;
 		if (rigParent == null)
 		{
-			rigParent = base.transform;
+			rigParent = transform;
 		}
 		if (networkParent == null)
 		{
-			networkParent = base.transform;
+			networkParent = transform;
 		}
 		m_allRigs.Add(localRig.Rig);
 		m_allRigContainers.Add(localRig);
@@ -149,8 +149,8 @@ public class VRRigCache : MonoBehaviour
 			rigContainer.Rig.transform.parent = null;
 		}
 		isInitialized = true;
-		VRRigCache.OnPostInitialize?.Invoke();
-		VRRigCache.OnPostSpawnRig?.Invoke();
+		OnPostInitialize?.Invoke();
+		OnPostSpawnRig?.Invoke();
 	}
 
 	private RigContainer SpawnRig()
@@ -213,19 +213,19 @@ public class VRRigCache : MonoBehaviour
 			m_activeRigContainers.Add(playerRig);
 			m_activeRigs.Add(playerRig.Rig);
 			VRRig rig = playerRig.Rig;
-			rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, VRRigCache.OnRigNameChanged);
+			rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, OnRigNameChanged);
 			VRRig rig2 = playerRig.Rig;
-			rig2.OnNameChanged = (Action<RigContainer>)Delegate.Combine(rig2.OnNameChanged, VRRigCache.OnRigNameChanged);
+			rig2.OnNameChanged = (Action<RigContainer>)Delegate.Combine(rig2.OnNameChanged, OnRigNameChanged);
 			playerRig.gameObject.SetActive(value: true);
 			playerRig.RigEvents.SendPostEnableEvent();
 			if (!_isBatchingRigActivations)
 			{
 				GamePlayer.UpdateStaticLookupCaches();
 			}
-			VRRigCache.OnRigActivated?.Invoke(playerRig);
+			OnRigActivated?.Invoke(playerRig);
 			if (!_isBatchingRigActivations)
 			{
-				VRRigCache.OnActiveRigsChanged?.Invoke();
+				OnActiveRigsChanged?.Invoke();
 			}
 		}
 		return true;
@@ -251,7 +251,7 @@ public class VRRigCache : MonoBehaviour
 		_isBatchingRigActivations = false;
 		m_ensureNetworkObjectTimer.Start();
 		GamePlayer.UpdateStaticLookupCaches();
-		VRRigCache.OnActiveRigsChanged?.Invoke();
+		OnActiveRigsChanged?.Invoke();
 	}
 
 	public void OnPlayerLeftRoom(NetPlayer leavingPlayer)
@@ -265,14 +265,14 @@ public class VRRigCache : MonoBehaviour
 		{
 			value.gameObject.Disable();
 			VRRig rig = value.Rig;
-			rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, VRRigCache.OnRigNameChanged);
+			rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, OnRigNameChanged);
 			freeRigs.Enqueue(value);
 			rigsInUse.Remove(leavingPlayer);
 			m_activeRigContainers.Remove(value);
 			m_activeRigs.Remove(value.Rig);
 			GamePlayer.UpdateStaticLookupCaches();
-			VRRigCache.OnRigDeactivated?.Invoke(value);
-			VRRigCache.OnActiveRigsChanged?.Invoke();
+			OnRigDeactivated?.Invoke(value);
+			OnActiveRigsChanged?.Invoke();
 		}
 		else
 		{
@@ -292,14 +292,14 @@ public class VRRigCache : MonoBehaviour
 			{
 				item.Value.gameObject.Disable();
 				VRRig rig = item.Value.Rig;
-				rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, VRRigCache.OnRigNameChanged);
+				rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, OnRigNameChanged);
 				freeRigs.Enqueue(item.Value);
 				rigsInUse.Remove(item.Key);
 				m_activeRigContainers.Remove(item.Value);
 				m_activeRigs.Remove(item.Value.Rig);
 				GamePlayer.UpdateStaticLookupCaches();
-				VRRigCache.OnRigDeactivated?.Invoke(item.Value);
-				VRRigCache.OnActiveRigsChanged?.Invoke();
+				OnRigDeactivated?.Invoke(item.Value);
+				OnActiveRigsChanged?.Invoke();
 			}
 		}
 	}
@@ -330,7 +330,7 @@ public class VRRigCache : MonoBehaviour
 				{
 					_ = rigsInUse[key3].Rig;
 					VRRig rig = rigContainer.Rig;
-					rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, VRRigCache.OnRigNameChanged);
+					rig.OnNameChanged = (Action<RigContainer>)Delegate.Remove(rig.OnNameChanged, OnRigNameChanged);
 					rigContainer.gameObject.Disable();
 					rigsInUse.Remove(key3);
 					freeRigs.Enqueue(rigContainer);
@@ -341,14 +341,14 @@ public class VRRigCache : MonoBehaviour
 			m_activeRigs.Clear();
 			m_activeRigs.Add(localRig.Rig);
 			GamePlayer.UpdateStaticLookupCaches();
-			if (VRRigCache.OnRigDeactivated != null)
+			if (OnRigDeactivated != null)
 			{
 				foreach (RigContainer value4 in value.Values)
 				{
-					VRRigCache.OnRigDeactivated(value4);
+					OnRigDeactivated(value4);
 				}
 			}
-			VRRigCache.OnActiveRigsChanged?.Invoke();
+			OnActiveRigsChanged?.Invoke();
 		}
 	}
 
@@ -459,7 +459,7 @@ public class VRRigCache : MonoBehaviour
 	internal void OnVrrigSerializerSuccesfullySpawned()
 	{
 		GamePlayer.UpdateStaticLookupCaches();
-		VRRigCache.OnActiveRigsChanged?.Invoke();
+		OnActiveRigsChanged?.Invoke();
 	}
 
 	private void LogInfo(string log)

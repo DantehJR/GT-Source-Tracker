@@ -188,7 +188,15 @@ public class GameModeZoneMapping : ScriptableObject
 				break;
 			}
 		}
-		HashSet<GameModeType> hashSet = ((isPrivate && privateZoneGameModesLookup.ContainsKey(zone)) ? privateZoneGameModesLookup[zone] : ((!publicZoneGameModesLookup.ContainsKey(zone)) ? new HashSet<GameModeType>(defaultGameModes) : publicZoneGameModesLookup[zone]));
+		HashSet<GameModeType> hashSet;
+		if (isPrivate && privateZoneGameModesLookup.ContainsKey(zone))
+		{
+			hashSet = privateZoneGameModesLookup[zone];
+		}
+		else
+		{
+			hashSet = ((!publicZoneGameModesLookup.ContainsKey(zone)) ? new HashSet<GameModeType>(defaultGameModes) : publicZoneGameModesLookup[zone]);
+		}
 		if (hashSet.Contains(mode))
 		{
 			return mode;

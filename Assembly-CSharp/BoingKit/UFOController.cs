@@ -65,8 +65,8 @@ public class UFOController : MonoBehaviour
 	{
 		m_linearVelocity = Vector3.zero;
 		m_angularVelocity = 0f;
-		m_yawAngle = base.transform.rotation.eulerAngles.y * MathUtil.Deg2Rad;
-		m_hoverCenter = base.transform.position;
+		m_yawAngle = transform.rotation.eulerAngles.y * MathUtil.Deg2Rad;
+		m_hoverCenter = transform.position;
 		m_hoverPhase = 0f;
 		m_motorAngle = 0f;
 		if (Eyes != null)
@@ -140,11 +140,11 @@ public class UFOController : MonoBehaviour
 		float num3 = 0f;
 		if (Input.GetKey(KeyCode.Q))
 		{
-			num3 -= 1f;
+			num3--;
 		}
 		if (Input.GetKey(KeyCode.E))
 		{
-			num3 += 1f;
+			num3++;
 		}
 		bool key = Input.GetKey(KeyCode.LeftControl);
 		if (Mathf.Abs(num3) > MathUtil.Epsilon)
@@ -165,8 +165,8 @@ public class UFOController : MonoBehaviour
 		Vector3 vector = 0.05f * Mathf.Sin(1.37f * m_hoverPhase) * Vector3.right + 0.05f * Mathf.Sin(1.93f * m_hoverPhase + 1.234f) * Vector3.forward + 0.04f * Mathf.Sin(0.97f * m_hoverPhase + 4.321f) * Vector3.up;
 		vector *= Hover;
 		Quaternion quaternion3 = Quaternion.FromToRotation(Vector3.up, vector + Vector3.up);
-		base.transform.position = m_hoverCenter + vector;
-		base.transform.rotation = quaternion * quaternion2 * quaternion3;
+		transform.position = m_hoverCenter + vector;
+		transform.rotation = quaternion * quaternion2 * quaternion3;
 		if (Motor != null)
 		{
 			float num5 = Mathf.Lerp(MotorBaseAngularSpeed, MotorMaxAngularSpeed, num);

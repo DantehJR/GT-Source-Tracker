@@ -76,7 +76,7 @@ public class ThrownGadget : MonoBehaviour
 		}
 		else if (isHeldLocal)
 		{
-			this.OnThrown?.Invoke();
+			OnThrown?.Invoke();
 		}
 		else if (IsHeldByAnother())
 		{
@@ -88,9 +88,9 @@ public class ThrownGadget : MonoBehaviour
 	private void UpdateActivation()
 	{
 		bool flag = IsButtonHeld();
-		if (!activationButtonLastInput && flag)
+		if (!activationButtonLastInput & flag)
 		{
-			this.OnActivated?.Invoke();
+			OnActivated?.Invoke();
 		}
 		activationButtonLastInput = flag;
 	}
@@ -99,7 +99,7 @@ public class ThrownGadget : MonoBehaviour
 	{
 		if (lastThrowerLocal)
 		{
-			this.OnHitSurface?.Invoke();
+			OnHitSurface?.Invoke();
 		}
 	}
 }

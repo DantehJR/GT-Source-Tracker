@@ -416,7 +416,7 @@ public class GorillaTagManager : GorillaGameManager
 	{
 		if (isCurrentlyTag)
 		{
-			return currentIt != player && thisFrame;
+			return (currentIt != player) & thisFrame;
 		}
 		if (waitingToStartNextInfectionGame || (double)Time.time < timeInfectedGameEnded + (double)(2f * tagCoolDown))
 		{
@@ -441,9 +441,9 @@ public class GorillaTagManager : GorillaGameManager
 		{
 			return;
 		}
-		bool num = isCurrentlyTag;
+		bool flag = isCurrentlyTag;
 		UpdateState();
-		if (!num && !isCurrentlyTag)
+		if (!flag && !isCurrentlyTag)
 		{
 			if (didTutorial)
 			{

@@ -19,7 +19,7 @@ public class HapticsWithDistance : MonoBehaviour, ITickSystemTick
 
 	private bool OnWrongLayer()
 	{
-		return base.gameObject.layer != 18;
+		return gameObject.layer != 18;
 	}
 
 	public void SetVibrationMult(float mult)
@@ -83,7 +83,7 @@ public class HapticsWithDistance : MonoBehaviour, ITickSystemTick
 
 	public void Tick()
 	{
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		if ((bool)leftOfflineHand)
 		{
 			GorillaTagger.Instance.StartVibration(forLeftController: true, vibrationMult * vibrationIntensityByDistance.Evaluate(Vector3.Distance(leftOfflineHand.position, position) * inverseColliderRadius), Time.deltaTime);

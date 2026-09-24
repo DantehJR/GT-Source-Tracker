@@ -8,7 +8,7 @@ public class CosmeticCritterSpawnerButterflyNet : CosmeticCritterSpawnerTimed
 
 	public override void SetRandomVariables(CosmeticCritter critter)
 	{
-		Vector3 startPos = base.transform.position + Random.onUnitSphere * spawnRadius;
+		Vector3 startPos = transform.position + Random.onUnitSphere * spawnRadius;
 		(critter as CosmeticCritterButterfly).SetStartPos(startPos);
 	}
 }

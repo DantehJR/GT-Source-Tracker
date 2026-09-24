@@ -31,7 +31,7 @@ public static class ChunkIO
 		string arg = PathFor(id);
 		if (!File.Exists(PathFor(id)))
 		{
-			dto = default(ChunkDTO);
+			dto = default;
 			return false;
 		}
 		dto = Load(PathFor(id));
@@ -110,7 +110,7 @@ public static class ChunkIO
 		int num2 = br.ReadInt32();
 		if (num != 1448040524 || num2 != 5)
 		{
-			return default(ChunkDTO);
+			return default;
 		}
 		int worldId = br.ReadInt32();
 		int3 id = new int3(br.ReadInt32(), br.ReadInt32(), br.ReadInt32());

@@ -18,7 +18,7 @@ public class StageMicrophone : MonoBehaviour
 
 	public bool IsPlayerAmplified(VRRig player)
 	{
-		return (player.GetMouthPosition() - base.transform.position).IsShorterThan(PickupRadius);
+		return (player.GetMouthPosition() - transform.position).IsShorterThan(PickupRadius);
 	}
 
 	public float GetPlayerSpatialBlend(VRRig player)

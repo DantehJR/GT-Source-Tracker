@@ -11,6 +11,6 @@ public class MenagerieSlot : MonoBehaviour
 
 	private void Reset()
 	{
-		critterMountPoint = base.transform;
+		critterMountPoint = transform;
 	}
 }

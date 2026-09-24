@@ -101,7 +101,7 @@ public class CountDrivenEvents : MonoBehaviour
 		}
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
 		}
 		NetPlayer netPlayer = ((myRig != null) ? (myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : NetworkSystem.Instance.LocalPlayer);
 		if (netPlayer != null)

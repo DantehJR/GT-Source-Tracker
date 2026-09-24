@@ -24,7 +24,7 @@ public class GameDock : MonoBehaviour
 		docked = new List<GameEntity>(1);
 		if (dockMarker == null)
 		{
-			dockMarker = base.transform;
+			dockMarker = transform;
 		}
 	}
 

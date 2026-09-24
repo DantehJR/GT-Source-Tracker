@@ -95,7 +95,7 @@ public class FusionNetPlayer : NetPlayer
 
 	public FusionNetPlayer()
 	{
-		PlayerRef = default(PlayerRef);
+		PlayerRef = default;
 	}
 
 	public FusionNetPlayer(PlayerRef playerRef)
@@ -121,7 +121,7 @@ public class FusionNetPlayer : NetPlayer
 	public override void OnReturned()
 	{
 		base.OnReturned();
-		PlayerRef = default(PlayerRef);
+		PlayerRef = default;
 		if (PlayerRef.PlayerId != -1)
 		{
 			Debug.LogError("Returned Player to pool but isnt -1, broken");

@@ -45,7 +45,7 @@ public class RadialBoundsTrigger : MonoBehaviour
 		float time = Time.time;
 		float num = object1.radius + object2.radius;
 		bool flag = (object2.center - object1.center).sqrMagnitude <= num * num;
-		if (_overlapping && flag)
+		if (_overlapping & flag)
 		{
 			_overlapping = true;
 			_timeSpentInOverlap = time - _timeOverlapStarted;
@@ -55,7 +55,7 @@ public class RadialBoundsTrigger : MonoBehaviour
 				object2.onOverlapStay?.Invoke(object1, _timeSpentInOverlap);
 			}
 		}
-		else if (!_overlapping && flag)
+		else if (!_overlapping & flag)
 		{
 			if (!(time - _timeOverlapStopped < hysteresis))
 			{

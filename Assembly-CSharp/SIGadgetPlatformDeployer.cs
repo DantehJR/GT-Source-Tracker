@@ -111,18 +111,18 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 	private void Start()
 	{
 		previewPlatform.SetActive(value: false);
-		GameEntity obj = gameEntity;
-		obj.OnReleased = (Action)Delegate.Combine(obj.OnReleased, new Action(HandleStopInteraction));
-		GameEntity obj2 = gameEntity;
-		obj2.OnUnsnapped = (Action)Delegate.Combine(obj2.OnUnsnapped, new Action(HandleStopInteraction));
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnReleased = (Action)Delegate.Combine(gameEntity.OnReleased, new Action(HandleStopInteraction));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnUnsnapped = (Action)Delegate.Combine(gameEntity2.OnUnsnapped, new Action(HandleStopInteraction));
 	}
 
 	private void OnDestroy()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnReleased = (Action)Delegate.Remove(obj.OnReleased, new Action(HandleStopInteraction));
-		GameEntity obj2 = gameEntity;
-		obj2.OnUnsnapped = (Action)Delegate.Remove(obj2.OnUnsnapped, new Action(HandleStopInteraction));
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnReleased = (Action)Delegate.Remove(gameEntity.OnReleased, new Action(HandleStopInteraction));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnUnsnapped = (Action)Delegate.Remove(gameEntity2.OnUnsnapped, new Action(HandleStopInteraction));
 	}
 
 	private void HandleStopInteraction()
@@ -288,10 +288,10 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 				}
 				else
 				{
-					Transform obj = (IsLeftHandOrSnapSlot(num) ? player.leftHand : player.rightHand);
-					vector = obj.position;
-					Vector3 up = obj.up;
-					Vector3 right = obj.right;
+					Transform transform = (IsLeftHandOrSnapSlot(num) ? player.leftHand : player.rightHand);
+					vector = transform.position;
+					Vector3 up = transform.up;
+					Vector3 right = transform.right;
 					Debug.DrawRay(vector, right * 0.3f, Color.red, 10f);
 					Debug.DrawRay(vector, up * 0.3f, Color.red, 10f);
 					quaternion = Quaternion.LookRotation(up, right);
@@ -341,7 +341,7 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 
 	public override void ProcessClientToAuthorityRPC(PhotonMessageInfo info, int rpcID, object[] data)
 	{
-		if (rpcID == 0 && data != null && data.Length == 3 && GameEntityManager.ValidateDataType<int>(data[0], out var _) && GameEntityManager.ValidateDataType<Vector3>(data[1], out var dataAsType2) && GameEntityManager.ValidateDataType<Quaternion>(data[2], out var dataAsType3) && gameEntity.IsAttachedToPlayer(NetPlayer.Get(info.Sender)) && !(Vector3.Distance(base.transform.position, dataAsType2) > 2f))
+		if (rpcID == 0 && data != null && data.Length == 3 && GameEntityManager.ValidateDataType<int>(data[0], out var _) && GameEntityManager.ValidateDataType<Vector3>(data[1], out var dataAsType2) && GameEntityManager.ValidateDataType<Quaternion>(data[2], out var dataAsType3) && gameEntity.IsAttachedToPlayer(NetPlayer.Get(info.Sender)) && !(Vector3.Distance(transform.position, dataAsType2) > 2f))
 		{
 			CreateLocalPlatformInstance(dataAsType2, dataAsType3);
 			SendAuthorityToClientRPC(0, data);
@@ -371,10 +371,10 @@ public class SIGadgetPlatformDeployer : SIGadget, I_SIDisruptable, IEnergyGadget
 		if (component != null)
 		{
 			deployedPlatformCount++;
-			component.OnDisabled = (Action)Delegate.Combine(component.OnDisabled, (Action)delegate
+			component.OnDisabled = (Action)Delegate.Combine(component.OnDisabled, (Action)(() =>
 			{
 				deployedPlatformCount--;
-			});
+			}));
 		}
 		gameObject.transform.SetPositionAndRotation(pos, rot);
 		if (gameObject.TryGetComponent<ISIGameDeployable>(out var component2))

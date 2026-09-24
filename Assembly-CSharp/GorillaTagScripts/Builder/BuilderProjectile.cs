@@ -72,9 +72,9 @@ public class BuilderProjectile : MonoBehaviour
 		Vector3 vector2 = num * Mathf.Cos(f) * vector;
 		float num3 = velocity.z * num * Mathf.Sin(f) - 0.5f * num2 * num * num;
 		launchPosition = position + vector2 + num3 * Vector3.down;
-		Transform obj = base.transform;
-		obj.position = position;
-		obj.localScale = Vector3.one * scale;
+		Transform transform = base.transform;
+		transform.position = position;
+		transform.localScale = Vector3.one * scale;
 		GetComponent<Collider>().contactOffset = 0.01f * scale;
 		RigidbodyWaterInteraction component = GetComponent<RigidbodyWaterInteraction>();
 		if (component != null)
@@ -94,36 +94,36 @@ public class BuilderProjectile : MonoBehaviour
 	{
 		projectileRigidbody = GetComponent<Rigidbody>();
 		forceComponent = GetComponent<ConstantForce>();
-		initialScale = base.transform.localScale.x;
+		initialScale = transform.localScale.x;
 	}
 
 	public void Deactivate()
 	{
-		base.transform.localScale = Vector3.one * initialScale;
+		transform.localScale = Vector3.one * initialScale;
 		projectileRigidbody.useGravity = true;
 		forceComponent.force = Vector3.zero;
-		this.OnImpact = null;
+		OnImpact = null;
 		aoeKnockbackConfig = null;
 		impactSoundVolumeOverride = null;
 		impactSoundPitchOverride = null;
 		impactEffectScaleMultiplier = 1f;
 		gravityMultiplier = 1f;
-		ObjectPools.instance.Destroy(base.gameObject);
+		ObjectPools.instance.Destroy(gameObject);
 	}
 
 	private void SpawnImpactEffect(GameObject prefab, Vector3 position, Vector3 normal)
 	{
 		Vector3 position2 = position + normal * impactEffectOffset;
-		GameObject obj = ObjectPools.instance.Instantiate(prefab, position2);
-		Vector3 localScale = base.transform.localScale;
-		obj.transform.localScale = localScale * impactEffectScaleMultiplier;
-		obj.transform.up = normal;
-		SurfaceImpactFX component = obj.GetComponent<SurfaceImpactFX>();
+		GameObject gameObject = ObjectPools.instance.Instantiate(prefab, position2);
+		Vector3 localScale = transform.localScale;
+		gameObject.transform.localScale = localScale * impactEffectScaleMultiplier;
+		gameObject.transform.up = normal;
+		SurfaceImpactFX component = gameObject.GetComponent<SurfaceImpactFX>();
 		if (component != null)
 		{
 			component.SetScale(localScale.x * impactEffectScaleMultiplier);
 		}
-		SoundBankPlayer component2 = obj.GetComponent<SoundBankPlayer>();
+		SoundBankPlayer component2 = gameObject.GetComponent<SoundBankPlayer>();
 		if (component2 != null && !component2.playOnEnable)
 		{
 			component2.Play(impactSoundVolumeOverride, impactSoundPitchOverride);
@@ -193,7 +193,7 @@ public class BuilderProjectile : MonoBehaviour
 				ApplyHitKnockback(-1f * contact.normal);
 			}
 			SpawnImpactEffect(surfaceImpactEffectPrefab, contact.point, contact.normal);
-			this.OnImpact?.Invoke(this, contact.point, null);
+			OnImpact?.Invoke(this, contact.point, null);
 			Deactivate();
 		}
 	}
@@ -213,7 +213,7 @@ public class BuilderProjectile : MonoBehaviour
 				ApplyHitKnockback(-1f * contact.normal);
 			}
 			SpawnImpactEffect(surfaceImpactEffectPrefab, contact.point, contact.normal);
-			this.OnImpact?.Invoke(this, contact.point, null);
+			OnImpact?.Invoke(this, contact.point, null);
 			Deactivate();
 		}
 	}
@@ -225,7 +225,7 @@ public class BuilderProjectile : MonoBehaviour
 			NetPlayer netPlayer = other.GetComponentInParent<VRRig>()?.creator;
 			if (netPlayer != null && !netPlayer.IsLocal)
 			{
-				SpawnImpactEffect(surfaceImpactEffectPrefab, base.transform.position, Vector3.up);
+				SpawnImpactEffect(surfaceImpactEffectPrefab, transform.position, Vector3.up);
 				Deactivate();
 			}
 		}

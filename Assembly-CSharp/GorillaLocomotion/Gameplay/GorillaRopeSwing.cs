@@ -100,8 +100,8 @@ public class GorillaRopeSwing : MonoBehaviour, IBuilderPieceComponent
 
 	protected virtual void Awake()
 	{
-		base.transform.rotation = Quaternion.identity;
-		scaleFactor = (base.transform.lossyScale.x + base.transform.lossyScale.y + base.transform.lossyScale.z) / 3f;
+		transform.rotation = Quaternion.identity;
+		scaleFactor = (transform.lossyScale.x + transform.lossyScale.y + transform.lossyScale.z) / 3f;
 		SetIsIdle(idle: true);
 	}
 
@@ -125,8 +125,8 @@ public class GorillaRopeSwing : MonoBehaviour, IBuilderPieceComponent
 
 	protected virtual void OnEnable()
 	{
-		base.transform.rotation = Quaternion.identity;
-		scaleFactor = (base.transform.lossyScale.x + base.transform.lossyScale.y + base.transform.lossyScale.z) / 3f;
+		transform.rotation = Quaternion.identity;
+		scaleFactor = (transform.lossyScale.x + transform.lossyScale.y + transform.lossyScale.z) / 3f;
 		SetIsIdle(idle: true, resetPos: true);
 		VectorizedCustomRopeSimulation.Register(this);
 		GorillaRopeSwingUpdateManager.RegisterRopeSwing(this);
@@ -150,7 +150,7 @@ public class GorillaRopeSwing : MonoBehaviour, IBuilderPieceComponent
 		int num = StaticHash.Compute(staticHash, staticHash2);
 		if (useStaticId)
 		{
-			if (string.IsNullOrEmpty(staticId) || force)
+			if (string.IsNullOrEmpty(staticId) | force)
 			{
 				Vector3 position = transform.position;
 				int i = StaticHash.Compute(position.x, position.y, position.z);
@@ -199,7 +199,7 @@ public class GorillaRopeSwing : MonoBehaviour, IBuilderPieceComponent
 			Vector3 nodeVelocity = VectorizedCustomRopeSimulation.instance.GetNodeVelocity(this, lastNodeCheckIndex);
 			if (Physics.SphereCastNonAlloc(bone.position, 0.2f * scaleFactor, nodeVelocity.normalized, nodeHits, 0.4f * scaleFactor, wallLayerMask, QueryTriggerInteraction.Ignore) > 0)
 			{
-				SetVelocity(lastNodeCheckIndex, Vector3.zero, wholeRope: false, default(PhotonMessageInfoWrapped));
+				SetVelocity(lastNodeCheckIndex, Vector3.zero, wholeRope: false, default);
 			}
 			if (!(nodeVelocity.magnitude > 0.35f))
 			{
@@ -222,7 +222,7 @@ public class GorillaRopeSwing : MonoBehaviour, IBuilderPieceComponent
 		}
 		if (hasMonkeBlockParent && supportMovingAtRuntime)
 		{
-			base.transform.rotation = Quaternion.Euler(0f, base.transform.parent.rotation.eulerAngles.y, 0f);
+			transform.rotation = Quaternion.Euler(0f, transform.parent.rotation.eulerAngles.y, 0f);
 		}
 	}
 
@@ -378,7 +378,7 @@ public class GorillaRopeSwing : MonoBehaviour, IBuilderPieceComponent
 
 	public void SetVelocity(int boneIndex, Vector3 velocity, bool wholeRope, PhotonMessageInfoWrapped info)
 	{
-		if (!base.isActiveAndEnabled || !velocity.IsValid(10000f))
+		if (!isActiveAndEnabled || !velocity.IsValid(10000f))
 		{
 			return;
 		}
@@ -427,8 +427,8 @@ public class GorillaRopeSwing : MonoBehaviour, IBuilderPieceComponent
 	public void OnPiecePlacementDeserialized()
 	{
 		VectorizedCustomRopeSimulation.Unregister(this);
-		base.transform.rotation = Quaternion.identity;
-		scaleFactor = (base.transform.lossyScale.x + base.transform.lossyScale.y + base.transform.lossyScale.z) / 3f;
+		transform.rotation = Quaternion.identity;
+		scaleFactor = (transform.lossyScale.x + transform.lossyScale.y + transform.lossyScale.z) / 3f;
 		SetIsIdle(idle: true, resetPos: true);
 		VectorizedCustomRopeSimulation.Register(this);
 		if (monkeBlockParent != null)

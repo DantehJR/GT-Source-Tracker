@@ -70,6 +70,48 @@ public class MothershipEntitlementUpdate : IDisposable
 		}
 	}
 
+	public string display_name
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipEntitlementUpdate_display_name_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipEntitlementUpdate_display_name_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public string display_description
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipEntitlementUpdate_display_description_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipEntitlementUpdate_display_description_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
 	public int quantity
 	{
 		get

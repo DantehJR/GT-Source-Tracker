@@ -25,8 +25,8 @@ public class GorillaFireball : GorillaThrowable, IPunInstantiateMagicCallback
 		if (explosionStartTime != 0f)
 		{
 			float num = (Time.time - explosionStartTime) / totalExplosionTime * (maxExplosionScale - 0.25f) + 0.25f;
-			base.gameObject.transform.localScale = new Vector3(num, num, num);
-			if (base.photonView.IsMine && Time.time > explosionStartTime + totalExplosionTime)
+			gameObject.transform.localScale = new Vector3(num, num, num);
+			if (photonView.IsMine && Time.time > explosionStartTime + totalExplosionTime)
 			{
 				PhotonNetwork.Destroy(PhotonView.Get(this));
 			}
@@ -50,9 +50,9 @@ public class GorillaFireball : GorillaThrowable, IPunInstantiateMagicCallback
 
 	private new void OnCollisionEnter(Collision collision)
 	{
-		if (base.photonView.IsMine && canExplode)
+		if (photonView.IsMine && canExplode)
 		{
-			base.photonView.RPC("Explode", RpcTarget.All, null);
+			photonView.RPC("Explode", RpcTarget.All, null);
 		}
 	}
 
@@ -65,15 +65,15 @@ public class GorillaFireball : GorillaThrowable, IPunInstantiateMagicCallback
 
 	public void OnPhotonInstantiate(PhotonMessageInfo info)
 	{
-		if (base.photonView.IsMine)
+		if (photonView.IsMine)
 		{
-			if ((bool)base.photonView.InstantiationData[0])
+			if ((bool)photonView.InstantiationData[0])
 			{
-				base.transform.parent = GorillaPlaySpace.Instance.myVRRig.leftHandTransform;
+				transform.parent = GorillaPlaySpace.Instance.myVRRig.leftHandTransform;
 			}
 			else
 			{
-				base.transform.parent = GorillaPlaySpace.Instance.myVRRig.rightHandTransform;
+				transform.parent = GorillaPlaySpace.Instance.myVRRig.rightHandTransform;
 			}
 		}
 	}

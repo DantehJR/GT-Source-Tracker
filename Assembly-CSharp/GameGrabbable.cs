@@ -28,9 +28,9 @@ public class GameGrabbable : MonoBehaviour
 	{
 		float num = 0.15f;
 		bool flag = false;
-		grab = default(GameGrab);
-		grab.position = base.transform.position;
-		grab.rotation = base.transform.rotation;
+		grab = default;
+		grab.position = transform.position;
+		grab.rotation = transform.rotation;
 		bool flag2 = GamePlayer.IsLeftHand(handIndex);
 		if (this.snapGrabPoints != null)
 		{

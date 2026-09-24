@@ -46,7 +46,7 @@ public class HeldButton : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (base.enabled)
+		if (enabled)
 		{
 			GorillaTriggerColliderHandIndicator componentInParent = other.GetComponentInParent<GorillaTriggerColliderHandIndicator>();
 			if (!(componentInParent == null) && (!componentInParent.isLeftHand || leftHandPressable) && (componentInParent.isLeftHand || rightHandPressable) && (!pendingPress || other != pendingPressCollider))

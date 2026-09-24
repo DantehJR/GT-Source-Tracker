@@ -54,7 +54,7 @@ public class GRRangedEnemyProjectile : MonoBehaviour, IGameEntityComponent, IGam
 	{
 		if (projectileRigidbody != null)
 		{
-			projectileRigidbody.linearVelocity = base.transform.forward * projectileSpeed;
+			projectileRigidbody.linearVelocity = transform.forward * projectileSpeed;
 		}
 		projectileHasImpacted = false;
 		if (!(owningEntity != null))
@@ -121,7 +121,7 @@ public class GRRangedEnemyProjectile : MonoBehaviour, IGameEntityComponent, IGam
 		}
 		if (canHitPlayer)
 		{
-			Vector3 position = base.transform.position;
+			Vector3 position = transform.position;
 			if ((VRRig.LocalRig.GetMouthPosition() - position).sqrMagnitude < projectileHitRadius * projectileHitRadius && Time.time > lastHitPlayerTime + minTimeBetweenHits)
 			{
 				lastHitPlayerTime = Time.time;

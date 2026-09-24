@@ -77,13 +77,13 @@ public class StaticLodManager : MonoBehaviour, IGorillaSliceableSimple
 		if (freeSlots.TryPop(out var result))
 		{
 			groupMonoBehaviours[result] = lodGroup;
-			groupInfos[result] = default(GroupInfo);
+			groupInfos[result] = default;
 		}
 		else
 		{
 			result = groupMonoBehaviours.Count;
 			groupMonoBehaviours.Add(lodGroup);
-			groupInfos.Add(default(GroupInfo));
+			groupInfos.Add(default);
 		}
 		_groupInstId_to_index[lodGroup.GetInstanceID()] = result;
 		GroupInfo value = groupInfos[result];
@@ -159,7 +159,19 @@ public class StaticLodManager : MonoBehaviour, IGorillaSliceableSimple
 						}
 					}
 					Collider[] array3 = pooledList3.ToArray();
-					Bounds bounds = ((array2.Length != 0) ? array2[0].bounds : ((array3.Length != 0) ? array3[0].bounds : ((array.Length != 0) ? new Bounds(array[0].transform.position, Vector3.one * 0.01f) : new Bounds(lodGroup.transform.position, Vector3.one * 0.01f))));
+					Bounds bounds;
+					if (array2.Length != 0)
+					{
+						bounds = array2[0].bounds;
+					}
+					else if (array3.Length != 0)
+					{
+						bounds = array3[0].bounds;
+					}
+					else
+					{
+						bounds = ((array.Length != 0) ? new Bounds(array[0].transform.position, Vector3.one * 0.01f) : new Bounds(lodGroup.transform.position, Vector3.one * 0.01f));
+					}
 					for (int j = 0; j < array.Length; j++)
 					{
 						bounds.Encapsulate(array[j].transform.position);
@@ -212,7 +224,7 @@ public class StaticLodManager : MonoBehaviour, IGorillaSliceableSimple
 			_groupInstId_to_index.Remove(staticLodGroup.GetInstanceID());
 		}
 		groupMonoBehaviours[lodGroupIndex] = null;
-		groupInfos[lodGroupIndex] = default(GroupInfo);
+		groupInfos[lodGroupIndex] = default;
 		freeSlots.Push(lodGroupIndex);
 	}
 
@@ -242,7 +254,7 @@ public class StaticLodManager : MonoBehaviour, IGorillaSliceableSimple
 	{
 		StaticLodGroup lodGroup = groupMonoBehaviours[groupIndex];
 		GroupInfo ref_groupInfo = groupInfos[groupIndex];
-		int result = (int)(0u | (_TryAddComponentsToGroup(lodGroup, ref ref_groupInfo, ref ref_groupInfo.interactableColliders, (Collider coll) => coll.gameObject.IsOnLayer(UnityLayer.GorillaInteractable), (Collider coll) => coll.bounds) ? 1u : 0u) | (_TryAddComponentsToGroup(lodGroup, ref ref_groupInfo, ref ref_groupInfo.renderers, delegate(Renderer rend)
+		int result = (int)(0u | (_TryAddComponentsToGroup(lodGroup, ref ref_groupInfo, ref ref_groupInfo.interactableColliders, (Collider coll) => coll.gameObject.IsOnLayer(UnityLayer.GorillaInteractable), (Collider coll) => coll.bounds) ? 1u : 0u) | (_TryAddComponentsToGroup(lodGroup, ref ref_groupInfo, ref ref_groupInfo.renderers, (Renderer rend) =>
 		{
 			int layer = rend.gameObject.layer;
 			return (layer == 5 || layer == 18) && rend.enabled;
@@ -269,8 +281,7 @@ public class StaticLodManager : MonoBehaviour, IGorillaSliceableSimple
 			}
 			return false;
 		}
-		T[] obj = ref_components;
-		int num2 = ((obj != null) ? obj.Length : 0);
+		int num2 = ref_components?.Length ?? 0;
 		if (num2 == 0)
 		{
 			ref_components = componentsInChildrenUntil.ToArray();

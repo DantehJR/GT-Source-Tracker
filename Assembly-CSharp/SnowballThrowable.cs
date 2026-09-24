@@ -116,14 +116,14 @@ public class SnowballThrowable : HoldableObject, IHeldItem
 	{
 		if (isLeftHanded)
 		{
-			return base.gameObject.activeSelf;
+			return gameObject.activeSelf;
 		}
 		return false;
 	}
 
 	bool IHeldItem.InHand()
 	{
-		return base.gameObject.activeSelf;
+		return gameObject.activeSelf;
 	}
 
 	bool IHeldItem.IsMyItem()
@@ -136,14 +136,14 @@ public class SnowballThrowable : HoldableObject, IHeldItem
 		if (targetRig == null)
 		{
 			Debug.LogError("SnowballThrowable: targetRig is null! Deactivating.");
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		if (!targetRig.isOfflineVRRig)
 		{
 			if (targetRig.netView != null && targetRig.netView.IsMine)
 			{
-				base.gameObject.SetActive(value: false);
+				gameObject.SetActive(value: false);
 				return;
 			}
 			Color32 throwableProjectileColor = targetRig.GetThrowableProjectileColor(isLeftHanded);
@@ -188,8 +188,8 @@ public class SnowballThrowable : HoldableObject, IHeldItem
 		{
 			targetRig.RightThrowableProjectileIndex = (enabled ? throwableMakerIndex : (-1));
 		}
-		bool num = !base.gameObject.activeSelf && enabled;
-		base.gameObject.SetActive(enabled);
+		bool num = !gameObject.activeSelf & enabled;
+		gameObject.SetActive(enabled);
 		if (num && pickupSoundBankPlayer != null)
 		{
 			pickupSoundBankPlayer.Play();
@@ -280,7 +280,7 @@ public class SnowballThrowable : HoldableObject, IHeldItem
 
 	private Transform Anchor()
 	{
-		return base.transform.parent;
+		return transform.parent;
 	}
 
 	private void AnchorToHand()
@@ -350,9 +350,9 @@ public class SnowballThrowable : HoldableObject, IHeldItem
 		}
 		Vector3 velocity = vector2 + vector;
 		Color32 throwableProjectileColor = targetRig.GetThrowableProjectileColor(isLeftHanded);
-		Transform obj = base.transform;
-		Vector3 position = obj.position;
-		float x = obj.lossyScale.x;
+		Transform transform = base.transform;
+		Vector3 position = transform.position;
+		float x = transform.lossyScale.x;
 		SlingshotProjectile slingshotProjectile = LaunchSnowballLocal(position, velocity, x, randomizeColor, throwableProjectileColor);
 		SetSnowballActiveLocal(enabled: false);
 		if (randModelIndex > -1 && randModelIndex < localModels.Count)
@@ -458,7 +458,7 @@ public class SnowballThrowable : HoldableObject, IHeldItem
 
 	public override void DropItemCleanup()
 	{
-		if (base.gameObject.activeSelf)
+		if (gameObject.activeSelf)
 		{
 			OnSnowballRelease();
 		}

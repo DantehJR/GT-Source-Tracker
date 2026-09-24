@@ -103,7 +103,7 @@ public class LocalisationUI : MonoBehaviour
 			KIDUIButton newButton = Object.Instantiate(_languageButtonPrefab, _languageButtonGridTransform);
 			bool forceEnglishChars = LocalisationManager.CurrentLanguage.Identifier.Code.ToLower() != "ja";
 			newButton.SetText(LocalisationManager.LocaleToFriendlyString(item.Value, forceEnglishChars).ToUpper());
-			newButton.onClick.AddListener(delegate
+			newButton.onClick.AddListener(() =>
 			{
 				OnLanguageButtonPressed(newButton, item.Key);
 			});

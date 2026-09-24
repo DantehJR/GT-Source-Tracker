@@ -110,8 +110,8 @@ public class CrittersActorGrabber : MonoBehaviour
 		}
 		if (transformToFollow != null)
 		{
-			base.transform.position = transformToFollow.position;
-			base.transform.rotation = transformToFollow.rotation;
+			transform.position = transformToFollow.position;
+			transform.rotation = transformToFollow.rotation;
 		}
 		if (grabber == null)
 		{
@@ -120,12 +120,12 @@ public class CrittersActorGrabber : MonoBehaviour
 		VerifyExistingGrab();
 		validGrabTarget = FindGrabTargets();
 		bool flag = ((!isLeft) ? ControllerInputPoller.instance.rightGrab : ControllerInputPoller.instance.leftGrab);
-		bool num2 = (isLeft ? (EquipmentInteractor.instance.leftHandHeldEquipment != null) : (EquipmentInteractor.instance.rightHandHeldEquipment != null));
-		if (num2)
+		bool flag2 = (isLeft ? (EquipmentInteractor.instance.leftHandHeldEquipment != null) : (EquipmentInteractor.instance.rightHandHeldEquipment != null));
+		if (flag2)
 		{
 			flag = false;
 		}
-		if (!num2)
+		if (!flag2)
 		{
 			if (validGrabTarget.IsNotNull())
 			{
@@ -140,7 +140,7 @@ public class CrittersActorGrabber : MonoBehaviour
 				lastHover = null;
 			}
 		}
-		if (!isGrabbing && flag)
+		if (!isGrabbing & flag)
 		{
 			isGrabbing = true;
 			remainingGrabDuration = grabDuration;
@@ -166,7 +166,7 @@ public class CrittersActorGrabber : MonoBehaviour
 
 	private CrittersActor FindGrabTargets()
 	{
-		int num = Physics.OverlapSphereNonAlloc(base.transform.position, grabRadius, colliders, (int)CrittersManager.instance.objectLayers | (int)CrittersManager.instance.containerLayer);
+		int num = Physics.OverlapSphereNonAlloc(transform.position, grabRadius, colliders, (int)CrittersManager.instance.objectLayers | (int)CrittersManager.instance.containerLayer);
 		float num2 = 10000f;
 		Collider collider = null;
 		if (num > 0)
@@ -181,7 +181,7 @@ public class CrittersActorGrabber : MonoBehaviour
 				CrittersActor component = attachedRigidbody.GetComponent<CrittersActor>();
 				if (!(component == null) && (!(component is CrittersBag) || !CrittersManager.instance.actorById.TryGetValue(component.parentActorId, out var value) || !(value is CrittersAttachPoint) || (value as CrittersAttachPoint).rigPlayerId != PhotonNetwork.LocalPlayer.ActorNumber || (value as CrittersAttachPoint).anchorLocation != CrittersAttachPoint.AnchoredLocationTypes.Arm || (value as CrittersAttachPoint).isLeft != isLeft) && component.usesRB && component.CanBeGrabbed(grabber))
 				{
-					float sqrMagnitude = (colliders[i].attachedRigidbody.position - base.transform.position).sqrMagnitude;
+					float sqrMagnitude = (colliders[i].attachedRigidbody.position - transform.position).sqrMagnitude;
 					if (sqrMagnitude < num2)
 					{
 						num2 = sqrMagnitude;
@@ -393,7 +393,7 @@ public class CrittersActorGrabber : MonoBehaviour
 
 	private void AddGrabberPhysicsTrigger(CrittersActor actor)
 	{
-		CapsuleCollider capsuleCollider = CrittersManager.DuplicateCapsuleCollider(base.transform, actor.equipmentStoreTriggerCollider);
+		CapsuleCollider capsuleCollider = CrittersManager.DuplicateCapsuleCollider(transform, actor.equipmentStoreTriggerCollider);
 		capsuleCollider.isTrigger = true;
 		triggerCollider = capsuleCollider;
 		CrittersGrabberSharedData.AddTrigger(triggerCollider);

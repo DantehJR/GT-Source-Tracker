@@ -60,7 +60,7 @@ public class SIGadgetBlasterProjectile : MonoBehaviourTick
 	public void InitializeProjectile()
 	{
 		rb.angularVelocity = Vector3.zero;
-		rb.linearVelocity = base.transform.forward * startingVelocity;
+		rb.linearVelocity = transform.forward * startingVelocity;
 		timeSpawned = Time.realtimeSinceStartup;
 		if (audioSource == null)
 		{
@@ -81,7 +81,7 @@ public class SIGadgetBlasterProjectile : MonoBehaviourTick
 		{
 			if (exclusionZoneDespawnEffect != null)
 			{
-				SpawnExplosion(exclusionZoneDespawnEffect, base.transform.position, base.transform.rotation);
+				SpawnExplosion(exclusionZoneDespawnEffect, transform.position, transform.rotation);
 			}
 			DespawnProjectile();
 		}
@@ -100,7 +100,7 @@ public class SIGadgetBlasterProjectile : MonoBehaviourTick
 		projectileType.LocalProjectileHit();
 		if (collision.collider.gameObject.TryGetComponent<HitTargetNetworkState>(out var component))
 		{
-			component.TargetHit((Time.time - timeSpawned) * startingVelocity * -base.transform.forward + base.transform.position, base.transform.position);
+			component.TargetHit((Time.time - timeSpawned) * startingVelocity * -transform.forward + transform.position, transform.position);
 		}
 	}
 

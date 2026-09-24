@@ -157,7 +157,7 @@ public class OneStringGuitar : TransferrableObject
 		rightHandIndicator = GorillaTagger.Instance.rightHandTriggerCollider.GetComponent<GorillaTriggerColliderHandIndicator>();
 		sphereRadius = leftHandIndicator.GetComponent<SphereCollider>().radius;
 		itemState = ItemStates.State0;
-		nullHit = default(RaycastHit);
+		nullHit = default;
 		strumList.Add(strumCollider);
 		lastState = GuitarStates.Club;
 		startingLeftChestOffset = chestOffsetLeft;
@@ -175,13 +175,13 @@ public class OneStringGuitar : TransferrableObject
 		if (!vrRig.transform.TryFindByExactPath(chestColliderLeftPath, out var result))
 		{
 			Debug.LogError("DEACTIVATING! do you move this without updating the script? could not find this transform: \"" + chestColliderLeftPath + "\"");
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 		Collider component = result.GetComponent<Collider>();
 		if (!component)
 		{
 			Debug.LogError("DEACTIVATING! found transform but couldn't find collider at path: \"" + chestColliderLeftPath + "\"");
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 		return component;
 	}
@@ -266,24 +266,24 @@ public class OneStringGuitar : TransferrableObject
 			Quaternion quaternion = ((currentState == PositionState.InLeftHand) ? holdingOffsetRotationLeft : holdingOffsetRotationRight);
 			Vector3 vector = ((currentState == PositionState.InLeftHand) ? chestOffsetLeft : chestOffsetRight);
 			Quaternion quaternion2 = Quaternion.LookRotation(parentHand.position - currentChestCollider.transform.position) * quaternion;
-			if (!angleSnapped && Quaternion.Angle(base.transform.rotation, quaternion2) > angleLerpSnap)
+			if (!angleSnapped && Quaternion.Angle(transform.rotation, quaternion2) > angleLerpSnap)
 			{
-				base.transform.rotation = Quaternion.Slerp(base.transform.rotation, quaternion2, lerpValue);
+				transform.rotation = Quaternion.Slerp(transform.rotation, quaternion2, lerpValue);
 			}
 			else
 			{
 				angleSnapped = true;
-				base.transform.rotation = quaternion2;
+				transform.rotation = quaternion2;
 			}
-			Vector3 vector2 = currentChestCollider.transform.position + base.transform.rotation * vector;
-			if (!positionSnapped && (base.transform.position - vector2).magnitude > vectorLerpSnap)
+			Vector3 vector2 = currentChestCollider.transform.position + transform.rotation * vector;
+			if (!positionSnapped && (transform.position - vector2).magnitude > vectorLerpSnap)
 			{
-				base.transform.position = Vector3.Lerp(base.transform.position, currentChestCollider.transform.position + base.transform.rotation * vector, lerpValue);
+				transform.position = Vector3.Lerp(transform.position, currentChestCollider.transform.position + transform.rotation * vector, lerpValue);
 			}
 			else
 			{
 				positionSnapped = true;
-				base.transform.position = vector2;
+				transform.position = vector2;
 			}
 			if (currentState == PositionState.InRightHand)
 			{
@@ -295,17 +295,17 @@ public class OneStringGuitar : TransferrableObject
 			}
 			if (IsMyItem())
 			{
-				unsnapDistance = startingUnsnapDistance * base.myRig.transform.localScale.x;
+				unsnapDistance = startingUnsnapDistance * myRig.transform.localScale.x;
 				if (currentState == PositionState.InRightHand)
 				{
-					chestOffsetRight = Vector3.Scale(startingRightChestOffset, base.myRig.transform.localScale);
+					chestOffsetRight = Vector3.Scale(startingRightChestOffset, myRig.transform.localScale);
 					currentChestCollider = chestColliderRight;
 					fretHandIndicator = rightHandIndicator;
 					strumHandIndicator = leftHandIndicator;
 				}
 				else
 				{
-					chestOffsetLeft = Vector3.Scale(startingLeftChestOffset, base.myRig.transform.localScale);
+					chestOffsetLeft = Vector3.Scale(startingLeftChestOffset, myRig.transform.localScale);
 					currentChestCollider = chestColliderLeft;
 					fretHandIndicator = leftHandIndicator;
 					strumHandIndicator = rightHandIndicator;
@@ -348,7 +348,7 @@ public class OneStringGuitar : TransferrableObject
 							}
 						}
 					}
-					handIn = HitChecker.CheckHandIn(ref anyHit, ref collidersHit, sphereRadius * base.transform.lossyScale.x, interactableMask, ref strumHandIndicator, ref strumList);
+					handIn = HitChecker.CheckHandIn(ref anyHit, ref collidersHit, sphereRadius * transform.lossyScale.x, interactableMask, ref strumHandIndicator, ref strumList);
 				}
 			}
 		}
@@ -407,33 +407,33 @@ public class OneStringGuitar : TransferrableObject
 	{
 		if (!angleSnapped)
 		{
-			if (Quaternion.Angle(rotationTarget, base.transform.localRotation) < angleLerpSnap)
+			if (Quaternion.Angle(rotationTarget, transform.localRotation) < angleLerpSnap)
 			{
 				angleSnapped = true;
-				base.transform.localRotation = rotationTarget;
+				transform.localRotation = rotationTarget;
 			}
 			else
 			{
-				base.transform.localRotation = Quaternion.Slerp(base.transform.localRotation, rotationTarget, lerpValue);
+				transform.localRotation = Quaternion.Slerp(transform.localRotation, rotationTarget, lerpValue);
 			}
 		}
 		if (!positionSnapped)
 		{
-			if ((base.transform.localPosition - positionTarget).magnitude < vectorLerpSnap)
+			if ((transform.localPosition - positionTarget).magnitude < vectorLerpSnap)
 			{
 				positionSnapped = true;
-				base.transform.localPosition = positionTarget;
+				transform.localPosition = positionTarget;
 			}
 			else
 			{
-				base.transform.localPosition = Vector3.Lerp(base.transform.localPosition, positionTarget, lerpValue);
+				transform.localPosition = Vector3.Lerp(transform.localPosition, positionTarget, lerpValue);
 			}
 		}
 	}
 
 	public override bool CanDeactivate()
 	{
-		if (base.gameObject.activeSelf && itemState != ItemStates.State0)
+		if (gameObject.activeSelf && itemState != ItemStates.State0)
 		{
 			return itemState == ItemStates.State1;
 		}
@@ -464,55 +464,55 @@ public class OneStringGuitar : TransferrableObject
 
 	public void GenerateVectorOffsetLeft()
 	{
-		chestOffsetLeft = base.transform.position - chestColliderLeft.transform.position;
-		holdingOffsetRotationLeft = Quaternion.LookRotation(base.transform.position - chestColliderLeft.transform.position);
+		chestOffsetLeft = transform.position - chestColliderLeft.transform.position;
+		holdingOffsetRotationLeft = Quaternion.LookRotation(transform.position - chestColliderLeft.transform.position);
 	}
 
 	public void GenerateVectorOffsetRight()
 	{
-		chestOffsetRight = base.transform.position - chestColliderRight.transform.position;
-		holdingOffsetRotationRight = Quaternion.LookRotation(base.transform.position - chestColliderRight.transform.position);
+		chestOffsetRight = transform.position - chestColliderRight.transform.position;
+		holdingOffsetRotationRight = Quaternion.LookRotation(transform.position - chestColliderRight.transform.position);
 	}
 
 	public void GenerateReverseGripOffsetLeft()
 	{
-		reverseGripPositionLeft = base.transform.localPosition;
-		reverseGripQuatLeft = base.transform.localRotation;
+		reverseGripPositionLeft = transform.localPosition;
+		reverseGripQuatLeft = transform.localRotation;
 	}
 
 	public void GenerateClubOffsetLeft()
 	{
-		startPositionLeft = base.transform.localPosition;
-		startQuatLeft = base.transform.localRotation;
+		startPositionLeft = transform.localPosition;
+		startQuatLeft = transform.localRotation;
 	}
 
 	public void GenerateReverseGripOffsetRight()
 	{
-		reverseGripPositionRight = base.transform.localPosition;
-		reverseGripQuatRight = base.transform.localRotation;
+		reverseGripPositionRight = transform.localPosition;
+		reverseGripQuatRight = transform.localRotation;
 	}
 
 	public void GenerateClubOffsetRight()
 	{
-		startPositionRight = base.transform.localPosition;
-		startQuatRight = base.transform.localRotation;
+		startPositionRight = transform.localPosition;
+		startQuatRight = transform.localRotation;
 	}
 
 	public void TestClubPositionRight()
 	{
-		base.transform.localPosition = startPositionRight;
-		base.transform.localRotation = startQuatRight;
+		transform.localPosition = startPositionRight;
+		transform.localRotation = startQuatRight;
 	}
 
 	public void TestReverseGripPositionRight()
 	{
-		base.transform.localPosition = reverseGripPositionRight;
-		base.transform.localRotation = reverseGripQuatRight;
+		transform.localPosition = reverseGripPositionRight;
+		transform.localRotation = reverseGripQuatRight;
 	}
 
 	public void TestPlayingPositionRight()
 	{
-		base.transform.rotation = Quaternion.LookRotation(parentHand.position - currentChestCollider.transform.position) * holdingOffsetRotationRight;
-		base.transform.position = chestColliderRight.transform.position + base.transform.rotation * chestOffsetRight;
+		transform.rotation = Quaternion.LookRotation(parentHand.position - currentChestCollider.transform.position) * holdingOffsetRotationRight;
+		transform.position = chestColliderRight.transform.position + transform.rotation * chestOffsetRight;
 	}
 }

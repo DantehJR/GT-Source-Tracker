@@ -118,11 +118,11 @@ public class ParachuteProjectile : MonoBehaviour, IProjectile, ITickSystemTick
 		rb.freezeRotation = true;
 		if (ownerRig == null)
 		{
-			base.transform.localScale = Vector3.one;
+			transform.localScale = Vector3.one;
 		}
 		else
 		{
-			base.transform.localScale = Vector3.one * ownerRig.scaleFactor;
+			transform.localScale = Vector3.one * ownerRig.scaleFactor;
 		}
 		rb.isKinematic = false;
 		rb.linearVelocity = velocity;
@@ -158,7 +158,7 @@ public class ParachuteProjectile : MonoBehaviour, IProjectile, ITickSystemTick
 		landed = true;
 		ContactPoint contact = collision.GetContact(0);
 		rb.isKinematic = true;
-		rb.position = contact.point + contact.normal * (groundOffset * base.transform.localScale.x);
+		rb.position = contact.point + contact.normal * (groundOffset * transform.localScale.x);
 		ChangeUp(contact.normal);
 		monkeMeshFilter.mesh = landedMesh;
 		parachute.SetActive(value: false);
@@ -179,9 +179,9 @@ public class ParachuteProjectile : MonoBehaviour, IProjectile, ITickSystemTick
 		if (impactEffect != null)
 		{
 			Vector3 position2 = position + impactEffectOffset * normal;
-			GameObject obj = ObjectPools.instance.Instantiate(impactEffect, position2);
-			obj.transform.localScale = base.transform.localScale * impactEffectScaleMultiplier;
-			obj.transform.up = normal;
+			GameObject gameObject = ObjectPools.instance.Instantiate(impactEffect, position2);
+			gameObject.transform.localScale = transform.localScale * impactEffectScaleMultiplier;
+			gameObject.transform.up = normal;
 		}
 		ObjectPools.instance.Destroy(base.gameObject);
 	}
@@ -190,7 +190,7 @@ public class ParachuteProjectile : MonoBehaviour, IProjectile, ITickSystemTick
 	{
 		if (parachuteDeployed)
 		{
-			PlayImpactEffects(base.transform.position, Vector3.up);
+			PlayImpactEffects(transform.position, Vector3.up);
 			GorillaTriggerColliderHandIndicator componentInParent = col.GetComponentInParent<GorillaTriggerColliderHandIndicator>();
 			if (componentInParent != null)
 			{
@@ -237,7 +237,7 @@ public class ParachuteProjectile : MonoBehaviour, IProjectile, ITickSystemTick
 		}
 		if (landed && Time.time > landTime + destroyOnLandDelay)
 		{
-			PlayImpactEffects(base.transform.position, base.transform.up);
+			PlayImpactEffects(transform.position, transform.up);
 		}
 	}
 }

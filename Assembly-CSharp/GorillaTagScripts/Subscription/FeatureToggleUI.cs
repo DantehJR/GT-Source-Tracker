@@ -32,7 +32,7 @@ public class FeatureToggleUI : MonoBehaviour
 
 	private void Awake()
 	{
-		ButtonContainer = base.gameObject.GetComponent<SITouchscreenButtonContainer>();
+		ButtonContainer = gameObject.GetComponent<SITouchscreenButtonContainer>();
 	}
 
 	public void AttachToFeature(FeatureTogglesScreen.Feature feature)
@@ -41,15 +41,15 @@ public class FeatureToggleUI : MonoBehaviour
 		ButtonContainer.button.buttonToggled.RemoveAllListeners();
 		LabelText = feature.DisplayName;
 		bool state = SubscriptionManager.GetSubscriptionSettingBool(feature.Value);
-		bool num = SubscriptionManager.IsSubscriptionFeatureAvailable(feature.Value);
-		bool flag = true;
-		if (num && flag)
+		bool flag = SubscriptionManager.IsSubscriptionFeatureAvailable(feature.Value);
+		bool flag2 = true;
+		if (flag & flag2)
 		{
-			ButtonContainer.button.buttonPressed.AddListener(delegate(SITouchscreenButton.SITouchscreenButtonType type, int data, int nr)
+			ButtonContainer.button.buttonPressed.AddListener((SITouchscreenButton.SITouchscreenButtonType type, int data, int nr) =>
 			{
 				OnPressed(nr, feature);
 			});
-			ButtonContainer.button.buttonToggled.AddListener(delegate(SITouchscreenButton.SITouchscreenButtonType type, int data, int nr, bool state2)
+			ButtonContainer.button.buttonToggled.AddListener((SITouchscreenButton.SITouchscreenButtonType type, int data, int nr, bool state2) =>
 			{
 				OnToggled(nr, feature, state2);
 			});
@@ -59,7 +59,7 @@ public class FeatureToggleUI : MonoBehaviour
 		{
 			state = false;
 			_unavailable.gameObject.SetActive(value: true);
-			if (!flag)
+			if (!flag2)
 			{
 				_unavailable.text = "ENABLE PERMISSION IN QUEST SETTINGS";
 			}

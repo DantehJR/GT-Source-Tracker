@@ -10,6 +10,6 @@ public class TestTeleportDestination : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		Debug.DrawRay(base.transform.position, base.transform.forward * 2f, Color.magenta);
+		Debug.DrawRay(transform.position, transform.forward * 2f, Color.magenta);
 	}
 }

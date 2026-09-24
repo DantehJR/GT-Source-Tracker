@@ -101,7 +101,7 @@ public class CosmeticFlickReactor : MonoBehaviour
 	private void Awake()
 	{
 		rig = GetComponentInParent<VRRig>();
-		if (rig == null && base.gameObject.GetComponentInParent<GTPlayer>() != null)
+		if (rig == null && gameObject.GetComponentInParent<GTPlayer>() != null)
 		{
 			rig = GorillaTagger.Instance.offlineVRRig;
 		}
@@ -133,7 +133,7 @@ public class CosmeticFlickReactor : MonoBehaviour
 				bool flag = num2 <= flickWindowSeconds;
 				bool flag2 = num3 >= directionChangeRequired;
 				bool flag3 = Time.time >= blockUntilTime;
-				if (flag && flag2 && flag3)
+				if (flag & flag2 & flag3)
 				{
 					FireEvents(Mathf.Abs(signedSpeedAlong));
 					blockUntilTime = Time.time + retriggerBufferSeconds;
@@ -166,7 +166,7 @@ public class CosmeticFlickReactor : MonoBehaviour
 		case AxisMode.X:
 			if (!useWorldAxes)
 			{
-				return base.transform.right;
+				return transform.right;
 			}
 			if (!(worldSpace != null))
 			{
@@ -176,7 +176,7 @@ public class CosmeticFlickReactor : MonoBehaviour
 		case AxisMode.Y:
 			if (!useWorldAxes)
 			{
-				return base.transform.up;
+				return transform.up;
 			}
 			if (!(worldSpace != null))
 			{
@@ -186,7 +186,7 @@ public class CosmeticFlickReactor : MonoBehaviour
 		case AxisMode.Z:
 			if (!useWorldAxes)
 			{
-				return base.transform.forward;
+				return transform.forward;
 			}
 			if (!(worldSpace != null))
 			{
@@ -219,14 +219,14 @@ public class CosmeticFlickReactor : MonoBehaviour
 		{
 			if (!hasLastPosition)
 			{
-				lastPosition = base.transform.position;
+				lastPosition = transform.position;
 				hasLastPosition = true;
 				return 0f;
 			}
-			Vector3 vector = base.transform.position - lastPosition;
+			Vector3 vector = transform.position - lastPosition;
 			float num = ((Time.deltaTime > Mathf.Epsilon) ? (1f / Time.deltaTime) : 0f);
 			lhs = vector * num;
-			lastPosition = base.transform.position;
+			lastPosition = transform.position;
 		}
 		return Vector3.Dot(lhs, axis.normalized);
 	}

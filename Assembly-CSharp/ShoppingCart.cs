@@ -13,7 +13,7 @@ public class ShoppingCart : MonoBehaviour
 		}
 		else if (instance != this)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 

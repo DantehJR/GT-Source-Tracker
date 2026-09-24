@@ -135,12 +135,12 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 		{
 			return false;
 		}
-		bool num = _callLimiters[(int)rpcCall].CheckCallTime(Time.time);
-		if (!num)
+		bool flag = _callLimiters[(int)rpcCall].CheckCallTime(Time.time);
+		if (!flag)
 		{
 			ReportRPCCall(rpcCall, info, "Too many RPC Calls!");
 		}
-		return num;
+		return flag;
 	}
 
 	private void ReportRPCCall(RPC rpcCall, PhotonMessageInfo info, string susReason)
@@ -474,7 +474,7 @@ public class MonkeBallGame : NetworkComponent, ITickSystemTick
 			{
 				startingBalls[k].transform.position = localPos;
 				startingBalls[k].transform.rotation = handRot;
-				if ((startingBalls[k].transform.position - base.transform.position).sqrMagnitude > 6400f)
+				if ((startingBalls[k].transform.position - transform.position).sqrMagnitude > 6400f)
 				{
 					startingBalls[k].transform.position = _neutralBallStartLocation.transform.position;
 				}

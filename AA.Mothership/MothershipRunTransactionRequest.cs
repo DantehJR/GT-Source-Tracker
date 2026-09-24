@@ -89,6 +89,48 @@ public class MothershipRunTransactionRequest : MothershipRequestShared
 		}
 	}
 
+	public string ref_id
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipRunTransactionRequest_ref_id_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipRunTransactionRequest_ref_id_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public string external_service_name
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipRunTransactionRequest_external_service_name_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipRunTransactionRequest_external_service_name_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
 	internal MothershipRunTransactionRequest(IntPtr cPtr, bool cMemoryOwn)
 		: base(MothershipApiPINVOKE.MothershipRunTransactionRequest_SWIGUpcast(cPtr), cMemoryOwn)
 	{

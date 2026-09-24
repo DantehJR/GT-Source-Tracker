@@ -59,8 +59,8 @@ public class HandControlledCosmetic : MonoBehaviour, ITickSystemTick
 	public void Awake()
 	{
 		myRig = GetComponentInParent<VRRig>();
-		initialRotation = base.transform.localRotation;
-		base.enabled = false;
+		initialRotation = transform.localRotation;
+		enabled = false;
 		if (debugRelativePositionTransform1 != null)
 		{
 			Object.Destroy(debugRelativePositionTransform1.gameObject);
@@ -77,7 +77,7 @@ public class HandControlledCosmetic : MonoBehaviour, ITickSystemTick
 		{
 			controlIndicatorCurve.points[0] = controllingHand.position;
 			controlIndicatorCurve.points[1] = controlIndicatorCurve.points[0] + myRig.scaleFactor * controllingHand.up;
-			controlIndicatorCurve.points[2] = base.transform.position;
+			controlIndicatorCurve.points[2] = transform.position;
 		}
 	}
 
@@ -88,7 +88,7 @@ public class HandControlledCosmetic : MonoBehaviour, ITickSystemTick
 
 	public void StartControl(bool leftHand, float flexValue)
 	{
-		if (base.enabled && base.gameObject.activeInHierarchy)
+		if (enabled && gameObject.activeInHierarchy)
 		{
 			lowAngleLimits = activeSettings.angleLimits;
 			highAngleLimits = 360f * Vector3.one - lowAngleLimits;
@@ -104,7 +104,7 @@ public class HandControlledCosmetic : MonoBehaviour, ITickSystemTick
 
 	public void StopControl()
 	{
-		localEuler = base.transform.localRotation.eulerAngles;
+		localEuler = transform.localRotation.eulerAngles;
 		isActive = false;
 		SetControlIndicatorPoints();
 	}
@@ -115,7 +115,7 @@ public class HandControlledCosmetic : MonoBehaviour, ITickSystemTick
 
 	public void OnDisable()
 	{
-		base.transform.localRotation = initialRotation;
+		transform.localRotation = initialRotation;
 		StopControl();
 		TickSystem<object>.RemoveTickCallback(this);
 	}
@@ -164,12 +164,12 @@ public class HandControlledCosmetic : MonoBehaviour, ITickSystemTick
 			{
 				localEuler[i] = ReverseClampDegrees(localEuler[i], lowAngleLimits[i], highAngleLimits[i]);
 			}
-			base.transform.localRotation = Quaternion.Slerp(base.transform.localRotation, Quaternion.Euler(localEuler), 1f - Mathf.Exp((0f - activeSettings.rotationSpeed) * Time.deltaTime));
+			transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(localEuler), 1f - Mathf.Exp((0f - activeSettings.rotationSpeed) * Time.deltaTime));
 		}
 		else
 		{
-			Quaternion localRotation = Quaternion.Slerp(base.transform.localRotation, initialRotation, 1f - Mathf.Exp((0f - inactiveSettings.rotationSpeed) * Time.deltaTime));
-			base.transform.localRotation = localRotation;
+			Quaternion localRotation = Quaternion.Slerp(transform.localRotation, initialRotation, 1f - Mathf.Exp((0f - inactiveSettings.rotationSpeed) * Time.deltaTime));
+			transform.localRotation = localRotation;
 			localEuler = localRotation.eulerAngles;
 		}
 	}

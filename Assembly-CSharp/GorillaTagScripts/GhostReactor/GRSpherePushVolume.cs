@@ -89,14 +89,14 @@ public class GRSpherePushVolume : MonoBehaviour
 
 	private Vector3 CalculateRadialPushVector(Collider other)
 	{
-		Vector3 vector = other.gameObject.transform.position - base.transform.position;
+		Vector3 vector = other.gameObject.transform.position - transform.position;
 		float time = vector.magnitude / _collider.radius;
 		return _pushScaling.Evaluate(time) * _pushForce * vector.normalized;
 	}
 
 	private Vector3 CalculateUpAndOutPushVector(Collider other)
 	{
-		Vector3 vector = new Vector3(other.gameObject.transform.position.x - base.transform.position.x, 0f, other.gameObject.transform.position.z - base.transform.position.z);
+		Vector3 vector = new Vector3(other.gameObject.transform.position.x - transform.position.x, 0f, other.gameObject.transform.position.z - transform.position.z);
 		float time = vector.magnitude / _collider.radius;
 		vector.Normalize();
 		Vector3.RotateTowards(vector, Vector3.up, MathF.PI / 4f, 0f);

@@ -171,7 +171,7 @@ public static class AudioUtil
 
 	public class TempoUp<T>
 	{
-		private readonly int sizeofT = Marshal.SizeOf(default(T));
+		private readonly int sizeofT = Marshal.SizeOf<T>(default);
 
 		private int channels;
 
@@ -678,7 +678,7 @@ public static class AudioUtil
 		public LevelMeterShort(int samplingRate, int numChannels)
 			: base(samplingRate, numChannels)
 		{
-			norm = 3.051851E-05f;
+			norm = 1f / 32767f;
 		}
 
 		public override short[] Process(short[] buf)
@@ -867,9 +867,9 @@ public static class AudioUtil
 				{
 					detected = value;
 					DetectedTime = DateTime.Now;
-					if (detected && this.OnDetected != null)
+					if (detected && OnDetected != null)
 					{
-						this.OnDetected();
+						OnDetected();
 					}
 				}
 			}
@@ -916,13 +916,13 @@ public static class AudioUtil
 
 		public override float[] Process(float[] buffer)
 		{
-			if (base.On)
+			if (On)
 			{
 				for (int i = 0; i < buffer.Length; i++)
 				{
 					if (buffer[i] > threshold)
 					{
-						base.Detected = true;
+						Detected = true;
 						autoSilenceCounter = 0;
 					}
 					else
@@ -932,9 +932,9 @@ public static class AudioUtil
 				}
 				if (autoSilenceCounter > activityDelayValuesCount)
 				{
-					base.Detected = false;
+					Detected = false;
 				}
-				if (!base.Detected)
+				if (!Detected)
 				{
 					return null;
 				}
@@ -949,18 +949,18 @@ public static class AudioUtil
 		public VoiceDetectorShort(int samplingRate, int numChannels)
 			: base(samplingRate, numChannels)
 		{
-			norm = 3.051851E-05f;
+			norm = 1f / 32767f;
 		}
 
 		public override short[] Process(short[] buffer)
 		{
-			if (base.On)
+			if (On)
 			{
 				for (int i = 0; i < buffer.Length; i++)
 				{
 					if ((float)buffer[i] > threshold)
 					{
-						base.Detected = true;
+						Detected = true;
 						autoSilenceCounter = 0;
 					}
 					else
@@ -970,9 +970,9 @@ public static class AudioUtil
 				}
 				if (autoSilenceCounter > activityDelayValuesCount)
 				{
-					base.Detected = false;
+					Detected = false;
 				}
-				if (!base.Detected)
+				if (!Detected)
 				{
 					return null;
 				}

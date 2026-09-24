@@ -58,8 +58,8 @@ public class KnockbackTrigger : MonoBehaviour
 		if (collidersEntered.Count <= 1)
 		{
 			Vector3 vector = triggerVolume.ClosestPoint(GorillaTagger.Instance.headCollider.transform.position);
-			Vector3 vector2 = vector - base.transform.TransformPoint(triggerVolume.center);
-			vector2 -= Vector3.Project(vector2, base.transform.TransformDirection(localAxis));
+			Vector3 vector2 = vector - transform.TransformPoint(triggerVolume.center);
+			vector2 -= Vector3.Project(vector2, transform.TransformDirection(localAxis));
 			float magnitude = vector2.magnitude;
 			Vector3 direction = Vector3.up;
 			if (magnitude >= 0.01f)

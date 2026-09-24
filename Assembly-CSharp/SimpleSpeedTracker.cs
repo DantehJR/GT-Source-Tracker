@@ -97,7 +97,7 @@ public class SimpleSpeedTracker : MonoBehaviour, IGorillaSliceableSimple
 	{
 		if (target == null)
 		{
-			target = base.transform;
+			target = transform;
 		}
 		lastPos = target.position;
 		lastSliceTime = Time.time;
@@ -195,7 +195,7 @@ public class SimpleSpeedTracker : MonoBehaviour, IGorillaSliceableSimple
 		{
 			return target.InverseTransformDirection(lastVelocity);
 		}
-		return base.transform.InverseTransformDirection(lastVelocity);
+		return transform.InverseTransformDirection(lastVelocity);
 	}
 
 	public float GetSignedSpeedAlongForward(Transform reference)
@@ -242,7 +242,7 @@ public class SimpleSpeedTracker : MonoBehaviour, IGorillaSliceableSimple
 		}
 		if (!(target != null))
 		{
-			return base.transform.right;
+			return transform.right;
 		}
 		return target.right;
 	}
@@ -259,7 +259,7 @@ public class SimpleSpeedTracker : MonoBehaviour, IGorillaSliceableSimple
 		}
 		if (!(target != null))
 		{
-			return base.transform.up;
+			return transform.up;
 		}
 		return target.up;
 	}
@@ -276,7 +276,7 @@ public class SimpleSpeedTracker : MonoBehaviour, IGorillaSliceableSimple
 		}
 		if (!(target != null))
 		{
-			return base.transform.forward;
+			return transform.forward;
 		}
 		return target.forward;
 	}

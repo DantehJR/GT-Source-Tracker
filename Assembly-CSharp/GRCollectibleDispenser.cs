@@ -58,7 +58,7 @@ public class GRCollectibleDispenser : MonoBehaviour, IGameEntityComponent
 		{
 			double num = (double)collectibleRespawnTimeMinutes * 60.0;
 			bool flag = collectiblesDispensed < maxDispenseCount;
-			if (!CollectibleAlreadySpawned && flag && Time.timeAsDouble - collectibleDispenseRequestTime > num && Time.timeAsDouble - collectibleDispenseTime > num)
+			if ((!CollectibleAlreadySpawned & flag) && Time.timeAsDouble - collectibleDispenseRequestTime > num && Time.timeAsDouble - collectibleDispenseTime > num)
 			{
 				return Time.timeAsDouble - collectibleCollectedTime > num;
 			}
@@ -112,9 +112,9 @@ public class GRCollectibleDispenser : MonoBehaviour, IGameEntityComponent
 			gameEntity.manager.RequestCreateItem(collectiblePrefab.name.GetStaticHash(), spawnLocation.position, spawnLocation.rotation, gameEntity.manager.GetNetIdFromEntityId(gameEntity.id));
 			collectiblesDispensed++;
 			collectibleDispenseTime = Time.timeAsDouble;
-			long num = collectiblesDispensed;
+			ulong num = collectiblesDispensed;
 			long num2 = collectiblesCollected;
-			long newState = (num << 32) | num2;
+			long newState = (long)(num << 32) | num2;
 			gameEntity.RequestState(gameEntity.id, newState);
 		}
 	}
@@ -133,9 +133,9 @@ public class GRCollectibleDispenser : MonoBehaviour, IGameEntityComponent
 		collectibleCollectedTime = Time.timeAsDouble;
 		if (gameEntity.IsAuthority())
 		{
-			long num = collectiblesDispensed;
+			ulong num = collectiblesDispensed;
 			long num2 = collectiblesCollected;
-			long newState = (num << 32) | num2;
+			long newState = (long)(num << 32) | num2;
 			gameEntity.RequestState(gameEntity.id, newState);
 		}
 		if (collectiblesCollected >= maxDispenseCount)

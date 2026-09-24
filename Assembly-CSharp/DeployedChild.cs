@@ -15,10 +15,10 @@ public class DeployedChild : MonoBehaviour
 	{
 		_parent = parent;
 		_parent.DeployChild();
-		Transform obj = base.transform;
-		obj.position = launchPos;
-		obj.rotation = launchRot;
-		obj.localScale = _parent.transform.lossyScale;
+		Transform transform = base.transform;
+		transform.position = launchPos;
+		transform.rotation = launchRot;
+		transform.localScale = _parent.transform.lossyScale;
 		_rigidbody.linearVelocity = releaseVel;
 		_isRemote = isRemote;
 	}

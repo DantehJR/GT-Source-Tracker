@@ -39,7 +39,7 @@ public class NetworkWrapper : MonoBehaviour
 		{
 			titleRef.text = "PUN";
 		}
-		activeNetworkSystem = base.gameObject.AddComponent<NetworkSystemPUN>();
+		activeNetworkSystem = gameObject.AddComponent<NetworkSystemPUN>();
 		activeNetworkSystem.AddVoiceSettings(VoiceSettings);
 		activeNetworkSystem.config = netSysConfig;
 		activeNetworkSystem.regionNames = networkRegionNames;

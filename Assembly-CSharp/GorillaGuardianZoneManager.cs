@@ -446,7 +446,7 @@ public class GorillaGuardianZoneManager : MonoBehaviourPunCallbacks, IPunObserva
 		}
 		idol.gameObject.SetActive(value: true);
 		idol.MovePositions(idolPositions[index].position);
-		if (base.photonView.IsMine)
+		if (photonView.IsMine)
 		{
 			idolMoveCount++;
 		}

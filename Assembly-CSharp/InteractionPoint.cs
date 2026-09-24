@@ -55,17 +55,20 @@ public class InteractionPoint : MonoBehaviour, ISpawnable, IBuildValidation
 		else
 		{
 			parentHoldable = GetComponentInParent<IHoldableObject>(includeInactive: true);
-			parentHoldableObject = parentHoldable.gameObject;
+			if (parentHoldable != null)
+			{
+				parentHoldableObject = parentHoldable.gameObject;
+			}
 		}
 		if (parentHoldable == null)
 		{
 			if (parentHoldableObject == null)
 			{
-				Debug.LogError("InteractionPoint: Disabling because expected field `parentHoldableObject` is null. Path=" + base.transform.GetPathQ());
-				base.enabled = false;
+				Debug.LogError("InteractionPoint: Disabling because expected field `parentHoldableObject` is null. Path=" + transform.GetPathQ());
+				enabled = false;
 				return;
 			}
-			Debug.LogError("InteractionPoint: Disabling because `parentHoldableObject` does not have a IHoldableObject component. Path=" + base.transform.GetPathQ());
+			Debug.LogError("InteractionPoint: Disabling because `parentHoldableObject` does not have a IHoldableObject component. Path=" + transform.GetPathQ());
 		}
 		TransferrableObject transferrableObject = parentHoldable as TransferrableObject;
 		forLocalPlayer = transferrableObject == null || transferrableObject.IsLocalObject() || transferrableObject.isSceneObject || transferrableObject.canDrop;
@@ -87,6 +90,10 @@ public class InteractionPoint : MonoBehaviour, ISpawnable, IBuildValidation
 	{
 		wasInLeft = false;
 		wasInRight = false;
+		if (!IsSpawned && parentHoldableObject != null)
+		{
+			OnSpawn(null);
+		}
 	}
 
 	public void OnDisable()
@@ -105,7 +112,7 @@ public class InteractionPoint : MonoBehaviour, ISpawnable, IBuildValidation
 		}
 		if (!forLocalPlayer)
 		{
-			base.enabled = false;
+			enabled = false;
 			if (myCollider.IsNotNull())
 			{
 				myCollider.enabled = false;
@@ -154,7 +161,7 @@ public class InteractionPoint : MonoBehaviour, ISpawnable, IBuildValidation
 	{
 		if (interactionRadius > 0f)
 		{
-			return (base.transform.position - point).IsShorterThan(interactionRadius * base.transform.lossyScale);
+			return (transform.position - point).IsShorterThan(interactionRadius * transform.lossyScale);
 		}
 		if (myCollider != null)
 		{

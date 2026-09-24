@@ -214,7 +214,7 @@ public class PropHuntHandFollower : MonoBehaviour, ICallBack
 		}
 		bool flag = false;
 		bool flag2 = true;
-		Bounds bounds = default(Bounds);
+		Bounds bounds = default;
 		int num = 0;
 		MeshRenderer[] componentsInChildren = _prop.GetComponentsInChildren<MeshRenderer>();
 		foreach (MeshRenderer meshRenderer in componentsInChildren)

@@ -85,7 +85,7 @@ public class GameModeSelectorButtonLayout : MonoBehaviour
 			{
 				if (count == currentButtons.Count)
 				{
-					currentButtons.Add(UnityEngine.Object.Instantiate(pf_button, base.transform));
+					currentButtons.Add(UnityEngine.Object.Instantiate(pf_button, transform));
 				}
 				ModeSelectButton modeSelectButton = currentButtons[count];
 				modeSelectButton.transform.localPosition = new Vector3((float)count * -0.15f, 0f, 0f);
@@ -130,7 +130,15 @@ public class GameModeSelectorButtonLayout : MonoBehaviour
 		SetupButtons();
 		HashSet<GameModeType> modesForZone = GameMode.GameModeZoneMapping.GetModesForZone(zone, NetworkSystem.Instance.SessionIsPrivate);
 		GameModeType lastPressedGameModeType = GorillaComputer.instance.lastPressedGameModeType;
-		GameModeType gameModeType = (((lastPressedGameModeType == GameModeType.Casual || lastPressedGameModeType == GameModeType.SuperCasual) && modesForZone.Contains(GameModeType.Casual) && modesForZone.Contains(GameModeType.SuperCasual)) ? (btn.isOn ? GameModeType.SuperCasual : GameModeType.Casual) : (((lastPressedGameModeType != GameModeType.Infection && lastPressedGameModeType != GameModeType.SuperInfect) || !modesForZone.Contains(GameModeType.Infection) || !modesForZone.Contains(GameModeType.SuperInfect)) ? lastPressedGameModeType : ((!btn.isOn) ? GameModeType.Infection : GameModeType.SuperInfect)));
+		GameModeType gameModeType;
+		if ((lastPressedGameModeType == GameModeType.Casual || lastPressedGameModeType == GameModeType.SuperCasual) && modesForZone.Contains(GameModeType.Casual) && modesForZone.Contains(GameModeType.SuperCasual))
+		{
+			gameModeType = (btn.isOn ? GameModeType.SuperCasual : GameModeType.Casual);
+		}
+		else
+		{
+			gameModeType = (((lastPressedGameModeType != GameModeType.Infection && lastPressedGameModeType != GameModeType.SuperInfect) || !modesForZone.Contains(GameModeType.Infection) || !modesForZone.Contains(GameModeType.SuperInfect)) ? lastPressedGameModeType : ((!btn.isOn) ? GameModeType.Infection : GameModeType.SuperInfect));
+		}
 		GorillaComputer.instance.OnModeSelectButtonPress(gameModeType.ToString(), isLeftHandPress);
 	}
 }

@@ -6,7 +6,7 @@ public static class DictValueTypeUtils
 	{
 		if (!dict.TryGetValue(key, out value))
 		{
-			value = default(TValue);
+			value = default;
 			dict.Add(key, value);
 		}
 	}

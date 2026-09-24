@@ -360,11 +360,11 @@ public class FriendBackendController : MonoBehaviour
 					}
 				}
 			}
-			this.OnGetFriendsComplete?.Invoke(obj: true);
+			OnGetFriendsComplete?.Invoke(obj: true);
 		}
 		else
 		{
-			this.OnGetFriendsComplete?.Invoke(obj: false);
+			OnGetFriendsComplete?.Invoke(obj: false);
 		}
 	}
 
@@ -451,11 +451,11 @@ public class FriendBackendController : MonoBehaviour
 		if (response != null)
 		{
 			lastPrivacyStateResponse = response;
-			this.OnSetPrivacyStateComplete?.Invoke(obj: true);
+			OnSetPrivacyStateComplete?.Invoke(obj: true);
 		}
 		else
 		{
-			this.OnSetPrivacyStateComplete?.Invoke(obj: false);
+			OnSetPrivacyStateComplete?.Invoke(obj: false);
 		}
 		if (setPrivacyStateQueue.Count > 0)
 		{
@@ -532,11 +532,11 @@ public class FriendBackendController : MonoBehaviour
 	{
 		if (success)
 		{
-			this.OnAddFriendComplete?.Invoke(addFriendTargetPlayer, arg2: true);
+			OnAddFriendComplete?.Invoke(addFriendTargetPlayer, arg2: true);
 		}
 		else
 		{
-			this.OnAddFriendComplete?.Invoke(addFriendTargetPlayer, arg2: false);
+			OnAddFriendComplete?.Invoke(addFriendTargetPlayer, arg2: false);
 		}
 		addFriendInProgress = false;
 		addFriendTargetIdHash = 0;
@@ -610,11 +610,11 @@ public class FriendBackendController : MonoBehaviour
 	{
 		if (success)
 		{
-			this.OnRemoveFriendComplete?.Invoke(removeFriendTarget, arg2: true);
+			OnRemoveFriendComplete?.Invoke(removeFriendTarget, arg2: true);
 		}
 		else
 		{
-			this.OnRemoveFriendComplete?.Invoke(removeFriendTarget, arg2: false);
+			OnRemoveFriendComplete?.Invoke(removeFriendTarget, arg2: false);
 		}
 		removeFriendInProgress = false;
 		removeFriendTargetIdHash = 0;

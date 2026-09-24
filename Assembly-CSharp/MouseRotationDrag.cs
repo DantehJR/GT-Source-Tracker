@@ -29,13 +29,13 @@ public class MouseRotationDrag : MonoBehaviour
 			m_prevMousePosition = mousePosition;
 			if (!prevFrameHasFocus)
 			{
-				m_euler = base.transform.rotation.eulerAngles;
+				m_euler = transform.rotation.eulerAngles;
 			}
 			else if (Input.GetMouseButton(0))
 			{
 				m_euler.x += vector.y;
 				m_euler.y += vector.x;
-				base.transform.rotation = Quaternion.Euler(m_euler);
+				transform.rotation = Quaternion.Euler(m_euler);
 			}
 		}
 	}

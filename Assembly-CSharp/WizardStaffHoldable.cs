@@ -96,8 +96,8 @@ public class WizardStaffHoldable : TransferrableObject
 		}
 		if (InHand())
 		{
-			Vector3 position = base.transform.position;
-			Vector3 end = base.transform.TransformPoint(tipTargetLocalPosition);
+			Vector3 position = transform.position;
+			Vector3 end = transform.TransformPoint(tipTargetLocalPosition);
 			if (Physics.Linecast(position, end, out var hitInfo, tipCollisionLayerMask))
 			{
 				tipTransform.position = hitInfo.point;

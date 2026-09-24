@@ -60,18 +60,18 @@ public class CountdownTimer : MonoBehaviourPunCallbacks
 	private void OnTimerRuns()
 	{
 		isTimerRunning = true;
-		base.enabled = true;
+		enabled = true;
 	}
 
 	private void OnTimerEnds()
 	{
 		isTimerRunning = false;
-		base.enabled = false;
+		enabled = false;
 		Debug.Log("Emptying info text.", Text);
 		Text.text = string.Empty;
-		if (CountdownTimer.OnCountdownTimerHasExpired != null)
+		if (OnCountdownTimerHasExpired != null)
 		{
-			CountdownTimer.OnCountdownTimerHasExpired();
+			OnCountdownTimerHasExpired();
 		}
 	}
 

@@ -13,14 +13,15 @@ public class VRRigReliableState : MonoBehaviour, IWrappedSerializable, INetworkS
 		Hat,
 		Shirt,
 		Face,
+		Pants,
 		Length
 	}
 
 	[NonSerialized]
-	private ICosmeticStateSync[] m_cosmeticStateTargets = new ICosmeticStateSync[3];
+	private ICosmeticStateSync[] m_cosmeticStateTargets = new ICosmeticStateSync[4];
 
 	[NonSerialized]
-	private int[] m_cosmeticStates = new int[3];
+	private int[] m_cosmeticStates = new int[4];
 
 	[NonSerialized]
 	public int[] activeTransferrableObjectIndex;
@@ -257,7 +258,7 @@ public class VRRigReliableState : MonoBehaviour, IWrappedSerializable, INetworkS
 	object IWrappedSerializable.OnSerializeWrite()
 	{
 		isDirty = false;
-		ReliableStateData reliableStateData = default(ReliableStateData);
+		ReliableStateData reliableStateData = default;
 		long header = (reliableStateData.Header = GetHeader());
 		long[] array = GetTransferrableStates(header).ToArray();
 		reliableStateData.TransferrableStates.CopyFrom(array, 0, array.Length);

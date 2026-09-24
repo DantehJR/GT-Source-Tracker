@@ -103,7 +103,7 @@ public class CrittersToolThrowable : CrittersActor
 		bool result = base.ProcessLocal();
 		if (shouldDisable)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return true;
 		}
 		return result;

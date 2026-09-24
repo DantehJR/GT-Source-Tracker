@@ -78,9 +78,9 @@ public class KIDUI_AnimatedEllipsis : MonoBehaviour
 	{
 		if (_ellipsisRoot == null)
 		{
-			_ellipsisRoot = base.gameObject;
+			_ellipsisRoot = gameObject;
 		}
-		_ellipsisObjects = new(GameObject, float, float, float)[_ellipsisStartingValues.Count];
+		_ellipsisObjects = new (GameObject, float, float, float)[_ellipsisStartingValues.Count];
 		for (int i = 0; i < _ellipsisStartingValues.Count; i++)
 		{
 			float num = _ellipsisStartingValues[i];

@@ -43,9 +43,9 @@ public class HandHoldBehaviourActivation : Tappable
 		{
 			value--;
 			m_playerGrabCounts[sender.Sender.ActorNumber] = value;
-			bool num = grabs > 0;
+			bool flag = grabs > 0;
 			grabs = Mathf.Max(0, grabs - 1);
-			if (num && grabs < 1)
+			if (flag && grabs < 1)
 			{
 				ActivationStop.Invoke();
 			}
@@ -56,10 +56,10 @@ public class HandHoldBehaviourActivation : Tappable
 	{
 		if (m_playerGrabCounts.TryGetValue(player.ActorNumber, out var value))
 		{
-			bool num = grabs > 0;
+			bool flag = grabs > 0;
 			grabs = Mathf.Max(0, grabs - value);
 			m_playerGrabCounts.Remove(player.ActorNumber);
-			if (num && grabs < 1)
+			if (flag && grabs < 1)
 			{
 				ActivationStop.Invoke();
 			}

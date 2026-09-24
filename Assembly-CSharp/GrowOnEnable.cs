@@ -18,7 +18,7 @@ public class GrowOnEnable : MonoBehaviour, ITickSystemTick
 
 	private void Awake()
 	{
-		_targetScale = base.transform.localScale;
+		_targetScale = transform.localScale;
 	}
 
 	private void OnEnable()
@@ -31,7 +31,7 @@ public class GrowOnEnable : MonoBehaviour, ITickSystemTick
 
 	private void OnDisable()
 	{
-		base.transform.localScale = _targetScale;
+		transform.localScale = _targetScale;
 		TickSystem<object>.RemoveTickCallback(this);
 	}
 
@@ -47,6 +47,6 @@ public class GrowOnEnable : MonoBehaviour, ITickSystemTick
 
 	private void UpdateScale()
 	{
-		base.transform.localScale = _targetScale * _curve.Evaluate(_lerpVal);
+		transform.localScale = _targetScale * _curve.Evaluate(_lerpVal);
 	}
 }

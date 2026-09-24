@@ -199,20 +199,20 @@ public class ShaderConfigData
 		int[] array2 = new int[array.Length];
 		bool flag = mat.IsKeywordEnabled("_WATER_EFFECT");
 		bool flag2 = mat.IsKeywordEnabled("_MAINTEX_ROTATE");
-		bool num = mat.IsKeywordEnabled("_UV_WAVE_WARP");
-		bool flag3 = mat.IsKeywordEnabled("_EMISSION_USE_UV_WAVE_WARP");
-		bool flag4 = num || flag3;
-		bool flag5 = mat.IsKeywordEnabled("_LIQUID_CONTAINER");
-		bool flag6 = mat.IsKeywordEnabled("_LIQUID_VOLUME") && !flag5;
-		bool flag7 = mat.IsKeywordEnabled("_CRYSTAL_EFFECT");
-		bool flag8 = mat.IsKeywordEnabled("_EMISSION") || flag7;
-		bool flag9 = mat.IsKeywordEnabled("_REFLECTIONS");
+		bool flag3 = mat.IsKeywordEnabled("_UV_WAVE_WARP");
+		bool flag4 = mat.IsKeywordEnabled("_EMISSION_USE_UV_WAVE_WARP");
+		bool flag5 = flag3 | flag4;
+		bool flag6 = mat.IsKeywordEnabled("_LIQUID_CONTAINER");
+		bool flag7 = mat.IsKeywordEnabled("_LIQUID_VOLUME") && !flag6;
+		bool flag8 = mat.IsKeywordEnabled("_CRYSTAL_EFFECT");
+		bool flag9 = mat.IsKeywordEnabled("_EMISSION") | flag8;
+		bool flag10 = mat.IsKeywordEnabled("_REFLECTIONS");
 		mat.IsKeywordEnabled("_REFLECTIONS_MATCAP");
-		bool flag10 = mat.IsKeywordEnabled("_UV_SHIFT");
+		bool flag11 = mat.IsKeywordEnabled("_UV_SHIFT");
 		for (int i = 0; i < array.Length; i++)
 		{
 			array2[i] = mat.GetInteger(propertyNames[i]);
-			if (!flag10 && (propertyNames[i] == "_UvShiftSteps" || propertyNames[i] == "_UvShiftOffset"))
+			if (!flag11 && (propertyNames[i] == "_UvShiftSteps" || propertyNames[i] == "_UvShiftOffset"))
 			{
 				array2[i] = 0;
 			}
@@ -226,7 +226,7 @@ public class ShaderConfigData
 			{
 				array4[j] = mat.GetFloat(propertyNames[j]);
 			}
-			if ((!flag && propertyNames[j] == "_HeightBasedWaterEffect") || (!flag2 && propertyNames[j] == "_RotateSpeed") || (!flag4 && (propertyNames[j] == "_WaveAmplitude" || propertyNames[j] == "_WaveFrequency" || propertyNames[j] == "_WaveScale")) || (!flag6 && (propertyNames[j] == "_LiquidFill" || propertyNames[j] == "_LiquidSwayX" || propertyNames[j] == "_LiquidSwayY")) || (!flag7 && propertyNames[j] == "_CrystalPower") || (!flag8 && propertyNames[j].StartsWith("_Emission")) || (!flag9 && (propertyNames[j] == "_ReflectOpacity" || propertyNames[j] == "_ReflectExposure" || propertyNames[j] == "_ReflectRotate")) || (!flag10 && propertyNames[j] == "_UvShiftRate"))
+			if ((!flag && propertyNames[j] == "_HeightBasedWaterEffect") || (!flag2 && propertyNames[j] == "_RotateSpeed") || (!flag5 && (propertyNames[j] == "_WaveAmplitude" || propertyNames[j] == "_WaveFrequency" || propertyNames[j] == "_WaveScale")) || (!flag7 && (propertyNames[j] == "_LiquidFill" || propertyNames[j] == "_LiquidSwayX" || propertyNames[j] == "_LiquidSwayY")) || (!flag8 && propertyNames[j] == "_CrystalPower") || (!flag9 && propertyNames[j].StartsWith("_Emission")) || (!flag10 && (propertyNames[j] == "_ReflectOpacity" || propertyNames[j] == "_ReflectExposure" || propertyNames[j] == "_ReflectRotate")) || (!flag11 && propertyNames[j] == "_UvShiftRate"))
 			{
 				array4[j] = 0f;
 			}
@@ -247,7 +247,7 @@ public class ShaderConfigData
 			{
 				array8[l] = mat.GetVector(propertyNames[l]);
 			}
-			if ((!flag6 && (propertyNames[l] == "_LiquidFillNormal" || propertyNames[l] == "_LiquidSurfaceColor")) || (!flag5 && (propertyNames[l] == "_LiquidPlanePosition" || propertyNames[l] == "_LiquidPlaneNormal")) || (!flag7 && propertyNames[l] == "_CrystalRimColor") || (!flag8 && propertyNames[l].StartsWith("_Emission")) || (!flag9 && (propertyNames[l] == "_ReflectTint" || propertyNames[l] == "_ReflectOffset" || propertyNames[l] == "_ReflectScale")))
+			if ((!flag7 && (propertyNames[l] == "_LiquidFillNormal" || propertyNames[l] == "_LiquidSurfaceColor")) || (!flag6 && (propertyNames[l] == "_LiquidPlanePosition" || propertyNames[l] == "_LiquidPlaneNormal")) || (!flag8 && propertyNames[l] == "_CrystalRimColor") || (!flag9 && propertyNames[l].StartsWith("_Emission")) || (!flag10 && (propertyNames[l] == "_ReflectTint" || propertyNames[l] == "_ReflectOffset" || propertyNames[l] == "_ReflectScale")))
 			{
 				array8[l] = Vector4.zero;
 			}

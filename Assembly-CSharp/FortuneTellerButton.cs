@@ -15,7 +15,7 @@ public class FortuneTellerButton : GorillaPressableButton
 
 	public void Awake()
 	{
-		startingPos = base.transform.localPosition;
+		startingPos = transform.localPosition;
 	}
 
 	public override void ButtonActivation()
@@ -27,7 +27,7 @@ public class FortuneTellerButton : GorillaPressableButton
 	{
 		if (pressTime == 0f)
 		{
-			base.transform.localPosition = startingPos + pressedOffset;
+			transform.localPosition = startingPos + pressedOffset;
 			buttonRenderer.material = pressedMaterial;
 			pressTime = Time.time;
 			StartCoroutine(ButtonColorUpdate_Local());
@@ -37,7 +37,7 @@ public class FortuneTellerButton : GorillaPressableButton
 			yield return new WaitForSeconds(durationPressed);
 			if (pressTime != 0f && Time.time > durationPressed + pressTime)
 			{
-				base.transform.localPosition = startingPos;
+				transform.localPosition = startingPos;
 				buttonRenderer.material = unpressedMaterial;
 				pressTime = 0f;
 			}

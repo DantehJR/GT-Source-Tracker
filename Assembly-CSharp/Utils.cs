@@ -116,7 +116,7 @@ public static class Utils
 		long num = data & 0x1FFFFF;
 		long num2 = (data >> 21) & 0x1FFFFF;
 		long num3 = (data >> 42) & 0x1FFFFF;
-		return new Vector3((float)(num - 1048576) * 0.0009765625f, (float)(num2 - 1048576) * 0.0009765625f, (float)(num3 - 1048576) * 0.0009765625f);
+		return new Vector3((float)(num - 1048576) * (1f / 1024f), (float)(num2 - 1048576) * (1f / 1024f), (float)(num3 - 1048576) * (1f / 1024f));
 	}
 
 	public static bool IsASCIILetterOrDigit(char c)

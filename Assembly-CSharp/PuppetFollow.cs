@@ -10,7 +10,7 @@ public class PuppetFollow : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		base.transform.position = sourceTarget.position - sourceBase.position + puppetBase.position;
-		base.transform.localRotation = sourceTarget.localRotation;
+		transform.position = sourceTarget.position - sourceBase.position + puppetBase.position;
+		transform.localRotation = sourceTarget.localRotation;
 	}
 }

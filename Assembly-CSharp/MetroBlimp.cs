@@ -40,7 +40,7 @@ public class MetroBlimp : MonoBehaviour
 
 	private void Awake()
 	{
-		_startLocalHeight = base.transform.localPosition.y;
+		_startLocalHeight = transform.localPosition.y;
 	}
 
 	public void Tick()
@@ -63,7 +63,7 @@ public class MetroBlimp : MonoBehaviour
 				blimpRenderer.material.EnableKeyword("_INNER_GLOW");
 			}
 		}
-		Vector3 localPosition = base.transform.localPosition;
+		Vector3 localPosition = transform.localPosition;
 		Vector3 b = localPosition;
 		float y = b.y;
 		float num2 = _startLocalHeight + descendOffset;
@@ -79,7 +79,7 @@ public class MetroBlimp : MonoBehaviour
 		{
 			b += Vector3.up * (ascendSpeed * deltaTime);
 		}
-		base.transform.localPosition = Vector3.Slerp(localPosition, b, 0.5f);
+		transform.localPosition = Vector3.Slerp(localPosition, b, 0.5f);
 	}
 
 	private static bool IsPlayerHand(Collider c)
@@ -91,7 +91,7 @@ public class MetroBlimp : MonoBehaviour
 	{
 		if (IsPlayerHand(other))
 		{
-			_numHandsOnBlimp += 1f;
+			_numHandsOnBlimp++;
 		}
 	}
 
@@ -99,7 +99,7 @@ public class MetroBlimp : MonoBehaviour
 	{
 		if (IsPlayerHand(other))
 		{
-			_numHandsOnBlimp -= 1f;
+			_numHandsOnBlimp--;
 		}
 	}
 }

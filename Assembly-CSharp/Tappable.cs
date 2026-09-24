@@ -69,7 +69,7 @@ public class Tappable : MonoBehaviour, IClickable
 	{
 		if (localOnly || !NetworkSystem.Instance.InRoom)
 		{
-			OnGrabLocal(Time.time, default(PhotonMessageInfoWrapped));
+			OnGrabLocal(Time.time, default);
 		}
 		else if ((bool)manager)
 		{
@@ -81,7 +81,7 @@ public class Tappable : MonoBehaviour, IClickable
 	{
 		if (!NetworkSystem.Instance.InRoom)
 		{
-			OnReleaseLocal(Time.time, default(PhotonMessageInfoWrapped));
+			OnReleaseLocal(Time.time, default);
 		}
 		else if ((bool)manager)
 		{
@@ -115,7 +115,7 @@ public class Tappable : MonoBehaviour, IClickable
 		int num = StaticHash.Compute(hashCode, staticHash, hashCode2);
 		if (useStaticId)
 		{
-			if (string.IsNullOrEmpty(staticId) || force)
+			if (string.IsNullOrEmpty(staticId) | force)
 			{
 				int instanceID = transform.GetInstanceID();
 				int num2 = StaticHash.Compute(num, instanceID);

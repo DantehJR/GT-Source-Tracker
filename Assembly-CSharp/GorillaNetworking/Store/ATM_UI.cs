@@ -77,19 +77,19 @@ public class ATM_UI : MonoBehaviour
 		}
 		else if (groupId != null)
 		{
-			Debug.LogError("ATM_UI(" + AssetUtils.GetGameObjectPath(base.gameObject) + ") :: Title Data missing group code. Using \"" + result + "$" + groupId.Code + "\". Expected format: \"<MemberCode>$<GroupCode>\" Got: \"" + result + "\"");
+			Debug.LogError("ATM_UI(" + AssetUtils.GetGameObjectPath(gameObject) + ") :: Title Data missing group code. Using \"" + result + "$" + groupId.Code + "\". Expected format: \"<MemberCode>$<GroupCode>\" Got: \"" + result + "\"");
 			ATM_Manager.instance.AddATM(this, new Tuple<string, string>(result, groupId.Code));
 		}
 		else
 		{
-			Debug.LogError("ATM_UI(" + AssetUtils.GetGameObjectPath(base.gameObject) + ") :: Title Data missing group code. No code is set. Expected format: \"<MemberCode>$<GroupCode>\" Got: \"" + result + "\"");
+			Debug.LogError("ATM_UI(" + AssetUtils.GetGameObjectPath(gameObject) + ") :: Title Data missing group code. No code is set. Expected format: \"<MemberCode>$<GroupCode>\" Got: \"" + result + "\"");
 			ATM_Manager.instance.AddATM(this, null);
 		}
 	}
 
 	private void onTDError(PlayFabError error)
 	{
-		Debug.LogError($"ATM_UI({AssetUtils.GetGameObjectPath(base.gameObject)}) :: PlayFabError :: {error}");
+		Debug.LogError($"ATM_UI({AssetUtils.GetGameObjectPath(gameObject)}) :: PlayFabError :: {error}");
 		ATM_Manager.instance.AddATM(this, null);
 	}
 

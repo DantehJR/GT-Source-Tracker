@@ -116,7 +116,11 @@ public class NetworkSystemPUN : NetworkSystem
 		get
 		{
 			PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("gameMode", out var value);
-			return value?.ToString();
+			if (value != null)
+			{
+				return value.ToString();
+			}
+			return string.Empty;
 		}
 	}
 
@@ -160,7 +164,17 @@ public class NetworkSystemPUN : NetworkSystem
 		NetworkSystem.reusableSB.AppendFormat("Room: '{0}' ", (currentRoom.Name.Length < 20) ? currentRoom.Name : currentRoom.Name.Remove(20));
 		NetworkSystem.reusableSB.AppendFormat("{0},{1} {3}/{2} players.", currentRoom.IsVisible ? "visible" : "hidden", currentRoom.IsOpen ? "open" : "closed", currentRoom.MaxPlayers, currentRoom.PlayerCount);
 		NetworkSystem.reusableSB.Append("\ncustomProps: {");
-		NetworkSystem.reusableSB.AppendFormat("joinedGameMode={0}, ", (RoomSystem.RoomGameMode.Length < 50) ? RoomSystem.RoomGameMode : RoomSystem.RoomGameMode.Remove(50));
+		StringBuilder stringBuilder = NetworkSystem.reusableSB;
+		string arg;
+		if (string.IsNullOrWhiteSpace(RoomSystem.RoomGameMode))
+		{
+			arg = "null";
+		}
+		else
+		{
+			arg = ((RoomSystem.RoomGameMode.Length < 50) ? RoomSystem.RoomGameMode : RoomSystem.RoomGameMode.Remove(50));
+		}
+		stringBuilder.AppendFormat("joinedGameMode={0}, ", arg);
 		IDictionary customProperties = currentRoom.CustomProperties;
 		AppendStringFromDict(customProperties, "gameMode", 50, NetworkSystem.reusableSB);
 		NetworkSystem.reusableSB.Append(", ");
@@ -193,7 +207,7 @@ public class NetworkSystemPUN : NetworkSystem
 	public override async void Initialise()
 	{
 		base.Initialise();
-		base.netState = NetSystemState.Initialization;
+		netState = NetSystemState.Initialization;
 		PhotonNetwork.PhotonServerSettings.AppSettings.AppVersion = NetworkSystemConfig.AppVersion;
 		PhotonNetwork.PhotonServerSettings.AppSettings.UseNameServer = true;
 		PhotonNetwork.EnableCloseConnection = false;
@@ -221,7 +235,7 @@ public class NetworkSystemPUN : NetworkSystem
 		{
 			return;
 		}
-		base.netState = NetSystemState.PingRecon;
+		netState = NetSystemState.PingRecon;
 		int tryingRegionIndex = 0;
 		while (tryingRegionIndex < regionNames.Length)
 		{
@@ -231,7 +245,7 @@ public class NetworkSystemPUN : NetworkSystem
 			PhotonNetwork.ConnectUsingSettings();
 			if (!(await WaitForStateCheck(InternalState.ConnectedToMaster)))
 			{
-				base.netState = NetSystemState.PingRecon;
+				netState = NetSystemState.PingRecon;
 			}
 			else
 			{
@@ -249,7 +263,7 @@ public class NetworkSystemPUN : NetworkSystem
 			tryingRegionIndex = num;
 		}
 		internalState = InternalState.Idle;
-		base.netState = NetSystemState.Idle;
+		netState = NetSystemState.Idle;
 	}
 
 	public override AuthenticationValues GetAuthenticationValues()
@@ -266,7 +280,7 @@ public class NetworkSystemPUN : NetworkSystem
 	{
 		if (PhotonNetwork.AuthValues == null)
 		{
-			_taskCancelTokens.ForEach(delegate(CancellationTokenSource cts)
+			_taskCancelTokens.ForEach((CancellationTokenSource cts) =>
 			{
 				cts.Cancel();
 				cts.Dispose();
@@ -516,7 +530,7 @@ public class NetworkSystemPUN : NetworkSystem
 		{
 			return NetJoinResult.Failed_Other;
 		}
-		if (base.netState != NetSystemState.Idle && base.netState != NetSystemState.InGame)
+		if (netState != NetSystemState.Idle && netState != NetSystemState.InGame)
 		{
 			return NetJoinResult.Failed_Other;
 		}
@@ -528,7 +542,7 @@ public class NetworkSystemPUN : NetworkSystem
 		{
 			return NetJoinResult.Failed_Other;
 		}
-		base.netState = NetSystemState.Connecting;
+		netState = NetSystemState.Connecting;
 		NetJoinResult netJoinResult;
 		if (roomName != null)
 		{
@@ -555,7 +569,7 @@ public class NetworkSystemPUN : NetworkSystem
 			roomTask = null;
 			return netJoinResult;
 		case NetJoinResult.AlreadyInRoom:
-			base.netState = NetSystemState.InGame;
+			netState = NetSystemState.InGame;
 			roomTask = null;
 			return netJoinResult;
 		default:
@@ -564,8 +578,8 @@ public class NetworkSystemPUN : NetworkSystem
 				GTDev.LogError("NetworkSystem: room joined success but we have disconnected");
 				return NetJoinResult.Failed_Other;
 			}
-			base.netState = NetSystemState.InGame;
-			PlayerJoined(base.LocalPlayer);
+			netState = NetSystemState.InGame;
+			PlayerJoined(LocalPlayer);
 			localRecorder.StartRecording();
 			return netJoinResult;
 		}
@@ -580,7 +594,7 @@ public class NetworkSystemPUN : NetworkSystem
 		bool failedToJoinFriend = false;
 		try
 		{
-			base.groupJoinInProgress = true;
+			groupJoinInProgress = true;
 			while (!foundFriend && searchStartTime + timeToSpendSearching > Time.realtimeSinceStartup)
 			{
 				Dictionary<string, PlayFab.ClientModels.SharedGroupDataRecord> data = dummyData;
@@ -589,12 +603,12 @@ public class NetworkSystemPUN : NetworkSystem
 				{
 					Keys = new List<string> { keyToFollow },
 					SharedGroupId = userID
-				}, delegate(GetSharedGroupDataResult getSharedGroupDataResult)
+				}, (GetSharedGroupDataResult getSharedGroupDataResult) =>
 				{
 					data = getSharedGroupDataResult.Data;
 					Debug.Log($"Got friend follow data, {data.Count} entries");
 					callbackFinished = true;
-				}, delegate(PlayFabError error)
+				}, (PlayFabError error) =>
 				{
 					Debug.Log($"GetSharedGroupData returns error: {error}");
 					callbackFinished = true;
@@ -648,7 +662,7 @@ public class NetworkSystemPUN : NetworkSystem
 		}
 		finally
 		{
-			base.groupJoinInProgress = false;
+			groupJoinInProgress = false;
 			if (failedToJoinFriend)
 			{
 				FriendshipGroupDetection.Instance.OnFailedToFollowParty();
@@ -684,17 +698,17 @@ public class NetworkSystemPUN : NetworkSystem
 
 	public override async Task ReturnToSinglePlayer()
 	{
-		if (base.netState == NetSystemState.InGame || base.netState == NetSystemState.Connecting)
+		if (netState == NetSystemState.InGame || netState == NetSystemState.Connecting)
 		{
-			base.netState = NetSystemState.Disconnecting;
-			_taskCancelTokens.ForEach(delegate(CancellationTokenSource cts)
+			netState = NetSystemState.Disconnecting;
+			_taskCancelTokens.ForEach((CancellationTokenSource cts) =>
 			{
 				cts.Cancel();
 				cts.Dispose();
 			});
 			_taskCancelTokens.Clear();
 			await InternalDisconnect();
-			base.netState = NetSystemState.Idle;
+			netState = NetSystemState.Idle;
 		}
 	}
 
@@ -723,7 +737,7 @@ public class NetworkSystemPUN : NetworkSystem
 			punVoice = PhotonVoiceNetwork.Instance;
 			VoiceNetworkObject = punVoice.gameObject;
 			VoiceNetworkObject.name = "VoiceNetworkObject";
-			VoiceNetworkObject.transform.parent = base.transform;
+			VoiceNetworkObject.transform.parent = transform;
 			VoiceNetworkObject.transform.localPosition = Vector3.zero;
 			punVoice.LogLevel = VoiceSettings.LogLevel;
 			punVoice.GlobalRecordersLogLevel = VoiceSettings.GlobalRecordersLogLevel;
@@ -736,7 +750,7 @@ public class NetworkSystemPUN : NetworkSystem
 			appSettings.AppIdRealtime = PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime;
 			appSettings.AppIdVoice = PhotonNetwork.PhotonServerSettings.AppSettings.AppIdVoice;
 			punVoice.Settings = appSettings;
-			remoteVoiceAddedCallbacks.ForEach(delegate(Action<RemoteVoiceLink> callback)
+			remoteVoiceAddedCallbacks.ForEach((Action<RemoteVoiceLink> callback) =>
 			{
 				punVoice.RemoteVoiceAdded += callback;
 			});
@@ -769,9 +783,9 @@ public class NetworkSystemPUN : NetworkSystem
 			localRecorder.VoiceDetectionThreshold = VoiceSettings.Threshold;
 			localRecorder.VoiceDetectionDelayMs = VoiceSettings.Delay;
 			localRecorder.DebugEchoMode = VoiceSettings.DebugEcho;
-			bool num2 = SubscriptionManager.IsLocalSubscribed();
-			bool flag = NetworkSystem.Instance.SessionIsSubscription || PhotonNetwork.CurrentRoom.Name.EndsWith(":GTFC");
-			if (num2 || flag)
+			bool flag = SubscriptionManager.IsLocalSubscribed();
+			bool flag2 = NetworkSystem.Instance.SessionIsSubscription || PhotonNetwork.CurrentRoom.Name.EndsWith(":GTFC");
+			if (flag | flag2)
 			{
 				localRecorder.SamplingRate = VoiceSettings.SubsSamplingRate;
 				localRecorder.Bitrate = VoiceSettings.SubsBitrate;
@@ -997,7 +1011,7 @@ public class NetworkSystemPUN : NetworkSystem
 		}
 		if (playerRef.CustomProperties.TryGetValue("didTutorial", out var value))
 		{
-			bool flag = default(bool);
+			bool flag = default;
 			int num;
 			if (value is bool)
 			{
@@ -1025,6 +1039,28 @@ public class NetworkSystemPUN : NetworkSystem
 			return "";
 		}
 		if (!playerRef.CustomProperties.TryGetValue("platform", out var value))
+		{
+			return "";
+		}
+		if (!(value is string result))
+		{
+			return "";
+		}
+		return result;
+	}
+
+	public override string GetPlayerMothershipId(NetPlayer player)
+	{
+		if (player == null)
+		{
+			return "";
+		}
+		Player playerRef = player.GetPlayerRef();
+		if (playerRef == null)
+		{
+			return "";
+		}
+		if (!playerRef.CustomProperties.TryGetValue("mothershipId", out var value))
 		{
 			return "";
 		}
@@ -1284,6 +1320,7 @@ public class NetworkSystemPUN : NetworkSystem
 	{
 		if (!ApplicationQuittingState.IsQuitting)
 		{
+			PersistLog.Log("Disconnect callback, cause: " + cause);
 			groupJoinOverrideGameMode = "";
 			await RefreshNonce();
 			if (internalState == InternalState.Searching_Disconnecting)
@@ -1328,14 +1365,14 @@ public class NetworkSystemPUN : NetworkSystem
 		PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = regionNames[lowestPingRegionIndex];
 		currentRegionIndex = lowestPingRegionIndex;
 		PhotonNetwork.Disconnect();
-		_taskCancelTokens.ForEach(delegate(CancellationTokenSource token)
+		_taskCancelTokens.ForEach((CancellationTokenSource token) =>
 		{
 			token.Cancel();
 			token.Dispose();
 		});
 		_taskCancelTokens.Clear();
 		internalState = InternalState.Idle;
-		base.netState = NetSystemState.Idle;
+		netState = NetSystemState.Idle;
 	}
 
 	private void UpdateZoneInfo(bool roomIsPublic, string zoneName = null)
@@ -1343,7 +1380,17 @@ public class NetworkSystemPUN : NetworkSystem
 		AuthenticationValues authenticationValues = GetAuthenticationValues();
 		if (authenticationValues?.AuthPostData is Dictionary<string, object> dictionary)
 		{
-			dictionary["Zone"] = ((zoneName != null) ? zoneName : ((ZoneManagement.instance.activeZones.Count > 0) ? ZoneManagement.instance.activeZones.First().GetName() : ""));
+			Dictionary<string, object> dictionary2 = dictionary;
+			string value;
+			if (zoneName != null)
+			{
+				value = zoneName;
+			}
+			else
+			{
+				value = ((ZoneManagement.instance.activeZones.Count > 0) ? ZoneManagement.instance.activeZones.First().GetName() : "");
+			}
+			dictionary2["Zone"] = value;
 			dictionary["SubZone"] = GTSubZone.none.GetName();
 			dictionary["IsPublic"] = roomIsPublic;
 			authenticationValues.SetAuthPostData(dictionary);

@@ -25,11 +25,11 @@ public class CustomRopeSimulation : MonoBehaviour
 
 	private void Start()
 	{
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		for (int i = 0; i < nodeCount; i++)
 		{
 			GameObject gameObject = Object.Instantiate(ropeNodePrefab);
-			gameObject.transform.parent = base.transform;
+			gameObject.transform.parent = transform;
 			gameObject.transform.position = position;
 			nodes.Add(gameObject.transform);
 			position.y -= nodeDistance;
@@ -51,7 +51,7 @@ public class CustomRopeSimulation : MonoBehaviour
 			gravity = gravity,
 			nodes = burstNodes,
 			nodeDistance = nodeDistance,
-			rootPos = base.transform.position
+			rootPos = transform.position
 		}.Run();
 		for (int i = 0; i < burstNodes.Length; i++)
 		{

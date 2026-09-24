@@ -50,10 +50,10 @@ public class CreditsView : MonoBehaviour
 				Entries = new List<string> { "Stunshine", "David Anderson Kirk", "Jaguar Jen", "Audiopfeil", "Owlobe" }
 			}
 		};
-		PlayFabTitleDataCache.Instance.GetTitleData("CreditsData", delegate(string result)
+		PlayFabTitleDataCache.Instance.GetTitleData("CreditsData", (string result) =>
 		{
 			creditsSections = JsonMapper.ToObject<CreditsSection[]>(result);
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.Log("Error fetching credits data: " + error.ErrorMessage);
 		});

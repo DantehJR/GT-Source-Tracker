@@ -38,21 +38,15 @@ public class SIBlasterSprayProjectile : MonoBehaviour
 	{
 		if (!(playerHit == SIPlayer.LocalPlayer))
 		{
-			float num = Vector3.Angle(base.transform.forward, Vector3.up);
-			Vector3 vector = Vector3.RotateTowards(base.transform.forward.normalized, Vector3.up, Mathf.Clamp(num - upwardsAngle, 0f, upwardsAngle) * (MathF.PI / 180f), 0f);
-			projectile.parentBlaster.SendClientToClientRPC(1, new object[4]
-			{
-				projectile.projectileId,
-				base.transform.position,
-				vector,
-				playerHit.ActorNr
-			});
+			float num = Vector3.Angle(transform.forward, Vector3.up);
+			Vector3 vector = Vector3.RotateTowards(transform.forward.normalized, Vector3.up, Mathf.Clamp(num - upwardsAngle, 0f, upwardsAngle) * (MathF.PI / 180f), 0f);
+			projectile.parentBlaster.SendClientToClientRPC(1, new object[4] { projectile.projectileId, transform.position, vector, playerHit.ActorNr });
 		}
 	}
 
 	public void NetworkedProjectileHit(object[] data)
 	{
-		if (data == null || data.Length != 4 || !GameEntityManager.ValidateDataType<int>(data[0], out var _) || !GameEntityManager.ValidateDataType<Vector3>(data[1], out var dataAsType2) || !GameEntityManager.ValidateDataType<Vector3>(data[2], out var dataAsType3) || !GameEntityManager.ValidateDataType<int>(data[3], out var dataAsType4) || (base.transform.position - dataAsType2).magnitude > projectile.parentBlaster.maxLagDistance)
+		if (data == null || data.Length != 4 || !GameEntityManager.ValidateDataType<int>(data[0], out var _) || !GameEntityManager.ValidateDataType<Vector3>(data[1], out var dataAsType2) || !GameEntityManager.ValidateDataType<Vector3>(data[2], out var dataAsType3) || !GameEntityManager.ValidateDataType<int>(data[3], out var dataAsType4) || (transform.position - dataAsType2).magnitude > projectile.parentBlaster.maxLagDistance)
 		{
 			return;
 		}

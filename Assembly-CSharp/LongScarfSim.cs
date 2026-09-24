@@ -49,15 +49,15 @@ public class LongScarfSim : MonoBehaviour
 	{
 		velocity *= drag;
 		velocity.y -= gravityStrength * Time.deltaTime;
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		Vector3 vector = lastCenterPos + velocity * Time.deltaTime;
 		Vector3 vector2 = position + (vector - position).normalized * centerOfMassLength;
-		Vector3 vector3 = base.transform.InverseTransformPoint(vector2);
+		Vector3 vector3 = transform.InverseTransformPoint(vector2);
 		float num = Vector3.Dot(vector3, clampToPlane);
 		if (num < 0f)
 		{
 			vector3 -= clampToPlane * num;
-			vector2 = base.transform.TransformPoint(vector3);
+			vector2 = transform.TransformPoint(vector3);
 		}
 		Vector3 vector4 = vector2;
 		velocity = (vector4 - lastCenterPos) / Time.deltaTime;

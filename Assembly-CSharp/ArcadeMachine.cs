@@ -82,9 +82,9 @@ public class ArcadeMachine : NetworkComponent
 			audioSourcePriority = priority;
 			audioSource.clip = arcadeGameInstance.audioClips[soundId];
 			audioSource.GTPlay();
-			if (networkSynchronized && base.IsMine)
+			if (networkSynchronized && IsMine)
 			{
-				base.GetView.RPC("ArcadeGameInstance_OnPlaySound_RPC", RpcTarget.Others, soundId);
+				GetView.RPC("ArcadeGameInstance_OnPlaySound_RPC", RpcTarget.Others, soundId);
 			}
 		}
 	}
@@ -131,7 +131,7 @@ public class ArcadeMachine : NetworkComponent
 
 	public bool IsControllerInUse(int player)
 	{
-		if (base.IsMine)
+		if (IsMine)
 		{
 			if (playersPerJoystick[player] != null)
 			{

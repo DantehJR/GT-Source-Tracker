@@ -265,7 +265,7 @@ public class BetterDayNightManager : MonoBehaviour, IGorillaSliceableSimple, ITi
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		currentLerp = 0f;
 		totalHours = 0.0;

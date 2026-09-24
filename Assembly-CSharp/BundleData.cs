@@ -16,4 +16,12 @@ internal struct BundleData
 	public int minorVersion2;
 
 	public bool isActive;
+
+	public string[] mothershipTransactionIds;
+
+	public MothershipProgressionNodeRef[] progressionNodes;
+
+	public string playFabItemNameGTFC;
+
+	public string skuNameGTFC;
 }

@@ -28,11 +28,11 @@ public class KIDUI_AgeAppealScreen : MonoBehaviour
 
 	public void ShowRestrictedAccessScreen()
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnChangeAgePressed()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 }

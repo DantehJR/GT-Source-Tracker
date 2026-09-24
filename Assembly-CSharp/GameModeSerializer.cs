@@ -100,7 +100,7 @@ internal class GameModeSerializer : GorillaSerializerMasterOnly, IStateAuthority
 			return false;
 		}
 		serializeTarget = gameModeInstance;
-		base.transform.parent = VRRigCache.Instance.NetworkParent;
+		transform.parent = VRRigCache.Instance.NetworkParent;
 		return true;
 	}
 
@@ -147,14 +147,14 @@ internal class GameModeSerializer : GorillaSerializerMasterOnly, IStateAuthority
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GameModeSerializer::RPC_ReportTag(System.Int32,Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GameModeSerializer::RPC_ReportTag(System.Int32,Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			int num = 8;
@@ -164,22 +164,22 @@ internal class GameModeSerializer : GorillaSerializerMasterOnly, IStateAuthority
 				NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GameModeSerializer::RPC_ReportTag(System.Int32,Fusion.RpcInfo)", num);
 				return;
 			}
-			if (base.Runner.HasAnyActiveConnections())
+			if (Runner.HasAnyActiveConnections())
 			{
-				SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+				SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 				byte* ptr2 = (byte*)ptr + 28;
-				*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
+				*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
 				int num2 = 8;
 				*(int*)(ptr2 + num2) = taggedPlayer;
 				num2 += 4;
 				ptr->Offset = num2 * 8;
-				base.Runner.SendRpc(ptr);
+				Runner.SendRpc(ptr);
 			}
 			if ((localAuthorityMask & 7) == 0)
 			{
 				return;
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		ReportTag(NetworkSystem.Instance.GetPlayer(taggedPlayer), new PhotonMessageInfoWrapped(info));
 	}
@@ -194,14 +194,14 @@ internal class GameModeSerializer : GorillaSerializerMasterOnly, IStateAuthority
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GameModeSerializer::RPC_ReportHit(Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GameModeSerializer::RPC_ReportHit(Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			int num = 8;
@@ -210,20 +210,20 @@ internal class GameModeSerializer : GorillaSerializerMasterOnly, IStateAuthority
 				NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GameModeSerializer::RPC_ReportHit(Fusion.RpcInfo)", num);
 				return;
 			}
-			if (base.Runner.HasAnyActiveConnections())
+			if (Runner.HasAnyActiveConnections())
 			{
-				SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+				SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 				byte* ptr2 = (byte*)ptr + 28;
-				*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 2);
+				*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 2);
 				int num2 = 8;
 				ptr->Offset = num2 * 8;
-				base.Runner.SendRpc(ptr);
+				Runner.SendRpc(ptr);
 			}
 			if ((localAuthorityMask & 7) == 0)
 			{
 				return;
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		ReportHit(new PhotonMessageInfoWrapped(info));
 	}
@@ -238,8 +238,8 @@ internal class GameModeSerializer : GorillaSerializerMasterOnly, IStateAuthority
 	private void ReportHit(PhotonMessageInfoWrapped info)
 	{
 		MonkeAgent.IncrementRPCCall(info, "ReportContactWithLavaRPC");
-		bool num = ZoneManagement.instance.IsZoneActive(GTZone.customMaps);
-		bool flag = false;
+		bool flag = ZoneManagement.instance.IsZoneActive(GTZone.customMaps);
+		bool flag2 = false;
 		if (VRRigCache.Instance.TryGetVrrig(info.Sender, out var playerRig))
 		{
 			InfectionLavaController infectionLavaController = null;
@@ -247,9 +247,9 @@ internal class GameModeSerializer : GorillaSerializerMasterOnly, IStateAuthority
 			{
 				infectionLavaController = InfectionLavaController.GetControllerForZone(playerRig.Rig.zoneEntity.currentZone);
 			}
-			flag = infectionLavaController != null && infectionLavaController.LavaCurrentlyActivated && (infectionLavaController.SurfaceCenter - playerRig.Rig.syncPos).sqrMagnitude < 2500f && infectionLavaController.LavaPlane.GetDistanceToPoint(playerRig.Rig.syncPos) < 5f;
+			flag2 = infectionLavaController != null && infectionLavaController.LavaCurrentlyActivated && (infectionLavaController.SurfaceCenter - playerRig.Rig.syncPos).sqrMagnitude < 2500f && infectionLavaController.LavaPlane.GetDistanceToPoint(playerRig.Rig.syncPos) < 5f;
 		}
-		if (num || flag)
+		if (flag | flag2)
 		{
 			GameModeInstance.HitPlayer(info.Sender);
 		}
@@ -297,7 +297,7 @@ internal class GameModeSerializer : GorillaSerializerMasterOnly, IStateAuthority
 
 	void IStateAuthorityChanged.StateAuthorityChanged()
 	{
-		FusionGameModeOwnerChanged(NetworkSystem.Instance.GetPlayer(base.Object.StateAuthority));
+		FusionGameModeOwnerChanged(NetworkSystem.Instance.GetPlayer(Object.StateAuthority));
 	}
 
 	[WeaverGenerated]

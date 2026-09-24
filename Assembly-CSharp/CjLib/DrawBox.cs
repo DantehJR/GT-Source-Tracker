@@ -22,6 +22,6 @@ public class DrawBox : DrawBase
 	protected override void Draw(Color color, DebugUtil.Style style, bool depthTest)
 	{
 		Quaternion quaternion = QuaternionUtil.AxisAngle(Vector3.forward, StartAngle * MathUtil.Deg2Rad);
-		DebugUtil.DrawArc(base.transform.position, base.transform.rotation * quaternion * Vector3.right, base.transform.rotation * Vector3.forward, ArcAngle * MathUtil.Deg2Rad, Radius, NumSegments, color, depthTest);
+		DebugUtil.DrawArc(transform.position, transform.rotation * quaternion * Vector3.right, transform.rotation * Vector3.forward, ArcAngle * MathUtil.Deg2Rad, Radius, NumSegments, color, depthTest);
 	}
 }

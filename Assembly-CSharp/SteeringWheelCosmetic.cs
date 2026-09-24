@@ -34,7 +34,7 @@ public class SteeringWheelCosmetic : MonoBehaviour
 
 	private void Update()
 	{
-		float z = base.transform.localEulerAngles.z;
+		float z = transform.localEulerAngles.z;
 		if (Mathf.Abs(Mathf.DeltaAngle(lastZAngle, z)) >= dramaticTurnThreshold)
 		{
 			onDramaticTurn?.Invoke();

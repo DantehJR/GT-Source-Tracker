@@ -12,7 +12,7 @@ public class BetaChecker : MonoBehaviour
 		if (PlayerPrefs.GetString("CheckedBox2") == "true")
 		{
 			doNotEnable = true;
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -26,7 +26,7 @@ public class BetaChecker : MonoBehaviour
 		{
 			PlayerPrefs.SetString("CheckedBox2", "true");
 			PlayerPrefs.Save();
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 		else if (CosmeticsController.instance.playedInBeta)
 		{

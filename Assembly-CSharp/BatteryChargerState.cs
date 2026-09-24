@@ -194,7 +194,7 @@ public class BatteryChargerState : NetworkComponent
 		if (activeCrankerCount <= 0 && currentCharge > 0f)
 		{
 			currentCharge = Mathf.Max(0f, currentCharge - drainPerSecond * Time.deltaTime);
-			this.onChargeChanged?.Invoke();
+			onChargeChanged?.Invoke();
 		}
 		activeCrankerCount = 0;
 		for (int i = 0; i < 20; i++)
@@ -278,10 +278,10 @@ public class BatteryChargerState : NetworkComponent
 		}
 		float num2 = currentCharge;
 		currentCharge = Mathf.Clamp(currentCharge + num, 0f, maxCharge);
-		this.onChargeChanged?.Invoke();
+		onChargeChanged?.Invoke();
 		if (num2 < maxCharge && currentCharge >= maxCharge)
 		{
-			this.onFullyCharged?.Invoke();
+			onFullyCharged?.Invoke();
 		}
 		if (PhotonNetwork.InRoom)
 		{
@@ -355,10 +355,10 @@ public class BatteryChargerState : NetworkComponent
 			{
 				float num = currentCharge;
 				currentCharge = floatParam.ClampSafe(0f, maxCharge);
-				this.onChargeChanged?.Invoke();
+				onChargeChanged?.Invoke();
 				if (num < maxCharge && currentCharge >= maxCharge)
 				{
-					this.onFullyCharged?.Invoke();
+					onFullyCharged?.Invoke();
 				}
 			}
 			break;
@@ -370,7 +370,7 @@ public class BatteryChargerState : NetworkComponent
 		if ((!PhotonNetwork.InRoom || PhotonNetwork.IsMasterClient) && phase != eventPhase)
 		{
 			eventPhase = phase;
-			this.onEventPhaseChanged?.Invoke(phase);
+			onEventPhaseChanged?.Invoke(phase);
 		}
 	}
 
@@ -439,11 +439,11 @@ public class BatteryChargerState : NetworkComponent
 		{
 			currentCharge = num;
 		}
-		this.onChargeChanged?.Invoke();
+		onChargeChanged?.Invoke();
 		if (num2 != eventPhase)
 		{
 			eventPhase = num2;
-			this.onEventPhaseChanged?.Invoke(eventPhase);
+			onEventPhaseChanged?.Invoke(eventPhase);
 		}
 	}
 
@@ -509,11 +509,11 @@ public class BatteryChargerState : NetworkComponent
 		{
 			currentCharge = fusionData.charge;
 		}
-		this.onChargeChanged?.Invoke();
+		onChargeChanged?.Invoke();
 		if (fusionData.eventPhase != eventPhase)
 		{
 			eventPhase = fusionData.eventPhase;
-			this.onEventPhaseChanged?.Invoke(eventPhase);
+			onEventPhaseChanged?.Invoke(eventPhase);
 		}
 	}
 

@@ -74,7 +74,7 @@ public class CustomMapsAccessScreen : CustomMapsTerminalScreen
 		{
 			NetPlayer netPlayerByID = NetworkSystem.Instance.GetNetPlayerByID(CustomMapsTerminal.GetDriverID());
 			text = netPlayerByID.DefaultName;
-			if (useNametags && flag)
+			if (useNametags & flag)
 			{
 				RigContainer playerRig;
 				if (netPlayerByID.IsLocal)
@@ -89,7 +89,7 @@ public class CustomMapsAccessScreen : CustomMapsTerminalScreen
 		}
 		else
 		{
-			text = ((useNametags && flag) ? NetworkSystem.Instance.LocalPlayer.NickName : NetworkSystem.Instance.LocalPlayer.DefaultName);
+			text = ((useNametags & flag) ? NetworkSystem.Instance.LocalPlayer.NickName : NetworkSystem.Instance.LocalPlayer.DefaultName);
 		}
 		displayedText = "TERMINAL CONTROLLED BY: " + text;
 		if (!isControlScreen)

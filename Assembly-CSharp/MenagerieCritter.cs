@@ -79,7 +79,7 @@ public class MenagerieCritter : MonoBehaviour, IHoldableObject, IEyeScannable
 
 	public bool TwoHanded => false;
 
-	int IEyeScannable.scannableId => base.gameObject.GetInstanceID();
+	int IEyeScannable.scannableId => gameObject.GetInstanceID();
 
 	Vector3 IEyeScannable.Position => bodyCollider.bounds.center;
 
@@ -131,7 +131,7 @@ public class MenagerieCritter : MonoBehaviour, IHoldableObject, IEyeScannable
 			_animRoot.localPosition = Vector3.Scale(_bodyScale, new Vector3(x, y, z));
 			float num2 = 1f - num;
 			num2 *= 0.5f;
-			num2 += 1f;
+			num2++;
 			_animRoot.localScale = Vector3.Scale(_bodyScale, new Vector3(num2, num, num2));
 		}
 	}
@@ -153,10 +153,10 @@ public class MenagerieCritter : MonoBehaviour, IHoldableObject, IEyeScannable
 			grabbedFX.SetActive(value: true);
 		}
 		EquipmentInteractor.instance.UpdateHandEquipment(this, isHeldLeftHand);
-		base.transform.parent = grabbingHand.transform;
+		transform.parent = grabbingHand.transform;
 		isHeld = true;
 		heldBy = grabbingHand;
-		this.OnDataChange?.Invoke();
+		OnDataChange?.Invoke();
 	}
 
 	public bool OnRelease(DropZone zoneReleased, GameObject releasingHand)
@@ -181,16 +181,16 @@ public class MenagerieCritter : MonoBehaviour, IHoldableObject, IEyeScannable
 		isHeld = false;
 		isHeldLeftHand = false;
 		OnReleased?.Invoke(this);
-		this.OnDataChange?.Invoke();
+		OnDataChange?.Invoke();
 		ResetToTransform();
 		return true;
 	}
 
 	public void ResetToTransform()
 	{
-		base.transform.parent = _slot.transform;
-		base.transform.localPosition = Vector3.zero;
-		base.transform.localRotation = quaternion.identity;
+		transform.parent = _slot.transform;
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = quaternion.identity;
 	}
 
 	public void DropItemCleanup()

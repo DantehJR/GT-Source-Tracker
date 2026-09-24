@@ -148,7 +148,7 @@ public class GrabbingColorPicker : MonoBehaviour, IGorillaSliceableSimple
 			{
 				B_SliderAudio.GTPlay();
 			}
-			this.ColorChanged?.Invoke();
+			ColorChanged?.Invoke();
 		}
 	}
 

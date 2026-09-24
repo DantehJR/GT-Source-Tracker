@@ -52,8 +52,8 @@ public class CrittersStickyTrap : CrittersToolThrowable
 			CrittersStickyGoo crittersStickyGoo = (CrittersStickyGoo)CrittersManager.instance.SpawnActor(CrittersActorType.StickyGoo, subStickyGooIndex);
 			if (!(crittersStickyGoo == null))
 			{
-				CrittersManager.instance.TriggerEvent(CrittersManager.CritterEvent.StickyDeployed, actorId, base.transform.position, Quaternion.LookRotation(hitNormal));
-				Vector3 forward = base.transform.forward;
+				CrittersManager.instance.TriggerEvent(CrittersManager.CritterEvent.StickyDeployed, actorId, transform.position, Quaternion.LookRotation(hitNormal));
+				Vector3 forward = transform.forward;
 				forward -= hitNormal * Vector3.Dot(hitNormal, forward);
 				crittersStickyGoo.MoveActor(hitPosition, Quaternion.LookRotation(forward, hitNormal));
 				crittersStickyGoo.SetImpulseVelocity(Vector3.zero, Vector3.zero);

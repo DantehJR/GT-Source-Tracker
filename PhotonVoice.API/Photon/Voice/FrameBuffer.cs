@@ -64,7 +64,7 @@ public struct FrameBuffer
 		this.disposer = disposer;
 		disposed = false;
 		refCnt = 1;
-		gcHandle = default(GCHandle);
+		gcHandle = default;
 		ptr = IntPtr.Zero;
 		pinned = false;
 		if (disposer != null)
@@ -77,12 +77,12 @@ public struct FrameBuffer
 	{
 		this.array = array;
 		offset = 0;
-		count = ((array != null) ? array.Length : 0);
+		count = array?.Length ?? 0;
 		Flags = flags;
 		disposer = null;
 		disposed = false;
 		refCnt = 1;
-		gcHandle = default(GCHandle);
+		gcHandle = default;
 		ptr = IntPtr.Zero;
 		pinned = false;
 		if (disposer != null)

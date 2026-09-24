@@ -1211,9 +1211,7 @@ public class Protocol16 : IProtocol
 
 	private bool DeserializeDictionaryArray(StreamBuffer din, short size, out Array arrayResult)
 	{
-		byte keyTypeCode;
-		byte valTypeCode;
-		Type type = DeserializeDictionaryType(din, out keyTypeCode, out valTypeCode);
+		Type type = DeserializeDictionaryType(din, out var keyTypeCode, out var valTypeCode);
 		arrayResult = Array.CreateInstance(type, size);
 		for (short num = 0; num < size; num++)
 		{

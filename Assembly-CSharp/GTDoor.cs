@@ -139,7 +139,7 @@ public class GTDoor : NetworkSceneObject
 			if (peopleInHoldOpenVolume)
 			{
 				currentState = DoorState.HeldOpenLocally;
-				if (NetworkSystem.Instance.InRoom && base.IsMine)
+				if (NetworkSystem.Instance.InRoom && IsMine)
 				{
 					photonView.RPC("ChangeDoorState", RpcTarget.AllViaServer, DoorState.HeldOpen);
 				}
@@ -148,7 +148,7 @@ public class GTDoor : NetworkSceneObject
 			{
 				CloseDoor();
 			}
-			else if (base.IsMine)
+			else if (IsMine)
 			{
 				currentState = DoorState.ClosingWaitingOnRPC;
 				photonView.RPC("ChangeDoorState", RpcTarget.AllViaServer, DoorState.Closing);
@@ -162,7 +162,7 @@ public class GTDoor : NetworkSceneObject
 			if (peopleInHoldOpenVolume)
 			{
 				currentState = DoorState.HeldOpenLocally;
-				if (NetworkSystem.Instance.InRoom && base.IsMine)
+				if (NetworkSystem.Instance.InRoom && IsMine)
 				{
 					photonView.RPC("ChangeDoorState", RpcTarget.AllViaServer, DoorState.HeldOpen);
 				}
@@ -182,7 +182,7 @@ public class GTDoor : NetworkSceneObject
 				{
 					CloseDoor();
 				}
-				else if (base.IsMine)
+				else if (IsMine)
 				{
 					currentState = DoorState.ClosingWaitingOnRPC;
 					photonView.RPC("ChangeDoorState", RpcTarget.AllViaServer, DoorState.Closing);
@@ -446,9 +446,9 @@ public class GTDoor : NetworkSceneObject
 	{
 		byte* ptr = (byte*)message + 28;
 		int num = 8;
-		int num2 = *(int*)(ptr + num);
+		DoorState doorState = *(DoorState*)(ptr + num);
 		num += 4;
-		DoorState shouldOpenState = (DoorState)num2;
+		DoorState shouldOpenState = doorState;
 		int doorId = *(int*)(ptr + num);
 		NetworkBehaviourUtils.InvokeRpc = true;
 		RPC_ChangeDoorState(runner, shouldOpenState, doorId);

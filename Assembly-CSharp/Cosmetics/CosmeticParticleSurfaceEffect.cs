@@ -97,8 +97,18 @@ public class CosmeticParticleSurfaceEffect : MonoBehaviour, ITickSystemTick
 	{
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			owner = ((transferrableObject.myOnlineRig != null) ? transferrableObject.myOnlineRig.creator : ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			ref NetPlayer reference = ref owner;
+			NetPlayer netPlayer;
+			if (transferrableObject.myOnlineRig != null)
+			{
+				netPlayer = transferrableObject.myOnlineRig.creator;
+			}
+			else
+			{
+				netPlayer = ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null);
+			}
+			reference = netPlayer;
 			if (owner != null)
 			{
 				_events.Init(owner);
@@ -125,7 +135,7 @@ public class CosmeticParticleSurfaceEffect : MonoBehaviour, ITickSystemTick
 			}
 			else
 			{
-				GTDev.LogError("CosmeticParticleSurfaceEffect " + base.gameObject.name + " no Object pool found for surface effect prefab. Has it been added to Global Object Pools?");
+				GTDev.LogError("CosmeticParticleSurfaceEffect " + gameObject.name + " no Object pool found for surface effect prefab. Has it been added to Global Object Pools?");
 			}
 		}
 		spawnCallLimiter.Reset();
@@ -286,10 +296,10 @@ public class CosmeticParticleSurfaceEffect : MonoBehaviour, ITickSystemTick
 			return;
 		}
 		ClearOldObjects();
-		GameObject obj = _pool.Instantiate();
-		obj.transform.position = position;
-		obj.transform.up = up;
-		if (obj.TryGetComponent<SeedPacketTriggerHandler>(out var component))
+		GameObject gameObject = _pool.Instantiate();
+		gameObject.transform.position = position;
+		gameObject.transform.up = up;
+		if (gameObject.TryGetComponent<SeedPacketTriggerHandler>(out var component))
 		{
 			int num = surfaceEffects.IndexOf(component);
 			if (num >= 0)

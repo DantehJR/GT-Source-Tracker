@@ -209,8 +209,7 @@ public class CosmeticSwapper : MonoBehaviour, ITickSystemTick
 			Debug.LogWarning("Cosmetic not found: " + nameOrId);
 			return null;
 		}
-		bool isLeftHand;
-		CosmeticsController.CosmeticSlots cosmeticSlot = GetCosmeticSlot(cosmeticItem, out isLeftHand);
+		CosmeticsController.CosmeticSlots cosmeticSlot = GetCosmeticSlot(cosmeticItem, out var isLeftHand);
 		if (cosmeticSlot == CosmeticsController.CosmeticSlots.Count)
 		{
 			Debug.LogWarning("Could not determine slot for: " + cosmeticItem.displayName);

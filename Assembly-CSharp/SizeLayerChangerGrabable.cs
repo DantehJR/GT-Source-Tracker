@@ -36,8 +36,8 @@ public class SizeLayerChangerGrabable : MonoBehaviour, IGorillaGrabable
 			VRRigCache.Instance.TryGetVrrig(PhotonNetwork.LocalPlayer, out var playerRig);
 			playerRig.Rig.sizeManager.currentSizeLayerMaskValue = grabbedSizeLayerMask.Mask;
 		}
-		grabbedObject = base.transform;
-		grabbedLocalPosiiton = base.transform.InverseTransformPoint(g.transform.position);
+		grabbedObject = transform;
+		grabbedLocalPosiiton = transform.InverseTransformPoint(g.transform.position);
 	}
 
 	void IGorillaGrabable.OnGrabReleased(GorillaGrabber g)

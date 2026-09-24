@@ -273,7 +273,7 @@ public abstract class GorillaGameManager : MonoBehaviourPunCallbacks, ITickSyste
 
 	public static void OnInstanceReady(Action action)
 	{
-		GorillaParent.OnReplicatedClientReady(delegate
+		GorillaParent.OnReplicatedClientReady(() =>
 		{
 			if ((bool)instance)
 			{

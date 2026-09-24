@@ -34,7 +34,7 @@ public class OpusDecoder<T> : IDisposable
 	public OpusDecoder(SamplingRate outputSamplingRateHz, Channels numChannels)
 	{
 		TisFloat = default(T) is float;
-		sizeofT = Marshal.SizeOf(default(T));
+		sizeofT = Marshal.SizeOf<T>(default);
 		if (outputSamplingRateHz != SamplingRate.Sampling08000 && outputSamplingRateHz != SamplingRate.Sampling12000 && outputSamplingRateHz != SamplingRate.Sampling16000 && outputSamplingRateHz != SamplingRate.Sampling24000 && outputSamplingRateHz != SamplingRate.Sampling48000)
 		{
 			throw new ArgumentOutOfRangeException("outputSamplingRateHz", "Must use one of the pre-defined sampling rates (" + outputSamplingRateHz.ToString() + ")");
@@ -66,7 +66,14 @@ public class OpusDecoder<T> : IDisposable
 		bool flag2 = false;
 		if (prevPacketInvalid)
 		{
-			num = ((!flag) ? (TisFloat ? Wrapper.opus_decode(_handle, packetData, buffer as float[], 1, _channelCount) : Wrapper.opus_decode(_handle, packetData, buffer as short[], 1, _channelCount)) : (TisFloat ? Wrapper.opus_decode(_handle, default(FrameBuffer), buffer as float[], 0, _channelCount) : Wrapper.opus_decode(_handle, default(FrameBuffer), buffer as short[], 0, _channelCount)));
+			if (flag)
+			{
+				num = (TisFloat ? Wrapper.opus_decode(_handle, default, buffer as float[], 0, _channelCount) : Wrapper.opus_decode(_handle, default, buffer as short[], 0, _channelCount));
+			}
+			else
+			{
+				num = (TisFloat ? Wrapper.opus_decode(_handle, packetData, buffer as float[], 1, _channelCount) : Wrapper.opus_decode(_handle, packetData, buffer as short[], 1, _channelCount));
+			}
 		}
 		else if (prevPacketData.Array != null)
 		{
@@ -108,7 +115,7 @@ public class OpusDecoder<T> : IDisposable
 				num = (TisFloat ? Wrapper.opus_decode(_handle, prevPacketData, buffer as float[], 1, _channelCount) : Wrapper.opus_decode(_handle, prevPacketData, buffer as short[], 1, _channelCount));
 			}
 			prevPacketData.Release();
-			prevPacketData = default(FrameBuffer);
+			prevPacketData = default;
 			prevPacketInvalid = false;
 			if (num == 0)
 			{
@@ -123,7 +130,7 @@ public class OpusDecoder<T> : IDisposable
 			return buffer;
 		}
 		prevPacketData.Release();
-		prevPacketData = default(FrameBuffer);
+		prevPacketData = default;
 		prevPacketInvalid = false;
 		return EmptyBuffer;
 	}

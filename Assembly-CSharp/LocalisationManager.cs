@@ -90,8 +90,8 @@ public class LocalisationManager : MonoBehaviour
 			return;
 		}
 		_instance = this;
-		base.transform.SetParent(null);
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+		transform.SetParent(null);
+		UnityEngine.Object.DontDestroyOnLoad(gameObject);
 		_localisationFontDict.Clear();
 		for (int i = 0; i < _localisationFonts.Count; i++)
 		{
@@ -294,7 +294,7 @@ public class LocalisationManager : MonoBehaviour
 
 	public static bool GetFontAssetForCurrentLocale(out LocalisationFontPair result)
 	{
-		result = default(LocalisationFontPair);
+		result = default;
 		if (Instance == null)
 		{
 			_ = ApplicationRunning;

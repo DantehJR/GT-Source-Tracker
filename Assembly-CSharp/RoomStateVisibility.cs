@@ -31,16 +31,16 @@ public class RoomStateVisibility : MonoBehaviour
 		{
 			if (NetworkSystem.Instance.SessionIsPrivate)
 			{
-				base.gameObject.SetActive(enableInPrivateRoom);
+				gameObject.SetActive(enableInPrivateRoom);
 			}
 			else
 			{
-				base.gameObject.SetActive(enableInRoom);
+				gameObject.SetActive(enableInRoom);
 			}
 		}
 		else
 		{
-			base.gameObject.SetActive(enableOutOfRoom);
+			gameObject.SetActive(enableOutOfRoom);
 		}
 	}
 }

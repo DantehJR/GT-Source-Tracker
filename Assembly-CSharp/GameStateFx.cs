@@ -126,9 +126,9 @@ public class GameStateFx : MonoBehaviour, IGameStateReceiver, IDelayedExecListen
 	{
 		if (!(m_stateProvider is IGameStateProvider stateProvider))
 		{
-			GTDev.LogError("[GT/GameStateFx]  ERROR!!!  Awake: The supplied State Provider is not type `IGameStateProvider`. Path=" + base.transform.GetPathQ());
+			GTDev.LogError("[GT/GameStateFx]  ERROR!!!  Awake: The supplied State Provider is not type `IGameStateProvider`. Path=" + transform.GetPathQ());
 			_isValid = false;
-			base.enabled = false;
+			enabled = false;
 			return;
 		}
 		_stateProvider = stateProvider;
@@ -154,7 +154,7 @@ public class GameStateFx : MonoBehaviour, IGameStateReceiver, IDelayedExecListen
 	{
 		if (!_isValid || ApplicationQuittingState.IsQuitting)
 		{
-			base.enabled = false;
+			enabled = false;
 		}
 		else
 		{
@@ -195,7 +195,7 @@ public class GameStateFx : MonoBehaviour, IGameStateReceiver, IDelayedExecListen
 
 	void IDelayedExecListener.OnDelayedAction(int contextFrameNum)
 	{
-		if (contextFrameNum == _delayedExecContextFrameNum && base.isActiveAndEnabled)
+		if (contextFrameNum == _delayedExecContextFrameNum && isActiveAndEnabled)
 		{
 			_PerformReactions(_reactionQueue.Dequeue());
 		}
@@ -352,7 +352,7 @@ public class GameStateFx : MonoBehaviour, IGameStateReceiver, IDelayedExecListen
 		}
 		if (flag && !_hasDefaultAudioSource)
 		{
-			base.enabled = false;
+			enabled = false;
 			_isValid = false;
 			return false;
 		}
@@ -366,7 +366,7 @@ public class GameStateFx : MonoBehaviour, IGameStateReceiver, IDelayedExecListen
 			return true;
 		}
 		_isValid = false;
-		base.enabled = false;
+		enabled = false;
 		return false;
 	}
 }

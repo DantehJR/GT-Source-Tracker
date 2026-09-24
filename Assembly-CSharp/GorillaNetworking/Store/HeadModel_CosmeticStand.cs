@@ -114,9 +114,9 @@ public class HeadModel_CosmeticStand : HeadModel
 				if (i < functionalParts.Length)
 				{
 					CosmeticPart cosmeticPart = functionalParts[i];
-					GameObject obj = LoadAndInstantiatePrefab(cosmeticPart.prefabAssetRef, base.transform);
-					obj.GetComponent<GorillaSkinToggle>().ApplyToMannequin(mannequin);
-					Object.DestroyImmediate(obj);
+					GameObject gameObject = LoadAndInstantiatePrefab(cosmeticPart.prefabAssetRef, transform);
+					gameObject.GetComponent<GorillaSkinToggle>().ApplyToMannequin(mannequin);
+					Object.DestroyImmediate(gameObject);
 					return;
 				}
 			}
@@ -139,10 +139,10 @@ public class HeadModel_CosmeticStand : HeadModel
 						attachInfo = attachInfo,
 						xform = null
 					};
-					GameObject gameObject = LoadAndInstantiatePrefab(cosmeticPart2.prefabAssetRef, base.transform);
-					partLoadInfo.xform = gameObject.transform;
-					_manuallySpawnedCosmeticParts.Add(gameObject);
-					gameObject.SetActive(value: true);
+					GameObject gameObject2 = LoadAndInstantiatePrefab(cosmeticPart2.prefabAssetRef, transform);
+					partLoadInfo.xform = gameObject2.transform;
+					_manuallySpawnedCosmeticParts.Add(gameObject2);
+					gameObject2.SetActive(value: true);
 					switch (bustType)
 					{
 					case BustType.GorillaHead:
@@ -153,11 +153,11 @@ public class HeadModel_CosmeticStand : HeadModel
 					case BustType.Table:
 					case BustType.PinDisplay:
 					case BustType.TagEffectDisplay:
-						PositionWardRobeItems(gameObject, partLoadInfo);
+						PositionWardRobeItems(gameObject2, partLoadInfo);
 						break;
 					case BustType.GorillaMannequin:
-						_manuallySpawnedCosmeticParts.Remove(gameObject);
-						Object.DestroyImmediate(gameObject);
+						_manuallySpawnedCosmeticParts.Remove(gameObject2);
+						Object.DestroyImmediate(gameObject2);
 						break;
 					case BustType.Disabled:
 						PositionWithWardRobeOffsets(partLoadInfo);
@@ -232,7 +232,7 @@ public class HeadModel_CosmeticStand : HeadModel
 						playFabId = playFabId,
 						prefabAssetRef = cosmeticPart.prefabAssetRef,
 						attachInfo = attachInfo,
-						loadOp = cosmeticPart.prefabAssetRef.InstantiateAsync(base.transform),
+						loadOp = cosmeticPart.prefabAssetRef.InstantiateAsync(transform),
 						xform = null
 					};
 					item.loadOp.Completed += _HandleLoadCosmeticPartsV2;
@@ -319,7 +319,7 @@ public class HeadModel_CosmeticStand : HeadModel
 						playFabId = playFabId,
 						prefabAssetRef = cosmeticPart.prefabAssetRef,
 						attachInfo = attachInfo,
-						loadOp = cosmeticPart.prefabAssetRef.InstantiateAsync(base.transform),
+						loadOp = cosmeticPart.prefabAssetRef.InstantiateAsync(transform),
 						xform = null
 					};
 					item.loadOp.Completed += _HandleLoadCosmeticPartsV2Fur;
@@ -431,9 +431,9 @@ public class HeadModel_CosmeticStand : HeadModel
 	public void ClearCosmetics()
 	{
 		ResetMannequinSkin();
-		for (int num = base.transform.childCount - 1; num >= 0; num--)
+		for (int num = transform.childCount - 1; num >= 0; num--)
 		{
-			Object.DestroyImmediate(base.transform.GetChild(num).gameObject);
+			Object.DestroyImmediate(transform.GetChild(num).gameObject);
 		}
 	}
 

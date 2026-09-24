@@ -7,7 +7,7 @@ public class RawCodec
 {
 	public class Encoder<T> : IEncoderDirect<T[]>, IEncoder, IDisposable
 	{
-		private int sizeofT = Marshal.SizeOf(default(T));
+		private int sizeofT = Marshal.SizeOf<T>(default);
 
 		private byte[] byteBuf = new byte[0];
 
@@ -63,7 +63,7 @@ public class RawCodec
 	{
 		private T[] buf = new T[0];
 
-		private int sizeofT = Marshal.SizeOf(default(T));
+		private int sizeofT = Marshal.SizeOf<T>(default);
 
 		private Action<FrameOut<T>> output;
 

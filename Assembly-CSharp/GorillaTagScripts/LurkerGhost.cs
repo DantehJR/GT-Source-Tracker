@@ -258,7 +258,7 @@ public class LurkerGhost : NetworkComponent
 		}
 		int index = UnityEngine.Random.Range(0, waypoints.Count);
 		currentWaypoint = waypoints[index];
-		targetRotation = Quaternion.LookRotation(currentWaypoint.position - base.transform.position);
+		targetRotation = Quaternion.LookRotation(currentWaypoint.position - transform.position);
 		waypoints.RemoveAt(index);
 	}
 
@@ -288,12 +288,12 @@ public class LurkerGhost : NetworkComponent
 
 	private bool PickPlayer(float maxDistance)
 	{
-		if (base.IsMine)
+		if (IsMine)
 		{
 			possibleTargets.Clear();
 			for (int i = 0; i < VRRigCache.ActiveRigContainers.Count; i++)
 			{
-				if ((VRRigCache.ActiveRigContainers[i].transform.position - base.transform.position).magnitude < maxDistance && VRRigCache.ActiveRigContainers[i].Creator != targetPlayer)
+				if ((VRRigCache.ActiveRigContainers[i].transform.position - transform.position).magnitude < maxDistance && VRRigCache.ActiveRigContainers[i].Creator != targetPlayer)
 				{
 					possibleTargets.Add(VRRigCache.ActiveRigContainers[i].Creator);
 				}
@@ -340,15 +340,15 @@ public class LurkerGhost : NetworkComponent
 			return;
 		}
 		targetPosition = targetTransform.position + targetTransform.forward.x0z() * seekAheadDistance;
-		targetRotation = Quaternion.LookRotation(targetTransform.position - base.transform.position);
-		base.transform.position = Vector3.MoveTowards(base.transform.position, targetPosition, seekSpeed * Time.deltaTime);
-		base.transform.rotation = Quaternion.RotateTowards(base.transform.rotation, targetRotation, 720f * Time.deltaTime);
+		targetRotation = Quaternion.LookRotation(targetTransform.position - transform.position);
+		transform.position = Vector3.MoveTowards(transform.position, targetPosition, seekSpeed * Time.deltaTime);
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 720f * Time.deltaTime);
 	}
 
 	private void ChargeAtPlayer()
 	{
-		base.transform.position = Vector3.MoveTowards(base.transform.position, targetPosition, chargeSpeed * Time.deltaTime);
-		base.transform.rotation = Quaternion.RotateTowards(base.transform.rotation, targetRotation, 720f * Time.deltaTime);
+		transform.position = Vector3.MoveTowards(transform.position, targetPosition, chargeSpeed * Time.deltaTime);
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 720f * Time.deltaTime);
 	}
 
 	private void UpdateGhostVisibility()
@@ -390,7 +390,7 @@ public class LurkerGhost : NetworkComponent
 	private void HauntObjects()
 	{
 		Collider[] array = new Collider[20];
-		int num = Physics.OverlapSphereNonAlloc(base.transform.position, sphereColliderRadius, array);
+		int num = Physics.OverlapSphereNonAlloc(transform.position, sphereColliderRadius, array);
 		for (int i = 0; i < num; i++)
 		{
 			if (array[i].CompareTag("HauntedObject"))
@@ -415,7 +415,7 @@ public class LurkerGhost : NetworkComponent
 		case ghostState.charge:
 			PlaySound(huntAudio, loop: false);
 			targetPosition = targetTransform.position;
-			targetRotation = Quaternion.LookRotation(targetTransform.position - base.transform.position);
+			targetRotation = Quaternion.LookRotation(targetTransform.position - transform.position);
 			break;
 		case ghostState.possess:
 			if (targetPlayer == NetworkSystem.Instance.LocalPlayer)
@@ -452,11 +452,11 @@ public class LurkerGhost : NetworkComponent
 		{
 		case ghostState.patrol:
 			Patrol();
-			if (!base.IsMine)
+			if (!IsMine)
 			{
 				break;
 			}
-			if (currentWaypoint == null || Vector3.Distance(base.transform.position, currentWaypoint.position) < 0.2f)
+			if (currentWaypoint == null || Vector3.Distance(transform.position, currentWaypoint.position) < 0.2f)
 			{
 				PickNextWaypoint();
 			}
@@ -472,14 +472,14 @@ public class LurkerGhost : NetworkComponent
 			break;
 		case ghostState.seek:
 			SeekPlayer();
-			if (base.IsMine && (targetPosition - base.transform.position).sqrMagnitude < seekCloseEnoughDistance * seekCloseEnoughDistance)
+			if (IsMine && (targetPosition - transform.position).sqrMagnitude < seekCloseEnoughDistance * seekCloseEnoughDistance)
 			{
 				ChangeState(ghostState.charge);
 			}
 			break;
 		case ghostState.charge:
 			ChargeAtPlayer();
-			if (base.IsMine && (targetPosition - base.transform.position).sqrMagnitude < 0.25f)
+			if (IsMine && (targetPosition - transform.position).sqrMagnitude < 0.25f)
 			{
 				if ((targetTransform.position - targetPosition).magnitude < minCatchDistance)
 				{
@@ -497,10 +497,10 @@ public class LurkerGhost : NetworkComponent
 				float num2 = HauntedMagicNumbers.x * MathF.Sin(Time.time * HauntedMagicNumbers.y) + HauntedMagicNumbers.z * MathF.Sin(Time.time * HauntedMagicNumbers.w);
 				float y = 0.5f + 0.5f * MathF.Sin(Time.time * SpookyMagicNumbers.z);
 				Vector3 target = targetTransform.position + new Vector3(num * (float)Math.Sin(num2), y, num * (float)Math.Cos(num2));
-				base.transform.position = Vector3.MoveTowards(base.transform.position, target, chargeSpeed);
-				base.transform.rotation = Quaternion.LookRotation(base.transform.position - targetTransform.position);
+				transform.position = Vector3.MoveTowards(transform.position, target, chargeSpeed);
+				transform.rotation = Quaternion.LookRotation(transform.position - targetTransform.position);
 			}
-			if (!base.IsMine)
+			if (!IsMine)
 			{
 				break;
 			}
@@ -564,7 +564,7 @@ public class LurkerGhost : NetworkComponent
 
 	private void ReadDataShared(ghostState state, int index, int targetActorNumber, Vector3 targetPos)
 	{
-		ghostState num = currentState;
+		ghostState ghostState2 = currentState;
 		currentState = state;
 		currentIndex = index;
 		NetPlayer netPlayer = targetPlayer;
@@ -578,14 +578,14 @@ public class LurkerGhost : NetworkComponent
 			}
 			else
 			{
-				targetPosition = base.transform.position;
+				targetPosition = transform.position;
 			}
 		}
 		if (targetPlayer != netPlayer)
 		{
 			PickPlayer(targetPlayer);
 		}
-		if (num != currentState || targetPlayer != netPlayer)
+		if (ghostState2 != currentState || targetPlayer != netPlayer)
 		{
 			ChangeState(currentState);
 		}

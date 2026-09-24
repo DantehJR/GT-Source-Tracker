@@ -2,7 +2,7 @@ public class GRDebugGodmodeButton : GorillaPressableReleaseButton
 {
 	private void Awake()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	public void OnPressedButton()

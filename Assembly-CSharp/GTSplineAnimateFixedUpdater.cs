@@ -79,7 +79,7 @@ public class GTSplineAnimateFixedUpdater : NetworkComponent
 
 	private void FixedUpdate()
 	{
-		if (!base.IsMine && progressLerpStartTime + 1f > Time.time)
+		if (!IsMine && progressLerpStartTime + 1f > Time.time)
 		{
 			if (isSplineLoaded)
 			{

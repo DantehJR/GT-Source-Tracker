@@ -252,6 +252,6 @@ public class DevConsole : MonoBehaviour, IDebugObject
 
 	private void OnEnable()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 }

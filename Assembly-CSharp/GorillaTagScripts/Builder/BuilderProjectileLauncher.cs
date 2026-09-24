@@ -57,10 +57,10 @@ public class BuilderProjectileLauncher : MonoBehaviour, IBuilderPieceFunctional,
 		int hash = PoolUtils.GameObjHashCode(projectilePrefab);
 		try
 		{
-			GameObject obj = ObjectPools.instance.Instantiate(hash);
+			GameObject gameObject = ObjectPools.instance.Instantiate(hash);
 			projectileScale = myPiece.GetScale();
-			obj.transform.localScale = Vector3.one * projectileScale;
-			BuilderProjectile component = obj.GetComponent<BuilderProjectile>();
+			gameObject.transform.localScale = Vector3.one * projectileScale;
+			BuilderProjectile component = gameObject.GetComponent<BuilderProjectile>();
 			int num = HashCode.Combine(myPiece.pieceId, timeStamp);
 			if (allProjectiles.ContainsKey(num))
 			{

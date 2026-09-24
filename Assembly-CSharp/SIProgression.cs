@@ -271,7 +271,7 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 		{
 			Instance = this;
 		}
-		emptyNode = default(SINode);
+		emptyNode = default;
 		InitResourceToStringDictionary();
 		resourceCapsArray = Enumerable.Repeat(int.MaxValue, 6).ToArray();
 		for (int i = 0; i < resourceCaps.Length; i++)
@@ -408,7 +408,7 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 			{
 				questsInitialized = true;
 				ClientReady = true;
-				this.OnClientReady?.Invoke();
+				OnClientReady?.Invoke();
 			}
 		}
 	}
@@ -528,9 +528,9 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 
 	private void UpdateTree()
 	{
-		UserHydratedProgressionTreeResponse obj = ProgressionManager.Instance?.GetTree("SI_Gadgets");
+		UserHydratedProgressionTreeResponse userHydratedProgressionTreeResponse = ProgressionManager.Instance?.GetTree("SI_Gadgets");
 		siNodes = new Dictionary<SIUpgradeType, SINode>();
-		foreach (UserHydratedNodeDefinition node in obj.Nodes)
+		foreach (UserHydratedNodeDefinition node in userHydratedProgressionTreeResponse.Nodes)
 		{
 			if (!Enum.TryParse<SIUpgradeType>(node.name, out var result))
 			{
@@ -619,7 +619,7 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 				return siNode.Value;
 			}
 		}
-		return default(SINode);
+		return default;
 	}
 
 	private void UpdateCurrencyOnPlayer()
@@ -640,7 +640,7 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 		if (!ClientReady && questSourceList != null)
 		{
 			ClientReady = true;
-			this.OnClientReady?.Invoke();
+			OnClientReady?.Invoke();
 		}
 	}
 
@@ -665,7 +665,7 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 		if (!ClientReady && questSourceList != null)
 		{
 			ClientReady = true;
-			this.OnClientReady?.Invoke();
+			OnClientReady?.Invoke();
 		}
 	}
 
@@ -943,7 +943,7 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 
 	public void AttemptIncrementResource(SIResource.ResourceType resource)
 	{
-		ProgressionManager.Instance.IncrementSIResource(resource.ToString(), OnSuccessfulIncrementResource, delegate(string err)
+		ProgressionManager.Instance.IncrementSIResource(resource.ToString(), OnSuccessfulIncrementResource, (string err) =>
 		{
 			Debug.LogError(err);
 		});
@@ -966,10 +966,10 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 			return;
 		}
 		redeemingQuestInProgress[questIndex] = true;
-		ProgressionManager.Instance.CompleteSIQuest(quest.questID, delegate(ProgressionManager.UserQuestsStatusResponse status)
+		ProgressionManager.Instance.CompleteSIQuest(quest.questID, (ProgressionManager.UserQuestsStatusResponse status) =>
 		{
 			OnSuccessfulQuestRedeem(questIndex, quest, status);
-		}, delegate(string err)
+		}, (string err) =>
 		{
 			if (err.Contains("409") || err.Contains("404"))
 			{
@@ -1002,10 +1002,10 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 
 	public void AttemptRedeemBonusPoint()
 	{
-		ProgressionManager.Instance.CompleteSIBonus(delegate(ProgressionManager.UserQuestsStatusResponse userQuestsStatus)
+		ProgressionManager.Instance.CompleteSIBonus((ProgressionManager.UserQuestsStatusResponse userQuestsStatus) =>
 		{
 			OnSuccessfulBonusRedeem(userQuestsStatus);
-		}, delegate(string err)
+		}, (string err) =>
 		{
 			Debug.LogError(err);
 		});
@@ -1021,7 +1021,7 @@ public class SIProgression : MonoBehaviour, IGorillaSliceableSimple, GorillaQues
 
 	public void AttemptCollectMonkeIdol()
 	{
-		ProgressionManager.Instance.CollectSIIdol(OnSuccessfulMonkeIdolRedeem, delegate(string err)
+		ProgressionManager.Instance.CollectSIIdol(OnSuccessfulMonkeIdolRedeem, (string err) =>
 		{
 			Debug.LogError(err);
 		});

@@ -56,9 +56,9 @@ public class QuestDisplay : MonoBehaviour
 	{
 		bool isQuestComplete = quest.isQuestComplete;
 		bool flag = !isQuestComplete && quest.requiredOccurenceCount == 1;
-		dailyIncompleteIndicator.SetActive(quest.isDailyQuest && flag);
-		dailyCompleteIndicator.SetActive(quest.isDailyQuest && isQuestComplete);
-		weeklyIncompleteIndicator.SetActive(!quest.isDailyQuest && flag);
-		weeklyCompleteIndicator.SetActive(!quest.isDailyQuest && isQuestComplete);
+		dailyIncompleteIndicator.SetActive(quest.isDailyQuest & flag);
+		dailyCompleteIndicator.SetActive(quest.isDailyQuest & isQuestComplete);
+		weeklyIncompleteIndicator.SetActive(!quest.isDailyQuest & flag);
+		weeklyCompleteIndicator.SetActive(!quest.isDailyQuest & isQuestComplete);
 	}
 }

@@ -32,7 +32,7 @@ public class BoingEffector : BoingBase
 
 		public float AngularImpulse;
 
-		public Bits32 Bits = default(Bits32);
+		public Bits32 Bits = default;
 
 		private int m_padding3;
 
@@ -124,8 +124,8 @@ public class BoingEffector : BoingBase
 
 	public void OnEnable()
 	{
-		m_currPosition = base.transform.position;
-		m_prevPosition = base.transform.position;
+		m_currPosition = transform.position;
+		m_prevPosition = transform.position;
 		m_linearVelocity = Vector3.zero;
 		BoingManager.Register(this);
 	}
@@ -140,23 +140,23 @@ public class BoingEffector : BoingBase
 		float deltaTime = Time.deltaTime;
 		if (!(deltaTime < MathUtil.Epsilon))
 		{
-			m_linearVelocity = (base.transform.position - m_prevPosition) / deltaTime;
+			m_linearVelocity = (transform.position - m_prevPosition) / deltaTime;
 			m_prevPosition = m_currPosition;
-			m_currPosition = base.transform.position;
+			m_currPosition = transform.position;
 		}
 	}
 
 	public void OnDrawGizmosSelected()
 	{
-		if (base.isActiveAndEnabled)
+		if (isActiveAndEnabled)
 		{
 			if (FullEffectRadiusRatio < 1f)
 			{
 				Gizmos.color = new Color(1f, 0.5f, 0.2f, 0.4f);
-				Gizmos.DrawWireSphere(base.transform.position, Radius);
+				Gizmos.DrawWireSphere(transform.position, Radius);
 			}
 			Gizmos.color = new Color(1f, 0.5f, 0.2f, 1f);
-			Gizmos.DrawWireSphere(base.transform.position, Radius * FullEffectRadiusRatio);
+			Gizmos.DrawWireSphere(transform.position, Radius * FullEffectRadiusRatio);
 		}
 	}
 }

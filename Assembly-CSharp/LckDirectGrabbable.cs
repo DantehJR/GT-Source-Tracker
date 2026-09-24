@@ -35,7 +35,7 @@ public class LckDirectGrabbable : MonoBehaviour, IGorillaGrabable
 		{
 			return Vector3.zero;
 		}
-		return base.transform.InverseTransformPoint(grabber.transform.position);
+		return transform.InverseTransformPoint(grabber.transform.position);
 	}
 
 	public bool CanBeGrabbed(GorillaGrabber grabber)
@@ -49,7 +49,7 @@ public class LckDirectGrabbable : MonoBehaviour, IGorillaGrabable
 
 	public void OnGrabbed(GorillaGrabber grabber, out Transform grabbedTransform, out Vector3 localGrabbedPosition)
 	{
-		if (!base.isActiveAndEnabled)
+		if (!isActiveAndEnabled)
 		{
 			_grabber = null;
 			grabbedTransform = grabber.transform;
@@ -60,7 +60,7 @@ public class LckDirectGrabbable : MonoBehaviour, IGorillaGrabable
 		{
 			ForceRelease();
 		}
-		if (_precise && IsSlingshotHeldInHand(out var leftHand, out var rightHand) && ((grabber.XrNode == XRNode.LeftHand && leftHand) || (grabber.XrNode == XRNode.RightHand && rightHand)))
+		if (_precise && IsSlingshotHeldInHand(out var leftHand, out var rightHand) && (((grabber.XrNode == XRNode.LeftHand) & leftHand) || ((grabber.XrNode == XRNode.RightHand) & rightHand)))
 		{
 			_grabber = null;
 			grabbedTransform = grabber.transform;
@@ -70,10 +70,10 @@ public class LckDirectGrabbable : MonoBehaviour, IGorillaGrabable
 		_grabber = grabber;
 		GtColliderTriggerProcessor.CurrentGrabbedHand = grabber.XrNode;
 		GtColliderTriggerProcessor.IsGrabbingTablet = true;
-		grabbedTransform = base.transform;
+		grabbedTransform = transform;
 		localGrabbedPosition = GetLocalGrabbedPosition(_grabber);
 		target.SetParent(grabber.transform, worldPositionStays: true);
-		this.onGrabbed?.Invoke();
+		onGrabbed?.Invoke();
 		OnTabletGrabbed?.Invoke();
 	}
 
@@ -82,13 +82,13 @@ public class LckDirectGrabbable : MonoBehaviour, IGorillaGrabable
 		target.transform.SetParent(_originalTargetParent, worldPositionStays: true);
 		_grabber = null;
 		GtColliderTriggerProcessor.IsGrabbingTablet = false;
-		this.onReleased?.Invoke();
+		onReleased?.Invoke();
 		OnTabletReleased?.Invoke();
 	}
 
 	public void ForceGrab(GorillaGrabber grabber)
 	{
-		grabber.Inject(base.transform, GetLocalGrabbedPosition(grabber));
+		grabber.Inject(transform, GetLocalGrabbedPosition(grabber));
 	}
 
 	public void ForceRelease()

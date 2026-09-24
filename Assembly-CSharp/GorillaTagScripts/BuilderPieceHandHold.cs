@@ -58,12 +58,12 @@ public class BuilderPieceHandHold : MonoBehaviour, IGorillaGrabable, IBuilderPie
 	public void OnGrabbed(GorillaGrabber grabber, out Transform grabbedTransform, out Vector3 localGrabbedPosition)
 	{
 		Initialize();
-		grabbedTransform = base.transform;
+		grabbedTransform = transform;
 		Vector3 position = grabber.transform.position;
-		localGrabbedPosition = base.transform.InverseTransformPoint(position);
+		localGrabbedPosition = transform.InverseTransformPoint(position);
 		activeGrabbers.Add(grabber);
 		isGrabbed = true;
-		grabber.Player.AddHandHold(base.transform, localGrabbedPosition, grabber, grabber.IsRightHand, rotatePlayerWhenHeld: false, out var _);
+		grabber.Player.AddHandHold(transform, localGrabbedPosition, grabber, grabber.IsRightHand, rotatePlayerWhenHeld: false, out var _);
 	}
 
 	public void OnGrabReleased(GorillaGrabber grabber)

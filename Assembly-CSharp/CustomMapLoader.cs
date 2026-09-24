@@ -226,6 +226,14 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 
 	private static int leafGliderIndex;
 
+	private static int gravityZoneCount;
+
+	private static int sizeChangerCount;
+
+	private static int handHoldCount;
+
+	private static int mapperAssetCount;
+
 	private static bool usingDynamicLighting = false;
 
 	private static bool refreshReviveStations = false;
@@ -381,6 +389,16 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 
 	public static long LoadedMapModFileId => loadedMapModFileId;
 
+	public static int LoadedMapSupportVersion => loadedMapPackageInfo?.customMapSupportVersion ?? 0;
+
+	public static int LoadedMapGravityZoneCount => gravityZoneCount;
+
+	public static int LoadedMapSizeChangerCount => sizeChangerCount;
+
+	public static int LoadedMapHandHoldCount => handHoldCount;
+
+	public static int LoadedMapMapperAssetCount => mapperAssetCount;
+
 	public static bool CanLoadEntities { get; private set; }
 
 	internal static void SetZoneDynamicLighting(bool enable)
@@ -460,7 +478,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 	}
 
@@ -541,6 +559,10 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		errorEncounteredDuringLoad = false;
 		attemptedLoadID = mapModID;
 		refreshReviveStations = false;
+		gravityZoneCount = 0;
+		sizeChangerCount = 0;
+		handHoldCount = 0;
+		mapperAssetCount = 0;
 		instance.ghostReactorManager.reactor.RefreshReviveStations();
 		mapLoadProgressCallback?.Invoke(MapLoadStatus.Loading, 1, "CACHING LIGHTMAP DATA");
 		CacheLightmaps();
@@ -637,7 +659,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		loadedMapModFileId = 0L;
 		if (loadedMapModId != 999999999L)
 		{
-			ModIOManager.GetMod(new ModId(loadedMapModId), forceUpdate: false, delegate(Error error, Mod mod)
+			ModIOManager.GetMod(new ModId(loadedMapModId), forceUpdate: false, (Error error, Mod mod) =>
 			{
 				if (!error && mod != null && mod.File != null)
 				{
@@ -702,9 +724,9 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 			bool isLastScene = i == sceneIndexes.Length - 1;
 			bool stopLoading = false;
 			bool initialLoadAborted = false;
-			yield return LoadSceneFromAssetBundle(sceneIndexes[i], delegate(bool loadSucceeded, bool loadAborted, string loadedSceneName)
+			yield return LoadSceneFromAssetBundle(sceneIndexes[i], (bool loadSucceeded, bool loadAborted, string loadedSceneName) =>
 			{
-				if (!loadSucceeded || loadAborted)
+				if (!loadSucceeded | loadAborted)
 				{
 					GTDev.Log("[CustomMapLoader::LoadInitialScenesCoroutine] failed to load scene at index " + $"\"{sceneIndexes[i]}\", aborting initial load...");
 					stopLoading = true;
@@ -829,9 +851,9 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 			}
 			bool shouldAbortLoad = false;
 			bool isLastScene = i == sceneIndexes.Length - 1;
-			yield return LoadSceneFromAssetBundle(sceneIndexes[i], delegate(bool loadSucceeded, bool loadAborted, string loadedSceneName)
+			yield return LoadSceneFromAssetBundle(sceneIndexes[i], (bool loadSucceeded, bool loadAborted, string loadedSceneName) =>
 			{
-				if (!loadSucceeded || loadAborted)
+				if (!loadSucceeded | loadAborted)
 				{
 					successfullyLoadedAllScenes = false;
 				}
@@ -883,6 +905,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		}
 		attemptedSceneToLoad = assetBundleSceneFilePaths[sceneIndex];
 		string sceneName = GetSceneNameFromFilePath(attemptedSceneToLoad);
+		ZoneManagement.AddSceneToForceStayLoaded(sceneName);
 		yield return SceneManager.LoadSceneAsync(attemptedSceneToLoad, parameters);
 		runningAsyncLoad = false;
 		if (shouldAbortSceneLoad)
@@ -980,7 +1003,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		{
 			yield return AbortSceneLoad(sceneIndex);
 			OnLoadComplete(arg1: false, arg2: true, "");
-			if (cachedExceptionMessage.Length > 0 && useProgressCallback)
+			if ((cachedExceptionMessage.Length > 0) & useProgressCallback)
 			{
 				mapLoadProgressCallback?.Invoke(MapLoadStatus.Error, 0, cachedExceptionMessage);
 			}
@@ -989,7 +1012,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		if (errorEncounteredDuringLoad)
 		{
 			OnLoadComplete(arg1: false, arg2: false, "");
-			if (cachedExceptionMessage.Length > 0 && useProgressCallback)
+			if ((cachedExceptionMessage.Length > 0) & useProgressCallback)
 			{
 				mapLoadProgressCallback?.Invoke(MapLoadStatus.Error, 0, cachedExceptionMessage);
 			}
@@ -1605,6 +1628,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		if (component2.IsNotNull())
 		{
 			gameObject.AddComponent<HandHold>().CopyProperties(component2);
+			handHoldCount++;
 			UnityEngine.Object.Destroy(component2);
 		}
 		CustomMapEjectButtonSettings component3 = gameObject.GetComponent<CustomMapEjectButtonSettings>();
@@ -1635,6 +1659,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		if ((object)component6 != null)
 		{
 			gameObject.AddComponent<SizeChanger>().CopyProperties(component6);
+			sizeChangerCount++;
 			UnityEngine.Object.Destroy(component6);
 		}
 		MonkeGravityControllerSettings component7 = gameObject.GetComponent<MonkeGravityControllerSettings>();
@@ -1652,6 +1677,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		{
 			return;
 		}
+		gravityZoneCount++;
 		if (component is ConsensusGravityZoneSettings consensusGravityZoneSettings)
 		{
 			ConsensusGravityZone consensusGravityZone = gameObject.AddComponent<ConsensusGravityZone>();
@@ -1703,6 +1729,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		{
 			return;
 		}
+		mapperAssetCount++;
 		switch (component.PlaceholderObject)
 		{
 		case GTObject.LeafGlider:
@@ -1891,11 +1918,11 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 			}
 			gameObject5.transform.SetParent(instance.compositeTryOnArea.transform, worldPositionStays: true);
 			gameObject5.transform.localScale = Vector3.one;
+			customMapATM = gameObject5;
 			ATM_UI componentInChildren = gameObject5.GetComponentInChildren<ATM_UI>();
 			if (componentInChildren.IsNotNull() && ATM_Manager.instance.IsNotNull())
 			{
 				componentInChildren.SetCustomMapScene(placeholderGameObject.scene);
-				customMapATM = gameObject5;
 				ATM_Manager.instance.AddATM(componentInChildren, null);
 				if (!component.defaultCreatorCode.IsNullOrEmpty())
 				{
@@ -2154,12 +2181,12 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 			UberShaderDynamicLight component = dynamicLightGameObject.GetComponent<UberShaderDynamicLight>();
 			if (!component.IsNull() && !component.dynamicLight.IsNull())
 			{
-				GameObject obj = new GameObject(dynamicLightGameObject.name + "GameLight");
-				GameLight gameLight = obj.AddComponent<GameLight>();
+				GameObject gameObject = new GameObject(dynamicLightGameObject.name + "GameLight");
+				GameLight gameLight = gameObject.AddComponent<GameLight>();
 				gameLight.light = component.dynamicLight;
 				GameLightingManager.instance.AddGameLight(gameLight);
-				obj.transform.SetParent(dynamicLightGameObject.transform.parent);
-				obj.transform.position = component.transform.position;
+				gameObject.transform.SetParent(dynamicLightGameObject.transform.parent);
+				gameObject.transform.position = component.transform.position;
 			}
 		}
 	}
@@ -2359,7 +2386,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		}
 		if (!loadScenes.IsNullOrEmpty())
 		{
-			yield return LoadScenesCoroutine(loadScenes, delegate(bool successfullyLoadedAllScenes, bool loadAborted, List<string> successfullyLoadedSceneNames)
+			yield return LoadScenesCoroutine(loadScenes, (bool successfullyLoadedAllScenes, bool loadAborted, List<string> successfullyLoadedSceneNames) =>
 			{
 				if (loadAborted)
 				{
@@ -2441,10 +2468,12 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		}
 		isUnloading = true;
 		CanLoadEntities = false;
+		CustomMapTelemetry.OnMapUnloaded();
 		CustomMapTelemetry.EndMapTracking();
 		ZoneShaderSettings.ActivateDefaultSettings();
 		CleanupPlaceholders();
 		CMSSerializer.ResetSyncedMapObjects();
+		CustomMapsGameManager.ClearAgentsToCreate();
 		instance.ghostReactorManager.reactor.RefreshReviveStations();
 		if (!assetBundleSceneFilePaths.IsNullOrEmpty())
 		{
@@ -2479,6 +2508,10 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		initialSceneIndexes.Clear();
 		initialSceneNames.Clear();
 		maxPlayersForMap = 20;
+		gravityZoneCount = 0;
+		sizeChangerCount = 0;
+		handHoldCount = 0;
+		mapperAssetCount = 0;
 		CustomMapModeSelector.ResetButtons();
 		if (RoomSystem.JoinedRoom && NetworkSystem.Instance.LocalPlayer.IsMasterClient && NetworkSystem.Instance.SessionIsPrivate)
 		{
@@ -2572,6 +2605,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		loadedSceneFilePaths.Remove(scenePathWithExtension);
 		loadedSceneNames.Remove(sceneName);
 		loadedSceneIndexes.Remove(sceneIndex);
+		ZoneManagement.RemoveSceneFromForceStayLoaded(sceneName);
 		sceneUnloadedCallback?.Invoke(sceneName);
 		OnUnloadComplete?.Invoke();
 	}
@@ -2824,7 +2858,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 	{
 		if (defaultNexusGroupId == null)
 		{
-			Debug.LogError("You have to set defaultNexusGroupId in " + base.name + " or things will not work!");
+			Debug.LogError("You have to set defaultNexusGroupId in " + name + " or things will not work!");
 			return false;
 		}
 		return true;

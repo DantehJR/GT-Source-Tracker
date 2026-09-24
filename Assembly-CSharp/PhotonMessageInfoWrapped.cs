@@ -26,7 +26,7 @@ public struct PhotonMessageInfoWrapped
 		senderID = info.Source.PlayerId;
 		Sender = NetPlayer.Get(info.Source);
 		sentTick = info.Tick.Raw;
-		punInfo = default(PhotonMessageInfo);
+		punInfo = default;
 	}
 
 	public PhotonMessageInfoWrapped(int playerID, int tick)
@@ -34,7 +34,7 @@ public struct PhotonMessageInfoWrapped
 		senderID = playerID;
 		Sender = NetworkSystem.Instance.GetPlayer(senderID);
 		sentTick = tick;
-		punInfo = default(PhotonMessageInfo);
+		punInfo = default;
 	}
 
 	private PhotonMessageInfoWrapped(NetPlayer sender)
@@ -42,7 +42,7 @@ public struct PhotonMessageInfoWrapped
 		Sender = sender;
 		senderID = sender.ActorNumber;
 		sentTick = PhotonNetwork.ServerTimestamp;
-		punInfo = default(PhotonMessageInfo);
+		punInfo = default;
 	}
 
 	public static implicit operator PhotonMessageInfoWrapped(PhotonMessageInfo info)

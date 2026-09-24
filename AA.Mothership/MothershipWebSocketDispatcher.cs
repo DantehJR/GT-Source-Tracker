@@ -27,12 +27,12 @@ public class MothershipWebSocketDispatcher : MonoBehaviour
 		if (_instance != null && _instance != this)
 		{
 			Debug.LogWarning("WebSocket: Duplicate MothershipWebSocketDispatcher found. Destroying.");
-			Object.DestroyImmediate(base.gameObject);
+			Object.DestroyImmediate(gameObject);
 		}
 		else
 		{
 			_instance = this;
-			Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(gameObject);
 		}
 	}
 

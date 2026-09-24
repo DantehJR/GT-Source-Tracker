@@ -121,9 +121,9 @@ public class PhotonTeamsManager : MonoBehaviour, IMatchmakingCallbacks, IInRoomC
 			{
 				if (playersPerTeam[key].Remove(targetPlayer))
 				{
-					if (PhotonTeamsManager.PlayerLeftTeam != null)
+					if (PlayerLeftTeam != null)
 					{
-						PhotonTeamsManager.PlayerLeftTeam(targetPlayer, teamsByCode[key]);
+						PlayerLeftTeam(targetPlayer, teamsByCode[key]);
 					}
 					break;
 				}
@@ -136,9 +136,9 @@ public class PhotonTeamsManager : MonoBehaviour, IMatchmakingCallbacks, IInRoomC
 			{
 				if (key2 != b && playersPerTeam[key2].Remove(targetPlayer))
 				{
-					if (PhotonTeamsManager.PlayerLeftTeam != null)
+					if (PlayerLeftTeam != null)
 					{
-						PhotonTeamsManager.PlayerLeftTeam(targetPlayer, teamsByCode[key2]);
+						PlayerLeftTeam(targetPlayer, teamsByCode[key2]);
 					}
 					break;
 				}
@@ -149,9 +149,9 @@ public class PhotonTeamsManager : MonoBehaviour, IMatchmakingCallbacks, IInRoomC
 				Debug.LogWarningFormat("Unexpected situation while setting team {0} for player {1}, updating teams for all", photonTeam, targetPlayer);
 				UpdateTeams();
 			}
-			if (PhotonTeamsManager.PlayerJoinedTeam != null)
+			if (PlayerJoinedTeam != null)
 			{
-				PhotonTeamsManager.PlayerJoinedTeam(targetPlayer, photonTeam);
+				PlayerJoinedTeam(targetPlayer, photonTeam);
 			}
 		}
 		else

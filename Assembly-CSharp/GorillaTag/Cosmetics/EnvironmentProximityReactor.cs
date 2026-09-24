@@ -144,7 +144,7 @@ public class EnvironmentProximityReactor : MonoBehaviour
 		{
 			InteractionBlock interactionBlock = blocks[i];
 			bool flag = false;
-			Vector3 arg = base.transform.position;
+			Vector3 arg = transform.position;
 			for (int j = 0; j < cosmetics.Count; j++)
 			{
 				CosmeticsProximityReactor cosmeticsProximityReactor = cosmetics[j];
@@ -193,7 +193,7 @@ public class EnvironmentProximityReactor : MonoBehaviour
 			}
 			if (interactionBlock.activeSharedActors.Count > 0 && !interactionBlock.wasBelow)
 			{
-				interactionBlock.whileBelowShared?.Invoke(base.transform.position);
+				interactionBlock.whileBelowShared?.Invoke(transform.position);
 			}
 		}
 	}
@@ -248,11 +248,11 @@ public class EnvironmentProximityReactor : MonoBehaviour
 		InteractionBlock interactionBlock = blocks[blockIndex];
 		if (isBelow)
 		{
-			bool num = interactionBlock.activeSharedActors.Count == 0;
+			bool flag = interactionBlock.activeSharedActors.Count == 0;
 			interactionBlock.activeSharedActors.Add(senderActorNumber);
-			if (num)
+			if (flag)
 			{
-				interactionBlock.onBelowShared?.Invoke(base.transform.position);
+				interactionBlock.onBelowShared?.Invoke(transform.position);
 			}
 		}
 		else if (interactionBlock.activeSharedActors.Remove(senderActorNumber) && interactionBlock.activeSharedActors.Count == 0)
@@ -263,8 +263,8 @@ public class EnvironmentProximityReactor : MonoBehaviour
 
 	private bool AreWithinThreshold(CosmeticsProximityReactor cosmetic, float threshold, out Vector3 contactPoint)
 	{
-		Vector3 vector = ((cosmetic.collider == null) ? cosmetic.transform.position : cosmetic.collider.ClosestPoint(base.transform.position));
-		Vector3 vector2 = ((proximityCollider == null) ? base.transform.position : proximityCollider.ClosestPoint(vector));
+		Vector3 vector = ((cosmetic.collider == null) ? cosmetic.transform.position : cosmetic.collider.ClosestPoint(transform.position));
+		Vector3 vector2 = ((proximityCollider == null) ? transform.position : proximityCollider.ClosestPoint(vector));
 		contactPoint = (vector + vector2) * 0.5f;
 		return Vector3.Distance(vector, vector2) <= threshold;
 	}
@@ -278,7 +278,7 @@ public class EnvironmentProximityReactor : MonoBehaviour
 		int num = StaticHash.Compute(hashCode, staticHash, hashCode2);
 		if (useStaticId)
 		{
-			if (string.IsNullOrEmpty(staticId) || force)
+			if (string.IsNullOrEmpty(staticId) | force)
 			{
 				int instanceID = transform.GetInstanceID();
 				int num2 = StaticHash.Compute(num, instanceID);

@@ -46,9 +46,9 @@ public class CrittersNoiseMaker : CrittersToolThrowable
 		CrittersLoudNoise crittersLoudNoise = (CrittersLoudNoise)CrittersManager.instance.SpawnActor(CrittersActorType.LoudNoise, soundSubIndex);
 		if (!(crittersLoudNoise == null))
 		{
-			crittersLoudNoise.MoveActor(base.transform.position, base.transform.rotation);
+			crittersLoudNoise.MoveActor(transform.position, transform.rotation);
 			crittersLoudNoise.SetImpulseVelocity(Vector3.zero, Vector3.zero);
-			CrittersManager.instance.TriggerEvent(CrittersManager.CritterEvent.NoiseMakerTriggered, actorId, base.transform.position);
+			CrittersManager.instance.TriggerEvent(CrittersManager.CritterEvent.NoiseMakerTriggered, actorId, transform.position);
 		}
 	}
 

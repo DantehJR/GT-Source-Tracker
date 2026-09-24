@@ -27,18 +27,18 @@ public class BoingBoneCollider : MonoBehaviour
 			{
 			case Type.Sphere:
 			{
-				float num2 = VectorUtil.MinComponent(base.transform.localScale);
-				return new Bounds(base.transform.position, 2f * num2 * Radius * Vector3.one);
+				float num2 = VectorUtil.MinComponent(transform.localScale);
+				return new Bounds(transform.position, 2f * num2 * Radius * Vector3.one);
 			}
 			case Type.Capsule:
 			{
-				float num = VectorUtil.MinComponent(base.transform.localScale);
-				return new Bounds(base.transform.position, 2f * num * Radius * Vector3.one + Height * VectorUtil.ComponentWiseAbs(base.transform.rotation * Vector3.up));
+				float num = VectorUtil.MinComponent(transform.localScale);
+				return new Bounds(transform.position, 2f * num * Radius * Vector3.one + Height * VectorUtil.ComponentWiseAbs(transform.rotation * Vector3.up));
 			}
 			case Type.Box:
-				return new Bounds(base.transform.position, VectorUtil.ComponentWiseMult(base.transform.localScale, VectorUtil.ComponentWiseAbs(base.transform.rotation * Dimensions)));
+				return new Bounds(transform.position, VectorUtil.ComponentWiseMult(transform.localScale, VectorUtil.ComponentWiseAbs(transform.rotation * Dimensions)));
 			default:
-				return default(Bounds);
+				return default;
 			}
 		}
 	}
@@ -49,25 +49,25 @@ public class BoingBoneCollider : MonoBehaviour
 		{
 		case Type.Sphere:
 		{
-			float num2 = VectorUtil.MinComponent(base.transform.localScale);
-			return Collision.SphereSphere(boneCenter, boneRadius, base.transform.position, num2 * Radius, out push);
+			float num2 = VectorUtil.MinComponent(transform.localScale);
+			return Collision.SphereSphere(boneCenter, boneRadius, transform.position, num2 * Radius, out push);
 		}
 		case Type.Capsule:
 		{
-			float num = VectorUtil.MinComponent(base.transform.localScale);
-			Vector3 headB = base.transform.TransformPoint(0.5f * Height * Vector3.up);
-			Vector3 tailB = base.transform.TransformPoint(0.5f * Height * Vector3.down);
+			float num = VectorUtil.MinComponent(transform.localScale);
+			Vector3 headB = transform.TransformPoint(0.5f * Height * Vector3.up);
+			Vector3 tailB = transform.TransformPoint(0.5f * Height * Vector3.down);
 			return Collision.SphereCapsule(boneCenter, boneRadius, headB, tailB, num * Radius, out push);
 		}
 		case Type.Box:
 		{
-			Vector3 centerOffsetA = base.transform.InverseTransformPoint(boneCenter);
-			Vector3 halfExtentB = 0.5f * VectorUtil.ComponentWiseMult(base.transform.localScale, Dimensions);
+			Vector3 centerOffsetA = transform.InverseTransformPoint(boneCenter);
+			Vector3 halfExtentB = 0.5f * VectorUtil.ComponentWiseMult(transform.localScale, Dimensions);
 			if (!Collision.SphereBox(centerOffsetA, boneRadius, halfExtentB, out push))
 			{
 				return false;
 			}
-			push = base.transform.TransformVector(push);
+			push = transform.TransformVector(push);
 			return true;
 		}
 		default:
@@ -95,8 +95,8 @@ public class BoingBoneCollider : MonoBehaviour
 		{
 		case Type.Sphere:
 		{
-			float radius = VectorUtil.MinComponent(base.transform.localScale) * Radius;
-			Gizmos.matrix = Matrix4x4.TRS(base.transform.position, base.transform.rotation, Vector3.one);
+			float radius = VectorUtil.MinComponent(transform.localScale) * Radius;
+			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
 			if (Shape == Type.Sphere)
 			{
 				Gizmos.color = new Color(1f, 1f, 1f, 0.5f);
@@ -109,10 +109,10 @@ public class BoingBoneCollider : MonoBehaviour
 		}
 		case Type.Capsule:
 		{
-			float num = VectorUtil.MinComponent(base.transform.localScale);
+			float num = VectorUtil.MinComponent(transform.localScale);
 			float num2 = num * Radius;
 			float num3 = 0.5f * num * Height;
-			Gizmos.matrix = Matrix4x4.TRS(base.transform.position, base.transform.rotation, Vector3.one);
+			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
 			if (Shape == Type.Capsule)
 			{
 				Gizmos.color = new Color(1f, 1f, 1f, 0.5f);
@@ -133,8 +133,8 @@ public class BoingBoneCollider : MonoBehaviour
 		}
 		case Type.Box:
 		{
-			Vector3 size = VectorUtil.ComponentWiseMult(base.transform.localScale, Dimensions);
-			Gizmos.matrix = base.transform.localToWorldMatrix;
+			Vector3 size = VectorUtil.ComponentWiseMult(transform.localScale, Dimensions);
+			Gizmos.matrix = transform.localToWorldMatrix;
 			if (Shape == Type.Box)
 			{
 				Gizmos.color = new Color(1f, 1f, 1f, 0.5f);

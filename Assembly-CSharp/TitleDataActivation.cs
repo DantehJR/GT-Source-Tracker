@@ -93,6 +93,12 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 		[SerializeField]
 		private string endDateTime;
 
+		[JsonIgnore]
+		public DateTime StartDate => dtStart;
+
+		[JsonIgnore]
+		public DateTime EndDate => dtEnd;
+
 		public string StartDateTime
 		{
 			get
@@ -142,6 +148,12 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 
 		[SerializeField]
 		private RelativeDateTime endDateTime;
+
+		[JsonIgnore]
+		public DateTime StartDate => dtStart;
+
+		[JsonIgnore]
+		public DateTime EndDate => dtEnd;
 
 		public RelativeDateTime StartDateTime
 		{
@@ -244,9 +256,9 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 			return;
 		}
 		List<GameObject> list = new List<GameObject>();
-		for (int i = 0; i < base.transform.childCount; i++)
+		for (int i = 0; i < transform.childCount; i++)
 		{
-			GameObject gameObject = base.transform.GetChild(i).gameObject;
+			GameObject gameObject = transform.GetChild(i).gameObject;
 			gameObject.SetActive(value: false);
 			list.Add(gameObject);
 		}
@@ -286,7 +298,7 @@ public class TitleDataActivation : MonoBehaviour, IGorillaSliceableSimple
 
 	private void onTDError(PlayFabError error)
 	{
-		Debug.LogError($"TitleDataActivation on {AssetUtils.GetGameObjectPath(base.gameObject)} :: onTDError :: {titleDataKey} :: {error}");
+		Debug.LogError($"TitleDataActivation on {AssetUtils.GetGameObjectPath(gameObject)} :: onTDError :: {titleDataKey} :: {error}");
 	}
 
 	private void OnEnable()

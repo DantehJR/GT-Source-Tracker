@@ -104,7 +104,7 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 
 	public new void Awake()
 	{
-		m_StoredPosition = base.transform.localPosition;
+		m_StoredPosition = transform.localPosition;
 		m_NetworkPosition = Vector3.zero;
 		m_NetworkScale = Vector3.zero;
 		m_NetworkRotation = Quaternion.identity;
@@ -117,7 +117,7 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 		m_firstTake = true;
 		if (clampToSpawn)
 		{
-			clampOriginPoint = (m_UseLocal ? base.transform.localPosition : base.transform.position);
+			clampOriginPoint = (m_UseLocal ? transform.localPosition : transform.position);
 		}
 		TickSystem<object>.AddTickCallback(this);
 	}
@@ -130,15 +130,15 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 
 	public void Tick()
 	{
-		if (!base.IsLocallyOwned)
+		if (!IsLocallyOwned)
 		{
 			if (m_UseLocal)
 			{
-				base.transform.SetLocalPositionAndRotation(Vector3.MoveTowards(base.transform.localPosition, m_NetworkPosition, m_Distance * Time.deltaTime * (float)NetworkSystem.Instance.TickRate), Quaternion.RotateTowards(base.transform.localRotation, m_NetworkRotation, m_Angle * Time.deltaTime * (float)NetworkSystem.Instance.TickRate));
+				transform.SetLocalPositionAndRotation(Vector3.MoveTowards(transform.localPosition, m_NetworkPosition, m_Distance * Time.deltaTime * (float)NetworkSystem.Instance.TickRate), Quaternion.RotateTowards(transform.localRotation, m_NetworkRotation, m_Angle * Time.deltaTime * (float)NetworkSystem.Instance.TickRate));
 			}
 			else
 			{
-				base.transform.SetPositionAndRotation(Vector3.MoveTowards(base.transform.position, m_NetworkPosition, m_Distance * Time.deltaTime * (float)NetworkSystem.Instance.TickRate), Quaternion.RotateTowards(base.transform.rotation, m_NetworkRotation, m_Angle * Time.deltaTime * (float)NetworkSystem.Instance.TickRate));
+				transform.SetPositionAndRotation(Vector3.MoveTowards(transform.position, m_NetworkPosition, m_Distance * Time.deltaTime * (float)NetworkSystem.Instance.TickRate), Quaternion.RotateTowards(transform.rotation, m_NetworkRotation, m_Angle * Time.deltaTime * (float)NetworkSystem.Instance.TickRate));
 			}
 		}
 	}
@@ -159,7 +159,7 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 	protected override void WriteDataPUN(PhotonStream stream, PhotonMessageInfo info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Sender);
-		if (!respectOwnership || player == base.Owner)
+		if (!respectOwnership || player == Owner)
 		{
 			NetTransformData netTransformData = SharedWrite();
 			if (m_SynchronizePosition)
@@ -181,9 +181,9 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 	protected override void ReadDataPUN(PhotonStream stream, PhotonMessageInfo info)
 	{
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Sender);
-		if (!respectOwnership || player == base.Owner)
+		if (!respectOwnership || player == Owner)
 		{
-			NetTransformData netTransformData = default(NetTransformData);
+			NetTransformData netTransformData = default;
 			if (m_SynchronizePosition)
 			{
 				netTransformData.position = (Vector3)stream.ReceiveNext();
@@ -217,11 +217,11 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 			{
 				if (m_UseLocal)
 				{
-					base.transform.localPosition = m_NetworkPosition;
+					transform.localPosition = m_NetworkPosition;
 				}
 				else
 				{
-					base.transform.position = m_NetworkPosition;
+					transform.position = m_NetworkPosition;
 				}
 				m_Distance = 0f;
 			}
@@ -231,11 +231,11 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 				m_NetworkPosition += m_Velocity * num;
 				if (m_UseLocal)
 				{
-					m_Distance = Vector3.Distance(base.transform.localPosition, m_NetworkPosition);
+					m_Distance = Vector3.Distance(transform.localPosition, m_NetworkPosition);
 				}
 				else
 				{
-					m_Distance = Vector3.Distance(base.transform.position, m_NetworkPosition);
+					m_Distance = Vector3.Distance(transform.position, m_NetworkPosition);
 				}
 			}
 		}
@@ -247,26 +247,26 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 				m_Angle = 0f;
 				if (m_UseLocal)
 				{
-					base.transform.localRotation = m_NetworkRotation;
+					transform.localRotation = m_NetworkRotation;
 				}
 				else
 				{
-					base.transform.rotation = m_NetworkRotation;
+					transform.rotation = m_NetworkRotation;
 				}
 			}
 			else if (m_UseLocal)
 			{
-				m_Angle = Quaternion.Angle(base.transform.localRotation, m_NetworkRotation);
+				m_Angle = Quaternion.Angle(transform.localRotation, m_NetworkRotation);
 			}
 			else
 			{
-				m_Angle = Quaternion.Angle(base.transform.rotation, m_NetworkRotation);
+				m_Angle = Quaternion.Angle(transform.rotation, m_NetworkRotation);
 			}
 		}
 		if (m_SynchronizeScale)
 		{
 			m_NetworkScale.SetValueSafe(in data.scale);
-			base.transform.localScale = m_NetworkScale;
+			transform.localScale = m_NetworkScale;
 		}
 		if (m_firstTake)
 		{
@@ -276,21 +276,21 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 
 	private NetTransformData SharedWrite()
 	{
-		NetTransformData result = default(NetTransformData);
+		NetTransformData result = default;
 		if (m_SynchronizePosition)
 		{
 			if (m_UseLocal)
 			{
-				m_Velocity = base.transform.localPosition - m_StoredPosition;
-				m_StoredPosition = base.transform.localPosition;
-				result.position = base.transform.localPosition;
+				m_Velocity = transform.localPosition - m_StoredPosition;
+				m_StoredPosition = transform.localPosition;
+				result.position = transform.localPosition;
 				result.velocity = m_Velocity;
 			}
 			else
 			{
-				m_Velocity = base.transform.position - m_StoredPosition;
-				m_StoredPosition = base.transform.position;
-				result.position = base.transform.position;
+				m_Velocity = transform.position - m_StoredPosition;
+				m_StoredPosition = transform.position;
+				result.position = transform.position;
 				result.velocity = m_Velocity;
 			}
 		}
@@ -298,16 +298,16 @@ internal class GorillaNetworkTransform : NetworkComponent, ITickSystemTick
 		{
 			if (m_UseLocal)
 			{
-				result.rotation = base.transform.localRotation;
+				result.rotation = transform.localRotation;
 			}
 			else
 			{
-				result.rotation = base.transform.rotation;
+				result.rotation = transform.rotation;
 			}
 		}
 		if (m_SynchronizeScale)
 		{
-			result.scale = base.transform.localScale;
+			result.scale = transform.localScale;
 		}
 		return result;
 	}

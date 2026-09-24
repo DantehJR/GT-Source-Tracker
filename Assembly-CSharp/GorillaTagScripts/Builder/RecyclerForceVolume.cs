@@ -90,7 +90,7 @@ public class RecyclerForceVolume : MonoBehaviour
 			ObjectPools.instance.Instantiate(windSFX, enterPos);
 			if (hasWindFX)
 			{
-				windEffectRenderer.transform.position = base.transform.position + Vector3.Dot(enterPos - base.transform.position, base.transform.right) * base.transform.right;
+				windEffectRenderer.transform.position = transform.position + Vector3.Dot(enterPos - transform.position, transform.right) * transform.right;
 				windEffectRenderer.enabled = true;
 			}
 		}
@@ -128,7 +128,7 @@ public class RecyclerForceVolume : MonoBehaviour
 		{
 			linearVelocity /= sizeManager.currentScale;
 		}
-		Vector3 vector = Vector3.Dot(base.transform.position - xf.position, base.transform.up) * base.transform.up;
+		Vector3 vector = Vector3.Dot(transform.position - xf.position, transform.up) * transform.up;
 		float num = vector.magnitude + 0.0001f;
 		Vector3 vector2 = vector / num;
 		float num2 = Vector3.Dot(linearVelocity, vector2);
@@ -145,11 +145,11 @@ public class RecyclerForceVolume : MonoBehaviour
 			num3 = Mathf.Max(accel, b);
 		}
 		float deltaTime = Time.deltaTime;
-		Vector3 vector3 = base.transform.forward * num3 * deltaTime;
+		Vector3 vector3 = transform.forward * num3 * deltaTime;
 		linearVelocity += vector3;
-		Vector3 vector4 = Vector3.Dot(linearVelocity, base.transform.up) * base.transform.up;
-		Vector3 vector5 = Vector3.Dot(linearVelocity, base.transform.right) * base.transform.right;
-		Vector3 vector6 = Mathf.Clamp(Vector3.Dot(linearVelocity, base.transform.forward), -1f * maxSpeed, maxSpeed) * base.transform.forward;
+		Vector3 vector4 = Vector3.Dot(linearVelocity, transform.up) * transform.up;
+		Vector3 vector5 = Vector3.Dot(linearVelocity, transform.right) * transform.right;
+		Vector3 vector6 = Mathf.Clamp(Vector3.Dot(linearVelocity, transform.forward), -1f * maxSpeed, maxSpeed) * transform.forward;
 		float num6 = 1f;
 		float num7 = 1f;
 		if (dampenLateralVelocity)

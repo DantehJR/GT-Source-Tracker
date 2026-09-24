@@ -63,7 +63,7 @@ internal class GorillaSerializer : MonoBehaviour, IPunObservable, IPunInstantiat
 		}
 		else
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		photonView.ObservedComponents.Remove(this);
 	}
@@ -75,7 +75,7 @@ internal class GorillaSerializer : MonoBehaviour, IPunObservable, IPunInstantiat
 	protected virtual bool OnInstantiateSetup(PhotonMessageInfo info, out GameObject outTargetObject, out Type outTargetType)
 	{
 		outTargetType = typeof(IGorillaSerializeable);
-		outTargetObject = base.gameObject;
+		outTargetObject = gameObject;
 		return true;
 	}
 
@@ -90,7 +90,7 @@ internal class GorillaSerializer : MonoBehaviour, IPunObservable, IPunInstantiat
 
 	public virtual T AddRPCComponent<T>() where T : RPCNetworkBase
 	{
-		T result = base.gameObject.AddComponent<T>();
+		T result = gameObject.AddComponent<T>();
 		photonView.RefreshRpcMonoBehaviourCache();
 		return result;
 	}

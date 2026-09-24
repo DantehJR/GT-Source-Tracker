@@ -21,7 +21,7 @@ public class HoldableHand : HoldableObject, IGorillaSliceableSimple
 	{
 		if (myPlayer.isOfflineVRRig)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 		if (interactionPoint == null)
 		{

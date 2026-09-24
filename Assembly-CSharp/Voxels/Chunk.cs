@@ -97,8 +97,8 @@ public class Chunk : IDisposable
 		VoxelCount = Dimensions.x * Dimensions.y * Dimensions.z;
 		Density = dto.Density;
 		Material = dto.Material;
-		VertexData = default(NativeArray<MeshVertexData>);
-		TriangleData = default(NativeArray<ushort>);
+		VertexData = default;
+		TriangleData = default;
 		GenericMeshData = null;
 	}
 
@@ -112,10 +112,10 @@ public class Chunk : IDisposable
 		Size = size;
 		Dimensions = size + padding;
 		VoxelCount = Dimensions.x * Dimensions.y * Dimensions.z;
-		Density = default(NativeArray<byte>);
-		Material = default(NativeArray<byte>);
-		VertexData = default(NativeArray<MeshVertexData>);
-		TriangleData = default(NativeArray<ushort>);
+		Density = default;
+		Material = default;
+		VertexData = default;
+		TriangleData = default;
 		GenericMeshData = null;
 	}
 
@@ -200,12 +200,12 @@ public class Chunk : IDisposable
 		if (Density.IsCreated)
 		{
 			Density.Dispose();
-			Density = default(NativeArray<byte>);
+			Density = default;
 		}
 		if (Material.IsCreated)
 		{
 			Material.Dispose();
-			Material = default(NativeArray<byte>);
+			Material = default;
 		}
 		DisposeMeshData();
 		if ((bool)Component)
@@ -219,12 +219,12 @@ public class Chunk : IDisposable
 		if (Density.IsCreated)
 		{
 			Density.Dispose();
-			Density = default(NativeArray<byte>);
+			Density = default;
 		}
 		if (Material.IsCreated)
 		{
 			Material.Dispose();
-			Material = default(NativeArray<byte>);
+			Material = default;
 		}
 		DisposeMeshData();
 	}
@@ -238,7 +238,7 @@ public class Chunk : IDisposable
 				return;
 			}
 			NativeArrayPool<MeshVertexData>.Return(VertexData);
-			VertexData = default(NativeArray<MeshVertexData>);
+			VertexData = default;
 		}
 		VertexData = NativeArrayPool<MeshVertexData>.Get(length);
 	}
@@ -252,7 +252,7 @@ public class Chunk : IDisposable
 				return;
 			}
 			NativeArrayPool<ushort>.Return(TriangleData);
-			TriangleData = default(NativeArray<ushort>);
+			TriangleData = default;
 		}
 		TriangleData = NativeArrayPool<ushort>.Get(length);
 	}
@@ -262,12 +262,12 @@ public class Chunk : IDisposable
 		if (VertexData.IsCreated)
 		{
 			NativeArrayPool<MeshVertexData>.Return(VertexData);
-			VertexData = default(NativeArray<MeshVertexData>);
+			VertexData = default;
 		}
 		if (TriangleData.IsCreated)
 		{
 			NativeArrayPool<ushort>.Return(TriangleData);
-			TriangleData = default(NativeArray<ushort>);
+			TriangleData = default;
 		}
 		if (GenericMeshData is IDisposable disposable)
 		{

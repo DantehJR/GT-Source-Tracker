@@ -174,7 +174,7 @@ public class BarrelCannon : NetworkComponent
 
 	private void Update()
 	{
-		if (base.IsMine)
+		if (IsMine)
 		{
 			AuthorityUpdate();
 		}
@@ -224,17 +224,17 @@ public class BarrelCannon : NetworkComponent
 		case BarrelCannonState.Firing:
 			if (localPlayerInside && localPlayerRigidbody != null)
 			{
-				Vector3 vector = base.transform.position - GorillaTagger.Instance.headCollider.transform.position;
+				Vector3 vector = transform.position - GorillaTagger.Instance.headCollider.transform.position;
 				localPlayerRigidbody.MovePosition(localPlayerRigidbody.position + vector);
 			}
 			if (time - stateStartTime > preFiringDelayTime)
 			{
-				base.transform.localPosition = firingPositionOffset;
-				base.transform.localRotation = Quaternion.Euler(firingRotationOffset);
-				FireBarrelCannonLocal(base.transform.position, base.transform.up);
+				transform.localPosition = firingPositionOffset;
+				transform.localRotation = Quaternion.Euler(firingRotationOffset);
+				FireBarrelCannonLocal(transform.position, transform.up);
 				if (PhotonNetwork.InRoom && GorillaGameManager.instance != null)
 				{
-					SendRPC("FireBarrelCannonRPC", RpcTarget.Others, base.transform.position, base.transform.up);
+					SendRPC("FireBarrelCannonRPC", RpcTarget.Others, transform.position, transform.up);
 				}
 				Collider[] array = colliders;
 				for (int i = 0; i < array.Length; i++)
@@ -289,8 +289,8 @@ public class BarrelCannon : NetworkComponent
 		if (syncedState.firingPositionLerpValue != localFiringPositionLerpValue)
 		{
 			localFiringPositionLerpValue = syncedState.firingPositionLerpValue;
-			base.transform.localPosition = Vector3.Lerp(Vector3.zero, firingPositionOffset, firePositionAnimationCurve.Evaluate(localFiringPositionLerpValue));
-			base.transform.localRotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, firingRotationOffset, fireRotationAnimationCurve.Evaluate(localFiringPositionLerpValue)));
+			transform.localPosition = Vector3.Lerp(Vector3.zero, firingPositionOffset, firePositionAnimationCurve.Evaluate(localFiringPositionLerpValue));
+			transform.localRotation = Quaternion.Euler(Vector3.Lerp(Vector3.zero, firingRotationOffset, fireRotationAnimationCurve.Evaluate(localFiringPositionLerpValue)));
 		}
 	}
 

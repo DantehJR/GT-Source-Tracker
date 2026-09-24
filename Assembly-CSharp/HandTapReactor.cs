@@ -14,14 +14,14 @@ public class HandTapReactor : MonoBehaviour
 		LeftFistBump = 8,
 		LeftTagFirstPerson = 0x10,
 		LeftTagThirdPerson = 0x20,
-		AllLeft = 0x3F,
+		AllLeft = LeftDown | LeftUp | LeftHighFive | LeftFistBump | LeftTagFirstPerson | LeftTagThirdPerson,
 		RightDown = 0x40,
 		RightUp = 0x80,
 		RightHighFive = 0x100,
 		RightFistBump = 0x200,
 		RightTagFirstPerson = 0x400,
 		RightTagThirdPerson = 0x800,
-		AllRight = 0xFC0,
+		AllRight = RightDown | RightUp | RightHighFive | RightFistBump | RightTagFirstPerson | RightTagThirdPerson,
 		All = -1
 	}
 
@@ -47,7 +47,7 @@ public class HandTapReactor : MonoBehaviour
 	private void LeftGesture(IHandEffectsTrigger.Mode mode)
 	{
 		FlagEvents<TapType> flagEvents = handTapEvents;
-		TapType test = default(TapType);
+		TapType test = default;
 		switch (mode)
 		{
 		case IHandEffectsTrigger.Mode.HighFive:
@@ -63,7 +63,7 @@ public class HandTapReactor : MonoBehaviour
 			test = TapType.LeftTagThirdPerson;
 			break;
 		default:
-			global::_003CPrivateImplementationDetails_003E.ThrowSwitchExpressionException(mode);
+			_003CPrivateImplementationDetails_003E.ThrowSwitchExpressionException(mode);
 			break;
 		}
 		flagEvents.InvokeAll(test);
@@ -82,7 +82,7 @@ public class HandTapReactor : MonoBehaviour
 	private void RightGesture(IHandEffectsTrigger.Mode mode)
 	{
 		FlagEvents<TapType> flagEvents = handTapEvents;
-		TapType test = default(TapType);
+		TapType test = default;
 		switch (mode)
 		{
 		case IHandEffectsTrigger.Mode.HighFive:
@@ -98,7 +98,7 @@ public class HandTapReactor : MonoBehaviour
 			test = TapType.RightTagThirdPerson;
 			break;
 		default:
-			global::_003CPrivateImplementationDetails_003E.ThrowSwitchExpressionException(mode);
+			_003CPrivateImplementationDetails_003E.ThrowSwitchExpressionException(mode);
 			break;
 		}
 		flagEvents.InvokeAll(test);

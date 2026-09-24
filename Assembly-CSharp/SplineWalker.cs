@@ -43,7 +43,7 @@ public class SplineWalker : MonoBehaviour, IPunObservable
 				}
 				else if (mode == SplineWalkerMode.Loop)
 				{
-					progress -= 1f;
+					progress--;
 				}
 				else
 				{
@@ -66,15 +66,15 @@ public class SplineWalker : MonoBehaviour, IPunObservable
 			Vector3 vector = linearSpline.Evaluate(progress);
 			if (useWorldPosition)
 			{
-				base.transform.position = vector;
+				transform.position = vector;
 			}
 			else
 			{
-				base.transform.localPosition = vector;
+				transform.localPosition = vector;
 			}
 			if (lookForward)
 			{
-				base.transform.LookAt(vector + linearSpline.GetForwardTangent(progress));
+				transform.LookAt(vector + linearSpline.GetForwardTangent(progress));
 			}
 		}
 		else if (spline != null)
@@ -82,15 +82,15 @@ public class SplineWalker : MonoBehaviour, IPunObservable
 			Vector3 point = spline.GetPoint(progress);
 			if (useWorldPosition)
 			{
-				base.transform.position = point;
+				transform.position = point;
 			}
 			else
 			{
-				base.transform.localPosition = point;
+				transform.localPosition = point;
 			}
 			if (lookForward)
 			{
-				base.transform.LookAt(point + spline.GetDirection(progress));
+				transform.LookAt(point + spline.GetDirection(progress));
 			}
 		}
 	}

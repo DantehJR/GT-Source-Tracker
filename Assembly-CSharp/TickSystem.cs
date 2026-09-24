@@ -78,7 +78,7 @@ internal abstract class TickSystem<T> : MonoBehaviour
 
 	private void Awake()
 	{
-		base.transform.SetParent(null, worldPositionStays: true);
+		transform.SetParent(null, worldPositionStays: true);
 		Object.DontDestroyOnLoad(this);
 	}
 

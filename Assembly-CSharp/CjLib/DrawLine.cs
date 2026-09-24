@@ -15,6 +15,6 @@ public class DrawLine : DrawBase
 
 	protected override void Draw(Color color, DebugUtil.Style style, bool depthTest)
 	{
-		DebugUtil.DrawLine(base.transform.position, base.transform.position + base.transform.TransformVector(LocalEndVector), color, depthTest);
+		DebugUtil.DrawLine(transform.position, transform.position + transform.TransformVector(LocalEndVector), color, depthTest);
 	}
 }

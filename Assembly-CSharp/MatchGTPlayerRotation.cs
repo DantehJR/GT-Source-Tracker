@@ -11,11 +11,11 @@ public class MatchGTPlayerRotation : MonoBehaviour
 	{
 		if (matchPosition)
 		{
-			base.transform.position = GTPlayer.Instance.mainCamera.transform.position;
+			transform.position = GTPlayer.Instance.mainCamera.transform.position;
 		}
 		if (matchRotation)
 		{
-			base.transform.rotation = GTPlayer.Instance.transform.rotation;
+			transform.rotation = GTPlayer.Instance.transform.rotation;
 		}
 	}
 }

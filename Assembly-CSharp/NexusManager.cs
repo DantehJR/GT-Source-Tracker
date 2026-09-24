@@ -85,7 +85,7 @@ public class NexusManager : MonoBehaviour
 			});
 		}
 		Debug.Log("CreatorCodeTerminal " + terminalId + " :: GetMemberByCode :: invalid");
-		return default(Member);
+		return default;
 	}
 
 	public async Task<bool> VerifyCreatorCodeJIT(string memberCode, string groupCode)

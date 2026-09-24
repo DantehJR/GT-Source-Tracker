@@ -69,7 +69,7 @@ public class HeadlessHead : HoldableObject
 		}
 		isLocal = ownerRig.isOfflineVRRig;
 		stateBitsWriteInfo = VRRig.WearablePackedStatesBitWriteInfos[(int)wearablePackedStateSlot];
-		baseLocalPosition = base.transform.localPosition;
+		baseLocalPosition = transform.localPosition;
 		hasFirstPersonRenderer = firstPersonRenderer != null;
 	}
 
@@ -77,8 +77,8 @@ public class HeadlessHead : HoldableObject
 	{
 		if (ownerRig == null)
 		{
-			Debug.LogError("HeadlessHead \"" + base.transform.GetPath() + "\": Deactivating because ownerRig is null.", this);
-			base.gameObject.SetActive(value: false);
+			Debug.LogError("HeadlessHead \"" + transform.GetPath() + "\": Deactivating because ownerRig is null.", this);
+			gameObject.SetActive(value: false);
 		}
 		else
 		{
@@ -120,8 +120,8 @@ public class HeadlessHead : HoldableObject
 	{
 		if (isHeld != wasHeld || isHeldLeftHand != wasHeldLeftHand)
 		{
-			blendingFromPosition = base.transform.position;
-			blendingFromRotation = base.transform.rotation;
+			blendingFromPosition = transform.position;
+			blendingFromRotation = transform.rotation;
 			blendFraction = 0f;
 		}
 		Quaternion quaternion;
@@ -138,8 +138,8 @@ public class HeadlessHead : HoldableObject
 		}
 		else
 		{
-			quaternion = base.transform.parent.rotation;
-			vector = base.transform.parent.TransformPoint(baseLocalPosition);
+			quaternion = transform.parent.rotation;
+			vector = transform.parent.TransformPoint(baseLocalPosition);
 		}
 		if (blendFraction < 1f)
 		{
@@ -147,11 +147,11 @@ public class HeadlessHead : HoldableObject
 			quaternion = Quaternion.Lerp(blendingFromRotation, quaternion, blendFraction);
 			vector = Vector3.Lerp(blendingFromPosition, vector, blendFraction);
 		}
-		base.transform.rotation = quaternion;
-		base.transform.position = vector;
+		transform.rotation = quaternion;
+		transform.position = vector;
 		if (hasFirstPersonRenderer)
 		{
-			float x = base.transform.lossyScale.x;
+			float x = transform.lossyScale.x;
 			firstPersonRenderer.enabled = (firstPersonHideCenter.transform.position - GTPlayer.Instance.headCollider.transform.position).IsLongerThan(firstPersonHiddenRadius * x);
 		}
 		wasHeld = isHeld;

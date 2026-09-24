@@ -793,23 +793,32 @@ public static class BoingWork
 		}
 	}
 
-	public struct Output(int instanceID, ref Vector3Spring positionSpring, ref QuaternionSpring rotationSpring, ref Vector3Spring scaleSpring)
+	public struct Output
 	{
 		public static readonly int Stride = 16 + Vector3Spring.Stride + QuaternionSpring.Stride;
 
-		public int InstanceID = instanceID;
+		public int InstanceID;
 
-		public int m_padding0 = (m_padding1 = (m_padding2 = 0));
+		public int m_padding0;
 
 		public int m_padding1;
 
 		public int m_padding2;
 
-		public Vector3Spring PositionSpring = positionSpring;
+		public Vector3Spring PositionSpring;
 
-		public QuaternionSpring RotationSpring = rotationSpring;
+		public QuaternionSpring RotationSpring;
 
-		public Vector3Spring ScaleSpring = scaleSpring;
+		public Vector3Spring ScaleSpring;
+
+		public Output(int instanceID, ref Vector3Spring positionSpring, ref QuaternionSpring rotationSpring, ref Vector3Spring scaleSpring)
+		{
+			InstanceID = instanceID;
+			m_padding0 = (m_padding1 = (m_padding2 = 0));
+			PositionSpring = positionSpring;
+			RotationSpring = rotationSpring;
+			ScaleSpring = scaleSpring;
+		}
 
 		public void GatherOutput(Dictionary<int, BoingBehavior> behaviorMap, BoingManager.UpdateMode updateMode)
 		{

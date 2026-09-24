@@ -170,9 +170,9 @@ public class SIGadgetTapTeleporterDeployable : MonoBehaviour, IGameEntityCompone
 		}
 		if (linkedPoint != null)
 		{
-			Vector3 vector = linkedPoint.transform.position - base.transform.position;
+			Vector3 vector = linkedPoint.transform.position - transform.position;
 			linkDirectionIndicator.gameObject.SetActive(value: true);
-			linkDirectionIndicator.transform.rotation = Quaternion.LookRotation(base.transform.forward, vector.normalized);
+			linkDirectionIndicator.transform.rotation = Quaternion.LookRotation(transform.forward, vector.normalized);
 		}
 		else
 		{

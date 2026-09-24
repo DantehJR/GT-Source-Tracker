@@ -14,7 +14,7 @@ public class TryOnPurchaseButton : GorillaPressableButton
 	{
 		if (NetworkSystem.Instance != null && NetworkSystem.Instance.WrongVersion && !bError)
 		{
-			base.enabled = false;
+			enabled = false;
 			GetComponent<BoxCollider>().enabled = false;
 			buttonRenderer.material = pressedMaterial;
 			myText.text = "UNAVAILABLE";
@@ -35,7 +35,7 @@ public class TryOnPurchaseButton : GorillaPressableButton
 	{
 		if (!bError)
 		{
-			base.enabled = false;
+			enabled = false;
 			GetComponent<BoxCollider>().enabled = false;
 			buttonRenderer.material = pressedMaterial;
 			myText.text = AlreadyOwnText;
@@ -46,7 +46,7 @@ public class TryOnPurchaseButton : GorillaPressableButton
 	{
 		if (!bError)
 		{
-			base.enabled = true;
+			enabled = true;
 			GetComponent<BoxCollider>().enabled = true;
 			buttonRenderer.material = unpressedMaterial;
 			SetOffText(setMyText: true);
@@ -65,7 +65,7 @@ public class TryOnPurchaseButton : GorillaPressableButton
 		bError = true;
 		myText.text = ErrorText;
 		buttonRenderer.material = unpressedMaterial;
-		base.enabled = false;
+		enabled = false;
 		isOn = false;
 	}
 }

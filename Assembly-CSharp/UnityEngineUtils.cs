@@ -20,7 +20,7 @@ public static class UnityEngineUtils
 		{
 			return obj.GetInstanceID().IdToColor32(alpha, distinct);
 		}
-		return default(Color32);
+		return default;
 	}
 
 	public static Color32 IdToColor32(this int id, int alpha = -1, bool distinct = true)
@@ -55,14 +55,14 @@ public static class UnityEngineUtils
 
 	public static Hash128 QuantizedHash128(this Matrix4x4 m)
 	{
-		Hash128 hash = default(Hash128);
+		Hash128 hash = default;
 		HashUtilities.QuantisedMatrixHash(ref m, ref hash);
 		return hash;
 	}
 
 	public static Hash128 QuantizedHash128(this Vector3 v)
 	{
-		Hash128 hash = default(Hash128);
+		Hash128 hash = default;
 		HashUtilities.QuantisedVectorHash(ref v, ref hash);
 		return hash;
 	}
@@ -101,11 +101,11 @@ public static class UnityEngineUtils
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static long QuantizedHash64(this Matrix4x4 m)
 	{
-		m4x4 obj = m4x4.From(ref m);
-		long a = obj.r0.QuantizedHash64();
-		long b = obj.r1.QuantizedHash64();
-		long a2 = obj.r2.QuantizedHash64();
-		long b2 = obj.r3.QuantizedHash64();
+		m4x4 m4x5 = m4x4.From(ref m);
+		long a = m4x5.r0.QuantizedHash64();
+		long b = m4x5.r1.QuantizedHash64();
+		long a2 = m4x5.r2.QuantizedHash64();
+		long b2 = m4x5.r3.QuantizedHash64();
 		long a3 = StaticHash.Compute128To64(a, b);
 		long b3 = StaticHash.Compute128To64(a2, b2);
 		return StaticHash.Compute128To64(a3, b3);

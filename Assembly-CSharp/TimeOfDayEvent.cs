@@ -87,7 +87,7 @@ public class TimeOfDayEvent : TimeEvent
 		_currentSeconds = Math.Floor(_currentSeconds);
 		_currentTime = (float)(_currentSeconds / _totalSecondsInRange);
 		bool flag = _currentTime >= 0f && _currentTime >= _timeStart && _currentTime <= _timeEnd;
-		if (!_ongoing && flag)
+		if (!_ongoing & flag)
 		{
 			StartEvent();
 		}

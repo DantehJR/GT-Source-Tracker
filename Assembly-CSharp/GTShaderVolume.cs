@@ -30,7 +30,7 @@ public class GTShaderVolume : MonoBehaviour
 
 	public static void SyncVolumeData()
 	{
-		m4x4 m4x5 = default(m4x4);
+		m4x4 m4x5 = default;
 		int count = gVolumes.Count;
 		for (int i = 0; i < 16; i++)
 		{
@@ -45,10 +45,10 @@ public class GTShaderVolume : MonoBehaviour
 				MatrixUtils.Clear(ref ShaderData[i]);
 				continue;
 			}
-			Transform obj = gTShaderVolume.transform;
-			Vector4 v = obj.position;
-			Vector4 v2 = obj.rotation.ToVector();
-			Vector4 v3 = obj.localScale;
+			Transform transform = gTShaderVolume.transform;
+			Vector4 v = transform.position;
+			Vector4 v2 = transform.rotation.ToVector();
+			Vector4 v3 = transform.localScale;
 			m4x5.SetRow0(ref v);
 			m4x5.SetRow1(ref v2);
 			m4x5.SetRow2(ref v3);

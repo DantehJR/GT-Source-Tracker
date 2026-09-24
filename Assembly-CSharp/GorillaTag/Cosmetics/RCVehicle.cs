@@ -110,11 +110,11 @@ public class RCVehicle : MonoBehaviour, ISpawnable
 	{
 		networkSync = sync;
 		hasNetworkSync = sync != null;
-		if (!HasLocalAuthority && (!base.enabled || !base.gameObject.activeSelf))
+		if (!HasLocalAuthority && (!enabled || !gameObject.activeSelf))
 		{
 			localStatePrev = State.Disabled;
-			base.enabled = true;
-			base.gameObject.SetActive(value: true);
+			enabled = true;
+			gameObject.SetActive(value: true);
 			RemoteUpdate(Time.deltaTime);
 		}
 	}
@@ -124,8 +124,8 @@ public class RCVehicle : MonoBehaviour, ISpawnable
 		connectedRemote = remote;
 		networkSync = sync;
 		hasNetworkSync = sync != null;
-		base.enabled = true;
-		base.gameObject.SetActive(value: true);
+		enabled = true;
+		gameObject.SetActive(value: true);
 		useLeftDock = remote.XRNode == XRNode.LeftHand;
 		if (HasLocalAuthority && localState != State.Mobilized)
 		{
@@ -136,7 +136,7 @@ public class RCVehicle : MonoBehaviour, ISpawnable
 	public virtual void EndConnection()
 	{
 		connectedRemote = null;
-		activeInput = default(RCRemoteHoldable.RCInput);
+		activeInput = default;
 		disconnectionTime = Time.time;
 	}
 
@@ -150,9 +150,9 @@ public class RCVehicle : MonoBehaviour, ISpawnable
 		{
 			rb.isKinematic = true;
 		}
-		base.transform.parent = (useLeftDock ? leftDockParent : rightDockParent);
-		base.transform.SetLocalPositionAndRotation(useLeftDock ? dockLeftOffset.pos : dockRightOffset.pos, useLeftDock ? dockLeftOffset.rot : dockRightOffset.rot);
-		base.transform.localScale = (useLeftDock ? dockLeftOffset.scale : dockRightOffset.scale);
+		transform.parent = (useLeftDock ? leftDockParent : rightDockParent);
+		transform.SetLocalPositionAndRotation(useLeftDock ? dockLeftOffset.pos : dockRightOffset.pos, useLeftDock ? dockLeftOffset.rot : dockRightOffset.rot);
+		transform.localScale = (useLeftDock ? dockLeftOffset.scale : dockRightOffset.scale);
 	}
 
 	protected virtual void AuthorityBeginDocked()
@@ -179,7 +179,7 @@ public class RCVehicle : MonoBehaviour, ISpawnable
 			networkSync.syncedState.state = (byte)localState;
 		}
 		stateStartTime = Time.time;
-		base.transform.parent = null;
+		transform.parent = null;
 		rb.isKinematic = false;
 	}
 
@@ -201,8 +201,8 @@ public class RCVehicle : MonoBehaviour, ISpawnable
 			networkSync.syncedState.state = (byte)localState;
 		}
 		ResetToSpawnPosition();
-		base.enabled = false;
-		base.gameObject.SetActive(value: false);
+		enabled = false;
+		gameObject.SetActive(value: false);
 	}
 
 	protected virtual void Awake()
@@ -277,12 +277,12 @@ public class RCVehicle : MonoBehaviour, ISpawnable
 		{
 			if (networkSync != null)
 			{
-				networkSync.syncedState.position = base.transform.position;
-				networkSync.syncedState.rotation = base.transform.rotation;
+				networkSync.syncedState.position = transform.position;
+				networkSync.syncedState.rotation = transform.rotation;
 			}
-			bool num = (base.transform.position - leftDockParent.position).sqrMagnitude > maxRange * maxRange;
-			bool flag = connectedRemote == null && Time.time - disconnectionTime > maxDisconnectionTime;
-			if (num || flag)
+			bool flag = (transform.position - leftDockParent.position).sqrMagnitude > maxRange * maxRange;
+			bool flag2 = connectedRemote == null && Time.time - disconnectionTime > maxDisconnectionTime;
+			if (flag | flag2)
 			{
 				AuthorityBeginCrash();
 			}
@@ -329,20 +329,20 @@ public class RCVehicle : MonoBehaviour, ISpawnable
 			if (localStatePrev != State.Mobilized)
 			{
 				rb.isKinematic = true;
-				base.transform.parent = null;
+				transform.parent = null;
 			}
-			base.transform.position = Vector3.Lerp(networkSync.syncedState.position, base.transform.position, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
-			base.transform.rotation = Quaternion.Slerp(networkSync.syncedState.rotation, base.transform.rotation, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
+			transform.position = Vector3.Lerp(networkSync.syncedState.position, transform.position, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
+			transform.rotation = Quaternion.Slerp(networkSync.syncedState.rotation, transform.rotation, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
 			break;
 		case State.Crashed:
 			if (localStatePrev != State.Crashed)
 			{
 				rb.isKinematic = false;
-				base.transform.parent = null;
+				transform.parent = null;
 				if (localStatePrev != State.Mobilized)
 				{
-					base.transform.position = networkSync.syncedState.position;
-					base.transform.rotation = networkSync.syncedState.rotation;
+					transform.position = networkSync.syncedState.position;
+					transform.rotation = networkSync.syncedState.rotation;
 				}
 			}
 			break;

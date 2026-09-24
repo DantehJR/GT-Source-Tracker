@@ -67,7 +67,7 @@ public class GhostPal : MonoBehaviour
 	{
 		rig = GetComponentInParent<VRRig>();
 		animator = GetComponentInChildren<Animator>();
-		trailingPosition = base.transform.position;
+		trailingPosition = transform.position;
 		triggerAudioClipIndex = triggerAudioClips.GetRandomIndex();
 	}
 
@@ -85,7 +85,7 @@ public class GhostPal : MonoBehaviour
 	private void LateUpdate()
 	{
 		Vector3 position = rig.bodyTransform.position;
-		Vector3 vector = base.transform.parent.position - position;
+		Vector3 vector = transform.parent.position - position;
 		float num = vector.y * 0.5f + orbitHeight;
 		vector.y = 0f;
 		float num2 = vector.magnitude + minDistanceFromPlayer;
@@ -124,6 +124,6 @@ public class GhostPal : MonoBehaviour
 			trailingPosition = Vector3.Lerp(trailingPosition, vector3, t);
 		}
 		Quaternion rotation = Quaternion.Slerp(Quaternion.LookRotation(vector3 - trailingPosition, Vector3.up), Quaternion.LookRotation(-vector4, Vector3.up), rotateTowardsPlayerFromLookTime.Evaluate(lookAtTime));
-		base.transform.SetPositionAndRotation(vector3, rotation);
+		transform.SetPositionAndRotation(vector3, rotation);
 	}
 }

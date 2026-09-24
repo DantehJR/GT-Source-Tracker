@@ -15,7 +15,7 @@ public class DelayedDestroyObject : MonoBehaviour
 	{
 		if (Time.time >= _timeToDie)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 }

@@ -101,7 +101,7 @@ public class WebRtcAudioDsp : VoiceComponent
 		{
 			lock (threadSafety)
 			{
-				if (IsInitialized && (!aecOnlyWhenEnabled || base.isActiveAndEnabled))
+				if (IsInitialized && (!aecOnlyWhenEnabled || isActiveAndEnabled))
 				{
 					return aecStarted;
 				}
@@ -283,9 +283,9 @@ public class WebRtcAudioDsp : VoiceComponent
 			}
 			if (value < 0 || value > 90)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("AgcCompressionGain value {0} not in range [0..90]", value);
+					Logger.LogError("AgcCompressionGain value {0} not in range [0..90]", value);
 				}
 				return;
 			}
@@ -355,15 +355,15 @@ public class WebRtcAudioDsp : VoiceComponent
 		recorder = GetComponent<Recorder>();
 		if ((object)recorder == null || !recorder)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("A Recorder component needs to be attached to the same GameObject");
+				Logger.LogError("A Recorder component needs to be attached to the same GameObject");
 			}
-			base.enabled = false;
+			enabled = false;
 		}
-		else if (!base.IgnoreGlobalLogLevel)
+		else if (!IgnoreGlobalLogLevel)
 		{
-			base.LogLevel = recorder.LogLevel;
+			LogLevel = recorder.LogLevel;
 		}
 	}
 
@@ -381,9 +381,9 @@ public class WebRtcAudioDsp : VoiceComponent
 			}
 			else if (recorder.IsRecording)
 			{
-				if (base.Logger.IsWarningEnabled)
+				if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("WebRtcAudioDsp is added after recording has started, restarting recording to take effect");
+					Logger.LogWarning("WebRtcAudioDsp is added after recording has started, restarting recording to take effect");
 				}
 				recorder.RestartRecording(force: true);
 			}
@@ -408,24 +408,24 @@ public class WebRtcAudioDsp : VoiceComponent
 
 	private void ToggleAec()
 	{
-		if (!IsInitialized || (aecOnlyWhenEnabled && !base.isActiveAndEnabled) || aec == aecStarted)
+		if (!IsInitialized || (aecOnlyWhenEnabled && !isActiveAndEnabled) || aec == aecStarted)
 		{
 			return;
 		}
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Toggling AEC to {0}", aec);
+			Logger.LogDebug("Toggling AEC to {0}", aec);
 		}
 		if (!ToggleAecOutputListener(aec))
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AEC failed to be toggled to {0}", aec);
+				Logger.LogError("AEC failed to be toggled to {0}", aec);
 			}
 		}
-		else if (base.Logger.IsDebugEnabled)
+		else if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("AEC successfully toggled to {0}", aec);
+			Logger.LogDebug("AEC successfully toggled to {0}", aec);
 		}
 	}
 
@@ -435,11 +435,11 @@ public class WebRtcAudioDsp : VoiceComponent
 		{
 			if (on)
 			{
-				if (aecOnlyWhenEnabled && !base.isActiveAndEnabled)
+				if (aecOnlyWhenEnabled && !isActiveAndEnabled)
 				{
-					if (base.Logger.IsErrorEnabled)
+					if (Logger.IsErrorEnabled)
 					{
-						base.Logger.LogError("Could not start AEC because AecOnlyWhenEnabled is true and isActiveAndEnabled is false");
+						Logger.LogError("Could not start AEC because AecOnlyWhenEnabled is true and isActiveAndEnabled is false");
 					}
 					return false;
 				}
@@ -447,9 +447,9 @@ public class WebRtcAudioDsp : VoiceComponent
 				{
 					if (!InitAudioOutCapture())
 					{
-						if (base.Logger.IsErrorEnabled)
+						if (Logger.IsErrorEnabled)
 						{
-							base.Logger.LogError("Could not start AEC OutputListener because a valid AudioOutCapture could not be set.");
+							Logger.LogError("Could not start AEC OutputListener because a valid AudioOutCapture could not be set.");
 						}
 						return false;
 					}
@@ -458,18 +458,18 @@ public class WebRtcAudioDsp : VoiceComponent
 				{
 					if (!AudioOutCaptureChecks(audioOutCapture, listenerChecks: true))
 					{
-						if (base.Logger.IsErrorEnabled)
+						if (Logger.IsErrorEnabled)
 						{
-							base.Logger.LogError("Could not start AEC OutputListener because AudioOutCapture provided is not valid.");
+							Logger.LogError("Could not start AEC OutputListener because AudioOutCapture provided is not valid.");
 						}
 						return false;
 					}
 					AudioListener component = audioOutCapture.GetComponent<AudioListener>();
 					if (audioListener != component)
 					{
-						if (base.Logger.IsWarningEnabled)
+						if (Logger.IsWarningEnabled)
 						{
-							base.Logger.LogWarning("Unexpected: AudioListener changed but AudioOutCapture did not.");
+							Logger.LogWarning("Unexpected: AudioListener changed but AudioOutCapture did not.");
 						}
 						audioListener = component;
 					}
@@ -483,23 +483,23 @@ public class WebRtcAudioDsp : VoiceComponent
 			{
 				if (UnsubscribeFromAudioOutCapture(autoDestroyAudioOutCapture))
 				{
-					if (base.Logger.IsDebugEnabled)
+					if (Logger.IsDebugEnabled)
 					{
-						base.Logger.LogDebug("AEC OutputListener stopped.");
+						Logger.LogDebug("AEC OutputListener stopped.");
 					}
 				}
-				else if (base.Logger.IsWarningEnabled)
+				else if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("Unexpected: AudioOutCapture is null but aecStarted == true");
+					Logger.LogWarning("Unexpected: AudioOutCapture is null but aecStarted == true");
 				}
 				if (IsInitialized)
 				{
 					proc.AEC = false;
 					proc.AECMobile = false;
 				}
-				else if (base.Logger.IsWarningEnabled)
+				else if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("Unexpected: proc is null but aecStarted was true.");
+					Logger.LogWarning("Unexpected: proc is null but aecStarted was true.");
 				}
 				aecStarted = false;
 			}
@@ -516,9 +516,9 @@ public class WebRtcAudioDsp : VoiceComponent
 		proc.AECMobile = false;
 		aecStarted = true;
 		audioOutCapture.OnAudioFrame += OnAudioOutFrameFloat;
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("AEC OutputListener started.");
+			Logger.LogDebug("AEC OutputListener started.");
 		}
 	}
 
@@ -533,18 +533,18 @@ public class WebRtcAudioDsp : VoiceComponent
 			bool flag = false;
 			if (outputSampleRate != AudioSettings.outputSampleRate)
 			{
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("AudioConfigChange: outputSampleRate from {0} to {1}. WebRtcAudioDsp will be restarted.", outputSampleRate, AudioSettings.outputSampleRate);
+					Logger.LogInfo("AudioConfigChange: outputSampleRate from {0} to {1}. WebRtcAudioDsp will be restarted.", outputSampleRate, AudioSettings.outputSampleRate);
 				}
 				outputSampleRate = AudioSettings.outputSampleRate;
 				flag = true;
 			}
 			if (reverseChannels != channelsMap[AudioSettings.speakerMode])
 			{
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("AudioConfigChange: speakerMode channels from {0} to {1}. WebRtcAudioDsp will be restarted.", reverseChannels, channelsMap[AudioSettings.speakerMode]);
+					Logger.LogInfo("AudioConfigChange: speakerMode channels from {0} to {1}. WebRtcAudioDsp will be restarted.", reverseChannels, channelsMap[AudioSettings.speakerMode]);
 				}
 				reverseChannels = channelsMap[AudioSettings.speakerMode];
 				flag = true;
@@ -562,21 +562,21 @@ public class WebRtcAudioDsp : VoiceComponent
 		{
 			if (!IsInitialized)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Unexpected: OnAudioOutFrame called while WebRtcAudioDsp is not initialized (proc == null).");
+					Logger.LogError("Unexpected: OnAudioOutFrame called while WebRtcAudioDsp is not initialized (proc == null).");
 				}
 				return;
 			}
-			if (!aecStarted && base.Logger.IsErrorEnabled)
+			if (!aecStarted && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Unexpected: OnAudioOutFrame called while aecStarted is false.");
+				Logger.LogError("Unexpected: OnAudioOutFrame called while aecStarted is false.");
 			}
 			if (outChannels != reverseChannels)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Unexpected: OnAudioOutFrame channel count {0} != initialized {1}. Switching channels and restarting.", outChannels, reverseChannels);
+					Logger.LogError("Unexpected: OnAudioOutFrame channel count {0} != initialized {1}. Switching channels and restarting.", outChannels, reverseChannels);
 				}
 				if (AutoRestartOnAudioChannelsMismatch)
 				{
@@ -595,25 +595,25 @@ public class WebRtcAudioDsp : VoiceComponent
 	{
 		lock (threadSafety)
 		{
-			if (!base.enabled)
+			if (!enabled)
 			{
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Skipped PhotonVoiceCreated message because component is disabled.");
+					Logger.LogInfo("Skipped PhotonVoiceCreated message because component is disabled.");
 				}
 				return;
 			}
-			if (recorder != null && recorder.SourceType != Recorder.InputSourceType.Microphone && base.Logger.IsWarningEnabled)
+			if (recorder != null && recorder.SourceType != Recorder.InputSourceType.Microphone && Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("WebRtcAudioDsp is better suited to be used with Microphone as Recorder Input Source Type.");
+				Logger.LogWarning("WebRtcAudioDsp is better suited to be used with Microphone as Recorder Input Source Type.");
 			}
 			if (p.Voice.Info.Channels != 1)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Only mono audio signals supported. WebRtcAudioDsp component will be disabled.");
+					Logger.LogError("Only mono audio signals supported. WebRtcAudioDsp component will be disabled.");
 				}
-				base.enabled = false;
+				enabled = false;
 			}
 			else if (p.Voice is LocalVoiceAudioShort localVoiceAudioShort)
 			{
@@ -626,11 +626,11 @@ public class WebRtcAudioDsp : VoiceComponent
 			}
 			else
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("Only short audio voice supported. WebRtcAudioDsp component will be disabled.");
+					Logger.LogError("Only short audio voice supported. WebRtcAudioDsp component will be disabled.");
 				}
-				base.enabled = false;
+				enabled = false;
 			}
 		}
 	}
@@ -662,9 +662,9 @@ public class WebRtcAudioDsp : VoiceComponent
 
 	private void Restart()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Restarting");
+			Logger.LogDebug("Restarting");
 		}
 		if (IsInitialized)
 		{
@@ -673,16 +673,16 @@ public class WebRtcAudioDsp : VoiceComponent
 			{
 				if (UnsubscribeFromAudioOutCapture(destroy: false))
 				{
-					if (base.Logger.IsDebugEnabled)
+					if (Logger.IsDebugEnabled)
 					{
-						base.Logger.LogDebug("AEC OutputListener stopped.");
+						Logger.LogDebug("AEC OutputListener stopped.");
 					}
 					flag = true;
 					aecStarted = false;
 				}
-				else if (base.Logger.IsWarningEnabled)
+				else if (Logger.IsWarningEnabled)
 				{
-					base.Logger.LogWarning("Unexpected: AudioOutCapture is null but aecStarted == true");
+					Logger.LogWarning("Unexpected: AudioOutCapture is null but aecStarted == true");
 				}
 			}
 			proc.Dispose();
@@ -694,19 +694,19 @@ public class WebRtcAudioDsp : VoiceComponent
 				{
 					StartAec();
 				}
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Restart complete successfully.");
+					Logger.LogInfo("Restart complete successfully.");
 				}
 			}
-			else if (base.Logger.IsErrorEnabled)
+			else if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Restart failed because processor could not be re initialized.");
+				Logger.LogError("Restart failed because processor could not be re initialized.");
 			}
 		}
-		else if (base.Logger.IsErrorEnabled)
+		else if (Logger.IsErrorEnabled)
 		{
-			base.Logger.LogError("Cannot restart if not initialized.");
+			Logger.LogError("Cannot restart if not initialized.");
 		}
 	}
 
@@ -714,22 +714,22 @@ public class WebRtcAudioDsp : VoiceComponent
 	{
 		if (IsInitialized)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Already initialized");
+				Logger.LogError("Already initialized");
 			}
 			return false;
 		}
-		proc = new WebRTCAudioProcessor(base.Logger, localVoice.Info.FrameSize, localVoice.Info.SamplingRate, localVoice.Info.Channels, outputSampleRate, reverseChannels);
+		proc = new WebRTCAudioProcessor(Logger, localVoice.Info.FrameSize, localVoice.Info.SamplingRate, localVoice.Info.Channels, outputSampleRate, reverseChannels);
 		proc.HighPass = highPass;
 		proc.NoiseSuppression = noiseSuppression;
 		proc.AGC = agc;
 		proc.AGCCompressionGain = agcCompressionGain;
 		proc.VAD = vad;
 		proc.Bypass = bypass;
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Initialized");
+			Logger.LogInfo("Initialized");
 		}
 		return true;
 	}
@@ -741,9 +741,9 @@ public class WebRtcAudioDsp : VoiceComponent
 			return false;
 		}
 		AudioOutCapture[] components = listener.GetComponents<AudioOutCapture>();
-		if (components.Length > 1 && base.Logger.IsDebugEnabled)
+		if (components.Length > 1 && Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("{0} AudioOutCapture components attached to the same GameObject, is this expected?", components.Length);
+			Logger.LogDebug("{0} AudioOutCapture components attached to the same GameObject, is this expected?", components.Length);
 		}
 		for (int i = 0; i < components.Length; i++)
 		{
@@ -756,9 +756,9 @@ public class WebRtcAudioDsp : VoiceComponent
 		AudioOutCapture audioOutCapture = listener.gameObject.AddComponent<AudioOutCapture>();
 		if (SetOrSwitchAudioOutCapture(audioOutCapture, extraChecks: false, log))
 		{
-			if (base.Logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("AudioOutCapture component added to same GameObject as AudioListener.");
+				Logger.LogDebug("AudioOutCapture component added to same GameObject as AudioListener.");
 			}
 			autoDestroyAudioOutCapture = true;
 			return true;
@@ -781,9 +781,9 @@ public class WebRtcAudioDsp : VoiceComponent
 			{
 				if (!UnsubscribeFromAudioOutCapture(autoDestroyAudioOutCapture))
 				{
-					if (base.Logger.IsErrorEnabled)
+					if (Logger.IsErrorEnabled)
 					{
-						base.Logger.LogError("Could not unsubscribe from previous AudioOutCapture. Switching to a new one won't happen.");
+						Logger.LogError("Could not unsubscribe from previous AudioOutCapture. Switching to a new one won't happen.");
 					}
 					return false;
 				}
@@ -791,16 +791,16 @@ public class WebRtcAudioDsp : VoiceComponent
 			}
 			else if (extraChecks)
 			{
-				if (log && base.Logger.IsErrorEnabled)
+				if (log && Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("The same AudioOutCapture is being used already");
+					Logger.LogError("The same AudioOutCapture is being used already");
 				}
 				return false;
 			}
 		}
 		audioOutCapture = capture;
 		audioListener = capture.GetComponent<AudioListener>();
-		if (flag && flag2)
+		if (flag & flag2)
 		{
 			audioOutCapture.OnAudioFrame += OnAudioOutFrameFloat;
 		}
@@ -811,18 +811,18 @@ public class WebRtcAudioDsp : VoiceComponent
 	{
 		if ((object)audioOutCapture != null && (bool)audioOutCapture)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AudioOutCapture is already initialized.");
+				Logger.LogError("AudioOutCapture is already initialized.");
 			}
 			return false;
 		}
 		if ((object)audioListener == null)
 		{
 			AudioOutCapture[] array = UnityEngine.Object.FindObjectsOfType<AudioOutCapture>();
-			if (array.Length > 1 && base.Logger.IsDebugEnabled)
+			if (array.Length > 1 && Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("{0} AudioOutCapture components found, is this expected?", array.Length);
+				Logger.LogDebug("{0} AudioOutCapture components found, is this expected?", array.Length);
 			}
 			foreach (AudioOutCapture capture in array)
 			{
@@ -835,14 +835,14 @@ public class WebRtcAudioDsp : VoiceComponent
 			AudioListener[] array2 = UnityEngine.Object.FindObjectsOfType<AudioListener>();
 			if (array2.Length == 0)
 			{
-				if (base.Logger.IsErrorEnabled)
+				if (Logger.IsErrorEnabled)
 				{
-					base.Logger.LogError("No AudioListener component found, is this expected?");
+					Logger.LogError("No AudioListener component found, is this expected?");
 				}
 			}
-			else if (array2.Length > 1 && base.Logger.IsDebugEnabled)
+			else if (array2.Length > 1 && Logger.IsDebugEnabled)
 			{
-				base.Logger.LogDebug("{0} AudioListener components found, is this expected?", array2.Length);
+				Logger.LogDebug("{0} AudioListener components found, is this expected?", array2.Length);
 			}
 			foreach (AudioListener listener in array2)
 			{
@@ -851,9 +851,9 @@ public class WebRtcAudioDsp : VoiceComponent
 					return true;
 				}
 			}
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AudioListener and AudioOutCapture components are required for AEC to work.");
+				Logger.LogError("AudioListener and AudioOutCapture components are required for AEC to work.");
 			}
 			return false;
 		}
@@ -867,25 +867,25 @@ public class WebRtcAudioDsp : VoiceComponent
 			if (aecStarted)
 			{
 				audioOutCapture.OnAudioFrame -= OnAudioOutFrameFloat;
-				if (base.Logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
-					base.Logger.LogDebug("OnAudioFrame event unsubscribed.");
+					Logger.LogDebug("OnAudioFrame event unsubscribed.");
 				}
 			}
 			if (destroy)
 			{
 				UnityEngine.Object.Destroy(audioOutCapture);
-				if (base.Logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
-					base.Logger.LogDebug("AudioOutCapture component destroyed.");
+					Logger.LogDebug("AudioOutCapture component destroyed.");
 				}
 				audioOutCapture = null;
 			}
 			return true;
 		}
-		if (aecStarted && base.Logger.IsErrorEnabled)
+		if (aecStarted && Logger.IsErrorEnabled)
 		{
-			base.Logger.LogError("Unexpected: audioOutCapture is null but aecStarted is true");
+			Logger.LogError("Unexpected: audioOutCapture is null but aecStarted is true");
 		}
 		return false;
 	}
@@ -894,33 +894,33 @@ public class WebRtcAudioDsp : VoiceComponent
 	{
 		if ((object)listener == null)
 		{
-			if (log && base.Logger.IsErrorEnabled)
+			if (log && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AudioListener is null.");
+				Logger.LogError("AudioListener is null.");
 			}
 			return false;
 		}
 		if (!listener)
 		{
-			if (log && base.Logger.IsErrorEnabled)
+			if (log && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AudioListener is destroyed.");
+				Logger.LogError("AudioListener is destroyed.");
 			}
 			return false;
 		}
 		if (!listener.gameObject.activeInHierarchy)
 		{
-			if (log && base.Logger.IsErrorEnabled)
+			if (log && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("The GameObject to which the AudioListener is attached is not active in hierarchy.");
+				Logger.LogError("The GameObject to which the AudioListener is attached is not active in hierarchy.");
 			}
 			return false;
 		}
 		if (!listener.enabled)
 		{
-			if (log && base.Logger.IsErrorEnabled)
+			if (log && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AudioListener is disabled.");
+				Logger.LogError("AudioListener is disabled.");
 			}
 			return false;
 		}
@@ -931,33 +931,33 @@ public class WebRtcAudioDsp : VoiceComponent
 	{
 		if ((object)capture == null)
 		{
-			if (log && base.Logger.IsErrorEnabled)
+			if (log && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AudioOutCapture is null.");
+				Logger.LogError("AudioOutCapture is null.");
 			}
 			return false;
 		}
 		if (!capture)
 		{
-			if (log && base.Logger.IsErrorEnabled)
+			if (log && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AudioOutCapture is destroyed.");
+				Logger.LogError("AudioOutCapture is destroyed.");
 			}
 			return false;
 		}
 		if (!listenerChecks && !capture.gameObject.activeInHierarchy)
 		{
-			if (log && base.Logger.IsErrorEnabled)
+			if (log && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("The GameObject to which the AudioOutCapture is attached is not active in hierarchy.");
+				Logger.LogError("The GameObject to which the AudioOutCapture is attached is not active in hierarchy.");
 			}
 			return false;
 		}
 		if (!capture.enabled)
 		{
-			if (log && base.Logger.IsErrorEnabled)
+			if (log && Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("AudioOutCapture is disabled.");
+				Logger.LogError("AudioOutCapture is disabled.");
 			}
 			return false;
 		}

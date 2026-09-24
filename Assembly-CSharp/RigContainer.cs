@@ -144,7 +144,7 @@ public class RigContainer : MonoBehaviour
 		{
 			if (Rig.isOfflineVRRig)
 			{
-				return new PlayerStatsReadonly(GTPlayerStats.Ping, GTPlayerStats.FPS, GTPlayerStats.TargetFPS);
+				return new PlayerStatsReadonly(GTPlayerStats.Ping, GTPlayerStats.FPS, GTPlayerStats.TargetFPS, GTPlayerStats.SystemPropertiesFlags);
 			}
 			return m_playerStats;
 		}
@@ -250,10 +250,10 @@ public class RigContainer : MonoBehaviour
 		Initialized = false;
 		muteReasons = MuteReason.None;
 		voiceView = null;
-		base.gameObject.transform.localPosition = Vector3.zero;
-		base.gameObject.transform.localRotation = Quaternion.identity;
-		vrrig.syncPos = base.gameObject.transform.position;
-		vrrig.syncRotation = base.gameObject.transform.rotation;
+		gameObject.transform.localPosition = Vector3.zero;
+		gameObject.transform.localRotation = Quaternion.identity;
+		vrrig.syncPos = gameObject.transform.position;
+		vrrig.syncRotation = gameObject.transform.rotation;
 	}
 
 	internal void InitializeNetwork(NetworkView netView, PhotonVoiceView voiceView, VRRigSerializer vrRigSerializer)
@@ -349,7 +349,7 @@ public class RigContainer : MonoBehaviour
 			},
 			FunctionName = "ShouldUserAutomutePlayer",
 			FunctionParameter = string.Join(",", value)
-		}, delegate(ExecuteFunctionResult result)
+		}, (ExecuteFunctionResult result) =>
 		{
 			Dictionary<string, string> dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(result.FunctionResult.ToString());
 			if (dictionary == null)
@@ -381,7 +381,7 @@ public class RigContainer : MonoBehaviour
 			}
 			requestedAutomutePlayers.Clear();
 			waitingForAutomuteCallback = false;
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 			foreach (NetPlayer requestedAutomutePlayer4 in requestedAutomutePlayers)
 			{

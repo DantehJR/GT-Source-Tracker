@@ -44,7 +44,15 @@ public struct Arc
 		}
 		for (int i = 0; i < count; i++)
 		{
-			float t = ((i != 0) ? ((i != count - 1) ? (num * (float)i) : 1f) : 0f);
+			float t;
+			if (i != 0)
+			{
+				t = ((i != count - 1) ? (num * (float)i) : 1f);
+			}
+			else
+			{
+				t = 0f;
+			}
 			array[i] = BezierLerp(a, b, c.Value, t);
 		}
 		return array;

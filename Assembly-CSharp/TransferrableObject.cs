@@ -445,7 +445,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 	{
 		if (worldShareableInstance != null && !worldShareableInstance.guard.isMine)
 		{
-			worldShareableInstance.guard.RequestOwnershipImmediately(delegate
+			worldShareableInstance.guard.RequestOwnershipImmediately(() =>
 			{
 			});
 		}
@@ -468,8 +468,8 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			{
 				if (!rig)
 				{
-					Debug.LogError("Disabling TransferrableObject because could not find VRRig! \"" + base.transform.GetPath() + "\"", this);
-					base.enabled = false;
+					Debug.LogError("Disabling TransferrableObject because could not find VRRig! \"" + transform.GetPath() + "\"", this);
+					enabled = false;
 					isMyRigValid = false;
 					isMyOnlineRigValid = false;
 					return;
@@ -489,7 +489,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			{
 				targetDockPositions = GetComponentInParent<BodyDockPositions>();
 			}
-			anchor = base.transform.parent;
+			anchor = transform.parent;
 			if (rigidbodyInstance == null)
 			{
 				rigidbodyInstance = GetComponent<Rigidbody>();
@@ -508,7 +508,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			}
 			if (anchor == null)
 			{
-				InitialDockObject = base.transform.parent;
+				InitialDockObject = transform.parent;
 			}
 			else
 			{
@@ -533,9 +533,9 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		catch (Exception exception)
 		{
 			Debug.LogException(exception, this);
-			base.enabled = false;
-			base.gameObject.SetActive(value: false);
-			Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + base.transform.GetPathQ(), this);
+			enabled = false;
+			gameObject.SetActive(value: false);
+			Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + transform.GetPathQ(), this);
 		}
 	}
 
@@ -560,20 +560,20 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		catch (Exception exception)
 		{
 			Debug.LogException(exception, this);
-			base.enabled = false;
-			base.gameObject.SetActive(value: false);
-			Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + base.transform.GetPathQ(), this);
+			enabled = false;
+			gameObject.SetActive(value: false);
+			Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + transform.GetPathQ(), this);
 		}
 	}
 
 	private void SetInitMatrix()
 	{
-		initMatrix = base.transform.LocalMatrixRelativeToParentWithScale();
+		initMatrix = transform.LocalMatrixRelativeToParentWithScale();
 		if (handPoseLeft != null)
 		{
-			base.transform.localRotation = handPoseLeftReferenceRotation * Quaternion.Inverse(handPoseLeft.localRotation);
-			base.transform.position += base.transform.parent.TransformPoint(handPoseLeftReferencePoint) - handPoseLeft.transform.position;
-			leftHandMatrix = base.transform.LocalMatrixRelativeToParentWithScale();
+			transform.localRotation = handPoseLeftReferenceRotation * Quaternion.Inverse(handPoseLeft.localRotation);
+			transform.position += transform.parent.TransformPoint(handPoseLeftReferencePoint) - handPoseLeft.transform.position;
+			leftHandMatrix = transform.LocalMatrixRelativeToParentWithScale();
 		}
 		else
 		{
@@ -581,16 +581,16 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		}
 		if (handPoseRight != null)
 		{
-			base.transform.localRotation = handPoseRightReferenceRotation * Quaternion.Inverse(handPoseRight.localRotation);
-			base.transform.position += base.transform.parent.TransformPoint(handPoseRightReferencePoint) - handPoseRight.transform.position;
-			rightHandMatrix = base.transform.LocalMatrixRelativeToParentWithScale();
+			transform.localRotation = handPoseRightReferenceRotation * Quaternion.Inverse(handPoseRight.localRotation);
+			transform.position += transform.parent.TransformPoint(handPoseRightReferencePoint) - handPoseRight.transform.position;
+			rightHandMatrix = transform.LocalMatrixRelativeToParentWithScale();
 		}
 		else
 		{
 			rightHandMatrix = initMatrix;
 		}
-		base.transform.localPosition = initMatrix.Position();
-		base.transform.localRotation = initMatrix.Rotation();
+		transform.localPosition = initMatrix.Position();
+		transform.localRotation = initMatrix.Rotation();
 		positionInitialized = true;
 	}
 
@@ -613,9 +613,9 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		catch (Exception exception)
 		{
 			Debug.LogException(exception, this);
-			base.enabled = false;
-			base.gameObject.SetActive(value: false);
-			Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + base.transform.GetPathQ(), this);
+			enabled = false;
+			gameObject.SetActive(value: false);
+			Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + transform.GetPathQ(), this);
 		}
 		if (networkedStateEvents != SyncOptions.None)
 		{
@@ -630,13 +630,13 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		{
 			return;
 		}
-		if (!base.enabled)
+		if (!enabled)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 		else
 		{
-			if (!base.isActiveAndEnabled)
+			if (!isActiveAndEnabled)
 			{
 				return;
 			}
@@ -653,7 +653,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 				{
 					if (!worldShareableInstance)
 					{
-						Debug.LogError("Missing Sharable Instance on Scene enabled object: " + base.gameObject.name);
+						Debug.LogError("Missing Sharable Instance on Scene enabled object: " + gameObject.name);
 						return;
 					}
 					worldShareableInstance.SyncToSceneObject(this);
@@ -686,7 +686,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 				{
 					if (!isSceneObject)
 					{
-						base.gameObject.SetActive(value: false);
+						gameObject.SetActive(value: false);
 					}
 					return;
 				}
@@ -718,7 +718,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 				}
 				if (objectIndex == -1)
 				{
-					base.gameObject.SetActive(value: false);
+					gameObject.SetActive(value: false);
 					return;
 				}
 				if (currentState == PositionState.OnLeftArm && flipOnXForLeftArm)
@@ -741,8 +741,8 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			catch (Exception exception)
 			{
 				Debug.LogException(exception, this);
-				base.enabled = false;
-				base.gameObject.SetActive(value: false);
+				enabled = false;
+				gameObject.SetActive(value: false);
 				Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + base.transform.GetPathQ(), this);
 			}
 		}
@@ -758,12 +758,12 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		RoomSystem.JoinedRoomEvent -= new Action(OnJoinedRoom);
 		RoomSystem.LeftRoomEvent -= new Action(OnLeftRoom);
 		enabledOnFrame = -1;
-		base.transform.localScale = Vector3.one;
+		transform.localScale = Vector3.one;
 		try
 		{
 			if (!isSceneObject && IsLocalObject() && (bool)worldShareableInstance && !IsMyItem())
 			{
-				worldShareableInstance.GetComponent<RequestableOwnershipGuard>().RequestOwnershipImmediately(delegate
+				worldShareableInstance.GetComponent<RequestableOwnershipGuard>().RequestOwnershipImmediately(() =>
 				{
 				});
 			}
@@ -790,9 +790,9 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		catch (Exception exception)
 		{
 			Debug.LogException(exception, this);
-			base.enabled = false;
-			base.gameObject.SetActive(value: false);
-			Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + base.transform.GetPathQ(), this);
+			enabled = false;
+			gameObject.SetActive(value: false);
+			Debug.LogError("TransferrableObject: Disabled & deactivated self because of the exception logged above. Path: " + transform.GetPathQ(), this);
 		}
 	}
 
@@ -808,17 +808,17 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		if ((bool)anchor)
 		{
 			anchor.parent = InitialDockObject;
-			if (anchor != base.transform)
+			if (anchor != transform)
 			{
-				base.transform.parent = anchor;
+				transform.parent = anchor;
 			}
 		}
 		else
 		{
-			base.transform.parent = anchor;
+			transform.parent = anchor;
 		}
 		interpState = InterpolateState.None;
-		base.transform.SetLocalMatrixRelativeToParentWithXParity(GetDefaultTransformationMatrix());
+		transform.SetLocalMatrixRelativeToParentWithXParity(GetDefaultTransformationMatrix());
 	}
 
 	public virtual void PreDisable()
@@ -891,9 +891,9 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		{
 			worldShareableInstance = targetDockPositions.AllocateSharableInstance(storedZone, owner);
 		}
-		GorillaTagger.OnPlayerSpawned(delegate
+		GorillaTagger.OnPlayerSpawned(() =>
 		{
-			worldShareableInstance.SetupSharableObject(myIndex, owner, base.transform);
+			worldShareableInstance.SetupSharableObject(myIndex, owner, transform);
 		});
 	}
 
@@ -919,7 +919,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		{
 			return;
 		}
-		if (base.gameObject.activeSelf && (bool)worldShareableInstance)
+		if (gameObject.activeSelf && (bool)worldShareableInstance)
 		{
 			worldShareableInstance.Invalidate();
 			worldShareableInstance.GetComponent<RequestableOwnershipGuard>().RemoveCallbackTarget(this);
@@ -937,7 +937,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		if (!IsLocalObject())
 		{
 			OnItemDestroyedOrDisabled();
-			base.gameObject.Disable();
+			gameObject.Disable();
 		}
 	}
 
@@ -1006,7 +1006,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			return _defaultAnchor;
 		}
 		_isDefaultAnchorSet = true;
-		_defaultAnchor = ((anchor == null) ? base.transform : anchor);
+		_defaultAnchor = ((anchor == null) ? transform : anchor);
 		return _defaultAnchor;
 	}
 
@@ -1244,7 +1244,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		}
 		if (canDrop)
 		{
-			base.transform.parent = null;
+			transform.parent = null;
 			if ((bool)anchor)
 			{
 				anchor.parent = InitialDockObject;
@@ -1296,7 +1296,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			}
 			if (disableItem)
 			{
-				base.gameObject.SetActive(value: false);
+				gameObject.SetActive(value: false);
 				return;
 			}
 		}
@@ -1305,7 +1305,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			previousState = currentState;
 			if (!Attached())
 			{
-				base.transform.parent = null;
+				transform.parent = null;
 				if (!ShouldBeKinematic() && rigidbodyInstance.isKinematic)
 				{
 					rigidbodyInstance.isKinematic = false;
@@ -1326,9 +1326,9 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		{
 			if (canDrop && !allowReparenting)
 			{
-				if ((object)base.transform.parent != null)
+				if ((object)transform.parent != null)
 				{
-					base.transform.parent = null;
+					transform.parent = null;
 				}
 				try
 				{
@@ -1435,14 +1435,14 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			}
 			else if (anchorOverrides != null)
 			{
-				Transform obj = GetAnchor(currentState);
+				Transform transform2 = GetAnchor(currentState);
 				Transform targetDock = GetTargetDock(currentState, targetDockPositions, anchorOverrides);
 				Matrix4x4 matrix4x = GetDefaultTransformationMatrix();
 				if (transferrableItemSlotTransformOverride.GetTransformFromPositionState(currentState, advancedGrabState, targetDock, out var matrix4X))
 				{
 					matrix4x = matrix4X;
 				}
-				Matrix4x4 matrix = obj.localToWorldMatrix * matrix4x;
+				Matrix4x4 matrix = transform2.localToWorldMatrix * matrix4x;
 				base.transform.SetLocalToWorldMatrixNoScale(matrix);
 				base.transform.localScale = matrix.lossyScale;
 			}
@@ -1584,7 +1584,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 
 	protected virtual void LocalPersistanceValidation()
 	{
-		if (maxDistanceFromOriginBeforeRespawn != 0f && Vector3.Distance(base.transform.position, originPoint.position) > maxDistanceFromOriginBeforeRespawn)
+		if (maxDistanceFromOriginBeforeRespawn != 0f && Vector3.Distance(transform.position, originPoint.position) > maxDistanceFromOriginBeforeRespawn)
 		{
 			if (audioSrc != null && resetPositionAudioClip != null)
 			{
@@ -1595,7 +1595,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 				DropItem();
 				currentState = PositionState.Dropped;
 			}
-			base.transform.position = originPoint.position;
+			transform.position = originPoint.position;
 			if (!rigidbodyInstance.isKinematic)
 			{
 				rigidbodyInstance.linearVelocity = Vector3.zero;
@@ -1766,7 +1766,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			{
 				return;
 			}
-			worldShareableInstance.GetComponent<RequestableOwnershipGuard>().RequestOwnershipImmediately(delegate
+			worldShareableInstance.GetComponent<RequestableOwnershipGuard>().RequestOwnershipImmediately(() =>
 			{
 			});
 		}
@@ -1790,7 +1790,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 			{
 				return;
 			}
-			worldShareableInstance.guard.RequestOwnershipImmediately(delegate
+			worldShareableInstance.guard.RequestOwnershipImmediately(() =>
 			{
 			});
 		}
@@ -1890,11 +1890,11 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		{
 			bool num = currentState == PositionState.InLeftHand && zoneReleased.dropPosition == BodyDockPositions.DropPositions.LeftArm;
 			bool flag = currentState == PositionState.InRightHand && zoneReleased.dropPosition == BodyDockPositions.DropPositions.RightArm;
-			if (num || flag)
+			if (num | flag)
 			{
 				return false;
 			}
-			if (targetDockPositions.DropZoneStorageUsed(zoneReleased.dropPosition) == -1 && zoneReleased.forBodyDock == targetDockPositions && (zoneReleased.dropPosition & dockPositions) != BodyDockPositions.DropPositions.None)
+			if (targetDockPositions.DropZoneStorageUsed(zoneReleased.dropPosition) == -1 && zoneReleased.forBodyDock == targetDockPositions && (zoneReleased.dropPosition & dockPositions) != 0)
 			{
 				storedZone = zoneReleased.dropPosition;
 			}
@@ -2127,31 +2127,31 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		case PositionState.InRightHand:
 			return true;
 		case PositionState.OnLeftArm:
-			if ((dockPositions & BodyDockPositions.DropPositions.LeftArm) != BodyDockPositions.DropPositions.None)
+			if ((dockPositions & BodyDockPositions.DropPositions.LeftArm) != 0)
 			{
 				return true;
 			}
 			break;
 		case PositionState.OnRightArm:
-			if ((dockPositions & BodyDockPositions.DropPositions.RightArm) != BodyDockPositions.DropPositions.None)
+			if ((dockPositions & BodyDockPositions.DropPositions.RightArm) != 0)
 			{
 				return true;
 			}
 			break;
 		case PositionState.OnChest:
-			if ((dockPositions & BodyDockPositions.DropPositions.Chest) != BodyDockPositions.DropPositions.None)
+			if ((dockPositions & BodyDockPositions.DropPositions.Chest) != 0)
 			{
 				return true;
 			}
 			break;
 		case PositionState.OnLeftShoulder:
-			if ((dockPositions & BodyDockPositions.DropPositions.LeftBack) != BodyDockPositions.DropPositions.None)
+			if ((dockPositions & BodyDockPositions.DropPositions.LeftBack) != 0)
 			{
 				return true;
 			}
 			break;
 		case PositionState.OnRightShoulder:
-			if ((dockPositions & BodyDockPositions.DropPositions.RightBack) != BodyDockPositions.DropPositions.None)
+			if ((dockPositions & BodyDockPositions.DropPositions.RightBack) != 0)
 			{
 				return true;
 			}
@@ -2388,7 +2388,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		{
 			return false;
 		}
-		if (Vector3.SqrMagnitude(base.transform.position - playerRig.transform.position) > 16f)
+		if (Vector3.SqrMagnitude(transform.position - playerRig.transform.position) > 16f)
 		{
 			Debug.Log("Player whos trying to get is too far, Denying takeover");
 			return false;
@@ -2421,7 +2421,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		{
 			return true;
 		}
-		if (Vector3.SqrMagnitude(base.transform.position - playerRig.transform.position) > 16f)
+		if (Vector3.SqrMagnitude(transform.position - playerRig.transform.position) > 16f)
 		{
 			Debug.Log("Player whos trying to get is too far, Denying takeover");
 			return false;
@@ -2461,7 +2461,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 	public void OnMyCreatorLeft()
 	{
 		OnItemDestroyedOrDisabled();
-		UnityEngine.Object.Destroy(base.gameObject);
+		UnityEngine.Object.Destroy(gameObject);
 	}
 
 	public bool BuildValidationCheck()
@@ -2489,7 +2489,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		}
 		if (num > 1)
 		{
-			Debug.LogError("transferrableitem is starting with multiple storedzones: " + base.transform.parent.name, base.gameObject);
+			Debug.LogError("transferrableitem is starting with multiple storedzones: " + transform.parent.name, gameObject);
 			return false;
 		}
 		Collider[] componentsInChildren = GetComponentsInChildren<Collider>();
@@ -2497,7 +2497,7 @@ public class TransferrableObject : HoldableObject, ISelfValidator, IRequestableO
 		{
 			if (((int)GTPlayer.LocomotionEnabledLayers & (1 << componentsInChildren[i].gameObject.layer)) != 0)
 			{
-				Debug.LogError("Holdable cosmetic " + base.transform.name + " has a collider on a player movement layer! Players will fly around! Dear god, please fix! It's on the " + componentsInChildren[i].name + " collider", base.gameObject);
+				Debug.LogError("Holdable cosmetic " + transform.name + " has a collider on a player movement layer! Players will fly around! Dear god, please fix! It's on the " + componentsInChildren[i].name + " collider", gameObject);
 				return false;
 			}
 		}

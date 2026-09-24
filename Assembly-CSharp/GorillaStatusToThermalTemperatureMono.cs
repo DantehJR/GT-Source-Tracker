@@ -52,7 +52,7 @@ public class GorillaStatusToThermalTemperatureMono : MonoBehaviour, ISpawnable
 			}
 			m_rig = newRig;
 			hasRig = newRig != null;
-			if (hasRig && base.isActiveAndEnabled)
+			if (hasRig && isActiveAndEnabled)
 			{
 				VRRig vRRig2 = m_rig;
 				vRRig2.OnMaterialIndexChanged = (Action<int, int>)Delegate.Combine(vRRig2.OnMaterialIndexChanged, new Action<int, int>(_OnMatChanged));
@@ -105,8 +105,8 @@ public class GorillaStatusToThermalTemperatureMono : MonoBehaviour, ISpawnable
 		{
 			if (m_thermalSourceVolume == null)
 			{
-				GTDev.LogError("[GorillaStatusToThermalTemperatureMono]  ERROR!!!  Disabling because thermal source is not assigned. Path=" + base.transform.GetPathQ(), this);
-				base.enabled = false;
+				GTDev.LogError("[GorillaStatusToThermalTemperatureMono]  ERROR!!!  Disabling because thermal source is not assigned. Path=" + transform.GetPathQ(), this);
+				enabled = false;
 			}
 			else
 			{

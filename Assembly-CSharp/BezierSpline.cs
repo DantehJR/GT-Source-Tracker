@@ -264,7 +264,7 @@ public class BezierSpline : MonoBehaviour
 			t -= (float)num;
 			num *= 3;
 		}
-		return base.transform.TransformPoint(Bezier.GetPoint(points[num], points[num + 1], points[num + 2], points[num + 3], t));
+		return transform.TransformPoint(Bezier.GetPoint(points[num], points[num + 1], points[num + 2], points[num + 3], t));
 	}
 
 	public Vector3 GetPointLocal(float t)
@@ -300,7 +300,7 @@ public class BezierSpline : MonoBehaviour
 			t -= (float)num;
 			num *= 3;
 		}
-		return base.transform.TransformPoint(Bezier.GetFirstDerivative(points[num], points[num + 1], points[num + 2], points[num + 3], t)) - base.transform.position;
+		return transform.TransformPoint(Bezier.GetFirstDerivative(points[num], points[num + 1], points[num + 2], points[num + 3], t)) - transform.position;
 	}
 
 	public Vector3 GetDirection(float t, bool ConstantVelocity)
@@ -321,11 +321,11 @@ public class BezierSpline : MonoBehaviour
 	{
 		Vector3 vector = points[points.Length - 1];
 		Array.Resize(ref points, points.Length + 3);
-		vector.x += 1f;
+		vector.x++;
 		points[points.Length - 3] = vector;
-		vector.x += 1f;
+		vector.x++;
 		points[points.Length - 2] = vector;
-		vector.x += 1f;
+		vector.x++;
 		points[points.Length - 1] = vector;
 		Array.Resize(ref modes, modes.Length + 1);
 		modes[modes.Length - 1] = modes[modes.Length - 2];

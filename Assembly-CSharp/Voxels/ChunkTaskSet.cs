@@ -130,7 +130,7 @@ public class ChunkTaskSet
 		{
 			Callback?.Invoke(chunk);
 		}
-		Current = default(ChunkTask);
+		Current = default;
 		Callback = null;
 	}
 

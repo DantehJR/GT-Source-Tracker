@@ -27,23 +27,23 @@ public class GameTriggerInteractable : MonoBehaviour
 
 	private void OnEnable()
 	{
-		if (gameEntity == null)
+		if (this.gameEntity == null)
 		{
-			gameEntity = GetComponent<GameEntity>();
+			this.gameEntity = GetComponent<GameEntity>();
 		}
 		if (interactableWhileGrabbed)
 		{
-			GameEntity obj = gameEntity;
-			obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(StartHolding));
-			GameEntity obj2 = gameEntity;
-			obj2.OnReleased = (Action)Delegate.Combine(obj2.OnReleased, new Action(StopHolding));
+			GameEntity gameEntity = this.gameEntity;
+			gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(StartHolding));
+			GameEntity gameEntity2 = this.gameEntity;
+			gameEntity2.OnReleased = (Action)Delegate.Combine(gameEntity2.OnReleased, new Action(StopHolding));
 		}
 		if (interactableWhileSnapped)
 		{
-			GameEntity obj3 = gameEntity;
-			obj3.OnSnapped = (Action)Delegate.Combine(obj3.OnSnapped, new Action(StartHolding));
-			GameEntity obj4 = gameEntity;
-			obj4.OnUnsnapped = (Action)Delegate.Combine(obj4.OnUnsnapped, new Action(StopHolding));
+			GameEntity gameEntity3 = this.gameEntity;
+			gameEntity3.OnSnapped = (Action)Delegate.Combine(gameEntity3.OnSnapped, new Action(StartHolding));
+			GameEntity gameEntity4 = this.gameEntity;
+			gameEntity4.OnUnsnapped = (Action)Delegate.Combine(gameEntity4.OnUnsnapped, new Action(StopHolding));
 		}
 	}
 

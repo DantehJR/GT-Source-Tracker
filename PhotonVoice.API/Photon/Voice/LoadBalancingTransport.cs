@@ -38,15 +38,15 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 		set
 		{
 			voiceClient.GlobalInterestGroup = value;
-			if (base.State == ClientState.Joined)
+			if (State == ClientState.Joined)
 			{
 				if (voiceClient.GlobalInterestGroup != 0)
 				{
-					base.LoadBalancingPeer.OpChangeGroups(new byte[0], new byte[1] { voiceClient.GlobalInterestGroup });
+					LoadBalancingPeer.OpChangeGroups(new byte[0], new byte[1] { voiceClient.GlobalInterestGroup });
 				}
 				else
 				{
-					base.LoadBalancingPeer.OpChangeGroups(new byte[0], null);
+					LoadBalancingPeer.OpChangeGroups(new byte[0], null);
 				}
 			}
 		}
@@ -79,7 +79,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 
 	public bool IsChannelJoined(int channelId)
 	{
-		return base.State == ClientState.Joined;
+		return State == ClientState.Joined;
 	}
 
 	public LoadBalancingTransport(ILogger logger = null, ConnectionProtocol connectionProtocol = ConnectionProtocol.Udp)
@@ -89,13 +89,13 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 		{
 			logger = this;
 		}
-		base.EventReceived += onEventActionVoiceClient;
-		base.StateChanged += onStateChangeVoiceClient;
+		EventReceived += onEventActionVoiceClient;
+		StateChanged += onStateChangeVoiceClient;
 		voiceClient = new VoiceClient(this, logger);
 		int num = Enum.GetValues(typeof(Codec)).Length + 1;
-		if (base.LoadBalancingPeer.ChannelCount < num)
+		if (LoadBalancingPeer.ChannelCount < num)
 		{
-			base.LoadBalancingPeer.ChannelCount = (byte)num;
+			LoadBalancingPeer.ChannelCount = (byte)num;
 		}
 		protocol = new PhotonTransportProtocol(voiceClient, logger);
 	}
@@ -109,7 +109,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 	[Obsolete("Use LoadBalancingPeer::OpChangeGroups().")]
 	public virtual bool ChangeAudioGroups(byte[] groupsToRemove, byte[] groupsToAdd)
 	{
-		return base.LoadBalancingPeer.OpChangeGroups(groupsToRemove, groupsToAdd);
+		return LoadBalancingPeer.OpChangeGroups(groupsToRemove, groupsToAdd);
 	}
 
 	public void SendVoicesInfo(IEnumerable<LocalVoice> voices, int channelId, int targetPlayerId)
@@ -127,7 +127,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 			switch (targetPlayerId)
 			{
 			case -1:
-				raiseEventOptions.TargetActors = new int[1] { base.LocalPlayer.ActorNumber };
+				raiseEventOptions.TargetActors = new int[1] { LocalPlayer.ActorNumber };
 				break;
 			default:
 				raiseEventOptions.TargetActors = new int[1] { targetPlayerId };
@@ -151,7 +151,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 		switch (targetPlayerId)
 		{
 		case -1:
-			raiseEventOptions.TargetActors = new int[1] { base.LocalPlayer.ActorNumber };
+			raiseEventOptions.TargetActors = new int[1] { LocalPlayer.ActorNumber };
 			break;
 		default:
 			raiseEventOptions.TargetActors = new int[1] { targetPlayerId };
@@ -179,7 +179,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 		switch (targetPlayerId)
 		{
 		case -1:
-			raiseEventOptions.TargetActors = new int[1] { base.LocalPlayer.ActorNumber };
+			raiseEventOptions.TargetActors = new int[1] { LocalPlayer.ActorNumber };
 			break;
 		default:
 			raiseEventOptions.TargetActors = new int[1] { targetPlayerId };
@@ -193,7 +193,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 		}
 		raiseEventOptions.InterestGroup = localVoice.InterestGroup;
 		OpRaiseEvent(202, customEventContent, raiseEventOptions, sendOptions);
-		while (base.LoadBalancingPeer.SendOutgoingCommands())
+		while (LoadBalancingPeer.SendOutgoingCommands())
 		{
 		}
 	}
@@ -212,7 +212,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 	{
 		if (ev.Code == 202)
 		{
-			protocol.onVoiceEvent(ev[245], 0, ev.Sender, ev.Sender == base.LocalPlayer.ActorNumber);
+			protocol.onVoiceEvent(ev[245], 0, ev.Sender, ev.Sender == LocalPlayer.ActorNumber);
 			return;
 		}
 		switch (ev.Code)
@@ -220,7 +220,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 		case byte.MaxValue:
 		{
 			int sender = ev.Sender;
-			if (sender != base.LocalPlayer.ActorNumber)
+			if (sender != LocalPlayer.ActorNumber)
 			{
 				voiceClient.onPlayerJoin(0, sender);
 			}
@@ -229,7 +229,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 		case 254:
 		{
 			int sender = ev.Sender;
-			if (sender == base.LocalPlayer.ActorNumber)
+			if (sender == LocalPlayer.ActorNumber)
 			{
 				voiceClient.onLeaveAllChannels();
 			}
@@ -253,7 +253,7 @@ public class LoadBalancingTransport : LoadBalancingClient, IVoiceTransport, ILog
 			voiceClient.onJoinChannel(0);
 			if (voiceClient.GlobalInterestGroup != 0)
 			{
-				base.LoadBalancingPeer.OpChangeGroups(new byte[0], new byte[1] { voiceClient.GlobalInterestGroup });
+				LoadBalancingPeer.OpChangeGroups(new byte[0], new byte[1] { voiceClient.GlobalInterestGroup });
 			}
 		}
 	}

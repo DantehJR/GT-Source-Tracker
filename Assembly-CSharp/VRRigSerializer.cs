@@ -133,7 +133,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 			}
 			return false;
 		}
-		if (NetworkSystem.Instance.IsObjectRoomObject(base.gameObject))
+		if (NetworkSystem.Instance.IsObjectRoomObject(gameObject))
 		{
 			NetPlayer player2 = NetworkSystem.Instance.GetPlayer(wrappedInfo.senderID);
 			if (player2 != null)
@@ -162,7 +162,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 		bool initialized = rigContainer.Initialized;
 		rigContainer.InitializeNetwork(netView, Voice, this);
 		networkSpeaker.SetParent(rigContainer.SpeakerHead, worldPositionStays: false);
-		base.transform.SetParent(VRRigCache.Instance.NetworkParent, worldPositionStays: true);
+		transform.SetParent(VRRigCache.Instance.NetworkParent, worldPositionStays: true);
 		SetupLoudSpeakerNetwork(rigContainer);
 		netView.GetView.AddCallbackTarget(this);
 		if (!initialized)
@@ -180,7 +180,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 			vrrig.InitializeNoobMaterialLocal(red, green, blue);
 		}
 		SuccesfullSpawnEvent.InvokeSafe(in rigContainer, in info);
-		NetworkSystem.Instance.IsObjectLocallyOwned(base.gameObject);
+		NetworkSystem.Instance.IsObjectLocallyOwned(gameObject);
 		if (VRRigCache.isInitialized)
 		{
 			VRRigCache.Instance.OnVrrigSerializerSuccesfullySpawned();
@@ -214,7 +214,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 			}
 			else if (vrrig.isOfflineVRRig)
 			{
-				NetworkSystem.Instance.NetDestroy(base.gameObject);
+				NetworkSystem.Instance.NetDestroy(gameObject);
 			}
 			if ((object)vrrig.netView == netView)
 			{
@@ -231,7 +231,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 			networkSpeaker.gameObject.SetActive(value: false);
 			if (netDestroy)
 			{
-				networkSpeaker.SetParent(base.transform, worldPositionStays: false);
+				networkSpeaker.SetParent(transform, worldPositionStays: false);
 			}
 			else
 			{
@@ -250,7 +250,7 @@ internal class VRRigSerializer : GorillaWrappedSerializer, IFXContextParems<Hand
 	private void OnDestroy()
 	{
 		NetworkBehaviourUtils.InternalOnDestroy(this);
-		if (networkSpeaker != null && networkSpeaker.parent != base.transform)
+		if (networkSpeaker != null && networkSpeaker.parent != transform)
 		{
 			UnityEngine.Object.Destroy(networkSpeaker.gameObject);
 		}

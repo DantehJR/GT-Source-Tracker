@@ -368,7 +368,7 @@ public class GRToolCollector : MonoBehaviour, IGameEntityDebugComponent, IGameEn
 				break;
 			}
 			List<GRTool> list = new List<GRTool>();
-			this.gameEntity.manager.GetEntitiesWithComponentInRadius(base.transform.position, level3ChargeRadius, checkRootOnly: true, list);
+			this.gameEntity.manager.GetEntitiesWithComponentInRadius(transform.position, level3ChargeRadius, checkRootOnly: true, list);
 			for (int k = 0; k < list.Count; k++)
 			{
 				GRTool gRTool = list[k];

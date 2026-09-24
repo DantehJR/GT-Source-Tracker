@@ -58,7 +58,7 @@ public class KinematicTestMotion : MonoBehaviour
 		Vector3 position = Vector3.Lerp(start.position, end.position, t);
 		if (moveType == MoveType.TransformPosition)
 		{
-			base.transform.position = position;
+			transform.position = position;
 		}
 		else if (moveType == MoveType.RigidbodyMovePosition)
 		{

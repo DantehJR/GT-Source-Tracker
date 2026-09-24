@@ -47,7 +47,7 @@ public class CritterSpawnTrigger : MonoBehaviour
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.green;
-		Gizmos.DrawLine(base.transform.position, spawnPoint.position);
+		Gizmos.DrawLine(transform.position, spawnPoint.position);
 		Gizmos.DrawWireSphere(spawnPoint.position, 0.1f);
 	}
 }

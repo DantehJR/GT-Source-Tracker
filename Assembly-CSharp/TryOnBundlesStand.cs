@@ -402,7 +402,7 @@ public class TryOnBundlesStand : MonoBehaviour, IBuildValidation
 	{
 		if (creatorCodeProvider == null || !creatorCodeProvider.TryGetComponent<ICreatorCodeProvider>(out var _))
 		{
-			Debug.LogError(base.name + " has no Creator Code Provider. This will break bundle purchasing.");
+			Debug.LogError(name + " has no Creator Code Provider. This will break bundle purchasing.");
 			return false;
 		}
 		return true;

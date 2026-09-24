@@ -90,7 +90,7 @@ public class HandEffectsTrigger : MonoBehaviour, IHandEffectsTrigger
 
 	public IHandEffectsTrigger.Mode EffectMode { get; }
 
-	public Transform Transform => base.transform;
+	public Transform Transform => transform;
 
 	public VRRig Rig => rig;
 
@@ -137,11 +137,11 @@ public class HandEffectsTrigger : MonoBehaviour, IHandEffectsTrigger
 	{
 		if (!(rig == other.Rig))
 		{
-			if (FingersDown && other.FingersDown && (other.Static || (Vector3.Dot(Vector3.Dot(Velocity, base.transform.up) * base.transform.up - Vector3.Dot(other.Velocity, other.Transform.up) * other.Transform.up, -other.Transform.up) > TagEffectsLibrary.FistBumpSpeedThreshold && Vector3.Dot(base.transform.up, other.Transform.up) < -0.01f)))
+			if (FingersDown && other.FingersDown && (other.Static || (Vector3.Dot(Vector3.Dot(Velocity, transform.up) * transform.up - Vector3.Dot(other.Velocity, other.Transform.up) * other.Transform.up, -other.Transform.up) > TagEffectsLibrary.FistBumpSpeedThreshold && Vector3.Dot(transform.up, other.Transform.up) < -0.01f)))
 			{
 				PlayHandEffects(TagEffectsLibrary.EffectType.FIST_BUMP, other);
 			}
-			if (FingersUp && other.FingersUp && (other.Static || Mathf.Abs(Vector3.Dot(Vector3.Dot(Velocity, base.transform.right) * base.transform.right - Vector3.Dot(other.Velocity, other.Transform.right) * other.Transform.right, other.Transform.right)) > TagEffectsLibrary.HighFiveSpeedThreshold))
+			if (FingersUp && other.FingersUp && (other.Static || Mathf.Abs(Vector3.Dot(Vector3.Dot(Velocity, transform.right) * transform.right - Vector3.Dot(other.Velocity, other.Transform.right) * other.Transform.right, other.Transform.right)) > TagEffectsLibrary.HighFiveSpeedThreshold))
 			{
 				PlayHandEffects(TagEffectsLibrary.EffectType.HIGH_FIVE, other);
 			}
@@ -209,7 +209,7 @@ public class HandEffectsTrigger : MonoBehaviour, IHandEffectsTrigger
 					{
 						GorillaTagger.Instance.StartVibration(!rightHand, handEffectsOverrideCosmetic.thirdPerson.hapticStrength, handEffectsOverrideCosmetic.thirdPerson.hapticDuration);
 					}
-					TagEffectsLibrary.placeEffects(handEffectsOverrideCosmetic.thirdPerson.effectVFX, base.transform, rig.scaleFactor, flipZAxis: false, handEffectsOverrideCosmetic.thirdPerson.parentEffect, base.transform.rotation);
+					TagEffectsLibrary.placeEffects(handEffectsOverrideCosmetic.thirdPerson.effectVFX, transform, rig.scaleFactor, flipZAxis: false, handEffectsOverrideCosmetic.thirdPerson.parentEffect, transform.rotation);
 					flag = true;
 				}
 			}
@@ -229,13 +229,13 @@ public class HandEffectsTrigger : MonoBehaviour, IHandEffectsTrigger
 			{
 				GorillaTagger.Instance.StartVibration(!rightHand, GorillaTagger.Instance.tapHapticStrength, GorillaTagger.Instance.tapHapticDuration);
 			}
-			TagEffectsLibrary.PlayEffect(base.transform, !rightHand, rig.scaleFactor, effectType, CosmeticEffectPack, other.CosmeticEffectPack, base.transform.rotation);
+			TagEffectsLibrary.PlayEffect(transform, !rightHand, rig.scaleFactor, effectType, CosmeticEffectPack, other.CosmeticEffectPack, transform.rotation);
 		}
 	}
 
 	public bool InTriggerZone(IHandEffectsTrigger t)
 	{
-		return (base.transform.position - t.Transform.position).IsShorterThan(triggerRadius * rig.scaleFactor);
+		return (transform.position - t.Transform.position).IsShorterThan(triggerRadius * rig.scaleFactor);
 	}
 
 	private HandEffectsOverrideCosmetic.HandEffectType MapEnum(TagEffectsLibrary.EffectType oldEnum)

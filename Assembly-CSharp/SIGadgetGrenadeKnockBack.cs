@@ -83,7 +83,7 @@ public class SIGadgetGrenadeKnockBack : SIGadgetGrenade
 
 	private void TriggerExplosion()
 	{
-		Vector3 vector = GTPlayer.Instance.transform.position - base.transform.position;
+		Vector3 vector = GTPlayer.Instance.transform.position - transform.position;
 		float sqrMagnitude = vector.sqrMagnitude;
 		if (explosionRadius * explosionRadius > sqrMagnitude)
 		{

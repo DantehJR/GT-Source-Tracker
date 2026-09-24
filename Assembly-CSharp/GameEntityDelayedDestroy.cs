@@ -104,7 +104,7 @@ public class GameEntityDelayedDestroy : MonoBehaviour, IDelayedExecListener
 		GTDelayedExec.Add(this, options.delay, contextId);
 		if (options.explosionSound != null)
 		{
-			_delayedExplosionAudioIndex = GTAudioOneShot.PlayDelayed(options.explosionSound, base.transform.parent, base.transform.localPosition, options.delay, options.explosionVolume);
+			_delayedExplosionAudioIndex = GTAudioOneShot.PlayDelayed(options.explosionSound, transform.parent, transform.localPosition, options.delay, options.explosionVolume);
 		}
 		else
 		{
@@ -112,7 +112,7 @@ public class GameEntityDelayedDestroy : MonoBehaviour, IDelayedExecListener
 		}
 		if (options.pooledExplosionPrefab != null)
 		{
-			_delayedExplosionPoolIndex = ObjectPools.InstantiateDelayed(options.pooledExplosionPrefab, base.transform.parent, base.transform.localPosition, options.delay);
+			_delayedExplosionPoolIndex = ObjectPools.InstantiateDelayed(options.pooledExplosionPrefab, transform.parent, transform.localPosition, options.delay);
 		}
 		else
 		{
@@ -167,11 +167,11 @@ public class GameEntityDelayedDestroy : MonoBehaviour, IDelayedExecListener
 			}
 			if (_delayedExplosionAudioIndex >= 0)
 			{
-				GTAudioOneShot.UpdateDelayed(_delayedExplosionAudioIndex, base.transform.parent, base.transform.localPosition);
+				GTAudioOneShot.UpdateDelayed(_delayedExplosionAudioIndex, transform.parent, transform.localPosition);
 			}
 			if (_delayedExplosionPoolIndex >= 0)
 			{
-				ObjectPools.UpdateDelayedInstantiate(_delayedExplosionPoolIndex, base.transform.parent, base.transform.localPosition);
+				ObjectPools.UpdateDelayedInstantiate(_delayedExplosionPoolIndex, transform.parent, transform.localPosition);
 			}
 			if (options.beepSound != null)
 			{
@@ -181,7 +181,7 @@ public class GameEntityDelayedDestroy : MonoBehaviour, IDelayedExecListener
 				}
 				else
 				{
-					GTAudioOneShot.Play(options.beepSound, base.transform.position, options.beepVolume);
+					GTAudioOneShot.Play(options.beepSound, transform.position, options.beepVolume);
 				}
 			}
 		}

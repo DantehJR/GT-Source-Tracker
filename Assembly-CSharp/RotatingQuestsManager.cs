@@ -176,10 +176,10 @@ public class RotatingQuestsManager : MonoBehaviour, ITickSystemTick, GorillaQues
 
 	public void RequestQuestsFromTitleData()
 	{
-		PlayFabTitleDataCache.Instance.GetTitleData("AllActiveQuests", delegate(string data)
+		PlayFabTitleDataCache.Instance.GetTitleData("AllActiveQuests", (string data) =>
 		{
 			LoadQuestsFromJson(data);
-		}, delegate(PlayFabError e)
+		}, (PlayFabError e) =>
 		{
 			Debug.LogError($"Error getting AllActiveQuests data: {e}");
 		});

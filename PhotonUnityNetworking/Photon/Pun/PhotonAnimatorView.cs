@@ -77,7 +77,7 @@ public class PhotonAnimatorView : MonoBehaviourPun, IPunObservable
 
 	private void Update()
 	{
-		if (m_Animator.applyRootMotion && !base.photonView.IsMine && PhotonNetwork.IsConnected)
+		if (m_Animator.applyRootMotion && !photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			m_Animator.applyRootMotion = false;
 		}
@@ -85,7 +85,7 @@ public class PhotonAnimatorView : MonoBehaviourPun, IPunObservable
 		{
 			m_StreamQueue.Reset();
 		}
-		else if (base.photonView.IsMine)
+		else if (photonView.IsMine)
 		{
 			SerializeDataContinuously();
 			CacheDiscreteTriggers();

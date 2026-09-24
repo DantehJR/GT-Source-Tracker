@@ -7,6 +7,6 @@ public class BeePerchPoint : MonoBehaviour
 
 	public Vector3 GetPoint()
 	{
-		return base.transform.TransformPoint(localPosition);
+		return transform.TransformPoint(localPosition);
 	}
 }

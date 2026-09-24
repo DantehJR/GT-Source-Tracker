@@ -845,7 +845,7 @@ public abstract class PeerBase
 	{
 		lock (ActionQueue)
 		{
-			ActionQueue.Enqueue(delegate
+			ActionQueue.Enqueue(() =>
 			{
 				Listener.DebugReturn(level, debugReturn);
 			});
@@ -856,7 +856,7 @@ public abstract class PeerBase
 	{
 		lock (ActionQueue)
 		{
-			ActionQueue.Enqueue(delegate
+			ActionQueue.Enqueue(() =>
 			{
 				Listener.OnStatusChanged(statusValue);
 			});

@@ -27,11 +27,17 @@ public class BundleStand : MonoBehaviour, IBuildValidation
 
 	public string playfabBundleID => _bundleDataReference.playfabBundleID;
 
+	[field: SerializeField]
+	public GtfcPriceLabel GtfcPriceLabel { get; private set; }
+
+	[field: SerializeField]
+	public GameObject[] GtfcObjects { get; private set; }
+
 	bool IBuildValidation.BuildValidationCheck()
 	{
 		if (creatorCodeProvider == null || !creatorCodeProvider.TryGetComponent<ICreatorCodeProvider>(out var _))
 		{
-			Debug.LogError(base.name + " has no Creator Code Provider. This will break bundle purchasing.");
+			Debug.LogError(name + " has no Creator Code Provider. This will break bundle purchasing.");
 			return false;
 		}
 		return true;
@@ -63,11 +69,11 @@ public class BundleStand : MonoBehaviour, IBuildValidation
 		ErrorHappenedEvent.Invoke();
 	}
 
-	public void UpdatePurchaseButtonText(string purchaseText)
+	public void UpdatePurchaseButtonText(string text)
 	{
 		if (_bundlePurchaseButton != null)
 		{
-			_bundlePurchaseButton.UpdatePurchaseButtonText(purchaseText);
+			_bundlePurchaseButton.UpdatePurchaseButtonText(text);
 		}
 	}
 

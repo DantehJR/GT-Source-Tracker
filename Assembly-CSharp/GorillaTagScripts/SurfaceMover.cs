@@ -91,7 +91,7 @@ public class SurfaceMover : MonoBehaviour
 		{
 			if (rotationRelativeToStarting)
 			{
-				startingRotation = base.transform.localRotation.eulerAngles;
+				startingRotation = transform.localRotation.eulerAngles;
 			}
 			cycleDuration = rotationAmount / 360f / velocity;
 			cycleDuration += cycleDelay;
@@ -161,7 +161,7 @@ public class SurfaceMover : MonoBehaviour
 		switch (moveType)
 		{
 		case BuilderMovingPart.BuilderMovingPartType.Translation:
-			base.transform.localPosition = UpdatePointToPoint(percent);
+			transform.localPosition = UpdatePointToPoint(percent);
 			break;
 		case BuilderMovingPart.BuilderMovingPartType.Rotation:
 			UpdateRotation(percent);
@@ -193,20 +193,20 @@ public class SurfaceMover : MonoBehaviour
 				euler.z += num;
 				break;
 			}
-			base.transform.localRotation = Quaternion.Euler(euler);
+			transform.localRotation = Quaternion.Euler(euler);
 		}
 		else
 		{
 			switch (rotationAxis)
 			{
 			case RotationAxis.X:
-				base.transform.localRotation = Quaternion.AngleAxis(num, Vector3.right);
+				transform.localRotation = Quaternion.AngleAxis(num, Vector3.right);
 				break;
 			case RotationAxis.Y:
-				base.transform.localRotation = Quaternion.AngleAxis(num, Vector3.up);
+				transform.localRotation = Quaternion.AngleAxis(num, Vector3.up);
 				break;
 			case RotationAxis.Z:
-				base.transform.localRotation = Quaternion.AngleAxis(num, Vector3.forward);
+				transform.localRotation = Quaternion.AngleAxis(num, Vector3.forward);
 				break;
 			}
 		}

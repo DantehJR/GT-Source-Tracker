@@ -103,6 +103,8 @@ public class KIDUIToggle : Slider
 
 	private Coroutine _animationCoroutine;
 
+	private ControllerBehaviour controllerBehaviour;
+
 	private bool inside;
 
 	private static bool _triggeredThisFrame = false;
@@ -117,19 +119,32 @@ public class KIDUIToggle : Slider
 	{
 		base.Awake();
 		SetupToggleComponent();
+		controllerBehaviour = GetComponentInChildren<ControllerBehaviour>();
+		if (controllerBehaviour == null)
+		{
+			Debug.LogError("[KID::UI_BUTTON] Could not find [ControllerBehaviour] in children, trying to create a new one.");
+			if (_cbUXSettings == null)
+			{
+				Debug.LogError("[KID::UI_BUTTON] [_cbUXSettings] has not been set but trying to create a new [ControllerBehaviour] reference.");
+			}
+			else
+			{
+				controllerBehaviour = ControllerBehaviour.CreateNewControllerBehaviour(gameObject, _cbUXSettings);
+			}
+		}
 	}
 
 	protected override void Start()
 	{
 		base.Start();
-		base.interactable = false;
+		interactable = false;
 	}
 
 	protected override void OnEnable()
 	{
 		base.OnEnable();
-		base.interactable = false;
-		if ((bool)ControllerBehaviour.Instance)
+		interactable = false;
+		if ((bool)controllerBehaviour)
 		{
 			ControllerBehaviour.Instance.OnAction += PostUpdate;
 		}
@@ -156,24 +171,24 @@ public class KIDUIToggle : Slider
 	protected virtual void SetupToggleComponent()
 	{
 		SetupSliderComponent();
-		base.handleRect.anchorMin = new Vector2(0f, 0.5f);
-		base.handleRect.anchorMax = new Vector3(0f, 0.5f);
-		base.handleRect.pivot = new Vector2(0f, 0.5f);
-		base.handleRect.sizeDelta = new Vector2(base.handleRect.sizeDelta.x, base.handleRect.sizeDelta.x);
+		handleRect.anchorMin = new Vector2(0f, 0.5f);
+		handleRect.anchorMax = new Vector3(0f, 0.5f);
+		handleRect.pivot = new Vector2(0f, 0.5f);
+		handleRect.sizeDelta = new Vector2(handleRect.sizeDelta.x, handleRect.sizeDelta.x);
 	}
 
 	protected virtual void SetupSliderComponent()
 	{
-		base.interactable = false;
-		ColorBlock colorBlock = base.colors;
+		interactable = false;
+		ColorBlock colorBlock = colors;
 		colorBlock.disabledColor = Color.white;
 		SetColors();
-		base.transition = Transition.None;
+		transition = Transition.None;
 	}
 
 	public void RegisterOnChangeEvent(Action onChange)
 	{
-		_onToggleChanged.AddListener(delegate
+		_onToggleChanged.AddListener(() =>
 		{
 			onChange?.Invoke();
 		});
@@ -181,7 +196,7 @@ public class KIDUIToggle : Slider
 
 	public void UnregisterOnChangeEvent(Action onChange)
 	{
-		_onToggleChanged.RemoveListener(delegate
+		_onToggleChanged.RemoveListener(() =>
 		{
 			onChange?.Invoke();
 		});
@@ -189,7 +204,7 @@ public class KIDUIToggle : Slider
 
 	public void RegisterToggleOnEvent(Action onToggle)
 	{
-		_onToggleOn.AddListener(delegate
+		_onToggleOn.AddListener(() =>
 		{
 			onToggle?.Invoke();
 		});
@@ -197,7 +212,7 @@ public class KIDUIToggle : Slider
 
 	public void UnregisterToggleOnEvent(Action onToggle)
 	{
-		_onToggleOn.RemoveListener(delegate
+		_onToggleOn.RemoveListener(() =>
 		{
 			onToggle?.Invoke();
 		});
@@ -205,7 +220,7 @@ public class KIDUIToggle : Slider
 
 	public void RegisterToggleOffEvent(Action onToggle)
 	{
-		_onToggleOff.AddListener(delegate
+		_onToggleOff.AddListener(() =>
 		{
 			onToggle?.Invoke();
 		});
@@ -213,7 +228,7 @@ public class KIDUIToggle : Slider
 
 	public void UnregisterToggleOffEvent(Action onToggle)
 	{
-		_onToggleOff.RemoveListener(delegate
+		_onToggleOff.RemoveListener(() =>
 		{
 			onToggle?.Invoke();
 		});
@@ -221,7 +236,7 @@ public class KIDUIToggle : Slider
 
 	private void SetColors()
 	{
-		base.colors = _fillColors;
+		colors = _fillColors;
 	}
 
 	private void Toggle()
@@ -265,7 +280,7 @@ public class KIDUIToggle : Slider
 		}
 		_handleUnlockIcon.gameObject.SetActive(CurrentValue);
 		_handleLockIcon.gameObject.SetActive(!CurrentValue);
-		if (_animationDuration == 0f || skipAnim)
+		if ((_animationDuration == 0f) | skipAnim)
 		{
 			Debug.Log("[KID::UI::SetStateAndStartAnimation] Skipping animation. Setting value to " + (CurrentValue ? "1f" : "0f"));
 			value = (CurrentValue ? 1f : 0f);
@@ -278,10 +293,10 @@ public class KIDUIToggle : Slider
 
 	private IEnumerator AnimateSlider()
 	{
-		Debug.Log($"[KID::UI::TOGGLE] Toggle: [{base.name}] is {CurrentValue}");
+		Debug.Log($"[KID::UI::TOGGLE] Toggle: [{name}] is {CurrentValue}");
 		float startValue = (CurrentValue ? 0f : 1f);
 		float endValue = (CurrentValue ? 1f : 0f);
-		Debug.Log($"[KID::UI::TOGGLE] Toggle: [{base.name}] Start: {startValue}, End: {endValue}, Value: {value}");
+		Debug.Log($"[KID::UI::TOGGLE] Toggle: [{name}] Start: {startValue}, End: {endValue}, Value: {value}");
 		float time = 0f;
 		while (time < _animationDuration)
 		{
@@ -299,7 +314,7 @@ public class KIDUIToggle : Slider
 		{
 			if (ControllerBehaviour.Instance.TriggerDown && _canTrigger)
 			{
-				string text = "[" + base.transform.parent.parent.parent.name + "." + base.transform.parent.parent.name + "." + base.transform.parent.name + "." + base.transform.name + "]";
+				string text = "[" + transform.parent.parent.parent.name + "." + transform.parent.parent.name + "." + transform.parent.name + "." + transform.name + "]";
 				Debug.Log("[KID::UIBUTTON::DEBUG] " + text + " - STEAM - OnClick is pressed. Time: [" + Time.time + "]", this);
 				Toggle();
 				_triggeredThisFrame = true;
@@ -316,7 +331,7 @@ public class KIDUIToggle : Slider
 	{
 		if (_triggeredThisFrame)
 		{
-			string text = "[" + base.transform.parent.parent.parent.name + "." + base.transform.parent.parent.name + "." + base.transform.parent.name + "." + base.transform.name + "]";
+			string text = "[" + transform.parent.parent.parent.name + "." + transform.parent.parent.name + "." + transform.parent.name + "." + transform.name + "]";
 			Debug.Log("[KID::UIBUTTON::DEBUG] " + text + " - STEAM - OnLateUpdate triggered and Triggered Frame Reset. Time: [" + Time.time + "]", this);
 		}
 		_triggeredThisFrame = false;
@@ -324,7 +339,7 @@ public class KIDUIToggle : Slider
 
 	protected new void OnDisable()
 	{
-		if ((bool)ControllerBehaviour.Instance)
+		if ((bool)controllerBehaviour)
 		{
 			ControllerBehaviour.Instance.OnAction -= PostUpdate;
 		}

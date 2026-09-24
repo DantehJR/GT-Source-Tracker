@@ -31,14 +31,14 @@ public class PushableSlider : MonoBehaviour
 		if (!_initialized)
 		{
 			_initialized = true;
-			_localSpace = base.transform.worldToLocalMatrix;
-			_startingPos = base.transform.localPosition;
+			_localSpace = transform.worldToLocalMatrix;
+			_startingPos = transform.localPosition;
 		}
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (!base.enabled)
+		if (!enabled)
 		{
 			return;
 		}
@@ -48,7 +48,7 @@ public class PushableSlider : MonoBehaviour
 			return;
 		}
 		Vector3 vector = _localSpace.MultiplyPoint3x4(other.transform.position);
-		Vector3 vector2 = base.transform.localPosition - _startingPos - vector;
+		Vector3 vector2 = transform.localPosition - _startingPos - vector;
 		float num = Mathf.Abs(vector2.x);
 		if (num < farPushDist)
 		{
@@ -58,9 +58,9 @@ public class PushableSlider : MonoBehaviour
 				vector2.x = Mathf.Sign(vector2.x) * (farPushDist - num);
 				vector2.y = 0f;
 				vector2.z = 0f;
-				Vector3 vector3 = base.transform.localPosition - _startingPos + vector2;
+				Vector3 vector3 = transform.localPosition - _startingPos + vector2;
 				vector3.x = Mathf.Clamp(vector3.x, minXOffset, maxXOffset);
-				base.transform.localPosition = GetXOffsetVector(vector3.x + _startingPos.x);
+				transform.localPosition = GetXOffsetVector(vector3.x + _startingPos.x);
 				GorillaTagger.Instance.StartVibration(componentInParent.isLeftHand, GorillaTagger.Instance.tapHapticStrength / 2f, GorillaTagger.Instance.tapHapticDuration);
 			}
 		}
@@ -76,7 +76,7 @@ public class PushableSlider : MonoBehaviour
 		Initialize();
 		value = Mathf.Clamp(value, 0f, 1f);
 		float num = Mathf.Lerp(minXOffset, maxXOffset, value);
-		base.transform.localPosition = GetXOffsetVector(_startingPos.x + num);
+		transform.localPosition = GetXOffsetVector(_startingPos.x + num);
 		_previousLocalPosition = new Vector3(num, 0f, 0f);
 		_cachedProgress = value;
 	}
@@ -84,7 +84,7 @@ public class PushableSlider : MonoBehaviour
 	public float GetProgress()
 	{
 		Initialize();
-		Vector3 vector = base.transform.localPosition - _startingPos;
+		Vector3 vector = transform.localPosition - _startingPos;
 		if (vector == _previousLocalPosition)
 		{
 			return _cachedProgress;

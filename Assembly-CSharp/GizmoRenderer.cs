@@ -47,7 +47,7 @@ public class GizmoRenderer : MonoBehaviour
 		Never = 0u,
 		InEditor = 1u,
 		InBuild = 2u,
-		Always = 3u
+		Always = InEditor | InBuild
 	}
 
 	public enum GizmoType : uint

@@ -160,7 +160,7 @@ public class AngryBeeSwarm : NetworkComponent
 
 	private void InitializeSwarm()
 	{
-		if (NetworkSystem.Instance.InRoom && base.IsMine)
+		if (NetworkSystem.Instance.InRoom && IsMine)
 		{
 			beeAnimator.transform.localPosition = Vector3.zero;
 			lastSpeedIncreased = 0f;
@@ -176,7 +176,7 @@ public class AngryBeeSwarm : NetworkComponent
 			UpdateState();
 			return;
 		}
-		if (base.IsMine)
+		if (IsMine)
 		{
 			switch (currentState)
 			{
@@ -247,7 +247,7 @@ public class AngryBeeSwarm : NetworkComponent
 		case ChaseState.Chasing:
 			if (NetworkSystem.Instance.InRoom)
 			{
-				if (base.IsMine)
+				if (IsMine)
 				{
 					ChaseHost();
 				}
@@ -269,7 +269,7 @@ public class AngryBeeSwarm : NetworkComponent
 
 	public void Emerge(Vector3 fromPosition, Vector3 toPosition)
 	{
-		base.transform.position = fromPosition;
+		transform.position = fromPosition;
 		emergeFromPosition = fromPosition;
 		emergeToPosition = toPosition;
 		currentState = ChaseState.InitialEmerge;
@@ -285,10 +285,10 @@ public class AngryBeeSwarm : NetworkComponent
 			{
 				beeAnimator.gameObject.SetActive(value: false);
 			}
-			if (base.IsMine)
+			if (IsMine)
 			{
 				targetPlayer = null;
-				base.transform.position = new Vector3(0f, -9999f, 0f);
+				transform.position = new Vector3(0f, -9999f, 0f);
 				InitializeSwarm();
 			}
 			SetInitialRotations();
@@ -300,7 +300,7 @@ public class AngryBeeSwarm : NetworkComponent
 				beeAnimator.gameObject.SetActive(value: true);
 			}
 			beeAnimator.SetEmergeFraction(0f);
-			if (base.IsMine)
+			if (IsMine)
 			{
 				currentSpeed = 0f;
 				ChooseClosestTarget();
@@ -346,7 +346,7 @@ public class AngryBeeSwarm : NetworkComponent
 			VRRig rig = activeRigContainer.Rig;
 			if (rig.head != null && !(rig.head.rigTarget == null) && !(rig.head.rigTarget.position.y <= num3))
 			{
-				float sqrMagnitude = (base.transform.position - rig.head.rigTarget.transform.position).sqrMagnitude;
+				float sqrMagnitude = (transform.position - rig.head.rigTarget.transform.position).sqrMagnitude;
 				if (sqrMagnitude < num2)
 				{
 					num2 = sqrMagnitude;
@@ -378,9 +378,9 @@ public class AngryBeeSwarm : NetworkComponent
 		if (Time.time < emergeStartedTimestamp + totalTimeToEmerge)
 		{
 			float emergeFraction = (Time.time - emergeStartedTimestamp) / totalTimeToEmerge;
-			if (base.IsMine)
+			if (IsMine)
 			{
-				base.transform.position = Vector3.Lerp(emergeFromPosition, emergeToPosition, (Time.time - emergeStartedTimestamp) / totalTimeToEmerge);
+				transform.position = Vector3.Lerp(emergeFromPosition, emergeToPosition, (Time.time - emergeStartedTimestamp) / totalTimeToEmerge);
 			}
 			beeAnimator.SetEmergeFraction(emergeFraction);
 		}
@@ -410,14 +410,14 @@ public class AngryBeeSwarm : NetworkComponent
 		}
 		pathPoints[pathPoints.Count - 1] = destination;
 		Vector3 vector = pathPoints[currentPathPointIdx];
-		base.transform.position = Vector3.MoveTowards(base.transform.position, vector, currentSpeed * Time.deltaTime);
-		Vector3 eulerAngles = Quaternion.LookRotation(vector - base.transform.position).eulerAngles;
+		transform.position = Vector3.MoveTowards(transform.position, vector, currentSpeed * Time.deltaTime);
+		Vector3 eulerAngles = Quaternion.LookRotation(vector - transform.position).eulerAngles;
 		if (Mathf.Abs(eulerAngles.x) > 45f)
 		{
 			eulerAngles.x = 0f;
 		}
-		base.transform.rotation = Quaternion.Euler(eulerAngles);
-		if (currentPathPointIdx + 1 < pathPoints.Count && (base.transform.position - vector).sqrMagnitude < 0.1f)
+		transform.rotation = Quaternion.Euler(eulerAngles);
+		if (currentPathPointIdx + 1 < pathPoints.Count && (transform.position - vector).sqrMagnitude < 0.1f)
 		{
 			if (nextPathTimestamp <= Time.time)
 			{
@@ -433,7 +433,7 @@ public class AngryBeeSwarm : NetworkComponent
 	private void GetNewPath(Vector3 destination)
 	{
 		path = new NavMeshPath();
-		NavMesh.SamplePosition(base.transform.position, out var hit, 5f, 1);
+		NavMesh.SamplePosition(transform.position, out var hit, 5f, 1);
 		targetIsOnNavMesh = NavMesh.SamplePosition(destination, out var hit2, 5f, 1);
 		NavMesh.CalculatePath(hit.position, hit2.position, -1, path);
 		pathPoints = new List<Vector3>();
@@ -473,7 +473,7 @@ public class AngryBeeSwarm : NetworkComponent
 			}
 			else
 			{
-				base.transform.position = Vector3.MoveTowards(base.transform.position, position, currentSpeed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, position, currentSpeed * Time.deltaTime);
 			}
 		}
 	}
@@ -488,8 +488,8 @@ public class AngryBeeSwarm : NetworkComponent
 	{
 		if (followTarget != null)
 		{
-			base.transform.rotation = followTarget.rotation;
-			base.transform.position = followTarget.position;
+			transform.rotation = followTarget.rotation;
+			transform.position = followTarget.position;
 		}
 	}
 

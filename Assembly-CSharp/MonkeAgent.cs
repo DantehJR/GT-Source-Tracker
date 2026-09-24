@@ -169,10 +169,10 @@ public class MonkeAgent : MonoBehaviour, IGorillaSliceableSimple
 		}
 		RoomSystem.PlayerJoinedEvent += new Action<NetPlayer>(OnPlayerEnteredRoom);
 		RoomSystem.PlayerLeftEvent += new Action<NetPlayer>(OnPlayerLeftRoom);
-		RoomSystem.JoinedRoomEvent += (Action)delegate
+		RoomSystem.JoinedRoomEvent += (Action)(() =>
 		{
 			cachedPlayerList = NetworkSystem.Instance.AllNetPlayers ?? new NetPlayer[0];
-		};
+		});
 		logErrorCount = 0;
 		Application.logMessageReceived += LogErrorCount;
 	}

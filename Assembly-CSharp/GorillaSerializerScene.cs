@@ -20,8 +20,8 @@ internal class GorillaSerializerScene : GorillaSerializer, IOnPhotonViewPreNetDe
 	{
 		if (targetComponent.IsNull() || !(targetComponent is IGorillaSerializeableScene gorillaSerializeableScene))
 		{
-			Debug.LogError("GorillaSerializerscene: missing target component or invalid target", base.gameObject);
-			base.gameObject.SetActive(value: false);
+			Debug.LogError("GorillaSerializerscene: missing target component or invalid target", gameObject);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		gorillaSerializeableScene.OnSceneLinking(this);
@@ -73,7 +73,7 @@ internal class GorillaSerializerScene : GorillaSerializer, IOnPhotonViewPreNetDe
 		}
 		else
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 

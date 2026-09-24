@@ -30,8 +30,8 @@ public class SIUpgradeXformOffsetter : MonoBehaviour
 	{
 		if (m_superInfectionGadget == null)
 		{
-			Debug.LogError("[SIUpgradeXformOffsetter]  ERROR!!!  Awake: Disabling component because `m_superInfectionGadget` is null. Path=" + base.transform.GetPathQ(), this);
-			base.enabled = false;
+			Debug.LogError("[SIUpgradeXformOffsetter]  ERROR!!!  Awake: Disabling component because `m_superInfectionGadget` is null. Path=" + transform.GetPathQ(), this);
+			enabled = false;
 			return;
 		}
 		SIUpgradeXformOffsetOp[] upgradeXformOffsetOps = m_upgradeXformOffsetOps;
@@ -40,8 +40,8 @@ public class SIUpgradeXformOffsetter : MonoBehaviour
 			SIUpgradeXformOffsetOp sIUpgradeXformOffsetOp = upgradeXformOffsetOps[i];
 			if (!(sIUpgradeXformOffsetOp.xform != null) && !(sIUpgradeXformOffsetOp.targetXform != null))
 			{
-				Debug.LogError("[SIUpgradeXformOffsetter]  ERROR!!!  Awake: Disabling component because null reference in `m_upgradeXformOffsetOps` array. Path=" + base.transform.GetPathQ(), this);
-				base.enabled = false;
+				Debug.LogError("[SIUpgradeXformOffsetter]  ERROR!!!  Awake: Disabling component because null reference in `m_upgradeXformOffsetOps` array. Path=" + transform.GetPathQ(), this);
+				enabled = false;
 				break;
 			}
 		}

@@ -62,7 +62,7 @@ public class FreeHoverboardManager : NetworkSceneObject
 	{
 		if (!perPlayerData.TryGetValue(actorNumber, out var value))
 		{
-			value = default(DataPerPlayer);
+			value = default;
 			value.Init(actorNumber, freeBoardPool);
 			perPlayerData.Add(actorNumber, value);
 		}
@@ -102,14 +102,14 @@ public class FreeHoverboardManager : NetworkSceneObject
 
 	private void SpawnBoard(DataPerPlayer playerData, int boardIndex, Vector3 position, Quaternion rotation, Vector3 velocity, Vector3 avelocity, Color boardColor)
 	{
-		FreeHoverboardInstance obj = ((boardIndex == 0) ? playerData.board0 : playerData.board1);
-		obj.transform.position = position;
-		obj.transform.rotation = rotation;
-		obj.Rigidbody.linearVelocity = velocity;
-		obj.Rigidbody.angularVelocity = avelocity;
-		obj.SetColor(boardColor);
-		obj.gameObject.SetActive(value: true);
-		if (obj.ownerActorNumber == NetworkSystem.Instance.LocalPlayer?.ActorNumber)
+		FreeHoverboardInstance freeHoverboardInstance = ((boardIndex == 0) ? playerData.board0 : playerData.board1);
+		freeHoverboardInstance.transform.position = position;
+		freeHoverboardInstance.transform.rotation = rotation;
+		freeHoverboardInstance.Rigidbody.linearVelocity = velocity;
+		freeHoverboardInstance.Rigidbody.angularVelocity = avelocity;
+		freeHoverboardInstance.SetColor(boardColor);
+		freeHoverboardInstance.gameObject.SetActive(value: true);
+		if (freeHoverboardInstance.ownerActorNumber == NetworkSystem.Instance.LocalPlayer?.ActorNumber)
 		{
 			localPlayerLastSpawnedBoardIndex = boardIndex;
 		}

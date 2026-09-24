@@ -191,8 +191,8 @@ public class BuilderPieceDoorSwinging : MonoBehaviour, IBuilderPieceComponent, I
 
 	private void SetDoorState(SwingingDoorState value)
 	{
-		bool num = currentState == SwingingDoorState.Closed;
-		bool flag = value == SwingingDoorState.Closed;
+		bool flag = currentState == SwingingDoorState.Closed;
+		bool flag2 = value == SwingingDoorState.Closed;
 		currentState = value;
 		if (currentState == SwingingDoorState.Closed)
 		{
@@ -204,9 +204,9 @@ public class BuilderPieceDoorSwinging : MonoBehaviour, IBuilderPieceComponent, I
 			frontTrigger.enabled = false;
 			backTrigger.enabled = false;
 		}
-		if (num != flag)
+		if (flag != flag2)
 		{
-			if (flag)
+			if (flag2)
 			{
 				myPiece.GetTable().UnregisterFunctionalPiece(this);
 			}

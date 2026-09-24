@@ -326,12 +326,12 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 
 	public void OnEntityInit()
 	{
-		abilityStagger.Setup(agent, anim, audioSource, base.transform, headTransform, null);
-		abilityInvestigate.Setup(agent, anim, audioSource, base.transform, headTransform, null);
-		abilityPatrol.Setup(agent, anim, audioSource, base.transform, headTransform, null);
-		abilityFlashed.Setup(agent, anim, audioSource, base.transform, headTransform, null);
-		abilityKeepDistance.Setup(agent, anim, audioSource, base.transform, headTransform, null);
-		abilityJump.Setup(agent, anim, audioSource, base.transform, headTransform, null);
+		abilityStagger.Setup(agent, anim, audioSource, transform, headTransform, null);
+		abilityInvestigate.Setup(agent, anim, audioSource, transform, headTransform, null);
+		abilityPatrol.Setup(agent, anim, audioSource, transform, headTransform, null);
+		abilityFlashed.Setup(agent, anim, audioSource, transform, headTransform, null);
+		abilityKeepDistance.Setup(agent, anim, audioSource, transform, headTransform, null);
+		abilityJump.Setup(agent, anim, audioSource, transform, headTransform, null);
 		Setup(entity.createData);
 		if ((bool)entity && (bool)entity.manager && (bool)entity.manager.ghostReactorManager && (bool)entity.manager.ghostReactorManager.reactor)
 		{
@@ -378,7 +378,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 		{
 			SetBodyState(BodyState.Bones, force: true);
 		}
-		abilityDie.Setup(agent, anim, audioSource, base.transform, headTransform, null);
+		abilityDie.Setup(agent, anim, audioSource, transform, headTransform, null);
 	}
 
 	private void OnAgentJumpRequested(Vector3 start, Vector3 end, float heightScale, float speedScale)
@@ -646,8 +646,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 		tempRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 		senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-		float outDistanceSq;
-		VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+		VRRig vRRig = senseNearby.PickClosest(out var _);
 		if (vRRig != null)
 		{
 			GRPlayer component = vRRig.GetComponent<GRPlayer>();
@@ -676,7 +675,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			SetBehavior(Behavior.Search);
 			return;
 		}
-		investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(base.transform.position, hearingRadius, investigateLocation);
+		investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(transform.position, hearingRadius, investigateLocation);
 		if (investigateLocation.HasValue)
 		{
 			abilityInvestigate.SetTargetPos(investigateLocation.Value);
@@ -750,7 +749,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 				break;
 			}
 			Vector3 position = gRPlayer.transform.position;
-			Vector3 position2 = base.transform.position;
+			Vector3 position2 = transform.position;
 			float magnitude = (position - position2).magnitude;
 			if (magnitude > loseSightDist)
 			{
@@ -822,7 +821,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			abilityInvestigate.UpdateAuthority(dt);
 			if (GhostReactorManager.noiseDebugEnabled)
 			{
-				DebugUtil.DrawLine(base.transform.position, abilityInvestigate.GetTargetPos(), Color.green);
+				DebugUtil.DrawLine(transform.position, abilityInvestigate.GetTargetPos(), Color.green);
 			}
 			ChooseNewBehavior();
 			break;
@@ -834,7 +833,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			}
 			break;
 		}
-		GameAgent.UpdateFacing(base.transform, navAgent, targetPlayer, turnSpeed);
+		GameAgent.UpdateFacing(transform, navAgent, targetPlayer, turnSpeed);
 	}
 
 	private void OnUpdateRemote(float dt)
@@ -860,7 +859,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			abilityInvestigate.UpdateRemote(dt);
 			if (GhostReactorManager.noiseDebugEnabled)
 			{
-				DebugUtil.DrawLine(base.transform.position, abilityInvestigate.GetTargetPos(), Color.green);
+				DebugUtil.DrawLine(transform.position, abilityInvestigate.GetTargetPos(), Color.green);
 			}
 			break;
 		case Behavior.Jump:
@@ -897,7 +896,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 
 	private void UpdateSearch()
 	{
-		Vector3 vector = searchPosition - base.transform.position;
+		Vector3 vector = searchPosition - transform.position;
 		if (new Vector3(vector.x, 0f, vector.z).sqrMagnitude < 0.15f)
 		{
 			Vector3 vector2 = lastSeenTargetPosition - searchPosition;
@@ -944,7 +943,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			}
 			lastSeenTargetPosition = tool.transform.position;
 			lastSeenTargetTime = Time.timeAsDouble;
-			Vector3 vector = lastSeenTargetPosition - base.transform.position;
+			Vector3 vector = lastSeenTargetPosition - transform.position;
 			vector.y = 0f;
 			searchPosition = lastSeenTargetPosition + vector.normalized * 1.5f;
 			abilityStagger.SetStaggerVelocity(hit.hitImpulse);
@@ -981,7 +980,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 				SetBodyState(BodyState.Bones);
 				if (tool.gameEntity.IsHeldByLocalPlayer())
 				{
-					PlayerGameEvents.MiscEvent("GRArmorBreak_" + base.name);
+					PlayerGameEvents.MiscEvent("GRArmorBreak_" + name);
 				}
 				if (tool.HasUpgradeInstalled(GRToolProgressionManager.ToolParts.FlashDamage3))
 				{
@@ -996,7 +995,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 				}
 				lastSeenTargetPosition = tool.transform.position;
 				lastSeenTargetTime = Time.timeAsDouble;
-				Vector3 vector = lastSeenTargetPosition - base.transform.position;
+				Vector3 vector = lastSeenTargetPosition - transform.position;
 				vector.y = 0f;
 				searchPosition = lastSeenTargetPosition + vector.normalized * 1.5f;
 				SetBehavior(Behavior.Search);
@@ -1131,8 +1130,16 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 		float num6 = (num2 - num4) / (num * magnitude);
 		float num7 = num2 / (num5 * num5 + 1f);
 		float num8 = num2 / (num6 * num6 + 1f);
-		float num9 = (false ? Mathf.Min(num7, num8) : Mathf.Max(num7, num8));
-		float num10 = ((0 == 0) ? ((num7 > num8) ? Mathf.Sign(num5) : Mathf.Sign(num6)) : ((num7 < num8) ? Mathf.Sign(num5) : Mathf.Sign(num6)));
+		float num9 = ((0 != 0) ? Mathf.Min(num7, num8) : Mathf.Max(num7, num8));
+		float num10;
+		if (false)
+		{
+			num10 = ((num7 < num8) ? Mathf.Sign(num5) : Mathf.Sign(num6));
+		}
+		else
+		{
+			num10 = ((num7 > num8) ? Mathf.Sign(num5) : Mathf.Sign(num6));
+		}
 		float num11 = Mathf.Sqrt(num9);
 		float num12 = Mathf.Sqrt(Mathf.Abs(num2 - num9));
 		direction = (normalized * num11 + new Vector3(0f, num12 * num10, 0f)).normalized;
@@ -1158,7 +1165,7 @@ public class GREnemyRanged : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			GRPlayer gRPlayer = GRPlayer.Get(targetPlayer.ActorNumber);
 			if (gRPlayer != null)
 			{
-				float magnitude = (gRPlayer.transform.position - base.transform.position).magnitude;
+				float magnitude = (gRPlayer.transform.position - transform.position).magnitude;
 				strings.Add($"TargetDis: <color=\"yellow\">{magnitude}<color=\"white\"> ");
 			}
 		}

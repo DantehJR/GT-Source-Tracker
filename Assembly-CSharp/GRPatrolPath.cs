@@ -11,21 +11,21 @@ public class GRPatrolPath : MonoBehaviour
 
 	private void Awake()
 	{
-		patrolNodes = new List<Transform>(base.transform.childCount);
-		for (int i = 0; i < base.transform.childCount; i++)
+		patrolNodes = new List<Transform>(transform.childCount);
+		for (int i = 0; i < transform.childCount; i++)
 		{
-			patrolNodes.Add(base.transform.GetChild(i));
+			patrolNodes.Add(transform.GetChild(i));
 		}
 	}
 
 	public void OnDrawGizmosSelected()
 	{
-		if (patrolNodes == null || base.transform.childCount != patrolNodes.Count)
+		if (patrolNodes == null || transform.childCount != patrolNodes.Count)
 		{
-			patrolNodes = new List<Transform>(base.transform.childCount);
-			for (int i = 0; i < base.transform.childCount; i++)
+			patrolNodes = new List<Transform>(transform.childCount);
+			for (int i = 0; i < transform.childCount; i++)
 			{
-				patrolNodes.Add(base.transform.GetChild(i));
+				patrolNodes.Add(transform.GetChild(i));
 			}
 		}
 		if (patrolNodes == null)

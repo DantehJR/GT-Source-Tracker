@@ -207,7 +207,7 @@ public class RCShip : RCHoverboard
 		}
 		cannonToLeft = ReadCannonBit();
 		bool flag = ReadFireFlip();
-		if (!base.HasLocalAuthority)
+		if (!HasLocalAuthority)
 		{
 			if (flag != lastFireFlip)
 			{

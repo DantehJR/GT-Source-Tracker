@@ -48,8 +48,20 @@ public class ThrowableHoldableCosmetic : TransferrableObject
 		base.OnEnable();
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((base.myOnlineRig != null) ? base.myOnlineRig.creator : ((!(base.myRig != null)) ? null : ((base.myRig.creator != null) ? base.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (myOnlineRig != null)
+			{
+				netPlayer = myOnlineRig.creator;
+			}
+			else if (myRig != null)
+			{
+				netPlayer = ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);
@@ -93,8 +105,8 @@ public class ThrowableHoldableCosmetic : TransferrableObject
 		{
 			return false;
 		}
-		Vector3 position = base.transform.position;
-		Quaternion rotation = base.transform.rotation;
+		Vector3 position = transform.position;
+		Quaternion rotation = transform.rotation;
 		bool isLeftHand = releasingHand == EquipmentInteractor.instance.leftHand;
 		Vector3 averageVelocity = GTPlayer.Instance.GetInteractPointVelocityTracker(isLeftHand).GetAverageVelocity(worldSpace: true);
 		float scale = GTPlayer.Instance.scale;

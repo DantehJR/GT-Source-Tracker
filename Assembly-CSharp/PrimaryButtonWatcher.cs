@@ -60,7 +60,7 @@ public class PrimaryButtonWatcher : MonoBehaviour
 		foreach (InputDevice item in devicesWithPrimaryButton)
 		{
 			bool value = false;
-			flag = (item.TryGetFeatureValue(CommonUsages.primaryButton, out value) && value) || flag;
+			flag = (item.TryGetFeatureValue(CommonUsages.primaryButton, out value) & value) | flag;
 		}
 		if (flag != lastButtonState)
 		{

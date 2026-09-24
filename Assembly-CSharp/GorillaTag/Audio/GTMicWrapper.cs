@@ -66,7 +66,7 @@ public class GTMicWrapper : MicWrapper
 
 	public override bool Read(float[] buffer)
 	{
-		if (base.Error != null)
+		if (Error != null)
 		{
 			return false;
 		}
@@ -79,8 +79,8 @@ public class GTMicWrapper : MicWrapper
 		int num = micLoopCnt * mic.samples + position;
 		if (mic.channels == 0)
 		{
-			base.Error = "Number of channels is 0 in Read()";
-			logger.LogError("[PV] MicWrapper: " + base.Error);
+			Error = "Number of channels is 0 in Read()";
+			logger.LogError("[PV] MicWrapper: " + Error);
 			return false;
 		}
 		int num2 = buffer.Length / mic.channels;
@@ -92,7 +92,7 @@ public class GTMicWrapper : MicWrapper
 			float num4 = Mathf.Clamp(_pitchAdjustment, 0.5f, 2f);
 			if (_allowPitchAdjustment && !Mathf.Approximately(num4, 1f))
 			{
-				PitchShift(num4, num2, base.SamplingRate, buffer);
+				PitchShift(num4, num2, SamplingRate, buffer);
 			}
 			if (_allowVolumeAdjustment && !Mathf.Approximately(_volumeAdjustment, 1f))
 			{

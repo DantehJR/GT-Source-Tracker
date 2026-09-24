@@ -38,18 +38,18 @@ public class ThermalManager : MonoBehaviour, IGorillaSliceableSimple
 		for (int i = 0; i < receivers.Count; i++)
 		{
 			ThermalReceiver thermalReceiver = receivers[i];
-			Transform obj = thermalReceiver.transform;
-			Vector3 position = obj.position;
-			float x = obj.lossyScale.x;
+			Transform transform = thermalReceiver.transform;
+			Vector3 position = transform.position;
+			float x = transform.lossyScale.x;
 			float num2 = 20f;
 			for (int j = 0; j < sources.Count; j++)
 			{
 				ThermalSourceVolume thermalSourceVolume = sources[j];
 				if ((thermalSourceVolume.exclusionReceivers.Count <= 0 || !thermalSourceVolume.exclusionReceivers.Contains(thermalReceiver)) && (thermalReceiver.exclusionSources.Count <= 0 || !thermalReceiver.exclusionSources.Contains(thermalSourceVolume)))
 				{
-					Transform obj2 = thermalSourceVolume.transform;
-					float x2 = obj2.lossyScale.x;
-					float num3 = Vector3.Distance(obj2.position, position);
+					Transform transform2 = thermalSourceVolume.transform;
+					float x2 = transform2.lossyScale.x;
+					float num3 = Vector3.Distance(transform2.position, position);
 					float num4 = 1f - Mathf.InverseLerp(thermalSourceVolume.innerRadius * x2, thermalSourceVolume.outerRadius * x2, num3 - thermalReceiver.radius * x);
 					num2 += thermalSourceVolume.celsius * num4;
 				}

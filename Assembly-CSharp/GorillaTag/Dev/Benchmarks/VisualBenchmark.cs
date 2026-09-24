@@ -52,7 +52,7 @@ public class VisualBenchmark : MonoBehaviour
 
 	protected void Awake()
 	{
-		Application.quitting += delegate
+		Application.quitting += () =>
 		{
 			isQuitting = true;
 		};

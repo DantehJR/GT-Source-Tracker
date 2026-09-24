@@ -185,9 +185,9 @@ public class UberCombiner : MonoBehaviour
 
 	private void OnValidate()
 	{
-		if (!base.transform.position.Approx0())
+		if (!transform.position.Approx0())
 		{
-			base.transform.position = Vector3.zero;
+			transform.position = Vector3.zero;
 		}
 		if (_combiner == null)
 		{

@@ -22,7 +22,7 @@ public class SpawnSoundOnEnable : MonoBehaviour
 		CrittersLoudNoise crittersLoudNoise = (CrittersLoudNoise)CrittersManager.instance.SpawnActor(CrittersActor.CrittersActorType.LoudNoise, soundSubIndex);
 		if (!(crittersLoudNoise == null))
 		{
-			crittersLoudNoise.MoveActor(base.transform.position, base.transform.rotation);
+			crittersLoudNoise.MoveActor(transform.position, transform.rotation);
 			crittersLoudNoise.SetImpulseVelocity(Vector3.zero, Vector3.zero);
 		}
 	}

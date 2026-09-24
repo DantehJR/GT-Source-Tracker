@@ -32,7 +32,7 @@ public class SpiderDangler : MonoBehaviour
 	protected void Awake()
 	{
 		lineRenderer = GetComponent<LineRenderer>();
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		float magnitude = (endTransform.position - position).magnitude;
 		ropeSegLen = magnitude / 6f;
 		ropeSegs = new RopeSegment[6];
@@ -62,7 +62,7 @@ public class SpiderDangler : MonoBehaviour
 
 	private void Simulate()
 	{
-		ropeSegLenScaled = ropeSegLen * base.transform.lossyScale.x;
+		ropeSegLenScaled = ropeSegLen * transform.lossyScale.x;
 		Vector3 vector = new Vector3(0f, -0.5f, 0f) * Time.fixedDeltaTime;
 		for (int i = 1; i < 6; i++)
 		{
@@ -79,7 +79,7 @@ public class SpiderDangler : MonoBehaviour
 
 	private void ApplyConstraint()
 	{
-		ropeSegs[0].pos = base.transform.position;
+		ropeSegs[0].pos = transform.position;
 		ApplyConstraintSegment(ref ropeSegs[0], ref ropeSegs[1], 0f, 1f);
 		for (int i = 1; i < 5; i++)
 		{

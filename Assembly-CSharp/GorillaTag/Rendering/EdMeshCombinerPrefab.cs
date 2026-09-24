@@ -391,7 +391,7 @@ public class EdMeshCombinerPrefab : MonoBehaviour
 			}
 			MeshCollider component = item4.GetComponent<MeshCollider>();
 			bool flag3 = component != null;
-			if (!flag && flag3 && (component.sharedMesh == null || component.convex || component.sharedMesh != sharedMesh))
+			if ((!flag & flag3) && (component.sharedMesh == null || component.convex || component.sharedMesh != sharedMesh))
 			{
 				continue;
 			}
@@ -429,7 +429,7 @@ public class EdMeshCombinerPrefab : MonoBehaviour
 					mat = mat,
 					staticFlags = staticFlags,
 					lightmapIndex = item4.lightmapIndex,
-					hasMeshCollider = (!flag && flag3),
+					hasMeshCollider = (!flag & flag3),
 					meshCollPhysicsMat = (flag ? null : (flag3 ? component.sharedMaterial : null)),
 					surfOverrideIndex = ((!flag) ? num : 0),
 					surfExtraVelMultiplier = (flag ? 0f : ((component2 != null) ? component2.extraVelMultiplier : 1f)),
@@ -513,9 +513,9 @@ public class EdMeshCombinerPrefab : MonoBehaviour
 					Mesh mesh;
 					if (combinerInfo.isSkinnedMesh)
 					{
-						SkinnedMeshRenderer obj2 = (SkinnedMeshRenderer)combinerInfo.renderer;
+						SkinnedMeshRenderer skinnedMeshRenderer3 = (SkinnedMeshRenderer)combinerInfo.renderer;
 						mesh = new Mesh();
-						obj2.BakeMesh(mesh, useScale: true);
+						skinnedMeshRenderer3.BakeMesh(mesh, useScale: true);
 					}
 					else
 					{
@@ -552,8 +552,8 @@ public class EdMeshCombinerPrefab : MonoBehaviour
 				GTVertexDataStreams_Descriptors.DoSetVertexBufferParams(ref writeData, num6);
 				writeData.SetIndexBufferParams(num7, indexFormat);
 				writeData.subMeshCount = 1;
-				NativeArray<int> idxDst = default(NativeArray<int>);
-				NativeArray<ushort> idxDst2 = default(NativeArray<ushort>);
+				NativeArray<int> idxDst = default;
+				NativeArray<ushort> idxDst2 = default;
 				if (indexFormat == IndexFormat.UInt32)
 				{
 					idxDst = writeData.GetIndexData<int>();

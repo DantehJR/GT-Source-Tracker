@@ -554,7 +554,7 @@ public class BoingBones : BoingReactor
 		Params.Bits.SetBit(4, value: false);
 		float fixedDeltaTime = Time.fixedDeltaTime;
 		float num = ((UpdateMode == BoingManager.UpdateMode.FixedUpdate) ? fixedDeltaTime : Time.deltaTime);
-		m_minScale = Mathf.Min(base.transform.localScale.x, Mathf.Min(base.transform.localScale.y, base.transform.localScale.z));
+		m_minScale = Mathf.Min(transform.localScale.x, Mathf.Min(transform.localScale.y, transform.localScale.z));
 		for (int i = 0; i < BoneData.Length; i++)
 		{
 			Chain chain = BoneChains[i];

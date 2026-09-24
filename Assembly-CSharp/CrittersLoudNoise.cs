@@ -41,7 +41,7 @@ public class CrittersLoudNoise : CrittersActor
 		{
 			return flag;
 		}
-		wasEnabled = base.gameObject.activeSelf;
+		wasEnabled = gameObject.activeSelf;
 		wasSoundEnabled = soundEnabled;
 		if (PhotonNetwork.InRoom)
 		{
@@ -57,9 +57,9 @@ public class CrittersLoudNoise : CrittersActor
 		if (disableWhenSoundDisabled && !soundEnabled)
 		{
 			isEnabled = false;
-			if (base.gameObject.activeSelf != isEnabled)
+			if (gameObject.activeSelf != isEnabled)
 			{
-				base.gameObject.SetActive(isEnabled);
+				gameObject.SetActive(isEnabled);
 			}
 		}
 		updatedSinceLastFrame = flag || wasSoundEnabled != soundEnabled || wasEnabled != isEnabled;

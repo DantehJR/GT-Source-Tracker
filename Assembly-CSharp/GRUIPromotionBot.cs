@@ -150,7 +150,7 @@ public class GRUIPromotionBot : MonoBehaviourTick
 		if (currentPlayerActorNumber != -1 && (timeLastDistanceCheck > time || time > timeLastDistanceCheck + timeBetweenDistanceChecks))
 		{
 			GRPlayer gRPlayer = GRPlayer.Get(currentPlayerActorNumber);
-			if (gRPlayer == null || (base.transform.position - gRPlayer.transform.position).sqrMagnitude > distanceForAutoLogout * distanceForAutoLogout)
+			if (gRPlayer == null || (transform.position - gRPlayer.transform.position).sqrMagnitude > distanceForAutoLogout * distanceForAutoLogout)
 			{
 				SwitchState(PromotionBotState.WaitingForLogin);
 			}
@@ -543,7 +543,7 @@ public class GRUIPromotionBot : MonoBehaviourTick
 				instance.OnGetCurrency = (Action)Delegate.Remove(instance.OnGetCurrency, new Action(OnShinyRocksUpdated));
 			}
 		}
-		else if (!flag && flag2)
+		else if (!flag & flag2)
 		{
 			if (ProgressionManager.Instance != null)
 			{

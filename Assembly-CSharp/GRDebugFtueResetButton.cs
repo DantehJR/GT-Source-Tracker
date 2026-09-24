@@ -8,7 +8,7 @@ public class GRDebugFtueResetButton : GorillaPressableReleaseButton
 	{
 		if (!availableOnLive)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 

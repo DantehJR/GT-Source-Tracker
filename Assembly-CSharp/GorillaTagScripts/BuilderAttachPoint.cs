@@ -10,7 +10,7 @@ public class BuilderAttachPoint : MonoBehaviour
 	{
 		if (center == null)
 		{
-			center = base.transform;
+			center = transform;
 		}
 	}
 }

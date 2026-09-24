@@ -38,7 +38,7 @@ public class AudioFader : MonoBehaviour
 		targetVolume = maxVolume;
 		if (fadeInDuration > 0f)
 		{
-			base.enabled = true;
+			enabled = true;
 			currentFadeSpeed = fadeInSpeed;
 		}
 		else
@@ -57,7 +57,7 @@ public class AudioFader : MonoBehaviour
 		targetVolume = 0f;
 		if (fadeOutDuration > 0f)
 		{
-			base.enabled = true;
+			enabled = true;
 			currentFadeSpeed = fadeOutSpeed;
 		}
 		else
@@ -81,7 +81,7 @@ public class AudioFader : MonoBehaviour
 		audioToFade.volume = currentVolume;
 		if (currentVolume == targetVolume)
 		{
-			base.enabled = false;
+			enabled = false;
 			if (currentVolume == 0f && audioToFade.isPlaying)
 			{
 				audioToFade.Stop();

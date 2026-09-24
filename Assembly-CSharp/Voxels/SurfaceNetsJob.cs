@@ -111,7 +111,7 @@ public struct SurfaceNetsJob : IJob
 		}
 		if (num == 0 || num == 8)
 		{
-			centroid = default(float3);
+			centroid = default;
 			nativeArray.Dispose();
 			return false;
 		}
@@ -179,11 +179,11 @@ public struct SurfaceNetsJob : IJob
 		{
 			return;
 		}
-		float3 obj = buffer.Vertices[value];
-		float3 float5 = buffer.Vertices[value2];
-		float3 float6 = buffer.Vertices[value3];
-		float3 float7 = buffer.Vertices[value4];
-		if (math.lengthsq(obj - float7) < math.lengthsq(float5 - float6))
+		float3 float5 = buffer.Vertices[value];
+		float3 float6 = buffer.Vertices[value2];
+		float3 float7 = buffer.Vertices[value3];
+		float3 float8 = buffer.Vertices[value4];
+		if (math.lengthsq(float5 - float8) < math.lengthsq(float6 - float7))
 		{
 			if (flag)
 			{
@@ -232,11 +232,11 @@ public struct SurfaceNetsJob : IJob
 			int index2 = buffer.Triangles[i + 1];
 			int index3 = buffer.Triangles[i + 2];
 			float3 float5 = buffer.Vertices[index];
-			float3 obj = buffer.Vertices[index2];
-			float3 float6 = math.cross(y: buffer.Vertices[index3] - float5, x: obj - float5);
-			buffer.Normals[index] += float6;
-			buffer.Normals[index2] += float6;
-			buffer.Normals[index3] += float6;
+			float3 float6 = buffer.Vertices[index2];
+			float3 float7 = math.cross(y: buffer.Vertices[index3] - float5, x: float6 - float5);
+			buffer.Normals[index] += float7;
+			buffer.Normals[index2] += float7;
+			buffer.Normals[index3] += float7;
 		}
 	}
 }

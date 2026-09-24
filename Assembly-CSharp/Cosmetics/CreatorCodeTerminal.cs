@@ -23,7 +23,7 @@ public class CreatorCodeTerminal : MonoBehaviour, ICreatorCodeProvider, IBuildVa
 
 	public string TerminalId => termId;
 
-	GameObject ICreatorCodeProvider.GameObject => base.gameObject;
+	GameObject ICreatorCodeProvider.GameObject => gameObject;
 
 	public void Awake()
 	{
@@ -57,7 +57,7 @@ public class CreatorCodeTerminal : MonoBehaviour, ICreatorCodeProvider, IBuildVa
 		if (!(termId != this.termId))
 		{
 			creatorCodeTitle.text = msg;
-			while (Application.isPlaying && (VRRig.LocalRig.transform.position - base.transform.position).sqrMagnitude < 4f)
+			while (Application.isPlaying && (VRRig.LocalRig.transform.position - transform.position).sqrMagnitude < 4f)
 			{
 				await Task.Yield();
 			}
@@ -143,7 +143,7 @@ public class CreatorCodeTerminal : MonoBehaviour, ICreatorCodeProvider, IBuildVa
 	{
 		if (nexusGroups.Length == 0)
 		{
-			Debug.LogError("You have to set at least one nexus group in " + base.name + " or things will not work!");
+			Debug.LogError("You have to set at least one nexus group in " + name + " or things will not work!");
 			return false;
 		}
 		return true;

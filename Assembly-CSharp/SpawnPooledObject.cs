@@ -37,10 +37,10 @@ public class SpawnPooledObject : MonoBehaviour
 	{
 		if (ShouldSpawn() && !(_pooledObject == null) && !(_spawnLocation == null))
 		{
-			GameObject obj = ObjectPools.instance.Instantiate(_pooledObjectHash);
-			obj.transform.position = SpawnLocation();
-			obj.transform.rotation = SpawnRotation();
-			obj.transform.localScale = base.transform.lossyScale;
+			GameObject gameObject = ObjectPools.instance.Instantiate(_pooledObjectHash);
+			gameObject.transform.position = SpawnLocation();
+			gameObject.transform.rotation = SpawnRotation();
+			gameObject.transform.localScale = transform.lossyScale;
 		}
 	}
 

@@ -16,7 +16,7 @@ public class MainThreadDispatcher : MonoBehaviour
 		if (instance == null)
 		{
 			instance = this;
-			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+			UnityEngine.Object.DontDestroyOnLoad(gameObject);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class MainThreadDispatcher : MonoBehaviour
 	{
 		lock (actions)
 		{
-			actions.Enqueue(delegate
+			actions.Enqueue(() =>
 			{
 				StartCoroutine(action);
 			});

@@ -15,7 +15,8 @@ public class PrivateUIRoom : MonoBehaviourTick
 		KID = 1,
 		ModIO = 2,
 		CustomMap = 4,
-		AlarmClock = 8
+		AlarmClock = 8,
+		VStumpConsent = 0x10
 	}
 
 	[SerializeField]
@@ -81,7 +82,7 @@ public class PrivateUIRoom : MonoBehaviourTick
 
 	private static CinemachineVirtualCamera _virtualCameraReference;
 
-	private bool overlayForcedActive => overlayForcedSources != (OverlaySource)0;
+	private bool overlayForcedActive => overlayForcedSources != 0;
 
 	private GTPlayer localPlayer => GTPlayer.Instance;
 
@@ -97,7 +98,7 @@ public class PrivateUIRoom : MonoBehaviourTick
 			uiParents = new Dictionary<Transform, Transform>();
 			backgroundDirectionPropertyID = Shader.PropertyToID(backgroundDirectionPropertyName);
 			_uiRoot = new GameObject("UIRoot").transform;
-			_uiRoot.parent = base.transform;
+			_uiRoot.parent = transform;
 		}
 		else
 		{

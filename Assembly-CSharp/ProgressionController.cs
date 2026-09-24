@@ -143,7 +143,7 @@ public class ProgressionController : MonoBehaviour
 	public static void ReportQuestSelectionChanged()
 	{
 		_gInstance.LoadCompletedQuestQueue();
-		ProgressionController.OnQuestSelectionChanged?.Invoke();
+		OnQuestSelectionChanged?.Invoke();
 	}
 
 	public static void ReportQuestComplete(int questId, bool isDaily)
@@ -170,7 +170,7 @@ public class ProgressionController : MonoBehaviour
 	{
 		if ((bool)_gInstance)
 		{
-			Debug.LogError("Duplicate ProgressionController detected. Destroying self.", base.gameObject);
+			Debug.LogError("Duplicate ProgressionController detected. Destroying self.", gameObject);
 			UnityEngine.Object.Destroy(this);
 			return;
 		}
@@ -558,7 +558,7 @@ public class ProgressionController : MonoBehaviour
 				_progressReportPending = true;
 				await Task.Yield();
 				_progressReportPending = false;
-				ProgressionController.OnProgressEvent?.Invoke();
+				OnProgressEvent?.Invoke();
 				ReportScoreChange();
 			}
 		}

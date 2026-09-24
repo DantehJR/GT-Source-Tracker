@@ -18,7 +18,7 @@ public class CMSLoadingZone : MonoBehaviour
 
 	private void Start()
 	{
-		base.gameObject.layer = UnityLayer.GorillaTrigger.ToLayerIndex();
+		gameObject.layer = UnityLayer.GorillaTrigger.ToLayerIndex();
 	}
 
 	public void SetupLoadingZone(LoadZoneSettings settings, in string[] assetBundleSceneFilePaths)
@@ -27,8 +27,8 @@ public class CMSLoadingZone : MonoBehaviour
 		scenesToUnload = CleanSceneUnloadArray(settings.scenesToUnload, settings.scenesToLoad, in assetBundleSceneFilePaths);
 		useDynamicLighting = settings.useDynamicLighting;
 		dynamicLightingAmbientColor = settings.UberShaderAmbientDynamicLight;
-		base.gameObject.layer = UnityLayer.GorillaBoundary.ToLayerIndex();
-		Collider[] components = base.gameObject.GetComponents<Collider>();
+		gameObject.layer = UnityLayer.GorillaBoundary.ToLayerIndex();
+		Collider[] components = gameObject.GetComponents<Collider>();
 		for (int i = 0; i < components.Length; i++)
 		{
 			components[i].isTrigger = true;

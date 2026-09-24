@@ -75,7 +75,7 @@ public class BasicGravityZone : MonoBehaviour, ICallbackUnique, ICallBack
 
 	private void CalculateDependentVars()
 	{
-		m_gravityDirection = base.gameObject.transform.up;
+		m_gravityDirection = gameObject.transform.up;
 		invertRotationDirection = (gravityStrength > 0f && !invertRotationDirection) || (gravityStrength <= 0f && invertRotationDirection);
 		m_rotationSpeed = (m_useRotationSpeedOverride ? m_rotationSpeedOverride : MonkeGravityManager.DefaultGravityInfo.rotationSpeed);
 	}
@@ -118,7 +118,7 @@ public class BasicGravityZone : MonoBehaviour, ICallbackUnique, ICallBack
 		{
 			OnTargetFilteredOut(targetController);
 		}
-		GravityInfo value = default(GravityInfo);
+		GravityInfo value = default;
 		Vector3 offsetFromGravity = GetGravityVectorAtPoint(targetController.GetWorldPoint(), in targetController);
 		Vector3 gravityDirection = (value.gravityUpDirection = offsetFromGravity.normalized);
 		value.rotationDirection = GetRotationDirection(in gravityDirection);
@@ -186,7 +186,7 @@ public class BasicGravityZone : MonoBehaviour, ICallbackUnique, ICallBack
 
 	public void RemoveTarget(MonkeGravityController target, float delay)
 	{
-		if (delay <= 0f || !base.isActiveAndEnabled)
+		if (delay <= 0f || !isActiveAndEnabled)
 		{
 			RemoveTarget(target);
 			return;
@@ -200,7 +200,7 @@ public class BasicGravityZone : MonoBehaviour, ICallbackUnique, ICallBack
 
 	public void AddTarget(MonkeGravityController target, float delay)
 	{
-		if (delay <= 0f || !base.isActiveAndEnabled)
+		if (delay <= 0f || !isActiveAndEnabled)
 		{
 			AddTarget(target);
 			return;

@@ -75,7 +75,7 @@ public static class MonkeAgentCleanup
 			PhotonView photonView = k_destroyQueue.Dequeue();
 			if (k_destroyTargets.Remove(photonView) && !photonView.IsNull())
 			{
-				if ((photonView.IsRoomView && flag) || photonView.IsMine)
+				if ((photonView.IsRoomView & flag) || photonView.IsMine)
 				{
 					k_cacheInfo[k_viewIdKey] = photonView.InstantiationId;
 					PhotonNetwork.NetworkingClient.OpRaiseEvent(202, k_cacheInfo, k_raiseEventOptions, SendOptions.SendReliable);

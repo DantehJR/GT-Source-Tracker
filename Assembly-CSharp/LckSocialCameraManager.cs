@@ -234,7 +234,7 @@ public class LckSocialCameraManager : MonoBehaviour
 		}
 		if (!(_networkedCococam == null))
 		{
-			if (cameraState == LckBodyCameraSpawner.CameraState.CameraDisabled || forceHidden || !cameraActive)
+			if (((cameraState == LckBodyCameraSpawner.CameraState.CameraDisabled) | forceHidden) || !cameraActive)
 			{
 				_networkedCococam.visible = false;
 			}
@@ -257,7 +257,7 @@ public class LckSocialCameraManager : MonoBehaviour
 	{
 		if (!(_networkedTablet == null))
 		{
-			if (cameraState == LckBodyCameraSpawner.CameraState.CameraDisabled || forceHidden)
+			if ((cameraState == LckBodyCameraSpawner.CameraState.CameraDisabled) | forceHidden)
 			{
 				_networkedTablet.visible = false;
 				_networkedTablet.IsOnNeck = false;

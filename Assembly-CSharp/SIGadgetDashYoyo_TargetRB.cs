@@ -11,7 +11,7 @@ public class SIGadgetDashYoyo_TargetRB : MonoBehaviour
 
 	protected void OnTriggerEnter(Collider otherCollider)
 	{
-		if (!base.isActiveAndEnabled || !gadget.gameEntity.IsAuthority() || (gadget.gameEntity.heldByActorNumber == -1 && gadget.gameEntity.snappedByActorNumber == -1) || (!otherCollider.gameObject.IsOnLayer(UnityLayer.GorillaTagCollider) && !otherCollider.gameObject.IsOnLayer(UnityLayer.GorillaSlingshotCollider)) || ApplicationQuittingState.IsQuitting || !(GorillaGameManager.instance is SuperInfectionGame siTagGameManager))
+		if (!isActiveAndEnabled || !gadget.gameEntity.IsAuthority() || (gadget.gameEntity.heldByActorNumber == -1 && gadget.gameEntity.snappedByActorNumber == -1) || (!otherCollider.gameObject.IsOnLayer(UnityLayer.GorillaTagCollider) && !otherCollider.gameObject.IsOnLayer(UnityLayer.GorillaSlingshotCollider)) || ApplicationQuittingState.IsQuitting || !(GorillaGameManager.instance is SuperInfectionGame siTagGameManager))
 		{
 			return;
 		}

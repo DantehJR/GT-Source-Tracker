@@ -170,9 +170,9 @@ public class DicePhysics : MonoBehaviour
 	public void StartThrow(DiceHoldable holdable, Vector3 startPosition, Vector3 velocity, float playerScale, int side, double startTime)
 	{
 		holdableParent = holdable;
-		base.transform.parent = null;
-		base.transform.position = startPosition;
-		base.transform.localScale = Vector3.one * playerScale;
+		transform.parent = null;
+		transform.position = startPosition;
+		transform.localScale = Vector3.one * playerScale;
 		rb.isKinematic = false;
 		rb.useGravity = true;
 		rb.linearVelocity = velocity;
@@ -186,7 +186,7 @@ public class DicePhysics : MonoBehaviour
 		landingSide = Mathf.Clamp(side, 1, 20);
 		prevVelocity = Vector3.zero;
 		velocity = Vector3.zero;
-		base.enabled = true;
+		enabled = true;
 	}
 
 	public void EndThrow()
@@ -195,11 +195,11 @@ public class DicePhysics : MonoBehaviour
 		rb.linearVelocity = Vector3.zero;
 		if (holdableParent != null)
 		{
-			base.transform.parent = holdableParent.transform;
+			transform.parent = holdableParent.transform;
 		}
-		base.transform.localPosition = Vector3.zero;
-		base.transform.localRotation = Quaternion.identity;
-		base.transform.localScale = Vector3.one;
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
+		transform.localScale = Vector3.one;
 		scale = 1f;
 		throwStartTime = -1.0;
 		if (interactionPoint != null)
@@ -207,18 +207,18 @@ public class DicePhysics : MonoBehaviour
 			interactionPoint.enabled = true;
 		}
 		onRollFinished.Invoke();
-		base.enabled = false;
+		enabled = false;
 	}
 
 	private void FixedUpdate()
 	{
 		double num = (PhotonNetwork.InRoom ? PhotonNetwork.Time : ((double)Time.time));
 		float num2 = (float)(num - throwStartTime);
-		if (Physics.Raycast(base.transform.position, Vector3.down, out var hitInfo, 0.1f * scale, surfaceLayers.value, QueryTriggerInteraction.Ignore))
+		if (Physics.Raycast(transform.position, Vector3.down, out var hitInfo, 0.1f * scale, surfaceLayers.value, QueryTriggerInteraction.Ignore))
 		{
 			Vector3 normal = hitInfo.normal;
 			Vector3 sideDirection = GetSideDirection(landingSide);
-			Vector3 vector = base.transform.rotation * sideDirection;
+			Vector3 vector = transform.rotation * sideDirection;
 			Vector3 normalized = Vector3.Cross(vector, normal).normalized;
 			float num3 = Vector3.SignedAngle(vector, normal, normalized);
 			float num4 = Mathf.Sign(num3) * angleDeltaVsStrengthCurve.Evaluate(Mathf.Clamp01(Mathf.Abs(num3) / 180f));
@@ -238,7 +238,7 @@ public class DicePhysics : MonoBehaviour
 			{
 				rb.isKinematic = true;
 				throwSettledTime = num;
-				base.transform.rotation = Quaternion.FromToRotation(vector, normal) * base.transform.rotation;
+				transform.rotation = Quaternion.FromToRotation(vector, normal) * transform.rotation;
 				InvokeLandingEffects(landingSide);
 			}
 		}

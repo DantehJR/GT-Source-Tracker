@@ -28,13 +28,13 @@ public class MoveByKeys : MonoBehaviourPun
 
 	public void FixedUpdate()
 	{
-		if (!base.photonView.IsMine)
+		if (!photonView.IsMine)
 		{
 			return;
 		}
 		if (Input.GetAxisRaw("Horizontal") < -0.1f || Input.GetAxisRaw("Horizontal") > 0.1f)
 		{
-			base.transform.position += Vector3.right * (Speed * Time.deltaTime) * Input.GetAxisRaw("Horizontal");
+			transform.position += Vector3.right * (Speed * Time.deltaTime) * Input.GetAxisRaw("Horizontal");
 		}
 		if (jumpingTime <= 0f)
 		{
@@ -58,7 +58,7 @@ public class MoveByKeys : MonoBehaviourPun
 		}
 		if (!isSprite && (Input.GetAxisRaw("Vertical") < -0.1f || Input.GetAxisRaw("Vertical") > 0.1f))
 		{
-			base.transform.position += Vector3.forward * (Speed * Time.deltaTime) * Input.GetAxisRaw("Vertical");
+			transform.position += Vector3.forward * (Speed * Time.deltaTime) * Input.GetAxisRaw("Vertical");
 		}
 	}
 }

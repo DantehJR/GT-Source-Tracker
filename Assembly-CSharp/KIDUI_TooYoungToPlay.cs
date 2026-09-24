@@ -4,7 +4,7 @@ public class KIDUI_TooYoungToPlay : MonoBehaviour
 {
 	public void ShowTooYoungToPlayScreen()
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnQuitPressed()

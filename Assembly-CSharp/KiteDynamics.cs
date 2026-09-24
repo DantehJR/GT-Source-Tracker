@@ -115,7 +115,7 @@ public class KiteDynamics : MonoBehaviour, ITetheredObjectBehavior
 			Vector3 linearVelocity = rb.linearVelocity;
 			float magnitude = linearVelocity.magnitude;
 			rb.linearVelocity = linearVelocity.normalized * Mathf.Min(magnitude, maximumVelocity * balloonScale);
-			base.transform.LookAt(base.transform.position - rb.linearVelocity);
+			transform.LookAt(transform.position - rb.linearVelocity);
 		}
 	}
 
@@ -126,7 +126,7 @@ public class KiteDynamics : MonoBehaviour, ITetheredObjectBehavior
 
 	bool ITetheredObjectBehavior.IsEnabled()
 	{
-		return base.enabled;
+		return enabled;
 	}
 
 	void ITetheredObjectBehavior.TriggerEnter(Collider other, ref Vector3 force, ref Vector3 collisionPt, ref bool transferOwnership)
@@ -137,7 +137,7 @@ public class KiteDynamics : MonoBehaviour, ITetheredObjectBehavior
 	public bool ReturnStep()
 	{
 		rb.isKinematic = true;
-		base.transform.position = Vector3.MoveTowards(base.transform.position, grabPt.position, Time.deltaTime * returnSpeed);
-		return base.transform.position == grabPt.position;
+		transform.position = Vector3.MoveTowards(transform.position, grabPt.position, Time.deltaTime * returnSpeed);
+		return transform.position == grabPt.position;
 	}
 }

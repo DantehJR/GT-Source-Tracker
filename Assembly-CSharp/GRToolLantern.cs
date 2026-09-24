@@ -76,11 +76,11 @@ public class GRToolLantern : MonoBehaviour, IGRSummoningEntity
 	{
 		trackedEntities = new List<int>();
 		state = State.Off;
-		gameEntity.OnStateChanged += OnStateChanged;
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(OnGrabbed));
-		GameEntity obj2 = gameEntity;
-		obj2.OnReleased = (Action)Delegate.Combine(obj2.OnReleased, new Action(OnReleased));
+		this.gameEntity.OnStateChanged += OnStateChanged;
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(OnGrabbed));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnReleased = (Action)Delegate.Combine(gameEntity2.OnReleased, new Action(OnReleased));
 		if (tool != null)
 		{
 			tool.onToolUpgraded += OnToolUpgraded;
@@ -175,8 +175,8 @@ public class GRToolLantern : MonoBehaviour, IGRSummoningEntity
 			{
 				if (gameEntity.IsAuthority())
 				{
-					Vector3 vector = base.transform.rotation * flareSpawnoffset;
-					gameEntity.manager.RequestCreateItem(lanternFlarePrefab.name.GetStaticHash(), base.transform.position + vector, base.transform.rotation * Quaternion.Euler(10f, 0f, 10f), gameEntity.GetNetId());
+					Vector3 vector = transform.rotation * flareSpawnoffset;
+					gameEntity.manager.RequestCreateItem(lanternFlarePrefab.name.GetStaticHash(), transform.position + vector, transform.rotation * Quaternion.Euler(10f, 0f, 10f), gameEntity.GetNetId());
 				}
 				lastFlareDropTime = Time.timeAsDouble;
 				tool.UseEnergy();

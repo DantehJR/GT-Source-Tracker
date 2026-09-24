@@ -19,7 +19,7 @@ public class SITechTreeUIPage : MonoBehaviour
 
 	public void Configure(SITechTreeStation techTreeStation, SITechTreePage treePage, Transform imageTarget, Transform textTarget)
 	{
-		base.name = treePage.nickName;
+		name = treePage.nickName;
 		id = treePage.pageId;
 		int count = treePage.Roots.Count;
 		Vector3 vector = new Vector3(0f, nodeContainer.rect.min.y + 20f, 0f);
@@ -169,7 +169,15 @@ public class SITechTreeUIPage : MonoBehaviour
 	{
 		foreach (SITechTreeUINode pageNode in _pageNodes)
 		{
-			Color nodeLockStateColor = (player.NodeResearched(pageNode.upgradeType) ? Color.green : (player.NodeParentsUnlocked(pageNode.upgradeType) ? Color.red : Color.black));
+			Color nodeLockStateColor;
+			if (player.NodeResearched(pageNode.upgradeType))
+			{
+				nodeLockStateColor = Color.green;
+			}
+			else
+			{
+				nodeLockStateColor = (player.NodeParentsUnlocked(pageNode.upgradeType) ? Color.red : Color.black);
+			}
 			pageNode.SetNodeLockStateColor(nodeLockStateColor);
 		}
 	}

@@ -30,7 +30,7 @@ public class PhotonClientWebSocket : IPhotonSocket
 		{
 			return false;
 		}
-		base.State = PhotonSocketState.Connecting;
+		State = PhotonSocketState.Connecting;
 		Thread thread = new Thread(AsyncConnectAndReceive);
 		thread.IsBackground = true;
 		thread.Start();
@@ -48,7 +48,7 @@ public class PhotonClientWebSocket : IPhotonSocket
 		{
 			if (ReportDebugOfLevel(DebugLevel.ERROR))
 			{
-				base.Listener.DebugReturn(DebugLevel.ERROR, "Failed to create a URI from ConnectAddress (" + ConnectAddress + "). Exception: " + ex);
+				Listener.DebugReturn(DebugLevel.ERROR, "Failed to create a URI from ConnectAddress (" + ConnectAddress + "). Exception: " + ex);
 			}
 		}
 		if (uri != null && uri.HostNameType == UriHostNameType.Dns)
@@ -61,7 +61,7 @@ public class PhotonClientWebSocket : IPhotonSocket
 				{
 					if (iPAddress.AddressFamily == AddressFamily.InterNetworkV6)
 					{
-						base.AddressResolvedAsIpv6 = true;
+						AddressResolvedAsIpv6 = true;
 						ConnectAddress += "&IPv6";
 						break;
 					}
@@ -69,11 +69,11 @@ public class PhotonClientWebSocket : IPhotonSocket
 			}
 			catch (Exception ex2)
 			{
-				base.Listener.DebugReturn(DebugLevel.INFO, "Dns.GetHostAddresses(" + uri.Host + ") failed: " + ex2);
+				Listener.DebugReturn(DebugLevel.INFO, "Dns.GetHostAddresses(" + uri.Host + ") failed: " + ex2);
 			}
 		}
 		clientWebSocket = new ClientWebSocket();
-		clientWebSocket.Options.AddSubProtocol(base.SerializationProtocol);
+		clientWebSocket.Options.AddSubProtocol(SerializationProtocol);
 		CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(7000);
 		Task task = clientWebSocket.ConnectAsync(new Uri(ConnectAddress), cancellationTokenSource.Token);
 		try
@@ -90,16 +90,16 @@ public class PhotonClientWebSocket : IPhotonSocket
 		}
 		if (clientWebSocket.State != WebSocketState.Open)
 		{
-			base.SocketErrorCode = (int)(clientWebSocket.CloseStatus.HasValue ? clientWebSocket.CloseStatus.Value : ((WebSocketCloseStatus)0));
+			SocketErrorCode = (int)(clientWebSocket.CloseStatus.HasValue ? clientWebSocket.CloseStatus.Value : ((WebSocketCloseStatus)0));
 			EnqueueDebugReturn(DebugLevel.ERROR, "ClientWebSocket is not open. State: " + clientWebSocket.State.ToString() + " CloseStatus: " + clientWebSocket.CloseStatus.ToString() + " Description: " + clientWebSocket.CloseStatusDescription);
 			HandleException(StatusCode.ExceptionOnConnect);
 			return;
 		}
-		base.State = PhotonSocketState.Connected;
+		State = PhotonSocketState.Connected;
 		peerBase.OnConnect();
-		MemoryStream memoryStream = new MemoryStream(base.MTU);
+		MemoryStream memoryStream = new MemoryStream(MTU);
 		bool flag = false;
-		ArraySegment<byte> buffer = new ArraySegment<byte>(new byte[base.MTU]);
+		ArraySegment<byte> buffer = new ArraySegment<byte>(new byte[MTU]);
 		while (clientWebSocket.State == WebSocketState.Open)
 		{
 			Task<WebSocketReceiveResult> task2 = null;
@@ -120,12 +120,12 @@ public class PhotonClientWebSocket : IPhotonSocket
 			}
 			if (task2.IsCanceled)
 			{
-				EnqueueDebugReturn(DebugLevel.ERROR, "PhotonClientWebSocket readTask.IsCanceled: " + task2.Status.ToString() + " " + base.ServerAddress + ":" + base.ServerPort + " " + clientWebSocket.CloseStatusDescription);
+				EnqueueDebugReturn(DebugLevel.ERROR, "PhotonClientWebSocket readTask.IsCanceled: " + task2.Status.ToString() + " " + ServerAddress + ":" + ServerPort + " " + clientWebSocket.CloseStatusDescription);
 				continue;
 			}
 			if (task2.Result.Count == 0)
 			{
-				EnqueueDebugReturn(DebugLevel.INFO, "PhotonClientWebSocket received 0 bytes. this.State: " + base.State.ToString() + " clientWebSocket.State: " + clientWebSocket.State.ToString() + " readTask.Status: " + task2.Status);
+				EnqueueDebugReturn(DebugLevel.INFO, "PhotonClientWebSocket received 0 bytes. this.State: " + State.ToString() + " clientWebSocket.State: " + clientWebSocket.State.ToString() + " readTask.Status: " + task2.Status);
 				continue;
 			}
 			if (!task2.Result.EndOfMessage)
@@ -168,9 +168,9 @@ public class PhotonClientWebSocket : IPhotonSocket
 				}
 			}
 		}
-		if (base.State != PhotonSocketState.Disconnecting && base.State != PhotonSocketState.Disconnected)
+		if (State != PhotonSocketState.Disconnecting && State != PhotonSocketState.Disconnected)
 		{
-			EnqueueDebugReturn(DebugLevel.INFO, "PhotonSocket.State is " + base.State.ToString() + " but can't receive anymore. ClientWebSocket.State: " + clientWebSocket.State);
+			EnqueueDebugReturn(DebugLevel.INFO, "PhotonSocket.State is " + State.ToString() + " but can't receive anymore. ClientWebSocket.State: " + clientWebSocket.State);
 			if (clientWebSocket.State == WebSocketState.CloseReceived)
 			{
 				HandleException(StatusCode.DisconnectByServerLogic);
@@ -198,12 +198,12 @@ public class PhotonClientWebSocket : IPhotonSocket
 					EnqueueDebugReturn(DebugLevel.ALL, "Caught exception in clientWebSocket.CloseAsync(): " + ex);
 				}
 			}
-			base.State = PhotonSocketState.Disconnected;
+			State = PhotonSocketState.Disconnected;
 			return true;
 		}
 		if (clientWebSocket != null && clientWebSocket.State != WebSocketState.Closed && clientWebSocket.State != WebSocketState.CloseSent)
 		{
-			base.State = PhotonSocketState.Disconnecting;
+			State = PhotonSocketState.Disconnecting;
 			try
 			{
 				clientWebSocket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, "ws close", CancellationToken.None);
@@ -216,13 +216,13 @@ public class PhotonClientWebSocket : IPhotonSocket
 				}
 			}
 		}
-		base.State = PhotonSocketState.Disconnected;
+		State = PhotonSocketState.Disconnected;
 		return true;
 	}
 
 	public override PhotonSocketError Send(byte[] data, int length)
 	{
-		if (clientWebSocket != null && clientWebSocket.State != WebSocketState.Open && base.State != PhotonSocketState.Disconnecting && base.State != PhotonSocketState.Disconnected)
+		if (clientWebSocket != null && clientWebSocket.State != WebSocketState.Open && State != PhotonSocketState.Disconnecting && State != PhotonSocketState.Disconnected)
 		{
 			if (clientWebSocket.State == WebSocketState.CloseReceived)
 			{
@@ -237,13 +237,13 @@ public class PhotonClientWebSocket : IPhotonSocket
 		}
 		if (clientWebSocket == null)
 		{
-			if (base.State == PhotonSocketState.Disconnecting || base.State == PhotonSocketState.Disconnected)
+			if (State == PhotonSocketState.Disconnecting || State == PhotonSocketState.Disconnected)
 			{
 				return PhotonSocketError.Skipped;
 			}
 			if (ReportDebugOfLevel(DebugLevel.ERROR))
 			{
-				EnqueueDebugReturn(DebugLevel.ERROR, $"PhotonClientWebSocket.Send() failed: this.clientWebSocket is null. this.State: {base.State}");
+				EnqueueDebugReturn(DebugLevel.ERROR, $"PhotonClientWebSocket.Send() failed: this.clientWebSocket is null. this.State: {State}");
 			}
 			return PhotonSocketError.Exception;
 		}

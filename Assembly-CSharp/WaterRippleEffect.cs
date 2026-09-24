@@ -36,7 +36,7 @@ public class WaterRippleEffect : MonoBehaviour
 	public void Destroy()
 	{
 		waterVolume = null;
-		ObjectPools.instance.Destroy(base.gameObject);
+		ObjectPools.instance.Destroy(gameObject);
 	}
 
 	public void PlayEffect(WaterVolume volume = null)
@@ -57,8 +57,8 @@ public class WaterRippleEffect : MonoBehaviour
 	{
 		if (waterVolume != null && !waterVolume.isStationary && waterVolume.surfacePlane != null)
 		{
-			Vector3 vector = Vector3.Dot(base.transform.position - waterVolume.surfacePlane.position, waterVolume.surfacePlane.up) * waterVolume.surfacePlane.up;
-			base.transform.position = base.transform.position - vector;
+			Vector3 vector = Vector3.Dot(transform.position - waterVolume.surfacePlane.position, waterVolume.surfacePlane.up) * waterVolume.surfacePlane.up;
+			transform.position -= vector;
 		}
 		float num = Mathf.Clamp01((Time.time - rippleStartTime - fadeOutDelay) / fadeOutTime);
 		Color color = renderer.color;

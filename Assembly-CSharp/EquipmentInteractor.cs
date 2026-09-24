@@ -89,7 +89,7 @@ public class EquipmentInteractor : MonoBehaviour
 		}
 		else if (instance != this)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 		autoGrabLeft = true;
 		autoGrabRight = true;
@@ -246,15 +246,15 @@ public class EquipmentInteractor : MonoBehaviour
 			justGrabbed = (isRightGrabbing && !wasRightGrabPressed) || (isRightGrabbing && autoGrabRight);
 			justReleased = rightHandHeldEquipment != null && !isRightGrabbing && wasRightGrabPressed;
 		}
-		List<InteractionPoint> obj = (isLeftHand ? overlapInteractionPointsLeft : overlapInteractionPointsRight);
-		bool num = (isLeftHand ? (leftHandHeldEquipment != null) : (rightHandHeldEquipment != null));
-		bool flag = pieceInHand != null;
-		bool flag2 = (isLeftHand ? disableLeftGrab : disableRightGrab);
-		bool flag3 = !num && !flag && !flag2;
+		List<InteractionPoint> list = (isLeftHand ? overlapInteractionPointsLeft : overlapInteractionPointsRight);
+		bool flag = (isLeftHand ? (leftHandHeldEquipment != null) : (rightHandHeldEquipment != null));
+		bool flag2 = pieceInHand != null;
+		bool flag3 = (isLeftHand ? disableLeftGrab : disableRightGrab);
+		bool flag4 = !flag && !flag2 && !flag3;
 		iteratingInteractionPoints = true;
-		foreach (InteractionPoint item in obj)
+		foreach (InteractionPoint item in list)
 		{
-			if (flag3 && item != null)
+			if (flag4 && item != null)
 			{
 				if (justGrabbed)
 				{

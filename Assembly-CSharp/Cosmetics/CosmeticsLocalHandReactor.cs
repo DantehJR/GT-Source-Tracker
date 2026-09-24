@@ -45,7 +45,7 @@ public class CosmeticsLocalHandReactor : MonoBehaviour
 		if (ownerRig == null)
 		{
 			Debug.LogError("TriggerToggler: Disabling cannot find VRRig.");
-			base.enabled = false;
+			enabled = false;
 		}
 	}
 

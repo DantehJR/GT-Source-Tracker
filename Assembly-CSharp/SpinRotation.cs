@@ -13,12 +13,12 @@ public class SpinRotation : MonoBehaviour, ITickSystemTick
 
 	public void Tick()
 	{
-		base.transform.localRotation = Quaternion.Euler(rotationPerSecondEuler * (Time.time - baseTime)) * baseRotation;
+		transform.localRotation = Quaternion.Euler(rotationPerSecondEuler * (Time.time - baseTime)) * baseRotation;
 	}
 
 	private void Awake()
 	{
-		baseRotation = base.transform.localRotation;
+		baseRotation = transform.localRotation;
 	}
 
 	private void OnEnable()

@@ -25,9 +25,9 @@ public static class TransformUtils
 	{
 		if (t == null)
 		{
-			return default(Hash128);
+			return default;
 		}
-		Hash128 outHash = default(Hash128);
+		Hash128 outHash = default;
 		Transform transform = t;
 		while (transform != null)
 		{

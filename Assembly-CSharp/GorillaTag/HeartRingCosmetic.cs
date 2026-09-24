@@ -37,9 +37,9 @@ public class HeartRingCosmetic : MonoBehaviour
 
 	protected void Awake()
 	{
-		Application.quitting += delegate
+		Application.quitting += () =>
 		{
-			base.enabled = false;
+			enabled = false;
 		};
 	}
 
@@ -48,29 +48,29 @@ public class HeartRingCosmetic : MonoBehaviour
 		particleSystem = effects.GetComponentInChildren<ParticleSystem>(includeInactive: true);
 		audioSource = effects.GetComponentInChildren<AudioSource>(includeInactive: true);
 		ownerRig = GetComponentInParent<VRRig>();
-		bool flag = (base.enabled = ownerRig != null && ownerRig.head != null && ownerRig.head.rigTarget != null);
+		bool flag = (enabled = ownerRig != null && ownerRig.head != null && ownerRig.head.rigTarget != null);
 		effects.SetActive(flag);
 		if (!flag)
 		{
-			Debug.LogError("Disabling HeartRingCosmetic. Could not find owner head. Scene path: " + base.transform.GetPath(), this);
+			Debug.LogError("Disabling HeartRingCosmetic. Could not find owner head. Scene path: " + transform.GetPath(), this);
 			return;
 		}
-		ownerHead = ((ownerRig != null) ? ownerRig.head.rigTarget.transform : base.transform);
+		ownerHead = ((ownerRig != null) ? ownerRig.head.rigTarget.transform : transform);
 		maxEmissionRate = particleSystem.emission.rateOverTime.constant;
 		maxVolume = audioSource.volume;
 	}
 
 	protected void LateUpdate()
 	{
-		Transform obj = base.transform;
-		Vector3 position = obj.position;
-		float x = obj.lossyScale.x;
+		Transform transform = base.transform;
+		Vector3 position = transform.position;
+		float x = transform.lossyScale.x;
 		float num = effectActivationRadius * effectActivationRadius * x * x;
 		bool flag = (ownerHead.TransformPoint(headToMouthOffset) - position).sqrMagnitude < num;
 		ParticleSystem.EmissionModule emission = particleSystem.emission;
 		emission.rateOverTime = Mathf.Lerp(emission.rateOverTime.constant, flag ? maxEmissionRate : 0f, Time.deltaTime / 0.1f);
 		audioSource.volume = Mathf.Lerp(audioSource.volume, flag ? maxVolume : 0f, Time.deltaTime / 2f);
-		ownerRig.UsingHauntedRing = isHauntedVoiceChanger && flag;
+		ownerRig.UsingHauntedRing = isHauntedVoiceChanger & flag;
 		if (ownerRig.UsingHauntedRing)
 		{
 			ownerRig.HauntedRingVoicePitch = hauntedVoicePitch;

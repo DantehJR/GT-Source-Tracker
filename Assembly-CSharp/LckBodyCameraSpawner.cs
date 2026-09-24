@@ -156,7 +156,7 @@ public class LckBodyCameraSpawner : MonoBehaviourTick
 				break;
 			}
 			_cameraState = value;
-			LckBodyCameraSpawner.OnCameraStateChange?.Invoke(_cameraState);
+			OnCameraStateChange?.Invoke(_cameraState);
 		}
 	}
 
@@ -423,7 +423,7 @@ public class LckBodyCameraSpawner : MonoBehaviourTick
 
 	private bool ShouldSpawnCamera(Transform gorillaGrabberTransform)
 	{
-		Matrix4x4 worldToLocalMatrix = base.transform.worldToLocalMatrix;
+		Matrix4x4 worldToLocalMatrix = transform.worldToLocalMatrix;
 		Vector3 vector = worldToLocalMatrix.MultiplyPoint(_cameraModelOriginTransform.position);
 		Vector3 vector2 = worldToLocalMatrix.MultiplyPoint(gorillaGrabberTransform.position);
 		return Vector3.SqrMagnitude(vector - vector2) >= _activateDistance * _activateDistance;
@@ -455,7 +455,7 @@ public class LckBodyCameraSpawner : MonoBehaviourTick
 			_cameraStrapPositions[i] = _cameraStrapPoints[i].position;
 		}
 		_cameraStrapRenderer.SetPositions(_cameraStrapPositions);
-		Vector3 lossyScale = base.transform.lossyScale;
+		Vector3 lossyScale = transform.lossyScale;
 		float num = (lossyScale.x + lossyScale.y + lossyScale.z) * 0.3333333f;
 		_cameraStrapRenderer.widthMultiplier = num * 0.02f;
 		Color color = ((cameraState == CameraState.CameraSpawned) ? _ghostColor : _normalColor);

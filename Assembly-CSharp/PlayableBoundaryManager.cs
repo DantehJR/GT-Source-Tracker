@@ -58,14 +58,14 @@ public class PlayableBoundaryManager : MonoBehaviour
 	{
 		if (!Application.isPlaying)
 		{
-			base.enabled = false;
+			enabled = false;
 		}
 	}
 
 	public void Setup()
 	{
 		Shader.SetGlobalFloat(_GTGameModes_PlayableBoundary_NonZeroSmoothRadius, m_smoothFactor);
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		SRand sRand = new SRand(StaticHash.Compute(position.x, position.y, position.z));
 		_cylinders_centers[0] = new Vector3(position.x, position.y, position.z);
 		_cylinders_radiusHeights[0] = new Vector2(m_bigCylinderRadius * radiusScale, 100f);
@@ -107,7 +107,7 @@ public class PlayableBoundaryManager : MonoBehaviour
 		}
 		if (m_smallCylindersMoveTimeScale > 0.0)
 		{
-			Vector3 position = base.transform.position;
+			Vector3 position = transform.position;
 			float num = (float)((double)(GTTime.TimeAsMilliseconds() % 86400000) * m_smallCylindersMoveTimeScale / 1000.0);
 			_cylinders_centers[0] = new Vector3(position.x, position.y, position.z);
 			_cylinders_radiusHeights[0] = new Vector2(m_bigCylinderRadius * radiusScale, 100f);

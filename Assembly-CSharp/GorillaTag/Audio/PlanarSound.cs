@@ -27,14 +27,14 @@ public class PlanarSound : MonoBehaviour
 	{
 		if (hasCamera)
 		{
-			Transform obj = base.transform;
-			Vector3 localPosition = obj.parent.InverseTransformPoint(cameraXform.position);
+			Transform transform = base.transform;
+			Vector3 localPosition = transform.parent.InverseTransformPoint(cameraXform.position);
 			localPosition.y = 0f;
 			if (limitDistance && localPosition.sqrMagnitude > maxDistance * maxDistance)
 			{
 				localPosition = localPosition.normalized * maxDistance;
 			}
-			obj.localPosition = localPosition;
+			transform.localPosition = localPosition;
 		}
 	}
 }

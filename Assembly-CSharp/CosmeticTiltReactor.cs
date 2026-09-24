@@ -112,11 +112,11 @@ public class CosmeticTiltReactor : MonoBehaviour, IGorillaSliceableSimple
 		referenceDirection.Normalize();
 		if (!useTransform && referenceDirection == Vector3.zero)
 		{
-			GTDev.LogError("CosmeticTiltReactor " + base.gameObject.name + " referenceDirection cannot be 0 vector");
+			GTDev.LogError("CosmeticTiltReactor " + gameObject.name + " referenceDirection cannot be 0 vector");
 		}
 		if (useTransform && referenceTransform == null)
 		{
-			GTDev.LogError("CosmeticTiltReactor " + base.gameObject.name + " referenceTransform cannot be null");
+			GTDev.LogError("CosmeticTiltReactor " + gameObject.name + " referenceTransform cannot be null");
 		}
 		hasContinuousProperties = continuousProperties != null && continuousProperties.Count > 0;
 		calculateDot = hasContinuousProperties;
@@ -137,13 +137,13 @@ public class CosmeticTiltReactor : MonoBehaviour, IGorillaSliceableSimple
 		}
 		_rig = GetComponentInParent<VRRig>();
 		parentTransferable = GetComponentInParent<TransferrableObject>();
-		if (_rig == null && base.gameObject.GetComponentInParent<GTPlayer>() != null)
+		if (_rig == null && gameObject.GetComponentInParent<GTPlayer>() != null)
 		{
 			_rig = GorillaTagger.Instance.offlineVRRig;
 		}
 		if (_rig == null && !syncForAllPlayers)
 		{
-			GTDev.LogError("CosmeticTiltReactor on " + base.gameObject.name + " set to not syncForAllPlayers and has no VR Rig parent. Events will not fire");
+			GTDev.LogError("CosmeticTiltReactor on " + gameObject.name + " set to not syncForAllPlayers and has no VR Rig parent. Events will not fire");
 		}
 		else if (_rig != null)
 		{
@@ -151,7 +151,7 @@ public class CosmeticTiltReactor : MonoBehaviour, IGorillaSliceableSimple
 		}
 		if (parentTransferable == null && onlyWhileHeld)
 		{
-			GTDev.LogError("CosmeticTiltReactor on " + base.gameObject.name + " set to OnlyWhileHeld but has no TransferrableObject parent. Events will not fire");
+			GTDev.LogError("CosmeticTiltReactor on " + gameObject.name + " set to OnlyWhileHeld but has no TransferrableObject parent. Events will not fire");
 		}
 	}
 
@@ -162,11 +162,11 @@ public class CosmeticTiltReactor : MonoBehaviour, IGorillaSliceableSimple
 			Vector3 vector = (useTransform ? referenceTransform.up : referenceDirection);
 			if (calculateAngle)
 			{
-				angle = Vector3.Angle(base.transform.up, vector);
+				angle = Vector3.Angle(transform.up, vector);
 			}
 			if (calculateDot)
 			{
-				dotProduct = Vector3.Dot(base.transform.up, vector);
+				dotProduct = Vector3.Dot(transform.up, vector);
 			}
 			ResetEvents();
 			GorillaSlicerSimpleManager.RegisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.LateUpdate);
@@ -199,11 +199,11 @@ public class CosmeticTiltReactor : MonoBehaviour, IGorillaSliceableSimple
 		Vector3 vector = (useTransform ? referenceTransform.up : referenceDirection);
 		if (calculateAngle)
 		{
-			angle = Vector3.Angle(base.transform.up, vector);
+			angle = Vector3.Angle(transform.up, vector);
 		}
 		if (calculateDot)
 		{
-			dotProduct = Vector3.Dot(base.transform.up, vector);
+			dotProduct = Vector3.Dot(transform.up, vector);
 		}
 		FireEvents();
 		if (hasContinuousProperties)
@@ -257,7 +257,7 @@ public class CosmeticTiltReactor : MonoBehaviour, IGorillaSliceableSimple
 				{
 					continue;
 				}
-				if (@event.tiltEventType == TiltEvent.TiltEventType.GreaterThanThreshold && flag)
+				if ((@event.tiltEventType == TiltEvent.TiltEventType.GreaterThanThreshold) & flag)
 				{
 					if (@event.thresholdCrossTime + (double)@event.retriggerDelay <= Time.timeAsDouble)
 					{

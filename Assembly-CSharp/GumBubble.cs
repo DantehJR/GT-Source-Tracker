@@ -42,8 +42,8 @@ public class GumBubble : LerpComponent
 
 	private void Awake()
 	{
-		base.enabled = false;
-		base.gameObject.SetActive(value: false);
+		enabled = false;
+		gameObject.SetActive(value: false);
 	}
 
 	public void InflateDelayed()
@@ -62,8 +62,8 @@ public class GumBubble : LerpComponent
 
 	public void Inflate()
 	{
-		base.gameObject.SetActive(value: true);
-		base.enabled = true;
+		gameObject.SetActive(value: true);
+		enabled = true;
 		if (!_animating)
 		{
 			_animating = true;
@@ -87,8 +87,8 @@ public class GumBubble : LerpComponent
 		onPop?.Invoke();
 		_done = false;
 		_animating = false;
-		base.enabled = false;
-		base.gameObject.SetActive(value: false);
+		enabled = false;
+		gameObject.SetActive(value: false);
 	}
 
 	private void Update()

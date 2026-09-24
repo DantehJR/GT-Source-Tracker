@@ -46,7 +46,7 @@ public class RigOwnedPhysicsBody : MonoBehaviour
 
 	private void OnEnable()
 	{
-		if (!base.gameObject.activeInHierarchy)
+		if (!gameObject.activeInHierarchy)
 		{
 			return;
 		}

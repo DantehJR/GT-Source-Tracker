@@ -20,11 +20,11 @@ public class SubscriptionStation : MonoBehaviour
 	private void UpdateScreen()
 	{
 		Debug.Log(":::SubscriptionStation::UpdateScreen");
-		bool num = SubscriptionManager.GetSubscriptionDetails(VRRig.LocalRig).tier > 0;
+		bool flag = SubscriptionManager.GetSubscriptionDetails(VRRig.LocalRig).tier > 0;
 		int daysAccrued = SubscriptionManager.GetSubscriptionDetails(VRRig.LocalRig).daysAccrued;
 		bool subsOnlyMatchmaking = SubscriptionManager.SubsOnlyMatchmaking;
 		bool showGoldNameTag = VRRig.LocalRig.ShowGoldNameTag;
-		if (num)
+		if (flag)
 		{
 			screenText.text = string.Format(formatString, "Y", subsOnlyMatchmaking ? "Y" : "N", showGoldNameTag ? "Y" : "N", daysAccrued);
 		}

@@ -19,7 +19,7 @@ public class GuidedRefTargetMonoTransform : MonoBehaviour, IGuidedRefTargetMono,
 		}
 	}
 
-	public Object GuidedRefTargetObject => base.transform;
+	public Object GuidedRefTargetObject => transform;
 
 	protected void Awake()
 	{

@@ -91,7 +91,7 @@ public class CosmeticSwipeReactor : MonoBehaviour, ITickSystemTick
 	private void Awake()
 	{
 		_rig = GetComponentInParent<VRRig>();
-		if (_rig == null && base.gameObject.GetComponentInParent<GTPlayer>() != null)
+		if (_rig == null && gameObject.GetComponentInParent<GTPlayer>() != null)
 		{
 			_rig = GorillaTagger.Instance.offlineVRRig;
 		}
@@ -113,7 +113,7 @@ public class CosmeticSwipeReactor : MonoBehaviour, ITickSystemTick
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!isLocal || !base.enabled)
+		if (!isLocal || !enabled)
 		{
 			return;
 		}
@@ -123,14 +123,14 @@ public class CosmeticSwipeReactor : MonoBehaviour, ITickSystemTick
 			if (component.isLeftHand)
 			{
 				handIndicatorL = component;
-				Vector3 pos = base.transform.InverseTransformPoint(component.transform.position);
+				Vector3 pos = transform.InverseTransformPoint(component.transform.position);
 				ResetProgress(left: true, pos);
 				handInTriggerL = true;
 			}
 			else
 			{
 				handIndicatorR = component;
-				Vector3 pos2 = base.transform.InverseTransformPoint(component.transform.position);
+				Vector3 pos2 = transform.InverseTransformPoint(component.transform.position);
 				ResetProgress(left: false, pos2);
 				handInTriggerR = true;
 			}
@@ -143,7 +143,7 @@ public class CosmeticSwipeReactor : MonoBehaviour, ITickSystemTick
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (!isLocal || !base.enabled)
+		if (!isLocal || !enabled)
 		{
 			return;
 		}
@@ -215,11 +215,11 @@ public class CosmeticSwipeReactor : MonoBehaviour, ITickSystemTick
 			{
 				isCoolingDown = false;
 				cooldownEndTime = double.MinValue;
-				ResetProgress(hand.isLeftHand, base.transform.InverseTransformPoint(hand.transform.position));
+				ResetProgress(hand.isLeftHand, transform.InverseTransformPoint(hand.transform.position));
 			}
 			return;
 		}
-		Vector3 vector = base.transform.InverseTransformPoint(hand.transform.position);
+		Vector3 vector = transform.InverseTransformPoint(hand.transform.position);
 		float num = Mathf.Abs(GetAxisComponent(hand.currentVelocity));
 		if (num < minimumVelocity * _rig.scaleFactor || num > maximumVelocity * _rig.scaleFactor)
 		{

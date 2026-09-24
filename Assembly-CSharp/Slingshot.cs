@@ -136,7 +136,7 @@ public class Slingshot : ProjectileWeapon
 
 	internal override void OnEnable()
 	{
-		if (base.IsSpawned)
+		if (IsSpawned)
 		{
 			leftHandSnap = myRig.cosmeticReferences.Get(CosmeticRefID.SlingshotSnapLeft).transform;
 			rightHandSnap = myRig.cosmeticReferences.Get(CosmeticRefID.SlingshotSnapRight).transform;
@@ -163,12 +163,12 @@ public class Slingshot : ProjectileWeapon
 
 	protected override void LateUpdateShared()
 	{
-		if (!base.IsSpawned)
+		if (!IsSpawned)
 		{
 			return;
 		}
 		base.LateUpdateShared();
-		float num = Mathf.Abs(base.transform.lossyScale.x);
+		float num = Mathf.Abs(transform.lossyScale.x);
 		Vector3 vector;
 		if (InDrawingState())
 		{
@@ -233,7 +233,7 @@ public class Slingshot : ProjectileWeapon
 		}
 		if (!NetworkSystem.Instance.InRoom && disableWhenNotInRoom)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -397,7 +397,7 @@ public class Slingshot : ProjectileWeapon
 
 	protected override Vector3 GetLaunchVelocity()
 	{
-		float num = Mathf.Abs(base.transform.lossyScale.x);
+		float num = Mathf.Abs(transform.lossyScale.x);
 		Vector3 vector = centerOrigin.position - center.position;
 		vector /= num;
 		Vector3 vector2 = Mathf.Min(springConstant * maxDraw, vector.magnitude * springConstant) * vector.normalized * num;

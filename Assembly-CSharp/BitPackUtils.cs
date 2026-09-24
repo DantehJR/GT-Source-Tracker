@@ -11,7 +11,7 @@ public static class BitPackUtils
 		W
 	}
 
-	private const float STEP_1023 = 0.0009775171f;
+	private const float STEP_1023 = 1f / 1023f;
 
 	private static readonly float[] kRadialLogLUT;
 
@@ -148,7 +148,7 @@ public static class BitPackUtils
 		uint num = (data >> 20) & 0x3FF;
 		uint num2 = (data >> 10) & 0x3FF;
 		uint num3 = data & 0x3FF;
-		return new Vector3((float)num * 0.0009775171f * vector.x + min.x, (float)num2 * 0.0009775171f * vector.y + min.y, (float)num3 * 0.0009775171f * vector.z + min.z);
+		return new Vector3((float)num * (1f / 1023f) * vector.x + min.x, (float)num2 * (1f / 1023f) * vector.y + min.y, (float)num3 * (1f / 1023f) * vector.z + min.z);
 	}
 
 	public static uint PackRotation(Quaternion q, bool normalize = true)
@@ -163,7 +163,7 @@ public static class BitPackUtils
 		float num4 = Mathf.Abs(q.w);
 		int num5 = ((!(num > num2) || !(num > num3) || !(num > num4)) ? ((num2 > num3 && num2 > num4) ? 1 : ((!(num3 > num4)) ? 3 : 2)) : 0);
 		float num6 = Mathf.Sign(q[num5]);
-		Vector3 vector = default(Vector3);
+		Vector3 vector = default;
 		switch (num5)
 		{
 		case 0:
@@ -199,9 +199,9 @@ public static class BitPackUtils
 		uint num2 = (data >> 20) & 0x3FF;
 		uint num3 = (data >> 10) & 0x3FF;
 		uint num4 = data & 0x3FF;
-		float num5 = (float)num2 * 0.0009775171f * 2f - 1f;
-		float num6 = (float)num3 * 0.0009775171f * 2f - 1f;
-		float num7 = (float)num4 * 0.0009775171f * 2f - 1f;
+		float num5 = (float)num2 * (1f / 1023f) * 2f - 1f;
+		float num6 = (float)num3 * (1f / 1023f) * 2f - 1f;
+		float num7 = (float)num4 * (1f / 1023f) * 2f - 1f;
 		float num8 = Mathf.Sqrt(1f - (num5 * num5 + num6 * num6 + num7 * num7));
 		return num switch
 		{
@@ -317,7 +317,7 @@ public static class BitPackUtils
 		long num = data & 0x7FF;
 		long num2 = (data >> 11) & 0x7FF;
 		long num3 = (data >> 22) & 0x7FF;
-		localPos = new Vector3((float)(num - 1024) * 0.001953125f, (float)(num2 - 1024) * 0.001953125f, (float)(num3 - 1024) * 0.001953125f);
+		localPos = new Vector3((float)(num - 1024) * (2f / 1024f), (float)(num2 - 1024) * (2f / 1024f), (float)(num3 - 1024) * (2f / 1024f));
 		int data2 = (int)(data >> 33);
 		handRot = UnpackQuaternionFromNetwork(data2);
 	}
@@ -382,7 +382,7 @@ public static class BitPackUtils
 		long num = data & 0x1FFFFF;
 		long num2 = (data >> 21) & 0x1FFFFF;
 		long num3 = (data >> 42) & 0x1FFFFF;
-		return new Vector3((float)(num - 1048576) * 0.0009765625f, (float)(num2 - 1048576) * 0.0009765625f, (float)(num3 - 1048576) * 0.0009765625f);
+		return new Vector3((float)(num - 1048576) * (1f / 1024f), (float)(num2 - 1048576) * (1f / 1024f), (float)(num3 - 1048576) * (1f / 1024f));
 	}
 
 	public static short PackColorForNetwork(Color col)

@@ -18,8 +18,16 @@ public class DreidelHoldable : TransferrableObject
 		base.OnEnable();
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((base.myOnlineRig != null) ? base.myOnlineRig.creator : ((base.myRig != null) ? (base.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (myOnlineRig != null)
+			{
+				netPlayer = myOnlineRig.creator;
+			}
+			else
+			{
+				netPlayer = ((myRig != null) ? (myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null);
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);

@@ -37,7 +37,7 @@ public class ScaleSpring : MonoBehaviour
 			Tick();
 		}
 		m_spring.TrackHalfLife(m_targetScale * Vector3.one, 6f, 0.05f, Time.fixedDeltaTime);
-		base.transform.localScale = m_spring.Value;
+		transform.localScale = m_spring.Value;
 		GetComponent<BoingEffector>().MoveDistance *= Mathf.Min(0.99f, 35f * Time.fixedDeltaTime);
 	}
 }

@@ -181,12 +181,12 @@ public class DearLemmingController : MonoBehaviour
 		if (isCheckRequest)
 		{
 			isChecking = false;
-			this.OnCheckComplete?.Invoke(obj);
+			OnCheckComplete?.Invoke(obj);
 		}
 		else
 		{
 			isSubmitting = false;
-			this.OnSubmitComplete?.Invoke(obj);
+			OnSubmitComplete?.Invoke(obj);
 		}
 	}
 

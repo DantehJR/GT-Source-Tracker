@@ -13,11 +13,11 @@ public class CrittersLoudNoiseSettings : CrittersActorSettings
 	public override void UpdateActorSettings()
 	{
 		base.UpdateActorSettings();
-		CrittersLoudNoise obj = (CrittersLoudNoise)parentActor;
-		obj.soundVolume = _soundVolume;
-		obj.soundDuration = _soundDuration;
-		obj.soundEnabled = _soundEnabled;
-		obj.disableWhenSoundDisabled = _disableWhenSoundDisabled;
-		obj.volumeFearAttractionMultiplier = _volumeFearAttractionMultiplier;
+		CrittersLoudNoise crittersLoudNoise = (CrittersLoudNoise)parentActor;
+		crittersLoudNoise.soundVolume = _soundVolume;
+		crittersLoudNoise.soundDuration = _soundDuration;
+		crittersLoudNoise.soundEnabled = _soundEnabled;
+		crittersLoudNoise.disableWhenSoundDisabled = _disableWhenSoundDisabled;
+		crittersLoudNoise.volumeFearAttractionMultiplier = _volumeFearAttractionMultiplier;
 	}
 }

@@ -7,6 +7,7 @@ using Fusion;
 using GorillaExtensions;
 using GorillaNetworking;
 using Photon.Pun;
+using PlayFab;
 using UnityEngine;
 using Utilities;
 
@@ -270,22 +271,22 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 
 	public void LoadGrabSettings()
 	{
-		PlayFabTitleDataCache.Instance.GetTitleData("PublicCrittersGrabSettings", delegate(string data)
+		PlayFabTitleDataCache.Instance.GetTitleData("PublicCrittersGrabSettings", (string data) =>
 		{
 			if (int.TryParse(data, out var result))
 			{
 				publicRoomGrabbingFlags = (AllowGrabbingFlags)result;
 			}
-		}, delegate
+		}, (PlayFabError e) =>
 		{
 		});
-		PlayFabTitleDataCache.Instance.GetTitleData("PrivateCrittersGrabSettings", delegate(string data)
+		PlayFabTitleDataCache.Instance.GetTitleData("PrivateCrittersGrabSettings", (string data) =>
 		{
 			if (int.TryParse(data, out var result))
 			{
 				privateRoomGrabbingFlags = (AllowGrabbingFlags)result;
 			}
-		}, delegate
+		}, (PlayFabError e) =>
 		{
 		});
 	}
@@ -294,12 +295,12 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 	{
 		if (guard == null)
 		{
-			Debug.LogError("requestable owner guard missing", base.gameObject);
+			Debug.LogError("requestable owner guard missing", gameObject);
 			return false;
 		}
 		if (crittersPool == null)
 		{
-			Debug.LogError("critters pool missing", base.gameObject);
+			Debug.LogError("critters pool missing", gameObject);
 			return false;
 		}
 		return true;
@@ -560,9 +561,9 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 			}
 			else
 			{
-				Transform obj = crittersActor.transform;
-				int num2 = Mathf.Clamp(Mathf.FloorToInt((obj.position.x - binDimensionXMin) / individualBinSide), 0, binXCount - 1);
-				int num3 = Mathf.Clamp(Mathf.FloorToInt((obj.position.z - binDimensionZMin) / individualBinSide), 0, binZCount - 1);
+				Transform transform = crittersActor.transform;
+				int num2 = Mathf.Clamp(Mathf.FloorToInt((transform.position.x - binDimensionXMin) / individualBinSide), 0, binXCount - 1);
+				int num3 = Mathf.Clamp(Mathf.FloorToInt((transform.position.z - binDimensionZMin) / individualBinSide), 0, binZCount - 1);
 				int num4 = num2 + num3 * binXCount;
 				if (actorBinIndices.ContainsKey(crittersActor))
 				{
@@ -579,9 +580,9 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 		{
 			if (VRRigCache.Instance.TryGetVrrig(RoomSystem.PlayersInRoom[j], out var playerRig))
 			{
-				Transform obj2 = playerRig.Rig.transform;
-				float num5 = (obj2.position.x - binDimensionXMin) / individualBinSide;
-				float num6 = (obj2.position.z - binDimensionZMin) / individualBinSide;
+				Transform transform2 = playerRig.Rig.transform;
+				float num5 = (transform2.position.x - binDimensionXMin) / individualBinSide;
+				float num6 = (transform2.position.z - binDimensionZMin) / individualBinSide;
 				int num7 = Mathf.FloorToInt(num5);
 				int num8 = Mathf.FloorToInt(num6);
 				int num9 = ((num5 % 1f > 0.5f) ? 1 : (-1));
@@ -1274,7 +1275,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 		actorById = new Dictionary<int, CrittersActor>();
 		universalActorId = 0;
 		GameObject gameObject = new GameObject();
-		gameObject.transform.parent = base.transform;
+		gameObject.transform.parent = transform;
 		poolParent = gameObject.transform;
 		poolParent.name = "Critter Actors Pool Parent";
 		actorPools.TryGetValue(CrittersActor.CrittersActorType.Food, out var _);
@@ -1325,11 +1326,11 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 		}
 		for (int j = 0; j < poolAmount - num; j++)
 		{
-			GameObject obj = UnityEngine.Object.Instantiate(prefab);
-			obj.transform.parent = parent;
-			obj.name += j;
-			obj.SetActive(value: false);
-			T component = obj.GetComponent<T>();
+			GameObject gameObject = UnityEngine.Object.Instantiate(prefab);
+			gameObject.transform.parent = parent;
+			gameObject.name += j;
+			gameObject.SetActive(value: false);
+			T component = gameObject.GetComponent<T>();
 			dict[crittersActorType].Add(component);
 			component.actorId = universalActorId;
 			component.SetDefaultParent(parent);
@@ -1342,7 +1343,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 
 	public void TriggerEvent(CritterEvent eventType, int sourceActor, Vector3 position, Quaternion rotation)
 	{
-		this.OnCritterEventReceived?.Invoke(eventType, sourceActor, position, rotation);
+		OnCritterEventReceived?.Invoke(eventType, sourceActor, position, rotation);
 		if (LocalAuthority() && NetworkSystem.Instance.InRoom)
 		{
 			SendRPC("RemoteReceivedCritterEvent", RpcTarget.Others, eventType, sourceActor, position, rotation);
@@ -1366,7 +1367,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 			}
 			else if (VRRigCache.Instance.TryGetVrrig(info.Sender, out playerRig) && position.IsValid(10000f) && rotation.IsValid() && critterEventCallLimit.CheckCallTime(Time.time))
 			{
-				this.OnCritterEventReceived?.Invoke(eventType, sourceActor, position, rotation);
+				OnCritterEventReceived?.Invoke(eventType, sourceActor, position, rotation);
 			}
 		}
 	}
@@ -1378,7 +1379,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 			dataAsType = (T)obj;
 			return true;
 		}
-		dataAsType = default(T);
+		dataAsType = default;
 		return false;
 	}
 
@@ -1469,7 +1470,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 
 	private void CheckOwnership()
 	{
-		if (!PhotonNetwork.InRoom && base.IsMine)
+		if (!PhotonNetwork.InRoom && IsMine)
 		{
 			if (guard.actualOwner == null || !guard.actualOwner.Equals(NetworkSystem.Instance.LocalPlayer))
 			{
@@ -1516,7 +1517,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 		{
 			return false;
 		}
-		if ((guard.actualOwner == null || !guard.isTrulyMine) && (base.Owner == null || !base.Owner.IsLocal))
+		if ((guard.actualOwner == null || !guard.isTrulyMine) && (Owner == null || !Owner.IsLocal))
 		{
 			return guard.currentState == NetworkingState.IsOwner;
 		}
@@ -1525,7 +1526,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 
 	private bool SenderIsOwner(PhotonMessageInfo info)
 	{
-		if ((guard.actualOwner == null && base.Owner == null) || info.Sender == null)
+		if ((guard.actualOwner == null && Owner == null) || info.Sender == null)
 		{
 			return false;
 		}
@@ -1533,9 +1534,9 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 		{
 			if (guard.actualOwner == null || guard.actualOwner.ActorNumber != info.Sender.ActorNumber)
 			{
-				if (base.Owner != null)
+				if (Owner != null)
 				{
-					return base.Owner.ActorNumber == info.Sender.ActorNumber;
+					return Owner.ActorNumber == info.Sender.ActorNumber;
 				}
 				return false;
 			}
@@ -1546,7 +1547,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 
 	private void OwnerSentError(PhotonMessageInfo info)
 	{
-		_ = base.Owner;
+		_ = Owner;
 	}
 
 	public void OnOwnershipTransferred(NetPlayer toPlayer, NetPlayer fromPlayer)

@@ -158,7 +158,7 @@ public class Ballista : MonoBehaviourPun
 				{
 					if (PhotonNetwork.InRoom)
 					{
-						base.photonView.RPC("FireBallistaRPC", RpcTarget.Others);
+						photonView.RPC("FireBallistaRPC", RpcTarget.Others);
 					}
 					FireLocal();
 				}

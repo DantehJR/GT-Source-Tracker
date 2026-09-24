@@ -72,12 +72,12 @@ public struct ByteConverter
 		5 => byte5, 
 		6 => byte6, 
 		7 => byte7, 
-		_ => 0, 
+		_ => (byte)0, 
 	};
 
 	public static implicit operator ByteConverter(byte[] bytes)
 	{
-		ByteConverter result = default(ByteConverter);
+		ByteConverter result = default;
 		int num = bytes.Length;
 		result.byte0 = bytes[0];
 		if (num > 0)

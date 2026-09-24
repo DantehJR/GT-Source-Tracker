@@ -52,7 +52,7 @@ public class FingerTorch : MonoBehaviour, ISpawnable
 		myRig = rig;
 		if (!myRig)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class FingerTorch : MonoBehaviour, ISpawnable
 		bool flag = ControllerInputPoller.GripFloat((XRNode)node) > 0.25f;
 		bool flag2 = ControllerInputPoller.PrimaryButtonPress((XRNode)node);
 		bool flag3 = ControllerInputPoller.SecondaryButtonPress((XRNode)node);
-		bool flag4 = flag && (flag2 || flag3);
+		bool flag4 = flag && (flag2 | flag3);
 		networkedExtended = flag4;
 		if (PhotonNetwork.InRoom && (bool)myRig)
 		{

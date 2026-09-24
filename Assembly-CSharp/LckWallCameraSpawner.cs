@@ -114,12 +114,12 @@ public class LckWallCameraSpawner : MonoBehaviour
 		AddGTag(Camera.main.gameObject, GtTagType.HMD);
 		AddGTag(instance.gameObject, GtTagType.Player);
 		Transform transform = instance.bodyCollider.transform;
-		GameObject obj = UnityEngine.Object.Instantiate(_lckBodySpawnerPrefab, transform.parent);
-		Transform obj2 = obj.transform;
-		obj2.localPosition = Vector3.zero;
-		obj2.localRotation = Quaternion.identity;
-		obj2.localScale = Vector3.one;
-		_bodySpawner = obj.GetComponent<LckBodyCameraSpawner>();
+		GameObject gameObject = UnityEngine.Object.Instantiate(_lckBodySpawnerPrefab, transform.parent);
+		Transform transform2 = gameObject.transform;
+		transform2.localPosition = Vector3.zero;
+		transform2.localRotation = Quaternion.identity;
+		transform2.localScale = Vector3.one;
+		_bodySpawner = gameObject.GetComponent<LckBodyCameraSpawner>();
 		_bodySpawner.SetFollowTransform(transform);
 		GorillaTagger instance2 = GorillaTagger.Instance;
 		if (instance2 != null)
@@ -176,7 +176,7 @@ public class LckWallCameraSpawner : MonoBehaviour
 			if (GetOrCreateBodyCameraSpawner() == null)
 			{
 				Debug.LogError("Lck, Unable to find LckBodyCameraSpawner");
-				base.gameObject.SetActive(value: false);
+				gameObject.SetActive(value: false);
 			}
 			else if (_bodySpawner.cameraState == LckBodyCameraSpawner.CameraState.CameraSpawned && _bodySpawner.tabletSpawnInstance.isSpawned && _bodySpawner.tabletSpawnInstance.directGrabbable.isGrabbed)
 			{
@@ -244,7 +244,7 @@ public class LckWallCameraSpawner : MonoBehaviour
 			_cameraStrapPositions[i] = _cameraStrapPoints[i].position;
 		}
 		_cameraStrapRenderer.SetPositions(_cameraStrapPositions);
-		Vector3 lossyScale = base.transform.lossyScale;
+		Vector3 lossyScale = transform.lossyScale;
 		float num = (lossyScale.x + lossyScale.y + lossyScale.z) * 0.3333333f;
 		_cameraStrapRenderer.widthMultiplier = num * 0.02f;
 		LineRenderer cameraStrapRenderer = _cameraStrapRenderer;
@@ -260,7 +260,7 @@ public class LckWallCameraSpawner : MonoBehaviour
 
 	private bool ShouldSpawnCamera(Transform gorillaGrabberTransform)
 	{
-		Matrix4x4 worldToLocalMatrix = base.transform.worldToLocalMatrix;
+		Matrix4x4 worldToLocalMatrix = transform.worldToLocalMatrix;
 		Vector3 vector = worldToLocalMatrix.MultiplyPoint(_cameraModelOriginTransform.position);
 		Vector3 vector2 = worldToLocalMatrix.MultiplyPoint(gorillaGrabberTransform.position);
 		return Vector3.SqrMagnitude(vector - vector2) >= _activateDistance * _activateDistance;
@@ -280,9 +280,9 @@ public class LckWallCameraSpawner : MonoBehaviour
 	{
 		if (!(_prewarmCamera != null))
 		{
-			GameObject obj = new GameObject("prewarm camera");
-			obj.transform.SetParent(base.transform);
-			_prewarmCamera = obj.AddComponent<Camera>();
+			GameObject gameObject = new GameObject("prewarm camera");
+			gameObject.transform.SetParent(transform);
+			_prewarmCamera = gameObject.AddComponent<Camera>();
 			Camera main = Camera.main;
 			_prewarmCamera.clearFlags = main.clearFlags;
 			_prewarmCamera.fieldOfView = main.fieldOfView;

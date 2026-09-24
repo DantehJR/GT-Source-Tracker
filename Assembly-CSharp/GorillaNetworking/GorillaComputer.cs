@@ -659,6 +659,8 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 
 	public float instrumentVolume;
 
+	public bool iobtMode;
+
 	public bool perfMode;
 
 	public bool isSubcribed;
@@ -725,6 +727,8 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 	private bool playerInVirtualStump;
 
 	private string virtualStumpRoomPrepend = "";
+
+	private string virtualStumpRoomModePrefix = "C";
 
 	private WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
 
@@ -840,6 +844,8 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 
 	public string VStumpRoomPrepend => virtualStumpRoomPrepend;
 
+	public string VStumpRoomFullPrepend => virtualStumpRoomModePrefix + virtualStumpRoomPrepend;
+
 	public ComputerState currentState
 	{
 		get
@@ -901,6 +907,56 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		startupTime = startupTime.AddMinutes(m);
 	}
 
+	private static bool IsValidVStumpModePrefix(char c)
+	{
+		if (c != 'A' && c != 'B')
+		{
+			return c == 'C';
+		}
+		return true;
+	}
+
+	public bool IsVStumpRoomName(string roomName)
+	{
+		if (string.IsNullOrEmpty(roomName) || string.IsNullOrEmpty(virtualStumpRoomPrepend))
+		{
+			return false;
+		}
+		if (roomName.Length > 1 && IsValidVStumpModePrefix(roomName[0]))
+		{
+			return roomName[1] == virtualStumpRoomPrepend[0];
+		}
+		return false;
+	}
+
+	public void SetVStumpRoomModePrefix(string prefix)
+	{
+		virtualStumpRoomModePrefix = ((prefix != null && prefix.Length == 1 && IsValidVStumpModePrefix(prefix[0])) ? prefix : "C");
+	}
+
+	public string StripVStumpRoomPrefix(string roomName)
+	{
+		if (string.IsNullOrEmpty(roomName) || string.IsNullOrEmpty(virtualStumpRoomPrepend))
+		{
+			return roomName;
+		}
+		int num = roomName.IndexOf(virtualStumpRoomPrepend, StringComparison.Ordinal);
+		if (num < 0)
+		{
+			return roomName;
+		}
+		return roomName.Substring(num + virtualStumpRoomPrepend.Length);
+	}
+
+	public string GetVStumpRoomDisplayName(string roomName)
+	{
+		if (!IsVStumpRoomName(roomName))
+		{
+			return roomName;
+		}
+		return roomName.Substring(1);
+	}
+
 	private void Awake()
 	{
 		if (instance == null)
@@ -910,7 +966,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		version = Application.version;
 		Debug.Log("==== GORILLA TAG - VERSION: " + version + ", BUILD NUMBER: " + buildCode + ", BUILD DATE: " + buildDate + " ====\r\n.\r\n.               _______\r\n.              /       \\\r\n.             /  _____  \\\r\n.            / / _   _ \\ \\\r\n.           [ | (O) (O) | ]\r\n.            | \\  . .  / |\r\n.     _______|  | _._ |  |_______\r\n.    /        \\  \\___/  /        \\\r\n.\r\n.\r\n");
@@ -994,7 +1050,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		RoomSystem.LeftRoomEvent += new Action(UpdateScreen);
 		RoomSystem.PlayerJoinedEvent += new Action<NetPlayer>(PlayerCountChangedCallback);
 		RoomSystem.PlayerLeftEvent += new Action<NetPlayer>(PlayerCountChangedCallback);
-		LocalisationManager.RegisterOnLanguageChanged(delegate
+		LocalisationManager.RegisterOnLanguageChanged(() =>
 		{
 			RefreshFunctionNames();
 			UpdateGameModeText();
@@ -1169,9 +1225,9 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		troopToJoin = (troopName = PlayerPrefs.GetString("troopName", string.Empty));
 		if (!rememberTroopQueueState)
 		{
-			bool num = PlayerPrefs.GetInt("troopQueueActive", 0) == 1;
-			bool flag2 = currentQueue != "DEFAULT" && currentQueue != "COMPETITIVE" && currentQueue != "MINIGAMES";
-			if (num || flag2)
+			bool flag2 = PlayerPrefs.GetInt("troopQueueActive", 0) == 1;
+			bool flag3 = currentQueue != "DEFAULT" && currentQueue != "COMPETITIVE" && currentQueue != "MINIGAMES";
+			if (flag2 | flag3)
 			{
 				currentQueue = "DEFAULT";
 				PlayerPrefs.SetInt("troopQueueActive", 0);
@@ -1225,7 +1281,14 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		switch (permissionDataByFeature.ManagedBy)
 		{
 		case Permission.ManagedByEnum.PLAYER:
-			defaultValue = ((!string.IsNullOrEmpty(text)) ? text : (permissionDataByFeature.Enabled ? "TRUE" : "FALSE"));
+			if (string.IsNullOrEmpty(text))
+			{
+				defaultValue = (permissionDataByFeature.Enabled ? "TRUE" : "FALSE");
+			}
+			else
+			{
+				defaultValue = text;
+			}
 			break;
 		case Permission.ManagedByEnum.GUARDIAN:
 			if (permissionDataByFeature.Enabled)
@@ -1321,6 +1384,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		disableParticles = PlayerPrefs.GetString("disableParticles", "FALSE") == "TRUE";
 		GorillaTagger.Instance.ShowCosmeticParticles(!disableParticles);
 		instrumentVolume = PlayerPrefs.GetFloat("instrumentVolume", 0.1f);
+		iobtMode = SubscriptionManager.GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures.IOBT);
 	}
 
 	private void InitializeRedeemState()
@@ -1774,13 +1838,13 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 			RequestUpdatedPermissions();
 			return;
 		case GorillaKeyboardBindings.enter:
-			if (flag && ((!playerInVirtualStump && roomToJoin != "") || (playerInVirtualStump && roomToJoin.Length > 1)))
+			if (flag && ((!playerInVirtualStump && roomToJoin != "") || (playerInVirtualStump && roomToJoin.Length > VStumpRoomFullPrepend.Length)))
 			{
 				CheckAutoBanListForRoomName(roomToJoin);
 			}
 			return;
 		case GorillaKeyboardBindings.delete:
-			if (flag && ((playerInVirtualStump && roomToJoin.Length > 1) || (!playerInVirtualStump && roomToJoin.Length > 0)))
+			if (flag && ((playerInVirtualStump && roomToJoin.Length > VStumpRoomFullPrepend.Length) || (!playerInVirtualStump && roomToJoin.Length > 0)))
 			{
 				roomToJoin = roomToJoin.Substring(0, roomToJoin.Length - 1);
 			}
@@ -1911,7 +1975,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 
 	private void RequestTroopPopulation(bool forceUpdate = false)
 	{
-		if (!PlayFabCloudScriptAPI.IsEntityLoggedIn() || !(!hasRequestedInitialTroopPopulation || forceUpdate) || nextPopulationCheckTime > Time.realtimeSinceStartup)
+		if (!PlayFabCloudScriptAPI.IsEntityLoggedIn() || !(!hasRequestedInitialTroopPopulation | forceUpdate) || nextPopulationCheckTime > Time.realtimeSinceStartup)
 		{
 			return;
 		}
@@ -1920,7 +1984,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		GorillaServer.Instance.ReturnQueueStats(new ReturnQueueStatsRequest
 		{
 			queueName = troopName
-		}, delegate(ExecuteFunctionResult result)
+		}, (ExecuteFunctionResult result) =>
 		{
 			Debug.Log("Troop pop received");
 			if (((JsonObject)result.FunctionResult).TryGetValue("PlayerCount", out var value))
@@ -1935,7 +1999,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 			{
 				currentTroopPopulation = 0;
 			}
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.LogError($"Error requesting troop population: {error}");
 			currentTroopPopulation = -1;
@@ -2029,9 +2093,9 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		{
 			return;
 		}
-		bool num = KIDManager.HasPermissionToUseFeature(EKIDFeatures.Groups);
-		bool flag = IsValidTroopName(troopName);
-		if (num)
+		bool flag = KIDManager.HasPermissionToUseFeature(EKIDFeatures.Groups);
+		bool flag2 = IsValidTroopName(troopName);
+		if (flag)
 		{
 			switch (buttonPressed)
 			{
@@ -2045,19 +2109,19 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 				LeaveTroop();
 				return;
 			case GorillaKeyboardBindings.enter:
-				if (!flag)
+				if (!flag2)
 				{
 					CheckAutoBanListForTroopName(troopToJoin);
 				}
 				return;
 			case GorillaKeyboardBindings.delete:
-				if (!flag && troopToJoin.Length > 0)
+				if (!flag2 && troopToJoin.Length > 0)
 				{
 					troopToJoin = troopToJoin.Substring(0, troopToJoin.Length - 1);
 				}
 				return;
 			}
-			if (!flag && troopToJoin.Length < 12)
+			if (!flag2 && troopToJoin.Length < 12)
 			{
 				string text = troopToJoin;
 				string text2;
@@ -2067,8 +2131,8 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 				}
 				else
 				{
-					int num2 = (int)buttonPressed;
-					text2 = num2.ToString();
+					int num = (int)buttonPressed;
+					text2 = num.ToString();
 				}
 				troopToJoin = text + text2;
 			}
@@ -2205,6 +2269,24 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 			GorillaTagger.Instance.ShowCosmeticParticles(!disableParticles);
 			break;
 		case GorillaKeyboardBindings.option3:
+			if (SubscriptionManager.IsSubscriptionFeatureAvailable(SubscriptionManager.SubscriptionFeatures.IOBT) && GorillaIK.playerIK != null && GorillaIK.playerIK.CanUpdateIK())
+			{
+				SubscriptionManager.SetSubscriptionSettingValue(SubscriptionManager.SubscriptionFeatures.IOBT, (!iobtMode) ? 1 : 0);
+				iobtMode = SubscriptionManager.GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures.IOBT);
+				GorillaIK.playerIK.DelayedUpdateIK(iobtMode);
+			}
+			break;
+		case GorillaKeyboardBindings.Q:
+			if (SubscriptionManager.IsSubscriptionFeatureAvailable(SubscriptionManager.SubscriptionFeatures.IOBT) && GorillaIK.playerIK != null)
+			{
+				GorillaIK.playerIK.CalibrateLeanOffset();
+			}
+			break;
+		case GorillaKeyboardBindings.delete:
+			if (SubscriptionManager.IsSubscriptionFeatureAvailable(SubscriptionManager.SubscriptionFeatures.IOBT) && GorillaIK.playerIK != null)
+			{
+				GorillaIK.playerIK.ResetLeanOffset();
+			}
 			break;
 		}
 	}
@@ -2511,6 +2593,19 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		LocalisationManager.TryGetKeyForCurrentLocale("VISUALS_SCREEN_VOLUME", out result, defaultResult);
 		screenText.Append(result.TrailingSpace());
 		screenText.Append(Mathf.CeilToInt(instrumentVolume * 50f).ToString());
+		if (SubscriptionManager.IsSubscriptionFeatureAvailable(SubscriptionManager.SubscriptionFeatures.IOBT))
+		{
+			defaultResult = "\n\nPRESS OPTION 3 TO TOGGLE IOBT:";
+			result = defaultResult;
+			screenText.Append(result.TrailingSpace());
+			iobtMode = SubscriptionManager.GetSubscriptionSettingBool(SubscriptionManager.SubscriptionFeatures.IOBT);
+			text = (iobtMode ? "TRUE" : "FALSE");
+			LocalisationManager.TryGetKeyForCurrentLocale(text, out result, text);
+			screenText.Append(result);
+			defaultResult = "\n-PRESS Q TO CALIBRATE / DELETE TO RESET";
+			result = defaultResult;
+			screenText.Append(result);
+		}
 	}
 
 	private void VoiceScreen()
@@ -2527,8 +2622,23 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 			defaultResult = "\n\nVOICE TYPE:";
 			LocalisationManager.TryGetKeyForCurrentLocale("VOICE_CHAT_SCREEN_CURRENT", out result, defaultResult);
 			screenText.Append(result.TrailingSpace());
-			string key = ((voiceChatOn == "TRUE") ? "VOICE_OPTION_HUMAN" : ((voiceChatOn == "FALSE") ? "VOICE_OPTION_MONKE" : "VOICE_OPTION_OFF"));
-			defaultResult = ((voiceChatOn == "TRUE") ? "HUMAN" : ((voiceChatOn == "FALSE") ? "MONKE" : "OFF"));
+			string key;
+			if (voiceChatOn == "TRUE")
+			{
+				key = "VOICE_OPTION_HUMAN";
+			}
+			else
+			{
+				key = ((voiceChatOn == "FALSE") ? "VOICE_OPTION_MONKE" : "VOICE_OPTION_OFF");
+			}
+			if (voiceChatOn == "TRUE")
+			{
+				defaultResult = "HUMAN";
+			}
+			else
+			{
+				defaultResult = ((voiceChatOn == "FALSE") ? "MONKE" : "OFF");
+			}
 			LocalisationManager.TryGetKeyForCurrentLocale(key, out result, defaultResult);
 			screenText.Append(result);
 		}
@@ -2695,19 +2805,19 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		}
 		if (pttType != "OPEN MIC")
 		{
-			bool num2 = ControllerInputPoller.PrimaryButtonPress(XRNode.RightHand);
-			bool flag2 = ControllerInputPoller.SecondaryButtonPress(XRNode.RightHand);
-			bool flag3 = ControllerInputPoller.PrimaryButtonPress(XRNode.LeftHand);
-			bool flag4 = ControllerInputPoller.SecondaryButtonPress(XRNode.LeftHand);
-			bool flag5 = num2 || flag2 || flag3 || flag4;
-			if (flag5 && pttType == "PUSH TO MUTE")
+			bool flag2 = ControllerInputPoller.PrimaryButtonPress(XRNode.RightHand);
+			bool flag3 = ControllerInputPoller.SecondaryButtonPress(XRNode.RightHand);
+			bool flag4 = ControllerInputPoller.PrimaryButtonPress(XRNode.LeftHand);
+			bool flag5 = ControllerInputPoller.SecondaryButtonPress(XRNode.LeftHand);
+			bool flag6 = flag2 | flag3 | flag4 | flag5;
+			if (flag6 && pttType == "PUSH TO MUTE")
 			{
 				defaultResult = "INPUT TEST: ";
 				LocalisationManager.TryGetKeyForCurrentLocale("MIC_SCREEN_INPUT_TEST_LABEL", out result2, defaultResult);
 				screenText.Append(result2);
 				return;
 			}
-			if (!flag5 && pttType == "PUSH TO TALK")
+			if (!flag6 && pttType == "PUSH TO TALK")
 			{
 				defaultResult = "INPUT TEST: ";
 				LocalisationManager.TryGetKeyForCurrentLocale("MIC_SCREEN_INPUT_TEST_LABEL", out result2, defaultResult);
@@ -3005,7 +3115,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		Permission permissionDataByFeature = KIDManager.GetPermissionDataByFeature(EKIDFeatures.Groups);
 		Permission permissionDataByFeature2 = KIDManager.GetPermissionDataByFeature(EKIDFeatures.Multiplayer);
 		bool item = KIDManager.CheckFeatureOptIn(EKIDFeatures.Multiplayer).hasOptedInPreviously;
-		bool num = KIDManager.HasPermissionToUseFeature(EKIDFeatures.Groups) && KIDManager.HasPermissionToUseFeature(EKIDFeatures.Multiplayer) && item;
+		bool num = (KIDManager.HasPermissionToUseFeature(EKIDFeatures.Groups) && KIDManager.HasPermissionToUseFeature(EKIDFeatures.Multiplayer)) & item;
 		screenText.Set("");
 		string result = "";
 		string defaultResult;
@@ -3038,7 +3148,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		screenText.Append(result.TrailingSpace());
 		if (NetworkSystem.Instance.InRoom)
 		{
-			screenText.Append(NetworkSystem.Instance.RoomName.TrailingSpace());
+			screenText.Append(GetVStumpRoomDisplayName(NetworkSystem.Instance.RoomName).TrailingSpace());
 			if (NetworkSystem.Instance.SessionIsPrivate)
 			{
 				string text = GameMode.ActiveGameMode?.GameModeNameRoomLabel();
@@ -3067,7 +3177,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 			defaultResult = "\n\nROOM TO JOIN:";
 			LocalisationManager.TryGetKeyForCurrentLocale("ROOM_TO_JOIN", out result, defaultResult);
 			screenText.Append(result.TrailingSpace());
-			screenText.Append(roomToJoin);
+			screenText.Append(GetVStumpRoomDisplayName(roomToJoin));
 			if (roomFull)
 			{
 				defaultResult = "\n\nROOM FULL. JOIN ROOM FAILED.";
@@ -3236,18 +3346,22 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 				}
 				if (playerInVirtualStump)
 				{
+					if (CustomMapManager.IsInFeaturedMode())
+					{
+						CustomMapManager.PrepareFeaturedMapReloadOnRoomChange();
+					}
 					CustomMapManager.UnloadMap(returnToSinglePlayerIfInPublic: false);
 				}
 				networkController.AttemptToJoinSpecificRoom(roomToJoin, FriendshipGroupDetection.Instance.IsInParty ? JoinType.ForceJoinWithParty : JoinType.Solo);
 				break;
 			case NameCheckResult.Warning:
 				roomToJoin = "";
-				roomToJoin += (playerInVirtualStump ? virtualStumpRoomPrepend : "");
+				roomToJoin += (playerInVirtualStump ? VStumpRoomFullPrepend : "");
 				SwitchToWarningState();
 				break;
 			case NameCheckResult.Ban:
 				roomToJoin = "";
-				roomToJoin += (playerInVirtualStump ? virtualStumpRoomPrepend : "");
+				roomToJoin += (playerInVirtualStump ? VStumpRoomFullPrepend : "");
 				GorillaGameManager.ForceStopGame_DisconnectAndDestroy();
 				break;
 			}
@@ -3610,7 +3724,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		}
 		FunctionsCount = _activeOrderList.Count;
 		FunctionNames.Clear();
-		_activeOrderList.ForEach(delegate(StateOrderItem s)
+		_activeOrderList.ForEach((StateOrderItem s) =>
 		{
 			string text = s.GetName();
 			if (text.Length > highestCharacterCount)
@@ -3736,7 +3850,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		}
 		default:
 			setting = PlayerPrefs.GetInt(NameTagPlayerPref, setting ? 1 : 0) == 1;
-			UpdateNametagSetting(setting, !hasOptedInPreviously && setting);
+			UpdateNametagSetting(setting, !hasOptedInPreviously & setting);
 			break;
 		}
 	}
@@ -3774,8 +3888,9 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 
 	public void SetInVirtualStump(bool inVirtualStump)
 	{
+		GrowingSnowballThrowable.ForceAOEEnabled = inVirtualStump;
 		playerInVirtualStump = inVirtualStump;
-		roomToJoin = (playerInVirtualStump ? (virtualStumpRoomPrepend + roomToJoin) : roomToJoin.RemoveAll(virtualStumpRoomPrepend));
+		roomToJoin = (playerInVirtualStump ? (VStumpRoomFullPrepend + roomToJoin) : StripVStumpRoomPrefix(roomToJoin));
 	}
 
 	public bool IsPlayerInVirtualStump()
@@ -4033,7 +4148,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		string text = ((!KIDManager.InitialisationSuccessful) ? "NOT READY" : activeAccountStatus.ToString());
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.AppendLine("k-ID Account Status:\t" + text);
-		if (activeAccountStatus == (AgeStatusType)0)
+		if (activeAccountStatus == 0)
 		{
 			stringBuilder.AppendLine("\nPress 'OPTION 1' to get permissions!");
 			screenText.Set(stringBuilder.ToString());
@@ -4150,7 +4265,7 @@ public class GorillaComputer : MonoBehaviour, IGorillaSliceableSimple
 		FunctionNames.Clear();
 		FunctionsCount = OrderList.Count;
 		highestCharacterCount = int.MinValue;
-		OrderList.ForEach(delegate(StateOrderItem s)
+		OrderList.ForEach((StateOrderItem s) =>
 		{
 			string text = s.GetName();
 			if (text.Length > highestCharacterCount)

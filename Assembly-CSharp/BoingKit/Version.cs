@@ -79,6 +79,6 @@ public struct Version : IEquatable<Version>
 
 	public override int GetHashCode()
 	{
-		return ((366299368 * -1521134295 + MajorVersion.GetHashCode()) * -1521134295 + MinorVersion.GetHashCode()) * -1521134295 + Revision.GetHashCode();
+		return ((unchecked(366299368 * -1521134295) + MajorVersion.GetHashCode()) * -1521134295 + MinorVersion.GetHashCode()) * -1521134295 + Revision.GetHashCode();
 	}
 }

@@ -114,7 +114,7 @@ public class VoxelWorld : MonoBehaviour
 		{
 			if (!root)
 			{
-				return base.transform;
+				return transform;
 			}
 			return root;
 		}
@@ -220,7 +220,7 @@ public class VoxelWorld : MonoBehaviour
 	{
 		if (registerAsSceneWorld && !ExistsFor(this))
 		{
-			SetFor(base.gameObject, this);
+			SetFor(gameObject, this);
 		}
 		switch (generator.meshParameters.MeshGenerationMode)
 		{
@@ -235,11 +235,11 @@ public class VoxelWorld : MonoBehaviour
 		}
 		if (!target)
 		{
-			target = base.transform;
+			target = transform;
 		}
 		if (!root)
 		{
-			root = base.transform;
+			root = transform;
 		}
 		Id = this.GenerateHashcodeFromPath();
 	}
@@ -293,8 +293,8 @@ public class VoxelWorld : MonoBehaviour
 		{
 			chunksToGenerate.Dispose();
 		}
-		sortedChunks = default(NativeList<int3>);
-		chunksToGenerate = default(NativeHashSet<int3>);
+		sortedChunks = default;
+		chunksToGenerate = default;
 	}
 
 	private void Update()
@@ -353,9 +353,9 @@ public class VoxelWorld : MonoBehaviour
 
 	private void ConfigurePools()
 	{
-		_chunkPool = new UnityEngine.Pool.ObjectPool<Chunk>(() => new Chunk(int3.zero, ChunkSize), delegate
+		_chunkPool = new UnityEngine.Pool.ObjectPool<Chunk>(() => new Chunk(int3.zero, ChunkSize), (Chunk chunk) =>
 		{
-		}, delegate(Chunk chunk)
+		}, (Chunk chunk) =>
 		{
 			if ((bool)chunk.Component)
 			{
@@ -363,15 +363,15 @@ public class VoxelWorld : MonoBehaviour
 				chunk.SetComponent(null);
 			}
 			chunk.Clear();
-		}, delegate(Chunk chunk)
+		}, (Chunk chunk) =>
 		{
 			chunk.Dispose();
 		}, collectionCheck: true, 100, 100);
-		_chunkComponentPool = new UnityEngine.Pool.ObjectPool<ChunkComponent>(() => UnityEngine.Object.Instantiate(chunkPrefab), delegate(ChunkComponent chunkComponent)
+		_chunkComponentPool = new UnityEngine.Pool.ObjectPool<ChunkComponent>(() => UnityEngine.Object.Instantiate(chunkPrefab), (ChunkComponent chunkComponent) =>
 		{
 			chunkComponent.gameObject.SetActive(value: false);
-			chunkComponent.transform.SetParent(base.transform, worldPositionStays: false);
-		}, delegate(ChunkComponent chunkComponent)
+			chunkComponent.transform.SetParent(transform, worldPositionStays: false);
+		}, (ChunkComponent chunkComponent) =>
 		{
 			if ((bool)chunkComponent.meshFilter.sharedMesh)
 			{
@@ -381,14 +381,14 @@ public class VoxelWorld : MonoBehaviour
 				_meshPool.Release(sharedMesh);
 			}
 			chunkComponent.gameObject.SetActive(value: false);
-		}, delegate(ChunkComponent chunkComponent)
+		}, (ChunkComponent chunkComponent) =>
 		{
 			if ((bool)chunkComponent)
 			{
 				UnityEngine.Object.Destroy(chunkComponent.gameObject);
 			}
 		}, collectionCheck: true, 100, 100);
-		_meshPool = new UnityEngine.Pool.ObjectPool<Mesh>(() => new Mesh(), null, delegate(Mesh mesh)
+		_meshPool = new UnityEngine.Pool.ObjectPool<Mesh>(() => new Mesh(), null, (Mesh mesh) =>
 		{
 			mesh.Clear(keepVertexLayout: false);
 		}, null, collectionCheck: true, 100, 100);
@@ -621,17 +621,17 @@ public class VoxelWorld : MonoBehaviour
 		UnityEngine.BoundsInt boundsInt = generator.GetWorldBounds();
 		if (boundsInt != default(UnityEngine.BoundsInt))
 		{
-			if (!root || root == base.transform)
+			if (!root || root == transform)
 			{
 				root = new GameObject("VoxelWorldRoot").transform;
-				root.SetParent(base.transform);
+				root.SetParent(transform);
 				root.localPosition = Vector3.zero;
 				root.localRotation = Quaternion.identity;
 				root.localScale = Vector3.one;
 			}
-			else if (root.parent != base.transform)
+			else if (root.parent != transform)
 			{
-				root.SetParent(base.transform, worldPositionStays: true);
+				root.SetParent(transform, worldPositionStays: true);
 				root.localRotation = Quaternion.identity;
 				root.localScale = Vector3.one;
 			}
@@ -642,7 +642,23 @@ public class VoxelWorld : MonoBehaviour
 			if (worldType == WorldType.Bounded)
 			{
 				worldBounds = generator.GetWorldBounds();
+				OptimizeChunkSize();
 			}
+		}
+	}
+
+	private void OptimizeChunkSize()
+	{
+		if (worldType == WorldType.Bounded)
+		{
+			Vector3Int vector3Int = math.max(worldBounds.min.ToInt3() + worldBounds.size.ToInt3(), worldBounds.size.ToInt3()).ToVectorInt();
+			vector3Int += Vector3Int.one;
+			int b = Mathf.Max(vector3Int.x, vector3Int.y, vector3Int.z);
+			chunkSize = Mathf.Min(Mathf.Max(1, b), 32);
+		}
+		else
+		{
+			chunkSize = 32;
 		}
 	}
 
@@ -955,8 +971,7 @@ public class VoxelWorld : MonoBehaviour
 		}
 		void SetVoxelDataInChunk()
 		{
-			ChunkTaskSet value;
-			bool flag = chunkJobs.TryGetValue(_opChunk.Id, out value);
+			bool flag = chunkJobs.TryGetValue(_opChunk.Id, out var value);
 			if (flag)
 			{
 				value.Complete();
@@ -1002,8 +1017,7 @@ public class VoxelWorld : MonoBehaviour
 		}
 		void SetVoxelDataInChunk()
 		{
-			ChunkTaskSet value;
-			bool flag = chunkJobs.TryGetValue(_opChunk.Id, out value);
+			bool flag = chunkJobs.TryGetValue(_opChunk.Id, out var value);
 			if (flag)
 			{
 				value.Complete();
@@ -1063,8 +1077,7 @@ public class VoxelWorld : MonoBehaviour
 		}
 		void SetVoxelDensityInChunk()
 		{
-			ChunkTaskSet value;
-			bool flag = chunkJobs.TryGetValue(_opChunk.Id, out value);
+			bool flag = chunkJobs.TryGetValue(_opChunk.Id, out var value);
 			if (flag)
 			{
 				value.Complete();
@@ -1139,7 +1152,7 @@ public class VoxelWorld : MonoBehaviour
 		int3 key = voxelId.LocalPositionToChunkId(ChunkSize);
 		if (!chunks.TryGetValue(key, out var value))
 		{
-			return default(Voxel);
+			return default;
 		}
 		int3 int5 = voxelId - value.Id * value.Size;
 		int index = int5.x + VoxelDimension * (int5.y + VoxelDimension * int5.z);
@@ -1217,7 +1230,11 @@ public class VoxelWorld : MonoBehaviour
 				for (int k = item.z; k <= item2.z; k++)
 				{
 					int3 key = new int3(i, j, k);
-					if (!chunks.TryGetValue(key, out var _))
+					if (!chunks.TryGetValue(key, out var value))
+					{
+						return false;
+					}
+					if (value.State < ChunkState.MeshAssigned)
 					{
 						return false;
 					}
@@ -1417,16 +1434,11 @@ public class VoxelWorld : MonoBehaviour
 		{
 			Debug.LogError("Chunk is null in HandleJobCompletion");
 		}
-		Chunk chunk = chunkTask.Chunk;
-		if (chunk.State < ChunkState.MeshAssigned || chunk.IsDirty)
+		foreach (Chunk chunk in chunkTask.Chunks)
 		{
-			Debug.LogWarning($"{chunk} job completed with state {chunk.State} and dirty {chunk.IsDirty}");
-		}
-		foreach (Chunk chunk2 in chunkTask.Chunks)
-		{
-			if (!completedJobs.Contains(chunk2.Id))
+			if (!completedJobs.Contains(chunk.Id))
 			{
-				completedJobs.Add(chunk2.Id);
+				completedJobs.Add(chunk.Id);
 			}
 		}
 	}

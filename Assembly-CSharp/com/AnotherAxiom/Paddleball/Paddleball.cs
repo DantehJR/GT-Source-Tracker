@@ -174,7 +174,7 @@ public class Paddleball : ArcadeGame
 
 	private const float directionToByteFactor = 127.5f;
 
-	private const float byteToDirectionFactor = 0.007843138f;
+	private const float byteToDirectionFactor = 2f / 255f;
 
 	private PaddleballNetState netStateLast;
 
@@ -374,7 +374,7 @@ public class Paddleball : ArcadeGame
 		officialPos[2] = ByteToYPos(paddleballNetState.P2LocY);
 		officialPos[3] = ByteToYPos(paddleballNetState.P3LocY);
 		Vector2 vector = new Vector2(paddleballNetState.BallLocX, ByteToYPos(paddleballNetState.BallLocY));
-		Vector2 normalized = new Vector2((float)(int)paddleballNetState.BallTrajectoryX * 0.007843138f - 1f, (float)(int)paddleballNetState.BallTrajectoryY * 0.007843138f - 1f).normalized;
+		Vector2 normalized = new Vector2((float)(int)paddleballNetState.BallTrajectoryX * (2f / 255f) - 1f, (float)(int)paddleballNetState.BallTrajectoryY * (2f / 255f) - 1f).normalized;
 		Vector2 vector2 = vector - normalized * Vector2.Dot(vector, normalized);
 		Vector2 vector3 = ball.localPosition.xy();
 		Vector2 vector4 = vector3 - ballTrajectory * Vector2.Dot(vector3, ballTrajectory);

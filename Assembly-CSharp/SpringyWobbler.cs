@@ -35,14 +35,14 @@ public class SpringyWobbler : MonoBehaviour
 	private void Start()
 	{
 		int num = 1;
-		Transform child = base.transform;
+		Transform child = transform;
 		while (child.childCount > 0)
 		{
 			child = child.GetChild(0);
 			num++;
 		}
 		children = new Transform[num];
-		child = base.transform;
+		child = transform;
 		children[0] = child;
 		int num2 = 1;
 		while (child.childCount > 0)
@@ -56,8 +56,8 @@ public class SpringyWobbler : MonoBehaviour
 
 	private void Update()
 	{
-		float x = base.transform.lossyScale.x;
-		Vector3 vector = base.transform.TransformPoint(idealEndpointLocalPos);
+		float x = transform.lossyScale.x;
+		Vector3 vector = transform.TransformPoint(idealEndpointLocalPos);
 		endpointVelocity += (vector - lastEndpointWorldPos) * stabilizingForce * x * Time.deltaTime;
 		Vector3 vector2 = lastEndpointWorldPos + endpointVelocity * Time.deltaTime;
 		float num = maxDisplacement * x;
@@ -66,10 +66,10 @@ public class SpringyWobbler : MonoBehaviour
 			vector2 = vector + (vector2 - vector).normalized * num;
 		}
 		endpointVelocity = (vector2 - lastEndpointWorldPos) * (1f - drag) / Time.deltaTime;
-		Vector3 vector3 = base.transform.TransformPoint(rotateToFaceLocalPos);
-		Vector3 upwards = base.transform.TransformDirection(Vector3.up);
-		Vector3 position = base.transform.position;
-		Vector3 ctrl = position + base.transform.TransformDirection(idealEndpointLocalPos) * startStiffness * x;
+		Vector3 vector3 = transform.TransformPoint(rotateToFaceLocalPos);
+		Vector3 upwards = transform.TransformDirection(Vector3.up);
+		Vector3 position = transform.position;
+		Vector3 ctrl = position + transform.TransformDirection(idealEndpointLocalPos) * startStiffness * x;
 		Vector3 vector4 = vector2;
 		Vector3 ctrl2 = vector4 + (vector3 - vector4).normalized * endStiffness * x;
 		for (int i = 1; i < children.Length; i++)

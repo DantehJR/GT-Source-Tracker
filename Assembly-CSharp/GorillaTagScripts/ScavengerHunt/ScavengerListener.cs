@@ -42,7 +42,7 @@ public class ScavengerListener : MonoBehaviour
 		hunt = ScavengerManager.Instance.GetHunt(huntName);
 		if (hunt == null)
 		{
-			Debug.LogError("ScavengerManager on " + base.name + " couldn't find a hunt named " + huntName + ". Check your spelling!");
+			Debug.LogError("ScavengerManager on " + name + " couldn't find a hunt named " + huntName + ". Check your spelling!");
 			ScavengerManager.OnHuntCompleted = (Action<string, bool>)Delegate.Remove(ScavengerManager.OnHuntCompleted, new Action<string, bool>(OnHuntCompleted));
 			ScavengerManager.OnTargetCollected = (Action<string, string, bool>)Delegate.Remove(ScavengerManager.OnTargetCollected, new Action<string, string, bool>(OnTargetCollected));
 		}

@@ -125,7 +125,7 @@ public class GTAnimator : MonoBehaviour, IDelayedExecListener
 
 	void IDelayedExecListener.OnDelayedAction(int contextId)
 	{
-		if (!base.enabled || _frameCountWhenLastPlayed != contextId)
+		if (!enabled || _frameCountWhenLastPlayed != contextId)
 		{
 			return;
 		}
@@ -137,8 +137,7 @@ public class GTAnimator : MonoBehaviour, IDelayedExecListener
 				m_animatedGameObjects[i].SetActive(value: false);
 			}
 		}
-		AnimClipAndGObjs o;
-		GameObject[] array = ((!m_animationMap.TryGet(_currentStateAsLong, out o) || o.endStaticGameObjects == null || o.endStaticGameObjects.Length == 0) ? m_defaultStaticGameObjects : o.endStaticGameObjects);
+		GameObject[] array = ((!m_animationMap.TryGet(_currentStateAsLong, out var o) || o.endStaticGameObjects == null || o.endStaticGameObjects.Length == 0) ? m_defaultStaticGameObjects : o.endStaticGameObjects);
 		if (array != null)
 		{
 			for (int j = 0; j < array.Length; j++)

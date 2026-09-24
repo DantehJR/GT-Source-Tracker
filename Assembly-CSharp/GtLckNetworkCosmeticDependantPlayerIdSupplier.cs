@@ -15,6 +15,6 @@ public class GtLckNetworkCosmeticDependantPlayerIdSupplier : MonoBehaviour, ILck
 
 	public void UpdatePlayerId()
 	{
-		this.PlayerIdUpdated?.Invoke();
+		PlayerIdUpdated?.Invoke();
 	}
 }

@@ -18,5 +18,5 @@ public enum EEdCosBrowserCategoryFilter
 	Pants = 0x200,
 	TagEffect = 0x400,
 	Set = 0x1000,
-	All = 0x17FF
+	All = Hat | Badge | Face | Paw | Chest | Fur | Shirt | Back | Arms | Pants | TagEffect | Set
 }

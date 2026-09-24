@@ -19,7 +19,7 @@ public static class PlayerCountHelper
 
 	public static void GetPlayerCount(Mod mod, Action<string> successCallback, Action<PlayFabError>? errorCallback = null)
 	{
-		GetPlayerCountInternal(mod.Id.ToString(), delegate(ulong count)
+		GetPlayerCountInternal(mod.Id.ToString(), (ulong count) =>
 		{
 			successCallback(FormatPlayerCount(count));
 		}, errorCallback);
@@ -34,7 +34,7 @@ public static class PlayerCountHelper
 			{
 				mapIds = modsAndCallbacks.Keys.Select((Mod mod) => mod.Id.ToString()).ToList()
 			};
-			instance.ReturnVstumpMapStats(request, delegate(ExecuteFunctionResult executeFunctionResult)
+			instance.ReturnVstumpMapStats(request, (ExecuteFunctionResult executeFunctionResult) =>
 			{
 				UnpackSuccessBatched(executeFunctionResult, modsAndCallbacks);
 			}, errorCallback ?? new Action<PlayFabError>(DefaultErrorCallback));
@@ -50,7 +50,7 @@ public static class PlayerCountHelper
 			{
 				mapIds = new List<string> { modId }
 			};
-			instance.ReturnVstumpMapStats(request, delegate(ExecuteFunctionResult executeFunctionResult)
+			instance.ReturnVstumpMapStats(request, (ExecuteFunctionResult executeFunctionResult) =>
 			{
 				UnpackSuccess(executeFunctionResult, modId, successCallback);
 			}, errorCallback ?? new Action<PlayFabError>(DefaultErrorCallback));

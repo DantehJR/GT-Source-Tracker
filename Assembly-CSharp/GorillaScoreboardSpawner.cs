@@ -37,7 +37,7 @@ public class GorillaScoreboardSpawner : MonoBehaviour
 
 	public bool IsCurrentScoreboard()
 	{
-		return base.gameObject.activeInHierarchy;
+		return gameObject.activeInHierarchy;
 	}
 
 	public void OnJoinedRoom()
@@ -46,8 +46,8 @@ public class GorillaScoreboardSpawner : MonoBehaviour
 		if (IsCurrentScoreboard())
 		{
 			notInRoomText.SetActive(value: false);
-			currentScoreboard = UnityEngine.Object.Instantiate(scoreboardPrefab, base.transform).GetComponent<GorillaScoreBoard>();
-			currentScoreboard.transform.rotation = base.transform.rotation;
+			currentScoreboard = UnityEngine.Object.Instantiate(scoreboardPrefab, transform).GetComponent<GorillaScoreBoard>();
+			currentScoreboard.transform.rotation = transform.rotation;
 			if (includeMMR)
 			{
 				currentScoreboard.GetComponent<GorillaScoreBoard>().includeMMR = true;

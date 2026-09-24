@@ -69,7 +69,7 @@ public class TransferrableObjectHoldablePart_Crank : TransferrableObjectHoldable
 	{
 		if (rotatingPart == null)
 		{
-			rotatingPart = base.transform;
+			rotatingPart = transform;
 		}
 		Vector3 vector = rotatingPart.parent.InverseTransformPoint(rotatingPart.TransformPoint(Vector3.right));
 		lastAngle = Mathf.Atan2(vector.y, vector.x);

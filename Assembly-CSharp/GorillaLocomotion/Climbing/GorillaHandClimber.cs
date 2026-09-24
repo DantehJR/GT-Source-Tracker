@@ -88,7 +88,7 @@ public class GorillaHandClimber : MonoBehaviour
 				dontReclimbLast = null;
 			}
 			GorillaClimbable closestClimbable = GetClosestClimbable();
-			if (!queuedToBecomeValidToGrabAgain && (bool)closestClimbable && grab && CanInitiateClimb() && closestClimbable != dontReclimbLast)
+			if (((!queuedToBecomeValidToGrabAgain && (bool)closestClimbable) & grab) && CanInitiateClimb() && closestClimbable != dontReclimbLast)
 			{
 				if (closestClimbable is GorillaClimbableRef gorillaClimbableRef)
 				{
@@ -104,7 +104,7 @@ public class GorillaHandClimber : MonoBehaviour
 		{
 			player.EndClimbing(this, startingNewClimb: false);
 		}
-		grabber.CheckGrabber(CanInitiateClimb() && grab);
+		grabber.CheckGrabber(CanInitiateClimb() & grab);
 	}
 
 	private bool CanInitiateClimb()
@@ -131,7 +131,7 @@ public class GorillaHandClimber : MonoBehaviour
 		{
 			return potentialClimbables[0];
 		}
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		Bounds bounds = col.bounds;
 		float num = 0.15f;
 		GorillaClimbable result = null;

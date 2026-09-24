@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GorillaNetworking;
 using Newtonsoft.Json;
 using PlayFab;
+using PlayFab.CloudScriptModels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -80,13 +81,13 @@ public class LegalAgreements : MonoBehaviour
 		if (instance != null)
 		{
 			Debug.LogError("Trying to set [LegalAgreements] instance but it is not null", this);
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		instance = this;
 		stickHeldDuration = 0f;
 		scrollSpeed = _minScrollSpeed;
-		base.enabled = false;
+		enabled = false;
 	}
 
 	private void Update()
@@ -96,7 +97,7 @@ public class LegalAgreements : MonoBehaviour
 			return;
 		}
 		float num = Time.deltaTime * scrollSpeed;
-		if (ControllerBehaviour.Instance.IsUpStick || ControllerBehaviour.Instance.IsDownStick)
+		if (ControllerBehaviour.Instance != null && (ControllerBehaviour.Instance.IsUpStick || ControllerBehaviour.Instance.IsDownStick))
 		{
 			if (ControllerBehaviour.Instance.IsDownStick)
 			{
@@ -162,7 +163,7 @@ public class LegalAgreements : MonoBehaviour
 			{
 				continue;
 			}
-			base.enabled = true;
+			enabled = true;
 			PrivateUIRoom.ForceStartOverlay(PrivateUIRoom.OverlaySource.KID);
 			if (!screen.confirmString.IsNullOrEmpty())
 			{
@@ -190,7 +191,7 @@ public class LegalAgreements : MonoBehaviour
 				_ = screen.optInAction;
 			}
 		}
-		base.enabled = false;
+		enabled = false;
 		await SubmitAcceptedAgreements(agreementResults);
 	}
 
@@ -213,14 +214,14 @@ public class LegalAgreements : MonoBehaviour
 	{
 		optional = asset.optional;
 		tmpTitle.text = asset.title;
-		bool num = await UpdateTextFromPlayFabTitleData(asset.playFabKey, version, tmpBody);
-		if (!num)
+		bool flag = await UpdateTextFromPlayFabTitleData(asset.playFabKey, version, tmpBody);
+		if (!flag)
 		{
 			tmpBody.text = asset.errorMessage + "\n\nPlease restart the game and try again.";
 			scrollBar.value = 0f;
 			scrollBar.size = 1f;
 		}
-		return num;
+		return flag;
 	}
 
 	public async Task<bool> UpdateTextFromPlayFabTitleData(string key, string version, TMP_Text target)
@@ -273,11 +274,11 @@ public class LegalAgreements : MonoBehaviour
 	{
 		int state = 0;
 		string result = null;
-		PlayFabTitleDataCache.Instance.GetTitleData(key, delegate(string res)
+		PlayFabTitleDataCache.Instance.GetTitleData(key, (string res) =>
 		{
 			result = res;
 			state = 1;
-		}, delegate(PlayFabError err)
+		}, (PlayFabError err) =>
 		{
 			result = null;
 			state = -1;
@@ -298,11 +299,11 @@ public class LegalAgreements : MonoBehaviour
 		GorillaServer.Instance.GetAcceptedAgreements(new GetAcceptedAgreementsRequest
 		{
 			AgreementKeys = agreementKeys
-		}, delegate(Dictionary<string, string> result)
+		}, (Dictionary<string, string> result) =>
 		{
 			state = 1;
 			returnValue = result;
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.LogError(error.ErrorMessage);
 			state = -1;
@@ -320,10 +321,10 @@ public class LegalAgreements : MonoBehaviour
 		GorillaServer.Instance.SubmitAcceptedAgreements(new SubmitAcceptedAgreementsRequest
 		{
 			Agreements = agreements
-		}, delegate
+		}, (ExecuteFunctionResult result) =>
 		{
 			state = 1;
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 			state = -1;
 		});

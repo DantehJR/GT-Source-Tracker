@@ -99,11 +99,11 @@ public class NetworkedWearable : MonoBehaviour, ISpawnable, ITickSystemTick
 		{
 			if (listenForChangesLocal)
 			{
-				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling ToggleWearableStateBool on object " + base.gameObject.name + ".You should not change state from a listener");
+				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling ToggleWearableStateBool on object " + gameObject.name + ".You should not change state from a listener");
 			}
 			else if (assignedSlot == CosmeticsController.CosmeticCategory.Paw && isTwoHanded)
 			{
-				GTDev.LogWarning("NetworkedWearable calling ToggleWearableStateBool on two handed object " + base.gameObject.name + ". please use ToggleLeftWearableStateBool or ToggleRightWearableStateBool instead");
+				GTDev.LogWarning("NetworkedWearable calling ToggleWearableStateBool on two handed object " + gameObject.name + ". please use ToggleLeftWearableStateBool or ToggleRightWearableStateBool instead");
 				ToggleLeftWearableStateBool();
 			}
 			else
@@ -121,11 +121,11 @@ public class NetworkedWearable : MonoBehaviour, ISpawnable, ITickSystemTick
 		{
 			if (listenForChangesLocal)
 			{
-				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling SetWearableStateBool on object " + base.gameObject.name + ".You should not change state from a listener");
+				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling SetWearableStateBool on object " + gameObject.name + ".You should not change state from a listener");
 			}
 			else if (assignedSlot == CosmeticsController.CosmeticCategory.Paw && isTwoHanded)
 			{
-				GTDev.LogWarning("NetworkedWearable calling SetWearableStateBool on two handed object " + base.gameObject.name + ". please use SetLeftWearableStateBool or SetRightWearableStateBool instead");
+				GTDev.LogWarning("NetworkedWearable calling SetWearableStateBool on two handed object " + gameObject.name + ". please use SetLeftWearableStateBool or SetRightWearableStateBool instead");
 				SetLeftWearableStateBool(newState);
 			}
 			else if (value != newState)
@@ -143,11 +143,11 @@ public class NetworkedWearable : MonoBehaviour, ISpawnable, ITickSystemTick
 		{
 			if (listenForChangesLocal)
 			{
-				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling ToggleLeftWearableStateBool on object " + base.gameObject.name + ".You should not change state from a listener");
+				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling ToggleLeftWearableStateBool on object " + gameObject.name + ".You should not change state from a listener");
 			}
 			else if (assignedSlot != CosmeticsController.CosmeticCategory.Paw || !isTwoHanded)
 			{
-				GTDev.LogWarning("NetworkedWearable calling ToggleLeftWearableStateBool on one handed object " + base.gameObject.name + ". Please use ToggleWearableStateBool instead");
+				GTDev.LogWarning("NetworkedWearable calling ToggleLeftWearableStateBool on one handed object " + gameObject.name + ". Please use ToggleWearableStateBool instead");
 				ToggleWearableStateBool();
 			}
 			else
@@ -165,11 +165,11 @@ public class NetworkedWearable : MonoBehaviour, ISpawnable, ITickSystemTick
 		{
 			if (listenForChangesLocal)
 			{
-				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling ToggleRightWearableStateBool on object " + base.gameObject.name + ".You should not change state from a listener");
+				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling ToggleRightWearableStateBool on object " + gameObject.name + ".You should not change state from a listener");
 			}
 			else if (assignedSlot != CosmeticsController.CosmeticCategory.Paw || !isTwoHanded)
 			{
-				GTDev.LogWarning("NetworkedWearable calling ToggleRightWearableStateBool on one handed object " + base.gameObject.name + ". Please use ToggleWearableStateBool instead");
+				GTDev.LogWarning("NetworkedWearable calling ToggleRightWearableStateBool on one handed object " + gameObject.name + ". Please use ToggleWearableStateBool instead");
 				ToggleWearableStateBool();
 			}
 			else
@@ -187,11 +187,11 @@ public class NetworkedWearable : MonoBehaviour, ISpawnable, ITickSystemTick
 		{
 			if (listenForChangesLocal)
 			{
-				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling SetLeftWearableStateBool on object " + base.gameObject.name + ".You should not change state from a listener");
+				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling SetLeftWearableStateBool on object " + gameObject.name + ".You should not change state from a listener");
 			}
 			else if (assignedSlot != CosmeticsController.CosmeticCategory.Paw || !isTwoHanded)
 			{
-				GTDev.LogWarning("NetworkedWearable calling SetLeftWearableStateBool on one handed object " + base.gameObject.name + ". Please use SetWearableStateBool instead");
+				GTDev.LogWarning("NetworkedWearable calling SetLeftWearableStateBool on one handed object " + gameObject.name + ". Please use SetWearableStateBool instead");
 				SetWearableStateBool(newState);
 			}
 			else if (leftHandValue != newState)
@@ -209,11 +209,11 @@ public class NetworkedWearable : MonoBehaviour, ISpawnable, ITickSystemTick
 		{
 			if (listenForChangesLocal)
 			{
-				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling SetRightWearableStateBool on object " + base.gameObject.name + ".You should not change state from a listener");
+				GTDev.LogError("NetworkedWearable with listenForChangesLocal calling SetRightWearableStateBool on object " + gameObject.name + ".You should not change state from a listener");
 			}
 			else if (assignedSlot != CosmeticsController.CosmeticCategory.Paw || !isTwoHanded)
 			{
-				GTDev.LogWarning("NetworkedWearable calling SetRightWearableStateBool on one handed object " + base.gameObject.name + ". Please use SetWearableStateBool instead");
+				GTDev.LogWarning("NetworkedWearable calling SetRightWearableStateBool on one handed object " + gameObject.name + ". Please use SetWearableStateBool instead");
 				SetWearableStateBool(newState);
 			}
 			else if (rightHandValue != newState)
@@ -277,11 +277,11 @@ public class NetworkedWearable : MonoBehaviour, ISpawnable, ITickSystemTick
 	{
 		if (assignedSlot == CosmeticsController.CosmeticCategory.Paw && CosmeticSelectedSide == ECosmeticSelectSide.Both)
 		{
-			GTDev.LogWarning($"NetworkedWearable: Cosmetic {base.gameObject.name} with category {assignedSlot} has select side Both, assuming left side!");
+			GTDev.LogWarning($"NetworkedWearable: Cosmetic {gameObject.name} with category {assignedSlot} has select side Both, assuming left side!");
 		}
 		if (!IsCategoryValid(assignedSlot))
 		{
-			GTDev.LogError($"NetworkedWearable: Cosmetic {base.gameObject.name} spawned with invalid category {assignedSlot}!");
+			GTDev.LogError($"NetworkedWearable: Cosmetic {gameObject.name} spawned with invalid category {assignedSlot}!");
 		}
 		myRig = rig;
 		isLocal = rig.isLocal;

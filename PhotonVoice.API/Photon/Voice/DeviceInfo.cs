@@ -6,7 +6,7 @@ public struct DeviceInfo
 {
 	private bool useStringID;
 
-	public static readonly DeviceInfo Default;
+	public static readonly DeviceInfo Default = new DeviceInfo(isDefault: true, -128, "", "[Default]");
 
 	public bool IsDefault { get; private set; }
 
@@ -79,10 +79,5 @@ public struct DeviceInfo
 			return ((Name == null) ? "" : Name) + ((IDString == null || IDString == Name) ? "" : (" (" + IDString.Substring(0, Math.Min(10, IDString.Length)) + ")"));
 		}
 		return $"{Name} ({IDInt})";
-	}
-
-	static DeviceInfo()
-	{
-		Default = new DeviceInfo(isDefault: true, -128, "", "[Default]");
 	}
 }

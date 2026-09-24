@@ -18,8 +18,8 @@ public class SyncRigidBodyToMovement : MonoBehaviour
 	private void OnEnable()
 	{
 		targetRigidbody.gameObject.SetActive(value: true);
-		targetRigidbody.transform.position = base.transform.position;
-		targetRigidbody.transform.rotation = base.transform.rotation;
+		targetRigidbody.transform.position = transform.position;
+		targetRigidbody.transform.rotation = transform.rotation;
 	}
 
 	private void OnDisable()
@@ -29,7 +29,7 @@ public class SyncRigidBodyToMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		targetRigidbody.linearVelocity = (base.transform.position - targetRigidbody.position) / Time.fixedDeltaTime;
-		targetRigidbody.angularVelocity = QuaternionUtil.ToAngularVector(Quaternion.Inverse(targetRigidbody.rotation) * base.transform.rotation) / Time.fixedDeltaTime;
+		targetRigidbody.linearVelocity = (transform.position - targetRigidbody.position) / Time.fixedDeltaTime;
+		targetRigidbody.angularVelocity = QuaternionUtil.ToAngularVector(Quaternion.Inverse(targetRigidbody.rotation) * transform.rotation) / Time.fixedDeltaTime;
 	}
 }

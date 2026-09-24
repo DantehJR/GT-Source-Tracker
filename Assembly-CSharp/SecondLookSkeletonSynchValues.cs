@@ -84,7 +84,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 
 	protected override void WriteDataPUN(PhotonStream stream, PhotonMessageInfo info)
 	{
-		if (base.IsMine || info.Sender.IsMasterClient)
+		if (IsMine || info.Sender.IsMasterClient)
 		{
 			stream.SendNext(mySkeleton.currentState);
 			stream.SendNext(mySkeleton.spookyGhost.transform.position);
@@ -97,7 +97,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 
 	protected override void ReadDataPUN(PhotonStream stream, PhotonMessageInfo info)
 	{
-		if (base.IsMine || info.Sender.IsMasterClient)
+		if (IsMine || info.Sender.IsMasterClient)
 		{
 			currentState = (SecondLookSkeleton.GhostState)stream.ReceiveNext();
 			position.SetValueSafe((Vector3)stream.ReceiveNext());
@@ -122,14 +122,14 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void SecondLookSkeletonSynchValues::RPC_RemoteActiveGhost(Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void SecondLookSkeletonSynchValues::RPC_RemoteActiveGhost(Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			if ((localAuthorityMask & 1) != 1)
@@ -140,24 +140,24 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 					NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void SecondLookSkeletonSynchValues::RPC_RemoteActiveGhost(Fusion.RpcInfo)", num);
 					return;
 				}
-				if (base.Runner.HasAnyActiveConnections())
+				if (Runner.HasAnyActiveConnections())
 				{
-					SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+					SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 					byte* ptr2 = (byte*)ptr + 28;
-					*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
+					*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
 					int num2 = 8;
 					ptr->Offset = num2 * 8;
-					base.Runner.SendRpc(ptr);
+					Runner.SendRpc(ptr);
 				}
 				if ((localAuthorityMask & 1) == 0)
 				{
 					return;
 				}
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		MonkeAgent.IncrementRPCCall(info, "RPC_RemoteActiveGhost");
-		if (base.IsMine)
+		if (IsMine)
 		{
 			mySkeleton.RemoteActivateGhost();
 		}
@@ -173,14 +173,14 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void SecondLookSkeletonSynchValues::RPC_RemotePlayerSeen(Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void SecondLookSkeletonSynchValues::RPC_RemotePlayerSeen(Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			int num = 8;
@@ -189,20 +189,20 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 				NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void SecondLookSkeletonSynchValues::RPC_RemotePlayerSeen(Fusion.RpcInfo)", num);
 				return;
 			}
-			if (base.Runner.HasAnyActiveConnections())
+			if (Runner.HasAnyActiveConnections())
 			{
-				SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+				SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 				byte* ptr2 = (byte*)ptr + 28;
-				*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 2);
+				*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 2);
 				int num2 = 8;
 				ptr->Offset = num2 * 8;
-				base.Runner.SendRpc(ptr);
+				Runner.SendRpc(ptr);
 			}
 			if ((localAuthorityMask & 7) == 0)
 			{
 				return;
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		MonkeAgent.IncrementRPCCall(info, "RPC_RemotePlayerSeen");
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Source);
@@ -222,14 +222,14 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void SecondLookSkeletonSynchValues::RPC_RemotePlayerCaught(Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void SecondLookSkeletonSynchValues::RPC_RemotePlayerCaught(Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			if ((localAuthorityMask & 1) != 1)
@@ -240,24 +240,24 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 					NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void SecondLookSkeletonSynchValues::RPC_RemotePlayerCaught(Fusion.RpcInfo)", num);
 					return;
 				}
-				if (base.Runner.HasAnyActiveConnections())
+				if (Runner.HasAnyActiveConnections())
 				{
-					SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+					SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 					byte* ptr2 = (byte*)ptr + 28;
-					*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 3);
+					*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 3);
 					int num2 = 8;
 					ptr->Offset = num2 * 8;
-					base.Runner.SendRpc(ptr);
+					Runner.SendRpc(ptr);
 				}
 				if ((localAuthorityMask & 1) == 0)
 				{
 					return;
 				}
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		MonkeAgent.IncrementRPCCall(info, "RPC_RemotePlayerCaught");
-		if (base.IsMine)
+		if (IsMine)
 		{
 			NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Source);
 			if (mySkeleton.currentState == SecondLookSkeleton.GhostState.Chasing)
@@ -271,7 +271,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 	public void RemoteActivateGhost(PhotonMessageInfo info)
 	{
 		MonkeAgent.IncrementRPCCall(info, "RemoteActivateGhost");
-		if (base.IsMine)
+		if (IsMine)
 		{
 			mySkeleton.RemoteActivateGhost();
 		}
@@ -292,7 +292,7 @@ public class SecondLookSkeletonSynchValues : NetworkComponent
 	public void RemotePlayerCaught(PhotonMessageInfo info)
 	{
 		MonkeAgent.IncrementRPCCall(info, "RemotePlayerCaught");
-		if (base.IsMine)
+		if (IsMine)
 		{
 			NetPlayer player = NetworkSystem.Instance.GetPlayer(info.Sender);
 			if (mySkeleton.currentState == SecondLookSkeleton.GhostState.Chasing)

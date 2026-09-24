@@ -43,7 +43,7 @@ public class SIDispenserGadgetListEntry : MonoBehaviour
 	public void SetTechTreeNode(SITechTreeNode node)
 	{
 		string text = (gadgetText.text = node.nickName);
-		base.name = text;
+		name = text;
 		int nodeId = node.upgradeType.GetNodeId();
 		ConfigureButton(dispenseButton.button, SITouchscreenButton.SITouchscreenButtonType.Dispense, nodeId);
 		ConfigureButton(infoButton.button, SITouchscreenButton.SITouchscreenButtonType.Select, nodeId);

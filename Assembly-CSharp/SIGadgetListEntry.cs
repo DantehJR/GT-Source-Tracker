@@ -22,7 +22,7 @@ public class SIGadgetListEntry : MonoBehaviour
 	public void Configure(ITouchScreenStation station, SITechTreePage page, Transform imageTarget, Transform textTarget, SITouchscreenButton.SITouchscreenButtonType buttonType = SITouchscreenButton.SITouchscreenButtonType.Select, int index = 0, float positionInterval = 0f, int listSize = 0)
 	{
 		string text = (gadgetText.text = page.nickName);
-		base.name = text;
+		name = text;
 		SITouchscreenButton button = buttonContainer.button;
 		button.buttonType = buttonType;
 		Id = (button.data = (int)page.pageId);
@@ -30,7 +30,7 @@ public class SIGadgetListEntry : MonoBehaviour
 		button.buttonPressed.AddListener(station.TouchscreenButtonPressed);
 		station.AddButton(button);
 		float num = (float)Mathf.Max(listSize - 1, 0) * (0f - positionInterval / 2f);
-		base.transform.localPosition += new Vector3(0f, num + (float)index * positionInterval, 0f);
+		transform.localPosition += new Vector3(0f, num + (float)index * positionInterval, 0f);
 		imageFlattener.overrideParentTransform = imageTarget;
 		textFlattener.overrideParentTransform = textTarget;
 		imageFlattener.enabled = true;

@@ -147,7 +147,7 @@ public class MovingPlatform : BasePlatform
 		if (platformType != PlatformType.Child)
 		{
 			rb = GetComponent<Rigidbody>();
-			initLocalRotation = base.transform.localRotation;
+			initLocalRotation = transform.localRotation;
 			if (pivot != null)
 			{
 				initOffset = pivot.transform.position - startXf.transform.position;
@@ -156,7 +156,7 @@ public class MovingPlatform : BasePlatform
 			endPos = endXf.position;
 			startRot = startXf.rotation;
 			endRot = endXf.rotation;
-			platformInitLocalPos = base.transform.localPosition;
+			platformInitLocalPos = transform.localPosition;
 			currT = startPercentage;
 		}
 	}
@@ -165,12 +165,12 @@ public class MovingPlatform : BasePlatform
 	{
 		if (platformType != PlatformType.Child)
 		{
-			base.transform.localRotation = initLocalRotation;
+			transform.localRotation = initLocalRotation;
 			startPos = startXf.position;
 			endPos = endXf.position;
 			startRot = startXf.rotation;
 			endRot = endXf.rotation;
-			platformInitLocalPos = base.transform.localPosition;
+			platformInitLocalPos = transform.localPosition;
 			currT = startPercentage;
 		}
 	}
@@ -195,7 +195,7 @@ public class MovingPlatform : BasePlatform
 
 	private Quaternion UpdateContinuousRotation()
 	{
-		return Quaternion.AngleAxis(smoothedPercent * 360f, Vector3.up) * base.transform.parent.rotation;
+		return Quaternion.AngleAxis(smoothedPercent * 360f, Vector3.up) * transform.parent.rotation;
 	}
 
 	private void SetupContext()
@@ -234,8 +234,8 @@ public class MovingPlatform : BasePlatform
 			return;
 		}
 		SetupContext();
-		Vector3 vector = base.transform.position;
-		Quaternion quaternion = base.transform.rotation;
+		Vector3 vector = transform.position;
+		Quaternion quaternion = transform.rotation;
 		bool flag = false;
 		switch (platformType)
 		{
@@ -270,12 +270,12 @@ public class MovingPlatform : BasePlatform
 		}
 		else
 		{
-			lastPos = base.transform.position;
-			lastRot = base.transform.rotation;
-			base.transform.position = vector;
+			lastPos = transform.position;
+			lastRot = transform.rotation;
+			transform.position = vector;
 			if (flag)
 			{
-				base.transform.rotation = quaternion;
+				transform.rotation = quaternion;
 			}
 		}
 		deltaPosition = vector - lastPos;

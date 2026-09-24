@@ -47,7 +47,7 @@ public class SlingshotLifeIndicator : MonoBehaviour, IGorillaSliceableSimple, IS
 
 	private void SetActive(GameObject obj, bool active)
 	{
-		if (!obj.activeSelf && active)
+		if (!obj.activeSelf & active)
 		{
 			obj.SetActive(value: true);
 		}

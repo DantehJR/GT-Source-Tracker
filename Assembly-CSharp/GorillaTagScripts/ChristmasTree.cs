@@ -108,14 +108,14 @@ public class ChristmasTree : NetworkComponent
 		{
 			if (attachPoints.IsHooked())
 			{
-				if (base.IsMine)
+				if (IsMine)
 				{
 					updateLight(enable: true);
 				}
 				return;
 			}
 		}
-		if (base.IsMine)
+		if (IsMine)
 		{
 			updateLight(enable: false);
 		}

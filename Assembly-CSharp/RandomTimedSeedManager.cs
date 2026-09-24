@@ -137,7 +137,7 @@ public class RandomTimedSeedManager : NetworkComponent, ITickSystemTick
 			idealSyncTime -= 1E+09f;
 			currentSyncTime -= 1E+09f;
 		}
-		if (!base.GetView.AmOwner)
+		if (!GetView.AmOwner)
 		{
 			currentSyncTime = Mathf.Lerp(currentSyncTime, idealSyncTime, 0.1f);
 		}

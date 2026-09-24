@@ -12,7 +12,7 @@ public class TransformFollowXScene : MonoBehaviour
 
 	private void Awake()
 	{
-		prevPos = base.transform.position;
+		prevPos = transform.position;
 	}
 
 	private void Start()
@@ -22,8 +22,8 @@ public class TransformFollowXScene : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		prevPos = base.transform.position;
-		base.transform.rotation = transformToFollow.rotation;
-		base.transform.position = transformToFollow.position + transformToFollow.rotation * offset;
+		prevPos = transform.position;
+		transform.rotation = transformToFollow.rotation;
+		transform.position = transformToFollow.position + transformToFollow.rotation * offset;
 	}
 }

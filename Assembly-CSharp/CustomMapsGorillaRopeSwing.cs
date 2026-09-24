@@ -63,7 +63,7 @@ public class CustomMapsGorillaRopeSwing : GorillaRopeSwing
 		ropeBitGenOffset = ropePlaceholder.ropeSegmentGenerationOffset;
 		preExistingSegments = ropePlaceholder.ropeSwingSegments;
 		ropeScale = ropePlaceholder.transform.localScale;
-		base.transform.localScale = Vector3.one;
+		transform.localScale = Vector3.one;
 		isRopeLengthSet = true;
 	}
 
@@ -86,7 +86,7 @@ public class CustomMapsGorillaRopeSwing : GorillaRopeSwing
 		{
 			for (int i = 0; i < preExistingSegments.Count; i++)
 			{
-				preExistingSegments[i].transform.SetParent(base.transform);
+				preExistingSegments[i].transform.SetParent(transform);
 				GorillaClimbable gorillaClimbable = preExistingSegments[i].AddComponent<GorillaClimbable>();
 				gorillaClimbable.snapX = snapX;
 				gorillaClimbable.snapY = snapY;
@@ -99,7 +99,7 @@ public class CustomMapsGorillaRopeSwing : GorillaRopeSwing
 				gorillaRopeSegment.boneIndex = preExistingSegments[i].boneIndex;
 				list.Add(preExistingSegments[i].transform);
 			}
-			base.transform.localScale = ropeScale;
+			transform.localScale = ropeScale;
 			ropePlaceholder.transform.localScale = Vector3.one;
 		}
 		else
@@ -127,12 +127,12 @@ public class CustomMapsGorillaRopeSwing : GorillaRopeSwing
 					Collider collider = list2[0];
 					if (collider != null)
 					{
-						Vector3 vector = base.transform.position + zero;
+						Vector3 vector = transform.position + zero;
 						Vector3 point = vector + new Vector3(0f, 0f - y, 0f);
 						flag = collider.bounds.Contains(vector) || collider.bounds.Contains(point);
 					}
 				}
-				GameObject gameObject = Object.Instantiate(flag ? partiallyUnderwaterPrefab : prefabRopeBit, base.transform);
+				GameObject gameObject = Object.Instantiate(flag ? partiallyUnderwaterPrefab : prefabRopeBit, transform);
 				gameObject.name = $"RopeBone_{k:00}";
 				gameObject.transform.localPosition = zero;
 				gameObject.transform.localRotation = Quaternion.identity;

@@ -118,14 +118,14 @@ public class StickObjectToPlayer : MonoBehaviour, ITickSystemTick
 		{
 			return transform3;
 		}
-		GameObject obj = new GameObject(n);
-		obj.transform.SetParent(transform, worldPositionStays: false);
-		return obj.transform;
+		GameObject gameObject = new GameObject(n);
+		gameObject.transform.SetParent(transform, worldPositionStays: false);
+		return gameObject.transform;
 	}
 
 	public void Stick(bool leftHand, Collider other)
 	{
-		if (!canSpawn || other == null || !base.enabled)
+		if (!canSpawn || other == null || !enabled)
 		{
 			return;
 		}
@@ -139,10 +139,10 @@ public class StickObjectToPlayer : MonoBehaviour, ITickSystemTick
 		Vector3 vector3 = vector2.normalized;
 		if (vector3 == Vector3.zero)
 		{
-			vector3 = base.transform.forward;
+			vector3 = transform.forward;
 			vector2 = vector3 * 0.01f;
 		}
-		Vector3 vector4 = base.transform.position - vector2;
+		Vector3 vector4 = transform.position - vector2;
 		Vector3 vector5;
 		if (alignToHitNormal)
 		{

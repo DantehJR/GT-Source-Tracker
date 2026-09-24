@@ -84,7 +84,7 @@ public class GorillaHandSocket : MonoBehaviour
 
 	protected virtual void OnUpdateAttached()
 	{
-		_attachedHand.transform.position = base.transform.position;
+		_attachedHand.transform.position = transform.position;
 	}
 
 	private void OnEnable()
@@ -126,8 +126,8 @@ public class GorillaHandSocket : MonoBehaviour
 		num |= 0x400;
 		num |= 0x200000;
 		num |= 0x1000000;
-		base.gameObject.SetTag(UnityTag.GorillaHandSocket);
-		base.gameObject.SetLayer(UnityLayer.GorillaHandSocket);
+		gameObject.SetTag(UnityTag.GorillaHandSocket);
+		gameObject.SetLayer(UnityLayer.GorillaHandSocket);
 		collider.isTrigger = true;
 		collider.includeLayers = num;
 		collider.excludeLayers = ~num;

@@ -23,7 +23,15 @@ public static class ContextLog
 		{
 			return string.Empty;
 		}
-		string arg = ((!(ctx is Type type)) ? ((!(ctx is string text)) ? ctx.GetType().Name : text) : type.Name);
+		string arg;
+		if (ctx is Type type)
+		{
+			arg = type.Name;
+		}
+		else
+		{
+			arg = ((!(ctx is string text)) ? ctx.GetType().Name : text);
+		}
 		return ZString.Concat("[", arg, "] ");
 	}
 }

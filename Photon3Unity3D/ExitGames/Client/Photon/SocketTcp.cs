@@ -18,7 +18,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 	{
 		if (ReportDebugOfLevel(DebugLevel.INFO))
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "SocketTcp, .Net, Unity.");
+			Listener.DebugReturn(DebugLevel.INFO, "SocketTcp, .Net, Unity.");
 		}
 		PollReceive = false;
 	}
@@ -30,7 +30,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 
 	public void Dispose()
 	{
-		base.State = PhotonSocketState.Disconnecting;
+		State = PhotonSocketState.Disconnecting;
 		if (sock != null)
 		{
 			try
@@ -46,7 +46,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 			}
 		}
 		sock = null;
-		base.State = PhotonSocketState.Disconnected;
+		State = PhotonSocketState.Disconnected;
 	}
 
 	public override bool Connect()
@@ -57,7 +57,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 			{
 				return false;
 			}
-			base.State = PhotonSocketState.Connecting;
+			State = PhotonSocketState.Connecting;
 		}
 		Thread thread = new Thread(DnsAndConnect);
 		thread.IsBackground = true;
@@ -73,7 +73,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 		}
 		lock (syncer)
 		{
-			base.State = PhotonSocketState.Disconnecting;
+			State = PhotonSocketState.Disconnecting;
 			if (sock != null)
 			{
 				try
@@ -88,7 +88,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 					}
 				}
 			}
-			base.State = PhotonSocketState.Disconnected;
+			State = PhotonSocketState.Disconnected;
 		}
 		return true;
 	}
@@ -105,7 +105,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 		}
 		catch (Exception ex)
 		{
-			if (base.State != PhotonSocketState.Disconnecting && base.State != PhotonSocketState.Disconnected)
+			if (State != PhotonSocketState.Disconnecting && State != PhotonSocketState.Disconnected)
 			{
 				if (ReportDebugOfLevel(DebugLevel.INFO))
 				{
@@ -114,7 +114,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 					{
 						text = string.Format(" Local: {0} Remote: {1} ({2}, {3})", sock.LocalEndPoint, sock.RemoteEndPoint, sock.Connected ? "connected" : "not connected", sock.IsBound ? "bound" : "not bound");
 					}
-					EnqueueDebugReturn(DebugLevel.INFO, string.Format("Cannot send to: {0} ({4}). Uptime: {1} ms. {2} {3}", base.ServerAddress, peerBase.timeInt, base.AddressResolvedAsIpv6 ? " IPv6" : string.Empty, text, ex));
+					EnqueueDebugReturn(DebugLevel.INFO, string.Format("Cannot send to: {0} ({4}). Uptime: {1} ms. {2} {3}", ServerAddress, peerBase.timeInt, AddressResolvedAsIpv6 ? " IPv6" : string.Empty, text, ex));
 				}
 				HandleException(StatusCode.SendError);
 			}
@@ -131,7 +131,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 
 	internal void DnsAndConnect()
 	{
-		IPAddress[] ipAddresses = GetIpAddresses(base.ServerAddress);
+		IPAddress[] ipAddresses = GetIpAddresses(ServerAddress);
 		if (ipAddresses == null)
 		{
 			return;
@@ -146,7 +146,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 				sock.NoDelay = true;
 				sock.ReceiveTimeout = peerBase.DisconnectTimeout;
 				sock.SendTimeout = peerBase.DisconnectTimeout;
-				sock.Connect(iPAddress, base.ServerPort);
+				sock.Connect(iPAddress, ServerPort);
 				if (sock != null && sock.Connected)
 				{
 					break;
@@ -187,9 +187,9 @@ public class SocketTcp : IPhotonSocket, IDisposable
 		}
 		else
 		{
-			base.AddressResolvedAsIpv6 = sock.AddressFamily == AddressFamily.InterNetworkV6;
+			AddressResolvedAsIpv6 = sock.AddressFamily == AddressFamily.InterNetworkV6;
 			IPhotonSocket.ServerIpAddress = sock.RemoteEndPoint.ToString();
-			base.State = PhotonSocketState.Connected;
+			State = PhotonSocketState.Connected;
 			peerBase.OnConnect();
 			Thread thread = new Thread(ReceiveLoop);
 			thread.IsBackground = true;
@@ -199,9 +199,9 @@ public class SocketTcp : IPhotonSocket, IDisposable
 
 	public void ReceiveLoop()
 	{
-		StreamBuffer streamBuffer = new StreamBuffer(base.MTU);
+		StreamBuffer streamBuffer = new StreamBuffer(MTU);
 		byte[] array = new byte[9];
-		while (base.State == PhotonSocketState.Connected)
+		while (State == PhotonSocketState.Connected)
 		{
 			streamBuffer.SetLength(0L);
 			try
@@ -216,7 +216,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 					}
 					catch (SocketException ex)
 					{
-						if (base.State != PhotonSocketState.Disconnecting && base.State > PhotonSocketState.Disconnected && ex.SocketErrorCode == SocketError.WouldBlock)
+						if (State != PhotonSocketState.Disconnecting && State > PhotonSocketState.Disconnected && ex.SocketErrorCode == SocketError.WouldBlock)
 						{
 							if (ReportDebugOfLevel(DebugLevel.ALL))
 							{
@@ -266,7 +266,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 					}
 					catch (SocketException ex2)
 					{
-						if (base.State != PhotonSocketState.Disconnecting && base.State > PhotonSocketState.Disconnected && ex2.SocketErrorCode == SocketError.WouldBlock)
+						if (State != PhotonSocketState.Disconnecting && State > PhotonSocketState.Disconnected && ex2.SocketErrorCode == SocketError.WouldBlock)
 						{
 							if (ReportDebugOfLevel(DebugLevel.ALL))
 							{
@@ -291,7 +291,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 			}
 			catch (SocketException ex3)
 			{
-				if (base.State != PhotonSocketState.Disconnecting && base.State != PhotonSocketState.Disconnected)
+				if (State != PhotonSocketState.Disconnecting && State != PhotonSocketState.Disconnected)
 				{
 					if (ReportDebugOfLevel(DebugLevel.ERROR))
 					{
@@ -309,11 +309,11 @@ public class SocketTcp : IPhotonSocket, IDisposable
 			}
 			catch (Exception ex4)
 			{
-				if (base.State != PhotonSocketState.Disconnecting && base.State != PhotonSocketState.Disconnected)
+				if (State != PhotonSocketState.Disconnecting && State != PhotonSocketState.Disconnected)
 				{
 					if (ReportDebugOfLevel(DebugLevel.ERROR))
 					{
-						EnqueueDebugReturn(DebugLevel.ERROR, "Receive issue. State: " + base.State.ToString() + ". Server: '" + base.ServerAddress + "' Exception: " + ex4);
+						EnqueueDebugReturn(DebugLevel.ERROR, "Receive issue. State: " + State.ToString() + ". Server: '" + ServerAddress + "' Exception: " + ex4);
 					}
 					HandleException(StatusCode.ExceptionOnReceive);
 				}
@@ -321,7 +321,7 @@ public class SocketTcp : IPhotonSocket, IDisposable
 		}
 		lock (syncer)
 		{
-			if (base.State != PhotonSocketState.Disconnecting && base.State != PhotonSocketState.Disconnected)
+			if (State != PhotonSocketState.Disconnecting && State != PhotonSocketState.Disconnected)
 			{
 				Disconnect();
 			}

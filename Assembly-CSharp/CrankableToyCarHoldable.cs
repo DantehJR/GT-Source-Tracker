@@ -70,13 +70,25 @@ public class CrankableToyCarHoldable : TransferrableObject
 	internal override void OnEnable()
 	{
 		base.OnEnable();
-		if (base.gameObject.activeInHierarchy)
+		if (gameObject.activeInHierarchy)
 		{
 			if (_events == null)
 			{
-				_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
+				_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
 			}
-			NetPlayer netPlayer = ((base.myOnlineRig != null) ? base.myOnlineRig.creator : ((!(base.myRig != null)) ? null : ((base.myRig.creator != null) ? base.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+			NetPlayer netPlayer;
+			if (myOnlineRig != null)
+			{
+				netPlayer = myOnlineRig.creator;
+			}
+			else if (myRig != null)
+			{
+				netPlayer = ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null && _events != null)
 			{
 				_events.Init(netPlayer);
@@ -163,8 +175,8 @@ public class CrankableToyCarHoldable : TransferrableObject
 		}
 		bool isLeftHand = releasingHand == EquipmentInteractor.instance.leftHand;
 		GorillaVelocityTracker interactPointVelocityTracker = GTPlayer.Instance.GetInteractPointVelocityTracker(isLeftHand);
-		Vector3 vector = base.transform.TransformPoint(Vector3.zero);
-		Quaternion rotation = base.transform.rotation;
+		Vector3 vector = transform.TransformPoint(Vector3.zero);
+		Quaternion rotation = transform.rotation;
 		Vector3 averageVelocity = interactPointVelocityTracker.GetAverageVelocity(worldSpace: true);
 		float num = Mathf.Lerp(minLifetime, maxLifetime, Mathf.Clamp01(Mathf.InverseLerp(0f, maxCrankStrength, currentCrankStrength)));
 		DeployCarLocal(vector, rotation, averageVelocity, num);

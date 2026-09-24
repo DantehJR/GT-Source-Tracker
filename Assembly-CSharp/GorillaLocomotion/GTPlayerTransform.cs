@@ -110,7 +110,7 @@ public class GTPlayerTransform : MonkeGravityController
 			flag = currentClimber.xrNode == XRNode.LeftHand;
 			flag2 = currentClimber.xrNode == XRNode.RightHand;
 		}
-		if (leftHandRef.wasColliding || leftHandRef.wasSliding || flag)
+		if ((leftHandRef.wasColliding || leftHandRef.wasSliding) | flag)
 		{
 			Vector3 rotatedDifference = GetRotatedDifference(in pivotPoint, flag ? currentClimber.transform.position : leftHandRef.lastPosition, in rotation);
 			Vector3 lhs = Vector3.Normalize(rotatedDifference);
@@ -120,7 +120,7 @@ public class GTPlayerTransform : MonkeGravityController
 				vector -= leftHandRef.lastHitInfo.normal * 0.0001f;
 			}
 		}
-		if (rightHandRef.wasColliding || rightHandRef.wasSliding || flag2)
+		if ((rightHandRef.wasColliding || rightHandRef.wasSliding) | flag2)
 		{
 			Vector3 rotatedDifference2 = GetRotatedDifference(in pivotPoint, flag2 ? currentClimber.transform.position : rightHandRef.lastPosition, in rotation);
 			Vector3 lhs2 = Vector3.Normalize(rotatedDifference2);
@@ -206,9 +206,9 @@ public class GTPlayerTransform : MonkeGravityController
 	protected override void Awake()
 	{
 		base.Awake();
-		if (!base.Register)
+		if (!Register)
 		{
-			Debug.LogError("GTPlayerTransform: failed to load required references", base.gameObject);
+			Debug.LogError("GTPlayerTransform: failed to load required references", gameObject);
 		}
 		Instance = this;
 		k_transform = m_targetTransform;
@@ -230,7 +230,7 @@ public class GTPlayerTransform : MonkeGravityController
 		{
 			return;
 		}
-		if (base.InstantRotation)
+		if (InstantRotation)
 		{
 			RotateToUp(in upDir);
 			return;
@@ -291,12 +291,15 @@ public class GTPlayerTransform : MonkeGravityController
 
 	public override void CallBack()
 	{
-		base.CallBack();
-		PhysicsUp = base.GravityUp;
-		PhysicsDown = base.GravityDown;
-		if (base.GravityZonesCount <= 0 && Up != PhysicsUp)
+		if (!IgnoreGravityForce && !k_playerInstance.isClimbing && k_playerInstance.GravityOverrideCount <= 0)
 		{
-			ApplyGravityUpRotation(PhysicsUp, MonkeGravityManager.DefaultGravityInfo.rotationSpeed * Time.fixedDeltaTime);
+			base.CallBack();
+			PhysicsUp = GravityUp;
+			PhysicsDown = GravityDown;
+			if (GravityZonesCount <= 0 && Up != PhysicsUp)
+			{
+				ApplyGravityUpRotation(PhysicsUp, MonkeGravityManager.DefaultGravityInfo.rotationSpeed * Time.fixedDeltaTime);
+			}
 		}
 	}
 }

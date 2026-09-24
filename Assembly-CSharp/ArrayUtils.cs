@@ -131,11 +131,11 @@ public static class ArrayUtils
 				num++;
 			}
 		}
-		bool num2 = num != unityObjs.Length;
-		if (num2)
+		bool flag = num != unityObjs.Length;
+		if (flag)
 		{
 			Array.Resize(ref unityObjs, num);
 		}
-		return num2;
+		return flag;
 	}
 }

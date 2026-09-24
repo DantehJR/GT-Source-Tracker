@@ -99,15 +99,15 @@ public class KIDAudioManager : MonoBehaviour
 		if (_instance == null)
 		{
 			_instance = this;
-			base.transform.parent = null;
-			Object.DontDestroyOnLoad(base.gameObject);
+			transform.parent = null;
+			Object.DontDestroyOnLoad(gameObject);
 			ConfigureAudioSource();
 			InitializeSoundClips();
 			mainMixer.GetFloat("Game_Volume", out cachedGameVolume);
 		}
 		else if (_instance != this)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 

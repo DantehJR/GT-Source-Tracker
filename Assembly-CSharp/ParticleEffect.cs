@@ -30,19 +30,19 @@ public class ParticleEffect : MonoBehaviour
 
 	public virtual void Play()
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		system.Play(withChildren: true);
 	}
 
 	public virtual void Stop()
 	{
 		system.Stop(withChildren: true);
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	private void OnParticleSystemStopped()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		if ((bool)pool)
 		{
 			pool.Return(this);

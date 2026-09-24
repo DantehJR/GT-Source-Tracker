@@ -312,7 +312,7 @@ public class InfectionLavaController : MonoBehaviour, ITickSystemPost
 		{
 			fieldName = ((index != -1) ? $"{fieldName}[{index}]" : fieldName);
 			Debug.LogError("InfectionLavaController: Disabling self because reference `" + fieldName + "` is null.", this);
-			base.enabled = false;
+			enabled = false;
 		}
 	}
 
@@ -326,7 +326,7 @@ public class InfectionLavaController : MonoBehaviour, ITickSystemPost
 
 	private void ResetLavaState()
 	{
-		reliableState = default(LavaSyncData);
+		reliableState = default;
 		lavaProgressLinear = 0f;
 		lavaProgressSmooth = 0f;
 		localLagLavaProgressOffset = 0f;
@@ -363,9 +363,9 @@ public class InfectionLavaController : MonoBehaviour, ITickSystemPost
 		{
 			RisingLavaState state = reliableState.state;
 			UpdateReliableState(currentTime, ref reliableState);
-			bool num = reliableState.state != state;
-			bool flag2 = reliableState.state != RisingLavaState.Drained && currentTime - lastSyncSendTime > 2.0;
-			if (num || flag2)
+			bool flag2 = reliableState.state != state;
+			bool flag3 = reliableState.state != RisingLavaState.Drained && currentTime - lastSyncSendTime > 2.0;
+			if (flag2 | flag3)
 			{
 				SendSyncEvent();
 			}
@@ -390,7 +390,7 @@ public class InfectionLavaController : MonoBehaviour, ITickSystemPost
 				baseZoneShaderSettings.BecomeActiveInstance();
 			}
 		}
-		else if (!localPlayerInZone && flag)
+		else if (!localPlayerInZone & flag)
 		{
 			ZoneShaderSettings.ActivateDefaultSettings();
 			Shader.SetGlobalVector(_shaderProp_GlobalLavaResidueParams, Vector4.zero);
@@ -770,7 +770,7 @@ public class InfectionLavaController : MonoBehaviour, ITickSystemPost
 	private void LocalPlayerInLava(double currentTime, bool enteredLavaThisFrame)
 	{
 		GorillaGameManager instance = GorillaGameManager.instance;
-		if (instance != null && instance.CanAffectPlayer(NetworkSystem.Instance.LocalPlayer, enteredLavaThisFrame) && (currentTime - lastTagSelfRPCTime > 0.5 || enteredLavaThisFrame))
+		if (instance != null && instance.CanAffectPlayer(NetworkSystem.Instance.LocalPlayer, enteredLavaThisFrame) && ((currentTime - lastTagSelfRPCTime > 0.5) | enteredLavaThisFrame))
 		{
 			lastTagSelfRPCTime = currentTime;
 			GameMode.ReportHit();

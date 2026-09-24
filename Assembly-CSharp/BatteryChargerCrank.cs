@@ -70,7 +70,7 @@ public class BatteryChargerCrank : HoldableObject
 	{
 		if (rotatingPart == null)
 		{
-			rotatingPart = base.transform;
+			rotatingPart = transform;
 		}
 		Vector3 vector = rotatingPart.parent.InverseTransformPoint(rotatingPart.TransformPoint(Vector3.right));
 		lastAngle = Mathf.Atan2(vector.y, vector.x) * 57.29578f;

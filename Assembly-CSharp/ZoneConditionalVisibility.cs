@@ -57,7 +57,7 @@ public class ZoneConditionalVisibility : MonoBehaviour
 			}
 			else
 			{
-				base.gameObject.SetActive(!flag);
+				gameObject.SetActive(!flag);
 			}
 		}
 		else if (renderersOnly)
@@ -72,7 +72,7 @@ public class ZoneConditionalVisibility : MonoBehaviour
 		}
 		else
 		{
-			base.gameObject.SetActive(flag);
+			gameObject.SetActive(flag);
 		}
 	}
 

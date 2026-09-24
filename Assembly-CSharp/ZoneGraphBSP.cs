@@ -42,7 +42,7 @@ public class ZoneGraphBSP : MonoBehaviour
 
 	public void CompileBSP()
 	{
-		ZoneDef[] componentsInChildren = base.gameObject.GetComponentsInChildren<ZoneDef>();
+		ZoneDef[] componentsInChildren = gameObject.GetComponentsInChildren<ZoneDef>();
 		bspTree = BSPTreeBuilder.BuildTree(componentsInChildren);
 		if (bspTree != null && bspTree.nodes != null)
 		{

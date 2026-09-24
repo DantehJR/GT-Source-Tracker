@@ -68,7 +68,7 @@ public class HitTargetScoreDisplay : MonoBehaviour
 
 	private void ResetRotation()
 	{
-		Quaternion rotation = base.transform.rotation;
+		Quaternion rotation = transform.rotation;
 		singlesCard.rotation = rotation;
 		tensCard.rotation = rotation;
 		hundredsCard.rotation = rotation;
@@ -135,7 +135,7 @@ public class HitTargetScoreDisplay : MonoBehaviour
 				StopCoroutine(currentRotationCoroutine);
 			}
 			currentScore = newScore;
-			if (base.gameObject.activeInHierarchy)
+			if (gameObject.activeInHierarchy)
 			{
 				currentRotationCoroutine = StartCoroutine(RotatingCo());
 			}

@@ -175,16 +175,16 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 	public void OnEntityInit()
 	{
 		abilityIdle.Setup(agent, anim, audioSource, null, null, null);
-		abilityChase.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
+		abilityChase.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
 		abilitySearch.Setup(agent, anim, audioSource, null, null, null);
-		abilityAttackLaser.Setup(agent, anim, audioSource, base.transform, headTransform, null);
-		abilityAttackDiscoWander.Setup(agent, anim, audioSource, base.transform, headTransform, null);
-		abilityAttackSlamdown.Setup(agent, anim, audioSource, base.transform, headTransform, null);
-		abilityInvestigate.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityPatrol.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityStagger.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityDie.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityJump.Setup(agent, anim, audioSource, base.transform, null, null);
+		abilityAttackLaser.Setup(agent, anim, audioSource, transform, headTransform, null);
+		abilityAttackDiscoWander.Setup(agent, anim, audioSource, transform, headTransform, null);
+		abilityAttackSlamdown.Setup(agent, anim, audioSource, transform, headTransform, null);
+		abilityInvestigate.Setup(agent, anim, audioSource, transform, null, null);
+		abilityPatrol.Setup(agent, anim, audioSource, transform, null, null);
+		abilityStagger.Setup(agent, anim, audioSource, transform, null, null);
+		abilityDie.Setup(agent, anim, audioSource, transform, null, null);
+		abilityJump.Setup(agent, anim, audioSource, transform, null, null);
 		senseNearby.Setup(headTransform, entity);
 		Setup(entity.createData);
 		if ((bool)entity && (bool)entity.manager && (bool)entity.manager.ghostReactorManager && (bool)entity.manager.ghostReactorManager.reactor)
@@ -455,8 +455,7 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 		tempRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 		senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-		float outDistanceSq;
-		VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+		VRRig vRRig = senseNearby.PickClosest(out var _);
 		agent.RequestTarget((vRRig == null) ? null : vRRig.OwningNetPlayer);
 		switch (currBehavior)
 		{
@@ -514,19 +513,19 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 			if (agent.targetPlayer != null)
 			{
 				Vector3 position = GRPlayer.Get(agent.targetPlayer).transform.position;
-				Vector3 vector = position - base.transform.position;
+				Vector3 vector = position - transform.position;
 				float magnitude = vector.magnitude;
 				if (TryChooseAttackBehavior(magnitude * magnitude))
 				{
 					return;
 				}
-				if (canChaseJump && abilityJump.IsCoolDownOver(chaseJumpMinInterval) && magnitude > attackRange + minChaseJumpDistance && GRSenseLineOfSight.HasNavmeshLineOfSight(base.transform.position, position, 10f))
+				if (canChaseJump && abilityJump.IsCoolDownOver(chaseJumpMinInterval) && magnitude > attackRange + minChaseJumpDistance && GRSenseLineOfSight.HasNavmeshLineOfSight(transform.position, position, 10f))
 				{
 					Vector3 vector2 = vector / magnitude;
 					float num = Mathf.Clamp(chaseJumpDistance, minChaseJumpDistance, magnitude - attackRange * 0.5f);
-					if (NavMesh.SamplePosition(base.transform.position + vector2 * num, out var hit, 0.5f, AbilityHelperFunctions.GetNavMeshWalkableArea()))
+					if (NavMesh.SamplePosition(transform.position + vector2 * num, out var hit, 0.5f, AbilityHelperFunctions.GetNavMeshWalkableArea()))
 					{
-						agent.GetGameAgentManager().RequestJump(agent, base.transform.position, hit.position, 0.25f, 1.5f);
+						agent.GetGameAgentManager().RequestJump(agent, transform.position, hit.position, 0.25f, 1.5f);
 						return;
 					}
 				}
@@ -542,7 +541,7 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 		}
 		else
 		{
-			investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(base.transform.position, hearingRadius, investigateLocation);
+			investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(transform.position, hearingRadius, investigateLocation);
 			if (investigateLocation.HasValue)
 			{
 				abilityInvestigate.SetTargetPos(investigateLocation.Value);
@@ -613,7 +612,7 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 			GRPlayer gRPlayer = GRPlayer.Get(agent.targetPlayer);
 			if (gRPlayer != null)
 			{
-				float sqrMagnitude = (gRPlayer.transform.position - base.transform.position).sqrMagnitude;
+				float sqrMagnitude = (gRPlayer.transform.position - transform.position).sqrMagnitude;
 				TryChooseAttackBehavior(sqrMagnitude);
 			}
 			break;
@@ -650,7 +649,7 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 			}
 			if (GhostReactorManager.noiseDebugEnabled)
 			{
-				DebugUtil.DrawLine(base.transform.position, abilityInvestigate.GetTargetPos(), Color.green);
+				DebugUtil.DrawLine(transform.position, abilityInvestigate.GetTargetPos(), Color.green);
 			}
 			break;
 		case Behavior.Jump:
@@ -728,7 +727,7 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 			}
 			lastSeenTargetPosition = tool.transform.position;
 			lastSeenTargetTime = Time.timeAsDouble;
-			Vector3 vector = lastSeenTargetPosition - base.transform.position;
+			Vector3 vector = lastSeenTargetPosition - transform.position;
 			vector.y = 0f;
 			searchPosition = lastSeenTargetPosition + vector.normalized * 1.5f;
 			if (allowStagger)
@@ -769,7 +768,7 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 		if (component != null)
 		{
 			GameHittable component2 = GetComponent<GameHittable>();
-			component.BlockHittable(headTransform.position, base.transform.forward, component2);
+			component.BlockHittable(headTransform.position, transform.forward, component2);
 			return;
 		}
 		Rigidbody attachedRigidbody = collider.attachedRigidbody;
@@ -810,10 +809,10 @@ public class GREnemyMonkeye : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 		if ((currBehavior == Behavior.Attack || currBehavior == Behavior.AttackDisco || currBehavior == Behavior.AttackSlamdown) && player != null && player.gamePlayer.IsLocal() && Time.time > lastHitPlayerTime + minTimeBetweenHits)
 		{
 			lastHitPlayerTime = Time.time;
-			Vector3 vector = player.transform.position - base.transform.position;
+			Vector3 vector = player.transform.position - transform.position;
 			vector.y = 0f;
 			vector = vector.normalized * 6f;
-			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, base.transform.position, vector);
+			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, transform.position, vector);
 		}
 	}
 

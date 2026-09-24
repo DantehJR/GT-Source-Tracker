@@ -24,9 +24,9 @@ public class ZoneDependentObject : MonoBehaviour
 
 	private void UpdateObjectState()
 	{
-		if (zones.IsAnyPlayerInZones() != base.gameObject.activeSelf)
+		if (zones.IsAnyPlayerInZones() != gameObject.activeSelf)
 		{
-			base.gameObject.SetActive(zones.IsAnyPlayerInZones());
+			gameObject.SetActive(zones.IsAnyPlayerInZones());
 		}
 	}
 }

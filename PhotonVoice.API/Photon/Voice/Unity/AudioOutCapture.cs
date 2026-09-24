@@ -9,9 +9,9 @@ public class AudioOutCapture : MonoBehaviour
 
 	private void OnAudioFilterRead(float[] frame, int channels)
 	{
-		if (this.OnAudioFrame != null)
+		if (OnAudioFrame != null)
 		{
-			this.OnAudioFrame(frame, channels);
+			OnAudioFrame(frame, channels);
 		}
 	}
 }

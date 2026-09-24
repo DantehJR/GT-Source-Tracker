@@ -274,7 +274,7 @@ public class VirtualStumpOptionsTerminal : MonoBehaviour, IWssAuthPrompter
 			MothershipEnvId = MothershipClientApiUnity.EnvironmentId,
 			MothershipPlayerId = MothershipClientContext.MothershipId,
 			MothershipToken = MothershipClientContext.Token
-		}, delegate
+		}, (AssociateMotherhsipAndModIOAccountsResponse response) =>
 		{
 		}));
 	}

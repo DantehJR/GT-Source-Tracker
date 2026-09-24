@@ -46,7 +46,7 @@ public class MagicCauldronLiquid : MonoBehaviour
 	{
 		_animProgress = 0f;
 		_animating = true;
-		base.enabled = true;
+		enabled = true;
 	}
 
 	public void AnimateColorFromTo(Color a, Color b, float length = 1f)
@@ -56,7 +56,7 @@ public class MagicCauldronLiquid : MonoBehaviour
 		_animProgress = 0f;
 		_animating = true;
 		animLength = length;
-		base.enabled = true;
+		enabled = true;
 	}
 
 	private void ApplyColor(Color color)
@@ -103,7 +103,7 @@ public class MagicCauldronLiquid : MonoBehaviour
 			{
 				ApplyColor(_colorEnd);
 				_animating = false;
-				base.enabled = false;
+				enabled = false;
 				return;
 			}
 			Color color = Color.Lerp(_colorStart, _colorEnd, num);

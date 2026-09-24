@@ -108,7 +108,7 @@ public class VRRigAnchorOverrides : MonoBehaviour
 		chestDefaultLocalPos = chestDefaultTransform.localPosition;
 		huntDefaultTransform = huntComputer;
 		builderResizeButtonDefaultTransform = builderResizeButton;
-		activeAntiClippingOffsets = default(CosmeticAnchorAntiIntersectOffsets);
+		activeAntiClippingOffsets = default;
 	}
 
 	public void EnableChestBodyTracking(bool enabled)
@@ -124,7 +124,7 @@ public class VRRigAnchorOverrides : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError("VRRigAnchorOverrides: could not set parent `nameTransform` because `nameDefaultAnchor` or its parent was null!" + base.transform.GetPathQ(), this);
+			Debug.LogError("VRRigAnchorOverrides: could not set parent `nameTransform` because `nameDefaultAnchor` or its parent was null!" + transform.GetPathQ(), this);
 		}
 		huntComputer = huntDefaultTransform;
 		if ((bool)huntComputerDefaultAnchor && (bool)huntComputerDefaultAnchor.parent)
@@ -133,7 +133,7 @@ public class VRRigAnchorOverrides : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError("VRRigAnchorOverrides: could not set parent `huntComputer` because `huntComputerDefaultAnchor` or its parent was null!" + base.transform.GetPathQ(), this);
+			Debug.LogError("VRRigAnchorOverrides: could not set parent `huntComputer` because `huntComputerDefaultAnchor` or its parent was null!" + transform.GetPathQ(), this);
 		}
 		builderResizeButton = builderResizeButtonDefaultTransform;
 		if ((bool)builderResizeButtonDefaultAnchor && (bool)builderResizeButtonDefaultAnchor.parent)
@@ -142,7 +142,7 @@ public class VRRigAnchorOverrides : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError("VRRigAnchorOverrides: could not set parent `builderResizeButton` because `builderResizeButtonDefaultAnchor` or its parent was null! Path: " + base.transform.GetPathQ(), this);
+			Debug.LogError("VRRigAnchorOverrides: could not set parent `builderResizeButton` because `builderResizeButtonDefaultAnchor` or its parent was null! Path: " + transform.GetPathQ(), this);
 		}
 	}
 
@@ -383,7 +383,7 @@ public class VRRigAnchorOverrides : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError("VRRigAnchorOverrides: could not set parent for `nameTransform` because `nameDefaultAnchor` or its parent was null! Path: " + base.transform.GetPathQ(), this);
+			Debug.LogError("VRRigAnchorOverrides: could not set parent for `nameTransform` because `nameDefaultAnchor` or its parent was null! Path: " + transform.GetPathQ(), this);
 		}
 	}
 

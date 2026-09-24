@@ -44,24 +44,24 @@ public class GragerHoldable : MonoBehaviour
 	private void Start()
 	{
 		LocalRotationAxis = LocalRotationAxis.normalized;
-		lastWorldPosition = base.transform.TransformPoint(LocalCenterOfMass);
-		lastClackParentLocalPosition = base.transform.parent.InverseTransformPoint(lastWorldPosition);
+		lastWorldPosition = transform.TransformPoint(LocalCenterOfMass);
+		lastClackParentLocalPosition = transform.parent.InverseTransformPoint(lastWorldPosition);
 		centerOfMassRadius = LocalCenterOfMass.magnitude;
 		RotationCorrection = Quaternion.Euler(RotationCorrectionEuler);
 	}
 
 	private void Update()
 	{
-		Vector3 target = base.transform.TransformPoint(LocalCenterOfMass);
+		Vector3 target = transform.TransformPoint(LocalCenterOfMass);
 		Vector3 vector = lastWorldPosition + velocity * Time.deltaTime * drag;
-		Vector3 vector2 = base.transform.parent.TransformDirection(LocalRotationAxis);
-		Vector3 current = base.transform.position + (vector - base.transform.position).ProjectOntoPlane(vector2).normalized * centerOfMassRadius;
+		Vector3 vector2 = transform.parent.TransformDirection(LocalRotationAxis);
+		Vector3 current = transform.position + (vector - transform.position).ProjectOntoPlane(vector2).normalized * centerOfMassRadius;
 		current = Vector3.MoveTowards(current, target, localFriction * Time.deltaTime);
 		velocity = (current - lastWorldPosition) / Time.deltaTime;
 		velocity += Vector3.down * gravity * Time.deltaTime;
 		lastWorldPosition = current;
-		base.transform.rotation = Quaternion.LookRotation(current - base.transform.position, vector2) * RotationCorrection;
-		Vector3 vector3 = base.transform.parent.InverseTransformPoint(base.transform.TransformPoint(LocalCenterOfMass));
+		transform.rotation = Quaternion.LookRotation(current - transform.position, vector2) * RotationCorrection;
+		Vector3 vector3 = transform.parent.InverseTransformPoint(transform.TransformPoint(LocalCenterOfMass));
 		if ((vector3 - lastClackParentLocalPosition).IsLongerThan(distancePerClack))
 		{
 			clackAudio.GTPlayOneShot(allClacks[Random.Range(0, allClacks.Length)]);

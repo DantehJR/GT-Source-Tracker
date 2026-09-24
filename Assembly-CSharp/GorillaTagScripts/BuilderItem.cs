@@ -72,10 +72,10 @@ public class BuilderItem : TransferrableObject
 	protected override void Awake()
 	{
 		base.Awake();
-		parent = base.transform.parent;
+		parent = transform.parent;
 		currTable = null;
-		initialPosition = base.transform.position;
-		initialRotation = base.transform.rotation;
+		initialPosition = transform.position;
+		initialRotation = transform.rotation;
 		initialGrabInteractorScale = gripInteractor.transform.localScale;
 	}
 
@@ -98,10 +98,10 @@ public class BuilderItem : TransferrableObject
 
 	public void AttachPiece(BuilderPiece piece)
 	{
-		base.transform.SetPositionAndRotation(piece.transform.position, piece.transform.rotation);
+		transform.SetPositionAndRotation(piece.transform.position, piece.transform.rotation);
 		piece.transform.localScale = Vector3.one;
 		piece.transform.SetParent(itemRoot.transform);
-		Debug.LogFormat(piece.gameObject, "Attach Piece {0} to container {1}", piece.gameObject.GetInstanceID(), base.gameObject.GetInstanceID());
+		Debug.LogFormat(piece.gameObject, "Attach Piece {0} to container {1}", piece.gameObject.GetInstanceID(), gameObject.GetInstanceID());
 		attachedPiece = piece;
 	}
 
@@ -114,7 +114,7 @@ public class BuilderItem : TransferrableObject
 		else
 		{
 			piece.transform.SetParent(null);
-			Debug.LogFormat(attachedPiece.gameObject, "Detach Piece {0} from container {1}", attachedPiece.gameObject.GetInstanceID(), base.gameObject.GetInstanceID());
+			Debug.LogFormat(attachedPiece.gameObject, "Detach Piece {0} from container {1}", attachedPiece.gameObject.GetInstanceID(), gameObject.GetInstanceID());
 			attachedPiece = null;
 		}
 	}
@@ -231,8 +231,8 @@ public class BuilderItem : TransferrableObject
 	public override void OnLeftRoom()
 	{
 		base.OnLeftRoom();
-		base.transform.position = initialPosition;
-		base.transform.rotation = initialRotation;
+		transform.position = initialPosition;
+		transform.rotation = initialRotation;
 		if (worldShareableInstance != null)
 		{
 			worldShareableInstance.transform.position = initialPosition;
@@ -244,7 +244,7 @@ public class BuilderItem : TransferrableObject
 
 	private void PlayVFX(GameObject vfx)
 	{
-		ObjectPools.instance.Instantiate(vfx, base.transform.position);
+		ObjectPools.instance.Instantiate(vfx, transform.position);
 	}
 
 	private bool Reparent(Transform _transform)
@@ -256,7 +256,7 @@ public class BuilderItem : TransferrableObject
 		if ((bool)parent)
 		{
 			parent.SetParent(_transform);
-			base.transform.SetParent(parent);
+			transform.SetParent(parent);
 			return true;
 		}
 		return false;
@@ -273,9 +273,9 @@ public class BuilderItem : TransferrableObject
 
 	public static GameObject BuildEnvItem(int prefabHash, Vector3 position, Quaternion rotation)
 	{
-		GameObject obj = ObjectPools.instance.Instantiate(prefabHash);
-		obj.transform.SetPositionAndRotation(position, rotation);
-		return obj;
+		GameObject gameObject = ObjectPools.instance.Instantiate(prefabHash);
+		gameObject.transform.SetPositionAndRotation(position, rotation);
+		return gameObject;
 	}
 
 	protected override void OnHandMatrixUpdate(Vector3 localPosition, Quaternion localRotation, bool leftHand)

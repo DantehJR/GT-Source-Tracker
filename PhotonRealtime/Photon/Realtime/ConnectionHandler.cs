@@ -43,7 +43,7 @@ public class ConnectionHandler : MonoBehaviour
 	{
 		if (ApplyDontDestroyOnLoad)
 		{
-			UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+			UnityEngine.Object.DontDestroyOnLoad(gameObject);
 		}
 	}
 

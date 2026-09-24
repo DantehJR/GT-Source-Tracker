@@ -23,8 +23,16 @@ public class SprayCanCosmeticNetworked : MonoBehaviour
 	{
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((transferrableObject.myOnlineRig != null) ? transferrableObject.myOnlineRig.creator : ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (transferrableObject.myOnlineRig != null)
+			{
+				netPlayer = transferrableObject.myOnlineRig.creator;
+			}
+			else
+			{
+				netPlayer = ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null);
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);

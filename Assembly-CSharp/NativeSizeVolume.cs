@@ -32,7 +32,7 @@ public class NativeSizeVolume : MonoBehaviour
 			switch (OnEnterAction)
 			{
 			case NativeSizeVolumeAction.ApplySettings:
-				settings.WorldPosition = base.transform.position;
+				settings.WorldPosition = transform.position;
 				componentInParent.SetNativeScale(settings);
 				break;
 			case NativeSizeVolumeAction.ResetSize:
@@ -50,7 +50,7 @@ public class NativeSizeVolume : MonoBehaviour
 			switch (OnExitAction)
 			{
 			case NativeSizeVolumeAction.ApplySettings:
-				settings.WorldPosition = base.transform.position;
+				settings.WorldPosition = transform.position;
 				componentInParent.SetNativeScale(settings);
 				break;
 			case NativeSizeVolumeAction.ResetSize:

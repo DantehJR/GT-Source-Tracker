@@ -166,10 +166,10 @@ public class CrittersActor : MonoBehaviour
 
 	public virtual void UpdateAverageSpeed()
 	{
-		averageSpeed[averageSpeedIndex] = (base.transform.position - lastPosition).magnitude;
+		averageSpeed[averageSpeedIndex] = (transform.position - lastPosition).magnitude;
 		averageSpeedIndex++;
 		averageSpeedIndex %= 6;
-		lastPosition = base.transform.position;
+		lastPosition = transform.position;
 	}
 
 	protected virtual void Awake()
@@ -181,7 +181,7 @@ public class CrittersActor : MonoBehaviour
 	{
 		if (defaultParentTransform == null)
 		{
-			SetDefaultParent(base.transform.parent);
+			SetDefaultParent(transform.parent);
 		}
 		if (rb == null)
 		{
@@ -189,7 +189,7 @@ public class CrittersActor : MonoBehaviour
 		}
 		if (rb == null)
 		{
-			Debug.LogError("I should have a rigidbody, but I don't!", base.gameObject);
+			Debug.LogError("I should have a rigidbody, but I don't!", gameObject);
 		}
 		wasEnabled = false;
 		isEnabled = true;
@@ -244,15 +244,15 @@ public class CrittersActor : MonoBehaviour
 		{
 			return subObjects[subObjectIndex].name;
 		}
-		return base.name;
+		return name;
 	}
 
 	protected virtual void CleanupActor()
 	{
 		CrittersManager.DeregisterActor(this);
-		if (base.gameObject.activeSelf)
+		if (gameObject.activeSelf)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 		for (int i = 0; i < subObjects.Length; i++)
 		{
@@ -303,9 +303,9 @@ public class CrittersActor : MonoBehaviour
 	{
 		bool flag = forceUpdate;
 		forceUpdate = false;
-		if (base.gameObject.activeSelf != isEnabled)
+		if (gameObject.activeSelf != isEnabled)
 		{
-			base.gameObject.SetActive(isEnabled);
+			gameObject.SetActive(isEnabled);
 		}
 		if (!isEnabled)
 		{
@@ -313,7 +313,7 @@ public class CrittersActor : MonoBehaviour
 		}
 		bool flag2 = lastParentActorId == parentActorId || isOnPlayer || isSceneActor;
 		bool flag3 = lastImpulseTime == localLastImpulse;
-		if (flag2 && flag3 && !flag)
+		if ((flag2 & flag3) && !flag)
 		{
 			return;
 		}
@@ -329,7 +329,7 @@ public class CrittersActor : MonoBehaviour
 				if (CrittersManager.instance.actorById.TryGetValue(parentActorId, out var value))
 				{
 					parentActor = value.transform;
-					base.transform.SetParent(parentActor, worldPositionStays: true);
+					transform.SetParent(parentActor, worldPositionStays: true);
 					SetImpulse();
 					if (value is CrittersBag)
 					{
@@ -464,7 +464,7 @@ public class CrittersActor : MonoBehaviour
 		forceUpdate = true;
 		if (isEnabled)
 		{
-			base.gameObject.SetActive(value: true);
+			gameObject.SetActive(value: true);
 		}
 		for (int i = 0; i < subObjects.Length; i++)
 		{
@@ -530,9 +530,9 @@ public class CrittersActor : MonoBehaviour
 		}
 		isEnabled = dataAsType7;
 		lastImpulseTime = dataAsType;
-		if (isEnabled != base.gameObject.activeSelf)
+		if (isEnabled != gameObject.activeSelf)
 		{
-			base.gameObject.SetActive(isEnabled);
+			gameObject.SetActive(isEnabled);
 		}
 		if (isEnabled && subObjectIndex >= 0)
 		{
@@ -659,11 +659,11 @@ public class CrittersActor : MonoBehaviour
 	{
 		if (!this.IsNull())
 		{
-			base.transform.SetParent(defaultParentTransform, worldPositionStays: true);
+			transform.SetParent(defaultParentTransform, worldPositionStays: true);
 			if (resetOrigin)
 			{
-				base.transform.localPosition = Vector3.zero;
-				base.transform.localRotation = Quaternion.identity;
+				transform.localPosition = Vector3.zero;
+				transform.localRotation = Quaternion.identity;
 			}
 		}
 	}
@@ -675,7 +675,7 @@ public class CrittersActor : MonoBehaviour
 
 	protected virtual void RemoteGrabbed(CrittersActor actor)
 	{
-		this.OnGrabbedChild?.Invoke(actor);
+		OnGrabbedChild?.Invoke(actor);
 		actor.RemoteGrabbedBy(this);
 	}
 
@@ -697,7 +697,7 @@ public class CrittersActor : MonoBehaviour
 		{
 			lastGrabbedPlayer = grabbingActor.rigPlayerId;
 		}
-		base.transform.SetParent(grabbingActor.transform, worldPositionStays: true);
+		transform.SetParent(grabbingActor.transform, worldPositionStays: true);
 		if (localRotation.w == 0f && localRotation.x == 0f && localRotation.y == 0f && localRotation.z == 0f)
 		{
 			localRotation = Quaternion.identity;
@@ -753,7 +753,7 @@ public class CrittersActor : MonoBehaviour
 			}
 			else
 			{
-				GTDev.Log($"Release called for: {base.name}, but sent in suspicious position data: {position}");
+				GTDev.Log($"Release called for: {name}, but sent in suspicious position data: {position}");
 			}
 		}
 		if (despawnWhenIdle)
@@ -782,9 +782,9 @@ public class CrittersActor : MonoBehaviour
 		CrittersRigActorSetup value;
 		if (rigIndex == -1)
 		{
-			if (base.gameObject.activeSelf)
+			if (gameObject.activeSelf)
 			{
-				base.gameObject.SetActive(value: false);
+				gameObject.SetActive(value: false);
 			}
 		}
 		else if (!VRRigCache.Instance.TryGetVrrig(NetworkSystem.Instance.GetPlayer(rigPlayerId), out playerRig) || !CrittersManager.instance.rigSetupByRig.TryGetValue(playerRig.Rig, out value))
@@ -793,8 +793,8 @@ public class CrittersActor : MonoBehaviour
 		}
 		else if ((rigPlayerId != NetworkSystem.Instance.LocalPlayer.ActorNumber || CrittersManager.instance.rigSetupByRig.TryGetValue(GorillaTagger.Instance.offlineVRRig, out value)) && rigIndex >= 0 && rigIndex < value.rigActors.Length)
 		{
-			base.gameObject.SetActive(value: true);
-			base.transform.parent = value.rigActors[rigIndex].location;
+			gameObject.SetActive(value: true);
+			transform.parent = value.rigActors[rigIndex].location;
 			MoveActor(Vector3.zero, Quaternion.identity, local: true);
 			value.rigActors[rigIndex] = new CrittersRigActorSetup.RigActor
 			{
@@ -812,8 +812,8 @@ public class CrittersActor : MonoBehaviour
 		TogglePhysics(enable: false);
 		if (local)
 		{
-			base.transform.localRotation = rotation;
-			base.transform.localPosition = position;
+			transform.localRotation = rotation;
+			transform.localPosition = position;
 			if (updateImpulses)
 			{
 				UpdateImpulses(local: true, updateImpulseTime);
@@ -821,8 +821,8 @@ public class CrittersActor : MonoBehaviour
 		}
 		else
 		{
-			base.transform.rotation = rotation.normalized;
-			base.transform.position = position;
+			transform.rotation = rotation.normalized;
+			transform.position = position;
 			if (updateImpulses)
 			{
 				UpdateImpulses(local: false, updateImpulseTime);
@@ -838,13 +838,13 @@ public class CrittersActor : MonoBehaviour
 	{
 		if (local)
 		{
-			lastImpulsePosition = base.transform.localPosition;
-			lastImpulseQuaternion = base.transform.localRotation;
+			lastImpulsePosition = transform.localPosition;
+			lastImpulseQuaternion = transform.localRotation;
 		}
 		else
 		{
-			lastImpulsePosition = base.transform.position;
-			lastImpulseQuaternion = base.transform.rotation;
+			lastImpulsePosition = transform.position;
+			lastImpulseQuaternion = transform.rotation;
 		}
 		if (updateTime)
 		{
@@ -863,12 +863,12 @@ public class CrittersActor : MonoBehaviour
 
 	public virtual void CalculateFear(CrittersPawn critter, float multiplier)
 	{
-		critter.IncreaseFear(FearCurve.Evaluate(Vector3.Distance(critter.transform.position, base.transform.position) / maxRangeOfFearAttraction) * multiplier * FearAmount * Time.deltaTime, this);
+		critter.IncreaseFear(FearCurve.Evaluate(Vector3.Distance(critter.transform.position, transform.position) / maxRangeOfFearAttraction) * multiplier * FearAmount * Time.deltaTime, this);
 	}
 
 	public virtual void CalculateAttraction(CrittersPawn critter, float multiplier)
 	{
-		critter.IncreaseAttraction(AttractionCurve.Evaluate(Vector3.Distance(critter.transform.position, base.transform.position) / maxRangeOfFearAttraction) * multiplier * AttractionAmount * Time.deltaTime, this);
+		critter.IncreaseAttraction(AttractionCurve.Evaluate(Vector3.Distance(critter.transform.position, transform.position) / maxRangeOfFearAttraction) * multiplier * AttractionAmount * Time.deltaTime, this);
 	}
 
 	public void SetImpulseVelocity(Vector3 velocity, Vector3 angularVelocity)
@@ -955,7 +955,7 @@ public class CrittersActor : MonoBehaviour
 				}
 			}
 		}
-		if (crittersBag.IsNotNull() && flag2)
+		if (crittersBag.IsNotNull() & flag2)
 		{
 			if (value.IsNotNull())
 			{
@@ -982,7 +982,7 @@ public class CrittersActor : MonoBehaviour
 	{
 		if (!(joint != null))
 		{
-			Debug.Log("Critters SetJointRigid " + base.gameObject);
+			Debug.Log("Critters SetJointRigid " + gameObject);
 			CreateJoint(rbToConnect, setParentNull: false);
 			joint.xMotion = ConfigurableJointMotion.Locked;
 			joint.yMotion = ConfigurableJointMotion.Locked;
@@ -999,7 +999,7 @@ public class CrittersActor : MonoBehaviour
 	{
 		if (!(joint != null))
 		{
-			Debug.Log("Critters SetJointSoft " + base.gameObject);
+			Debug.Log("Critters SetJointSoft " + gameObject);
 			CreateJoint(rbToConnect);
 			joint.xMotion = ConfigurableJointMotion.Limited;
 			joint.yMotion = ConfigurableJointMotion.Limited;
@@ -1016,7 +1016,7 @@ public class CrittersActor : MonoBehaviour
 	{
 		if (!(joint != null))
 		{
-			joint = base.gameObject.AddComponent<ConfigurableJoint>();
+			joint = gameObject.AddComponent<ConfigurableJoint>();
 			drive = new JointDrive
 			{
 				positionSpring = CrittersManager.instance.springForce,
@@ -1053,7 +1053,7 @@ public class CrittersActor : MonoBehaviour
 			rb.useGravity = false;
 			if (setParentNull)
 			{
-				base.transform.SetParent(null, worldPositionStays: true);
+				transform.SetParent(null, worldPositionStays: true);
 			}
 		}
 	}
@@ -1070,7 +1070,7 @@ public class CrittersActor : MonoBehaviour
 		if (parentActorId != -1)
 		{
 			CrittersManager.instance.actorById.TryGetValue(parentActorId, out var value);
-			base.transform.SetParent(value.transform, worldPositionStays: true);
+			transform.SetParent(value.transform, worldPositionStays: true);
 			MoveActor(lastImpulsePosition, lastImpulseQuaternion, local: true, updateImpulses: false);
 			TogglePhysics(enable: false);
 		}

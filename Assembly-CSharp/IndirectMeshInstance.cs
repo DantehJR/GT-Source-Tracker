@@ -33,7 +33,7 @@ public sealed class IndirectMeshInstance : MonoBehaviour
 			}
 			else
 			{
-				Object.Destroy(base.gameObject);
+				Object.Destroy(gameObject);
 			}
 		}
 	}

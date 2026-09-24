@@ -174,7 +174,7 @@ public class GorillaPawn : MonoBehaviour
 	{
 		bool flag = x.AsNull() == null;
 		bool flag2 = y.AsNull() == null;
-		if (flag && flag2)
+		if (flag & flag2)
 		{
 			return 0;
 		}
@@ -192,7 +192,7 @@ public class GorillaPawn : MonoBehaviour
 	public static void SyncPawnData()
 	{
 		Matrix4x4[] gShaderData = _gShaderData;
-		m4x4 m4x5 = default(m4x4);
+		m4x4 m4x5 = default;
 		for (int i = 0; i < _gPawnActiveCount; i++)
 		{
 			GorillaPawn obj = _gPawns[i];

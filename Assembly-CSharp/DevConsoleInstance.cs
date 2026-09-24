@@ -57,6 +57,6 @@ public class DevConsoleInstance : MonoBehaviour
 
 	private void OnEnable()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 }

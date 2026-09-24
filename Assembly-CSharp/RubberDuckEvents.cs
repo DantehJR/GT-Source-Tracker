@@ -20,7 +20,7 @@ public class RubberDuckEvents : MonoBehaviour
 			PlayFabAuthenticator instance = PlayFabAuthenticator.instance;
 			text = ((!isLocal || !(instance != null)) ? player.NickName : instance.GetPlayFabPlayerId());
 		}
-		PlayerIdString = text + "." + base.gameObject.name;
+		PlayerIdString = text + "." + gameObject.name;
 		PlayerId = PlayerIdString.GetStaticHash();
 		Dispose();
 		Activate = new PhotonEvent(string.Format("{0}.{1}", PlayerId, "Activate"));

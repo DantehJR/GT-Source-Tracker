@@ -48,7 +48,7 @@ public class ParticleVertexSnapper : MonoBehaviour
 			Vector3 position = targetSkinnedMesh.transform.TransformPoint(vertexPositions[num2]);
 			if (particleSystemComponent.main.simulationSpace == ParticleSystemSimulationSpace.Local)
 			{
-				particles[i].position = base.transform.InverseTransformPoint(position);
+				particles[i].position = transform.InverseTransformPoint(position);
 			}
 			else
 			{

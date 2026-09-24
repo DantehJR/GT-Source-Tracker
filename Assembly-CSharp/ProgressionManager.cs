@@ -562,11 +562,11 @@ public class ProgressionManager : MonoBehaviour
 		_treeRefreshInFlight = true;
 		debug_refreshTreeCount++;
 		await ProgressionUtil.WaitForMothershipSessionToken();
-		MothershipClientApiUnity.GetPlayerProgressionTreesData(delegate(GetProgressionTreesForPlayerResponse response)
+		MothershipClientApiUnity.GetPlayerProgressionTreesData((GetProgressionTreesForPlayerResponse response) =>
 		{
 			_treeRefreshInFlight = false;
 			OnGetTrees(response);
-		}, delegate(MothershipError err, int code)
+		}, (MothershipError err, int code) =>
 		{
 			_treeRefreshInFlight = false;
 			GetMothershipFailure(err, code);
@@ -590,11 +590,11 @@ public class ProgressionManager : MonoBehaviour
 		_inventoryRefreshInFlight = true;
 		debug_refreshInventoryCount++;
 		await ProgressionUtil.WaitForMothershipSessionToken();
-		MothershipClientApiUnity.GetUserInventory(delegate(MothershipGetInventoryResponse response)
+		MothershipClientApiUnity.GetUserInventory((MothershipGetInventoryResponse response) =>
 		{
 			_inventoryRefreshInFlight = false;
 			OnGetInventory(response);
-		}, delegate(MothershipError err, int code)
+		}, (MothershipError err, int code) =>
 		{
 			_inventoryRefreshInFlight = false;
 			GetMothershipFailure(err, code);
@@ -1090,11 +1090,11 @@ public class ProgressionManager : MonoBehaviour
 			_tracks[data.TrackId] = num;
 			Debug.Log("PM: GetProgression Success: track is " + data.TrackId + " and progress is " + num);
 			retryCounters[RequestType.GetProgression] = 0;
-			this.OnTrackRead?.Invoke(data.TrackId, num);
+			OnTrackRead?.Invoke(data.TrackId, num);
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.GetProgression, data.TrackId, delegate(string x)
+			yield return HandleWebRequestRetries(RequestType.GetProgression, data.TrackId, (string x) =>
 			{
 				GetProgression(x);
 			});
@@ -1110,11 +1110,11 @@ public class ProgressionManager : MonoBehaviour
 			GetProgressionResponse getProgressionResponse = JsonConvert.DeserializeObject<GetProgressionResponse>(request.downloadHandler.text);
 			_tracks[data.TrackId] = getProgressionResponse.Progress;
 			retryCounters[RequestType.SetProgression] = 0;
-			this.OnTrackSet?.Invoke(data.TrackId, getProgressionResponse.Progress);
+			OnTrackSet?.Invoke(data.TrackId, getProgressionResponse.Progress);
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.SetProgression, (data.TrackId, data.Progress), delegate((string TrackId, int Progress) x)
+			yield return HandleWebRequestRetries(RequestType.SetProgression, (data.TrackId, data.Progress), ((string TrackId, int Progress) x) =>
 			{
 				SetProgression(x.TrackId, x.Progress);
 			});
@@ -1130,11 +1130,11 @@ public class ProgressionManager : MonoBehaviour
 			retryCounters[RequestType.UnlockProgressionTreeNode] = 0;
 			RefreshProgressionTree();
 			RefreshUserInventory();
-			this.OnNodeUnlocked?.Invoke(data.TreeId, data.NodeId);
+			OnNodeUnlocked?.Invoke(data.TreeId, data.NodeId);
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.UnlockProgressionTreeNode, (data.TreeId, data.NodeId), delegate((string TreeId, string NodeId) x)
+			yield return HandleWebRequestRetries(RequestType.UnlockProgressionTreeNode, (data.TreeId, data.NodeId), ((string TreeId, string NodeId) x) =>
 			{
 				UnlockNode(x.TreeId, x.NodeId);
 			});
@@ -1156,10 +1156,10 @@ public class ProgressionManager : MonoBehaviour
 			OnFailure?.Invoke(request.error);
 			yield break;
 		}
-		yield return HandleWebRequestRetries(RequestType.IncrementSIResource, data, delegate
+		yield return HandleWebRequestRetries(RequestType.IncrementSIResource, data, (IncrementSIResourceRequest x) =>
 		{
 			IncrementSIResource(data.ResourceType, OnSuccess, OnFailure);
-		}, delegate
+		}, () =>
 		{
 			OnFailure?.Invoke(request.error);
 		});
@@ -1180,10 +1180,10 @@ public class ProgressionManager : MonoBehaviour
 			OnFailure?.Invoke(request.error);
 			yield break;
 		}
-		yield return HandleWebRequestRetries(RequestType.CompleteSIQuest, data, delegate
+		yield return HandleWebRequestRetries(RequestType.CompleteSIQuest, data, (SetSIQuestCompleteRequest x) =>
 		{
 			CompleteSIQuest(data.QuestID, OnSuccess, OnFailure);
-		}, delegate
+		}, () =>
 		{
 			OnFailure?.Invoke(request.error);
 		});
@@ -1204,10 +1204,10 @@ public class ProgressionManager : MonoBehaviour
 			OnFailure?.Invoke(request.error);
 			yield break;
 		}
-		yield return HandleWebRequestRetries(RequestType.CompleteSIBonus, data, delegate
+		yield return HandleWebRequestRetries(RequestType.CompleteSIBonus, data, (SetSIBonusCompleteRequest x) =>
 		{
 			CompleteSIBonus(OnSuccess, OnFailure);
-		}, delegate
+		}, () =>
 		{
 			OnFailure?.Invoke(request.error);
 		});
@@ -1228,10 +1228,10 @@ public class ProgressionManager : MonoBehaviour
 			OnFailure?.Invoke(request.error);
 			yield break;
 		}
-		yield return HandleWebRequestRetries(RequestType.CollectSIIdol, data, delegate
+		yield return HandleWebRequestRetries(RequestType.CollectSIIdol, data, (SetSIIdolCollectRequest x) =>
 		{
 			CollectSIIdol(OnSuccess, OnFailure);
-		}, delegate
+		}, () =>
 		{
 			OnFailure?.Invoke(request.error);
 		});
@@ -1252,10 +1252,10 @@ public class ProgressionManager : MonoBehaviour
 			OnFailure?.Invoke(request.error);
 			yield break;
 		}
-		yield return HandleWebRequestRetries(RequestType.GetActiveSIQuests, data, delegate
+		yield return HandleWebRequestRetries(RequestType.GetActiveSIQuests, data, (GetActiveSIQuestsRequest x) =>
 		{
 			GetActiveSIQuests(OnSuccess, OnFailure);
-		}, delegate
+		}, () =>
 		{
 			OnFailure?.Invoke(request.error);
 		});
@@ -1276,10 +1276,10 @@ public class ProgressionManager : MonoBehaviour
 			OnFailure?.Invoke(request.error);
 			yield break;
 		}
-		yield return HandleWebRequestRetries(RequestType.GetSIQuestsStatus, data, delegate
+		yield return HandleWebRequestRetries(RequestType.GetSIQuestsStatus, data, (GetSIQuestsStatusRequest x) =>
 		{
 			GetSIQuestStatus(OnSuccess, OnFailure);
-		}, delegate
+		}, () =>
 		{
 			OnFailure?.Invoke(request.error);
 		});
@@ -1299,10 +1299,10 @@ public class ProgressionManager : MonoBehaviour
 			OnFailure?.Invoke(request.error);
 			yield break;
 		}
-		yield return HandleWebRequestRetries(RequestType.PurchaseTechPoints, data, delegate
+		yield return HandleWebRequestRetries(RequestType.PurchaseTechPoints, data, (PurchaseTechPointsRequest x) =>
 		{
 			PurchaseTechPoints(data.TechPointsAmount, OnSuccess, OnFailure);
-		}, delegate
+		}, () =>
 		{
 			OnFailure?.Invoke(request.error);
 		});
@@ -1323,10 +1323,10 @@ public class ProgressionManager : MonoBehaviour
 			OnFailure?.Invoke(request.error);
 			yield break;
 		}
-		yield return HandleWebRequestRetries(RequestType.PurchaseResources, data, delegate
+		yield return HandleWebRequestRetries(RequestType.PurchaseResources, data, (PurchaseResourcesRequest x) =>
 		{
 			PurchaseResources(OnSuccess, OnFailure);
-		}, delegate
+		}, () =>
 		{
 			OnFailure?.Invoke(request.error);
 		});
@@ -1341,16 +1341,16 @@ public class ProgressionManager : MonoBehaviour
 			PurchaseShiftCreditCapIncreaseResponse purchaseShiftCreditCapIncreaseResponse = JsonConvert.DeserializeObject<PurchaseShiftCreditCapIncreaseResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.PurchaseShiftCreditCapIncrease] = 0;
 			RefreshShinyRocksTotal();
-			this.OnGetShiftCreditCapData?.Invoke(purchaseShiftCreditCapIncreaseResponse.TargetMothershipId, purchaseShiftCreditCapIncreaseResponse.CurrentShiftCreditCapIncreases, purchaseShiftCreditCapIncreaseResponse.CurrentShiftCreditCapIncreasesMax);
-			this.OnPurchaseShiftCreditCapIncrease?.Invoke(obj: true);
+			OnGetShiftCreditCapData?.Invoke(purchaseShiftCreditCapIncreaseResponse.TargetMothershipId, purchaseShiftCreditCapIncreaseResponse.CurrentShiftCreditCapIncreases, purchaseShiftCreditCapIncreaseResponse.CurrentShiftCreditCapIncreasesMax);
+			OnPurchaseShiftCreditCapIncrease?.Invoke(obj: true);
 		}
 		else if (request.responseCode == 400 && request.downloadHandler.text == "User Already Has Purchased Max Shift Credit Cap")
 		{
-			this.OnPurchaseShiftCreditCapIncrease?.Invoke(obj: false);
+			OnPurchaseShiftCreditCapIncrease?.Invoke(obj: false);
 		}
 		else if (HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.PurchaseShiftCreditCapIncrease, data, delegate
+			yield return HandleWebRequestRetries(RequestType.PurchaseShiftCreditCapIncrease, data, (PurchaseShiftCreditCapIncreaseRequest x) =>
 			{
 				PurchaseShiftCreditCapIncreaseInternal(request.responseCode == 409);
 			});
@@ -1366,8 +1366,8 @@ public class ProgressionManager : MonoBehaviour
 			PurchaseShiftCreditResponse purchaseShiftCreditResponse = JsonConvert.DeserializeObject<PurchaseShiftCreditResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.PurchaseShiftCredit] = 0;
 			RefreshShinyRocksTotal();
-			this.OnGetShiftCredit?.Invoke(purchaseShiftCreditResponse.TargetMothershipId, purchaseShiftCreditResponse.CurrentShiftCredits);
-			this.OnPurchaseShiftCredit?.Invoke(obj: true);
+			OnGetShiftCredit?.Invoke(purchaseShiftCreditResponse.TargetMothershipId, purchaseShiftCreditResponse.CurrentShiftCredits);
+			OnPurchaseShiftCredit?.Invoke(obj: true);
 			GRPlayer local = GRPlayer.GetLocal();
 			if (local != null)
 			{
@@ -1376,11 +1376,11 @@ public class ProgressionManager : MonoBehaviour
 		}
 		else if (request.responseCode == 400 && request.downloadHandler.text == "User Already at Max Shift Credit")
 		{
-			this.OnPurchaseShiftCredit?.Invoke(obj: false);
+			OnPurchaseShiftCredit?.Invoke(obj: false);
 		}
 		else if (HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.PurchaseShiftCredit, data, delegate
+			yield return HandleWebRequestRetries(RequestType.PurchaseShiftCredit, data, (PurchaseShiftCreditRequest x) =>
 			{
 				PurchaseShiftCreditInternal(request.responseCode == 409);
 			});
@@ -1395,12 +1395,12 @@ public class ProgressionManager : MonoBehaviour
 		{
 			ShiftCreditResponse shiftCreditResponse = JsonConvert.DeserializeObject<ShiftCreditResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.GetShiftCredit] = 0;
-			this.OnGetShiftCredit?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCredits);
-			this.OnGetShiftCreditCapData?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCreditCapIncreases, shiftCreditResponse.CurrentShiftCreditCapIncreasesMax);
+			OnGetShiftCredit?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCredits);
+			OnGetShiftCreditCapData?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCreditCapIncreases, shiftCreditResponse.CurrentShiftCreditCapIncreasesMax);
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.GetShiftCredit, data, delegate(GetShiftCreditRequest x)
+			yield return HandleWebRequestRetries(RequestType.GetShiftCredit, data, (GetShiftCreditRequest x) =>
 			{
 				GetShiftCredit(x.TargetMothershipId);
 			});
@@ -1415,11 +1415,11 @@ public class ProgressionManager : MonoBehaviour
 		{
 			retryCounters[RequestType.GetJuicerStatus] = 0;
 			JuicerStatusResponse obj = JsonConvert.DeserializeObject<JuicerStatusResponse>(request.downloadHandler.text);
-			this.OnJucierStatusUpdated?.Invoke(obj);
+			OnJucierStatusUpdated?.Invoke(obj);
 		}
 		else if (HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.GetJuicerStatus, data, delegate
+			yield return HandleWebRequestRetries(RequestType.GetJuicerStatus, data, (GetJuicerStatusRequest x) =>
 			{
 				GetJuicerStatusInternal(request.responseCode == 409);
 			});
@@ -1435,26 +1435,26 @@ public class ProgressionManager : MonoBehaviour
 			retryCounters[RequestType.DepositCore] = 0;
 			if (data.CoreBeingDeposited == CoreType.ChaosSeed)
 			{
-				this.OnChaosDepositSuccess?.Invoke(obj: true);
+				OnChaosDepositSuccess?.Invoke(obj: true);
 				GetJuicerStatus();
 			}
 			else
 			{
 				DepositCoreResponse depositCoreResponse = JsonConvert.DeserializeObject<DepositCoreResponse>(request.downloadHandler.text);
-				this.OnGetShiftCredit?.Invoke(data.MothershipId, depositCoreResponse.CurrentShiftCredits);
+				OnGetShiftCredit?.Invoke(data.MothershipId, depositCoreResponse.CurrentShiftCredits);
 			}
 		}
 		else if (request.responseCode == 400 && request.downloadHandler.text == "DepositGRCore already at seed cap")
 		{
 			if (data.CoreBeingDeposited == CoreType.ChaosSeed)
 			{
-				this.OnChaosDepositSuccess?.Invoke(obj: false);
+				OnChaosDepositSuccess?.Invoke(obj: false);
 				GetJuicerStatus();
 			}
 		}
 		else if (HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.DepositCore, data, delegate(DepositCoreRequest x)
+			yield return HandleWebRequestRetries(RequestType.DepositCore, data, (DepositCoreRequest x) =>
 			{
 				DepositCoreInternal(x.CoreBeingDeposited, request.responseCode == 409);
 			});
@@ -1470,15 +1470,15 @@ public class ProgressionManager : MonoBehaviour
 			retryCounters[RequestType.PurchaseOverdrive] = 0;
 			GetJuicerStatus();
 			RefreshShinyRocksTotal();
-			this.OnPurchaseOverdrive?.Invoke(obj: true);
+			OnPurchaseOverdrive?.Invoke(obj: true);
 		}
 		else if (request.responseCode == 400 && (request.downloadHandler.text == "User Already At Overdrive Cap" || request.downloadHandler.text == "User would exceed Overdrive Cap"))
 		{
-			this.OnPurchaseOverdrive?.Invoke(obj: false);
+			OnPurchaseOverdrive?.Invoke(obj: false);
 		}
 		else if (HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.PurchaseOverdrive, data, delegate
+			yield return HandleWebRequestRetries(RequestType.PurchaseOverdrive, data, (PurchaseOverdriveRequest x) =>
 			{
 				PurchaseOverdriveInternal(request.responseCode == 409);
 			});
@@ -1493,12 +1493,12 @@ public class ProgressionManager : MonoBehaviour
 		{
 			ShiftCreditResponse shiftCreditResponse = JsonConvert.DeserializeObject<ShiftCreditResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.SubtractShiftCredit] = 0;
-			this.OnGetShiftCredit?.Invoke(data.MothershipId, shiftCreditResponse.CurrentShiftCredits);
-			this.OnGetShiftCreditCapData?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCreditCapIncreases, shiftCreditResponse.CurrentShiftCreditCapIncreasesMax);
+			OnGetShiftCredit?.Invoke(data.MothershipId, shiftCreditResponse.CurrentShiftCredits);
+			OnGetShiftCreditCapData?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCreditCapIncreases, shiftCreditResponse.CurrentShiftCreditCapIncreasesMax);
 		}
 		else if (HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.SubtractShiftCredit, data, delegate
+			yield return HandleWebRequestRetries(RequestType.SubtractShiftCredit, data, (SubtractShiftCreditRequest x) =>
 			{
 				SubtractShiftCreditInternal(data.ShiftCreditToRemove, request.responseCode == 409);
 			});
@@ -1513,11 +1513,11 @@ public class ProgressionManager : MonoBehaviour
 		{
 			DockWristStatusResponse obj = JsonConvert.DeserializeObject<DockWristStatusResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.AdvanceDockWristUpgrade] = 0;
-			this.OnDockWristStatusUpdated?.Invoke(obj);
+			OnDockWristStatusUpdated?.Invoke(obj);
 		}
 		else if (HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.AdvanceDockWristUpgrade, data, delegate
+			yield return HandleWebRequestRetries(RequestType.AdvanceDockWristUpgrade, data, (AdvanceDockWristUpgradeRequest x) =>
 			{
 				AdvanceDockWristUpgradeLevelInternal(data.Upgrade, request.responseCode == 409);
 			});
@@ -1532,11 +1532,11 @@ public class ProgressionManager : MonoBehaviour
 		{
 			DockWristStatusResponse obj = JsonConvert.DeserializeObject<DockWristStatusResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.GetDockWristUpgradeStatus] = 0;
-			this.OnDockWristStatusUpdated?.Invoke(obj);
+			OnDockWristStatusUpdated?.Invoke(obj);
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.GetDockWristUpgradeStatus, data, delegate
+			yield return HandleWebRequestRetries(RequestType.GetDockWristUpgradeStatus, data, (DockWristUpgradeStatusRequest x) =>
 			{
 				GetDockWristUpgradeStatus();
 			});
@@ -1551,7 +1551,7 @@ public class ProgressionManager : MonoBehaviour
 		{
 			retryCounters[RequestType.PurchaseDrillUpgrade] = 0;
 			RefreshUserInventory();
-			this.OnNodeUnlocked?.Invoke("", "");
+			OnNodeUnlocked?.Invoke("", "");
 			if (data.Upgrade == DrillUpgradeLevel.Base)
 			{
 				GRPlayer local = GRPlayer.GetLocal();
@@ -1563,7 +1563,7 @@ public class ProgressionManager : MonoBehaviour
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.PurchaseDrillUpgrade, data, delegate
+			yield return HandleWebRequestRetries(RequestType.PurchaseDrillUpgrade, data, (PurchaseDrillUpgradeRequest x) =>
 			{
 				PurchaseDrillUpgrade(data.Upgrade);
 			});
@@ -1578,12 +1578,12 @@ public class ProgressionManager : MonoBehaviour
 		{
 			ShiftCreditResponse shiftCreditResponse = JsonConvert.DeserializeObject<ShiftCreditResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.RecycleTool] = 0;
-			this.OnGetShiftCredit?.Invoke(data.MothershipId, shiftCreditResponse.CurrentShiftCredits);
-			this.OnGetShiftCreditCapData?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCreditCapIncreases, shiftCreditResponse.CurrentShiftCreditCapIncreasesMax);
+			OnGetShiftCredit?.Invoke(data.MothershipId, shiftCreditResponse.CurrentShiftCredits);
+			OnGetShiftCreditCapData?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCreditCapIncreases, shiftCreditResponse.CurrentShiftCreditCapIncreasesMax);
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.RecycleTool, data, delegate
+			yield return HandleWebRequestRetries(RequestType.RecycleTool, data, (RecycleToolRequest x) =>
 			{
 				RecycleTool(data.ToolBeingRecycled, data.NumberOfPlayers);
 			});
@@ -1600,7 +1600,7 @@ public class ProgressionManager : MonoBehaviour
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.StartOfShift, data, delegate
+			yield return HandleWebRequestRetries(RequestType.StartOfShift, data, (StartOfShiftRequest x) =>
 			{
 				StartOfShift(data.ShiftId, data.CoresRequired, data.NumberOfPlayers, data.Depth);
 			});
@@ -1615,12 +1615,12 @@ public class ProgressionManager : MonoBehaviour
 		{
 			ShiftCreditResponse shiftCreditResponse = JsonConvert.DeserializeObject<ShiftCreditResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.EndOfShiftReward] = 0;
-			this.OnGetShiftCredit?.Invoke(data.MothershipId, shiftCreditResponse.CurrentShiftCredits);
-			this.OnGetShiftCreditCapData?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCreditCapIncreases, shiftCreditResponse.CurrentShiftCreditCapIncreasesMax);
+			OnGetShiftCredit?.Invoke(data.MothershipId, shiftCreditResponse.CurrentShiftCredits);
+			OnGetShiftCreditCapData?.Invoke(shiftCreditResponse.TargetMothershipId, shiftCreditResponse.CurrentShiftCreditCapIncreases, shiftCreditResponse.CurrentShiftCreditCapIncreasesMax);
 		}
 		else if ((request.responseCode != 400 || !(request.error == "EndOfShiftReward Unknown Shift or Mothership Failure.")) && HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.EndOfShiftReward, data, delegate
+			yield return HandleWebRequestRetries(RequestType.EndOfShiftReward, data, (EndOfShiftRewardRequest x) =>
 			{
 				EndOfShiftRewardInternal(data.ShiftId, request.responseCode == 409);
 			});
@@ -1635,11 +1635,11 @@ public class ProgressionManager : MonoBehaviour
 		{
 			GhostReactorStatsResponse obj = JsonConvert.DeserializeObject<GhostReactorStatsResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.GetGhostReactorStats] = 0;
-			this.OnGhostReactorStatsUpdated?.Invoke(obj);
+			OnGhostReactorStatsUpdated?.Invoke(obj);
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.GetGhostReactorStats, data, delegate
+			yield return HandleWebRequestRetries(RequestType.GetGhostReactorStats, data, (GhostReactorStatsRequest x) =>
 			{
 				GetGhostReactorStats();
 			});
@@ -1654,11 +1654,11 @@ public class ProgressionManager : MonoBehaviour
 		{
 			GhostReactorInventoryResponse obj = JsonConvert.DeserializeObject<GhostReactorInventoryResponse>(request.downloadHandler.text);
 			retryCounters[RequestType.GetGhostReactorInventory] = 0;
-			this.OnGhostReactorInventoryUpdated?.Invoke(obj);
+			OnGhostReactorInventoryUpdated?.Invoke(obj);
 		}
 		else if (HandleWebRequestFailures(request))
 		{
-			yield return HandleWebRequestRetries(RequestType.GetGhostReactorInventory, data, delegate
+			yield return HandleWebRequestRetries(RequestType.GetGhostReactorInventory, data, (GhostReactorInventoryRequest x) =>
 			{
 				GetGhostReactorInventory();
 			});
@@ -1675,7 +1675,7 @@ public class ProgressionManager : MonoBehaviour
 		}
 		else if (HandleWebRequestFailures(request, retryOnConflict: true))
 		{
-			yield return HandleWebRequestRetries(RequestType.SetGhostReactorInventory, data, delegate
+			yield return HandleWebRequestRetries(RequestType.SetGhostReactorInventory, data, (SetGhostReactorInventoryRequest x) =>
 			{
 				SetGhostReactorInventoryInternal(data.InventoryJson, request.responseCode == 409);
 			});
@@ -1804,7 +1804,7 @@ public class ProgressionManager : MonoBehaviour
 			userHydratedProgressionTreeResponse.Nodes = result.Nodes;
 			_trees[result.Tree.name] = userHydratedProgressionTreeResponse;
 		}
-		this.OnTreeUpdated?.Invoke();
+		OnTreeUpdated?.Invoke();
 	}
 
 	private void OnGetInventory(MothershipGetInventoryResponse response)
@@ -1832,7 +1832,7 @@ public class ProgressionManager : MonoBehaviour
 				};
 			}
 		}
-		this.OnInventoryUpdated?.Invoke();
+		OnInventoryUpdated?.Invoke();
 	}
 
 	public int GetShinyRocksTotal()

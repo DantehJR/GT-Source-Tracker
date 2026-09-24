@@ -74,7 +74,7 @@ public class MonkeVoteOption : MonoBehaviour
 	{
 		if (IsValidVotingRock(other))
 		{
-			this.OnVote?.Invoke(this, other);
+			OnVote?.Invoke(this, other);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class MonkeVoteOption : MonoBehaviour
 
 	public void ResetState()
 	{
-		this.OnVote = null;
+		OnVote = null;
 		ShowIndicators(showVote: false, showPrediction: false);
 	}
 
@@ -109,7 +109,7 @@ public class MonkeVoteOption : MonoBehaviour
 	{
 		if (_canVote)
 		{
-			this.OnVote?.Invoke(this, other);
+			OnVote?.Invoke(this, other);
 		}
 	}
 

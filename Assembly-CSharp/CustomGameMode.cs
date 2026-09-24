@@ -64,6 +64,24 @@ public sealed class CustomGameMode : GorillaGameManager
 		return 0;
 	}
 
+	public unsafe float GetRigScale(VRRig rig)
+	{
+		if (gameScriptRunner == null || !gameScriptRunner.ShouldTick)
+		{
+			return 1f;
+		}
+		NetPlayer creator = rig.Creator;
+		if (creator == null)
+		{
+			return 1f;
+		}
+		if (!Bindings.LuauPlayerList.TryGetValue(creator.ActorNumber, out var value))
+		{
+			return 1f;
+		}
+		return ((Bindings.LuauPlayer*)(void*)value)->ScaleMultiplier.ClampSafe(0.3f, 10f);
+	}
+
 	public unsafe override void OnPlayerEnteredRoom(NetPlayer player)
 	{
 		try
@@ -75,6 +93,7 @@ public sealed class CustomGameMode : GorillaGameManager
 				int num = Luau.lua_objlen(l, -1);
 				Bindings.LuauPlayer* ptr = Luau.lua_class_push<Bindings.LuauPlayer>(l);
 				ptr->PlayerID = player.ActorNumber;
+				ptr->ScaleMultiplier = 1f;
 				ptr->PlayerMaterial = 0;
 				ptr->IsMasterClient = player.IsMasterClient;
 				VRRig vRRig = FindPlayerVRRig(player);
@@ -324,6 +343,7 @@ public sealed class CustomGameMode : GorillaGameManager
 			{
 				Bindings.LuauPlayer* ptr = Luau.lua_class_push<Bindings.LuauPlayer>(l);
 				ptr->PlayerID = netPlayer.ActorNumber;
+				ptr->ScaleMultiplier = 1f;
 				ptr->PlayerMaterial = 0;
 				ptr->IsMasterClient = netPlayer.IsMasterClient;
 				Bindings.LuauPlayerList[netPlayer.ActorNumber] = (IntPtr)ptr;
@@ -420,6 +440,7 @@ public sealed class CustomGameMode : GorillaGameManager
 		LuauScriptRunner.ScriptRunners.Remove(gameScriptRunner);
 		gameScriptRunner.ShouldTick = false;
 		gameScriptRunner = null;
+		Bindings.OnlineFunctions.ResetOnlineFunctionsState();
 		foreach (KeyValuePair<GameObject, Bindings.LuauGameObjectInitialState> luauGameObjectState in Bindings.LuauGameObjectStates)
 		{
 			Bindings.LuauGameObjectInitialState value = luauGameObjectState.Value;
@@ -495,6 +516,9 @@ public sealed class CustomGameMode : GorillaGameManager
 		Bindings.GameObjectBuilder(L);
 		Bindings.AIAgentBuilder(L);
 		Bindings.GrabbableEntityBuilder(L);
+		Bindings.InventoryItemBuilder(L);
+		Bindings.OnlineErrorBuilder(L);
+		Bindings.OnlineFunctionsBuilder(L);
 		Bindings.RoomStateBuilder(L);
 		Bindings.Components.Build(L);
 		Luau.lua_createtable(L, 10, 0);
@@ -539,12 +563,12 @@ public sealed class CustomGameMode : GorillaGameManager
 				GameObject key = luauGameObjectDepth.Key;
 				if (key.IsNotNull())
 				{
-					Transform obj = key.transform;
+					Transform transform = key.transform;
 					Bindings.LuauGameObject* ptr = (Bindings.LuauGameObject*)(void*)luauGameObjectDepth.Value;
 					Vector3 position = ptr->Position;
 					position = new Vector3((float)Math.Round(position.x, 4), (float)Math.Round(position.y, 4), (float)Math.Round(position.z, 4));
-					obj.SetPositionAndRotation(position, ptr->Rotation);
-					obj.localScale = ptr->Scale;
+					transform.SetPositionAndRotation(position, ptr->Rotation);
+					transform.localScale = ptr->Scale;
 				}
 			}
 		}

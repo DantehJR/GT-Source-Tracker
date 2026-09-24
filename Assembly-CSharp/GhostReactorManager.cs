@@ -577,7 +577,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 
 	public void ReportLocalPlayerHit()
 	{
-		base.GetView.RPC("ReportLocalPlayerHitRPC", RpcTarget.All);
+		GetView.RPC("ReportLocalPlayerHitRPC", RpcTarget.All);
 	}
 
 	[PunRPC]
@@ -594,7 +594,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 	{
 		if ((NetworkSystem.Instance.InRoom && IsAuthority()) || !NetworkSystem.Instance.InRoom)
 		{
-			base.GetView.RPC("ApplyPlayerRevivedRPC", RpcTarget.All, reviveStation.Index, player.gamePlayer.rig.OwningNetPlayer.ActorNumber);
+			GetView.RPC("ApplyPlayerRevivedRPC", RpcTarget.All, reviveStation.Index, player.gamePlayer.rig.OwningNetPlayer.ActorNumber);
 		}
 	}
 
@@ -620,7 +620,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 	{
 		if (NetworkSystem.Instance.InRoom)
 		{
-			base.GetView.RPC("PlayerStateChangeRPC", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, player.gamePlayer.rig.OwningNetPlayer.ActorNumber, (int)newState);
+			GetView.RPC("PlayerStateChangeRPC", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, player.gamePlayer.rig.OwningNetPlayer.ActorNumber, (int)newState);
 		}
 		else
 		{
@@ -633,8 +633,8 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 	{
 		bool flag = IsValidClientRPC(info.Sender);
 		bool num = newState == 1 && info.Sender.ActorNumber == playerActorNumber && IsZoneActive();
-		bool flag2 = newState == 0 && flag;
-		if (!(num || flag2))
+		bool flag2 = (newState == 0) & flag;
+		if (!(num | flag2))
 		{
 			return;
 		}
@@ -657,7 +657,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 
 	public void RequestGrantPlayerShield(GRPlayer player, int shieldHp, int shieldFlags)
 	{
-		base.GetView.RPC("RequestGrantPlayerShieldRPC", GetAuthorityPlayer(), PhotonNetwork.LocalPlayer.ActorNumber, player.gamePlayer.rig.OwningNetPlayer.ActorNumber, shieldHp, shieldFlags);
+		GetView.RPC("RequestGrantPlayerShieldRPC", GetAuthorityPlayer(), PhotonNetwork.LocalPlayer.ActorNumber, player.gamePlayer.rig.OwningNetPlayer.ActorNumber, shieldHp, shieldFlags);
 	}
 
 	[PunRPC]
@@ -667,7 +667,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 		GRPlayer gRPlayer2 = GRPlayer.Get(playerToGrantShieldActorNumber);
 		if (IsValidAuthorityRPC(info.Sender) && !gRPlayer.IsNull() && gRPlayer.fireShieldLimiter.CheckCallTime(Time.unscaledTime) && !gRPlayer2.IsNull() && gRPlayer2.CanActivateShield(shieldHp))
 		{
-			base.GetView.RPC("ApplyGrantPlayerShieldRPC", RpcTarget.All, shieldingPlayer, playerToGrantShieldActorNumber, shieldHp, shieldFlags);
+			GetView.RPC("ApplyGrantPlayerShieldRPC", RpcTarget.All, shieldingPlayer, playerToGrantShieldActorNumber, shieldHp, shieldFlags);
 		}
 	}
 
@@ -691,9 +691,9 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 
 	public void RequestFireProjectile(GameEntityId entityId, Vector3 firingPosition, Vector3 targetPosition, double networkTime)
 	{
-		if (IsAuthority() && ((NetworkSystem.Instance.InRoom && base.IsMine) || !NetworkSystem.Instance.InRoom))
+		if (IsAuthority() && ((NetworkSystem.Instance.InRoom && IsMine) || !NetworkSystem.Instance.InRoom))
 		{
-			base.GetView.RPC("RequestFireProjectileRPC", RpcTarget.All, gameEntityManager.GetNetIdFromEntityId(entityId), firingPosition, targetPosition, networkTime);
+			GetView.RPC("RequestFireProjectileRPC", RpcTarget.All, gameEntityManager.GetNetIdFromEntityId(entityId), firingPosition, targetPosition, networkTime);
 		}
 	}
 
@@ -2181,7 +2181,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 		reactor.difficultyScalingForCurrentFloor = difficultyScalingForCurrentFloor;
 		if (shiftManager != null)
 		{
-			bool num = reader.ReadBoolean();
+			bool flag = reader.ReadBoolean();
 			double shiftStartTime = reader.ReadDouble();
 			shiftManager.shiftStats.Deserialize(reader);
 			shiftManager.RefreshShiftStatsDisplay();
@@ -2191,7 +2191,7 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 			GhostReactorShiftManager.State newState = (GhostReactorShiftManager.State)reader.ReadByte();
 			shiftManager.SetState(newState, force: true);
 			int inputSeed = reader.ReadInt32();
-			if (num)
+			if (flag)
 			{
 				levelGenerator.Generate(inputSeed);
 				shiftManager.OnShiftStarted(text, shiftStartTime, wasPlayerInAtStart: false, isFirstShift: true);
@@ -2211,8 +2211,8 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 		reactor.RefreshScoreboards();
 		reactor.RefreshDepth();
 		List<GRToolPurchaseStation> toolPurchasingStations = reactor.toolPurchasingStations;
-		int num2 = reader.ReadInt32();
-		for (int j = 0; j < num2; j++)
+		int num = reader.ReadInt32();
+		for (int j = 0; j < num; j++)
 		{
 			int newSelectedIndex = reader.ReadInt32();
 			if (j < toolPurchasingStations.Count && toolPurchasingStations[j] != null)
@@ -2221,8 +2221,8 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 			}
 		}
 		List<GRToolUpgradePurchaseStationFull> toolUpgradePurchaseStationsFull = reactor.toolUpgradePurchaseStationsFull;
-		int num3 = reader.ReadInt32();
-		for (int k = 0; k < num3; k++)
+		int num2 = reader.ReadInt32();
+		for (int k = 0; k < num2; k++)
 		{
 			int shelf = reader.ReadInt32();
 			int item = reader.ReadInt32();
@@ -2235,8 +2235,8 @@ public class GhostReactorManager : NetworkComponent, IGameEntityZoneComponent
 		}
 		List<GhostReactor.EntityTypeRespawnTracker> respawnQueue = reactor.respawnQueue;
 		respawnQueue.Clear();
-		int num4 = reader.ReadInt32();
-		for (int l = 0; l < num4; l++)
+		int num3 = reader.ReadInt32();
+		for (int l = 0; l < num3; l++)
 		{
 			GhostReactor.EntityTypeRespawnTracker entityTypeRespawnTracker = new GhostReactor.EntityTypeRespawnTracker();
 			entityTypeRespawnTracker.entityTypeID = reader.ReadInt32();

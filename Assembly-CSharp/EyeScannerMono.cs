@@ -133,7 +133,7 @@ public class EyeScannerMono : MonoBehaviour, ISpawnable, IGorillaSliceableSimple
 	{
 		if (rig != null && !rig.isOfflineVRRig)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		if (GTPlayer.hasInstance)
 		{
@@ -169,9 +169,9 @@ public class EyeScannerMono : MonoBehaviour, ISpawnable, IGorillaSliceableSimple
 			return;
 		}
 		IEyeScannable eyeScannable = null;
-		Transform obj = base.transform;
-		Vector3 position = obj.position;
-		Vector3 forward = obj.forward;
+		Transform transform = base.transform;
+		Vector3 position = transform.position;
+		Vector3 forward = transform.forward;
 		float num = m_LookPrecision;
 		for (int i = 0; i < _registeredScannables.Count; i++)
 		{
@@ -219,7 +219,7 @@ public class EyeScannerMono : MonoBehaviour, ISpawnable, IGorillaSliceableSimple
 		if (_oldClosestScannable != null)
 		{
 			m_reticle.position = _oldClosestScannable.Position;
-			float num = math.distance(base.transform.position, m_reticle.position);
+			float num = math.distance(transform.position, m_reticle.position);
 			Mathf.Clamp(num * 0.33333f, 0f, 1f);
 			float num2 = num * m_reticleScale;
 			float num3 = num * m_textScale;
@@ -242,7 +242,7 @@ public class EyeScannerMono : MonoBehaviour, ISpawnable, IGorillaSliceableSimple
 			m_textTyper.gameObject.SetActive(value: false);
 			m_reticle.gameObject.SetActive(value: false);
 			m_overlayBg.SetActive(value: false);
-			m_reticle.parent = base.transform;
+			m_reticle.parent = transform;
 			_line.enabled = false;
 			return;
 		}

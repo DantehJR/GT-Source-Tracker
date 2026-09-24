@@ -161,15 +161,15 @@ public class GREnemySummoner : MonoBehaviour, IGameEntityComponent, IGameEntityS
 	public void OnEntityInit()
 	{
 		abilityIdle.Setup(agent, anim, audioSource, null, null, null);
-		abilityWander.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityDie.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilitySummon.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityKeepDistance.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityMoveToTarget.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityStagger.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityInvestigate.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityJump.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityFlashed.Setup(agent, anim, audioSource, base.transform, null, null);
+		abilityWander.Setup(agent, anim, audioSource, transform, null, null);
+		abilityDie.Setup(agent, anim, audioSource, transform, null, null);
+		abilitySummon.Setup(agent, anim, audioSource, transform, null, null);
+		abilityKeepDistance.Setup(agent, anim, audioSource, transform, null, null);
+		abilityMoveToTarget.Setup(agent, anim, audioSource, transform, null, null);
+		abilityStagger.Setup(agent, anim, audioSource, transform, null, null);
+		abilityInvestigate.Setup(agent, anim, audioSource, transform, null, null);
+		abilityJump.Setup(agent, anim, audioSource, transform, null, null);
+		abilityFlashed.Setup(agent, anim, audioSource, transform, null, null);
 		SetBehavior(Behavior.Idle, force: true);
 		if ((bool)entity && (bool)entity.manager && (bool)entity.manager.ghostReactorManager && (bool)entity.manager.ghostReactorManager.reactor)
 		{
@@ -347,8 +347,7 @@ public class GREnemySummoner : MonoBehaviour, IGameEntityComponent, IGameEntityS
 		tempRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 		senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-		float outDistanceSq;
-		VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+		VRRig vRRig = senseNearby.PickClosest(out var _);
 		agent.RequestTarget((vRRig == null) ? null : vRRig.OwningNetPlayer);
 		switch (currBehavior)
 		{
@@ -444,7 +443,7 @@ public class GREnemySummoner : MonoBehaviour, IGameEntityComponent, IGameEntityS
 			}
 			return;
 		}
-		investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(base.transform.position, hearingRadius, investigateLocation);
+		investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(transform.position, hearingRadius, investigateLocation);
 		if (investigateLocation.HasValue)
 		{
 			abilityInvestigate.SetTargetPos(investigateLocation.Value);
@@ -654,7 +653,7 @@ public class GREnemySummoner : MonoBehaviour, IGameEntityComponent, IGameEntityS
 				SetBodyState(BodyState.Bones);
 				if (tool.gameEntity.IsHeldByLocalPlayer())
 				{
-					PlayerGameEvents.MiscEvent("GRArmorBreak_" + base.name);
+					PlayerGameEvents.MiscEvent("GRArmorBreak_" + name);
 				}
 				if (tool.HasUpgradeInstalled(GRToolProgressionManager.ToolParts.FlashDamage3))
 				{
@@ -691,7 +690,7 @@ public class GREnemySummoner : MonoBehaviour, IGameEntityComponent, IGameEntityS
 			GRPlayer component = attachedRigidbody.GetComponent<GRPlayer>();
 			if (component != null && component.gamePlayer.IsLocal())
 			{
-				GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Phantom, entity.id, component, base.transform.position);
+				GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Phantom, entity.id, component, transform.position);
 			}
 			GRBreakable component2 = attachedRigidbody.GetComponent<GRBreakable>();
 			GameHittable component3 = attachedRigidbody.GetComponent<GameHittable>();

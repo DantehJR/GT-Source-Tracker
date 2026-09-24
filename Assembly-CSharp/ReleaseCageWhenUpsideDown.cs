@@ -16,6 +16,6 @@ public class ReleaseCageWhenUpsideDown : MonoBehaviour
 
 	private void Update()
 	{
-		cage.inReleasingPosition = Vector3.Angle(base.transform.up, Vector3.down) < releaseCritterThreshold;
+		cage.inReleasingPosition = Vector3.Angle(transform.up, Vector3.down) < releaseCritterThreshold;
 	}
 }

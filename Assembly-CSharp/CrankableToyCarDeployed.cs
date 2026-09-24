@@ -32,9 +32,9 @@ public class CrankableToyCarDeployed : MonoBehaviour
 	{
 		this.holdable = holdable;
 		holdable.OnCarDeployed();
-		base.transform.position = launchPos;
-		base.transform.rotation = launchRot;
-		base.transform.localScale = holdable.transform.lossyScale;
+		transform.position = launchPos;
+		transform.rotation = launchRot;
+		transform.localScale = holdable.transform.lossyScale;
 		rb.linearVelocity = releaseVel;
 		startedAtTimestamp = Time.time;
 		expiresAtTimestamp = Time.time + lifetime;

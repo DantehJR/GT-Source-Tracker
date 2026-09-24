@@ -44,7 +44,7 @@ public class TentacleTracker : MonoBehaviour
 	{
 		if (!(targetRig == null))
 		{
-			base.gameObject.SetActive(value: true);
+			gameObject.SetActive(value: true);
 			tracking = true;
 			currentTargetRig = targetRig;
 			currentTargetIsLocal = isLocalPlayer;
@@ -76,8 +76,8 @@ public class TentacleTracker : MonoBehaviour
 			{
 				Vector3 forward = vector2 / magnitude;
 				Vector3 normalized = (playerRefPoint.localPosition - anchorRefPoint.localPosition).normalized;
-				base.transform.rotation = Quaternion.LookRotation(forward) * Quaternion.Inverse(Quaternion.LookRotation(normalized));
-				base.transform.position += vector - playerRefPoint.position;
+				transform.rotation = Quaternion.LookRotation(forward) * Quaternion.Inverse(Quaternion.LookRotation(normalized));
+				transform.position += vector - playerRefPoint.position;
 			}
 		}
 	}
@@ -96,6 +96,6 @@ public class TentacleTracker : MonoBehaviour
 
 	public void TestDisappear()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 }

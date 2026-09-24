@@ -83,7 +83,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 		if (instance == null)
 		{
 			instance = this;
-			base.transform.SetParent(null, worldPositionStays: true);
+			transform.SetParent(null, worldPositionStays: true);
 			UnityEngine.Object.DontDestroyOnLoad(this);
 			inventory = new List<string>();
 			inventory.Add("InventoryDict");
@@ -99,7 +99,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 	private void Start()
 	{
 		playerLookUpCooldown = Mathf.Max(playerLookUpCooldown, 3f);
-		PlayFabTitleDataCache.Instance.GetTitleData("EnableTempCosmeticUnlocks", delegate(string data)
+		PlayFabTitleDataCache.Instance.GetTitleData("EnableTempCosmeticUnlocks", (string data) =>
 		{
 			if (bool.TryParse(data, out var result))
 			{
@@ -109,7 +109,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 			{
 				Debug.LogError("PlayerCosmeticsSystem: error parsing EnableTempCosmeticUnlocks data");
 			}
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 		});
 	}
@@ -177,7 +177,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 			{
 				Keys = inventory,
 				SharedGroupId = playerIDsList[j] + "Inventory"
-			}, delegate(GetSharedGroupDataResult result)
+			}, (GetSharedGroupDataResult result) =>
 			{
 				if (!NetworkSystem.Instance.InRoom)
 				{
@@ -262,7 +262,7 @@ internal class PlayerCosmeticsSystem : MonoBehaviour, ITickSystemPre
 						}
 					}
 				}
-			}, delegate(PlayFabError error)
+			}, (PlayFabError error) =>
 			{
 				if (error.Error == PlayFabErrorCode.NotAuthenticated)
 				{

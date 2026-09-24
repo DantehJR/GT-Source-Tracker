@@ -971,6 +971,102 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeSteamSubPurchaseError")]
 	public static extern void delete_FinalizeSteamSubPurchaseError(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeGooglePurchaseError__SWIG_0")]
+	public static extern IntPtr new_FinalizeGooglePurchaseError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeGooglePurchaseError__SWIG_1")]
+	public static extern IntPtr new_FinalizeGooglePurchaseError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeGooglePurchaseError__SWIG_2")]
+	public static extern IntPtr new_FinalizeGooglePurchaseError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeGooglePurchaseError")]
+	public static extern void delete_FinalizeGooglePurchaseError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchmakingFailedError__SWIG_0")]
+	public static extern IntPtr new_StartMatchmakingFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchmakingFailedError__SWIG_1")]
+	public static extern IntPtr new_StartMatchmakingFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchmakingFailedError__SWIG_2")]
+	public static extern IntPtr new_StartMatchmakingFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StartMatchmakingFailedError")]
+	public static extern void delete_StartMatchmakingFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetMatchmakingStatusFailedError__SWIG_0")]
+	public static extern IntPtr new_GetMatchmakingStatusFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetMatchmakingStatusFailedError__SWIG_1")]
+	public static extern IntPtr new_GetMatchmakingStatusFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetMatchmakingStatusFailedError__SWIG_2")]
+	public static extern IntPtr new_GetMatchmakingStatusFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetMatchmakingStatusFailedError")]
+	public static extern void delete_GetMatchmakingStatusFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingFailedError__SWIG_0")]
+	public static extern IntPtr new_StopMatchmakingFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingFailedError__SWIG_1")]
+	public static extern IntPtr new_StopMatchmakingFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingFailedError__SWIG_2")]
+	public static extern IntPtr new_StopMatchmakingFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StopMatchmakingFailedError")]
+	public static extern void delete_StopMatchmakingFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchBackfillFailedError__SWIG_0")]
+	public static extern IntPtr new_StartMatchBackfillFailedError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchBackfillFailedError__SWIG_1")]
+	public static extern IntPtr new_StartMatchBackfillFailedError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchBackfillFailedError__SWIG_2")]
+	public static extern IntPtr new_StartMatchBackfillFailedError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StartMatchBackfillFailedError")]
+	public static extern void delete_StartMatchBackfillFailedError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeApplePurchaseError__SWIG_0")]
+	public static extern IntPtr new_FinalizeApplePurchaseError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeApplePurchaseError__SWIG_1")]
+	public static extern IntPtr new_FinalizeApplePurchaseError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeApplePurchaseError__SWIG_2")]
+	public static extern IntPtr new_FinalizeApplePurchaseError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeApplePurchaseError")]
+	public static extern void delete_FinalizeApplePurchaseError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamPurchaseError__SWIG_0")]
+	public static extern IntPtr new_InitSteamPurchaseError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamPurchaseError__SWIG_1")]
+	public static extern IntPtr new_InitSteamPurchaseError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamPurchaseError__SWIG_2")]
+	public static extern IntPtr new_InitSteamPurchaseError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_InitSteamPurchaseError")]
+	public static extern void delete_InitSteamPurchaseError(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamPurchaseError__SWIG_0")]
+	public static extern IntPtr new_FinalizeSteamPurchaseError__SWIG_0(string jarg1, int jarg2, string jarg3, string jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamPurchaseError__SWIG_1")]
+	public static extern IntPtr new_FinalizeSteamPurchaseError__SWIG_1(string jarg1, int jarg2, string jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamPurchaseError__SWIG_2")]
+	public static extern IntPtr new_FinalizeSteamPurchaseError__SWIG_2(string jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeSteamPurchaseError")]
+	public static extern void delete_FinalizeSteamPurchaseError(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MOTHERSHIP_ORG_ID_HEADER_get")]
 	public static extern string MOTHERSHIP_ORG_ID_HEADER_get();
 
@@ -2147,6 +2243,18 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipInventoryItemSummary_name_get")]
 	public static extern string MothershipInventoryItemSummary_name_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipInventoryItemSummary_display_name_set")]
+	public static extern void MothershipInventoryItemSummary_display_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipInventoryItemSummary_display_name_get")]
+	public static extern string MothershipInventoryItemSummary_display_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipInventoryItemSummary_display_description_set")]
+	public static extern void MothershipInventoryItemSummary_display_description_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipInventoryItemSummary_display_description_get")]
+	public static extern string MothershipInventoryItemSummary_display_description_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipInventoryItemSummary_quantity_set")]
 	public static extern void MothershipInventoryItemSummary_quantity_set(HandleRef jarg1, int jarg2);
 
@@ -2248,6 +2356,18 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_in_game_id_get")]
 	public static extern string MothershipPurchaseResult_in_game_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_display_name_set")]
+	public static extern void MothershipPurchaseResult_display_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_display_name_get")]
+	public static extern string MothershipPurchaseResult_display_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_display_description_set")]
+	public static extern void MothershipPurchaseResult_display_description_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_display_description_get")]
+	public static extern string MothershipPurchaseResult_display_description_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipPurchaseResult_ParseFromString")]
 	public static extern bool MothershipPurchaseResult_ParseFromString(HandleRef jarg1, string jarg2);
@@ -2362,6 +2482,18 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRunTransactionRequest_user_id_get")]
 	public static extern string MothershipRunTransactionRequest_user_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRunTransactionRequest_ref_id_set")]
+	public static extern void MothershipRunTransactionRequest_ref_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRunTransactionRequest_ref_id_get")]
+	public static extern string MothershipRunTransactionRequest_ref_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRunTransactionRequest_external_service_name_set")]
+	public static extern void MothershipRunTransactionRequest_external_service_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRunTransactionRequest_external_service_name_get")]
+	public static extern string MothershipRunTransactionRequest_external_service_name_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipRunTransactionRequest")]
 	public static extern IntPtr new_MothershipRunTransactionRequest();
@@ -2525,6 +2657,63 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MothershipGetMergedInventoryResponse")]
 	public static extern void delete_MothershipGetMergedInventoryResponse(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_user_id_set")]
+	public static extern void MothershipConsumeConsumableRequest_user_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_user_id_get")]
+	public static extern string MothershipConsumeConsumableRequest_user_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_title_id_set")]
+	public static extern void MothershipConsumeConsumableRequest_title_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_title_id_get")]
+	public static extern string MothershipConsumeConsumableRequest_title_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_env_id_set")]
+	public static extern void MothershipConsumeConsumableRequest_env_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_env_id_get")]
+	public static extern string MothershipConsumeConsumableRequest_env_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_EntitlementId_set")]
+	public static extern void MothershipConsumeConsumableRequest_EntitlementId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_EntitlementId_get")]
+	public static extern string MothershipConsumeConsumableRequest_EntitlementId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MothershipConsumeConsumableRequest")]
+	public static extern void delete_MothershipConsumeConsumableRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_ToHttpRequest")]
+	public static extern IntPtr MothershipConsumeConsumableRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipConsumeConsumableRequest")]
+	public static extern IntPtr new_MothershipConsumeConsumableRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableResponse_Entitlement_set")]
+	public static extern void MothershipConsumeConsumableResponse_Entitlement_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableResponse_Entitlement_get")]
+	public static extern IntPtr MothershipConsumeConsumableResponse_Entitlement_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableResponse_NewQuantity_set")]
+	public static extern void MothershipConsumeConsumableResponse_NewQuantity_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableResponse_NewQuantity_get")]
+	public static extern int MothershipConsumeConsumableResponse_NewQuantity_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableResponse_ParseFromResponseString")]
+	public static extern bool MothershipConsumeConsumableResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableResponse_FromMothershipResponse")]
+	public static extern IntPtr MothershipConsumeConsumableResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipConsumeConsumableResponse")]
+	public static extern IntPtr new_MothershipConsumeConsumableResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MothershipConsumeConsumableResponse")]
+	public static extern void delete_MothershipConsumeConsumableResponse(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementCatalogItem_ParseFromString")]
 	public static extern bool MothershipEntitlementCatalogItem_ParseFromString(HandleRef jarg1, string jarg2);
 
@@ -2566,6 +2755,18 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementCatalogItem_envId_get")]
 	public static extern string MothershipEntitlementCatalogItem_envId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementCatalogItem_display_name_set")]
+	public static extern void MothershipEntitlementCatalogItem_display_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementCatalogItem_display_name_get")]
+	public static extern string MothershipEntitlementCatalogItem_display_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementCatalogItem_display_description_set")]
+	public static extern void MothershipEntitlementCatalogItem_display_description_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementCatalogItem_display_description_get")]
+	public static extern string MothershipEntitlementCatalogItem_display_description_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipEntitlementCatalogItem")]
 	public static extern IntPtr new_MothershipEntitlementCatalogItem();
@@ -2629,6 +2830,18 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipHydratedTransactionCatalogItem_inventoryChanges_get")]
 	public static extern IntPtr MothershipHydratedTransactionCatalogItem_inventoryChanges_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipHydratedTransactionCatalogItem_display_name_set")]
+	public static extern void MothershipHydratedTransactionCatalogItem_display_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipHydratedTransactionCatalogItem_display_name_get")]
+	public static extern string MothershipHydratedTransactionCatalogItem_display_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipHydratedTransactionCatalogItem_display_description_set")]
+	public static extern void MothershipHydratedTransactionCatalogItem_display_description_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipHydratedTransactionCatalogItem_display_description_get")]
+	public static extern string MothershipHydratedTransactionCatalogItem_display_description_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipHydratedTransactionCatalogItem_isEmpty")]
 	public static extern bool MothershipHydratedTransactionCatalogItem_isEmpty(HandleRef jarg1);
@@ -2954,8 +3167,17 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanData_metadata_get")]
 	public static extern string MothershipBanData_metadata_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanData_mothership_player_id_set")]
+	public static extern void MothershipBanData_mothership_player_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanData_mothership_player_id_get")]
+	public static extern string MothershipBanData_mothership_player_id_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanData_ParseFromString")]
 	public static extern bool MothershipBanData_ParseFromString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanData_ParseFromJson")]
+	public static extern bool MothershipBanData_ParseFromJson(HandleRef jarg1, HandleRef jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipBanData")]
 	public static extern IntPtr new_MothershipBanData();
@@ -4238,6 +4460,18 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_sunset_get")]
 	public static extern bool OfferCatalogItem_sunset_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_display_name_set")]
+	public static extern void OfferCatalogItem_display_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_display_name_get")]
+	public static extern string OfferCatalogItem_display_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_display_description_set")]
+	public static extern void OfferCatalogItem_display_description_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_display_description_get")]
+	public static extern string OfferCatalogItem_display_description_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItem_offer_id_name_get")]
 	public static extern string OfferCatalogItem_offer_id_name_get();
 
@@ -5032,6 +5266,159 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GameSession")]
 	public static extern void delete_GameSession(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSession_player_session_id_set")]
+	public static extern void MatchedPlayerSession_player_session_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSession_player_session_id_get")]
+	public static extern string MatchedPlayerSession_player_session_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSession_team_set")]
+	public static extern void MatchedPlayerSession_team_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSession_team_get")]
+	public static extern string MatchedPlayerSession_team_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSession_player_session_id_name_get")]
+	public static extern string MatchedPlayerSession_player_session_id_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSession_team_name_get")]
+	public static extern string MatchedPlayerSession_team_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchedPlayerSession")]
+	public static extern IntPtr new_MatchedPlayerSession();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MatchedPlayerSession")]
+	public static extern void delete_MatchedPlayerSession(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionConnectionInformation_host_set")]
+	public static extern void GameSessionConnectionInformation_host_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionConnectionInformation_host_get")]
+	public static extern string GameSessionConnectionInformation_host_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionConnectionInformation_port_set")]
+	public static extern void GameSessionConnectionInformation_port_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionConnectionInformation_port_get")]
+	public static extern int GameSessionConnectionInformation_port_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionConnectionInformation_host_name_get")]
+	public static extern string GameSessionConnectionInformation_host_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionConnectionInformation_port_name_get")]
+	public static extern string GameSessionConnectionInformation_port_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionConnectionInformation")]
+	public static extern IntPtr new_GameSessionConnectionInformation();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GameSessionConnectionInformation")]
+	public static extern void delete_GameSessionConnectionInformation(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingConnectionInformation_matched_player_sessions_set")]
+	public static extern void MatchmakingConnectionInformation_matched_player_sessions_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingConnectionInformation_matched_player_sessions_get")]
+	public static extern IntPtr MatchmakingConnectionInformation_matched_player_sessions_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingConnectionInformation_matched_player_sessions_name_get")]
+	public static extern string MatchmakingConnectionInformation_matched_player_sessions_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingConnectionInformation_ParseFromJson")]
+	public static extern bool MatchmakingConnectionInformation_ParseFromJson(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingConnectionInformation")]
+	public static extern IntPtr new_MatchmakingConnectionInformation();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MatchmakingConnectionInformation")]
+	public static extern void delete_MatchmakingConnectionInformation(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayer_latency_in_ms_set")]
+	public static extern void MatchmakingTicketPlayer_latency_in_ms_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayer_latency_in_ms_get")]
+	public static extern IntPtr MatchmakingTicketPlayer_latency_in_ms_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayer_team_set")]
+	public static extern void MatchmakingTicketPlayer_team_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayer_team_get")]
+	public static extern string MatchmakingTicketPlayer_team_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayer_latency_in_ms_name_get")]
+	public static extern string MatchmakingTicketPlayer_latency_in_ms_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayer_team_name_get")]
+	public static extern string MatchmakingTicketPlayer_team_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingTicketPlayer")]
+	public static extern IntPtr new_MatchmakingTicketPlayer();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MatchmakingTicketPlayer")]
+	public static extern void delete_MatchmakingTicketPlayer(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_ticket_id_set")]
+	public static extern void MatchmakingTicket_ticket_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_ticket_id_get")]
+	public static extern string MatchmakingTicket_ticket_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_status_set")]
+	public static extern void MatchmakingTicket_status_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_status_get")]
+	public static extern string MatchmakingTicket_status_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_start_time_set")]
+	public static extern void MatchmakingTicket_start_time_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_start_time_get")]
+	public static extern string MatchmakingTicket_start_time_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_estimated_wait_time_set")]
+	public static extern void MatchmakingTicket_estimated_wait_time_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_estimated_wait_time_get")]
+	public static extern int MatchmakingTicket_estimated_wait_time_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_connection_information_set")]
+	public static extern void MatchmakingTicket_connection_information_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_connection_information_get")]
+	public static extern IntPtr MatchmakingTicket_connection_information_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_players_set")]
+	public static extern void MatchmakingTicket_players_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_players_get")]
+	public static extern IntPtr MatchmakingTicket_players_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_ticket_id_name_get")]
+	public static extern string MatchmakingTicket_ticket_id_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_status_name_get")]
+	public static extern string MatchmakingTicket_status_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_start_time_name_get")]
+	public static extern string MatchmakingTicket_start_time_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_estimated_wait_time_name_get")]
+	public static extern string MatchmakingTicket_estimated_wait_time_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_connection_information_name_get")]
+	public static extern string MatchmakingTicket_connection_information_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_players_name_get")]
+	public static extern string MatchmakingTicket_players_name_get();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicket_ParseFromJson")]
+	public static extern bool MatchmakingTicket_ParseFromJson(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingTicket")]
+	public static extern IntPtr new_MatchmakingTicket();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MatchmakingTicket")]
+	public static extern void delete_MatchmakingTicket(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_BASE_PATH_DLC_get")]
 	public static extern string BASE_PATH_DLC_get();
@@ -11996,6 +12383,18 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementDeltaSummary_type_get")]
 	public static extern string MothershipEntitlementDeltaSummary_type_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementDeltaSummary_display_name_set")]
+	public static extern void MothershipEntitlementDeltaSummary_display_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementDeltaSummary_display_name_get")]
+	public static extern string MothershipEntitlementDeltaSummary_display_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementDeltaSummary_display_description_set")]
+	public static extern void MothershipEntitlementDeltaSummary_display_description_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementDeltaSummary_display_description_get")]
+	public static extern string MothershipEntitlementDeltaSummary_display_description_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementDeltaSummary_change_set")]
 	public static extern void MothershipEntitlementDeltaSummary_change_set(HandleRef jarg1, int jarg2);
 
@@ -12064,6 +12463,18 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_OfferName_get")]
 	public static extern string MothershipNormalizedOffer_OfferName_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_DisplayName_set")]
+	public static extern void MothershipNormalizedOffer_DisplayName_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_DisplayName_get")]
+	public static extern string MothershipNormalizedOffer_DisplayName_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_DisplayDescription_set")]
+	public static extern void MothershipNormalizedOffer_DisplayDescription_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_DisplayDescription_get")]
+	public static extern string MothershipNormalizedOffer_DisplayDescription_get(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipNormalizedOffer_DisplayIndex_set")]
 	public static extern void MothershipNormalizedOffer_DisplayIndex_set(HandleRef jarg1, int jarg2);
@@ -12200,6 +12611,18 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementUpdate_in_game_id_get")]
 	public static extern string MothershipEntitlementUpdate_in_game_id_get(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementUpdate_display_name_set")]
+	public static extern void MothershipEntitlementUpdate_display_name_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementUpdate_display_name_get")]
+	public static extern string MothershipEntitlementUpdate_display_name_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementUpdate_display_description_set")]
+	public static extern void MothershipEntitlementUpdate_display_description_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementUpdate_display_description_get")]
+	public static extern string MothershipEntitlementUpdate_display_description_get(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipEntitlementUpdate_quantity_set")]
 	public static extern void MothershipEntitlementUpdate_quantity_set(HandleRef jarg1, int jarg2);
 
@@ -12268,6 +12691,201 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRefreshIAPCompleteDelegateWrapper_director_connect")]
 	public static extern void MothershipRefreshIAPCompleteDelegateWrapper_director_connect(HandleRef jarg1, MothershipRefreshIAPCompleteDelegateWrapper.SwigDelegateMothershipRefreshIAPCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeGooglePurchaseCompleteDelegateWrapper")]
+	public static extern void delete_FinalizeGooglePurchaseCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeGooglePurchaseCompleteDelegateWrapper")]
+	public static extern IntPtr new_FinalizeGooglePurchaseCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseCompleteDelegateWrapper_director_connect")]
+	public static extern void FinalizeGooglePurchaseCompleteDelegateWrapper_director_connect(HandleRef jarg1, FinalizeGooglePurchaseCompleteDelegateWrapper.SwigDelegateFinalizeGooglePurchaseCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeGooglePurchaseRequest")]
+	public static extern void delete_FinalizeGooglePurchaseRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseRequest_ToHttpRequest")]
+	public static extern IntPtr FinalizeGooglePurchaseRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseRequest_PurchaseToken_set")]
+	public static extern void FinalizeGooglePurchaseRequest_PurchaseToken_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseRequest_PurchaseToken_get")]
+	public static extern string FinalizeGooglePurchaseRequest_PurchaseToken_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeGooglePurchaseRequest")]
+	public static extern IntPtr new_FinalizeGooglePurchaseRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeGooglePurchaseResponse")]
+	public static extern void delete_FinalizeGooglePurchaseResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseResponse_ParseFromResponseString")]
+	public static extern bool FinalizeGooglePurchaseResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseResponse_FromMothershipResponse")]
+	public static extern IntPtr FinalizeGooglePurchaseResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseResponse_Results_set")]
+	public static extern void FinalizeGooglePurchaseResponse_Results_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseResponse_Results_get")]
+	public static extern IntPtr FinalizeGooglePurchaseResponse_Results_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeGooglePurchaseResponse")]
+	public static extern IntPtr new_FinalizeGooglePurchaseResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeApplePurchaseCompleteDelegateWrapper")]
+	public static extern void delete_FinalizeApplePurchaseCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeApplePurchaseCompleteDelegateWrapper")]
+	public static extern IntPtr new_FinalizeApplePurchaseCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseCompleteDelegateWrapper_director_connect")]
+	public static extern void FinalizeApplePurchaseCompleteDelegateWrapper_director_connect(HandleRef jarg1, FinalizeApplePurchaseCompleteDelegateWrapper.SwigDelegateFinalizeApplePurchaseCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeApplePurchaseRequest")]
+	public static extern void delete_FinalizeApplePurchaseRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseRequest_ToHttpRequest")]
+	public static extern IntPtr FinalizeApplePurchaseRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseRequest_AppleTransactionId_set")]
+	public static extern void FinalizeApplePurchaseRequest_AppleTransactionId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseRequest_AppleTransactionId_get")]
+	public static extern string FinalizeApplePurchaseRequest_AppleTransactionId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeApplePurchaseRequest")]
+	public static extern IntPtr new_FinalizeApplePurchaseRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeApplePurchaseResponse")]
+	public static extern void delete_FinalizeApplePurchaseResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseResponse_ParseFromResponseString")]
+	public static extern bool FinalizeApplePurchaseResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseResponse_FromMothershipResponse")]
+	public static extern IntPtr FinalizeApplePurchaseResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseResponse_Results_set")]
+	public static extern void FinalizeApplePurchaseResponse_Results_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseResponse_Results_get")]
+	public static extern IntPtr FinalizeApplePurchaseResponse_Results_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeApplePurchaseResponse")]
+	public static extern IntPtr new_FinalizeApplePurchaseResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ClientConsumeConsumableCompleteDelegateWrapper")]
+	public static extern void delete_ClientConsumeConsumableCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ClientConsumeConsumableCompleteDelegateWrapper")]
+	public static extern IntPtr new_ClientConsumeConsumableCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientConsumeConsumableCompleteDelegateWrapper_director_connect")]
+	public static extern void ClientConsumeConsumableCompleteDelegateWrapper_director_connect(HandleRef jarg1, ClientConsumeConsumableCompleteDelegateWrapper.SwigDelegateClientConsumeConsumableCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_InitSteamPurchaseRequest")]
+	public static extern void delete_InitSteamPurchaseRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseRequest_ToHttpRequest")]
+	public static extern IntPtr InitSteamPurchaseRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseRequest_OfferId_set")]
+	public static extern void InitSteamPurchaseRequest_OfferId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseRequest_OfferId_get")]
+	public static extern string InitSteamPurchaseRequest_OfferId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseRequest_OfferDisplayId_set")]
+	public static extern void InitSteamPurchaseRequest_OfferDisplayId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseRequest_OfferDisplayId_get")]
+	public static extern string InitSteamPurchaseRequest_OfferDisplayId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseRequest_OfferDisplayIndex_set")]
+	public static extern void InitSteamPurchaseRequest_OfferDisplayIndex_set(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseRequest_OfferDisplayIndex_get")]
+	public static extern int InitSteamPurchaseRequest_OfferDisplayIndex_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamPurchaseRequest")]
+	public static extern IntPtr new_InitSteamPurchaseRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_InitSteamPurchaseResponse")]
+	public static extern void delete_InitSteamPurchaseResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseResponse_ParseFromResponseString")]
+	public static extern bool InitSteamPurchaseResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseResponse_FromMothershipResponse")]
+	public static extern IntPtr InitSteamPurchaseResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseResponse_SteamOrderId_set")]
+	public static extern void InitSteamPurchaseResponse_SteamOrderId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseResponse_SteamOrderId_get")]
+	public static extern string InitSteamPurchaseResponse_SteamOrderId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseResponse_SteamTransactionId_set")]
+	public static extern void InitSteamPurchaseResponse_SteamTransactionId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseResponse_SteamTransactionId_get")]
+	public static extern string InitSteamPurchaseResponse_SteamTransactionId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamPurchaseResponse")]
+	public static extern IntPtr new_InitSteamPurchaseResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_InitSteamPurchaseCompleteDelegateWrapper")]
+	public static extern void delete_InitSteamPurchaseCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InitSteamPurchaseCompleteDelegateWrapper")]
+	public static extern IntPtr new_InitSteamPurchaseCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseCompleteDelegateWrapper_director_connect")]
+	public static extern void InitSteamPurchaseCompleteDelegateWrapper_director_connect(HandleRef jarg1, InitSteamPurchaseCompleteDelegateWrapper.SwigDelegateInitSteamPurchaseCompleteDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeSteamPurchaseRequest")]
+	public static extern void delete_FinalizeSteamPurchaseRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseRequest_ToHttpRequest")]
+	public static extern IntPtr FinalizeSteamPurchaseRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseRequest_SteamOrderId_set")]
+	public static extern void FinalizeSteamPurchaseRequest_SteamOrderId_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseRequest_SteamOrderId_get")]
+	public static extern string FinalizeSteamPurchaseRequest_SteamOrderId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamPurchaseRequest")]
+	public static extern IntPtr new_FinalizeSteamPurchaseRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeSteamPurchaseResponse")]
+	public static extern void delete_FinalizeSteamPurchaseResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseResponse_ParseFromResponseString")]
+	public static extern bool FinalizeSteamPurchaseResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseResponse_FromMothershipResponse")]
+	public static extern IntPtr FinalizeSteamPurchaseResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseResponse_Results_set")]
+	public static extern void FinalizeSteamPurchaseResponse_Results_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseResponse_Results_get")]
+	public static extern IntPtr FinalizeSteamPurchaseResponse_Results_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamPurchaseResponse")]
+	public static extern IntPtr new_FinalizeSteamPurchaseResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_FinalizeSteamPurchaseCompleteDelegateWrapper")]
+	public static extern void delete_FinalizeSteamPurchaseCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_FinalizeSteamPurchaseCompleteDelegateWrapper")]
+	public static extern IntPtr new_FinalizeSteamPurchaseCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseCompleteDelegateWrapper_director_connect")]
+	public static extern void FinalizeSteamPurchaseCompleteDelegateWrapper_director_connect(HandleRef jarg1, FinalizeSteamPurchaseCompleteDelegateWrapper.SwigDelegateFinalizeSteamPurchaseCompleteDelegateWrapper_0 delegate0);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SetUserDataCompleteClientDelegateWrapper")]
 	public static extern void delete_SetUserDataCompleteClientDelegateWrapper(HandleRef jarg1);
@@ -12598,6 +13216,36 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_LogInWithAppleRequest")]
 	public static extern IntPtr new_LogInWithAppleRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithPSNRequest_AuthorizationCode_set")]
+	public static extern void LogInWithPSNRequest_AuthorizationCode_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithPSNRequest_AuthorizationCode_get")]
+	public static extern string LogInWithPSNRequest_AuthorizationCode_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_LogInWithPSNRequest")]
+	public static extern void delete_LogInWithPSNRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithPSNRequest_ToHttpRequest")]
+	public static extern IntPtr LogInWithPSNRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_LogInWithPSNRequest")]
+	public static extern IntPtr new_LogInWithPSNRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithSynthesisVRRequest_DeviceId_set")]
+	public static extern void LogInWithSynthesisVRRequest_DeviceId_set(HandleRef jarg1, long jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithSynthesisVRRequest_DeviceId_get")]
+	public static extern long LogInWithSynthesisVRRequest_DeviceId_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_LogInWithSynthesisVRRequest")]
+	public static extern void delete_LogInWithSynthesisVRRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithSynthesisVRRequest_ToHttpRequest")]
+	public static extern IntPtr LogInWithSynthesisVRRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_LogInWithSynthesisVRRequest")]
+	public static extern IntPtr new_LogInWithSynthesisVRRequest();
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerQuestBeginLoginV2Request_UserId_set")]
 	public static extern void PlayerQuestBeginLoginV2Request_UserId_set(HandleRef jarg1, string jarg2);
@@ -13265,6 +13913,162 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionCompleteClientDelegateWrapper_director_connect")]
 	public static extern void RequestJoinGameSessionCompleteClientDelegateWrapper_director_connect(HandleRef jarg1, RequestJoinGameSessionCompleteClientDelegateWrapper.SwigDelegateRequestJoinGameSessionCompleteClientDelegateWrapper_0 delegate0);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayer_player_id_set")]
+	public static extern void MatchmakingPlayer_player_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayer_player_id_get")]
+	public static extern string MatchmakingPlayer_player_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayer_attributes_set")]
+	public static extern void MatchmakingPlayer_attributes_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayer_attributes_get")]
+	public static extern IntPtr MatchmakingPlayer_attributes_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayer_latency_in_ms_set")]
+	public static extern void MatchmakingPlayer_latency_in_ms_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayer_latency_in_ms_get")]
+	public static extern IntPtr MatchmakingPlayer_latency_in_ms_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayer_team_set")]
+	public static extern void MatchmakingPlayer_team_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayer_team_get")]
+	public static extern string MatchmakingPlayer_team_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingPlayer")]
+	public static extern IntPtr new_MatchmakingPlayer();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MatchmakingPlayer")]
+	public static extern void delete_MatchmakingPlayer(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientRequest_gamemode_set")]
+	public static extern void StartMatchmakingClientRequest_gamemode_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientRequest_gamemode_get")]
+	public static extern string StartMatchmakingClientRequest_gamemode_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientRequest_players_set")]
+	public static extern void StartMatchmakingClientRequest_players_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientRequest_players_get")]
+	public static extern IntPtr StartMatchmakingClientRequest_players_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StartMatchmakingClientRequest")]
+	public static extern void delete_StartMatchmakingClientRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientRequest_ToHttpRequest")]
+	public static extern IntPtr StartMatchmakingClientRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchmakingClientRequest")]
+	public static extern IntPtr new_StartMatchmakingClientRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientResponse_ParseFromResponseString")]
+	public static extern bool StartMatchmakingClientResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientResponse_FromMothershipResponse")]
+	public static extern IntPtr StartMatchmakingClientResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientResponse_ticket_set")]
+	public static extern void StartMatchmakingClientResponse_ticket_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientResponse_ticket_get")]
+	public static extern IntPtr StartMatchmakingClientResponse_ticket_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchmakingClientResponse")]
+	public static extern IntPtr new_StartMatchmakingClientResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StartMatchmakingClientResponse")]
+	public static extern void delete_StartMatchmakingClientResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StartMatchmakingCompleteClientDelegateWrapper")]
+	public static extern void delete_StartMatchmakingCompleteClientDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchmakingCompleteClientDelegateWrapper")]
+	public static extern IntPtr new_StartMatchmakingCompleteClientDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingCompleteClientDelegateWrapper_director_connect")]
+	public static extern void StartMatchmakingCompleteClientDelegateWrapper_director_connect(HandleRef jarg1, StartMatchmakingCompleteClientDelegateWrapper.SwigDelegateStartMatchmakingCompleteClientDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientRequest_ticket_id_set")]
+	public static extern void GetMatchmakingStatusClientRequest_ticket_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientRequest_ticket_id_get")]
+	public static extern string GetMatchmakingStatusClientRequest_ticket_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetMatchmakingStatusClientRequest")]
+	public static extern void delete_GetMatchmakingStatusClientRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientRequest_ToHttpRequest")]
+	public static extern IntPtr GetMatchmakingStatusClientRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetMatchmakingStatusClientRequest")]
+	public static extern IntPtr new_GetMatchmakingStatusClientRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientResponse_ParseFromResponseString")]
+	public static extern bool GetMatchmakingStatusClientResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientResponse_FromMothershipResponse")]
+	public static extern IntPtr GetMatchmakingStatusClientResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientResponse_ticket_set")]
+	public static extern void GetMatchmakingStatusClientResponse_ticket_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientResponse_ticket_get")]
+	public static extern IntPtr GetMatchmakingStatusClientResponse_ticket_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetMatchmakingStatusClientResponse")]
+	public static extern IntPtr new_GetMatchmakingStatusClientResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetMatchmakingStatusClientResponse")]
+	public static extern void delete_GetMatchmakingStatusClientResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetMatchmakingStatusCompleteClientDelegateWrapper")]
+	public static extern void delete_GetMatchmakingStatusCompleteClientDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GetMatchmakingStatusCompleteClientDelegateWrapper")]
+	public static extern IntPtr new_GetMatchmakingStatusCompleteClientDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusCompleteClientDelegateWrapper_director_connect")]
+	public static extern void GetMatchmakingStatusCompleteClientDelegateWrapper_director_connect(HandleRef jarg1, GetMatchmakingStatusCompleteClientDelegateWrapper.SwigDelegateGetMatchmakingStatusCompleteClientDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingClientRequest_ticket_id_set")]
+	public static extern void StopMatchmakingClientRequest_ticket_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingClientRequest_ticket_id_get")]
+	public static extern string StopMatchmakingClientRequest_ticket_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StopMatchmakingClientRequest")]
+	public static extern void delete_StopMatchmakingClientRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingClientRequest_ToHttpRequest")]
+	public static extern IntPtr StopMatchmakingClientRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingClientRequest")]
+	public static extern IntPtr new_StopMatchmakingClientRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingClientResponse_ParseFromResponseString")]
+	public static extern bool StopMatchmakingClientResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingClientResponse_FromMothershipResponse")]
+	public static extern IntPtr StopMatchmakingClientResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingClientResponse")]
+	public static extern IntPtr new_StopMatchmakingClientResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StopMatchmakingClientResponse")]
+	public static extern void delete_StopMatchmakingClientResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StopMatchmakingCompleteClientDelegateWrapper")]
+	public static extern void delete_StopMatchmakingCompleteClientDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingCompleteClientDelegateWrapper")]
+	public static extern IntPtr new_StopMatchmakingCompleteClientDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingCompleteClientDelegateWrapper_director_connect")]
+	public static extern void StopMatchmakingCompleteClientDelegateWrapper_director_connect(HandleRef jarg1, StopMatchmakingCompleteClientDelegateWrapper.SwigDelegateStopMatchmakingCompleteClientDelegateWrapper_0 delegate0);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetFileCompleteClientDelegateWrapper")]
 	public static extern void delete_GetFileCompleteClientDelegateWrapper(HandleRef jarg1);
 
@@ -13318,6 +14122,12 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_LoginWithApple")]
 	public static extern bool MothershipClientApiClient_LoginWithApple(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, string jarg6, string jarg7, IntPtr jarg8);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_LoginWithPSN")]
+	public static extern bool MothershipClientApiClient_LoginWithPSN(HandleRef jarg1, string jarg2, IntPtr jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_LoginWithSynthesisVR")]
+	public static extern bool MothershipClientApiClient_LoginWithSynthesisVR(HandleRef jarg1, long jarg2, IntPtr jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_GetServerTime")]
 	public static extern long MothershipClientApiClient_GetServerTime(HandleRef jarg1, string jarg2);
@@ -13381,6 +14191,12 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_PurchaseOffer")]
 	public static extern bool MothershipClientApiClient_PurchaseOffer(HandleRef jarg1, string jarg2, string jarg3, string jarg4, int jarg5, IntPtr jarg6);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetConsumeConsumableCompleteClientDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetConsumeConsumableCompleteClientDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ConsumeConsumable")]
+	public static extern bool MothershipClientApiClient_ConsumeConsumable(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetQuestAuthV2BeginRequestCompleteClientDelegateWrapper")]
 	public static extern void MothershipClientApiClient_SetQuestAuthV2BeginRequestCompleteClientDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
@@ -13457,6 +14273,30 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_RefreshIAP")]
 	public static extern bool MothershipClientApiClient_RefreshIAP(HandleRef jarg1, string jarg2, IntPtr jarg3);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetFinalizeGooglePurchaseCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetFinalizeGooglePurchaseCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_FinalizeGooglePurchase")]
+	public static extern bool MothershipClientApiClient_FinalizeGooglePurchase(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetFinalizeApplePurchaseCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetFinalizeApplePurchaseCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_FinalizeApplePurchase")]
+	public static extern bool MothershipClientApiClient_FinalizeApplePurchase(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetInitSteamPurchaseCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetInitSteamPurchaseCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_InitSteamPurchase")]
+	public static extern bool MothershipClientApiClient_InitSteamPurchase(HandleRef jarg1, string jarg2, string jarg3, string jarg4, int jarg5, IntPtr jarg6);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetFinalizeSteamPurchaseCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetFinalizeSteamPurchaseCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_FinalizeSteamPurchase")]
+	public static extern bool MothershipClientApiClient_FinalizeSteamPurchase(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetWriteEventsCompleteClientDelegateWrapper")]
 	public static extern void MothershipClientApiClient_SetWriteEventsCompleteClientDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
 
@@ -13520,6 +14360,24 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientGetFileByNameOrAliasAndVersion")]
 	public static extern bool MothershipClientApiClient_ClientGetFileByNameOrAliasAndVersion(HandleRef jarg1, string jarg2, string jarg3, string jarg4, IntPtr jarg5);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetClientStartMatchmakingCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetClientStartMatchmakingCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientStartMatchmaking")]
+	public static extern bool MothershipClientApiClient_ClientStartMatchmaking(HandleRef jarg1, string jarg2, string jarg3, HandleRef jarg4, IntPtr jarg5);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetClientGetMatchmakingStatusCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetClientGetMatchmakingStatusCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientGetMatchmakingStatus")]
+	public static extern bool MothershipClientApiClient_ClientGetMatchmakingStatus(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_SetClientStopMatchmakingCompleteDelegateWrapper")]
+	public static extern void MothershipClientApiClient_SetClientStopMatchmakingCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipClientApiClient_ClientStopMatchmaking")]
+	public static extern bool MothershipClientApiClient_ClientStopMatchmaking(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_RunTransactionCompleteServerDelegateWrapper")]
 	public static extern void delete_RunTransactionCompleteServerDelegateWrapper(HandleRef jarg1);
 
@@ -13546,6 +14404,15 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GetUserInventoryCompleteServerDelegateWrapper_director_connect")]
 	public static extern void GetUserInventoryCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, GetUserInventoryCompleteServerDelegateWrapper.SwigDelegateGetUserInventoryCompleteServerDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ServerConsumeConsumableCompleteDelegateWrapper")]
+	public static extern void delete_ServerConsumeConsumableCompleteDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ServerConsumeConsumableCompleteDelegateWrapper")]
+	public static extern IntPtr new_ServerConsumeConsumableCompleteDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerConsumeConsumableCompleteDelegateWrapper_director_connect")]
+	public static extern void ServerConsumeConsumableCompleteDelegateWrapper_director_connect(HandleRef jarg1, ServerConsumeConsumableCompleteDelegateWrapper.SwigDelegateServerConsumeConsumableCompleteDelegateWrapper_0 delegate0);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListMothershipTitleDataCompleteServerDelegateWrapper")]
 	public static extern void delete_ListMothershipTitleDataCompleteServerDelegateWrapper(HandleRef jarg1);
@@ -14672,6 +15539,96 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsCompleteServerDelegateWrapper_director_connect")]
 	public static extern void ListGameSessionsCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, ListGameSessionsCompleteServerDelegateWrapper.SwigDelegateListGameSessionsCompleteServerDelegateWrapper_0 delegate0);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerRequest_ticket_id_set")]
+	public static extern void StartMatchBackfillServerRequest_ticket_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerRequest_ticket_id_get")]
+	public static extern string StartMatchBackfillServerRequest_ticket_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerRequest_gamemode_set")]
+	public static extern void StartMatchBackfillServerRequest_gamemode_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerRequest_gamemode_get")]
+	public static extern string StartMatchBackfillServerRequest_gamemode_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerRequest_players_set")]
+	public static extern void StartMatchBackfillServerRequest_players_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerRequest_players_get")]
+	public static extern IntPtr StartMatchBackfillServerRequest_players_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StartMatchBackfillServerRequest")]
+	public static extern void delete_StartMatchBackfillServerRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerRequest_ToHttpRequest")]
+	public static extern IntPtr StartMatchBackfillServerRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchBackfillServerRequest")]
+	public static extern IntPtr new_StartMatchBackfillServerRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerResponse_ParseFromResponseString")]
+	public static extern bool StartMatchBackfillServerResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerResponse_FromMothershipResponse")]
+	public static extern IntPtr StartMatchBackfillServerResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerResponse_Ticket_set")]
+	public static extern void StartMatchBackfillServerResponse_Ticket_set(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerResponse_Ticket_get")]
+	public static extern IntPtr StartMatchBackfillServerResponse_Ticket_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchBackfillServerResponse")]
+	public static extern IntPtr new_StartMatchBackfillServerResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StartMatchBackfillServerResponse")]
+	public static extern void delete_StartMatchBackfillServerResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StartMatchBackfillCompleteServerDelegateWrapper")]
+	public static extern void delete_StartMatchBackfillCompleteServerDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StartMatchBackfillCompleteServerDelegateWrapper")]
+	public static extern IntPtr new_StartMatchBackfillCompleteServerDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillCompleteServerDelegateWrapper_director_connect")]
+	public static extern void StartMatchBackfillCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, StartMatchBackfillCompleteServerDelegateWrapper.SwigDelegateStartMatchBackfillCompleteServerDelegateWrapper_0 delegate0);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingServerRequest_ticket_id_set")]
+	public static extern void StopMatchmakingServerRequest_ticket_id_set(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingServerRequest_ticket_id_get")]
+	public static extern string StopMatchmakingServerRequest_ticket_id_get(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StopMatchmakingServerRequest")]
+	public static extern void delete_StopMatchmakingServerRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingServerRequest_ToHttpRequest")]
+	public static extern IntPtr StopMatchmakingServerRequest_ToHttpRequest(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingServerRequest")]
+	public static extern IntPtr new_StopMatchmakingServerRequest();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingServerResponse_ParseFromResponseString")]
+	public static extern bool StopMatchmakingServerResponse_ParseFromResponseString(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingServerResponse_FromMothershipResponse")]
+	public static extern IntPtr StopMatchmakingServerResponse_FromMothershipResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingServerResponse")]
+	public static extern IntPtr new_StopMatchmakingServerResponse();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StopMatchmakingServerResponse")]
+	public static extern void delete_StopMatchmakingServerResponse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StopMatchmakingCompleteServerDelegateWrapper")]
+	public static extern void delete_StopMatchmakingCompleteServerDelegateWrapper(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StopMatchmakingCompleteServerDelegateWrapper")]
+	public static extern IntPtr new_StopMatchmakingCompleteServerDelegateWrapper();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingCompleteServerDelegateWrapper_director_connect")]
+	public static extern void StopMatchmakingCompleteServerDelegateWrapper_director_connect(HandleRef jarg1, StopMatchmakingCompleteServerDelegateWrapper.SwigDelegateStopMatchmakingCompleteServerDelegateWrapper_0 delegate0);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GetFileCompleteServerDelegateWrapper")]
 	public static extern void delete_GetFileCompleteServerDelegateWrapper(HandleRef jarg1);
 
@@ -14795,11 +15752,20 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_RunTransaction")]
 	public static extern bool MothershipServerApiClient_RunTransaction(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, IntPtr jarg6);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_RunTransactionWithRef")]
+	public static extern bool MothershipServerApiClient_RunTransactionWithRef(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, string jarg6, string jarg7, IntPtr jarg8);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetGetLastTransactionRunCompleteServerDelegateWrapper")]
 	public static extern void MothershipServerApiClient_SetGetLastTransactionRunCompleteServerDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_GetLastTransactionRun")]
 	public static extern bool MothershipServerApiClient_GetLastTransactionRun(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, IntPtr jarg6);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetConsumeConsumableCompleteServerDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetConsumeConsumableCompleteServerDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ConsumeConsumable")]
+	public static extern bool MothershipServerApiClient_ConsumeConsumable(HandleRef jarg1, string jarg2, string jarg3, string jarg4, string jarg5, IntPtr jarg6);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetListMothershipTitleDataCompleteServerDelegateWrapper")]
 	public static extern void MothershipServerApiClient_SetListMothershipTitleDataCompleteServerDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
@@ -14930,6 +15896,24 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ServerGetFileByNameOrAliasAndVersion")]
 	public static extern bool MothershipServerApiClient_ServerGetFileByNameOrAliasAndVersion(HandleRef jarg1, string jarg2, string jarg3, IntPtr jarg4);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetServerStartMatchBackfillCompleteDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetServerStartMatchBackfillCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ServerStartMatchBackfill")]
+	public static extern bool MothershipServerApiClient_ServerStartMatchBackfill(HandleRef jarg1, string jarg2, string jarg3, HandleRef jarg4, IntPtr jarg5);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_SetServerStopMatchmakingCompleteDelegateWrapper")]
+	public static extern void MothershipServerApiClient_SetServerStopMatchmakingCompleteDelegateWrapper(HandleRef jarg1, HandleRef jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipServerApiClient_ServerStopMatchmaking")]
+	public static extern bool MothershipServerApiClient_ServerStopMatchmaking(HandleRef jarg1, string jarg2, IntPtr jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HeadersVector__SWIG_0")]
+	public static extern IntPtr new_HeadersVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HeadersVector__SWIG_1")]
+	public static extern IntPtr new_HeadersVector__SWIG_1(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_Clear")]
 	public static extern void HeadersVector_Clear(HandleRef jarg1);
 
@@ -14939,17 +15923,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_size")]
 	public static extern uint HeadersVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_empty")]
+	public static extern bool HeadersVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_capacity")]
 	public static extern uint HeadersVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_reserve")]
 	public static extern void HeadersVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HeadersVector__SWIG_0")]
-	public static extern IntPtr new_HeadersVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HeadersVector__SWIG_1")]
-	public static extern IntPtr new_HeadersVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HeadersVector__SWIG_2")]
 	public static extern IntPtr new_HeadersVector__SWIG_2(int jarg1);
@@ -14966,35 +15947,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_AddRange")]
 	public static extern void HeadersVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_GetRange")]
-	public static extern IntPtr HeadersVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector__insert")]
+	public static extern void HeadersVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_Insert")]
-	public static extern void HeadersVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector__insertRange")]
+	public static extern void HeadersVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_InsertRange")]
-	public static extern void HeadersVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector__removeAt")]
+	public static extern void HeadersVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_RemoveAt")]
-	public static extern void HeadersVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector__removeRange")]
+	public static extern void HeadersVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_RemoveRange")]
-	public static extern void HeadersVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_Reverse")]
+	public static extern void HeadersVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_Repeat")]
-	public static extern IntPtr HeadersVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector__reverseRange")]
+	public static extern void HeadersVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_Reverse__SWIG_0")]
-	public static extern void HeadersVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_Reverse__SWIG_1")]
-	public static extern void HeadersVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector_SetRange")]
-	public static extern void HeadersVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HeadersVector__setRange")]
+	public static extern void HeadersVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_HeadersVector")]
 	public static extern void delete_HeadersVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTitlesResultVector__SWIG_0")]
+	public static extern IntPtr new_ListTitlesResultVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTitlesResultVector__SWIG_1")]
+	public static extern IntPtr new_ListTitlesResultVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_Clear")]
 	public static extern void ListTitlesResultVector_Clear(HandleRef jarg1);
@@ -15005,17 +15986,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_size")]
 	public static extern uint ListTitlesResultVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_empty")]
+	public static extern bool ListTitlesResultVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_capacity")]
 	public static extern uint ListTitlesResultVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_reserve")]
 	public static extern void ListTitlesResultVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTitlesResultVector__SWIG_0")]
-	public static extern IntPtr new_ListTitlesResultVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTitlesResultVector__SWIG_1")]
-	public static extern IntPtr new_ListTitlesResultVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTitlesResultVector__SWIG_2")]
 	public static extern IntPtr new_ListTitlesResultVector__SWIG_2(int jarg1);
@@ -15032,35 +16010,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_AddRange")]
 	public static extern void ListTitlesResultVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_GetRange")]
-	public static extern IntPtr ListTitlesResultVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector__insert")]
+	public static extern void ListTitlesResultVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_Insert")]
-	public static extern void ListTitlesResultVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector__insertRange")]
+	public static extern void ListTitlesResultVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_InsertRange")]
-	public static extern void ListTitlesResultVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector__removeAt")]
+	public static extern void ListTitlesResultVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_RemoveAt")]
-	public static extern void ListTitlesResultVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector__removeRange")]
+	public static extern void ListTitlesResultVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_RemoveRange")]
-	public static extern void ListTitlesResultVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_Reverse")]
+	public static extern void ListTitlesResultVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_Repeat")]
-	public static extern IntPtr ListTitlesResultVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector__reverseRange")]
+	public static extern void ListTitlesResultVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_Reverse__SWIG_0")]
-	public static extern void ListTitlesResultVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_Reverse__SWIG_1")]
-	public static extern void ListTitlesResultVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector_SetRange")]
-	public static extern void ListTitlesResultVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTitlesResultVector__setRange")]
+	public static extern void ListTitlesResultVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListTitlesResultVector")]
 	public static extern void delete_ListTitlesResultVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEnvsResultVector__SWIG_0")]
+	public static extern IntPtr new_ListEnvsResultVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEnvsResultVector__SWIG_1")]
+	public static extern IntPtr new_ListEnvsResultVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_Clear")]
 	public static extern void ListEnvsResultVector_Clear(HandleRef jarg1);
@@ -15071,17 +16049,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_size")]
 	public static extern uint ListEnvsResultVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_empty")]
+	public static extern bool ListEnvsResultVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_capacity")]
 	public static extern uint ListEnvsResultVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_reserve")]
 	public static extern void ListEnvsResultVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEnvsResultVector__SWIG_0")]
-	public static extern IntPtr new_ListEnvsResultVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEnvsResultVector__SWIG_1")]
-	public static extern IntPtr new_ListEnvsResultVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEnvsResultVector__SWIG_2")]
 	public static extern IntPtr new_ListEnvsResultVector__SWIG_2(int jarg1);
@@ -15098,35 +16073,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_AddRange")]
 	public static extern void ListEnvsResultVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_GetRange")]
-	public static extern IntPtr ListEnvsResultVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector__insert")]
+	public static extern void ListEnvsResultVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_Insert")]
-	public static extern void ListEnvsResultVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector__insertRange")]
+	public static extern void ListEnvsResultVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_InsertRange")]
-	public static extern void ListEnvsResultVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector__removeAt")]
+	public static extern void ListEnvsResultVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_RemoveAt")]
-	public static extern void ListEnvsResultVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector__removeRange")]
+	public static extern void ListEnvsResultVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_RemoveRange")]
-	public static extern void ListEnvsResultVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_Reverse")]
+	public static extern void ListEnvsResultVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_Repeat")]
-	public static extern IntPtr ListEnvsResultVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector__reverseRange")]
+	public static extern void ListEnvsResultVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_Reverse__SWIG_0")]
-	public static extern void ListEnvsResultVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_Reverse__SWIG_1")]
-	public static extern void ListEnvsResultVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector_SetRange")]
-	public static extern void ListEnvsResultVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEnvsResultVector__setRange")]
+	public static extern void ListEnvsResultVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListEnvsResultVector")]
 	public static extern void delete_ListEnvsResultVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListDeploymentsResultVector__SWIG_0")]
+	public static extern IntPtr new_ListDeploymentsResultVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListDeploymentsResultVector__SWIG_1")]
+	public static extern IntPtr new_ListDeploymentsResultVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_Clear")]
 	public static extern void ListDeploymentsResultVector_Clear(HandleRef jarg1);
@@ -15137,17 +16112,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_size")]
 	public static extern uint ListDeploymentsResultVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_empty")]
+	public static extern bool ListDeploymentsResultVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_capacity")]
 	public static extern uint ListDeploymentsResultVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_reserve")]
 	public static extern void ListDeploymentsResultVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListDeploymentsResultVector__SWIG_0")]
-	public static extern IntPtr new_ListDeploymentsResultVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListDeploymentsResultVector__SWIG_1")]
-	public static extern IntPtr new_ListDeploymentsResultVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListDeploymentsResultVector__SWIG_2")]
 	public static extern IntPtr new_ListDeploymentsResultVector__SWIG_2(int jarg1);
@@ -15164,35 +16136,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_AddRange")]
 	public static extern void ListDeploymentsResultVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_GetRange")]
-	public static extern IntPtr ListDeploymentsResultVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector__insert")]
+	public static extern void ListDeploymentsResultVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_Insert")]
-	public static extern void ListDeploymentsResultVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector__insertRange")]
+	public static extern void ListDeploymentsResultVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_InsertRange")]
-	public static extern void ListDeploymentsResultVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector__removeAt")]
+	public static extern void ListDeploymentsResultVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_RemoveAt")]
-	public static extern void ListDeploymentsResultVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector__removeRange")]
+	public static extern void ListDeploymentsResultVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_RemoveRange")]
-	public static extern void ListDeploymentsResultVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_Reverse")]
+	public static extern void ListDeploymentsResultVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_Repeat")]
-	public static extern IntPtr ListDeploymentsResultVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector__reverseRange")]
+	public static extern void ListDeploymentsResultVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_Reverse__SWIG_0")]
-	public static extern void ListDeploymentsResultVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_Reverse__SWIG_1")]
-	public static extern void ListDeploymentsResultVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector_SetRange")]
-	public static extern void ListDeploymentsResultVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListDeploymentsResultVector__setRange")]
+	public static extern void ListDeploymentsResultVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListDeploymentsResultVector")]
 	public static extern void delete_ListDeploymentsResultVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringVector__SWIG_0")]
+	public static extern IntPtr new_StringVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringVector__SWIG_1")]
+	public static extern IntPtr new_StringVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_Clear")]
 	public static extern void StringVector_Clear(HandleRef jarg1);
@@ -15203,17 +16175,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_size")]
 	public static extern uint StringVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_empty")]
+	public static extern bool StringVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_capacity")]
 	public static extern uint StringVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_reserve")]
 	public static extern void StringVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringVector__SWIG_0")]
-	public static extern IntPtr new_StringVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringVector__SWIG_1")]
-	public static extern IntPtr new_StringVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringVector__SWIG_2")]
 	public static extern IntPtr new_StringVector__SWIG_2(int jarg1);
@@ -15230,32 +16199,26 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_AddRange")]
 	public static extern void StringVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_GetRange")]
-	public static extern IntPtr StringVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector__insert")]
+	public static extern void StringVector__insert(HandleRef jarg1, int jarg2, string jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_Insert")]
-	public static extern void StringVector_Insert(HandleRef jarg1, int jarg2, string jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector__insertRange")]
+	public static extern void StringVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_InsertRange")]
-	public static extern void StringVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector__removeAt")]
+	public static extern void StringVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_RemoveAt")]
-	public static extern void StringVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector__removeRange")]
+	public static extern void StringVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_RemoveRange")]
-	public static extern void StringVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_Reverse")]
+	public static extern void StringVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_Repeat")]
-	public static extern IntPtr StringVector_Repeat(string jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector__reverseRange")]
+	public static extern void StringVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_Reverse__SWIG_0")]
-	public static extern void StringVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_Reverse__SWIG_1")]
-	public static extern void StringVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_SetRange")]
-	public static extern void StringVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector__setRange")]
+	public static extern void StringVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_StringVector_Contains")]
 	public static extern bool StringVector_Contains(HandleRef jarg1, string jarg2);
@@ -15272,6 +16235,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StringVector")]
 	public static extern void delete_StringVector(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerIdentityVector__SWIG_0")]
+	public static extern IntPtr new_PlayerIdentityVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerIdentityVector__SWIG_1")]
+	public static extern IntPtr new_PlayerIdentityVector__SWIG_1(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_Clear")]
 	public static extern void PlayerIdentityVector_Clear(HandleRef jarg1);
 
@@ -15281,17 +16250,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_size")]
 	public static extern uint PlayerIdentityVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_empty")]
+	public static extern bool PlayerIdentityVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_capacity")]
 	public static extern uint PlayerIdentityVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_reserve")]
 	public static extern void PlayerIdentityVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerIdentityVector__SWIG_0")]
-	public static extern IntPtr new_PlayerIdentityVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerIdentityVector__SWIG_1")]
-	public static extern IntPtr new_PlayerIdentityVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerIdentityVector__SWIG_2")]
 	public static extern IntPtr new_PlayerIdentityVector__SWIG_2(int jarg1);
@@ -15308,35 +16274,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_AddRange")]
 	public static extern void PlayerIdentityVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_GetRange")]
-	public static extern IntPtr PlayerIdentityVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector__insert")]
+	public static extern void PlayerIdentityVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_Insert")]
-	public static extern void PlayerIdentityVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector__insertRange")]
+	public static extern void PlayerIdentityVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_InsertRange")]
-	public static extern void PlayerIdentityVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector__removeAt")]
+	public static extern void PlayerIdentityVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_RemoveAt")]
-	public static extern void PlayerIdentityVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector__removeRange")]
+	public static extern void PlayerIdentityVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_RemoveRange")]
-	public static extern void PlayerIdentityVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_Reverse")]
+	public static extern void PlayerIdentityVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_Repeat")]
-	public static extern IntPtr PlayerIdentityVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector__reverseRange")]
+	public static extern void PlayerIdentityVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_Reverse__SWIG_0")]
-	public static extern void PlayerIdentityVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_Reverse__SWIG_1")]
-	public static extern void PlayerIdentityVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector_SetRange")]
-	public static extern void PlayerIdentityVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerIdentityVector__setRange")]
+	public static extern void PlayerIdentityVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_PlayerIdentityVector")]
 	public static extern void delete_PlayerIdentityVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataMetadataShortVector__SWIG_0")]
+	public static extern IntPtr new_UserDataMetadataShortVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataMetadataShortVector__SWIG_1")]
+	public static extern IntPtr new_UserDataMetadataShortVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_Clear")]
 	public static extern void UserDataMetadataShortVector_Clear(HandleRef jarg1);
@@ -15347,17 +16313,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_size")]
 	public static extern uint UserDataMetadataShortVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_empty")]
+	public static extern bool UserDataMetadataShortVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_capacity")]
 	public static extern uint UserDataMetadataShortVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_reserve")]
 	public static extern void UserDataMetadataShortVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataMetadataShortVector__SWIG_0")]
-	public static extern IntPtr new_UserDataMetadataShortVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataMetadataShortVector__SWIG_1")]
-	public static extern IntPtr new_UserDataMetadataShortVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataMetadataShortVector__SWIG_2")]
 	public static extern IntPtr new_UserDataMetadataShortVector__SWIG_2(int jarg1);
@@ -15374,35 +16337,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_AddRange")]
 	public static extern void UserDataMetadataShortVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_GetRange")]
-	public static extern IntPtr UserDataMetadataShortVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector__insert")]
+	public static extern void UserDataMetadataShortVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_Insert")]
-	public static extern void UserDataMetadataShortVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector__insertRange")]
+	public static extern void UserDataMetadataShortVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_InsertRange")]
-	public static extern void UserDataMetadataShortVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector__removeAt")]
+	public static extern void UserDataMetadataShortVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_RemoveAt")]
-	public static extern void UserDataMetadataShortVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector__removeRange")]
+	public static extern void UserDataMetadataShortVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_RemoveRange")]
-	public static extern void UserDataMetadataShortVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_Reverse")]
+	public static extern void UserDataMetadataShortVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_Repeat")]
-	public static extern IntPtr UserDataMetadataShortVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector__reverseRange")]
+	public static extern void UserDataMetadataShortVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_Reverse__SWIG_0")]
-	public static extern void UserDataMetadataShortVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_Reverse__SWIG_1")]
-	public static extern void UserDataMetadataShortVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector_SetRange")]
-	public static extern void UserDataMetadataShortVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataMetadataShortVector__setRange")]
+	public static extern void UserDataMetadataShortVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UserDataMetadataShortVector")]
 	public static extern void delete_UserDataMetadataShortVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataShortVector__SWIG_0")]
+	public static extern IntPtr new_UserDataShortVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataShortVector__SWIG_1")]
+	public static extern IntPtr new_UserDataShortVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_Clear")]
 	public static extern void UserDataShortVector_Clear(HandleRef jarg1);
@@ -15413,17 +16376,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_size")]
 	public static extern uint UserDataShortVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_empty")]
+	public static extern bool UserDataShortVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_capacity")]
 	public static extern uint UserDataShortVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_reserve")]
 	public static extern void UserDataShortVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataShortVector__SWIG_0")]
-	public static extern IntPtr new_UserDataShortVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataShortVector__SWIG_1")]
-	public static extern IntPtr new_UserDataShortVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserDataShortVector__SWIG_2")]
 	public static extern IntPtr new_UserDataShortVector__SWIG_2(int jarg1);
@@ -15440,32 +16400,26 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_AddRange")]
 	public static extern void UserDataShortVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_GetRange")]
-	public static extern IntPtr UserDataShortVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector__insert")]
+	public static extern void UserDataShortVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_Insert")]
-	public static extern void UserDataShortVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector__insertRange")]
+	public static extern void UserDataShortVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_InsertRange")]
-	public static extern void UserDataShortVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector__removeAt")]
+	public static extern void UserDataShortVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_RemoveAt")]
-	public static extern void UserDataShortVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector__removeRange")]
+	public static extern void UserDataShortVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_RemoveRange")]
-	public static extern void UserDataShortVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_Reverse")]
+	public static extern void UserDataShortVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_Repeat")]
-	public static extern IntPtr UserDataShortVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector__reverseRange")]
+	public static extern void UserDataShortVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_Reverse__SWIG_0")]
-	public static extern void UserDataShortVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_Reverse__SWIG_1")]
-	public static extern void UserDataShortVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector_SetRange")]
-	public static extern void UserDataShortVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserDataShortVector__setRange")]
+	public static extern void UserDataShortVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UserDataShortVector")]
 	public static extern void delete_UserDataShortVector(HandleRef jarg1);
@@ -15512,6 +16466,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_PlayerTagsUpdateMap")]
 	public static extern void delete_PlayerTagsUpdateMap(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEntitlementResultsVector__SWIG_0")]
+	public static extern IntPtr new_ListEntitlementResultsVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEntitlementResultsVector__SWIG_1")]
+	public static extern IntPtr new_ListEntitlementResultsVector__SWIG_1(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_Clear")]
 	public static extern void ListEntitlementResultsVector_Clear(HandleRef jarg1);
 
@@ -15521,17 +16481,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_size")]
 	public static extern uint ListEntitlementResultsVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_empty")]
+	public static extern bool ListEntitlementResultsVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_capacity")]
 	public static extern uint ListEntitlementResultsVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_reserve")]
 	public static extern void ListEntitlementResultsVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEntitlementResultsVector__SWIG_0")]
-	public static extern IntPtr new_ListEntitlementResultsVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEntitlementResultsVector__SWIG_1")]
-	public static extern IntPtr new_ListEntitlementResultsVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListEntitlementResultsVector__SWIG_2")]
 	public static extern IntPtr new_ListEntitlementResultsVector__SWIG_2(int jarg1);
@@ -15548,35 +16505,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_AddRange")]
 	public static extern void ListEntitlementResultsVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_GetRange")]
-	public static extern IntPtr ListEntitlementResultsVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector__insert")]
+	public static extern void ListEntitlementResultsVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_Insert")]
-	public static extern void ListEntitlementResultsVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector__insertRange")]
+	public static extern void ListEntitlementResultsVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_InsertRange")]
-	public static extern void ListEntitlementResultsVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector__removeAt")]
+	public static extern void ListEntitlementResultsVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_RemoveAt")]
-	public static extern void ListEntitlementResultsVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector__removeRange")]
+	public static extern void ListEntitlementResultsVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_RemoveRange")]
-	public static extern void ListEntitlementResultsVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_Reverse")]
+	public static extern void ListEntitlementResultsVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_Repeat")]
-	public static extern IntPtr ListEntitlementResultsVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector__reverseRange")]
+	public static extern void ListEntitlementResultsVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_Reverse__SWIG_0")]
-	public static extern void ListEntitlementResultsVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_Reverse__SWIG_1")]
-	public static extern void ListEntitlementResultsVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector_SetRange")]
-	public static extern void ListEntitlementResultsVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListEntitlementResultsVector__setRange")]
+	public static extern void ListEntitlementResultsVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListEntitlementResultsVector")]
 	public static extern void delete_ListEntitlementResultsVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTransactionsResultsVector__SWIG_0")]
+	public static extern IntPtr new_ListTransactionsResultsVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTransactionsResultsVector__SWIG_1")]
+	public static extern IntPtr new_ListTransactionsResultsVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_Clear")]
 	public static extern void ListTransactionsResultsVector_Clear(HandleRef jarg1);
@@ -15587,17 +16544,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_size")]
 	public static extern uint ListTransactionsResultsVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_empty")]
+	public static extern bool ListTransactionsResultsVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_capacity")]
 	public static extern uint ListTransactionsResultsVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_reserve")]
 	public static extern void ListTransactionsResultsVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTransactionsResultsVector__SWIG_0")]
-	public static extern IntPtr new_ListTransactionsResultsVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTransactionsResultsVector__SWIG_1")]
-	public static extern IntPtr new_ListTransactionsResultsVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ListTransactionsResultsVector__SWIG_2")]
 	public static extern IntPtr new_ListTransactionsResultsVector__SWIG_2(int jarg1);
@@ -15614,32 +16568,26 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_AddRange")]
 	public static extern void ListTransactionsResultsVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_GetRange")]
-	public static extern IntPtr ListTransactionsResultsVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector__insert")]
+	public static extern void ListTransactionsResultsVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_Insert")]
-	public static extern void ListTransactionsResultsVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector__insertRange")]
+	public static extern void ListTransactionsResultsVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_InsertRange")]
-	public static extern void ListTransactionsResultsVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector__removeAt")]
+	public static extern void ListTransactionsResultsVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_RemoveAt")]
-	public static extern void ListTransactionsResultsVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector__removeRange")]
+	public static extern void ListTransactionsResultsVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_RemoveRange")]
-	public static extern void ListTransactionsResultsVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_Reverse")]
+	public static extern void ListTransactionsResultsVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_Repeat")]
-	public static extern IntPtr ListTransactionsResultsVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector__reverseRange")]
+	public static extern void ListTransactionsResultsVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_Reverse__SWIG_0")]
-	public static extern void ListTransactionsResultsVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_Reverse__SWIG_1")]
-	public static extern void ListTransactionsResultsVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector_SetRange")]
-	public static extern void ListTransactionsResultsVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ListTransactionsResultsVector__setRange")]
+	public static extern void ListTransactionsResultsVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ListTransactionsResultsVector")]
 	public static extern void delete_ListTransactionsResultsVector(HandleRef jarg1);
@@ -15770,6 +16718,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SharedGroupDataRecordMap")]
 	public static extern void delete_SharedGroupDataRecordMap(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipReportDataVector__SWIG_0")]
+	public static extern IntPtr new_MothershipReportDataVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipReportDataVector__SWIG_1")]
+	public static extern IntPtr new_MothershipReportDataVector__SWIG_1(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_Clear")]
 	public static extern void MothershipReportDataVector_Clear(HandleRef jarg1);
 
@@ -15779,17 +16733,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_size")]
 	public static extern uint MothershipReportDataVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_empty")]
+	public static extern bool MothershipReportDataVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_capacity")]
 	public static extern uint MothershipReportDataVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_reserve")]
 	public static extern void MothershipReportDataVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipReportDataVector__SWIG_0")]
-	public static extern IntPtr new_MothershipReportDataVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipReportDataVector__SWIG_1")]
-	public static extern IntPtr new_MothershipReportDataVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipReportDataVector__SWIG_2")]
 	public static extern IntPtr new_MothershipReportDataVector__SWIG_2(int jarg1);
@@ -15806,35 +16757,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_AddRange")]
 	public static extern void MothershipReportDataVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_GetRange")]
-	public static extern IntPtr MothershipReportDataVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector__insert")]
+	public static extern void MothershipReportDataVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_Insert")]
-	public static extern void MothershipReportDataVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector__insertRange")]
+	public static extern void MothershipReportDataVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_InsertRange")]
-	public static extern void MothershipReportDataVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector__removeAt")]
+	public static extern void MothershipReportDataVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_RemoveAt")]
-	public static extern void MothershipReportDataVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector__removeRange")]
+	public static extern void MothershipReportDataVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_RemoveRange")]
-	public static extern void MothershipReportDataVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_Reverse")]
+	public static extern void MothershipReportDataVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_Repeat")]
-	public static extern IntPtr MothershipReportDataVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector__reverseRange")]
+	public static extern void MothershipReportDataVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_Reverse__SWIG_0")]
-	public static extern void MothershipReportDataVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_Reverse__SWIG_1")]
-	public static extern void MothershipReportDataVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector_SetRange")]
-	public static extern void MothershipReportDataVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipReportDataVector__setRange")]
+	public static extern void MothershipReportDataVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MothershipReportDataVector")]
 	public static extern void delete_MothershipReportDataVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipBanDataVector__SWIG_0")]
+	public static extern IntPtr new_MothershipBanDataVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipBanDataVector__SWIG_1")]
+	public static extern IntPtr new_MothershipBanDataVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_Clear")]
 	public static extern void MothershipBanDataVector_Clear(HandleRef jarg1);
@@ -15845,17 +16796,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_size")]
 	public static extern uint MothershipBanDataVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_empty")]
+	public static extern bool MothershipBanDataVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_capacity")]
 	public static extern uint MothershipBanDataVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_reserve")]
 	public static extern void MothershipBanDataVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipBanDataVector__SWIG_0")]
-	public static extern IntPtr new_MothershipBanDataVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipBanDataVector__SWIG_1")]
-	public static extern IntPtr new_MothershipBanDataVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MothershipBanDataVector__SWIG_2")]
 	public static extern IntPtr new_MothershipBanDataVector__SWIG_2(int jarg1);
@@ -15872,35 +16820,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_AddRange")]
 	public static extern void MothershipBanDataVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_GetRange")]
-	public static extern IntPtr MothershipBanDataVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector__insert")]
+	public static extern void MothershipBanDataVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_Insert")]
-	public static extern void MothershipBanDataVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector__insertRange")]
+	public static extern void MothershipBanDataVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_InsertRange")]
-	public static extern void MothershipBanDataVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector__removeAt")]
+	public static extern void MothershipBanDataVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_RemoveAt")]
-	public static extern void MothershipBanDataVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector__removeRange")]
+	public static extern void MothershipBanDataVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_RemoveRange")]
-	public static extern void MothershipBanDataVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_Reverse")]
+	public static extern void MothershipBanDataVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_Repeat")]
-	public static extern IntPtr MothershipBanDataVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector__reverseRange")]
+	public static extern void MothershipBanDataVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_Reverse__SWIG_0")]
-	public static extern void MothershipBanDataVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_Reverse__SWIG_1")]
-	public static extern void MothershipBanDataVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector_SetRange")]
-	public static extern void MothershipBanDataVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipBanDataVector__setRange")]
+	public static extern void MothershipBanDataVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MothershipBanDataVector")]
 	public static extern void delete_MothershipBanDataVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InventoryItemSummaryVector__SWIG_0")]
+	public static extern IntPtr new_InventoryItemSummaryVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InventoryItemSummaryVector__SWIG_1")]
+	public static extern IntPtr new_InventoryItemSummaryVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_Clear")]
 	public static extern void InventoryItemSummaryVector_Clear(HandleRef jarg1);
@@ -15911,17 +16859,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_size")]
 	public static extern uint InventoryItemSummaryVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_empty")]
+	public static extern bool InventoryItemSummaryVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_capacity")]
 	public static extern uint InventoryItemSummaryVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_reserve")]
 	public static extern void InventoryItemSummaryVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InventoryItemSummaryVector__SWIG_0")]
-	public static extern IntPtr new_InventoryItemSummaryVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InventoryItemSummaryVector__SWIG_1")]
-	public static extern IntPtr new_InventoryItemSummaryVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_InventoryItemSummaryVector__SWIG_2")]
 	public static extern IntPtr new_InventoryItemSummaryVector__SWIG_2(int jarg1);
@@ -15938,35 +16883,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_AddRange")]
 	public static extern void InventoryItemSummaryVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_GetRange")]
-	public static extern IntPtr InventoryItemSummaryVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector__insert")]
+	public static extern void InventoryItemSummaryVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_Insert")]
-	public static extern void InventoryItemSummaryVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector__insertRange")]
+	public static extern void InventoryItemSummaryVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_InsertRange")]
-	public static extern void InventoryItemSummaryVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector__removeAt")]
+	public static extern void InventoryItemSummaryVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_RemoveAt")]
-	public static extern void InventoryItemSummaryVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector__removeRange")]
+	public static extern void InventoryItemSummaryVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_RemoveRange")]
-	public static extern void InventoryItemSummaryVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_Reverse")]
+	public static extern void InventoryItemSummaryVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_Repeat")]
-	public static extern IntPtr InventoryItemSummaryVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector__reverseRange")]
+	public static extern void InventoryItemSummaryVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_Reverse__SWIG_0")]
-	public static extern void InventoryItemSummaryVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_Reverse__SWIG_1")]
-	public static extern void InventoryItemSummaryVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector_SetRange")]
-	public static extern void InventoryItemSummaryVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InventoryItemSummaryVector__setRange")]
+	public static extern void InventoryItemSummaryVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_InventoryItemSummaryVector")]
 	public static extern void delete_InventoryItemSummaryVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PurchaseResultsVector__SWIG_0")]
+	public static extern IntPtr new_PurchaseResultsVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PurchaseResultsVector__SWIG_1")]
+	public static extern IntPtr new_PurchaseResultsVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_Clear")]
 	public static extern void PurchaseResultsVector_Clear(HandleRef jarg1);
@@ -15977,17 +16922,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_size")]
 	public static extern uint PurchaseResultsVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_empty")]
+	public static extern bool PurchaseResultsVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_capacity")]
 	public static extern uint PurchaseResultsVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_reserve")]
 	public static extern void PurchaseResultsVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PurchaseResultsVector__SWIG_0")]
-	public static extern IntPtr new_PurchaseResultsVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PurchaseResultsVector__SWIG_1")]
-	public static extern IntPtr new_PurchaseResultsVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PurchaseResultsVector__SWIG_2")]
 	public static extern IntPtr new_PurchaseResultsVector__SWIG_2(int jarg1);
@@ -16004,35 +16946,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_AddRange")]
 	public static extern void PurchaseResultsVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_GetRange")]
-	public static extern IntPtr PurchaseResultsVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector__insert")]
+	public static extern void PurchaseResultsVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_Insert")]
-	public static extern void PurchaseResultsVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector__insertRange")]
+	public static extern void PurchaseResultsVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_InsertRange")]
-	public static extern void PurchaseResultsVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector__removeAt")]
+	public static extern void PurchaseResultsVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_RemoveAt")]
-	public static extern void PurchaseResultsVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector__removeRange")]
+	public static extern void PurchaseResultsVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_RemoveRange")]
-	public static extern void PurchaseResultsVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_Reverse")]
+	public static extern void PurchaseResultsVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_Repeat")]
-	public static extern IntPtr PurchaseResultsVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector__reverseRange")]
+	public static extern void PurchaseResultsVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_Reverse__SWIG_0")]
-	public static extern void PurchaseResultsVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_Reverse__SWIG_1")]
-	public static extern void PurchaseResultsVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector_SetRange")]
-	public static extern void PurchaseResultsVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PurchaseResultsVector__setRange")]
+	public static extern void PurchaseResultsVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_PurchaseResultsVector")]
 	public static extern void delete_PurchaseResultsVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserLedgerEntryVector__SWIG_0")]
+	public static extern IntPtr new_UserLedgerEntryVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserLedgerEntryVector__SWIG_1")]
+	public static extern IntPtr new_UserLedgerEntryVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_Clear")]
 	public static extern void UserLedgerEntryVector_Clear(HandleRef jarg1);
@@ -16043,17 +16985,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_size")]
 	public static extern uint UserLedgerEntryVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_empty")]
+	public static extern bool UserLedgerEntryVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_capacity")]
 	public static extern uint UserLedgerEntryVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_reserve")]
 	public static extern void UserLedgerEntryVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserLedgerEntryVector__SWIG_0")]
-	public static extern IntPtr new_UserLedgerEntryVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserLedgerEntryVector__SWIG_1")]
-	public static extern IntPtr new_UserLedgerEntryVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserLedgerEntryVector__SWIG_2")]
 	public static extern IntPtr new_UserLedgerEntryVector__SWIG_2(int jarg1);
@@ -16070,32 +17009,26 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_AddRange")]
 	public static extern void UserLedgerEntryVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_GetRange")]
-	public static extern IntPtr UserLedgerEntryVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector__insert")]
+	public static extern void UserLedgerEntryVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_Insert")]
-	public static extern void UserLedgerEntryVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector__insertRange")]
+	public static extern void UserLedgerEntryVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_InsertRange")]
-	public static extern void UserLedgerEntryVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector__removeAt")]
+	public static extern void UserLedgerEntryVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_RemoveAt")]
-	public static extern void UserLedgerEntryVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector__removeRange")]
+	public static extern void UserLedgerEntryVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_RemoveRange")]
-	public static extern void UserLedgerEntryVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_Reverse")]
+	public static extern void UserLedgerEntryVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_Repeat")]
-	public static extern IntPtr UserLedgerEntryVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector__reverseRange")]
+	public static extern void UserLedgerEntryVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_Reverse__SWIG_0")]
-	public static extern void UserLedgerEntryVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_Reverse__SWIG_1")]
-	public static extern void UserLedgerEntryVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector_SetRange")]
-	public static extern void UserLedgerEntryVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserLedgerEntryVector__setRange")]
+	public static extern void UserLedgerEntryVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UserLedgerEntryVector")]
 	public static extern void delete_UserLedgerEntryVector(HandleRef jarg1);
@@ -16268,6 +17201,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StorefrontResultsMap")]
 	public static extern void delete_StorefrontResultsMap(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_NormalizedOffersVector__SWIG_0")]
+	public static extern IntPtr new_NormalizedOffersVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_NormalizedOffersVector__SWIG_1")]
+	public static extern IntPtr new_NormalizedOffersVector__SWIG_1(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_Clear")]
 	public static extern void NormalizedOffersVector_Clear(HandleRef jarg1);
 
@@ -16277,17 +17216,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_size")]
 	public static extern uint NormalizedOffersVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_empty")]
+	public static extern bool NormalizedOffersVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_capacity")]
 	public static extern uint NormalizedOffersVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_reserve")]
 	public static extern void NormalizedOffersVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_NormalizedOffersVector__SWIG_0")]
-	public static extern IntPtr new_NormalizedOffersVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_NormalizedOffersVector__SWIG_1")]
-	public static extern IntPtr new_NormalizedOffersVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_NormalizedOffersVector__SWIG_2")]
 	public static extern IntPtr new_NormalizedOffersVector__SWIG_2(int jarg1);
@@ -16304,35 +17240,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_AddRange")]
 	public static extern void NormalizedOffersVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_GetRange")]
-	public static extern IntPtr NormalizedOffersVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector__insert")]
+	public static extern void NormalizedOffersVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_Insert")]
-	public static extern void NormalizedOffersVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector__insertRange")]
+	public static extern void NormalizedOffersVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_InsertRange")]
-	public static extern void NormalizedOffersVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector__removeAt")]
+	public static extern void NormalizedOffersVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_RemoveAt")]
-	public static extern void NormalizedOffersVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector__removeRange")]
+	public static extern void NormalizedOffersVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_RemoveRange")]
-	public static extern void NormalizedOffersVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_Reverse")]
+	public static extern void NormalizedOffersVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_Repeat")]
-	public static extern IntPtr NormalizedOffersVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector__reverseRange")]
+	public static extern void NormalizedOffersVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_Reverse__SWIG_0")]
-	public static extern void NormalizedOffersVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_Reverse__SWIG_1")]
-	public static extern void NormalizedOffersVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector_SetRange")]
-	public static extern void NormalizedOffersVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_NormalizedOffersVector__setRange")]
+	public static extern void NormalizedOffersVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_NormalizedOffersVector")]
 	public static extern void delete_NormalizedOffersVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataVector__SWIG_0")]
+	public static extern IntPtr new_TitleDataVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataVector__SWIG_1")]
+	public static extern IntPtr new_TitleDataVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_Clear")]
 	public static extern void TitleDataVector_Clear(HandleRef jarg1);
@@ -16343,17 +17279,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_size")]
 	public static extern uint TitleDataVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_empty")]
+	public static extern bool TitleDataVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_capacity")]
 	public static extern uint TitleDataVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_reserve")]
 	public static extern void TitleDataVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataVector__SWIG_0")]
-	public static extern IntPtr new_TitleDataVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataVector__SWIG_1")]
-	public static extern IntPtr new_TitleDataVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataVector__SWIG_2")]
 	public static extern IntPtr new_TitleDataVector__SWIG_2(int jarg1);
@@ -16370,35 +17303,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_AddRange")]
 	public static extern void TitleDataVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_GetRange")]
-	public static extern IntPtr TitleDataVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector__insert")]
+	public static extern void TitleDataVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_Insert")]
-	public static extern void TitleDataVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector__insertRange")]
+	public static extern void TitleDataVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_InsertRange")]
-	public static extern void TitleDataVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector__removeAt")]
+	public static extern void TitleDataVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_RemoveAt")]
-	public static extern void TitleDataVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector__removeRange")]
+	public static extern void TitleDataVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_RemoveRange")]
-	public static extern void TitleDataVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_Reverse")]
+	public static extern void TitleDataVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_Repeat")]
-	public static extern IntPtr TitleDataVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector__reverseRange")]
+	public static extern void TitleDataVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_Reverse__SWIG_0")]
-	public static extern void TitleDataVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_Reverse__SWIG_1")]
-	public static extern void TitleDataVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector_SetRange")]
-	public static extern void TitleDataVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataVector__setRange")]
+	public static extern void TitleDataVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_TitleDataVector")]
 	public static extern void delete_TitleDataVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataShortVector__SWIG_0")]
+	public static extern IntPtr new_TitleDataShortVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataShortVector__SWIG_1")]
+	public static extern IntPtr new_TitleDataShortVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_Clear")]
 	public static extern void TitleDataShortVector_Clear(HandleRef jarg1);
@@ -16409,17 +17342,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_size")]
 	public static extern uint TitleDataShortVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_empty")]
+	public static extern bool TitleDataShortVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_capacity")]
 	public static extern uint TitleDataShortVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_reserve")]
 	public static extern void TitleDataShortVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataShortVector__SWIG_0")]
-	public static extern IntPtr new_TitleDataShortVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataShortVector__SWIG_1")]
-	public static extern IntPtr new_TitleDataShortVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TitleDataShortVector__SWIG_2")]
 	public static extern IntPtr new_TitleDataShortVector__SWIG_2(int jarg1);
@@ -16436,35 +17366,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_AddRange")]
 	public static extern void TitleDataShortVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_GetRange")]
-	public static extern IntPtr TitleDataShortVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector__insert")]
+	public static extern void TitleDataShortVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_Insert")]
-	public static extern void TitleDataShortVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector__insertRange")]
+	public static extern void TitleDataShortVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_InsertRange")]
-	public static extern void TitleDataShortVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector__removeAt")]
+	public static extern void TitleDataShortVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_RemoveAt")]
-	public static extern void TitleDataShortVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector__removeRange")]
+	public static extern void TitleDataShortVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_RemoveRange")]
-	public static extern void TitleDataShortVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_Reverse")]
+	public static extern void TitleDataShortVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_Repeat")]
-	public static extern IntPtr TitleDataShortVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector__reverseRange")]
+	public static extern void TitleDataShortVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_Reverse__SWIG_0")]
-	public static extern void TitleDataShortVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_Reverse__SWIG_1")]
-	public static extern void TitleDataShortVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector_SetRange")]
-	public static extern void TitleDataShortVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TitleDataShortVector__setRange")]
+	public static extern void TitleDataShortVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_TitleDataShortVector")]
 	public static extern void delete_TitleDataShortVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsResponseVector__SWIG_0")]
+	public static extern IntPtr new_AnalyticsResponseVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsResponseVector__SWIG_1")]
+	public static extern IntPtr new_AnalyticsResponseVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_Clear")]
 	public static extern void AnalyticsResponseVector_Clear(HandleRef jarg1);
@@ -16475,17 +17405,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_size")]
 	public static extern uint AnalyticsResponseVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_empty")]
+	public static extern bool AnalyticsResponseVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_capacity")]
 	public static extern uint AnalyticsResponseVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_reserve")]
 	public static extern void AnalyticsResponseVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsResponseVector__SWIG_0")]
-	public static extern IntPtr new_AnalyticsResponseVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsResponseVector__SWIG_1")]
-	public static extern IntPtr new_AnalyticsResponseVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsResponseVector__SWIG_2")]
 	public static extern IntPtr new_AnalyticsResponseVector__SWIG_2(int jarg1);
@@ -16502,35 +17429,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_AddRange")]
 	public static extern void AnalyticsResponseVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_GetRange")]
-	public static extern IntPtr AnalyticsResponseVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector__insert")]
+	public static extern void AnalyticsResponseVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_Insert")]
-	public static extern void AnalyticsResponseVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector__insertRange")]
+	public static extern void AnalyticsResponseVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_InsertRange")]
-	public static extern void AnalyticsResponseVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector__removeAt")]
+	public static extern void AnalyticsResponseVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_RemoveAt")]
-	public static extern void AnalyticsResponseVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector__removeRange")]
+	public static extern void AnalyticsResponseVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_RemoveRange")]
-	public static extern void AnalyticsResponseVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_Reverse")]
+	public static extern void AnalyticsResponseVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_Repeat")]
-	public static extern IntPtr AnalyticsResponseVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector__reverseRange")]
+	public static extern void AnalyticsResponseVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_Reverse__SWIG_0")]
-	public static extern void AnalyticsResponseVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_Reverse__SWIG_1")]
-	public static extern void AnalyticsResponseVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector_SetRange")]
-	public static extern void AnalyticsResponseVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsResponseVector__setRange")]
+	public static extern void AnalyticsResponseVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AnalyticsResponseVector")]
 	public static extern void delete_AnalyticsResponseVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsRequestVector__SWIG_0")]
+	public static extern IntPtr new_AnalyticsRequestVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsRequestVector__SWIG_1")]
+	public static extern IntPtr new_AnalyticsRequestVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_Clear")]
 	public static extern void AnalyticsRequestVector_Clear(HandleRef jarg1);
@@ -16541,17 +17468,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_size")]
 	public static extern uint AnalyticsRequestVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_empty")]
+	public static extern bool AnalyticsRequestVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_capacity")]
 	public static extern uint AnalyticsRequestVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_reserve")]
 	public static extern void AnalyticsRequestVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsRequestVector__SWIG_0")]
-	public static extern IntPtr new_AnalyticsRequestVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsRequestVector__SWIG_1")]
-	public static extern IntPtr new_AnalyticsRequestVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AnalyticsRequestVector__SWIG_2")]
 	public static extern IntPtr new_AnalyticsRequestVector__SWIG_2(int jarg1);
@@ -16568,35 +17492,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_AddRange")]
 	public static extern void AnalyticsRequestVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_GetRange")]
-	public static extern IntPtr AnalyticsRequestVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector__insert")]
+	public static extern void AnalyticsRequestVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_Insert")]
-	public static extern void AnalyticsRequestVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector__insertRange")]
+	public static extern void AnalyticsRequestVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_InsertRange")]
-	public static extern void AnalyticsRequestVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector__removeAt")]
+	public static extern void AnalyticsRequestVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_RemoveAt")]
-	public static extern void AnalyticsRequestVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector__removeRange")]
+	public static extern void AnalyticsRequestVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_RemoveRange")]
-	public static extern void AnalyticsRequestVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_Reverse")]
+	public static extern void AnalyticsRequestVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_Repeat")]
-	public static extern IntPtr AnalyticsRequestVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector__reverseRange")]
+	public static extern void AnalyticsRequestVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_Reverse__SWIG_0")]
-	public static extern void AnalyticsRequestVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_Reverse__SWIG_1")]
-	public static extern void AnalyticsRequestVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector_SetRange")]
-	public static extern void AnalyticsRequestVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AnalyticsRequestVector__setRange")]
+	public static extern void AnalyticsRequestVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AnalyticsRequestVector")]
 	public static extern void delete_AnalyticsRequestVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinksVector__SWIG_0")]
+	public static extern IntPtr new_AccountLinksVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinksVector__SWIG_1")]
+	public static extern IntPtr new_AccountLinksVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_Clear")]
 	public static extern void AccountLinksVector_Clear(HandleRef jarg1);
@@ -16607,17 +17531,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_size")]
 	public static extern uint AccountLinksVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_empty")]
+	public static extern bool AccountLinksVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_capacity")]
 	public static extern uint AccountLinksVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_reserve")]
 	public static extern void AccountLinksVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinksVector__SWIG_0")]
-	public static extern IntPtr new_AccountLinksVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinksVector__SWIG_1")]
-	public static extern IntPtr new_AccountLinksVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinksVector__SWIG_2")]
 	public static extern IntPtr new_AccountLinksVector__SWIG_2(int jarg1);
@@ -16634,32 +17555,26 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_AddRange")]
 	public static extern void AccountLinksVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_GetRange")]
-	public static extern IntPtr AccountLinksVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector__insert")]
+	public static extern void AccountLinksVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_Insert")]
-	public static extern void AccountLinksVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector__insertRange")]
+	public static extern void AccountLinksVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_InsertRange")]
-	public static extern void AccountLinksVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector__removeAt")]
+	public static extern void AccountLinksVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_RemoveAt")]
-	public static extern void AccountLinksVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector__removeRange")]
+	public static extern void AccountLinksVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_RemoveRange")]
-	public static extern void AccountLinksVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_Reverse")]
+	public static extern void AccountLinksVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_Repeat")]
-	public static extern IntPtr AccountLinksVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector__reverseRange")]
+	public static extern void AccountLinksVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_Reverse__SWIG_0")]
-	public static extern void AccountLinksVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_Reverse__SWIG_1")]
-	public static extern void AccountLinksVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector_SetRange")]
-	public static extern void AccountLinksVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinksVector__setRange")]
+	public static extern void AccountLinksVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AccountLinksVector")]
 	public static extern void delete_AccountLinksVector(HandleRef jarg1);
@@ -16706,6 +17621,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_OfferEntitlementMap")]
 	public static extern void delete_OfferEntitlementMap(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferBindingVector__SWIG_0")]
+	public static extern IntPtr new_OfferBindingVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferBindingVector__SWIG_1")]
+	public static extern IntPtr new_OfferBindingVector__SWIG_1(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_Clear")]
 	public static extern void OfferBindingVector_Clear(HandleRef jarg1);
 
@@ -16715,17 +17636,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_size")]
 	public static extern uint OfferBindingVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_empty")]
+	public static extern bool OfferBindingVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_capacity")]
 	public static extern uint OfferBindingVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_reserve")]
 	public static extern void OfferBindingVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferBindingVector__SWIG_0")]
-	public static extern IntPtr new_OfferBindingVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferBindingVector__SWIG_1")]
-	public static extern IntPtr new_OfferBindingVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferBindingVector__SWIG_2")]
 	public static extern IntPtr new_OfferBindingVector__SWIG_2(int jarg1);
@@ -16742,35 +17660,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_AddRange")]
 	public static extern void OfferBindingVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_GetRange")]
-	public static extern IntPtr OfferBindingVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector__insert")]
+	public static extern void OfferBindingVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_Insert")]
-	public static extern void OfferBindingVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector__insertRange")]
+	public static extern void OfferBindingVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_InsertRange")]
-	public static extern void OfferBindingVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector__removeAt")]
+	public static extern void OfferBindingVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_RemoveAt")]
-	public static extern void OfferBindingVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector__removeRange")]
+	public static extern void OfferBindingVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_RemoveRange")]
-	public static extern void OfferBindingVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_Reverse")]
+	public static extern void OfferBindingVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_Repeat")]
-	public static extern IntPtr OfferBindingVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector__reverseRange")]
+	public static extern void OfferBindingVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_Reverse__SWIG_0")]
-	public static extern void OfferBindingVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_Reverse__SWIG_1")]
-	public static extern void OfferBindingVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector_SetRange")]
-	public static extern void OfferBindingVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferBindingVector__setRange")]
+	public static extern void OfferBindingVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_OfferBindingVector")]
 	public static extern void delete_OfferBindingVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferDisplayVector__SWIG_0")]
+	public static extern IntPtr new_OfferDisplayVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferDisplayVector__SWIG_1")]
+	public static extern IntPtr new_OfferDisplayVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_Clear")]
 	public static extern void OfferDisplayVector_Clear(HandleRef jarg1);
@@ -16781,17 +17699,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_size")]
 	public static extern uint OfferDisplayVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_empty")]
+	public static extern bool OfferDisplayVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_capacity")]
 	public static extern uint OfferDisplayVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_reserve")]
 	public static extern void OfferDisplayVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferDisplayVector__SWIG_0")]
-	public static extern IntPtr new_OfferDisplayVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferDisplayVector__SWIG_1")]
-	public static extern IntPtr new_OfferDisplayVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferDisplayVector__SWIG_2")]
 	public static extern IntPtr new_OfferDisplayVector__SWIG_2(int jarg1);
@@ -16808,35 +17723,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_AddRange")]
 	public static extern void OfferDisplayVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_GetRange")]
-	public static extern IntPtr OfferDisplayVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector__insert")]
+	public static extern void OfferDisplayVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_Insert")]
-	public static extern void OfferDisplayVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector__insertRange")]
+	public static extern void OfferDisplayVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_InsertRange")]
-	public static extern void OfferDisplayVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector__removeAt")]
+	public static extern void OfferDisplayVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_RemoveAt")]
-	public static extern void OfferDisplayVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector__removeRange")]
+	public static extern void OfferDisplayVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_RemoveRange")]
-	public static extern void OfferDisplayVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_Reverse")]
+	public static extern void OfferDisplayVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_Repeat")]
-	public static extern IntPtr OfferDisplayVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector__reverseRange")]
+	public static extern void OfferDisplayVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_Reverse__SWIG_0")]
-	public static extern void OfferDisplayVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_Reverse__SWIG_1")]
-	public static extern void OfferDisplayVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector_SetRange")]
-	public static extern void OfferDisplayVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferDisplayVector__setRange")]
+	public static extern void OfferDisplayVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_OfferDisplayVector")]
 	public static extern void delete_OfferDisplayVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferCatalogItemVector__SWIG_0")]
+	public static extern IntPtr new_OfferCatalogItemVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferCatalogItemVector__SWIG_1")]
+	public static extern IntPtr new_OfferCatalogItemVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_Clear")]
 	public static extern void OfferCatalogItemVector_Clear(HandleRef jarg1);
@@ -16847,17 +17762,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_size")]
 	public static extern uint OfferCatalogItemVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_empty")]
+	public static extern bool OfferCatalogItemVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_capacity")]
 	public static extern uint OfferCatalogItemVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_reserve")]
 	public static extern void OfferCatalogItemVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferCatalogItemVector__SWIG_0")]
-	public static extern IntPtr new_OfferCatalogItemVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferCatalogItemVector__SWIG_1")]
-	public static extern IntPtr new_OfferCatalogItemVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_OfferCatalogItemVector__SWIG_2")]
 	public static extern IntPtr new_OfferCatalogItemVector__SWIG_2(int jarg1);
@@ -16874,35 +17786,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_AddRange")]
 	public static extern void OfferCatalogItemVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_GetRange")]
-	public static extern IntPtr OfferCatalogItemVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector__insert")]
+	public static extern void OfferCatalogItemVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_Insert")]
-	public static extern void OfferCatalogItemVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector__insertRange")]
+	public static extern void OfferCatalogItemVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_InsertRange")]
-	public static extern void OfferCatalogItemVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector__removeAt")]
+	public static extern void OfferCatalogItemVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_RemoveAt")]
-	public static extern void OfferCatalogItemVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector__removeRange")]
+	public static extern void OfferCatalogItemVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_RemoveRange")]
-	public static extern void OfferCatalogItemVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_Reverse")]
+	public static extern void OfferCatalogItemVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_Repeat")]
-	public static extern IntPtr OfferCatalogItemVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector__reverseRange")]
+	public static extern void OfferCatalogItemVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_Reverse__SWIG_0")]
-	public static extern void OfferCatalogItemVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_Reverse__SWIG_1")]
-	public static extern void OfferCatalogItemVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector_SetRange")]
-	public static extern void OfferCatalogItemVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_OfferCatalogItemVector__setRange")]
+	public static extern void OfferCatalogItemVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_OfferCatalogItemVector")]
 	public static extern void delete_OfferCatalogItemVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinkLookupVector__SWIG_0")]
+	public static extern IntPtr new_AccountLinkLookupVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinkLookupVector__SWIG_1")]
+	public static extern IntPtr new_AccountLinkLookupVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_Clear")]
 	public static extern void AccountLinkLookupVector_Clear(HandleRef jarg1);
@@ -16913,17 +17825,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_size")]
 	public static extern uint AccountLinkLookupVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_empty")]
+	public static extern bool AccountLinkLookupVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_capacity")]
 	public static extern uint AccountLinkLookupVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_reserve")]
 	public static extern void AccountLinkLookupVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinkLookupVector__SWIG_0")]
-	public static extern IntPtr new_AccountLinkLookupVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinkLookupVector__SWIG_1")]
-	public static extern IntPtr new_AccountLinkLookupVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountLinkLookupVector__SWIG_2")]
 	public static extern IntPtr new_AccountLinkLookupVector__SWIG_2(int jarg1);
@@ -16940,35 +17849,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_AddRange")]
 	public static extern void AccountLinkLookupVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_GetRange")]
-	public static extern IntPtr AccountLinkLookupVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector__insert")]
+	public static extern void AccountLinkLookupVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_Insert")]
-	public static extern void AccountLinkLookupVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector__insertRange")]
+	public static extern void AccountLinkLookupVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_InsertRange")]
-	public static extern void AccountLinkLookupVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector__removeAt")]
+	public static extern void AccountLinkLookupVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_RemoveAt")]
-	public static extern void AccountLinkLookupVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector__removeRange")]
+	public static extern void AccountLinkLookupVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_RemoveRange")]
-	public static extern void AccountLinkLookupVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_Reverse")]
+	public static extern void AccountLinkLookupVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_Repeat")]
-	public static extern IntPtr AccountLinkLookupVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector__reverseRange")]
+	public static extern void AccountLinkLookupVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_Reverse__SWIG_0")]
-	public static extern void AccountLinkLookupVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_Reverse__SWIG_1")]
-	public static extern void AccountLinkLookupVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector_SetRange")]
-	public static extern void AccountLinkLookupVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountLinkLookupVector__setRange")]
+	public static extern void AccountLinkLookupVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AccountLinkLookupVector")]
 	public static extern void delete_AccountLinkLookupVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerLookupVector__SWIG_0")]
+	public static extern IntPtr new_PlayerLookupVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerLookupVector__SWIG_1")]
+	public static extern IntPtr new_PlayerLookupVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_Clear")]
 	public static extern void PlayerLookupVector_Clear(HandleRef jarg1);
@@ -16979,17 +17888,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_size")]
 	public static extern uint PlayerLookupVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_empty")]
+	public static extern bool PlayerLookupVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_capacity")]
 	public static extern uint PlayerLookupVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_reserve")]
 	public static extern void PlayerLookupVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerLookupVector__SWIG_0")]
-	public static extern IntPtr new_PlayerLookupVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerLookupVector__SWIG_1")]
-	public static extern IntPtr new_PlayerLookupVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlayerLookupVector__SWIG_2")]
 	public static extern IntPtr new_PlayerLookupVector__SWIG_2(int jarg1);
@@ -17006,35 +17912,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_AddRange")]
 	public static extern void PlayerLookupVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_GetRange")]
-	public static extern IntPtr PlayerLookupVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector__insert")]
+	public static extern void PlayerLookupVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_Insert")]
-	public static extern void PlayerLookupVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector__insertRange")]
+	public static extern void PlayerLookupVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_InsertRange")]
-	public static extern void PlayerLookupVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector__removeAt")]
+	public static extern void PlayerLookupVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_RemoveAt")]
-	public static extern void PlayerLookupVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector__removeRange")]
+	public static extern void PlayerLookupVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_RemoveRange")]
-	public static extern void PlayerLookupVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_Reverse")]
+	public static extern void PlayerLookupVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_Repeat")]
-	public static extern IntPtr PlayerLookupVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector__reverseRange")]
+	public static extern void PlayerLookupVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_Reverse__SWIG_0")]
-	public static extern void PlayerLookupVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_Reverse__SWIG_1")]
-	public static extern void PlayerLookupVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector_SetRange")]
-	public static extern void PlayerLookupVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerLookupVector__setRange")]
+	public static extern void PlayerLookupVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_PlayerLookupVector")]
 	public static extern void delete_PlayerLookupVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HydratedTrackVector__SWIG_0")]
+	public static extern IntPtr new_HydratedTrackVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HydratedTrackVector__SWIG_1")]
+	public static extern IntPtr new_HydratedTrackVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_Clear")]
 	public static extern void HydratedTrackVector_Clear(HandleRef jarg1);
@@ -17045,17 +17951,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_size")]
 	public static extern uint HydratedTrackVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_empty")]
+	public static extern bool HydratedTrackVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_capacity")]
 	public static extern uint HydratedTrackVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_reserve")]
 	public static extern void HydratedTrackVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HydratedTrackVector__SWIG_0")]
-	public static extern IntPtr new_HydratedTrackVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HydratedTrackVector__SWIG_1")]
-	public static extern IntPtr new_HydratedTrackVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_HydratedTrackVector__SWIG_2")]
 	public static extern IntPtr new_HydratedTrackVector__SWIG_2(int jarg1);
@@ -17072,35 +17975,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_AddRange")]
 	public static extern void HydratedTrackVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_GetRange")]
-	public static extern IntPtr HydratedTrackVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector__insert")]
+	public static extern void HydratedTrackVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_Insert")]
-	public static extern void HydratedTrackVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector__insertRange")]
+	public static extern void HydratedTrackVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_InsertRange")]
-	public static extern void HydratedTrackVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector__removeAt")]
+	public static extern void HydratedTrackVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_RemoveAt")]
-	public static extern void HydratedTrackVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector__removeRange")]
+	public static extern void HydratedTrackVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_RemoveRange")]
-	public static extern void HydratedTrackVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_Reverse")]
+	public static extern void HydratedTrackVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_Repeat")]
-	public static extern IntPtr HydratedTrackVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector__reverseRange")]
+	public static extern void HydratedTrackVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_Reverse__SWIG_0")]
-	public static extern void HydratedTrackVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_Reverse__SWIG_1")]
-	public static extern void HydratedTrackVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector_SetRange")]
-	public static extern void HydratedTrackVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_HydratedTrackVector__setRange")]
+	public static extern void HydratedTrackVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_HydratedTrackVector")]
 	public static extern void delete_HydratedTrackVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackTriggerVector__SWIG_0")]
+	public static extern IntPtr new_TrackTriggerVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackTriggerVector__SWIG_1")]
+	public static extern IntPtr new_TrackTriggerVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_Clear")]
 	public static extern void TrackTriggerVector_Clear(HandleRef jarg1);
@@ -17111,17 +18014,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_size")]
 	public static extern uint TrackTriggerVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_empty")]
+	public static extern bool TrackTriggerVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_capacity")]
 	public static extern uint TrackTriggerVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_reserve")]
 	public static extern void TrackTriggerVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackTriggerVector__SWIG_0")]
-	public static extern IntPtr new_TrackTriggerVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackTriggerVector__SWIG_1")]
-	public static extern IntPtr new_TrackTriggerVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackTriggerVector__SWIG_2")]
 	public static extern IntPtr new_TrackTriggerVector__SWIG_2(int jarg1);
@@ -17138,35 +18038,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_AddRange")]
 	public static extern void TrackTriggerVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_GetRange")]
-	public static extern IntPtr TrackTriggerVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector__insert")]
+	public static extern void TrackTriggerVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_Insert")]
-	public static extern void TrackTriggerVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector__insertRange")]
+	public static extern void TrackTriggerVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_InsertRange")]
-	public static extern void TrackTriggerVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector__removeAt")]
+	public static extern void TrackTriggerVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_RemoveAt")]
-	public static extern void TrackTriggerVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector__removeRange")]
+	public static extern void TrackTriggerVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_RemoveRange")]
-	public static extern void TrackTriggerVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_Reverse")]
+	public static extern void TrackTriggerVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_Repeat")]
-	public static extern IntPtr TrackTriggerVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector__reverseRange")]
+	public static extern void TrackTriggerVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_Reverse__SWIG_0")]
-	public static extern void TrackTriggerVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_Reverse__SWIG_1")]
-	public static extern void TrackTriggerVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector_SetRange")]
-	public static extern void TrackTriggerVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackTriggerVector__setRange")]
+	public static extern void TrackTriggerVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_TrackTriggerVector")]
 	public static extern void delete_TrackTriggerVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackLevelVector__SWIG_0")]
+	public static extern IntPtr new_TrackLevelVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackLevelVector__SWIG_1")]
+	public static extern IntPtr new_TrackLevelVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_Clear")]
 	public static extern void TrackLevelVector_Clear(HandleRef jarg1);
@@ -17177,17 +18077,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_size")]
 	public static extern uint TrackLevelVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_empty")]
+	public static extern bool TrackLevelVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_capacity")]
 	public static extern uint TrackLevelVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_reserve")]
 	public static extern void TrackLevelVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackLevelVector__SWIG_0")]
-	public static extern IntPtr new_TrackLevelVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackLevelVector__SWIG_1")]
-	public static extern IntPtr new_TrackLevelVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TrackLevelVector__SWIG_2")]
 	public static extern IntPtr new_TrackLevelVector__SWIG_2(int jarg1);
@@ -17204,35 +18101,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_AddRange")]
 	public static extern void TrackLevelVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_GetRange")]
-	public static extern IntPtr TrackLevelVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector__insert")]
+	public static extern void TrackLevelVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_Insert")]
-	public static extern void TrackLevelVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector__insertRange")]
+	public static extern void TrackLevelVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_InsertRange")]
-	public static extern void TrackLevelVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector__removeAt")]
+	public static extern void TrackLevelVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_RemoveAt")]
-	public static extern void TrackLevelVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector__removeRange")]
+	public static extern void TrackLevelVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_RemoveRange")]
-	public static extern void TrackLevelVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_Reverse")]
+	public static extern void TrackLevelVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_Repeat")]
-	public static extern IntPtr TrackLevelVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector__reverseRange")]
+	public static extern void TrackLevelVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_Reverse__SWIG_0")]
-	public static extern void TrackLevelVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_Reverse__SWIG_1")]
-	public static extern void TrackLevelVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector_SetRange")]
-	public static extern void TrackLevelVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TrackLevelVector__setRange")]
+	public static extern void TrackLevelVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_TrackLevelVector")]
 	public static extern void delete_TrackLevelVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTrackVector__SWIG_0")]
+	public static extern IntPtr new_UserHydratedProgressionTrackVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTrackVector__SWIG_1")]
+	public static extern IntPtr new_UserHydratedProgressionTrackVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_Clear")]
 	public static extern void UserHydratedProgressionTrackVector_Clear(HandleRef jarg1);
@@ -17243,17 +18140,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_size")]
 	public static extern uint UserHydratedProgressionTrackVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_empty")]
+	public static extern bool UserHydratedProgressionTrackVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_capacity")]
 	public static extern uint UserHydratedProgressionTrackVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_reserve")]
 	public static extern void UserHydratedProgressionTrackVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTrackVector__SWIG_0")]
-	public static extern IntPtr new_UserHydratedProgressionTrackVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTrackVector__SWIG_1")]
-	public static extern IntPtr new_UserHydratedProgressionTrackVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTrackVector__SWIG_2")]
 	public static extern IntPtr new_UserHydratedProgressionTrackVector__SWIG_2(int jarg1);
@@ -17270,35 +18164,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_AddRange")]
 	public static extern void UserHydratedProgressionTrackVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_GetRange")]
-	public static extern IntPtr UserHydratedProgressionTrackVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector__insert")]
+	public static extern void UserHydratedProgressionTrackVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_Insert")]
-	public static extern void UserHydratedProgressionTrackVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector__insertRange")]
+	public static extern void UserHydratedProgressionTrackVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_InsertRange")]
-	public static extern void UserHydratedProgressionTrackVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector__removeAt")]
+	public static extern void UserHydratedProgressionTrackVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_RemoveAt")]
-	public static extern void UserHydratedProgressionTrackVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector__removeRange")]
+	public static extern void UserHydratedProgressionTrackVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_RemoveRange")]
-	public static extern void UserHydratedProgressionTrackVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_Reverse")]
+	public static extern void UserHydratedProgressionTrackVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_Repeat")]
-	public static extern IntPtr UserHydratedProgressionTrackVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector__reverseRange")]
+	public static extern void UserHydratedProgressionTrackVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_Reverse__SWIG_0")]
-	public static extern void UserHydratedProgressionTrackVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_Reverse__SWIG_1")]
-	public static extern void UserHydratedProgressionTrackVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector_SetRange")]
-	public static extern void UserHydratedProgressionTrackVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTrackVector__setRange")]
+	public static extern void UserHydratedProgressionTrackVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UserHydratedProgressionTrackVector")]
 	public static extern void delete_UserHydratedProgressionTrackVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MuteDataVector__SWIG_0")]
+	public static extern IntPtr new_MuteDataVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MuteDataVector__SWIG_1")]
+	public static extern IntPtr new_MuteDataVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_Clear")]
 	public static extern void MuteDataVector_Clear(HandleRef jarg1);
@@ -17309,17 +18203,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_size")]
 	public static extern uint MuteDataVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_empty")]
+	public static extern bool MuteDataVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_capacity")]
 	public static extern uint MuteDataVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_reserve")]
 	public static extern void MuteDataVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MuteDataVector__SWIG_0")]
-	public static extern IntPtr new_MuteDataVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MuteDataVector__SWIG_1")]
-	public static extern IntPtr new_MuteDataVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MuteDataVector__SWIG_2")]
 	public static extern IntPtr new_MuteDataVector__SWIG_2(int jarg1);
@@ -17336,35 +18227,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_AddRange")]
 	public static extern void MuteDataVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_GetRange")]
-	public static extern IntPtr MuteDataVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector__insert")]
+	public static extern void MuteDataVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_Insert")]
-	public static extern void MuteDataVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector__insertRange")]
+	public static extern void MuteDataVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_InsertRange")]
-	public static extern void MuteDataVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector__removeAt")]
+	public static extern void MuteDataVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_RemoveAt")]
-	public static extern void MuteDataVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector__removeRange")]
+	public static extern void MuteDataVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_RemoveRange")]
-	public static extern void MuteDataVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_Reverse")]
+	public static extern void MuteDataVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_Repeat")]
-	public static extern IntPtr MuteDataVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector__reverseRange")]
+	public static extern void MuteDataVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_Reverse__SWIG_0")]
-	public static extern void MuteDataVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_Reverse__SWIG_1")]
-	public static extern void MuteDataVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector_SetRange")]
-	public static extern void MuteDataVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MuteDataVector__setRange")]
+	public static extern void MuteDataVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MuteDataVector")]
 	public static extern void delete_MuteDataVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ComplexNodeVector__SWIG_0")]
+	public static extern IntPtr new_ComplexNodeVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ComplexNodeVector__SWIG_1")]
+	public static extern IntPtr new_ComplexNodeVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_Clear")]
 	public static extern void ComplexNodeVector_Clear(HandleRef jarg1);
@@ -17375,17 +18266,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_size")]
 	public static extern uint ComplexNodeVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_empty")]
+	public static extern bool ComplexNodeVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_capacity")]
 	public static extern uint ComplexNodeVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_reserve")]
 	public static extern void ComplexNodeVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ComplexNodeVector__SWIG_0")]
-	public static extern IntPtr new_ComplexNodeVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ComplexNodeVector__SWIG_1")]
-	public static extern IntPtr new_ComplexNodeVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ComplexNodeVector__SWIG_2")]
 	public static extern IntPtr new_ComplexNodeVector__SWIG_2(int jarg1);
@@ -17402,32 +18290,26 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_AddRange")]
 	public static extern void ComplexNodeVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_GetRange")]
-	public static extern IntPtr ComplexNodeVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector__insert")]
+	public static extern void ComplexNodeVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_Insert")]
-	public static extern void ComplexNodeVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector__insertRange")]
+	public static extern void ComplexNodeVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_InsertRange")]
-	public static extern void ComplexNodeVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector__removeAt")]
+	public static extern void ComplexNodeVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_RemoveAt")]
-	public static extern void ComplexNodeVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector__removeRange")]
+	public static extern void ComplexNodeVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_RemoveRange")]
-	public static extern void ComplexNodeVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_Reverse")]
+	public static extern void ComplexNodeVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_Repeat")]
-	public static extern IntPtr ComplexNodeVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector__reverseRange")]
+	public static extern void ComplexNodeVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_Reverse__SWIG_0")]
-	public static extern void ComplexNodeVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_Reverse__SWIG_1")]
-	public static extern void ComplexNodeVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector_SetRange")]
-	public static extern void ComplexNodeVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ComplexNodeVector__setRange")]
+	public static extern void ComplexNodeVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ComplexNodeVector")]
 	public static extern void delete_ComplexNodeVector(HandleRef jarg1);
@@ -17474,6 +18356,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_HydratedInventoryChangeMap")]
 	public static extern void delete_HydratedInventoryChangeMap(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PrerequisiteLevelVector__SWIG_0")]
+	public static extern IntPtr new_PrerequisiteLevelVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PrerequisiteLevelVector__SWIG_1")]
+	public static extern IntPtr new_PrerequisiteLevelVector__SWIG_1(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_Clear")]
 	public static extern void PrerequisiteLevelVector_Clear(HandleRef jarg1);
 
@@ -17483,17 +18371,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_size")]
 	public static extern uint PrerequisiteLevelVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_empty")]
+	public static extern bool PrerequisiteLevelVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_capacity")]
 	public static extern uint PrerequisiteLevelVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_reserve")]
 	public static extern void PrerequisiteLevelVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PrerequisiteLevelVector__SWIG_0")]
-	public static extern IntPtr new_PrerequisiteLevelVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PrerequisiteLevelVector__SWIG_1")]
-	public static extern IntPtr new_PrerequisiteLevelVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PrerequisiteLevelVector__SWIG_2")]
 	public static extern IntPtr new_PrerequisiteLevelVector__SWIG_2(int jarg1);
@@ -17510,35 +18395,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_AddRange")]
 	public static extern void PrerequisiteLevelVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_GetRange")]
-	public static extern IntPtr PrerequisiteLevelVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector__insert")]
+	public static extern void PrerequisiteLevelVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_Insert")]
-	public static extern void PrerequisiteLevelVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector__insertRange")]
+	public static extern void PrerequisiteLevelVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_InsertRange")]
-	public static extern void PrerequisiteLevelVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector__removeAt")]
+	public static extern void PrerequisiteLevelVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_RemoveAt")]
-	public static extern void PrerequisiteLevelVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector__removeRange")]
+	public static extern void PrerequisiteLevelVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_RemoveRange")]
-	public static extern void PrerequisiteLevelVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_Reverse")]
+	public static extern void PrerequisiteLevelVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_Repeat")]
-	public static extern IntPtr PrerequisiteLevelVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector__reverseRange")]
+	public static extern void PrerequisiteLevelVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_Reverse__SWIG_0")]
-	public static extern void PrerequisiteLevelVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_Reverse__SWIG_1")]
-	public static extern void PrerequisiteLevelVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector_SetRange")]
-	public static extern void PrerequisiteLevelVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PrerequisiteLevelVector__setRange")]
+	public static extern void PrerequisiteLevelVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_PrerequisiteLevelVector")]
 	public static extern void delete_PrerequisiteLevelVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TreeNodeVector__SWIG_0")]
+	public static extern IntPtr new_TreeNodeVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TreeNodeVector__SWIG_1")]
+	public static extern IntPtr new_TreeNodeVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_Clear")]
 	public static extern void TreeNodeVector_Clear(HandleRef jarg1);
@@ -17549,17 +18434,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_size")]
 	public static extern uint TreeNodeVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_empty")]
+	public static extern bool TreeNodeVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_capacity")]
 	public static extern uint TreeNodeVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_reserve")]
 	public static extern void TreeNodeVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TreeNodeVector__SWIG_0")]
-	public static extern IntPtr new_TreeNodeVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TreeNodeVector__SWIG_1")]
-	public static extern IntPtr new_TreeNodeVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_TreeNodeVector__SWIG_2")]
 	public static extern IntPtr new_TreeNodeVector__SWIG_2(int jarg1);
@@ -17576,35 +18458,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_AddRange")]
 	public static extern void TreeNodeVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_GetRange")]
-	public static extern IntPtr TreeNodeVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector__insert")]
+	public static extern void TreeNodeVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_Insert")]
-	public static extern void TreeNodeVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector__insertRange")]
+	public static extern void TreeNodeVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_InsertRange")]
-	public static extern void TreeNodeVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector__removeAt")]
+	public static extern void TreeNodeVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_RemoveAt")]
-	public static extern void TreeNodeVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector__removeRange")]
+	public static extern void TreeNodeVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_RemoveRange")]
-	public static extern void TreeNodeVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_Reverse")]
+	public static extern void TreeNodeVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_Repeat")]
-	public static extern IntPtr TreeNodeVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector__reverseRange")]
+	public static extern void TreeNodeVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_Reverse__SWIG_0")]
-	public static extern void TreeNodeVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_Reverse__SWIG_1")]
-	public static extern void TreeNodeVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector_SetRange")]
-	public static extern void TreeNodeVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_TreeNodeVector__setRange")]
+	public static extern void TreeNodeVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_TreeNodeVector")]
 	public static extern void delete_TreeNodeVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedNodeVector__SWIG_0")]
+	public static extern IntPtr new_UserHydratedNodeVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedNodeVector__SWIG_1")]
+	public static extern IntPtr new_UserHydratedNodeVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_Clear")]
 	public static extern void UserHydratedNodeVector_Clear(HandleRef jarg1);
@@ -17615,17 +18497,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_size")]
 	public static extern uint UserHydratedNodeVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_empty")]
+	public static extern bool UserHydratedNodeVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_capacity")]
 	public static extern uint UserHydratedNodeVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_reserve")]
 	public static extern void UserHydratedNodeVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedNodeVector__SWIG_0")]
-	public static extern IntPtr new_UserHydratedNodeVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedNodeVector__SWIG_1")]
-	public static extern IntPtr new_UserHydratedNodeVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedNodeVector__SWIG_2")]
 	public static extern IntPtr new_UserHydratedNodeVector__SWIG_2(int jarg1);
@@ -17642,35 +18521,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_AddRange")]
 	public static extern void UserHydratedNodeVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_GetRange")]
-	public static extern IntPtr UserHydratedNodeVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector__insert")]
+	public static extern void UserHydratedNodeVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_Insert")]
-	public static extern void UserHydratedNodeVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector__insertRange")]
+	public static extern void UserHydratedNodeVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_InsertRange")]
-	public static extern void UserHydratedNodeVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector__removeAt")]
+	public static extern void UserHydratedNodeVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_RemoveAt")]
-	public static extern void UserHydratedNodeVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector__removeRange")]
+	public static extern void UserHydratedNodeVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_RemoveRange")]
-	public static extern void UserHydratedNodeVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_Reverse")]
+	public static extern void UserHydratedNodeVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_Repeat")]
-	public static extern IntPtr UserHydratedNodeVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector__reverseRange")]
+	public static extern void UserHydratedNodeVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_Reverse__SWIG_0")]
-	public static extern void UserHydratedNodeVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_Reverse__SWIG_1")]
-	public static extern void UserHydratedNodeVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector_SetRange")]
-	public static extern void UserHydratedNodeVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedNodeVector__setRange")]
+	public static extern void UserHydratedNodeVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UserHydratedNodeVector")]
 	public static extern void delete_UserHydratedNodeVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTreeVector__SWIG_0")]
+	public static extern IntPtr new_UserHydratedProgressionTreeVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTreeVector__SWIG_1")]
+	public static extern IntPtr new_UserHydratedProgressionTreeVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_Clear")]
 	public static extern void UserHydratedProgressionTreeVector_Clear(HandleRef jarg1);
@@ -17681,17 +18560,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_size")]
 	public static extern uint UserHydratedProgressionTreeVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_empty")]
+	public static extern bool UserHydratedProgressionTreeVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_capacity")]
 	public static extern uint UserHydratedProgressionTreeVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_reserve")]
 	public static extern void UserHydratedProgressionTreeVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTreeVector__SWIG_0")]
-	public static extern IntPtr new_UserHydratedProgressionTreeVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTreeVector__SWIG_1")]
-	public static extern IntPtr new_UserHydratedProgressionTreeVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_UserHydratedProgressionTreeVector__SWIG_2")]
 	public static extern IntPtr new_UserHydratedProgressionTreeVector__SWIG_2(int jarg1);
@@ -17708,35 +18584,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_AddRange")]
 	public static extern void UserHydratedProgressionTreeVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_GetRange")]
-	public static extern IntPtr UserHydratedProgressionTreeVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector__insert")]
+	public static extern void UserHydratedProgressionTreeVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_Insert")]
-	public static extern void UserHydratedProgressionTreeVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector__insertRange")]
+	public static extern void UserHydratedProgressionTreeVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_InsertRange")]
-	public static extern void UserHydratedProgressionTreeVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector__removeAt")]
+	public static extern void UserHydratedProgressionTreeVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_RemoveAt")]
-	public static extern void UserHydratedProgressionTreeVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector__removeRange")]
+	public static extern void UserHydratedProgressionTreeVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_RemoveRange")]
-	public static extern void UserHydratedProgressionTreeVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_Reverse")]
+	public static extern void UserHydratedProgressionTreeVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_Repeat")]
-	public static extern IntPtr UserHydratedProgressionTreeVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector__reverseRange")]
+	public static extern void UserHydratedProgressionTreeVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_Reverse__SWIG_0")]
-	public static extern void UserHydratedProgressionTreeVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_Reverse__SWIG_1")]
-	public static extern void UserHydratedProgressionTreeVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector_SetRange")]
-	public static extern void UserHydratedProgressionTreeVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_UserHydratedProgressionTreeVector__setRange")]
+	public static extern void UserHydratedProgressionTreeVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_UserHydratedProgressionTreeVector")]
 	public static extern void delete_UserHydratedProgressionTreeVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTreeBindingVector__SWIG_0")]
+	public static extern IntPtr new_ProgressionTreeBindingVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTreeBindingVector__SWIG_1")]
+	public static extern IntPtr new_ProgressionTreeBindingVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_Clear")]
 	public static extern void ProgressionTreeBindingVector_Clear(HandleRef jarg1);
@@ -17747,17 +18623,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_size")]
 	public static extern uint ProgressionTreeBindingVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_empty")]
+	public static extern bool ProgressionTreeBindingVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_capacity")]
 	public static extern uint ProgressionTreeBindingVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_reserve")]
 	public static extern void ProgressionTreeBindingVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTreeBindingVector__SWIG_0")]
-	public static extern IntPtr new_ProgressionTreeBindingVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTreeBindingVector__SWIG_1")]
-	public static extern IntPtr new_ProgressionTreeBindingVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTreeBindingVector__SWIG_2")]
 	public static extern IntPtr new_ProgressionTreeBindingVector__SWIG_2(int jarg1);
@@ -17774,35 +18647,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_AddRange")]
 	public static extern void ProgressionTreeBindingVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_GetRange")]
-	public static extern IntPtr ProgressionTreeBindingVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector__insert")]
+	public static extern void ProgressionTreeBindingVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_Insert")]
-	public static extern void ProgressionTreeBindingVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector__insertRange")]
+	public static extern void ProgressionTreeBindingVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_InsertRange")]
-	public static extern void ProgressionTreeBindingVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector__removeAt")]
+	public static extern void ProgressionTreeBindingVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_RemoveAt")]
-	public static extern void ProgressionTreeBindingVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector__removeRange")]
+	public static extern void ProgressionTreeBindingVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_RemoveRange")]
-	public static extern void ProgressionTreeBindingVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_Reverse")]
+	public static extern void ProgressionTreeBindingVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_Repeat")]
-	public static extern IntPtr ProgressionTreeBindingVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector__reverseRange")]
+	public static extern void ProgressionTreeBindingVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_Reverse__SWIG_0")]
-	public static extern void ProgressionTreeBindingVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_Reverse__SWIG_1")]
-	public static extern void ProgressionTreeBindingVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector_SetRange")]
-	public static extern void ProgressionTreeBindingVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTreeBindingVector__setRange")]
+	public static extern void ProgressionTreeBindingVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ProgressionTreeBindingVector")]
 	public static extern void delete_ProgressionTreeBindingVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTrackBindingVector__SWIG_0")]
+	public static extern IntPtr new_ProgressionTrackBindingVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTrackBindingVector__SWIG_1")]
+	public static extern IntPtr new_ProgressionTrackBindingVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_Clear")]
 	public static extern void ProgressionTrackBindingVector_Clear(HandleRef jarg1);
@@ -17813,17 +18686,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_size")]
 	public static extern uint ProgressionTrackBindingVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_empty")]
+	public static extern bool ProgressionTrackBindingVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_capacity")]
 	public static extern uint ProgressionTrackBindingVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_reserve")]
 	public static extern void ProgressionTrackBindingVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTrackBindingVector__SWIG_0")]
-	public static extern IntPtr new_ProgressionTrackBindingVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTrackBindingVector__SWIG_1")]
-	public static extern IntPtr new_ProgressionTrackBindingVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_ProgressionTrackBindingVector__SWIG_2")]
 	public static extern IntPtr new_ProgressionTrackBindingVector__SWIG_2(int jarg1);
@@ -17840,35 +18710,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_AddRange")]
 	public static extern void ProgressionTrackBindingVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_GetRange")]
-	public static extern IntPtr ProgressionTrackBindingVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector__insert")]
+	public static extern void ProgressionTrackBindingVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_Insert")]
-	public static extern void ProgressionTrackBindingVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector__insertRange")]
+	public static extern void ProgressionTrackBindingVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_InsertRange")]
-	public static extern void ProgressionTrackBindingVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector__removeAt")]
+	public static extern void ProgressionTrackBindingVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_RemoveAt")]
-	public static extern void ProgressionTrackBindingVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector__removeRange")]
+	public static extern void ProgressionTrackBindingVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_RemoveRange")]
-	public static extern void ProgressionTrackBindingVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_Reverse")]
+	public static extern void ProgressionTrackBindingVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_Repeat")]
-	public static extern IntPtr ProgressionTrackBindingVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector__reverseRange")]
+	public static extern void ProgressionTrackBindingVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_Reverse__SWIG_0")]
-	public static extern void ProgressionTrackBindingVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_Reverse__SWIG_1")]
-	public static extern void ProgressionTrackBindingVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector_SetRange")]
-	public static extern void ProgressionTrackBindingVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ProgressionTrackBindingVector__setRange")]
+	public static extern void ProgressionTrackBindingVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_ProgressionTrackBindingVector")]
 	public static extern void delete_ProgressionTrackBindingVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountAssociationVector__SWIG_0")]
+	public static extern IntPtr new_AccountAssociationVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountAssociationVector__SWIG_1")]
+	public static extern IntPtr new_AccountAssociationVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_Clear")]
 	public static extern void AccountAssociationVector_Clear(HandleRef jarg1);
@@ -17879,17 +18749,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_size")]
 	public static extern uint AccountAssociationVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_empty")]
+	public static extern bool AccountAssociationVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_capacity")]
 	public static extern uint AccountAssociationVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_reserve")]
 	public static extern void AccountAssociationVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountAssociationVector__SWIG_0")]
-	public static extern IntPtr new_AccountAssociationVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountAssociationVector__SWIG_1")]
-	public static extern IntPtr new_AccountAssociationVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_AccountAssociationVector__SWIG_2")]
 	public static extern IntPtr new_AccountAssociationVector__SWIG_2(int jarg1);
@@ -17906,35 +18773,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_AddRange")]
 	public static extern void AccountAssociationVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_GetRange")]
-	public static extern IntPtr AccountAssociationVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector__insert")]
+	public static extern void AccountAssociationVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_Insert")]
-	public static extern void AccountAssociationVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector__insertRange")]
+	public static extern void AccountAssociationVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_InsertRange")]
-	public static extern void AccountAssociationVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector__removeAt")]
+	public static extern void AccountAssociationVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_RemoveAt")]
-	public static extern void AccountAssociationVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector__removeRange")]
+	public static extern void AccountAssociationVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_RemoveRange")]
-	public static extern void AccountAssociationVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_Reverse")]
+	public static extern void AccountAssociationVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_Repeat")]
-	public static extern IntPtr AccountAssociationVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector__reverseRange")]
+	public static extern void AccountAssociationVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_Reverse__SWIG_0")]
-	public static extern void AccountAssociationVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_Reverse__SWIG_1")]
-	public static extern void AccountAssociationVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector_SetRange")]
-	public static extern void AccountAssociationVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_AccountAssociationVector__setRange")]
+	public static extern void AccountAssociationVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_AccountAssociationVector")]
 	public static extern void delete_AccountAssociationVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionsVector__SWIG_0")]
+	public static extern IntPtr new_SubscriptionsVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionsVector__SWIG_1")]
+	public static extern IntPtr new_SubscriptionsVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_Clear")]
 	public static extern void SubscriptionsVector_Clear(HandleRef jarg1);
@@ -17945,17 +18812,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_size")]
 	public static extern uint SubscriptionsVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_empty")]
+	public static extern bool SubscriptionsVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_capacity")]
 	public static extern uint SubscriptionsVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_reserve")]
 	public static extern void SubscriptionsVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionsVector__SWIG_0")]
-	public static extern IntPtr new_SubscriptionsVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionsVector__SWIG_1")]
-	public static extern IntPtr new_SubscriptionsVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionsVector__SWIG_2")]
 	public static extern IntPtr new_SubscriptionsVector__SWIG_2(int jarg1);
@@ -17972,35 +18836,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_AddRange")]
 	public static extern void SubscriptionsVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_GetRange")]
-	public static extern IntPtr SubscriptionsVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector__insert")]
+	public static extern void SubscriptionsVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_Insert")]
-	public static extern void SubscriptionsVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector__insertRange")]
+	public static extern void SubscriptionsVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_InsertRange")]
-	public static extern void SubscriptionsVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector__removeAt")]
+	public static extern void SubscriptionsVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_RemoveAt")]
-	public static extern void SubscriptionsVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector__removeRange")]
+	public static extern void SubscriptionsVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_RemoveRange")]
-	public static extern void SubscriptionsVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_Reverse")]
+	public static extern void SubscriptionsVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_Repeat")]
-	public static extern IntPtr SubscriptionsVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector__reverseRange")]
+	public static extern void SubscriptionsVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_Reverse__SWIG_0")]
-	public static extern void SubscriptionsVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_Reverse__SWIG_1")]
-	public static extern void SubscriptionsVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector_SetRange")]
-	public static extern void SubscriptionsVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionsVector__setRange")]
+	public static extern void SubscriptionsVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionsVector")]
 	public static extern void delete_SubscriptionsVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlatformAndSkuVector__SWIG_0")]
+	public static extern IntPtr new_PlatformAndSkuVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlatformAndSkuVector__SWIG_1")]
+	public static extern IntPtr new_PlatformAndSkuVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_Clear")]
 	public static extern void PlatformAndSkuVector_Clear(HandleRef jarg1);
@@ -18011,17 +18875,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_size")]
 	public static extern uint PlatformAndSkuVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_empty")]
+	public static extern bool PlatformAndSkuVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_capacity")]
 	public static extern uint PlatformAndSkuVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_reserve")]
 	public static extern void PlatformAndSkuVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlatformAndSkuVector__SWIG_0")]
-	public static extern IntPtr new_PlatformAndSkuVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlatformAndSkuVector__SWIG_1")]
-	public static extern IntPtr new_PlatformAndSkuVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_PlatformAndSkuVector__SWIG_2")]
 	public static extern IntPtr new_PlatformAndSkuVector__SWIG_2(int jarg1);
@@ -18038,32 +18899,26 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_AddRange")]
 	public static extern void PlatformAndSkuVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_GetRange")]
-	public static extern IntPtr PlatformAndSkuVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector__insert")]
+	public static extern void PlatformAndSkuVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_Insert")]
-	public static extern void PlatformAndSkuVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector__insertRange")]
+	public static extern void PlatformAndSkuVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_InsertRange")]
-	public static extern void PlatformAndSkuVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector__removeAt")]
+	public static extern void PlatformAndSkuVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_RemoveAt")]
-	public static extern void PlatformAndSkuVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector__removeRange")]
+	public static extern void PlatformAndSkuVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_RemoveRange")]
-	public static extern void PlatformAndSkuVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_Reverse")]
+	public static extern void PlatformAndSkuVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_Repeat")]
-	public static extern IntPtr PlatformAndSkuVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector__reverseRange")]
+	public static extern void PlatformAndSkuVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_Reverse__SWIG_0")]
-	public static extern void PlatformAndSkuVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_Reverse__SWIG_1")]
-	public static extern void PlatformAndSkuVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector_SetRange")]
-	public static extern void PlatformAndSkuVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_PlatformAndSkuVector__setRange")]
+	public static extern void PlatformAndSkuVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_PlatformAndSkuVector")]
 	public static extern void delete_PlatformAndSkuVector(HandleRef jarg1);
@@ -18110,6 +18965,12 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionsByPlayerMap")]
 	public static extern void delete_SubscriptionsByPlayerMap(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingVector__SWIG_0")]
+	public static extern IntPtr new_SubscriptionPricingVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingVector__SWIG_1")]
+	public static extern IntPtr new_SubscriptionPricingVector__SWIG_1(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Clear")]
 	public static extern void SubscriptionPricingVector_Clear(HandleRef jarg1);
 
@@ -18119,17 +18980,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_size")]
 	public static extern uint SubscriptionPricingVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_empty")]
+	public static extern bool SubscriptionPricingVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_capacity")]
 	public static extern uint SubscriptionPricingVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_reserve")]
 	public static extern void SubscriptionPricingVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingVector__SWIG_0")]
-	public static extern IntPtr new_SubscriptionPricingVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingVector__SWIG_1")]
-	public static extern IntPtr new_SubscriptionPricingVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionPricingVector__SWIG_2")]
 	public static extern IntPtr new_SubscriptionPricingVector__SWIG_2(int jarg1);
@@ -18146,35 +19004,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_AddRange")]
 	public static extern void SubscriptionPricingVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_GetRange")]
-	public static extern IntPtr SubscriptionPricingVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector__insert")]
+	public static extern void SubscriptionPricingVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Insert")]
-	public static extern void SubscriptionPricingVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector__insertRange")]
+	public static extern void SubscriptionPricingVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_InsertRange")]
-	public static extern void SubscriptionPricingVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector__removeAt")]
+	public static extern void SubscriptionPricingVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_RemoveAt")]
-	public static extern void SubscriptionPricingVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector__removeRange")]
+	public static extern void SubscriptionPricingVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_RemoveRange")]
-	public static extern void SubscriptionPricingVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Reverse")]
+	public static extern void SubscriptionPricingVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Repeat")]
-	public static extern IntPtr SubscriptionPricingVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector__reverseRange")]
+	public static extern void SubscriptionPricingVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Reverse__SWIG_0")]
-	public static extern void SubscriptionPricingVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_Reverse__SWIG_1")]
-	public static extern void SubscriptionPricingVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector_SetRange")]
-	public static extern void SubscriptionPricingVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionPricingVector__setRange")]
+	public static extern void SubscriptionPricingVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionPricingVector")]
 	public static extern void delete_SubscriptionPricingVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItemVector__SWIG_0")]
+	public static extern IntPtr new_SubscriptionCatalogItemVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItemVector__SWIG_1")]
+	public static extern IntPtr new_SubscriptionCatalogItemVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Clear")]
 	public static extern void SubscriptionCatalogItemVector_Clear(HandleRef jarg1);
@@ -18185,17 +19043,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_size")]
 	public static extern uint SubscriptionCatalogItemVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_empty")]
+	public static extern bool SubscriptionCatalogItemVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_capacity")]
 	public static extern uint SubscriptionCatalogItemVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_reserve")]
 	public static extern void SubscriptionCatalogItemVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItemVector__SWIG_0")]
-	public static extern IntPtr new_SubscriptionCatalogItemVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItemVector__SWIG_1")]
-	public static extern IntPtr new_SubscriptionCatalogItemVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_SubscriptionCatalogItemVector__SWIG_2")]
 	public static extern IntPtr new_SubscriptionCatalogItemVector__SWIG_2(int jarg1);
@@ -18212,35 +19067,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_AddRange")]
 	public static extern void SubscriptionCatalogItemVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_GetRange")]
-	public static extern IntPtr SubscriptionCatalogItemVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector__insert")]
+	public static extern void SubscriptionCatalogItemVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Insert")]
-	public static extern void SubscriptionCatalogItemVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector__insertRange")]
+	public static extern void SubscriptionCatalogItemVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_InsertRange")]
-	public static extern void SubscriptionCatalogItemVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector__removeAt")]
+	public static extern void SubscriptionCatalogItemVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_RemoveAt")]
-	public static extern void SubscriptionCatalogItemVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector__removeRange")]
+	public static extern void SubscriptionCatalogItemVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_RemoveRange")]
-	public static extern void SubscriptionCatalogItemVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Reverse")]
+	public static extern void SubscriptionCatalogItemVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Repeat")]
-	public static extern IntPtr SubscriptionCatalogItemVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector__reverseRange")]
+	public static extern void SubscriptionCatalogItemVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Reverse__SWIG_0")]
-	public static extern void SubscriptionCatalogItemVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_Reverse__SWIG_1")]
-	public static extern void SubscriptionCatalogItemVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector_SetRange")]
-	public static extern void SubscriptionCatalogItemVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_SubscriptionCatalogItemVector__setRange")]
+	public static extern void SubscriptionCatalogItemVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_SubscriptionCatalogItemVector")]
 	public static extern void delete_SubscriptionCatalogItemVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSessionVector__SWIG_0")]
+	public static extern IntPtr new_JoinableGameSessionVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSessionVector__SWIG_1")]
+	public static extern IntPtr new_JoinableGameSessionVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Clear")]
 	public static extern void JoinableGameSessionVector_Clear(HandleRef jarg1);
@@ -18251,17 +19106,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_size")]
 	public static extern uint JoinableGameSessionVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_empty")]
+	public static extern bool JoinableGameSessionVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_capacity")]
 	public static extern uint JoinableGameSessionVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_reserve")]
 	public static extern void JoinableGameSessionVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSessionVector__SWIG_0")]
-	public static extern IntPtr new_JoinableGameSessionVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSessionVector__SWIG_1")]
-	public static extern IntPtr new_JoinableGameSessionVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_JoinableGameSessionVector__SWIG_2")]
 	public static extern IntPtr new_JoinableGameSessionVector__SWIG_2(int jarg1);
@@ -18278,35 +19130,35 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_AddRange")]
 	public static extern void JoinableGameSessionVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_GetRange")]
-	public static extern IntPtr JoinableGameSessionVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector__insert")]
+	public static extern void JoinableGameSessionVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Insert")]
-	public static extern void JoinableGameSessionVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector__insertRange")]
+	public static extern void JoinableGameSessionVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_InsertRange")]
-	public static extern void JoinableGameSessionVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector__removeAt")]
+	public static extern void JoinableGameSessionVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_RemoveAt")]
-	public static extern void JoinableGameSessionVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector__removeRange")]
+	public static extern void JoinableGameSessionVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_RemoveRange")]
-	public static extern void JoinableGameSessionVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Reverse")]
+	public static extern void JoinableGameSessionVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Repeat")]
-	public static extern IntPtr JoinableGameSessionVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector__reverseRange")]
+	public static extern void JoinableGameSessionVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Reverse__SWIG_0")]
-	public static extern void JoinableGameSessionVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_Reverse__SWIG_1")]
-	public static extern void JoinableGameSessionVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector_SetRange")]
-	public static extern void JoinableGameSessionVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_JoinableGameSessionVector__setRange")]
+	public static extern void JoinableGameSessionVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_JoinableGameSessionVector")]
 	public static extern void delete_JoinableGameSessionVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionVector__SWIG_0")]
+	public static extern IntPtr new_GameSessionVector__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionVector__SWIG_1")]
+	public static extern IntPtr new_GameSessionVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Clear")]
 	public static extern void GameSessionVector_Clear(HandleRef jarg1);
@@ -18317,17 +19169,14 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_size")]
 	public static extern uint GameSessionVector_size(HandleRef jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_empty")]
+	public static extern bool GameSessionVector_empty(HandleRef jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_capacity")]
 	public static extern uint GameSessionVector_capacity(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_reserve")]
 	public static extern void GameSessionVector_reserve(HandleRef jarg1, uint jarg2);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionVector__SWIG_0")]
-	public static extern IntPtr new_GameSessionVector__SWIG_0();
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionVector__SWIG_1")]
-	public static extern IntPtr new_GameSessionVector__SWIG_1(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_new_GameSessionVector__SWIG_2")]
 	public static extern IntPtr new_GameSessionVector__SWIG_2(int jarg1);
@@ -18344,77 +19193,176 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_AddRange")]
 	public static extern void GameSessionVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_GetRange")]
-	public static extern IntPtr GameSessionVector_GetRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector__insert")]
+	public static extern void GameSessionVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Insert")]
-	public static extern void GameSessionVector_Insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector__insertRange")]
+	public static extern void GameSessionVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_InsertRange")]
-	public static extern void GameSessionVector_InsertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector__removeAt")]
+	public static extern void GameSessionVector__removeAt(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_RemoveAt")]
-	public static extern void GameSessionVector_RemoveAt(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector__removeRange")]
+	public static extern void GameSessionVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_RemoveRange")]
-	public static extern void GameSessionVector_RemoveRange(HandleRef jarg1, int jarg2, int jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Reverse")]
+	public static extern void GameSessionVector_Reverse(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Repeat")]
-	public static extern IntPtr GameSessionVector_Repeat(HandleRef jarg1, int jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector__reverseRange")]
+	public static extern void GameSessionVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Reverse__SWIG_0")]
-	public static extern void GameSessionVector_Reverse__SWIG_0(HandleRef jarg1);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_Reverse__SWIG_1")]
-	public static extern void GameSessionVector_Reverse__SWIG_1(HandleRef jarg1, int jarg2, int jarg3);
-
-	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector_SetRange")]
-	public static extern void GameSessionVector_SetRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GameSessionVector__setRange")]
+	public static extern void GameSessionVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_GameSessionVector")]
 	public static extern void delete_GameSessionVector(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringStringMap__SWIG_0")]
-	public static extern IntPtr new_StringStringMap__SWIG_0();
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingPlayerVector__SWIG_0")]
+	public static extern IntPtr new_MatchmakingPlayerVector__SWIG_0();
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_new_StringStringMap__SWIG_1")]
-	public static extern IntPtr new_StringStringMap__SWIG_1(HandleRef jarg1);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingPlayerVector__SWIG_1")]
+	public static extern IntPtr new_MatchmakingPlayerVector__SWIG_1(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_size")]
-	public static extern uint StringStringMap_size(HandleRef jarg1);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_Clear")]
+	public static extern void MatchmakingPlayerVector_Clear(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_empty")]
-	public static extern bool StringStringMap_empty(HandleRef jarg1);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_Add")]
+	public static extern void MatchmakingPlayerVector_Add(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_Clear")]
-	public static extern void StringStringMap_Clear(HandleRef jarg1);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_size")]
+	public static extern uint MatchmakingPlayerVector_size(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_getitem")]
-	public static extern string StringStringMap_getitem(HandleRef jarg1, string jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_empty")]
+	public static extern bool MatchmakingPlayerVector_empty(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_setitem")]
-	public static extern void StringStringMap_setitem(HandleRef jarg1, string jarg2, string jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_capacity")]
+	public static extern uint MatchmakingPlayerVector_capacity(HandleRef jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_ContainsKey")]
-	public static extern bool StringStringMap_ContainsKey(HandleRef jarg1, string jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_reserve")]
+	public static extern void MatchmakingPlayerVector_reserve(HandleRef jarg1, uint jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_Add")]
-	public static extern void StringStringMap_Add(HandleRef jarg1, string jarg2, string jarg3);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingPlayerVector__SWIG_2")]
+	public static extern IntPtr new_MatchmakingPlayerVector__SWIG_2(int jarg1);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_Remove")]
-	public static extern bool StringStringMap_Remove(HandleRef jarg1, string jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_getitemcopy")]
+	public static extern IntPtr MatchmakingPlayerVector_getitemcopy(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_create_iterator_begin")]
-	public static extern IntPtr StringStringMap_create_iterator_begin(HandleRef jarg1);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_getitem")]
+	public static extern IntPtr MatchmakingPlayerVector_getitem(HandleRef jarg1, int jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_get_next_key")]
-	public static extern string StringStringMap_get_next_key(HandleRef jarg1, IntPtr jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_setitem")]
+	public static extern void MatchmakingPlayerVector_setitem(HandleRef jarg1, int jarg2, HandleRef jarg3);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_StringStringMap_destroy_iterator")]
-	public static extern void StringStringMap_destroy_iterator(HandleRef jarg1, IntPtr jarg2);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_AddRange")]
+	public static extern void MatchmakingPlayerVector_AddRange(HandleRef jarg1, HandleRef jarg2);
 
-	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_StringStringMap")]
-	public static extern void delete_StringStringMap(HandleRef jarg1);
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector__insert")]
+	public static extern void MatchmakingPlayerVector__insert(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector__insertRange")]
+	public static extern void MatchmakingPlayerVector__insertRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector__removeAt")]
+	public static extern void MatchmakingPlayerVector__removeAt(HandleRef jarg1, int jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector__removeRange")]
+	public static extern void MatchmakingPlayerVector__removeRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector_Reverse")]
+	public static extern void MatchmakingPlayerVector_Reverse(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector__reverseRange")]
+	public static extern void MatchmakingPlayerVector__reverseRange(HandleRef jarg1, int jarg2, int jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingPlayerVector__setRange")]
+	public static extern void MatchmakingPlayerVector__setRange(HandleRef jarg1, int jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MatchmakingPlayerVector")]
+	public static extern void delete_MatchmakingPlayerVector(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchedPlayerSessionMap__SWIG_0")]
+	public static extern IntPtr new_MatchedPlayerSessionMap__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchedPlayerSessionMap__SWIG_1")]
+	public static extern IntPtr new_MatchedPlayerSessionMap__SWIG_1(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_size")]
+	public static extern uint MatchedPlayerSessionMap_size(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_empty")]
+	public static extern bool MatchedPlayerSessionMap_empty(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_Clear")]
+	public static extern void MatchedPlayerSessionMap_Clear(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_getitem")]
+	public static extern IntPtr MatchedPlayerSessionMap_getitem(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_setitem")]
+	public static extern void MatchedPlayerSessionMap_setitem(HandleRef jarg1, string jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_ContainsKey")]
+	public static extern bool MatchedPlayerSessionMap_ContainsKey(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_Add")]
+	public static extern void MatchedPlayerSessionMap_Add(HandleRef jarg1, string jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_Remove")]
+	public static extern bool MatchedPlayerSessionMap_Remove(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_create_iterator_begin")]
+	public static extern IntPtr MatchedPlayerSessionMap_create_iterator_begin(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_get_next_key")]
+	public static extern string MatchedPlayerSessionMap_get_next_key(HandleRef jarg1, IntPtr jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchedPlayerSessionMap_destroy_iterator")]
+	public static extern void MatchedPlayerSessionMap_destroy_iterator(HandleRef jarg1, IntPtr jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MatchedPlayerSessionMap")]
+	public static extern void delete_MatchedPlayerSessionMap(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingTicketPlayerMap__SWIG_0")]
+	public static extern IntPtr new_MatchmakingTicketPlayerMap__SWIG_0();
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_new_MatchmakingTicketPlayerMap__SWIG_1")]
+	public static extern IntPtr new_MatchmakingTicketPlayerMap__SWIG_1(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_size")]
+	public static extern uint MatchmakingTicketPlayerMap_size(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_empty")]
+	public static extern bool MatchmakingTicketPlayerMap_empty(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_Clear")]
+	public static extern void MatchmakingTicketPlayerMap_Clear(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_getitem")]
+	public static extern IntPtr MatchmakingTicketPlayerMap_getitem(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_setitem")]
+	public static extern void MatchmakingTicketPlayerMap_setitem(HandleRef jarg1, string jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_ContainsKey")]
+	public static extern bool MatchmakingTicketPlayerMap_ContainsKey(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_Add")]
+	public static extern void MatchmakingTicketPlayerMap_Add(HandleRef jarg1, string jarg2, HandleRef jarg3);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_Remove")]
+	public static extern bool MatchmakingTicketPlayerMap_Remove(HandleRef jarg1, string jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_create_iterator_begin")]
+	public static extern IntPtr MatchmakingTicketPlayerMap_create_iterator_begin(HandleRef jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_get_next_key")]
+	public static extern string MatchmakingTicketPlayerMap_get_next_key(HandleRef jarg1, IntPtr jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingTicketPlayerMap_destroy_iterator")]
+	public static extern void MatchmakingTicketPlayerMap_destroy_iterator(HandleRef jarg1, IntPtr jarg2);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_delete_MatchmakingTicketPlayerMap")]
+	public static extern void delete_MatchmakingTicketPlayerMap(HandleRef jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientAuthenticationFailedError_SWIGUpcast")]
 	public static extern IntPtr ClientAuthenticationFailedError_SWIGUpcast(IntPtr jarg1);
@@ -18584,6 +19532,30 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamSubPurchaseError_SWIGUpcast")]
 	public static extern IntPtr FinalizeSteamSubPurchaseError_SWIGUpcast(IntPtr jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseError_SWIGUpcast")]
+	public static extern IntPtr FinalizeGooglePurchaseError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingFailedError_SWIGUpcast")]
+	public static extern IntPtr StartMatchmakingFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusFailedError_SWIGUpcast")]
+	public static extern IntPtr GetMatchmakingStatusFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingFailedError_SWIGUpcast")]
+	public static extern IntPtr StopMatchmakingFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillFailedError_SWIGUpcast")]
+	public static extern IntPtr StartMatchBackfillFailedError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseError_SWIGUpcast")]
+	public static extern IntPtr FinalizeApplePurchaseError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseError_SWIGUpcast")]
+	public static extern IntPtr InitSteamPurchaseError_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseError_SWIGUpcast")]
+	public static extern IntPtr FinalizeSteamPurchaseError_SWIGUpcast(IntPtr jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRequestShared_SWIGUpcast")]
 	public static extern IntPtr MothershipRequestShared_SWIGUpcast(IntPtr jarg1);
 
@@ -18655,6 +19627,12 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipGetMergedInventoryResponse_SWIGUpcast")]
 	public static extern IntPtr MothershipGetMergedInventoryResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableRequest_SWIGUpcast")]
+	public static extern IntPtr MothershipConsumeConsumableRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipConsumeConsumableResponse_SWIGUpcast")]
+	public static extern IntPtr MothershipConsumeConsumableResponse_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_CreateSharedGroupRequest_SWIGUpcast")]
 	public static extern IntPtr CreateSharedGroupRequest_SWIGUpcast(IntPtr jarg1);
@@ -18757,6 +19735,9 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_BulkGetSubscriptionsResponse_SWIGUpcast")]
 	public static extern IntPtr BulkGetSubscriptionsResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_MatchmakingConnectionInformation_SWIGUpcast")]
+	public static extern IntPtr MatchmakingConnectionInformation_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SharedGetFileByIdRequest_SWIGUpcast")]
 	public static extern IntPtr SharedGetFileByIdRequest_SWIGUpcast(IntPtr jarg1);
@@ -19607,6 +20588,45 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_MothershipRefreshIAPCompleteDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr MothershipRefreshIAPCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr FinalizeGooglePurchaseCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseRequest_SWIGUpcast")]
+	public static extern IntPtr FinalizeGooglePurchaseRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeGooglePurchaseResponse_SWIGUpcast")]
+	public static extern IntPtr FinalizeGooglePurchaseResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr FinalizeApplePurchaseCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseRequest_SWIGUpcast")]
+	public static extern IntPtr FinalizeApplePurchaseRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeApplePurchaseResponse_SWIGUpcast")]
+	public static extern IntPtr FinalizeApplePurchaseResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ClientConsumeConsumableCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr ClientConsumeConsumableCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseRequest_SWIGUpcast")]
+	public static extern IntPtr InitSteamPurchaseRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseResponse_SWIGUpcast")]
+	public static extern IntPtr InitSteamPurchaseResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_InitSteamPurchaseCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr InitSteamPurchaseCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseRequest_SWIGUpcast")]
+	public static extern IntPtr FinalizeSteamPurchaseRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseResponse_SWIGUpcast")]
+	public static extern IntPtr FinalizeSteamPurchaseResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_FinalizeSteamPurchaseCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr FinalizeSteamPurchaseCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_SetUserDataCompleteClientDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr SetUserDataCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
@@ -19663,6 +20683,12 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithAppleRequest_SWIGUpcast")]
 	public static extern IntPtr LogInWithAppleRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithPSNRequest_SWIGUpcast")]
+	public static extern IntPtr LogInWithPSNRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_LogInWithSynthesisVRRequest_SWIGUpcast")]
+	public static extern IntPtr LogInWithSynthesisVRRequest_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_PlayerQuestBeginLoginV2Request_SWIGUpcast")]
 	public static extern IntPtr PlayerQuestBeginLoginV2Request_SWIGUpcast(IntPtr jarg1);
@@ -19778,6 +20804,33 @@ internal class MothershipApiPINVOKE
 	[DllImport("MothershipApi", EntryPoint = "CSharp_RequestJoinGameSessionCompleteClientDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr RequestJoinGameSessionCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientRequest_SWIGUpcast")]
+	public static extern IntPtr StartMatchmakingClientRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingClientResponse_SWIGUpcast")]
+	public static extern IntPtr StartMatchmakingClientResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchmakingCompleteClientDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr StartMatchmakingCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientRequest_SWIGUpcast")]
+	public static extern IntPtr GetMatchmakingStatusClientRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusClientResponse_SWIGUpcast")]
+	public static extern IntPtr GetMatchmakingStatusClientResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_GetMatchmakingStatusCompleteClientDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr GetMatchmakingStatusCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingClientRequest_SWIGUpcast")]
+	public static extern IntPtr StopMatchmakingClientRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingClientResponse_SWIGUpcast")]
+	public static extern IntPtr StopMatchmakingClientResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingCompleteClientDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr StopMatchmakingCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GetFileCompleteClientDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr GetFileCompleteClientDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
@@ -19792,6 +20845,9 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GetUserInventoryCompleteServerDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr GetUserInventoryCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_ServerConsumeConsumableCompleteDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr ServerConsumeConsumableCompleteDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListMothershipTitleDataCompleteServerDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr ListMothershipTitleDataCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
@@ -19984,6 +21040,24 @@ internal class MothershipApiPINVOKE
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_ListGameSessionsCompleteServerDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr ListGameSessionsCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerRequest_SWIGUpcast")]
+	public static extern IntPtr StartMatchBackfillServerRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillServerResponse_SWIGUpcast")]
+	public static extern IntPtr StartMatchBackfillServerResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StartMatchBackfillCompleteServerDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr StartMatchBackfillCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingServerRequest_SWIGUpcast")]
+	public static extern IntPtr StopMatchmakingServerRequest_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingServerResponse_SWIGUpcast")]
+	public static extern IntPtr StopMatchmakingServerResponse_SWIGUpcast(IntPtr jarg1);
+
+	[DllImport("MothershipApi", EntryPoint = "CSharp_StopMatchmakingCompleteServerDelegateWrapper_SWIGUpcast")]
+	public static extern IntPtr StopMatchmakingCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);
 
 	[DllImport("MothershipApi", EntryPoint = "CSharp_GetFileCompleteServerDelegateWrapper_SWIGUpcast")]
 	public static extern IntPtr GetFileCompleteServerDelegateWrapper_SWIGUpcast(IntPtr jarg1);

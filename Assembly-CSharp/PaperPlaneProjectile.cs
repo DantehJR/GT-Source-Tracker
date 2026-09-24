@@ -148,11 +148,11 @@ public class PaperPlaneProjectile : MonoBehaviour
 		{
 		case TransferrableObject.SyncOptions.Bool:
 		{
-			bool num = (state & 1) != 0;
-			bool flag = (state & 2) != 0;
-			bool flag2 = (state & 4) != 0;
-			bool flag3 = (state & 8) != 0;
-			if (num)
+			bool flag = (state & 1) != 0;
+			bool flag2 = (state & 2) != 0;
+			bool flag3 = (state & 4) != 0;
+			bool flag4 = (state & 8) != 0;
+			if (flag)
 			{
 				OnItemStateBoolATrue?.Invoke();
 			}
@@ -160,7 +160,7 @@ public class PaperPlaneProjectile : MonoBehaviour
 			{
 				OnItemStateBoolAFalse?.Invoke();
 			}
-			if (flag)
+			if (flag2)
 			{
 				OnItemStateBoolBTrue?.Invoke();
 			}
@@ -168,7 +168,7 @@ public class PaperPlaneProjectile : MonoBehaviour
 			{
 				OnItemStateBoolBFalse?.Invoke();
 			}
-			if (flag2)
+			if (flag3)
 			{
 				OnItemStateBoolCTrue?.Invoke();
 			}
@@ -176,7 +176,7 @@ public class PaperPlaneProjectile : MonoBehaviour
 			{
 				OnItemStateBoolCFalse?.Invoke();
 			}
-			if (flag3)
+			if (flag4)
 			{
 				OnItemStateBoolDTrue?.Invoke();
 			}
@@ -194,7 +194,7 @@ public class PaperPlaneProjectile : MonoBehaviour
 
 	public void Launch(Vector3 startPos, Quaternion startRot, Vector3 vel)
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		ResetProjectile();
 		transform.position = startPos;
 		if (enableRotation)
@@ -219,11 +219,11 @@ public class PaperPlaneProjectile : MonoBehaviour
 			{
 				if ((bool)ObjectPools.instance)
 				{
-					ObjectPools.instance.Destroy(base.gameObject);
+					ObjectPools.instance.Destroy(gameObject);
 				}
 				else
 				{
-					base.gameObject.SetActive(value: false);
+					gameObject.SetActive(value: false);
 				}
 			}
 			return;
@@ -249,8 +249,8 @@ public class PaperPlaneProjectile : MonoBehaviour
 		}
 		_stopped = true;
 		_timeElapsed = 0f;
-		this.OnHit?.Invoke(nextPos);
-		this.OnHit = null;
+		OnHit?.Invoke(nextPos);
+		OnHit = null;
 		flyingObject.SetActive(value: false);
 		crashingObject.SetActive(value: true);
 	}

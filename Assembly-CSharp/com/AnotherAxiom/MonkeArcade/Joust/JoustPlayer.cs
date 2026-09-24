@@ -35,23 +35,23 @@ public class JoustPlayer : MonoBehaviour
 		else
 		{
 			velocity.y = Mathf.Max(velocity.y - Time.deltaTime * 0.0001f, -0.001f);
-			for (int i = 0; i < Physics2D.RaycastNonAlloc(base.transform.position, velocity.normalized, raycastHitResults, velocity.magnitude); i++)
+			for (int i = 0; i < Physics2D.RaycastNonAlloc(transform.position, velocity.normalized, raycastHitResults, velocity.magnitude); i++)
 			{
 				if (raycastHitResults[i].collider.TryGetComponent<JoustTerrain>(out var component))
 				{
 					velocity.y = 0f;
-					if (component.transform.localPosition.y < base.transform.localPosition.y)
+					if (component.transform.localPosition.y < transform.localPosition.y)
 					{
-						base.transform.localPosition = new Vector2(base.transform.localPosition.x, component.transform.localPosition.y + raycastHitResults[i].collider.bounds.size.y);
+						transform.localPosition = new Vector2(transform.localPosition.x, component.transform.localPosition.y + raycastHitResults[i].collider.bounds.size.y);
 					}
 					break;
 				}
 			}
 		}
-		base.transform.Translate(velocity);
-		if ((double)Mathf.Abs(base.transform.localPosition.x) > 4.5)
+		transform.Translate(velocity);
+		if ((double)Mathf.Abs(transform.localPosition.x) > 4.5)
 		{
-			base.transform.localPosition = new Vector3(base.transform.localPosition.x * -0.95f, base.transform.localPosition.y);
+			transform.localPosition = new Vector3(transform.localPosition.x * -0.95f, transform.localPosition.y);
 		}
 	}
 

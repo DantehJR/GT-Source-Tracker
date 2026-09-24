@@ -24,10 +24,10 @@ public class ChestObjectHysteresis : MonoBehaviour, ISpawnable
 
 	void ISpawnable.OnSpawn(VRRig rig)
 	{
-		if (!angleFollower && (string.IsNullOrEmpty(angleFollower_path) || base.transform.TryFindByPath(angleFollower_path, out angleFollower)))
+		if (!angleFollower && (string.IsNullOrEmpty(angleFollower_path) || transform.TryFindByPath(angleFollower_path, out angleFollower)))
 		{
 			Debug.LogError("ChestObjectHysteresis: DEACTIVATING! Could not find `angleFollower` using path: \"" + angleFollower_path + "\". For component at: \"" + this.GetComponentPath() + "\"", this);
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -37,8 +37,8 @@ public class ChestObjectHysteresis : MonoBehaviour, ISpawnable
 
 	private void Start()
 	{
-		lastAngleQuat = base.transform.rotation;
-		currentAngleQuat = base.transform.rotation;
+		lastAngleQuat = transform.rotation;
+		currentAngleQuat = transform.rotation;
 	}
 
 	private void OnEnable()
@@ -57,9 +57,9 @@ public class ChestObjectHysteresis : MonoBehaviour, ISpawnable
 		angleBetween = Quaternion.Angle(currentAngleQuat, lastAngleQuat);
 		if (angleBetween > angleHysteresis)
 		{
-			base.transform.rotation = Quaternion.Slerp(currentAngleQuat, lastAngleQuat, angleHysteresis / angleBetween);
-			lastAngleQuat = base.transform.rotation;
+			transform.rotation = Quaternion.Slerp(currentAngleQuat, lastAngleQuat, angleHysteresis / angleBetween);
+			lastAngleQuat = transform.rotation;
 		}
-		base.transform.rotation = lastAngleQuat;
+		transform.rotation = lastAngleQuat;
 	}
 }

@@ -93,14 +93,14 @@ public class BalloonDynamics : MonoBehaviour, ITetheredObjectBehavior
 	private void ApplyBouyancyForce()
 	{
 		float num = bouyancyActualHeight + Mathf.Sin(Time.time) * varianceMaxheight;
-		float num2 = (num - base.transform.position.y) / num;
+		float num2 = (num - transform.position.y) / num;
 		float y = bouyancyForce * num2 * balloonScale;
 		rb.AddForce(new Vector3(0f, y, 0f) * rb.mass, ForceMode.Force);
 	}
 
 	private void ApplyUpRightForce()
 	{
-		Vector3 torque = Vector3.Cross(base.transform.up, Vector3.up) * upRightTorque * balloonScale;
+		Vector3 torque = Vector3.Cross(transform.up, Vector3.up) * upRightTorque * balloonScale;
 		rb.AddTorque(torque);
 	}
 
@@ -117,7 +117,7 @@ public class BalloonDynamics : MonoBehaviour, ITetheredObjectBehavior
 
 	private void ApplyDistanceConstraint()
 	{
-		_ = knot.transform.position - base.transform.position;
+		_ = knot.transform.position - transform.position;
 		Vector3 vector = grabPt.transform.position - knot.transform.position;
 		Vector3 normalized = vector.normalized;
 		float magnitude = vector.magnitude;
@@ -139,7 +139,7 @@ public class BalloonDynamics : MonoBehaviour, ITetheredObjectBehavior
 
 	public void EnableDynamics(bool enable, bool collider, bool kinematic)
 	{
-		bool flag = !enableDynamics && enable;
+		bool flag = !enableDynamics & enable;
 		enableDynamics = enable;
 		if ((bool)balloonCollider)
 		{
@@ -148,7 +148,7 @@ public class BalloonDynamics : MonoBehaviour, ITetheredObjectBehavior
 		if (rb != null)
 		{
 			rb.isKinematic = kinematic;
-			if (!kinematic && flag)
+			if (!kinematic & flag)
 			{
 				rb.linearVelocity = Vector3.zero;
 				rb.angularVelocity = Vector3.zero;
@@ -190,7 +190,7 @@ public class BalloonDynamics : MonoBehaviour, ITetheredObjectBehavior
 
 	bool ITetheredObjectBehavior.IsEnabled()
 	{
-		return base.enabled;
+		return enabled;
 	}
 
 	void ITetheredObjectBehavior.TriggerEnter(Collider other, ref Vector3 force, ref Vector3 collisionPt, ref bool transferOwnership)
@@ -210,7 +210,7 @@ public class BalloonDynamics : MonoBehaviour, ITetheredObjectBehavior
 			{
 				force = force.normalized * bopSpeedCap;
 			}
-			collisionPt = other.ClosestPointOnBounds(base.transform.position);
+			collisionPt = other.ClosestPointOnBounds(transform.position);
 			rb.AddForceAtPosition(force * rb.mass, collisionPt, ForceMode.Impulse);
 			if (balloonBopSource != null)
 			{

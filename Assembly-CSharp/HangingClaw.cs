@@ -43,7 +43,7 @@ public class HangingClaw : MonoBehaviourPostTick
 	protected void Awake()
 	{
 		lineRenderer = GetComponent<LineRenderer>();
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		segmentCount = 4;
 		float magnitude = (endTransform.position - position).magnitude;
 		segmentCount = Mathf.Max(2, segmentCount);
@@ -79,7 +79,7 @@ public class HangingClaw : MonoBehaviourPostTick
 		float num2 = 0.01111f;
 		float f = Time.time * 0.5f;
 		Vector3 vector = gravity * num2 * num2;
-		Vector3 topPos = base.transform.position + new Vector3(0f, 0.012f * Mathf.Sin(f), 0.02f * Mathf.Cos(f));
+		Vector3 topPos = transform.position + new Vector3(0f, 0.012f * Mathf.Sin(f), 0.02f * Mathf.Cos(f));
 		for (int i = 1; i < segmentCount; i++)
 		{
 			Vector3 vector2 = ropeSegs[i].pos - ropeSegs[i].posOld;

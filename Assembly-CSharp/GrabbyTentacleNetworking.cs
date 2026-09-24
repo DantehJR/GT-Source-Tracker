@@ -15,7 +15,7 @@ public class GrabbyTentacleNetworking : MonoBehaviourPunCallbacks
 	{
 		if (Instance != null && Instance != this)
 		{
-			Debug.LogWarning("[GrabbyTentacleNetworking] duplicate instance on " + base.name);
+			Debug.LogWarning("[GrabbyTentacleNetworking] duplicate instance on " + name);
 			return;
 		}
 		Instance = this;

@@ -474,7 +474,17 @@ public class SITechTreeStation : MonoBehaviour, ITouchScreenStation
 	public void SetScreenVisibility(TechTreeStationTerminalState currentState, TechTreeStationTerminalState lastState)
 	{
 		bool flag = IsPopupState(currentState);
-		background.color = ((currentState == TechTreeStationTerminalState.WaitingForScan) ? Color.white : ((ActivePlayer != null && ActivePlayer.gamePlayer.IsLocal()) ? active : notActive));
+		Image image = background;
+		Color color;
+		if (currentState != TechTreeStationTerminalState.WaitingForScan)
+		{
+			color = ((ActivePlayer != null && ActivePlayer.gamePlayer.IsLocal()) ? active : notActive);
+		}
+		else
+		{
+			color = Color.white;
+		}
+		image.color = color;
 		foreach (TechTreeStationTerminalState key in screenData.Keys)
 		{
 			if (key == TechTreeStationTerminalState.TechTreePagesList)

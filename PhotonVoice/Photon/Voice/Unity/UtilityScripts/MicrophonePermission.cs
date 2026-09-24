@@ -21,8 +21,8 @@ public class MicrophonePermission : VoiceComponent
 		}
 		private set
 		{
-			base.Logger.LogInfo("Microphone Permission Granted: {0}", value);
-			MicrophonePermission.MicrophonePermissionCallback?.Invoke(value);
+			Logger.LogInfo("Microphone Permission Granted: {0}", value);
+			MicrophonePermissionCallback?.Invoke(value);
 			if (hasPermission != value)
 			{
 				hasPermission = value;

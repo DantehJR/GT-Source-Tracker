@@ -125,7 +125,7 @@ public class FriendCard : MonoBehaviour
 			_buttonState = newState;
 			MeshRenderer buttonRenderer = _button.buttonRenderer;
 			FriendDisplay.ButtonState buttonState = _buttonState;
-			Material[] sharedMaterials = default(Material[]);
+			Material[] sharedMaterials = default;
 			switch (buttonState)
 			{
 			case FriendDisplay.ButtonState.Default:
@@ -138,7 +138,7 @@ public class FriendCard : MonoBehaviour
 				sharedMaterials = _buttonAlertMaterials;
 				break;
 			default:
-				global::_003CPrivateImplementationDetails_003E.ThrowSwitchExpressionException(buttonState);
+				_003CPrivateImplementationDetails_003E.ThrowSwitchExpressionException(buttonState);
 				break;
 			}
 			buttonRenderer.sharedMaterials = sharedMaterials;
@@ -166,7 +166,7 @@ public class FriendCard : MonoBehaviour
 				bool flag2 = friend.Presence.RoomId[0] == '@';
 				bool flag3 = friend.Presence.RoomId.Equals(NetworkSystem.Instance.RoomName);
 				bool flag4 = false;
-				if (!flag3 && flag && !friend.Presence.Zone.IsNullOrEmpty())
+				if ((!flag3 & flag) && !friend.Presence.Zone.IsNullOrEmpty())
 				{
 					string text = friend.Presence.Zone.ToLower();
 					foreach (GTZone activeZone in ZoneManagement.instance.activeZones)
@@ -177,7 +177,7 @@ public class FriendCard : MonoBehaviour
 						}
 					}
 				}
-				joinable = !flag2 && !flag3 && (!flag || flag4) && HasKIDPermissionToJoinPrivateRooms();
+				joinable = !flag2 && !flag3 && (!flag | flag4) && HasKIDPermissionToJoinPrivateRooms();
 				if (flag2)
 				{
 					SetRoom(friend.Presence.RoomId.Substring(1).ToUpper());
@@ -286,14 +286,14 @@ public class FriendCard : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		float num = width * 0.5f * base.transform.lossyScale.x;
-		float num2 = Height * 0.5f * base.transform.lossyScale.y;
+		float num = width * 0.5f * transform.lossyScale.x;
+		float num2 = Height * 0.5f * transform.lossyScale.y;
 		float num3 = num;
 		float num4 = num2;
-		Vector3 vector = base.transform.position + base.transform.rotation * new Vector3(0f - num3, num4, 0f);
-		Vector3 vector2 = base.transform.position + base.transform.rotation * new Vector3(num3, num4, 0f);
-		Vector3 vector3 = base.transform.position + base.transform.rotation * new Vector3(0f - num3, 0f - num4, 0f);
-		Vector3 vector4 = base.transform.position + base.transform.rotation * new Vector3(num3, 0f - num4, 0f);
+		Vector3 vector = transform.position + transform.rotation * new Vector3(0f - num3, num4, 0f);
+		Vector3 vector2 = transform.position + transform.rotation * new Vector3(num3, num4, 0f);
+		Vector3 vector3 = transform.position + transform.rotation * new Vector3(0f - num3, 0f - num4, 0f);
+		Vector3 vector4 = transform.position + transform.rotation * new Vector3(num3, 0f - num4, 0f);
 		Gizmos.color = Color.white;
 		Gizmos.DrawLine(vector, vector2);
 		Gizmos.DrawLine(vector2, vector4);

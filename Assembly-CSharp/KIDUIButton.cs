@@ -104,6 +104,8 @@ public class KIDUIButton : Button, IPointerEnterHandler, IEventSystemHandler, IP
 	[SerializeField]
 	private UXSettings _cbUXSettings;
 
+	private ControllerBehaviour controllerBehaviour;
+
 	private bool inside;
 
 	private static bool _triggeredThisFrame = false;
@@ -127,11 +129,11 @@ public class KIDUIButton : Button, IPointerEnterHandler, IEventSystemHandler, IP
 		{
 			_canTrigger = !ControllerBehaviour.Instance.TriggerDown;
 		}
-		if (base.interactable && inside && _canTrigger && (bool)ControllerBehaviour.Instance && ControllerBehaviour.Instance.TriggerDown && !_triggeredThisFrame)
+		if (interactable && inside && _canTrigger && (bool)ControllerBehaviour.Instance && ControllerBehaviour.Instance.TriggerDown && !_triggeredThisFrame)
 		{
-			string text = "[" + base.transform.parent.parent.parent.name + "." + base.transform.parent.parent.name + "." + base.transform.parent.name + "." + base.transform.name + "]";
+			string text = "[" + transform.parent.parent.parent.name + "." + transform.parent.parent.name + "." + transform.parent.name + "." + transform.name + "]";
 			Debug.Log("[KID::UIBUTTON::DEBUG] " + text + " - STEAM - OnClick is pressed. Time: [" + Time.time + "]", this);
-			base.onClick?.Invoke();
+			onClick?.Invoke();
 			_triggeredThisFrame = true;
 			_canTrigger = false;
 		}
@@ -141,7 +143,7 @@ public class KIDUIButton : Button, IPointerEnterHandler, IEventSystemHandler, IP
 	{
 		if (_triggeredThisFrame)
 		{
-			string text = "[" + base.transform.parent.parent.parent.name + "." + base.transform.parent.parent.name + "." + base.transform.parent.name + "." + base.transform.name + "]";
+			string text = "[" + transform.parent.parent.parent.name + "." + transform.parent.parent.name + "." + transform.parent.name + "." + transform.name + "]";
 			Debug.Log("[KID::UIBUTTON::DEBUG] " + text + " - STEAM - OnLateUpdate triggered and Triggered Frame Reset. Time: [" + Time.time + "]", this);
 		}
 		_triggeredThisFrame = false;
@@ -162,7 +164,7 @@ public class KIDUIButton : Button, IPointerEnterHandler, IEventSystemHandler, IP
 	protected override void OnDisable()
 	{
 		FixStuckPressedState();
-		if ((bool)ControllerBehaviour.Instance)
+		if ((bool)controllerBehaviour)
 		{
 			ControllerBehaviour.Instance.OnAction -= PostUpdate;
 		}
@@ -171,7 +173,7 @@ public class KIDUIButton : Button, IPointerEnterHandler, IEventSystemHandler, IP
 	private void FixStuckPressedState()
 	{
 		InstantClearState();
-		_buttonText.color = (base.interactable ? _normalTextColor : _disabledTextColor);
+		_buttonText.color = (interactable ? _normalTextColor : _disabledTextColor);
 		inside = false;
 		_triggeredThisFrame = false;
 	}

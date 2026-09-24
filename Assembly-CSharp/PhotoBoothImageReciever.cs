@@ -11,8 +11,8 @@ public class PhotoBoothImageReciever : MonoBehaviour
 
 	private void OnEnable()
 	{
-		PhotoBoothCamera obj = photoBoothCamera;
-		obj.OnCapture = (Action<Texture, int>)Delegate.Combine(obj.OnCapture, new Action<Texture, int>(photoBoothCamera_OnCapture));
+		PhotoBoothCamera photoBoothCamera = this.photoBoothCamera;
+		photoBoothCamera.OnCapture = (Action<Texture, int>)Delegate.Combine(photoBoothCamera.OnCapture, new Action<Texture, int>(photoBoothCamera_OnCapture));
 	}
 
 	private void photoBoothCamera_OnCapture(Texture texture, int i)
@@ -25,7 +25,7 @@ public class PhotoBoothImageReciever : MonoBehaviour
 
 	private void OnDisable()
 	{
-		PhotoBoothCamera obj = photoBoothCamera;
-		obj.OnCapture = (Action<Texture, int>)Delegate.Remove(obj.OnCapture, new Action<Texture, int>(photoBoothCamera_OnCapture));
+		PhotoBoothCamera photoBoothCamera = this.photoBoothCamera;
+		photoBoothCamera.OnCapture = (Action<Texture, int>)Delegate.Remove(photoBoothCamera.OnCapture, new Action<Texture, int>(photoBoothCamera_OnCapture));
 	}
 }

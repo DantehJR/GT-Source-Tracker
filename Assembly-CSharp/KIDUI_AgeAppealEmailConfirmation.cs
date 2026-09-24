@@ -51,7 +51,7 @@ public class KIDUI_AgeAppealEmailConfirmation : MonoBehaviour
 		newAgeToAppeal = newAge;
 		_confirmText.text = (this.hasChallenge ? CONFIRM_PARENT_EMAIL : CONFIRM_YOUR_EMAIL);
 		_emailText.text = emailToConfirm;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnConfirmPressed()
@@ -106,7 +106,7 @@ public class KIDUI_AgeAppealEmailConfirmation : MonoBehaviour
 			}
 		};
 		GorillaTelemetry.EnqueueTelemetryEvent(telemetryData.EventName, telemetryData.BodyData, telemetryData.CustomTags);
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_ageAppealEmailScreen.ShowAgeAppealEmailScreen(hasChallenge, newAgeToAppeal);
 	}
 
@@ -125,11 +125,11 @@ public class KIDUI_AgeAppealEmailConfirmation : MonoBehaviour
 		}
 		if (!result.success)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		Debug.Log("[KID::UI::APPEAL_AGE_EMAIL] Minimum duration passed, result is successful. Proceeding to Success screen");
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_successScreen.ShowSuccessScreenAppeal(_emailText.text);
 	}
 
@@ -137,13 +137,13 @@ public class KIDUI_AgeAppealEmailConfirmation : MonoBehaviour
 	{
 		if (!(await KIDManager.TryAppealAge(_emailText.text, newAgeToAppeal)))
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			_errorScreen.ShowAgeAppealEmailErrorScreen(hasChallenge, newAgeToAppeal, _emailText.text);
 		}
 		else
 		{
 			Debug.Log("[KID::UI::APPEAL_AGE_EMAIL] Age appeal succesful for [" + _emailText.text + "]. Proceeding tu Success screen");
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			_successScreen.ShowSuccessScreenAppeal(_emailText.text);
 		}
 	}
@@ -158,7 +158,7 @@ public class KIDUI_AgeAppealEmailConfirmation : MonoBehaviour
 		_hasCompletedSendEmailRequest = true;
 		if (success)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			_successScreen.ShowSuccessScreenAppeal(_emailText.text);
 		}
 	}
@@ -166,7 +166,7 @@ public class KIDUI_AgeAppealEmailConfirmation : MonoBehaviour
 	private void ShowErrorScreen()
 	{
 		Debug.LogErrorFormat("[KID::UI::Setup] K-ID Confirmation Failed - Failed to send email");
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_errorScreen.ShowAgeAppealEmailErrorScreen(hasChallenge, newAgeToAppeal, _emailText.text);
 	}
 }

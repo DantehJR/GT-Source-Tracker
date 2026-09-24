@@ -27,10 +27,10 @@ public class GRHazardTower : MonoBehaviour, IGameEntityComponent, IGameProjectil
 
 	public void OnEntityInit()
 	{
-		gameEntity.MinTimeBetweenTicks = 0.5f;
-		GameEntity obj = gameEntity;
-		obj.OnTick = (Action)Delegate.Combine(obj.OnTick, new Action(OnThink));
-		senseNearby.Setup(fireFrom, gameEntity);
+		this.gameEntity.MinTimeBetweenTicks = 0.5f;
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnTick = (Action)Delegate.Combine(gameEntity.OnTick, new Action(OnThink));
+		senseNearby.Setup(fireFrom, this.gameEntity);
 	}
 
 	public void OnEntityDestroy()
@@ -54,8 +54,7 @@ public class GRHazardTower : MonoBehaviour, IGameEntityComponent, IGameProjectil
 			tempRigs.Add(VRRig.LocalRig);
 			VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 			senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-			float outDistanceSq;
-			VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+			VRRig vRRig = senseNearby.PickClosest(out var _);
 			if (!(vRRig == null))
 			{
 				Vector3 position = vRRig.transform.position;

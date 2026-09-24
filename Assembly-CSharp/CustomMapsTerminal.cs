@@ -75,6 +75,8 @@ public class CustomMapsTerminal : MonoBehaviour
 
 	public static int CurrentScreen => (int)localCurrentScreen;
 
+	public static ScreenType PreviousScreen => previousScreen;
+
 	public static bool IsDriver => localDriverID == LocalPlayerID;
 
 	private void Awake()
@@ -501,7 +503,7 @@ public class CustomMapsTerminal : MonoBehaviour
 		{
 			NetPlayer netPlayerByID = NetworkSystem.Instance.GetNetPlayerByID(localDriverID);
 			instance.terminalControllerText.text = netPlayerByID.DefaultName;
-			if (GorillaComputer.instance.NametagsEnabled && flag)
+			if (GorillaComputer.instance.NametagsEnabled & flag)
 			{
 				RigContainer playerRig;
 				if (netPlayerByID.IsLocal)
@@ -516,7 +518,7 @@ public class CustomMapsTerminal : MonoBehaviour
 		}
 		else
 		{
-			instance.terminalControllerText.text = ((GorillaComputer.instance.NametagsEnabled && flag) ? NetworkSystem.Instance.LocalPlayer.NickName : NetworkSystem.Instance.LocalPlayer.DefaultName);
+			instance.terminalControllerText.text = ((GorillaComputer.instance.NametagsEnabled & flag) ? NetworkSystem.Instance.LocalPlayer.NickName : NetworkSystem.Instance.LocalPlayer.DefaultName);
 		}
 		instance.terminalControllerText.gameObject.SetActive(value: true);
 		instance.modListScreen.RefreshDriverNickname(instance.terminalControllerText.text);

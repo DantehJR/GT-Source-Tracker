@@ -350,7 +350,17 @@ public class SIResourceCollection : MonoBehaviour, ITouchScreenStation
 	public void SetScreenVisibility(ResourceCollectorTerminalState currentState, ResourceCollectorTerminalState lastState)
 	{
 		bool flag = IsPopupState(currentState);
-		background.color = ((currentState == ResourceCollectorTerminalState.WaitingForScan) ? Color.white : ((ActivePlayer != null && ActivePlayer.gamePlayer.IsLocal()) ? active : notActive));
+		Image image = background;
+		Color color;
+		if (currentState != ResourceCollectorTerminalState.WaitingForScan)
+		{
+			color = ((ActivePlayer != null && ActivePlayer.gamePlayer.IsLocal()) ? active : notActive);
+		}
+		else
+		{
+			color = Color.white;
+		}
+		image.color = color;
 		foreach (ResourceCollectorTerminalState key in screenData.Keys)
 		{
 			bool flag2 = key == currentState || (flag && key == lastState);
@@ -387,12 +397,12 @@ public class SIResourceCollection : MonoBehaviour, ITouchScreenStation
 			bool flag2 = SIProgression.ResourcesMaxed();
 			if (flag && !flag2)
 			{
-				ProgressionManager.Instance.PurchaseResources(delegate
+				ProgressionManager.Instance.PurchaseResources((ProgressionManager.UserInventory userInventoryResponse) =>
 				{
 					SIProgression.Instance.SendPurchaseResourcesData();
 					ProgressionManager.Instance.RefreshUserInventory();
 					TouchscreenButtonPressed(SITouchscreenButton.SITouchscreenButtonType.Collect, -1, SIPlayer.LocalPlayer.ActorNr);
-				}, delegate(string error)
+				}, (string error) =>
 				{
 					FailReason data2 = ((!(error == "Not enough Shiny Rocks to complete this purchase")) ? ((error == "already maxed resources") ? FailReason.ResourcesFull : FailReason.Unknown) : FailReason.NotEnoughRocks);
 					TouchscreenButtonPressed(SITouchscreenButton.SITouchscreenButtonType.OverrideFailure, (int)data2, SIPlayer.LocalPlayer.ActorNr);

@@ -14,7 +14,7 @@ public class EarlyAccessButton : GorillaPressableButton
 	{
 		if (NetworkSystem.Instance != null && NetworkSystem.Instance.WrongVersion)
 		{
-			base.enabled = false;
+			enabled = false;
 			GetComponent<BoxCollider>().enabled = false;
 			buttonRenderer.material = pressedMaterial;
 			myText.text = "UNAVAILABLE";
@@ -30,7 +30,7 @@ public class EarlyAccessButton : GorillaPressableButton
 
 	public void AlreadyOwn()
 	{
-		base.enabled = false;
+		enabled = false;
 		GetComponent<BoxCollider>().enabled = false;
 		buttonRenderer.material = pressedMaterial;
 		myText.text = "YOU OWN THE BUNDLE ALREADY! THANK YOU!";

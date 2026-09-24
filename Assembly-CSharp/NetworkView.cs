@@ -134,7 +134,7 @@ public class NetworkView : NetworkBehaviour, IStateAuthorityChanged, IPublicFaci
 	{
 		if (_sceneObject)
 		{
-			NetworkSystem.Instance.RegisterSceneNetworkItem(base.gameObject);
+			NetworkSystem.Instance.RegisterSceneNetworkItem(gameObject);
 		}
 	}
 
@@ -172,7 +172,7 @@ public class NetworkView : NetworkBehaviour, IStateAuthorityChanged, IPublicFaci
 	public void ReleaseOwnership()
 	{
 		changingStatAuth = true;
-		base.Object.ReleaseStateAuthority();
+		Object.ReleaseStateAuthority();
 	}
 
 	public virtual void StateAuthorityChanged()

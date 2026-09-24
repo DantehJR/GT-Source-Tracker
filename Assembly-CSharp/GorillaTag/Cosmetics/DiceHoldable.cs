@@ -18,8 +18,20 @@ public class DiceHoldable : TransferrableObject
 		base.OnEnable();
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((base.myOnlineRig != null) ? base.myOnlineRig.creator : ((!(base.myRig != null)) ? null : ((base.myRig.creator != null) ? base.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (myOnlineRig != null)
+			{
+				netPlayer = myOnlineRig.creator;
+			}
+			else if (myRig != null)
+			{
+				netPlayer = ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);
@@ -53,8 +65,8 @@ public class DiceHoldable : TransferrableObject
 		{
 			if ((bool)args[0])
 			{
-				Vector3 v = base.transform.position;
-				Vector3 v2 = base.transform.forward;
+				Vector3 v = transform.position;
+				Vector3 v2 = transform.forward;
 				v.SetValueSafe((Vector3)args[1]);
 				v2.SetValueSafe((Vector3)args[2]);
 				float playerScale = ((float)args[3]).ClampSafe(0.01f, 1f);
@@ -78,8 +90,8 @@ public class DiceHoldable : TransferrableObject
 				object[] args = new object[1] { false };
 				_events.Activate.RaiseOthers(args);
 			}
-			base.transform.position = dicePhysics.transform.position;
-			base.transform.rotation = dicePhysics.transform.rotation;
+			transform.position = dicePhysics.transform.position;
+			transform.rotation = dicePhysics.transform.rotation;
 			dicePhysics.EndThrow();
 			if (grabbingHand == EquipmentInteractor.instance.leftHand && currentState == PositionState.OnLeftArm)
 			{
@@ -105,7 +117,7 @@ public class DiceHoldable : TransferrableObject
 		}
 		if (zoneReleased == null)
 		{
-			Vector3 position = base.transform.position;
+			Vector3 position = transform.position;
 			bool isLeftHand = releasingHand == EquipmentInteractor.instance.leftHand;
 			Vector3 averageVelocity = GTPlayer.Instance.GetInteractPointVelocityTracker(isLeftHand).GetAverageVelocity(worldSpace: true);
 			int randomSide = dicePhysics.GetRandomSide();

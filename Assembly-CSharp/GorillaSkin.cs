@@ -69,8 +69,7 @@ public class GorillaSkin : ScriptableObject
 
 	public static void ShowActiveSkin(VRRig rig)
 	{
-		bool useDefaultBodySkin;
-		GorillaSkin activeSkin = GetActiveSkin(rig, out useDefaultBodySkin);
+		GorillaSkin activeSkin = GetActiveSkin(rig, out var useDefaultBodySkin);
 		ShowSkin(rig, activeSkin, useDefaultBodySkin);
 	}
 
@@ -191,8 +190,7 @@ public class GorillaSkin : ScriptableObject
 
 	public static void ApplyToRig(VRRig rig, GorillaSkin skin, SkinType type)
 	{
-		bool useDefaultBodySkin;
-		GorillaSkin activeSkin = GetActiveSkin(rig, out useDefaultBodySkin);
+		GorillaSkin activeSkin = GetActiveSkin(rig, out var _);
 		switch (type)
 		{
 		case SkinType.cosmetic:
@@ -208,8 +206,7 @@ public class GorillaSkin : ScriptableObject
 			Debug.LogError("Unknown skin slot");
 			break;
 		}
-		bool useDefaultBodySkin2;
-		GorillaSkin activeSkin2 = GetActiveSkin(rig, out useDefaultBodySkin2);
+		GorillaSkin activeSkin2 = GetActiveSkin(rig, out var useDefaultBodySkin2);
 		if (activeSkin != activeSkin2)
 		{
 			ShowSkin(rig, activeSkin2, useDefaultBodySkin2);

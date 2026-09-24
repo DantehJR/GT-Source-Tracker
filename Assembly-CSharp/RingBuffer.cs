@@ -68,7 +68,7 @@ public class RingBuffer<T>
 	{
 		if (_size == 0)
 		{
-			return default(T);
+			return default;
 		}
 		T result = _items[_head];
 		_head = (_head + 1) % _capacity;
@@ -80,7 +80,7 @@ public class RingBuffer<T>
 	{
 		if (_size == 0)
 		{
-			item = default(T);
+			item = default;
 			return false;
 		}
 		item = _items[_head];
@@ -101,7 +101,7 @@ public class RingBuffer<T>
 	{
 		if (_size == 0)
 		{
-			item = default(T);
+			item = default;
 			return false;
 		}
 		item = _items[_head + i % _size];

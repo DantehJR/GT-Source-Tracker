@@ -249,7 +249,7 @@ public class FriendDisplay : MonoBehaviour
 			{
 				int num4 = i - num;
 				bool flag3 = count > num2 + num4 * 9;
-				if (flag || flag3)
+				if (flag | flag3)
 				{
 					flag2 = true;
 					break;
@@ -275,7 +275,7 @@ public class FriendDisplay : MonoBehaviour
 			{
 				int num5 = j - num;
 				bool flag5 = count > num2 + num5 * 9;
-				flag4 = flag || flag5;
+				flag4 = flag | flag5;
 			}
 			if (flag4)
 			{
@@ -437,7 +437,7 @@ public class FriendDisplay : MonoBehaviour
 		_localPlayerCard.SetName(NetworkSystem.Instance.LocalPlayer.NickName.ToUpper());
 		if (PhotonNetwork.InRoom && !string.IsNullOrEmpty(NetworkSystem.Instance.RoomName) && NetworkSystem.Instance.RoomName.Length > 0)
 		{
-			bool flag = NetworkSystem.Instance.RoomName[0] == '@';
+			bool flag = GorillaComputer.instance != null && GorillaComputer.instance.IsVStumpRoomName(NetworkSystem.Instance.RoomName);
 			bool flag2 = !NetworkSystem.Instance.SessionIsPrivate;
 			if (FriendSystem.Instance.LocalPlayerPrivacy == FriendSystem.PlayerPrivacy.Hidden || (FriendSystem.Instance.LocalPlayerPrivacy == FriendSystem.PlayerPrivacy.PublicOnly && !flag2))
 			{

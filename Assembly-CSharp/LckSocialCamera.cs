@@ -85,11 +85,11 @@ public class LckSocialCamera : NetworkComponent, IGorillaSliceableSimple
 	{
 		get
 		{
-			return GetFlag(base.IsLocallyOwned ? _localOwnedState : _networkOwnedState, CameraState.OnNeck);
+			return GetFlag(IsLocallyOwned ? _localOwnedState : _networkOwnedState, CameraState.OnNeck);
 		}
 		set
 		{
-			if (base.IsLocallyOwned)
+			if (IsLocallyOwned)
 			{
 				_localOwnedState = SetFlag(_localOwnedState, CameraState.OnNeck, value);
 			}
@@ -100,11 +100,11 @@ public class LckSocialCamera : NetworkComponent, IGorillaSliceableSimple
 	{
 		get
 		{
-			return GetFlag(base.IsLocallyOwned ? _localOwnedState : _networkOwnedState, CameraState.Visible);
+			return GetFlag(IsLocallyOwned ? _localOwnedState : _networkOwnedState, CameraState.Visible);
 		}
 		set
 		{
-			if (base.IsLocallyOwned)
+			if (IsLocallyOwned)
 			{
 				_localOwnedState = SetFlag(_localOwnedState, CameraState.Visible, value);
 			}
@@ -115,11 +115,11 @@ public class LckSocialCamera : NetworkComponent, IGorillaSliceableSimple
 	{
 		get
 		{
-			return GetFlag(base.IsLocallyOwned ? _localOwnedState : _networkOwnedState, CameraState.Recording);
+			return GetFlag(IsLocallyOwned ? _localOwnedState : _networkOwnedState, CameraState.Recording);
 		}
 		set
 		{
-			if (base.IsLocallyOwned)
+			if (IsLocallyOwned)
 			{
 				_localOwnedState = SetFlag(_localOwnedState, CameraState.Recording, value);
 			}
@@ -128,14 +128,14 @@ public class LckSocialCamera : NetworkComponent, IGorillaSliceableSimple
 
 	public override void OnSpawned()
 	{
-		if (base.IsLocallyOwned)
+		if (IsLocallyOwned)
 		{
 			_localOwnedState = CameraState.Empty;
 			visible = false;
 			recording = false;
 			IsOnNeck = false;
 		}
-		else if (base.Runner != null)
+		else if (Runner != null)
 		{
 			CameraState currentState = _networkedData.currentState;
 			ApplyVisualState(currentState);
@@ -188,7 +188,7 @@ public class LckSocialCamera : NetworkComponent, IGorillaSliceableSimple
 		bool flag = GetFlag(newState, CameraState.Visible);
 		bool flag2 = GetFlag(newState, CameraState.Recording);
 		bool flag3 = GetFlag(newState, CameraState.OnNeck);
-		if (base.IsLocallyOwned)
+		if (IsLocallyOwned)
 		{
 			m_CameraVisuals?.SetVisualsActive(active: false);
 			m_CameraVisuals?.SetRecordingState(isRecording: false);
@@ -256,7 +256,7 @@ public class LckSocialCamera : NetworkComponent, IGorillaSliceableSimple
 		_scaleTransform = lCKSocialCameraFollower.ScaleTransform;
 		CameraVisuals = lCKSocialCameraFollower.CameraVisualsRoot;
 		m_CameraVisuals = CameraVisuals.GetComponent<IGtCameraVisuals>();
-		if (!base.IsLocallyOwned && lCKSocialCameraFollower.GetComponent<ILckCosmeticDependantPlayerIdSupplier>() != null)
+		if (!IsLocallyOwned && lCKSocialCameraFollower.GetComponent<ILckCosmeticDependantPlayerIdSupplier>() != null)
 		{
 			lCKSocialCameraFollower.GetComponent<ILckCosmeticDependantPlayerIdSupplier>().UpdatePlayerId();
 		}
@@ -355,7 +355,7 @@ public class LckSocialCamera : NetworkComponent, IGorillaSliceableSimple
 	public void TurnOff()
 	{
 		m_isCorrupted = true;
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	[WeaverGenerated]

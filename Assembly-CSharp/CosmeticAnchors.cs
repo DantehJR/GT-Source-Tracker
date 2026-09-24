@@ -92,12 +92,12 @@ public class CosmeticAnchors : MonoBehaviour, ISpawnable
 		{
 			return;
 		}
-		if (!base.transform.TryFindByPath(path, out var result))
+		if (!transform.TryFindByPath(path, out var result))
 		{
 			vrRig = GetComponentInParent<VRRig>(includeInactive: true);
 			if ((bool)vrRig && vrRig.isOfflineVRRig)
 			{
-				Debug.LogError("CosmeticAnchors: Could not find path: \"" + path + "\".\nPath to this component: " + base.transform.GetPathQ(), this);
+				Debug.LogError("CosmeticAnchors: Could not find path: \"" + path + "\".\nPath to this component: " + transform.GetPathQ(), this);
 			}
 		}
 		else

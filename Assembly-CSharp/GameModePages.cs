@@ -67,7 +67,7 @@ public class GameModePages : BasePageHandler
 			textBuilder.AppendLine(GameMode.gameModeNames[i]);
 		}
 		gameModeText.text = textBuilder.ToString();
-		if (base.selectedIndex >= startIndex && base.selectedIndex <= endIndex)
+		if (selectedIndex >= startIndex && selectedIndex <= endIndex)
 		{
 			UpdateAllButtons(currentButtonIndex);
 		}
@@ -75,7 +75,7 @@ public class GameModePages : BasePageHandler
 		{
 			UpdateAllButtons(-1);
 		}
-		int buttonsMissing = ((selectedPage == base.pages - 1 && base.maxEntires > endIndex) ? (base.maxEntires - endIndex) : 0);
+		int buttonsMissing = ((selectedPage == pages - 1 && maxEntires > endIndex) ? (maxEntires - endIndex) : 0);
 		EnableEntryButtons(buttonsMissing);
 	}
 

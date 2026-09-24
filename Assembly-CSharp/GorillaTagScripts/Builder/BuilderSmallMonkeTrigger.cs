@@ -82,17 +82,17 @@ public class BuilderSmallMonkeTrigger : MonoBehaviour
 		{
 			if (vRRig != null)
 			{
-				this.onPlayerEnteredTrigger?.Invoke(vRRig.OwningNetPlayer.ActorNumber);
+				onPlayerEnteredTrigger?.Invoke(vRRig.OwningNetPlayer.ActorNumber);
 			}
-			bool num = overlappingColliders.Count == 0;
+			bool flag = overlappingColliders.Count == 0;
 			if (!overlappingColliders.Contains(other))
 			{
 				overlappingColliders.Add(other);
 			}
 			lastTriggeredFrame = Time.frameCount;
-			if (num)
+			if (flag)
 			{
-				this.onTriggerFirstEntered?.Invoke();
+				onTriggerFirstEntered?.Invoke();
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public class BuilderSmallMonkeTrigger : MonoBehaviour
 	{
 		if (overlappingColliders.Remove(other) && overlappingColliders.Count == 0)
 		{
-			this.onTriggerLastExited?.Invoke();
+			onTriggerLastExited?.Invoke();
 		}
 	}
 }

@@ -30,7 +30,7 @@ public class SlowCameraUpdate : MonoBehaviour
 	{
 		while (true)
 		{
-			if (base.gameObject.activeSelf)
+			if (gameObject.activeSelf)
 			{
 				Debug.Log("rendering camera!");
 				myCamera.Render();

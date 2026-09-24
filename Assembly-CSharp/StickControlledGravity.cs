@@ -24,7 +24,7 @@ public class StickControlledGravity : MonoBehaviour
 	private void Start()
 	{
 		zone = GetComponent<PersonalGravityZone>();
-		if (base.isActiveAndEnabled)
+		if (isActiveAndEnabled)
 		{
 			Register();
 		}

@@ -31,7 +31,7 @@ public class MaterialCombinerPerRendererMono : MonoBehaviour
 				return true;
 			}
 		}
-		data = default(MaterialCombinerPerRendererInfo);
+		data = default;
 		return false;
 	}
 }

@@ -36,7 +36,7 @@ public class PlanetZone : BasicGravityZone
 
 	protected override Vector3 GetGravityVectorAtPoint(in Vector3 worldPosition, in MonkeGravityController controller)
 	{
-		return worldPosition - base.transform.position;
+		return worldPosition - transform.position;
 	}
 
 	protected override float GetGravityStrength(in Vector3 offsetFromGravity)

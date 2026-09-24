@@ -40,7 +40,7 @@ public class GRGuide : MonoBehaviourTick
 	{
 		bool flag = GRPlayer.Get(VRRig.LocalRig).State == GRPlayer.GRPlayerState.Ghost;
 		Vector3 position = VRRig.LocalRig.transform.position;
-		float sqrMagnitude = (position - base.transform.position).sqrMagnitude;
+		float sqrMagnitude = (position - transform.position).sqrMagnitude;
 		if (flag && (!hasPath || sqrMagnitude > 36f))
 		{
 			hasPath = false;
@@ -54,7 +54,7 @@ public class GRGuide : MonoBehaviourTick
 				}
 				if (numPathCorners > 0)
 				{
-					base.transform.position = pathCorners[0];
+					transform.position = pathCorners[0];
 					hasPath = true;
 				}
 			}
@@ -86,8 +86,7 @@ public class GRGuide : MonoBehaviourTick
 		{
 			return;
 		}
-		int nextCorner;
-		Vector3 closestPointOnPath = GetClosestPointOnPath(position, pathCorners, numPathCorners, out nextCorner);
+		Vector3 closestPointOnPath = GetClosestPointOnPath(position, pathCorners, numPathCorners, out var nextCorner);
 		float num2 = 2.5f;
 		Vector3 vector = closestPointOnPath;
 		for (int j = nextCorner; j < numPathCorners; j++)
@@ -102,7 +101,7 @@ public class GRGuide : MonoBehaviourTick
 			num2 -= magnitude;
 			vector = pathCorners[j];
 		}
-		base.transform.position = vector;
+		transform.position = vector;
 	}
 
 	private static Vector3 GetClosestPointOnPath(Vector3 pos, Vector3[] pathCorners, int numPathCorners, out int nextCorner)

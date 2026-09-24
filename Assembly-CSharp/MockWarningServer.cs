@@ -44,7 +44,7 @@ internal class MockWarningServer : WarningsServer
 
 	private PlayerAgeGateWarningStatus CreateWarningStatus(string header, string body, ButtonSetup? leftButtonSetup, ButtonSetup? rightButtonSetup, EImageVisibility showImage, Action leftButtonCallback, Action rightButtonCallback)
 	{
-		PlayerAgeGateWarningStatus result = default(PlayerAgeGateWarningStatus);
+		PlayerAgeGateWarningStatus result = default;
 		result.header = header;
 		result.body = body;
 		result.leftButtonText = string.Empty;
@@ -101,7 +101,7 @@ internal class MockWarningServer : WarningsServer
 			if (flag)
 			{
 				ButtonSetup value4 = new ButtonSetup("Do This Later", WarningButtonResult.CloseWarning);
-				value2 = CreateWarningStatus(rightButtonSetup: new ButtonSetup("Opt-In", WarningButtonResult.OptIn), header: "IMPORTANT NEWS", body: "We have partnered with k-ID to create a better, more age-appropriate experience. Opt-in early and get 500 Shiny Rocks as our way of saying \"Thanks!\"", leftButtonSetup: value4, showImage: EImageVisibility.AfterBody, leftButtonCallback: delegate
+				value2 = CreateWarningStatus(rightButtonSetup: new ButtonSetup("Opt-In", WarningButtonResult.OptIn), header: "IMPORTANT NEWS", body: "We have partnered with k-ID to create a better, more age-appropriate experience. Opt-in early and get 500 Shiny Rocks as our way of saying \"Thanks!\"", leftButtonSetup: value4, showImage: EImageVisibility.AfterBody, leftButtonCallback: () =>
 				{
 					TelemetryData telemetryData2 = new TelemetryData
 					{
@@ -116,7 +116,7 @@ internal class MockWarningServer : WarningsServer
 						BodyData = new Dictionary<string, string> { { "opt_in_choice", "skip" } }
 					};
 					GorillaTelemetry.EnqueueTelemetryEvent(telemetryData2.EventName, telemetryData2.BodyData, telemetryData2.CustomTags);
-				}, rightButtonCallback: delegate
+				}, rightButtonCallback: () =>
 				{
 					TelemetryData telemetryData2 = new TelemetryData
 					{
@@ -170,7 +170,7 @@ internal class MockWarningServer : WarningsServer
 				{
 					Debug.LogError("[LOCALIZATION::ATM_MANAGER] Failed to get key for [KID_WARNING_PHASE_THREE_IN_COHORT]");
 				}
-				value2 = CreateWarningStatus(result5, result6, value6, null, EImageVisibility.AfterBody, delegate
+				value2 = CreateWarningStatus(result5, result6, value6, null, EImageVisibility.AfterBody, () =>
 				{
 					TelemetryData telemetryData2 = new TelemetryData
 					{
@@ -189,7 +189,7 @@ internal class MockWarningServer : WarningsServer
 				break;
 			}
 			ButtonSetup value7 = new ButtonSetup("Do This Later", WarningButtonResult.CloseWarning);
-			value2 = CreateWarningStatus(rightButtonSetup: new ButtonSetup("Opt-In", WarningButtonResult.OptIn), header: "IMPORTANT NEWS", body: "We have partnered with k-ID to create a better, more age-appropriate experience. Opt-in early and get 500 Shiny Rocks as our way of saying \"Thanks!\"", leftButtonSetup: value7, showImage: EImageVisibility.AfterBody, leftButtonCallback: delegate
+			value2 = CreateWarningStatus(rightButtonSetup: new ButtonSetup("Opt-In", WarningButtonResult.OptIn), header: "IMPORTANT NEWS", body: "We have partnered with k-ID to create a better, more age-appropriate experience. Opt-in early and get 500 Shiny Rocks as our way of saying \"Thanks!\"", leftButtonSetup: value7, showImage: EImageVisibility.AfterBody, leftButtonCallback: () =>
 			{
 				TelemetryData telemetryData2 = new TelemetryData
 				{
@@ -204,7 +204,7 @@ internal class MockWarningServer : WarningsServer
 					BodyData = new Dictionary<string, string> { { "opt_in_choice", "skip" } }
 				};
 				GorillaTelemetry.EnqueueTelemetryEvent(telemetryData2.EventName, telemetryData2.BodyData, telemetryData2.CustomTags);
-			}, rightButtonCallback: delegate
+			}, rightButtonCallback: () =>
 			{
 				TelemetryData telemetryData2 = new TelemetryData
 				{
@@ -239,7 +239,7 @@ internal class MockWarningServer : WarningsServer
 				{
 					Debug.LogError("[LOCALIZATION::ATM_MANAGER] Failed to get key for [KID_WARNING_PHASE_FOUR_RETURNING_PLAYER]");
 				}
-				value2 = CreateWarningStatus(result2, result3, null, value, EImageVisibility.AfterBody, delegate
+				value2 = CreateWarningStatus(result2, result3, null, value, EImageVisibility.AfterBody, () =>
 				{
 					TelemetryData telemetryData2 = new TelemetryData
 					{

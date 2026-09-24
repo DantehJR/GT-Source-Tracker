@@ -79,9 +79,19 @@ public class CrossFadeAudioSources : MonoBehaviour, IRangedVariable<float>, IVar
 		if ((bool)source1 && (bool)source2)
 		{
 			float num = _curve.Evaluate(_lerp);
-			float num2 = (_lastT = ((!tween) ? (lerpByClipLength ? _curve.Evaluate((float)source1.timeSamples / (float)source1.clip.samples) : num) : MathUtils.Xlerp(_lastT, num, Time.deltaTime, tweenSpeed)));
-			source2.volume = num2;
-			source1.volume = 1f - num2;
+			ref float lastT = ref _lastT;
+			float num2;
+			if (tween)
+			{
+				num2 = MathUtils.Xlerp(_lastT, num, Time.deltaTime, tweenSpeed);
+			}
+			else
+			{
+				num2 = (lerpByClipLength ? _curve.Evaluate((float)source1.timeSamples / (float)source1.clip.samples) : num);
+			}
+			float num3 = (lastT = num2);
+			source2.volume = num3;
+			source1.volume = 1f - num3;
 		}
 	}
 

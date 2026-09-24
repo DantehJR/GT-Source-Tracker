@@ -407,9 +407,9 @@ public sealed class GorillaPropHuntGameManager : GorillaTagManager
 	{
 		if (NetworkSystem.Instance.IsMasterClient)
 		{
-			bool num = isCurrentlyTag;
+			bool flag = isCurrentlyTag;
 			UpdateState();
-			if (!num && !isCurrentlyTag)
+			if (!flag && !isCurrentlyTag)
 			{
 				UpdateInfectionState();
 			}
@@ -450,7 +450,7 @@ public sealed class GorillaPropHuntGameManager : GorillaTagManager
 			{
 				GameMode.OptIn(vRRig.OwningNetPlayer.ActorNumber);
 			}
-			else if (!flag && flag2)
+			else if (!flag & flag2)
 			{
 				GameMode.OptOut(vRRig.OwningNetPlayer.ActorNumber);
 				_SetPlayerBlindfoldVisibility(vRRig, vRRig.OwningNetPlayer, shouldEnable: false);

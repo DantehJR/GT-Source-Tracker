@@ -41,19 +41,19 @@ public sealed class Playspace : MonoBehaviour
 
 	private void Update()
 	{
-		Vector3 vector = _localGorillaHead.transform.position - base.transform.position;
+		Vector3 vector = _localGorillaHead.transform.position - transform.position;
 		float sqrMagnitude = vector.sqrMagnitude;
 		if (GTPlayer.Instance.enableHoverMode || GTPlayer.Instance.isClimbing || vector.sqrMagnitude > _sqrSnapToThreshold)
 		{
-			base.transform.position = _localGorillaHead.transform.position;
+			transform.position = _localGorillaHead.transform.position;
 			return;
 		}
 		Vector3 normalized = vector.normalized;
 		vector = GetChaseSpeed() * Time.deltaTime * normalized;
-		base.transform.position = ((vector.sqrMagnitude > sqrMagnitude) ? _localGorillaHead.transform.position : (base.transform.position + vector));
-		if ((_localGorillaHead.transform.position - base.transform.position).sqrMagnitude > _sqrSphereRadius)
+		transform.position = ((vector.sqrMagnitude > sqrMagnitude) ? _localGorillaHead.transform.position : (transform.position + vector));
+		if ((_localGorillaHead.transform.position - transform.position).sqrMagnitude > _sqrSphereRadius)
 		{
-			_localGorillaHead.transform.position = base.transform.position + _sphereRadius * normalized;
+			_localGorillaHead.transform.position = transform.position + _sphereRadius * normalized;
 		}
 	}
 
@@ -64,6 +64,6 @@ public sealed class Playspace : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		Gizmos.DrawWireSphere(base.transform.position, _sphereRadius);
+		Gizmos.DrawWireSphere(transform.position, _sphereRadius);
 	}
 }

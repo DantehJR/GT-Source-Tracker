@@ -82,7 +82,7 @@ public class LoopingArray<T> : ObjectPoolEvents
 		m_currentIndex = 0;
 		for (int i = 0; i < m_array.Length; i++)
 		{
-			m_array[i] = default(T);
+			m_array[i] = default;
 		}
 	}
 

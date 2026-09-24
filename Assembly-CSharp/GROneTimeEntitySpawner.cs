@@ -41,7 +41,7 @@ public class GROneTimeEntitySpawner : MonoBehaviour
 			else
 			{
 				Debug.Log("trying to spawn entity", this);
-				gameEntityManager.RequestCreateItem(EntityPrefab.name.GetStaticHash(), base.transform.position + new Vector3(0f, 0f, 0f), base.transform.rotation, 0L);
+				gameEntityManager.RequestCreateItem(EntityPrefab.name.GetStaticHash(), transform.position + new Vector3(0f, 0f, 0f), transform.rotation, 0L);
 				bHasSpawned = true;
 			}
 		}

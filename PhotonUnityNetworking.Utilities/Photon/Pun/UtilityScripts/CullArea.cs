@@ -71,8 +71,8 @@ public class CullArea : MonoBehaviour
 		CellTreeNode cellTreeNode = new CellTreeNode(idCounter++, CellTreeNode.ENodeType.Root, null);
 		if (YIsUpAxis)
 		{
-			Center = new Vector2(base.transform.position.x, base.transform.position.y);
-			Size = new Vector2(base.transform.localScale.x, base.transform.localScale.y);
+			Center = new Vector2(transform.position.x, transform.position.y);
+			Size = new Vector2(transform.localScale.x, transform.localScale.y);
 			cellTreeNode.Center = new Vector3(Center.x, Center.y, 0f);
 			cellTreeNode.Size = new Vector3(Size.x, Size.y, 0f);
 			cellTreeNode.TopLeft = new Vector3(Center.x - Size.x / 2f, Center.y - Size.y / 2f, 0f);
@@ -80,8 +80,8 @@ public class CullArea : MonoBehaviour
 		}
 		else
 		{
-			Center = new Vector2(base.transform.position.x, base.transform.position.z);
-			Size = new Vector2(base.transform.localScale.x, base.transform.localScale.z);
+			Center = new Vector2(transform.position.x, transform.position.z);
+			Size = new Vector2(transform.localScale.x, transform.localScale.z);
 			cellTreeNode.Center = new Vector3(Center.x, 0f, Center.y);
 			cellTreeNode.Size = new Vector3(Size.x, 0f, Size.y);
 			cellTreeNode.TopLeft = new Vector3(Center.x - Size.x / 2f, 0f, Center.y - Size.y / 2f);

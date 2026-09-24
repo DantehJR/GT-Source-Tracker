@@ -24,7 +24,7 @@ public class GorillaWalkingGrab : MonoBehaviour
 
 	private void Start()
 	{
-		thisRigidbody = base.gameObject.GetComponent<Rigidbody>();
+		thisRigidbody = gameObject.GetComponent<Rigidbody>();
 		positionHistory = new Vector3[historySteps];
 		historyIndex = 0;
 	}
@@ -38,7 +38,7 @@ public class GorillaWalkingGrab : MonoBehaviour
 		}
 		positionHistory[historyIndex] = handToStickTo.transform.position;
 		thisRigidbody.MovePosition(handToStickTo.transform.position);
-		base.transform.rotation = handToStickTo.transform.rotation;
+		transform.rotation = handToStickTo.transform.rotation;
 	}
 
 	private bool MakeJump()

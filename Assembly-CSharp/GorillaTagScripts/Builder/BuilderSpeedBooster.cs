@@ -121,7 +121,7 @@ public class BuilderSpeedBooster : MonoBehaviour
 		CheckTableZone();
 		if (ignoreMonkeScale || !((double)GorillaTagger.Instance.offlineVRRig.scaleFactor > 0.99))
 		{
-			positiveForce = Vector3.Dot(base.transform.up, rb.linearVelocity) > 0f;
+			positiveForce = Vector3.Dot(transform.up, rb.linearVelocity) > 0f;
 			if (positiveForce)
 			{
 				windRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
@@ -198,8 +198,8 @@ public class BuilderSpeedBooster : MonoBehaviour
 		{
 			linearVelocity /= sizeManager.currentScale;
 		}
-		Vector3 vector = Vector3.Dot(xf.position - base.transform.position, base.transform.up) * base.transform.up;
-		Vector3 vector2 = base.transform.position + vector - xf.position;
+		Vector3 vector = Vector3.Dot(xf.position - transform.position, transform.up) * transform.up;
+		Vector3 vector2 = transform.position + vector - xf.position;
 		float num = vector2.magnitude + 0.0001f;
 		Vector3 vector3 = vector2 / num;
 		float num2 = Vector3.Dot(linearVelocity, vector3);
@@ -216,7 +216,7 @@ public class BuilderSpeedBooster : MonoBehaviour
 			num3 = Mathf.Max(accel, b);
 		}
 		float deltaTime = Time.deltaTime;
-		Vector3 vector4 = base.transform.up * num3 * deltaTime;
+		Vector3 vector4 = transform.up * num3 * deltaTime;
 		if (!positiveForce)
 		{
 			vector4 *= -1f;
@@ -226,9 +226,9 @@ public class BuilderSpeedBooster : MonoBehaviour
 		{
 			linearVelocity += Vector3.up * addedWorldUpVelocity * deltaTime;
 		}
-		Vector3 vector5 = Mathf.Min(Vector3.Dot(linearVelocity, base.transform.up), maxSpeed) * base.transform.up;
-		Vector3 vector6 = Vector3.Dot(linearVelocity, base.transform.right) * base.transform.right;
-		Vector3 vector7 = Vector3.Dot(linearVelocity, base.transform.forward) * base.transform.forward;
+		Vector3 vector5 = Mathf.Min(Vector3.Dot(linearVelocity, transform.up), maxSpeed) * transform.up;
+		Vector3 vector6 = Vector3.Dot(linearVelocity, transform.right) * transform.right;
+		Vector3 vector7 = Vector3.Dot(linearVelocity, transform.forward) * transform.forward;
 		float num6 = 1f;
 		float num7 = 1f;
 		if (dampenLateralVelocity)
@@ -253,7 +253,7 @@ public class BuilderSpeedBooster : MonoBehaviour
 			linearVelocity += num2 * vector3;
 			if (linearVelocity.magnitude > 0.0001f)
 			{
-				Vector3 vector8 = Vector3.Cross(base.transform.up, vector3);
+				Vector3 vector8 = Vector3.Cross(transform.up, vector3);
 				float magnitude = vector8.magnitude;
 				if (magnitude > 0.0001f)
 				{
@@ -277,7 +277,7 @@ public class BuilderSpeedBooster : MonoBehaviour
 	{
 		GetComponents<Collider>();
 		Gizmos.color = Color.magenta;
-		Gizmos.matrix = base.transform.localToWorldMatrix;
-		Gizmos.DrawWireCube(Vector3.zero, new Vector3(pullTOCenterMinDistance / base.transform.lossyScale.x, 1f, pullTOCenterMinDistance / base.transform.lossyScale.z));
+		Gizmos.matrix = transform.localToWorldMatrix;
+		Gizmos.DrawWireCube(Vector3.zero, new Vector3(pullTOCenterMinDistance / transform.lossyScale.x, 1f, pullTOCenterMinDistance / transform.lossyScale.z));
 	}
 }

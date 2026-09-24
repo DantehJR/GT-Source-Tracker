@@ -67,23 +67,23 @@ public class SpawnWorldEffects : MonoBehaviour
 	{
 		if (GorillaComputer.instance == null)
 		{
-			Debug.LogError("SpawnWorldEffects: Disabling because GorillaComputer not found! Hierarchy path: " + base.transform.GetPath(), this);
-			base.enabled = false;
+			Debug.LogError("SpawnWorldEffects: Disabling because GorillaComputer not found! Hierarchy path: " + transform.GetPath(), this);
+			enabled = false;
 			return;
 		}
 		if (_prefabToSpawn != null && !_isPrefabInPool)
 		{
 			if (_prefabToSpawn.CompareTag("Untagged"))
 			{
-				Debug.LogError("SpawnWorldEffects: Disabling because Spawn Prefab has no tag! Hierarchy path: " + base.transform.GetPath(), this);
-				base.enabled = false;
+				Debug.LogError("SpawnWorldEffects: Disabling because Spawn Prefab has no tag! Hierarchy path: " + transform.GetPath(), this);
+				enabled = false;
 				return;
 			}
 			_isPrefabInPool = ObjectPools.instance.DoesPoolExist(_prefabToSpawn);
 			if (!_isPrefabInPool)
 			{
-				Debug.LogError("SpawnWorldEffects: Disabling because Spawn Prefab not in pool! Hierarchy path: " + base.transform.GetPath(), this);
-				base.enabled = false;
+				Debug.LogError("SpawnWorldEffects: Disabling because Spawn Prefab not in pool! Hierarchy path: " + transform.GetPath(), this);
+				enabled = false;
 				return;
 			}
 			_pool = ObjectPools.instance.GetPoolByObjectType(_prefabToSpawn);
@@ -112,8 +112,7 @@ public class SpawnWorldEffects : MonoBehaviour
 			Vector3 vector = normal;
 			if (_requireSurfaceLayer || _useNormalOrientation)
 			{
-				Vector3 surfaceNormal;
-				bool flag = TryGetSurfaceNormal(worldPosition, normal, out surfaceNormal);
+				bool flag = TryGetSurfaceNormal(worldPosition, normal, out var surfaceNormal);
 				if (_requireSurfaceLayer && !flag)
 				{
 					return;
@@ -133,7 +132,7 @@ public class SpawnWorldEffects : MonoBehaviour
 				}
 				rotationOverride = Quaternion.LookRotation(vector2.normalized, vector);
 			}
-			FireManager.SpawnFire(_pool, worldPosition, vector, base.transform.lossyScale.x, rotationOverride);
+			FireManager.SpawnFire(_pool, worldPosition, vector, transform.lossyScale.x, rotationOverride);
 		}
 		_lastCollisionTime = num;
 	}

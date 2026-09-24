@@ -10,6 +10,6 @@ public class DestroyIfNotBeta : MonoBehaviour
 	{
 		_ = m_shouldKeepIfBeta;
 		_ = m_shouldKeepIfCreatorBuild;
-		Object.Destroy(base.gameObject);
+		Object.Destroy(gameObject);
 	}
 }

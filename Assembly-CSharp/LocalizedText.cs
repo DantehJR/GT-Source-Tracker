@@ -33,7 +33,7 @@ public class LocalizedText : LocalizeStringEvent
 		{
 			if (!_textComponent.IsValid)
 			{
-				_textComponent = new TextComponentLegacySupportStore(base.transform);
+				_textComponent = new TextComponentLegacySupportStore(transform);
 			}
 			return _textComponent;
 		}
@@ -46,16 +46,16 @@ public class LocalizedText : LocalizeStringEvent
 
 	private void Awake()
 	{
-		_textComponent = new TextComponentLegacySupportStore(base.transform);
-		base.OnUpdateString = new UnityEventString();
-		base.OnUpdateString.AddListener(delegate(string val)
+		_textComponent = new TextComponentLegacySupportStore(transform);
+		OnUpdateString = new UnityEventString();
+		OnUpdateString.AddListener((string val) =>
 		{
 			OnLocaleChanged(val);
 		});
 		if (!TextComponent.IsValid)
 		{
-			base.gameObject.AddComponent<TMP_Text>();
-			_textComponent = new TextComponentLegacySupportStore(base.transform);
+			gameObject.AddComponent<TMP_Text>();
+			_textComponent = new TextComponentLegacySupportStore(transform);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class LocalizedText : LocalizeStringEvent
 
 	private bool GetLocalizedFonts(out LocalisationFontPair fontData)
 	{
-		fontData = default(LocalisationFontPair);
+		fontData = default;
 		if (!HasFontOverrides())
 		{
 			return LocalisationManager.GetFontAssetForCurrentLocale(out fontData);

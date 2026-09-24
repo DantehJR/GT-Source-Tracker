@@ -60,7 +60,7 @@ public class RCHelicopter : RCVehicle
 		turnPropeller.localRotation = turnPropellerBaseRotation;
 		if (connectedRemote == null)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -86,7 +86,7 @@ public class RCHelicopter : RCVehicle
 
 	private void FixedUpdate()
 	{
-		if (base.HasLocalAuthority && localState == State.Mobilized)
+		if (HasLocalAuthority && localState == State.Mobilized)
 		{
 			float fixedDeltaTime = Time.fixedDeltaTime;
 			Vector3 linearVelocity = rb.linearVelocity;
@@ -95,9 +95,9 @@ public class RCHelicopter : RCVehicle
 			turnRate = Mathf.MoveTowards(turnRate, target, turnAccel * fixedDeltaTime);
 			float num = activeInput.joystick.y * maxHorizontalSpeed;
 			float x = Mathf.Sign(activeInput.joystick.y) * Mathf.Lerp(0f, maxHorizontalTiltAngle, Mathf.Abs(activeInput.joystick.y));
-			base.transform.rotation = Quaternion.Euler(new Vector3(x, turnAccel, 0f));
+			transform.rotation = Quaternion.Euler(new Vector3(x, turnAccel, 0f));
 			float num2 = Mathf.Abs(num);
-			Vector3 normalized = Vector3.ProjectOnPlane(base.transform.forward, Vector3.up).normalized;
+			Vector3 normalized = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
 			float num3 = Vector3.Dot(normalized, linearVelocity);
 			if (num2 > 0.01f && ((num > 0f && num > num3) || (num < 0f && num < num3)))
 			{
@@ -117,7 +117,7 @@ public class RCHelicopter : RCVehicle
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!other.isTrigger && base.HasLocalAuthority && localState == State.Mobilized)
+		if (!other.isTrigger && HasLocalAuthority && localState == State.Mobilized)
 		{
 			AuthorityBeginCrash();
 		}

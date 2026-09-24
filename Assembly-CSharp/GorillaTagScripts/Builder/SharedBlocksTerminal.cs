@@ -477,7 +477,7 @@ public class SharedBlocksTerminal : MonoBehaviour
 
 	private bool IsLocalPlayerInLobby()
 	{
-		if (!base.isActiveAndEnabled)
+		if (!isActiveAndEnabled)
 		{
 			return false;
 		}
@@ -490,7 +490,7 @@ public class SharedBlocksTerminal : MonoBehaviour
 
 	public bool AreAllPlayersInLobby()
 	{
-		if (!base.isActiveAndEnabled)
+		if (!isActiveAndEnabled)
 		{
 			return false;
 		}
@@ -719,7 +719,7 @@ public class SharedBlocksTerminal : MonoBehaviour
 			{
 				return;
 			}
-			if (Time.time > lastLoadTime + loadMapCooldown || isRandom)
+			if ((Time.time > lastLoadTime + loadMapCooldown) | isRandom)
 			{
 				if (!LocalisationManager.TryGetKeyForCurrentLocale("SHARE_BLOCKS_TERMINAL_STATUS_LOADING", out var result4, "LOADING BLOCKS ..."))
 				{
@@ -904,7 +904,7 @@ public class SharedBlocksTerminal : MonoBehaviour
 		if (NetworkSystem.Instance.InRoom)
 		{
 			NetPlayer player = NetworkSystem.Instance.GetPlayer(localState.driverID);
-			if (player != null && useNametags && flag)
+			if ((player != null && useNametags) & flag)
 			{
 				RigContainer playerRig;
 				if (player.IsLocal)
@@ -931,8 +931,8 @@ public class SharedBlocksTerminal : MonoBehaviour
 		}
 		else
 		{
-			stringVariable.Value = ((useNametags && flag) ? NetworkSystem.Instance.LocalPlayer.NickName : NetworkSystem.Instance.LocalPlayer.DefaultName);
-			currentDriverText.text = ((useNametags && flag) ? NetworkSystem.Instance.LocalPlayer.NickName : NetworkSystem.Instance.LocalPlayer.DefaultName);
+			stringVariable.Value = ((useNametags & flag) ? NetworkSystem.Instance.LocalPlayer.NickName : NetworkSystem.Instance.LocalPlayer.DefaultName);
+			currentDriverText.text = ((useNametags & flag) ? NetworkSystem.Instance.LocalPlayer.NickName : NetworkSystem.Instance.LocalPlayer.DefaultName);
 		}
 		currentDriverLabel.gameObject.SetActive(value: true);
 	}

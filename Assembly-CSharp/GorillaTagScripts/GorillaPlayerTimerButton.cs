@@ -85,7 +85,7 @@ public class GorillaPlayerTimerButton : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (base.enabled)
+		if (enabled)
 		{
 			GorillaTriggerColliderHandIndicator componentInParent = other.GetComponentInParent<GorillaTriggerColliderHandIndicator>();
 			if (!(componentInParent == null) && !(Time.time < lastTriggeredTime + debounceTime) && NetworkSystem.Instance.InRoom)
@@ -102,7 +102,7 @@ public class GorillaPlayerTimerButton : MonoBehaviour
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (base.enabled && !(other.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
+		if (enabled && !(other.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
 		{
 			mesh.GetPropertyBlock(materialProps);
 			materialProps.SetColor(ShaderProps._BaseColor, notPressedColor);

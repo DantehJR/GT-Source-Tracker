@@ -21,7 +21,7 @@ public class GRDropZone : MonoBehaviour
 
 	private void Awake()
 	{
-		repelDirectionWorld = base.transform.TransformDirection(repelDirectionLocal.normalized);
+		repelDirectionWorld = transform.TransformDirection(repelDirectionLocal.normalized);
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -49,7 +49,7 @@ public class GRDropZone : MonoBehaviour
 			playingEffect = true;
 			if (sfxPrefab != null)
 			{
-				ObjectPools.instance.Instantiate(sfxPrefab, base.transform.position, base.transform.rotation);
+				ObjectPools.instance.Instantiate(sfxPrefab, transform.position, transform.rotation);
 			}
 			StartCoroutine(DelayedStopEffect());
 		}

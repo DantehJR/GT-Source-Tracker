@@ -35,17 +35,17 @@ public class GameModeSpecificObject : MonoBehaviour
 	{
 		gameModes = new List<GameModeType>(_gameModes);
 		await Task.Yield();
-		if (GameModeSpecificObject.OnAwake != null)
+		if (OnAwake != null)
 		{
-			GameModeSpecificObject.OnAwake(this);
+			OnAwake(this);
 		}
 	}
 
 	private void OnDestroy()
 	{
-		if (GameModeSpecificObject.OnDestroyed != null)
+		if (OnDestroyed != null)
 		{
-			GameModeSpecificObject.OnDestroyed(this);
+			OnDestroyed(this);
 		}
 	}
 

@@ -153,17 +153,17 @@ public static class StringUtils
 			{
 				int num = i;
 				string text = char.ToUpper(array[i][0]).ToString();
-				object obj;
+				string text2;
 				if (array[i].Length <= 1)
 				{
-					obj = "";
+					text2 = "";
 				}
 				else
 				{
-					string text2 = array[i];
-					obj = text2.Substring(1, text2.Length - 1).ToLower();
+					string text3 = array[i];
+					text2 = text3.Substring(1, text3.Length - 1).ToLower();
 				}
-				array[num] = text + (string)obj;
+				array[num] = text + text2;
 			}
 		}
 		return string.Join("", array);

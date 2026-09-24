@@ -550,7 +550,7 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 	public override object OnSerializeWrite()
 	{
 		CopyBattleDictToArray();
-		PaintbrawlData paintbrawlData = default(PaintbrawlData);
+		PaintbrawlData paintbrawlData = default;
 		paintbrawlData.playerActorNumberArray.CopyFrom(playerActorNumberArray, 0, playerActorNumberArray.Length);
 		paintbrawlData.playerLivesArray.CopyFrom(playerLivesArray, 0, playerLivesArray.Length);
 		paintbrawlData.playerStatusArray.CopyFrom(playerStatusArray, 0, playerStatusArray.Length);
@@ -830,7 +830,7 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 	{
 		bool num = OnRedTeam(playerA) && OnRedTeam(playerB);
 		bool flag = OnBlueTeam(playerA) && OnBlueTeam(playerB);
-		return num || flag;
+		return num | flag;
 	}
 
 	public bool OnSameTeam(NetPlayer myPlayer, NetPlayer otherPlayer)
@@ -842,9 +842,9 @@ public sealed class GorillaPaintbrawlManager : GorillaGameManager
 
 	public bool LocalCanHit(NetPlayer myPlayer, NetPlayer otherPlayer)
 	{
-		bool num = !OnSameTeam(myPlayer, otherPlayer);
-		bool flag = GetPlayerLives(otherPlayer) != 0;
-		return num && flag;
+		bool flag = !OnSameTeam(myPlayer, otherPlayer);
+		bool flag2 = GetPlayerLives(otherPlayer) != 0;
+		return flag & flag2;
 	}
 
 	private void CopyBattleDictToArray()

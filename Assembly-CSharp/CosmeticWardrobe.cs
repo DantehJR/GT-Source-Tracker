@@ -83,9 +83,9 @@ public class CosmeticWardrobe : MonoBehaviour
 		}
 		set
 		{
-			bool num = value != m_useTemporarySet;
+			bool flag = value != m_useTemporarySet;
 			m_useTemporarySet = value;
-			if (num)
+			if (flag)
 			{
 				HandleCosmeticsUpdated();
 			}

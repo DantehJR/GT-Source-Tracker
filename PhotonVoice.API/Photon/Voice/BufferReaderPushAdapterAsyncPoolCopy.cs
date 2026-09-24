@@ -16,10 +16,10 @@ public class BufferReaderPushAdapterAsyncPoolCopy<T> : BufferReaderPushAdapterBa
 	{
 		while (reader.Read(buffer))
 		{
-			LocalVoiceFramed<T> obj = (LocalVoiceFramed<T>)localVoice;
-			T[] array = obj.BufferFactory.New();
+			LocalVoiceFramed<T> localVoiceFramed = (LocalVoiceFramed<T>)localVoice;
+			T[] array = localVoiceFramed.BufferFactory.New();
 			Array.Copy(buffer, array, buffer.Length);
-			obj.PushDataAsync(array);
+			localVoiceFramed.PushDataAsync(array);
 		}
 	}
 }

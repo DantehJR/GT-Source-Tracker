@@ -97,7 +97,7 @@ public class SquirtingFlowerBadgeCosmetic : MonoBehaviour, ISpawnable, IFingerFl
 		{
 			return false;
 		}
-		if (!leftHand && isLeftHand)
+		if (!leftHand & isLeftHand)
 		{
 			return false;
 		}

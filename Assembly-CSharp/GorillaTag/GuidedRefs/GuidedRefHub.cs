@@ -79,7 +79,7 @@ public class GuidedRefHub : MonoBehaviour, IGuidedRefMonoBehaviour, IGuidedRefOb
 		{
 			if (hasRootInstance)
 			{
-				Debug.LogError("GuidedRefHub: Attempted to assign global instance when one was already assigned:\n- This path: " + base.transform.GetPath() + "\n- Global instance: " + rootInstance.transform.GetPath() + "\n", this);
+				Debug.LogError("GuidedRefHub: Attempted to assign global instance when one was already assigned:\n- This path: " + transform.GetPath() + "\n- Global instance: " + rootInstance.transform.GetPath() + "\n", this);
 				UnityEngine.Object.Destroy(this);
 				return;
 			}
@@ -106,7 +106,7 @@ public class GuidedRefHub : MonoBehaviour, IGuidedRefMonoBehaviour, IGuidedRefOb
 		{
 			if (!targetMono.GRefTargetInfo.hackIgnoreDuplicateRegistration)
 			{
-				Debug.LogError("GuidedRefHub: Multiple targets registering with the same Hub. Maybe look at the HubID you are using:- hub=\"" + base.transform.GetPath() + "\"\n- target1=\"" + orAddRelayInfoByTargetId.targetMono.transform.GetPath() + "\",\n- target2=\"" + targetMono.transform.GetPath() + "\"", this);
+				Debug.LogError("GuidedRefHub: Multiple targets registering with the same Hub. Maybe look at the HubID you are using:- hub=\"" + transform.GetPath() + "\"\n- target1=\"" + orAddRelayInfoByTargetId.targetMono.transform.GetPath() + "\",\n- target2=\"" + targetMono.transform.GetPath() + "\"", this);
 			}
 			return;
 		}
@@ -114,7 +114,7 @@ public class GuidedRefHub : MonoBehaviour, IGuidedRefMonoBehaviour, IGuidedRefOb
 		GetHubsThatHaveRegisteredInstId(instanceID).Add(this);
 		if (!globalLookupRefInstIDsByHub.TryGetValue(this, out var value))
 		{
-			Debug.LogError("GuidedRefHub: It appears hub was not registered before `RegisterTarget` was called on it: - hub: \"" + base.transform.GetPath() + "\"\n- target: \"" + targetMono.transform.GetPath() + "\"", this);
+			Debug.LogError("GuidedRefHub: It appears hub was not registered before `RegisterTarget` was called on it: - hub: \"" + transform.GetPath() + "\"\n- target: \"" + targetMono.transform.GetPath() + "\"", this);
 		}
 		else
 		{
@@ -402,13 +402,13 @@ public class GuidedRefHub : MonoBehaviour, IGuidedRefMonoBehaviour, IGuidedRefOb
 			return false;
 		}
 		int num;
-		object obj;
+		T val;
 		if (tryResolveInfo.targetMono != null)
 		{
 			num = ((tryResolveInfo.targetMono.GuidedRefTargetObject != null) ? 1 : 0);
 			if (num != 0)
 			{
-				obj = tryResolveInfo.targetMono.GuidedRefTargetObject as T;
+				val = tryResolveInfo.targetMono.GuidedRefTargetObject as T;
 				goto IL_006e;
 			}
 		}
@@ -416,22 +416,22 @@ public class GuidedRefHub : MonoBehaviour, IGuidedRefMonoBehaviour, IGuidedRefOb
 		{
 			num = 0;
 		}
-		obj = null;
+		val = null;
 		goto IL_006e;
 		IL_006e:
-		T val = (T)obj;
+		T val2 = val;
 		if (num == 0)
 		{
 			string fieldNameByID = GetFieldNameByID(tryResolveInfo.fieldId);
 			Debug.LogError("TryResolveField: Receiver \"" + receiverMono.transform.name + "\" with field \"" + fieldNameByID + "\": was already assigned to something other than matching target id! Assigning to found target anyway. Make the receiving field null before attempting to resolve to prevent this message. " + $"fieldId={tryResolveInfo.fieldId}, receiver path=\"{receiverMono.transform.GetPath()}\"");
 		}
-		else if (refReceiverObj != null && refReceiverObj != val)
+		else if (refReceiverObj != null && refReceiverObj != val2)
 		{
 			Debug.LogError("was assigned didn't match assigning anyway");
 			string fieldNameByID2 = GetFieldNameByID(tryResolveInfo.fieldId);
 			Debug.LogError("TryResolveField: Receiver \"" + receiverMono.transform.name + "\" with field \"" + fieldNameByID2 + "\" was already assigned to something other than matching target id! Assigning to found target anyway. Make the receiving field null before attempting to resolve to prevent this message. " + $"fieldId={tryResolveInfo.fieldId}, receiver path=\"{receiverMono.transform.GetPath()}\"");
 		}
-		refReceiverObj = val;
+		refReceiverObj = val2;
 		int guidedRefsWaitingToResolveCount = receiverMono.GuidedRefsWaitingToResolveCount;
 		receiverMono.GuidedRefsWaitingToResolveCount = guidedRefsWaitingToResolveCount - 1;
 		return true;

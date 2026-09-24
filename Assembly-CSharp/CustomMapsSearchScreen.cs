@@ -180,9 +180,13 @@ public class CustomMapsSearchScreen : CustomMapsTerminalScreen
 			{
 				modSearchFilter.AddSearchPhrase(searchPhrase, filtering);
 			}
-			(Error, ModioPage<Mod>) obj = await ModIOManager.GetMods(modSearchFilter.GetModsFilter());
-			Error item = obj.Item1;
-			ModioPage<Mod> item2 = obj.Item2;
+			if (UGCPermissionManager.FeaturedMapsOnly)
+			{
+				modSearchFilter.AddTag("Featured");
+			}
+			(Error, ModioPage<Mod>) tuple = await ModIOManager.GetMods(modSearchFilter.GetModsFilter());
+			Error item = tuple.Item1;
+			ModioPage<Mod> item2 = tuple.Item2;
 			loadingSearchMods = false;
 			if ((bool)item)
 			{

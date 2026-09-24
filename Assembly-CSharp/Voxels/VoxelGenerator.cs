@@ -36,7 +36,7 @@ public abstract class VoxelGenerator
 
 	public virtual UnityEngine.BoundsInt GetWorldBounds()
 	{
-		return default(UnityEngine.BoundsInt);
+		return default;
 	}
 
 	public virtual void ShiftWorldBounds(Vector3Int worldShift)
@@ -65,7 +65,7 @@ public abstract class VoxelGenerator
 			int length = math.min(chunk.VoxelCount * 15, 65535);
 			chunk.AllocateVertexData(length);
 			chunk.AllocateTriangleData(length);
-			onComplete = delegate
+			onComplete = () =>
 			{
 				chunk.IsMeshGenerated = true;
 				chunk.IsCollisionBaked = false;
@@ -88,7 +88,7 @@ public abstract class VoxelGenerator
 		{
 			SurfaceNetsBuffer surfaceNetsBuffer = new SurfaceNetsBuffer(32768, 65536, chunk.VoxelCount);
 			chunk.GenericMeshData = surfaceNetsBuffer;
-			onComplete = delegate
+			onComplete = () =>
 			{
 			};
 			return new SurfaceNetsJob
@@ -120,7 +120,7 @@ public abstract class VoxelGenerator
 			chunk.IsCollisionBaked = false;
 			chunk.IsDirty = true;
 			chunk.VertexCount = 0;
-			return default(ChunkTask);
+			return default;
 		}
 		NativeCounter triangleCounter = new NativeCounter(Allocator.TempJob);
 		int length = math.min(chunk.VoxelCount * 15, 65535);
@@ -169,7 +169,7 @@ public abstract class VoxelGenerator
 			srcNorm = surfaceNetsBuffer.Normals.AsArray(),
 			srcTris = surfaceNetsBuffer.Triangles.AsArray()
 		}.Schedule();
-		Action onComplete = delegate
+		Action onComplete = () =>
 		{
 			chunk.IsMeshGenerated = true;
 			chunk.IsCollisionBaked = false;

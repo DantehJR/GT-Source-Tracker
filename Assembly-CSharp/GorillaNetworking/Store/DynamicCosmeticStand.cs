@@ -72,6 +72,8 @@ public class DynamicCosmeticStand : MonoBehaviour, iFlagForBaking
 
 	private int searchIndex;
 
+	private WaitForSeconds wait;
+
 	public string thisCosmeticName
 	{
 		get
@@ -201,16 +203,43 @@ public class DynamicCosmeticStand : MonoBehaviour, iFlagForBaking
 	{
 		if (!(CosmeticsController.instance == null) && CosmeticsController.instance.allCosmetics != null)
 		{
-			thisCosmeticItem = CosmeticsController.instance.allCosmetics.Find((CosmeticsController.CosmeticItem x) => thisCosmeticName == x.displayName || thisCosmeticName == x.overrideDisplayName || thisCosmeticName == x.itemName);
-			if (slotPriceText != null)
+			AssignCosmeticItem();
+			SetSlotPriceText();
+			if (thisCosmeticItem.cost == 0)
 			{
-				slotPriceText.text = thisCosmeticItem.itemCategory.ToString().ToUpper() + " " + thisCosmeticItem.cost;
-			}
-			if (slotPriceTextTMP != null)
-			{
-				slotPriceTextTMP.text = thisCosmeticItem.itemCategory.ToString().ToUpper() + " " + thisCosmeticItem.cost;
+				StartCoroutine(SetStandPriceCoroutine());
 			}
 			RefreshPurchaseGate();
+		}
+	}
+
+	private IEnumerator SetStandPriceCoroutine()
+	{
+		float startTime = Time.time;
+		yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 5f));
+		wait = new WaitForSeconds(2.5f);
+		while (thisCosmeticItem.cost == 0)
+		{
+			yield return wait;
+			if (Time.time - startTime > 60f)
+			{
+				yield break;
+			}
+			AssignCosmeticItem();
+		}
+		SetSlotPriceText();
+	}
+
+	private void AssignCosmeticItem()
+	{
+		thisCosmeticItem = CosmeticsController.instance.allCosmetics.Find((CosmeticsController.CosmeticItem x) => thisCosmeticName == x.displayName || thisCosmeticName == x.overrideDisplayName || thisCosmeticName == x.itemName);
+	}
+
+	private void SetSlotPriceText()
+	{
+		if (slotPriceTextTMP != null)
+		{
+			slotPriceTextTMP.text = thisCosmeticItem.itemCategory.ToString().ToUpper() + " " + thisCosmeticItem.cost;
 		}
 	}
 
@@ -246,8 +275,7 @@ public class DynamicCosmeticStand : MonoBehaviour, iFlagForBaking
 		if (text == null)
 		{
 			AddToCartButton.gameObject.SetActive(value: false);
-			CosmeticsController.CosmeticItem value;
-			string text3 = ((text2 != null && instance.allCosmeticsDict.TryGetValue(text2, out value)) ? value.overrideDisplayName : text2);
+			string text3 = ((text2 != null && instance.allCosmeticsDict.TryGetValue(text2, out var value)) ? value.overrideDisplayName : text2);
 			if (slotPriceTextTMP != null)
 			{
 				slotPriceTextTMP.text = "REQUIRES\n" + text3;
@@ -397,7 +425,7 @@ public class DynamicCosmeticStand : MonoBehaviour, iFlagForBaking
 
 	public void CopyChildsName()
 	{
-		DynamicCosmeticStand[] componentsInChildren = base.gameObject.GetComponentsInChildren<DynamicCosmeticStand>(includeInactive: true);
+		DynamicCosmeticStand[] componentsInChildren = gameObject.GetComponentsInChildren<DynamicCosmeticStand>(includeInactive: true);
 		foreach (DynamicCosmeticStand dynamicCosmeticStand in componentsInChildren)
 		{
 			if (dynamicCosmeticStand != this)

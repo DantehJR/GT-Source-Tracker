@@ -408,7 +408,7 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 			{
 				abortRaceAtTimestamp = time + (double)dqInterval;
 			}
-			RacerData racerData = default(RacerData);
+			RacerData racerData = default;
 			int i;
 			for (i = 0; i < racers.Count; i++)
 			{
@@ -501,7 +501,15 @@ public class RacingManager : NetworkSceneObject, ITickSystemTick
 				{
 					VRRig.LocalRig.hoverboardVisual.SetRaceDisplay(racerData.isDisqualified ? "DQ" : (i + 1).ToString());
 				}
-				string text = (racerData.isDisqualified ? "DQ. " : (flag ? "    " : (i + 1 + ". ")));
+				string text;
+				if (racerData.isDisqualified)
+				{
+					text = "DQ. ";
+				}
+				else
+				{
+					text = (flag ? "    " : (i + 1 + ". "));
+				}
 				stringBuilder.Append(text);
 				if (text.Length <= 3)
 				{

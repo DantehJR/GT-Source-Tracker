@@ -33,7 +33,7 @@ public class KIDUIScrollbar : Scrollbar, IPointerEnterHandler, IEventSystemHandl
 	{
 		get
 		{
-			if (base.direction != Direction.LeftToRight && base.direction != Direction.RightToLeft)
+			if (direction != Direction.LeftToRight && direction != Direction.RightToLeft)
 			{
 				return Axis.Vertical;
 			}
@@ -44,7 +44,7 @@ public class KIDUIScrollbar : Scrollbar, IPointerEnterHandler, IEventSystemHandl
 	protected override void OnEnable()
 	{
 		base.OnEnable();
-		containerRect = base.handleRect.parent.GetComponent<RectTransform>();
+		containerRect = handleRect.parent.GetComponent<RectTransform>();
 		if ((bool)GorillaTagger.Instance)
 		{
 			thirdPersonCamera = GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>();
@@ -74,7 +74,7 @@ public class KIDUIScrollbar : Scrollbar, IPointerEnterHandler, IEventSystemHandl
 		}
 		else
 		{
-			if (!base.interactable || !ControllerBehaviour.Instance.TriggerDown || _currentPointerData == null)
+			if (!interactable || !ControllerBehaviour.Instance.TriggerDown || _currentPointerData == null)
 			{
 				return;
 			}
@@ -86,8 +86,8 @@ public class KIDUIScrollbar : Scrollbar, IPointerEnterHandler, IEventSystemHandl
 			{
 				RectTransformUtility.ScreenPointToLocalPointInRectangle(containerRect, raycastResult.screenPosition, thirdPersonCamera, out var localPoint);
 				Vector2 zero = Vector2.zero;
-				Vector2 handleCorner = localPoint - zero - containerRect.rect.position - (base.handleRect.rect.size - base.handleRect.sizeDelta) * 0.5f;
-				float num = ((axis == Axis.Horizontal) ? containerRect.rect.width : containerRect.rect.height) * (1f - base.size);
+				Vector2 handleCorner = localPoint - zero - containerRect.rect.position - (handleRect.rect.size - handleRect.sizeDelta) * 0.5f;
+				float num = ((axis == Axis.Horizontal) ? containerRect.rect.width : containerRect.rect.height) * (1f - size);
 				if (!(num <= 0f))
 				{
 					UpdateDrag(handleCorner, num);
@@ -98,19 +98,19 @@ public class KIDUIScrollbar : Scrollbar, IPointerEnterHandler, IEventSystemHandl
 
 	private void UpdateDrag(Vector2 handleCorner, float remainingSize)
 	{
-		switch (base.direction)
+		switch (direction)
 		{
 		case Direction.LeftToRight:
-			base.value = Mathf.Clamp01(handleCorner.x / remainingSize);
+			value = Mathf.Clamp01(handleCorner.x / remainingSize);
 			break;
 		case Direction.RightToLeft:
-			base.value = Mathf.Clamp01(1f - handleCorner.x / remainingSize);
+			value = Mathf.Clamp01(1f - handleCorner.x / remainingSize);
 			break;
 		case Direction.BottomToTop:
-			base.value = Mathf.Clamp01(handleCorner.y / remainingSize);
+			value = Mathf.Clamp01(handleCorner.y / remainingSize);
 			break;
 		case Direction.TopToBottom:
-			base.value = Mathf.Clamp01(1f - handleCorner.y / remainingSize);
+			value = Mathf.Clamp01(1f - handleCorner.y / remainingSize);
 			break;
 		}
 	}

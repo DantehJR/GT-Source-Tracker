@@ -756,8 +756,8 @@ public class GamePlayer : MonoBehaviour
 
 	internal static void InitializeStaticLookupCaches()
 	{
-		lookupCache_actorNum_to_gamePlayer = new(int, GamePlayer)[20];
-		lookupCache_rigInstanceId_to_gamePlayer = new(int, GamePlayer)[20];
+		lookupCache_actorNum_to_gamePlayer = new (int, GamePlayer)[20];
+		lookupCache_rigInstanceId_to_gamePlayer = new (int, GamePlayer)[20];
 		if (VRRigCache.isInitialized)
 		{
 			UpdateStaticLookupCaches();

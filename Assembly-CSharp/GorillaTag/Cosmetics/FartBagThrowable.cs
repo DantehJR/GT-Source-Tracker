@@ -75,9 +75,9 @@ public class FartBagThrowable : MonoBehaviour, IProjectile
 
 	public void Launch(Vector3 startPosition, Quaternion startRotation, Vector3 velocity, float chargeFrac, VRRig ownerRig, int progress)
 	{
-		base.transform.position = startPosition;
-		base.transform.rotation = startRotation;
-		base.transform.localScale = Vector3.one * ownerRig.scaleFactor;
+		transform.position = startPosition;
+		transform.rotation = startRotation;
+		transform.localScale = Vector3.one * ownerRig.scaleFactor;
 		rigidbody.linearVelocity = velocity;
 		timeCreated = Time.time;
 		InitialPhotonEvent();
@@ -85,10 +85,18 @@ public class FartBagThrowable : MonoBehaviour, IProjectile
 
 	private void InitialPhotonEvent()
 	{
-		_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
+		_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
 		if ((bool)ParentTransferable)
 		{
-			NetPlayer netPlayer = ((ParentTransferable.myOnlineRig != null) ? ParentTransferable.myOnlineRig.creator : ((ParentTransferable.myRig != null) ? (ParentTransferable.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null));
+			NetPlayer netPlayer;
+			if (ParentTransferable.myOnlineRig != null)
+			{
+				netPlayer = ParentTransferable.myOnlineRig.creator;
+			}
+			else
+			{
+				netPlayer = ((ParentTransferable.myRig != null) ? (ParentTransferable.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null);
+			}
 			if (_events != null && netPlayer != null)
 			{
 				_events.Init(netPlayer);
@@ -104,8 +112,8 @@ public class FartBagThrowable : MonoBehaviour, IProjectile
 	{
 		if ((handLayerMask.value & (1 << other.gameObject.layer)) != 0 && placedOnFloor)
 		{
-			handContactPoint = other.ClosestPoint(base.transform.position);
-			handNormalVector = (handContactPoint - base.transform.position).normalized;
+			handContactPoint = other.ClosestPoint(transform.position);
+			handNormalVector = (handContactPoint - transform.position).normalized;
 			if (Time.time - placedOnFloorTime > 0.3f)
 			{
 				Deflate();
@@ -120,9 +128,9 @@ public class FartBagThrowable : MonoBehaviour, IProjectile
 			placedOnFloor = true;
 			placedOnFloorTime = Time.time;
 			Vector3 normal = other.contacts[0].normal;
-			base.transform.position = other.contacts[0].point + normal * placementOffset;
-			Quaternion rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(base.transform.forward, normal).normalized, normal);
-			base.transform.rotation = rotation;
+			transform.position = other.contacts[0].point + normal * placementOffset;
+			Quaternion rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, normal).normalized, normal);
+			transform.rotation = rotation;
 		}
 	}
 
@@ -153,10 +161,10 @@ public class FartBagThrowable : MonoBehaviour, IProjectile
 	{
 		if (!deflated)
 		{
-			GameObject obj = ObjectPools.instance.Instantiate(deflationEffect, handContactPoint);
-			obj.transform.up = handNormalVector;
-			obj.transform.position = base.transform.position;
-			SoundBankPlayer componentInChildren = obj.GetComponentInChildren<SoundBankPlayer>();
+			GameObject gameObject = ObjectPools.instance.Instantiate(deflationEffect, handContactPoint);
+			gameObject.transform.up = handNormalVector;
+			gameObject.transform.position = transform.position;
+			SoundBankPlayer componentInChildren = gameObject.GetComponentInChildren<SoundBankPlayer>();
 			if ((bool)componentInChildren.soundBank)
 			{
 				componentInChildren.Play();
@@ -174,7 +182,7 @@ public class FartBagThrowable : MonoBehaviour, IProjectile
 
 	private void DisableObject()
 	{
-		this.OnDeflated?.Invoke(this);
+		OnDeflated?.Invoke(this);
 		deflated = false;
 	}
 

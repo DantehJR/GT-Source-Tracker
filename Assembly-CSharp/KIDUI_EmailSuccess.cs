@@ -13,7 +13,7 @@ public class KIDUI_EmailSuccess : MonoBehaviour
 	public void ShowSuccessScreen(string email)
 	{
 		_emailTxt.text = email;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		TelemetryData telemetryData = new TelemetryData
 		{
 			EventName = "kid_screen_shown",
@@ -31,7 +31,7 @@ public class KIDUI_EmailSuccess : MonoBehaviour
 	public void ShowSuccessScreenAppeal(string email)
 	{
 		_emailTxt.text = email;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		TelemetryData telemetryData = new TelemetryData
 		{
 			EventName = "kid_screen_shown",
@@ -48,7 +48,7 @@ public class KIDUI_EmailSuccess : MonoBehaviour
 
 	public void OnClose()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_mainScreen.ShowMainScreen(EMainScreenStatus.Pending);
 	}
 

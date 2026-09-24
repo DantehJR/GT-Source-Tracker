@@ -40,10 +40,10 @@ public class TasselPhysics : MonoBehaviour
 
 	private void Update()
 	{
-		float y = base.transform.lossyScale.y;
+		float y = transform.lossyScale.y;
 		velocity *= drag;
 		velocity.y -= gravityStrength * y * Time.deltaTime;
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		Vector3 vector = lastCenterPos + velocity * Time.deltaTime;
 		Vector3 vector2 = position + (vector - position).normalized * centerOfMassLength * y;
 		velocity = (vector2 - lastCenterPos) / Time.deltaTime;

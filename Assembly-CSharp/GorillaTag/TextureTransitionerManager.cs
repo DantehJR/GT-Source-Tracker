@@ -16,13 +16,13 @@ public class TextureTransitionerManager : MonoBehaviour
 	{
 		if (instance != null)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 			return;
 		}
 		instance = this;
 		if (Application.isPlaying)
 		{
-			Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(gameObject);
 		}
 		matPropBlock = new MaterialPropertyBlock();
 	}
@@ -69,9 +69,9 @@ public class TextureTransitionerManager : MonoBehaviour
 	{
 		if (!(instance != null))
 		{
-			GameObject obj = new GameObject();
-			instance = obj.AddComponent<TextureTransitionerManager>();
-			obj.name = "TextureTransitionerManager (Singleton)";
+			GameObject gameObject = new GameObject();
+			instance = gameObject.AddComponent<TextureTransitionerManager>();
+			gameObject.name = "TextureTransitionerManager (Singleton)";
 		}
 	}
 

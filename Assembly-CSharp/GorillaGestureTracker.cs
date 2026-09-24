@@ -249,9 +249,9 @@ public class GorillaGestureTracker : MonoBehaviour
 
 	private void PollIndex(int i, out int flex)
 	{
-		VRMapIndex obj = (VRMapIndex)_vrNodes[i];
+		VRMapIndex vRMapIndex = (VRMapIndex)_vrNodes[i];
 		Transform transform = _bones[i];
-		float num = Mathf.Clamp01(obj.triggerValue / 0.88f);
+		float num = Mathf.Clamp01(vRMapIndex.triggerValue / 0.88f);
 		flex = -1;
 		if (num.Approx(0f))
 		{
@@ -271,9 +271,9 @@ public class GorillaGestureTracker : MonoBehaviour
 
 	private void PollMiddle(int i, out int flex)
 	{
-		VRMapMiddle obj = (VRMapMiddle)_vrNodes[i];
+		VRMapMiddle vRMapMiddle = (VRMapMiddle)_vrNodes[i];
 		Transform transform = _bones[i];
-		float gripValue = obj.gripValue;
+		float gripValue = vRMapMiddle.gripValue;
 		flex = -1;
 		if (gripValue.Approx(0f))
 		{
@@ -485,20 +485,20 @@ public class GorillaGestureTracker : MonoBehaviour
 	private void PollHandAxes(int hand)
 	{
 		bool flag = hand == 1;
-		bool num = hand == 8;
-		int num2 = hand + 1;
-		int num3 = hand + 2;
-		int num4 = hand + 3;
+		bool flag2 = hand == 8;
+		int num = hand + 1;
+		int num2 = hand + 2;
+		int num3 = hand + 3;
 		Transform transform = _bones[hand];
 		Vector3 handBasisAngles = _handBasisAngles;
-		if (num)
+		if (flag2)
 		{
 			handBasisAngles.z *= -1f;
 		}
 		Quaternion quaternion = transform.rotation * Quaternion.Euler(handBasisAngles);
 		_positions[hand] = transform.position;
-		_normals[num2] = quaternion * Vector3.right * (flag ? 1f : (-1f));
-		_normals[num3] = quaternion * Vector3.forward;
-		_normals[num4] = quaternion * Vector3.up;
+		_normals[num] = quaternion * Vector3.right * (flag ? 1f : (-1f));
+		_normals[num2] = quaternion * Vector3.forward;
+		_normals[num3] = quaternion * Vector3.up;
 	}
 }

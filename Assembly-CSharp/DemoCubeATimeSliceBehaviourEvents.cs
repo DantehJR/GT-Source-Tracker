@@ -32,17 +32,17 @@ public class DemoCubeATimeSliceBehaviourEvents : TimeSliceLodBehaviour
 	public void OnLod0Enter()
 	{
 		_renderer.material = _red;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnLod1Enter()
 	{
 		_renderer.material = _green;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnLodExit()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 }

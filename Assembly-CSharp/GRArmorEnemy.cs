@@ -185,7 +185,7 @@ public class GRArmorEnemy : MonoBehaviour
 				num += 360f / (float)numFragmentsWhenShattered;
 				Quaternion quaternion = Quaternion.Euler(0f, num, fragmentLaunchPitch);
 				Vector3 vector = quaternion * fragmentSpawnOffset;
-				entity.manager.RequestCreateItem(armorFragmentPrefab.name.GetStaticHash(), base.transform.position + vector, quaternion, entity.GetNetId());
+				entity.manager.RequestCreateItem(armorFragmentPrefab.name.GetStaticHash(), transform.position + vector, quaternion, entity.GetNetId());
 			}
 		}
 	}

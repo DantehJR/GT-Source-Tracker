@@ -6,13 +6,13 @@ using Photon.Realtime;
 [NetworkBehaviourWeaved(0)]
 public abstract class NetworkComponent : NetworkView, IPunObservable, IStateAuthorityChanged, IPublicFacingInterface, IOnPhotonViewOwnerChange, IPhotonViewCallback, IInRoomCallbacks, IPunInstantiateMagicCallback
 {
-	public bool IsLocallyOwned => base.IsMine;
+	public bool IsLocallyOwned => IsMine;
 
-	public bool ShouldWriteObjectData => NetworkSystem.Instance.ShouldWriteObjectData(base.gameObject);
+	public bool ShouldWriteObjectData => NetworkSystem.Instance.ShouldWriteObjectData(gameObject);
 
-	public bool ShouldUpdateobject => NetworkSystem.Instance.ShouldUpdateObject(base.gameObject);
+	public bool ShouldUpdateobject => NetworkSystem.Instance.ShouldUpdateObject(gameObject);
 
-	public int OwnerID => NetworkSystem.Instance.GetOwningPlayerID(base.gameObject);
+	public int OwnerID => NetworkSystem.Instance.GetOwningPlayerID(gameObject);
 
 	internal virtual void OnEnable()
 	{
@@ -52,7 +52,7 @@ public abstract class NetworkComponent : NetworkView, IPunObservable, IStateAuth
 
 	public override void Render()
 	{
-		if (!base.HasStateAuthority)
+		if (!HasStateAuthority)
 		{
 			ReadDataFusion();
 		}
@@ -99,11 +99,11 @@ public abstract class NetworkComponent : NetworkView, IPunObservable, IStateAuth
 	public override void StateAuthorityChanged()
 	{
 		base.StateAuthorityChanged();
-		if (!(base.Object == null) && !(base.Object.StateAuthority == default(PlayerRef)))
+		if (!(Object == null) && !(Object.StateAuthority == default(PlayerRef)))
 		{
 			if (NetworkSystem.Instance.InRoom)
 			{
-				OnOwnerSwitched(NetworkSystem.Instance.GetPlayer(base.Object.StateAuthority));
+				OnOwnerSwitched(NetworkSystem.Instance.GetPlayer(Object.StateAuthority));
 			}
 			else
 			{

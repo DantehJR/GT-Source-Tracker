@@ -34,8 +34,8 @@ public class GRSummonerEgg : MonoBehaviour
 		if (component != null)
 		{
 			component.isKinematic = false;
-			component.position = base.transform.position;
-			component.rotation = base.transform.rotation;
+			component.position = transform.position;
+			component.rotation = transform.rotation;
 			component.linearVelocity = Vector3.up * 2f;
 			component.angularVelocity = Vector3.zero;
 			component.constraints |= (RigidbodyConstraints)10;

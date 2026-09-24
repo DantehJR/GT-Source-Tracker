@@ -236,7 +236,7 @@ public class MagicCauldron : NetworkComponent
 	private void ChangeState(CauldronState state)
 	{
 		currentState = state;
-		if (base.IsMine)
+		if (IsMine)
 		{
 			currentStateElapsedTime = 0f;
 		}
@@ -248,7 +248,7 @@ public class MagicCauldron : NetworkComponent
 				item.gameObject.SetActive(flag);
 			}
 		}
-		if (currentState == CauldronState.summoned && Vector3.Distance(GTPlayer.Instance.transform.position, base.transform.position) < levitationRadius)
+		if (currentState == CauldronState.summoned && Vector3.Distance(GTPlayer.Instance.transform.position, transform.position) < levitationRadius)
 		{
 			StartCoroutine(LevitationSpellCoroutine());
 		}
@@ -293,7 +293,7 @@ public class MagicCauldron : NetworkComponent
 
 	private void UpdateState()
 	{
-		if (!base.IsMine)
+		if (!IsMine)
 		{
 			return;
 		}
@@ -362,14 +362,14 @@ public class MagicCauldron : NetworkComponent
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 1) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void MagicCauldron::RPC_OnIngredientAdd(System.Int32,Fusion.RpcInfo)", base.Object, 1);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void MagicCauldron::RPC_OnIngredientAdd(System.Int32,Fusion.RpcInfo)", Object, 1);
 				return;
 			}
 			int num = 8;
@@ -379,22 +379,22 @@ public class MagicCauldron : NetworkComponent
 				NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void MagicCauldron::RPC_OnIngredientAdd(System.Int32,Fusion.RpcInfo)", num);
 				return;
 			}
-			if (base.Runner.HasAnyActiveConnections())
+			if (Runner.HasAnyActiveConnections())
 			{
-				SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+				SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 				byte* ptr2 = (byte*)ptr + 28;
-				*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
+				*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
 				int num2 = 8;
 				*(int*)(ptr2 + num2) = _ingredientIndex;
 				num2 += 4;
 				ptr->Offset = num2 * 8;
-				base.Runner.SendRpc(ptr);
+				Runner.SendRpc(ptr);
 			}
 			if ((localAuthorityMask & 7) == 0)
 			{
 				return;
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		OnIngredientAddShared(_ingredientIndex, info);
 	}
@@ -562,12 +562,12 @@ public class MagicCauldron : NetworkComponent
 
 	private void ReadDataShared(float stateElapsedTime, int recipeIndex, CauldronState state, int ingredientIndex)
 	{
-		CauldronState num = currentState;
+		CauldronState cauldronState = currentState;
 		currentStateElapsedTime = stateElapsedTime;
 		currentRecipeIndex = recipeIndex;
 		currentState = state;
 		this.ingredientIndex = ingredientIndex;
-		if (num != currentState)
+		if (cauldronState != currentState)
 		{
 			ChangeState(currentState);
 		}

@@ -14,9 +14,9 @@ public class NamedTriggerZone : MonoBehaviour
 		Collider collider = GetComponent<Collider>();
 		if (!collider)
 		{
-			collider = base.gameObject.AddComponent<BoxCollider>();
+			collider = gameObject.AddComponent<BoxCollider>();
 		}
 		collider.isTrigger = true;
-		base.gameObject.layer = LayerMask.NameToLayer("Gorilla Trigger");
+		gameObject.layer = LayerMask.NameToLayer("Gorilla Trigger");
 	}
 }

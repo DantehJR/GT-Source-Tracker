@@ -71,8 +71,7 @@ public class BuilderConveyorManager : MonoBehaviour
 			int index2 = conveyorIndices[index];
 			NativeSpline splineAt = GetSplineAt(index2);
 			Quaternion quaternion2 = conveyorRotations[index2];
-			float curveT;
-			Vector3 position = (Vector3)CurveUtility.EvaluatePosition(splineAt.GetCurve(splineAt.SplineToCurveT(splineT, out curveT)), curveT) + quaternion2 * vector;
+			Vector3 position = (Vector3)CurveUtility.EvaluatePosition(splineAt.GetCurve(splineAt.SplineToCurveT(splineT, out var curveT)), curveT) + quaternion2 * vector;
 			transform.position = position;
 		}
 	}
@@ -125,7 +124,7 @@ public class BuilderConveyorManager : MonoBehaviour
 			float num2 = Time.deltaTime * builderConveyor.GetFrameMovement();
 			float num3 = jobSplineTimes[num] + num2;
 			jobSplineTimes[num] = Mathf.Clamp(num3, 0f, 1f);
-			if (PhotonNetwork.IsMasterClient && (!flag || flag2) && (double)num3 > 0.999)
+			if (PhotonNetwork.IsMasterClient && (!flag | flag2) && (double)num3 > 0.999)
 			{
 				builderConveyor.RemovePieceFromConveyor(pieceTransforms[num]);
 				RemovePieceFromJobAtIndex(num);

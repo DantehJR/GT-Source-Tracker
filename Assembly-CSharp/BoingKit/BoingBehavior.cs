@@ -104,14 +104,14 @@ public class BoingBehavior : BoingBase
 
 	public virtual void Reboot()
 	{
-		Params.Instance.PositionSpring.Reset(base.transform.position);
-		Params.Instance.RotationSpring.Reset(base.transform.rotation);
-		Params.Instance.ScaleSpring.Reset(base.transform.localScale);
-		CachedPositionLs = base.transform.localPosition;
-		CachedRotationLs = base.transform.localRotation;
-		CachedPositionWs = base.transform.position;
-		CachedRotationWs = base.transform.rotation;
-		CachedScaleLs = base.transform.localScale;
+		Params.Instance.PositionSpring.Reset(transform.position);
+		Params.Instance.RotationSpring.Reset(transform.rotation);
+		Params.Instance.ScaleSpring.Reset(transform.localScale);
+		CachedPositionLs = transform.localPosition;
+		CachedRotationLs = transform.localRotation;
+		CachedPositionWs = transform.position;
+		CachedRotationWs = transform.rotation;
+		CachedScaleLs = transform.localScale;
 		CachedTransformValid = true;
 	}
 
@@ -169,7 +169,7 @@ public class BoingBehavior : BoingBase
 		}
 		UpdateFlags();
 		Params.InstanceID = GetInstanceID();
-		Params.Instance.PrepareExecute(ref Params, CachedPositionWs, CachedRotationWs, base.transform.localScale, accumulateEffectors);
+		Params.Instance.PrepareExecute(ref Params, CachedPositionWs, CachedRotationWs, transform.localScale, accumulateEffectors);
 	}
 
 	public void Execute(float dt)
@@ -221,17 +221,17 @@ public class BoingBehavior : BoingBase
 
 	private void PullResults(ref BoingWork.Params p)
 	{
-		CachedPositionLs = base.transform.localPosition;
-		CachedPositionWs = base.transform.position;
-		RenderPositionWs = BoingWork.ComputeTranslationalResults(base.transform, base.transform.position, p.Instance.PositionSpring.Value, this);
-		base.transform.position = RenderPositionWs;
-		CachedRotationLs = base.transform.localRotation;
-		CachedRotationWs = base.transform.rotation;
+		CachedPositionLs = transform.localPosition;
+		CachedPositionWs = transform.position;
+		RenderPositionWs = BoingWork.ComputeTranslationalResults(transform, transform.position, p.Instance.PositionSpring.Value, this);
+		transform.position = RenderPositionWs;
+		CachedRotationLs = transform.localRotation;
+		CachedRotationWs = transform.rotation;
 		RenderRotationWs = p.Instance.RotationSpring.ValueQuat;
-		base.transform.rotation = RenderRotationWs;
-		CachedScaleLs = base.transform.localScale;
+		transform.rotation = RenderRotationWs;
+		CachedScaleLs = transform.localScale;
 		RenderScaleLs = p.Instance.ScaleSpring.Value;
-		base.transform.localScale = RenderScaleLs;
+		transform.localScale = RenderScaleLs;
 		CachedTransformValid = true;
 	}
 
@@ -243,24 +243,24 @@ public class BoingBehavior : BoingBase
 		}
 		if (Application.isEditor)
 		{
-			if ((base.transform.position - RenderPositionWs).sqrMagnitude < 0.0001f)
+			if ((transform.position - RenderPositionWs).sqrMagnitude < 0.0001f)
 			{
-				base.transform.localPosition = CachedPositionLs;
+				transform.localPosition = CachedPositionLs;
 			}
-			if (QuaternionUtil.GetAngle(base.transform.rotation * Quaternion.Inverse(RenderRotationWs)) < 0.01f)
+			if (QuaternionUtil.GetAngle(transform.rotation * Quaternion.Inverse(RenderRotationWs)) < 0.01f)
 			{
-				base.transform.localRotation = CachedRotationLs;
+				transform.localRotation = CachedRotationLs;
 			}
-			if ((base.transform.localScale - RenderScaleLs).sqrMagnitude < 0.0001f)
+			if ((transform.localScale - RenderScaleLs).sqrMagnitude < 0.0001f)
 			{
-				base.transform.localScale = CachedScaleLs;
+				transform.localScale = CachedScaleLs;
 			}
 		}
 		else
 		{
-			base.transform.localPosition = CachedPositionLs;
-			base.transform.localRotation = CachedRotationLs;
-			base.transform.localScale = CachedScaleLs;
+			transform.localPosition = CachedPositionLs;
+			transform.localRotation = CachedRotationLs;
+			transform.localScale = CachedScaleLs;
 		}
 	}
 }

@@ -80,9 +80,9 @@ public class CosmeticsThrottler : MonoBehaviour, IGorillaSliceableSimple
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(base.transform.position, DrawAllDistance);
+		Gizmos.DrawWireSphere(transform.position, DrawAllDistance);
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(base.transform.position, MaxDrawDistance);
+		Gizmos.DrawWireSphere(transform.position, MaxDrawDistance);
 	}
 
 	public void SliceUpdate()
@@ -96,7 +96,7 @@ public class CosmeticsThrottler : MonoBehaviour, IGorillaSliceableSimple
 			mainCamera = Camera.main;
 			return;
 		}
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		for (int i = 0; i < _rigHelpers.Length; i++)
 		{
 			_rigHelpers[i].prevSqrDistance = _rigHelpers[i].sqrDistance;

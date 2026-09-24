@@ -155,7 +155,7 @@ public static class SpatialUtils
 
 	public static bool TryGetBounds(IList<Renderer> renderers, out Bounds result)
 	{
-		result = default(Bounds);
+		result = default;
 		if (renderers == null)
 		{
 			return false;
@@ -194,7 +194,7 @@ public static class SpatialUtils
 
 	public static bool TryGetBounds(IList<Collider> colliders, out Bounds result)
 	{
-		result = default(Bounds);
+		result = default;
 		if (colliders == null)
 		{
 			return false;
@@ -233,7 +233,7 @@ public static class SpatialUtils
 
 	public static bool TryGetBounds(Transform x, out Bounds result, bool includeRenderers = true, bool includeColliders = true, bool fallbackToXforms = false)
 	{
-		result = default(Bounds);
+		result = default;
 		if (x == null)
 		{
 			return false;
@@ -263,7 +263,7 @@ public static class SpatialUtils
 				}
 			}
 		}
-		bool flag3 = flag || flag2;
+		bool flag3 = flag | flag2;
 		if (flag3 || !fallbackToXforms)
 		{
 			return flag3;
@@ -421,7 +421,7 @@ public static class SpatialUtils
 
 	public static void ComputeBoundingSphere2Pass(Vector3[] points, out Vector3 center, out float radius)
 	{
-		center = default(Vector3);
+		center = default;
 		radius = 0f;
 		if (!points.IsNullOrEmpty())
 		{
@@ -441,7 +441,7 @@ public static class SpatialUtils
 
 	public static void ComputeBoundingSphereRitter(Vector3[] points, out Vector3 center, out float radius)
 	{
-		center = default(Vector3);
+		center = default;
 		radius = 0f;
 		if (points.IsNullOrEmpty())
 		{

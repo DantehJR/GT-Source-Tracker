@@ -168,7 +168,7 @@ public class NewMapsDisplay : MonoBehaviour
 			{
 				return error;
 			}
-			if (!base.isActiveAndEnabled)
+			if (!isActiveAndEnabled)
 			{
 				return Error.None;
 			}
@@ -191,7 +191,7 @@ public class NewMapsDisplay : MonoBehaviour
 				}
 			}
 			string[] mapInfoList = (text.IsNullOrEmpty() ? null : text.Split(','));
-			lazyImage = new LazyImage<Texture2D>(ImageCacheTexture2D.Instance, delegate(Texture2D loadedImage)
+			lazyImage = new LazyImage<Texture2D>(ImageCacheTexture2D.Instance, (Texture2D loadedImage) =>
 			{
 				downloadingImage = false;
 				lastDownloadedImage = loadedImage;
@@ -217,7 +217,7 @@ public class NewMapsDisplay : MonoBehaviour
 				i = i2 + 1;
 			}
 			downloadingImages = false;
-			if (!base.isActiveAndEnabled)
+			if (!isActiveAndEnabled)
 			{
 				return Error.None;
 			}

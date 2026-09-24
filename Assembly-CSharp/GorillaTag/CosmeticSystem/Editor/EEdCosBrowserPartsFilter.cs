@@ -13,5 +13,5 @@ public enum EEdCosBrowserPartsFilter
 	Store = 0x10,
 	FirstPerson = 0x20,
 	LocalRig = 0x40,
-	All = 0x7F
+	All = NoParts | Holdable | Functional | Wardrobe | Store | FirstPerson | LocalRig
 }

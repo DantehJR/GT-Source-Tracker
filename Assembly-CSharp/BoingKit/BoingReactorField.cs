@@ -348,12 +348,12 @@ public class BoingReactorField : BoingBase
 
 	public void Reboot()
 	{
-		m_gridCenter = base.transform.position;
+		m_gridCenter = transform.position;
 		Vector3 vector = (m_qPrevGridCenterNorm = QuantizeNorm(m_gridCenter));
 		switch (CellMoveMode)
 		{
 		case CellMoveModeEnum.Follow:
-			m_gridCenter = base.transform.position;
+			m_gridCenter = transform.position;
 			m_iCellBaseX = 0;
 			m_iCellBaseY = 0;
 			m_iCellBaseZ = 0;
@@ -462,7 +462,7 @@ public class BoingReactorField : BoingBase
 		bool lerpY = resY != resY2;
 		bool lerpZ = resZ != resZ2;
 		Vector3 vector4 = (vector - vector3) / CellSize;
-		Vector3 vector5 = p - base.transform.position;
+		Vector3 vector5 = p - transform.position;
 		switch (FalloffDimensions)
 		{
 		case FalloffDimensionsEnum.XY:
@@ -563,8 +563,8 @@ public class BoingReactorField : BoingBase
 		m_fieldParams.FalloffDimensions = (int)FalloffDimensions;
 		m_fieldParams.PropagationDepth = PropagationDepth;
 		m_fieldParams.GridCenter = m_gridCenter;
-		m_fieldParams.UpWs = (Params.Bits.IsBitSet(6) ? Params.RotationReactionUp : (base.transform.rotation * VectorUtil.NormalizeSafe(Params.RotationReactionUp, Vector3.up)));
-		m_fieldParams.FieldPosition = base.transform.position;
+		m_fieldParams.UpWs = (Params.Bits.IsBitSet(6) ? Params.RotationReactionUp : (transform.rotation * VectorUtil.NormalizeSafe(Params.RotationReactionUp, Vector3.up)));
+		m_fieldParams.FieldPosition = transform.position;
 		m_fieldParams.FalloffRatio = FalloffRatio;
 		m_fieldParams.CellSize = CellSize;
 		m_fieldParams.DeltaTime = Time.deltaTime;
@@ -691,7 +691,7 @@ public class BoingReactorField : BoingBase
 			flag = true;
 			m_numEffectors = Effectors.Length;
 		}
-		if (flag2 || flag3)
+		if (flag2 | flag3)
 		{
 			m_shader.SetBuffer(s_computeKernelId.ExecuteKernel, ShaderPropertyId.EffectorIndices, m_effectorIndexBuffer);
 		}
@@ -701,7 +701,7 @@ public class BoingReactorField : BoingBase
 			m_reactorParamsBuffer = new ComputeBuffer(1, BoingWork.Params.Stride);
 			flag = true;
 		}
-		if (flag2 || flag4)
+		if (flag2 | flag4)
 		{
 			m_shader.SetBuffer(s_computeKernelId.ExecuteKernel, ShaderPropertyId.ReactorParams, m_reactorParamsBuffer);
 		}
@@ -711,7 +711,7 @@ public class BoingReactorField : BoingBase
 			m_fieldParamsBuffer = new ComputeBuffer(1, FieldParams.Stride);
 			flag = true;
 		}
-		if (flag2 || flag5)
+		if (flag2 | flag5)
 		{
 			m_shader.SetBuffer(s_computeKernelId.InitKernel, ShaderPropertyId.ComputeFieldParams, m_fieldParamsBuffer);
 			m_shader.SetBuffer(s_computeKernelId.MoveKernel, ShaderPropertyId.ComputeFieldParams, m_fieldParamsBuffer);
@@ -762,7 +762,7 @@ public class BoingReactorField : BoingBase
 
 	private void FinishPrepareExecuteCpu()
 	{
-		Quaternion rotation = base.transform.rotation;
+		Quaternion rotation = transform.rotation;
 		for (int i = 0; i < CellsZ; i++)
 		{
 			for (int j = 0; j < CellsY; j++)
@@ -818,7 +818,7 @@ public class BoingReactorField : BoingBase
 		{
 		case CellMoveModeEnum.Follow:
 		{
-			Vector3 vector2 = base.transform.position - m_gridCenter;
+			Vector3 vector2 = transform.position - m_gridCenter;
 			switch (HardwareMode)
 			{
 			case HardwareModeEnum.CPU:
@@ -841,13 +841,13 @@ public class BoingReactorField : BoingBase
 				m_shader.Dispatch(s_computeKernelId.MoveKernel, CellsX, CellsY, CellsZ);
 				break;
 			}
-			m_gridCenter = base.transform.position;
+			m_gridCenter = transform.position;
 			m_qPrevGridCenterNorm = QuantizeNorm(m_gridCenter);
 			break;
 		}
 		case CellMoveModeEnum.WrapAround:
 		{
-			m_gridCenter = base.transform.position;
+			m_gridCenter = transform.position;
 			Vector3 vector = QuantizeNorm(m_gridCenter);
 			m_gridCenter = vector * CellSize;
 			int num = (int)(vector.x - m_qPrevGridCenterNorm.x);
@@ -1085,7 +1085,7 @@ public class BoingReactorField : BoingBase
 			{
 				continue;
 			}
-			BoingEffector.Params effector = default(BoingEffector.Params);
+			BoingEffector.Params effector = default;
 			effector.Fill(boingEffector);
 			if (!m_bounds.Intersects(ref effector))
 			{
@@ -1146,7 +1146,7 @@ public class BoingReactorField : BoingBase
 
 	public void OnDrawGizmosSelected()
 	{
-		if (base.isActiveAndEnabled)
+		if (isActiveAndEnabled)
 		{
 			DrawGizmos(drawEffectors: true);
 		}
@@ -1158,10 +1158,10 @@ public class BoingReactorField : BoingBase
 		switch (CellMoveMode)
 		{
 		case CellMoveModeEnum.Follow:
-			vector = base.transform.position;
+			vector = transform.position;
 			break;
 		case CellMoveModeEnum.WrapAround:
-			vector = new Vector3(Mathf.Round(base.transform.position.x / CellSize), Mathf.Round(base.transform.position.y / CellSize), Mathf.Round(base.transform.position.z / CellSize)) * CellSize;
+			vector = new Vector3(Mathf.Round(transform.position.x / CellSize), Mathf.Round(transform.position.y / CellSize), Mathf.Round(transform.position.z / CellSize)) * CellSize;
 			break;
 		}
 		BoingWork.Params.InstanceData[,,] array = null;
@@ -1249,9 +1249,9 @@ public class BoingReactorField : BoingBase
 	{
 		return CellMoveMode switch
 		{
-			CellMoveModeEnum.Follow => base.transform.position, 
-			CellMoveModeEnum.WrapAround => QuantizeNorm(base.transform.position) * CellSize, 
-			_ => base.transform.position, 
+			CellMoveModeEnum.Follow => transform.position, 
+			CellMoveModeEnum.WrapAround => QuantizeNorm(transform.position) * CellSize, 
+			_ => transform.position, 
 		};
 	}
 

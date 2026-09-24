@@ -114,7 +114,7 @@ public class PerlinVoxelGenerator : VoxelGenerator
 			voxels = chunk.Density,
 			materials = chunk.Material
 		}, chunk.VoxelCount, 64);
-		Action onComplete = delegate
+		Action onComplete = () =>
 		{
 			chunk.IsDataGenerated = true;
 			chunk.IsMeshGenerated = false;

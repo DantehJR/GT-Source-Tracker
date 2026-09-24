@@ -20,13 +20,13 @@ public class CrittersBagSettings : CrittersActorSettings
 	public override void UpdateActorSettings()
 	{
 		base.UpdateActorSettings();
-		CrittersBag obj = (CrittersBag)parentActor;
-		obj.attachableCollider = attachableCollider;
-		obj.dropCube = dropCube;
-		obj.anchorLocation = anchorLocation;
-		obj.attachDisableColliders = attachDisableColliders;
-		obj.attachSound = attachSound;
-		obj.detachSound = detachSound;
-		obj.blockAttachTypes = blockAttachTypes;
+		CrittersBag crittersBag = (CrittersBag)parentActor;
+		crittersBag.attachableCollider = attachableCollider;
+		crittersBag.dropCube = dropCube;
+		crittersBag.anchorLocation = anchorLocation;
+		crittersBag.attachDisableColliders = attachDisableColliders;
+		crittersBag.attachSound = attachSound;
+		crittersBag.detachSound = detachSound;
+		crittersBag.blockAttachTypes = blockAttachTypes;
 	}
 }

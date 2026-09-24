@@ -80,12 +80,12 @@ public class GameAgent : MonoBehaviour, IGameEntityComponent
 
 	public void OnBehaviorStateChanged(byte newState)
 	{
-		this.onBehaviorStateChanged?.Invoke(newState);
+		onBehaviorStateChanged?.Invoke(newState);
 	}
 
 	public void OnBodyStateChanged(byte newState)
 	{
-		this.onBodyStateChanged?.Invoke(newState);
+		onBodyStateChanged?.Invoke(newState);
 	}
 
 	public void OnThink(float deltaTime)
@@ -122,19 +122,19 @@ public class GameAgent : MonoBehaviour, IGameEntityComponent
 					GetGameAgentManager().RequestJump(this, navAgent.transform.position, navAgent.currentOffMeshLinkData.startPos, 1f, 1f);
 				}
 			}
-			this.onReachedNavigationLink?.Invoke(navAgent.currentOffMeshLinkData);
+			onReachedNavigationLink?.Invoke(navAgent.currentOffMeshLinkData);
 		}
 		wasOnOffMeshNavLink = navAgent.isOnOffMeshLink;
 		if (!hasNotifiedNavigationFailure && !navAgent.pathPending && (navAgent.pathStatus == NavMeshPathStatus.PathPartial || navAgent.pathStatus == NavMeshPathStatus.PathInvalid))
 		{
-			this.onNavigationFailed?.Invoke(navAgent.pathStatus, navAgent.destination, navAgent.remainingDistance);
+			onNavigationFailed?.Invoke(navAgent.pathStatus, navAgent.destination, navAgent.remainingDistance);
 			hasNotifiedNavigationFailure = true;
 		}
 	}
 
 	public void OnJumpRequested(Vector3 start, Vector3 end, float heightScale, float speedScale)
 	{
-		this.onJumpRequested?.Invoke(start, end, heightScale, speedScale);
+		onJumpRequested?.Invoke(start, end, heightScale, speedScale);
 	}
 
 	public bool IsOnNavMesh()
@@ -250,12 +250,12 @@ public class GameAgent : MonoBehaviour, IGameEntityComponent
 	{
 		if (!disableNetworkSync)
 		{
-			if ((base.transform.position - position).sqrMagnitude > networkPositionCorrectionDist * networkPositionCorrectionDist && navAgent != null)
+			if ((transform.position - position).sqrMagnitude > networkPositionCorrectionDist * networkPositionCorrectionDist && navAgent != null)
 			{
 				navAgent.Warp(position);
 				navAgent.destination = lastReceivedDest;
 			}
-			base.transform.rotation = rotation;
+			transform.rotation = rotation;
 			if (rigidBody != null)
 			{
 				rigidBody.rotation = rotation;

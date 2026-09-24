@@ -86,7 +86,7 @@ public static class CreatorCodes
 		creatorCodeStatus = new Dictionary<string, CreatorCodeStatus>();
 		LoadData();
 		Intialized = true;
-		CreatorCodes.InitializedEvent?.Invoke();
+		InitializedEvent?.Invoke();
 	}
 
 	public static void DeleteCharacter(string id)
@@ -96,7 +96,7 @@ public static class CreatorCodes
 			data.currentCreatorCode[id] = data.currentCreatorCode[id].Substring(0, data.currentCreatorCode[id].Length - 1);
 			ValidatedCreatorCode[id] = null;
 			creatorCodeStatus[id] = ((data.currentCreatorCode[id].Length != 0) ? CreatorCodeStatus.Unchecked : CreatorCodeStatus.Empty);
-			CreatorCodes.OnCreatorCodeChangedEvent?.Invoke(id);
+			OnCreatorCodeChangedEvent?.Invoke(id);
 		}
 	}
 
@@ -111,7 +111,7 @@ public static class CreatorCodes
 			data.currentCreatorCode[id] += input;
 			ValidatedCreatorCode[id] = null;
 			creatorCodeStatus[id] = CreatorCodeStatus.Unchecked;
-			CreatorCodes.OnCreatorCodeChangedEvent?.Invoke(id);
+			OnCreatorCodeChangedEvent?.Invoke(id);
 		}
 	}
 
@@ -120,16 +120,16 @@ public static class CreatorCodes
 		Debug.Log("Resetting creator code");
 		data.currentCreatorCode[id] = "";
 		creatorCodeStatus[id] = CreatorCodeStatus.Empty;
-		supportedMember = default(Member);
+		supportedMember = default;
 		ValidatedCreatorCode[id] = null;
 		SaveData();
-		CreatorCodes.OnCreatorCodeChangedEvent?.Invoke(id);
+		OnCreatorCodeChangedEvent?.Invoke(id);
 	}
 
 	public static async Task<NexusManager.MemberCode> CheckValidationCoroutineJIT(string terminalId, string code, NexusGroupId[] group)
 	{
 		creatorCodeStatus[terminalId] = CreatorCodeStatus.Validating;
-		CreatorCodes.OnCreatorCodeChangedEvent?.Invoke(terminalId);
+		OnCreatorCodeChangedEvent?.Invoke(terminalId);
 		for (int i = 0; i < group.Length; i++)
 		{
 			Member member = await NexusManager.instance.VerifyCreatorCode(terminalId, code, group[i]);
@@ -144,7 +144,7 @@ public static class CreatorCodes
 				};
 				data.codeFirstUsedTime[terminalId] = DateTime.UtcNow;
 				SaveData();
-				CreatorCodes.OnCreatorCodeValidEvent?.Invoke(terminalId, code, group[i]);
+				OnCreatorCodeValidEvent?.Invoke(terminalId, code, group[i]);
 				return new NexusManager.MemberCode
 				{
 					memberCode = code,
@@ -153,7 +153,7 @@ public static class CreatorCodes
 			}
 		}
 		creatorCodeStatus[terminalId] = CreatorCodeStatus.Unchecked;
-		CreatorCodes.OnCreatorCodeFailureEvent?.Invoke(terminalId);
+		OnCreatorCodeFailureEvent?.Invoke(terminalId);
 		return null;
 	}
 
@@ -164,18 +164,32 @@ public static class CreatorCodes
 
 	private static void LoadData()
 	{
-		string text = PlayerPrefs.GetString("CreatorCodes_Store", string.Empty);
-		if (text.Length == 0)
+		try
 		{
-			return;
-		}
-		data = JsonConvert.DeserializeObject<CreatorCodesData>(text);
-		foreach (string key in data.currentCreatorCode.Keys)
-		{
-			if (data.codeFirstUsedTime.ContainsKey(key) && DateTime.UtcNow.Subtract(data.codeFirstUsedTime[key]).Days > 14)
+			string text = PlayerPrefs.GetString("CreatorCodes_Store", string.Empty);
+			if (text.Length == 0)
 			{
-				data.currentCreatorCode[key] = string.Empty;
+				return;
 			}
+			data = JsonConvert.DeserializeObject<CreatorCodesData>(text);
+			List<string> list = new List<string>();
+			foreach (string key in data.currentCreatorCode.Keys)
+			{
+				if (data.codeFirstUsedTime.ContainsKey(key) && DateTime.UtcNow.Subtract(data.codeFirstUsedTime[key]).Days > 14)
+				{
+					list.Add(key);
+				}
+			}
+			for (int i = 0; i < list.Count; i++)
+			{
+				data.currentCreatorCode.Remove(list[i]);
+			}
+		}
+		catch (Exception exception)
+		{
+			Debug.LogError("issue parsing creator code playerprefs: ");
+			Debug.LogException(exception);
+			data = new CreatorCodesData();
 		}
 	}
 }

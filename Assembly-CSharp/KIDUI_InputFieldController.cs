@@ -77,7 +77,7 @@ public class KIDUI_InputFieldController : MonoBehaviour, IPointerEnterHandler, I
 	{
 		if (_inputField.interactable && inside && (bool)ControllerBehaviour.Instance && ControllerBehaviour.Instance.TriggerDown)
 		{
-			string text = "[" + base.transform.parent.parent.parent.name + "." + base.transform.parent.parent.name + "." + base.transform.parent.name + "." + base.transform.name + "]";
+			string text = "[" + transform.parent.parent.parent.name + "." + transform.parent.parent.name + "." + transform.parent.name + "." + transform.name + "]";
 			Debug.Log("[KID::UIBUTTON::DEBUG] " + text + " - STEAM - OnClick is pressed. Time: [" + Time.time + "]", this);
 			OnClickedInputField();
 		}

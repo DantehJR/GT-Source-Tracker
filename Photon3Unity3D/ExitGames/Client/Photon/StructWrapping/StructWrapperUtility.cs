@@ -148,7 +148,7 @@ public static class StructWrapperUtility
 	{
 		if (!table.TryGetValue(key, out var value2))
 		{
-			value = default(T);
+			value = default;
 			return false;
 		}
 		value = value2.Unwrap<T>();
@@ -159,7 +159,7 @@ public static class StructWrapperUtility
 	{
 		if (!table.TryGetValue(key, out var value2))
 		{
-			value = default(T);
+			value = default;
 			return false;
 		}
 		value = value2.Get<T>();
@@ -170,7 +170,7 @@ public static class StructWrapperUtility
 	{
 		if (!table.TryGetValue(key, out var value2))
 		{
-			value = default(T);
+			value = default;
 			return false;
 		}
 		value = value2.Get<T>();
@@ -181,7 +181,7 @@ public static class StructWrapperUtility
 	{
 		if (!table.TryGetValue(key, out var value2))
 		{
-			value = default(T);
+			value = default;
 			return false;
 		}
 		value = value2.Unwrap<T>();

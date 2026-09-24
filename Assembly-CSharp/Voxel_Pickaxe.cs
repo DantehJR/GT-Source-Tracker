@@ -1,4 +1,5 @@
 using System;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Audio;
 using Voxels;
@@ -57,9 +58,9 @@ public class Voxel_Pickaxe : MonoBehaviour, IGameEntityComponent
 	{
 		_gameEntity = GetComponent<GameEntity>();
 		_layerMask = LayerMask.GetMask("Default");
-		if (sound.transform == base.transform)
+		if (sound.transform == transform)
 		{
-			Debug.LogError("Audio source for " + base.name + " must be on a separate gameobject!", this);
+			Debug.LogError("Audio source for " + name + " must be on a separate gameobject!", this);
 		}
 	}
 
@@ -78,7 +79,7 @@ public class Voxel_Pickaxe : MonoBehaviour, IGameEntityComponent
 
 	private void OnDisable()
 	{
-		if (_gameEntity != null)
+		if ((bool)_gameEntity)
 		{
 			GameEntity gameEntity = _gameEntity;
 			gameEntity.OnGrabbed = (Action)Delegate.Remove(gameEntity.OnGrabbed, new Action(StartGrabbing));
@@ -100,15 +101,21 @@ public class Voxel_Pickaxe : MonoBehaviour, IGameEntityComponent
 
 	private void StartGrabbing()
 	{
-		Held = true;
-		VRRig componentInParent = GetComponentInParent<VRRig>();
-		_isLocal = componentInParent == VRRig.LocalRig;
-		ResetVelocity();
+		if (_gameEntity.heldByActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+		{
+			Held = true;
+			VRRig componentInParent = GetComponentInParent<VRRig>();
+			_isLocal = componentInParent == VRRig.LocalRig;
+			ResetVelocity();
+		}
 	}
 
 	private void StopGrabbing()
 	{
-		Held = false;
+		if (_gameEntity.lastHeldByActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+		{
+			Held = false;
+		}
 	}
 
 	private void ResetVelocity()
@@ -139,7 +146,7 @@ public class Voxel_Pickaxe : MonoBehaviour, IGameEntityComponent
 			return;
 		}
 		ChunkComponent component = hitInfo.collider.GetComponent<ChunkComponent>();
-		if ((bool)component && flag && magnitude >= minMineSpeed)
+		if (((bool)component & flag) && magnitude >= minMineSpeed)
 		{
 			Play(goodHit, hitInfo.point);
 			if (_isLocal)
@@ -175,9 +182,9 @@ public class Voxel_Pickaxe : MonoBehaviour, IGameEntityComponent
 
 	public void OnEntityDestroy()
 	{
-		if (!ApplicationQuittingState.IsQuitting && !(this == null) && !(sound == null) && base.gameObject.scene.isLoaded)
+		if (!ApplicationQuittingState.IsQuitting && !(this == null) && !(sound == null) && gameObject.scene.isLoaded)
 		{
-			sound.transform.parent = base.transform;
+			sound.transform.parent = transform;
 		}
 	}
 

@@ -40,7 +40,7 @@ public struct GTSimpleNameID
 		{
 			input = string.Empty;
 		}
-		GTSimpleNameID result = default(GTSimpleNameID);
+		GTSimpleNameID result = default;
 		int num = math.min(input.Length, 41);
 		result.U0 = (ulong)num & 0x3FuL;
 		int num2 = 6;
@@ -127,24 +127,24 @@ public struct GTSimpleNameID
 			default:
 				throw new ArgumentException($"Invalid character '{c}' in input string.", "input");
 			}
-			byte num3 = b;
-			int num4 = num2 + i * 6;
+			byte b2 = b;
+			int num3 = num2 + i * 6;
 			ulong* ptr = &result.U0;
-			int num5 = num4 / 64;
-			int num6 = num4 % 64;
-			ulong num7 = 63uL;
-			ulong num8 = num3 & num7;
-			ulong num9 = ~(num7 << num6);
-			ptr[num5] &= num9;
-			ptr[num5] |= num8 << num6;
-			int num10 = 64 - num6;
-			if (num10 < 6 && num5 < 3)
+			int num4 = num3 / 64;
+			int num5 = num3 % 64;
+			ulong num6 = 63uL;
+			ulong num7 = b2 & num6;
+			ulong num8 = ~(num6 << num5);
+			ptr[num4] &= num8;
+			ptr[num4] |= num7 << num5;
+			int num9 = 64 - num5;
+			if (num9 < 6 && num4 < 3)
 			{
-				int num11 = 6 - num10;
-				ulong num12 = (ulong)((1L << num11) - 1);
-				ulong num13 = num8 >> num10;
-				ptr[num5 + 1] &= ~num12;
-				ptr[num5 + 1] |= num13;
+				int num10 = 6 - num9;
+				ulong num11 = (ulong)((1L << num10) - 1);
+				ulong num12 = num7 >> num9;
+				ptr[num4 + 1] &= ~num11;
+				ptr[num4 + 1] |= num12;
 			}
 		}
 		return result;

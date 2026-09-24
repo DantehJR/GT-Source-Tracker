@@ -28,49 +28,49 @@ public class ThrowableBugBeacon : MonoBehaviour
 
 	public void Call()
 	{
-		if (ThrowableBugBeacon.OnCall != null)
+		if (OnCall != null)
 		{
-			ThrowableBugBeacon.OnCall(this);
+			OnCall(this);
 		}
 	}
 
 	public void Dismiss()
 	{
-		if (ThrowableBugBeacon.OnDismiss != null)
+		if (OnDismiss != null)
 		{
-			ThrowableBugBeacon.OnDismiss(this);
+			OnDismiss(this);
 		}
 	}
 
 	public void Lock()
 	{
-		if (ThrowableBugBeacon.OnLock != null)
+		if (OnLock != null)
 		{
-			ThrowableBugBeacon.OnLock(this);
+			OnLock(this);
 		}
 	}
 
 	public void Unlock()
 	{
-		if (ThrowableBugBeacon.OnUnlock != null)
+		if (OnUnlock != null)
 		{
-			ThrowableBugBeacon.OnUnlock(this);
+			OnUnlock(this);
 		}
 	}
 
 	public void ChangeSpeedMultiplier(float f)
 	{
-		if (ThrowableBugBeacon.OnChangeSpeedMultiplier != null)
+		if (OnChangeSpeedMultiplier != null)
 		{
-			ThrowableBugBeacon.OnChangeSpeedMultiplier(this, f);
+			OnChangeSpeedMultiplier(this, f);
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (ThrowableBugBeacon.OnUnlock != null)
+		if (OnUnlock != null)
 		{
-			ThrowableBugBeacon.OnUnlock(this);
+			OnUnlock(this);
 		}
 	}
 }

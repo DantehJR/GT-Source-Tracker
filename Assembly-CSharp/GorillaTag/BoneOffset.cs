@@ -11,7 +11,11 @@ public struct BoneOffset
 
 	public XformOffset offset;
 
-	public static readonly BoneOffset Identity;
+	public static readonly BoneOffset Identity = new BoneOffset
+	{
+		bone = GTHardCodedBones.EBone.None,
+		offset = XformOffset.Identity
+	};
 
 	public Vector3 pos => offset.pos;
 
@@ -53,14 +57,5 @@ public struct BoneOffset
 	{
 		this.bone = bone;
 		offset = new XformOffset(pos, rotAngles, scale);
-	}
-
-	static BoneOffset()
-	{
-		Identity = new BoneOffset
-		{
-			bone = GTHardCodedBones.EBone.None,
-			offset = XformOffset.Identity
-		};
 	}
 }

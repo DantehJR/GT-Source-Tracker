@@ -11,15 +11,15 @@ public class CompassNeedleRotator : MonoBehaviour
 	protected void OnEnable()
 	{
 		currentVelocity = 0f;
-		base.transform.localRotation = Quaternion.identity;
+		transform.localRotation = Quaternion.identity;
 	}
 
 	protected void LateUpdate()
 	{
-		Transform obj = base.transform;
-		Vector3 forward = obj.forward;
+		Transform transform = base.transform;
+		Vector3 forward = transform.forward;
 		forward.y = 0f;
 		forward.Normalize();
-		obj.Rotate(angle: Mathf.SmoothDamp(Vector3.SignedAngle(forward, Vector3.forward, Vector3.up), 0f, ref currentVelocity, 0.005f), axis: obj.up, relativeTo: Space.World);
+		transform.Rotate(angle: Mathf.SmoothDamp(Vector3.SignedAngle(forward, Vector3.forward, Vector3.up), 0f, ref currentVelocity, 0.005f), axis: transform.up, relativeTo: Space.World);
 	}
 }

@@ -71,7 +71,7 @@ public class KIDUI_ConfirmScreen : MonoBehaviour
 	{
 		_submittedEmailAddress = emailAddress;
 		_emailToConfirmTxt.text = _submittedEmailAddress;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public async void OnConfirmPressed()
@@ -103,7 +103,7 @@ public class KIDUI_ConfirmScreen : MonoBehaviour
 		{
 			await Task.Delay(_minimumDelay);
 		}
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		if (!result.success)
 		{
 			ShowErrorScreen(result.message);
@@ -131,7 +131,7 @@ public class KIDUI_ConfirmScreen : MonoBehaviour
 		GorillaTelemetry.EnqueueTelemetryEvent(telemetryData.EventName, telemetryData.BodyData, telemetryData.CustomTags);
 		_cancellationTokenSource.Cancel();
 		await _animatedEllipsis.StopAnimation();
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_setupScreen.OnStartSetup();
 	}
 
@@ -146,7 +146,7 @@ public class KIDUI_ConfirmScreen : MonoBehaviour
 		Debug.LogErrorFormat("[KID::UI::Setup] K-ID Confirmation Failed - Failed to send email");
 		_cancellationTokenSource.Cancel();
 		await _animatedEllipsis.StopAnimation();
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_errorScreen.ShowErrorScreen("Confirmation Error", _submittedEmailAddress, errorMessage);
 	}
 

@@ -83,7 +83,7 @@ public class CountdownText : MonoBehaviour
 				displayTextFormat = CountdownTo.FormatString;
 			}
 			displayText.text = CountdownTo.DefaultString;
-			if (base.gameObject.activeInHierarchy && !useExternalTime && monitor == null && CountdownTo != null)
+			if (gameObject.activeInHierarchy && !useExternalTime && monitor == null && CountdownTo != null)
 			{
 				monitor = StartCoroutine(MonitorTime());
 			}
@@ -111,13 +111,13 @@ public class CountdownText : MonoBehaviour
 		_locTextComp = GetComponent<LocalizedText>();
 		if (_locTextComp == null)
 		{
-			Debug.LogError("[LOCALIZATION::COUNTDOWN_TEXT] There is no [LocalizedText] component on [" + base.name + "]!", this);
+			Debug.LogError("[LOCALIZATION::COUNTDOWN_TEXT] There is no [LocalizedText] component on [" + name + "]!", this);
 			return;
 		}
 		_countdownLocStr = _locTextComp.StringReference;
 		if (_locTextComp.StringReference == null || _locTextComp.StringReference.IsEmpty)
 		{
-			Debug.LogError("[LOCALIZATION::COUNTDOWN_TEXT] There is no [StringReference] assigned on [" + base.name + "]!", this);
+			Debug.LogError("[LOCALIZATION::COUNTDOWN_TEXT] There is no [StringReference] assigned on [" + name + "]!", this);
 			return;
 		}
 		_timeCountdownVar = _countdownLocStr["time-value"] as IntVariable;

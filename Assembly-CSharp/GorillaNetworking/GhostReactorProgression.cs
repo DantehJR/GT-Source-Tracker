@@ -27,7 +27,7 @@ public class GhostReactorProgression : MonoBehaviour
 		{
 			ProgressionManager.Instance.OnTrackRead += OnTrackRead;
 			ProgressionManager.Instance.OnTrackSet += OnTrackSet;
-			ProgressionManager.Instance.OnNodeUnlocked += delegate
+			ProgressionManager.Instance.OnNodeUnlocked += (string a, string b) =>
 			{
 				OnNodeUnlocked();
 			};

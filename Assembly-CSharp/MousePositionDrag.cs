@@ -27,7 +27,7 @@ public class MousePositionDrag : MonoBehaviour
 			m_prevMousePosition = mousePosition;
 			if (prevFrameHasFocus && Input.GetMouseButton(0))
 			{
-				base.transform.position += 0.02f * vector;
+				transform.position += 0.02f * vector;
 			}
 		}
 	}

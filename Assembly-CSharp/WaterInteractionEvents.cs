@@ -25,16 +25,22 @@ public class WaterInteractionEvents : MonoBehaviour
 				onExitWater.Invoke();
 			}
 			inWater = false;
-			base.enabled = false;
+			enabled = false;
 			return;
 		}
 		bool flag = false;
 		for (int i = 0; i < overlappingWaterVolumes.Count; i++)
 		{
-			if (overlappingWaterVolumes[i].GetSurfaceQueryForPoint(waterContactSphere.transform.position, out var result))
+			WaterVolume.SurfaceQuery result;
+			if (overlappingWaterVolumes[i] == null)
+			{
+				overlappingWaterVolumes.RemoveAt(i);
+				i--;
+			}
+			else if (overlappingWaterVolumes[i].GetSurfaceQueryForPoint(waterContactSphere.transform.position, out result))
 			{
 				float num = Vector3.Dot(result.surfacePoint - waterContactSphere.transform.position, result.surfaceNormal);
-				float num2 = Vector3.Dot(result.surfacePoint - result.surfaceNormal * result.maxDepth - base.transform.position, result.surfaceNormal);
+				float num2 = Vector3.Dot(result.surfacePoint - result.surfaceNormal * result.maxDepth - transform.position, result.surfaceNormal);
 				if (num > 0f - waterContactSphere.radius && num2 < waterContactSphere.radius)
 				{
 					flag = true;
@@ -59,7 +65,7 @@ public class WaterInteractionEvents : MonoBehaviour
 		if (component != null && !overlappingWaterVolumes.Contains(component))
 		{
 			overlappingWaterVolumes.Add(component);
-			base.enabled = true;
+			enabled = true;
 		}
 	}
 

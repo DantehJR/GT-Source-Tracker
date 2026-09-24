@@ -46,7 +46,7 @@ public class AngryBeeAnimator : MonoBehaviour
 		for (int i = 0; i < numBees; i++)
 		{
 			GameObject gameObject = new GameObject();
-			gameObject.transform.parent = base.transform;
+			gameObject.transform.parent = transform;
 			Vector2 vector = Random.insideUnitCircle * orbitMaxCenterDisplacement;
 			gameObject.transform.localPosition = new Vector3(vector.x, Random.Range(0f - orbitMaxHeightDisplacement, orbitMaxHeightDisplacement), vector.y);
 			gameObject.transform.localRotation = Quaternion.Euler(Random.Range(0f - orbitMaxTilt, orbitMaxTilt), Random.Range(0, 360), 0f);

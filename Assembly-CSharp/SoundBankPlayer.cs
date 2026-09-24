@@ -85,7 +85,7 @@ public class SoundBankPlayer : MonoBehaviour
 	{
 		if (audioSource == null)
 		{
-			audioSource = base.gameObject.AddComponent<AudioSource>();
+			audioSource = gameObject.AddComponent<AudioSource>();
 			audioSource.outputAudioMixerGroup = outputAudioMixerGroup;
 			audioSource.spatialize = spatialize;
 			audioSource.spatializePostEffects = spatializePostEffects;
@@ -160,7 +160,7 @@ public class SoundBankPlayer : MonoBehaviour
 
 	public void Play(float? volumeOverride = null, float? pitchOverride = null)
 	{
-		if (base.enabled && soundBank.sounds.Length != 0 && playlist != null)
+		if (enabled && soundBank.sounds.Length != 0 && playlist != null)
 		{
 			PlaylistEntry playlistEntry = playlist[nextIndex];
 			audioSource.pitch = (pitchOverride.HasValue ? pitchOverride.Value : playlistEntry.pitch);
@@ -180,7 +180,7 @@ public class SoundBankPlayer : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogErrorFormat("Sounds bank {0} is missing a clip at {1}", base.gameObject.name, playlistEntry.index);
+				Debug.LogErrorFormat("Sounds bank {0} is missing a clip at {1}", gameObject.name, playlistEntry.index);
 			}
 		}
 	}

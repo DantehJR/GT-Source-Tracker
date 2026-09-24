@@ -104,7 +104,19 @@ public class StopwatchCosmetic : TransferrableObject
 	private bool FetchMyViewID(out int viewID)
 	{
 		viewID = -1;
-		NetPlayer netPlayer = ((base.myOnlineRig != null) ? base.myOnlineRig.creator : ((!(base.myRig != null)) ? null : ((base.myRig.creator != null) ? base.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+		NetPlayer netPlayer;
+		if (myOnlineRig != null)
+		{
+			netPlayer = myOnlineRig.creator;
+		}
+		else if (myRig != null)
+		{
+			netPlayer = ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer);
+		}
+		else
+		{
+			netPlayer = null;
+		}
 		if (netPlayer == null)
 		{
 			return false;

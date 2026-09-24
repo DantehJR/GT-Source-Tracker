@@ -101,7 +101,7 @@ public class VoiceBroadcastCosmetic : MonoBehaviour, IGorillaSliceableSimple
 
 	public void SetListenState(bool listening)
 	{
-		if (isListening != listening && base.enabled && base.gameObject.activeInHierarchy)
+		if (isListening != listening && enabled && gameObject.activeInHierarchy)
 		{
 			isListening = listening;
 			speakingTime = 0f;

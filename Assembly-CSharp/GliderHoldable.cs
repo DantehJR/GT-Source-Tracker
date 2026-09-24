@@ -88,9 +88,9 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 			riderId = id;
 			materialIndex = 0;
 			audioLevel = 0;
-			tagged = default(NetworkBool);
-			position = default(Vector3);
-			rotation = default(Quaternion);
+			tagged = default;
+			position = default;
+			rotation = default;
 		}
 	}
 
@@ -460,7 +460,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		{
 			if (maxDistanceRespawnOrigin != null)
 			{
-				return (maxDistanceRespawnOrigin.position - base.transform.position).sqrMagnitude > maxDistanceBeforeRespawn * maxDistanceBeforeRespawn;
+				return (maxDistanceRespawnOrigin.position - transform.position).sqrMagnitude > maxDistanceBeforeRespawn * maxDistanceBeforeRespawn;
 			}
 			return false;
 		}
@@ -493,14 +493,14 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 	protected override void Awake()
 	{
 		base.Awake();
-		base.transform.parent = null;
+		transform.parent = null;
 		defaultMaxDistanceBeforeRespawn = maxDistanceBeforeRespawn;
-		spawnPosition = (skyJungleSpawnPostion = base.transform.position);
-		spawnRotation = (skyJungleSpawnRotation = base.transform.rotation);
+		spawnPosition = (skyJungleSpawnPostion = transform.position);
+		spawnRotation = (skyJungleSpawnRotation = transform.rotation);
 		skyJungleRespawnOrigin = maxDistanceRespawnOrigin;
 		syncedState.Init(spawnPosition, spawnRotation);
 		rb = GetComponent<Rigidbody>();
-		yaw = base.transform.rotation.eulerAngles.y;
+		yaw = transform.rotation.eulerAngles.y;
 		oneHandRotationRateExp = Mathf.Exp(oneHandHoldRotationRate);
 		twoHandRotationRateExp = Mathf.Exp(twoHandHoldRotationRate);
 		subtlePlayerPitchRateExp = Mathf.Exp(subtlePlayerPitchRate);
@@ -537,7 +537,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 
 	public void Respawn()
 	{
-		if ((!base.IsValid || !base.IsMine) && NetworkSystem.Instance.InRoom)
+		if ((!IsValid || !IsMine) && NetworkSystem.Instance.InRoom)
 		{
 			return;
 		}
@@ -553,8 +553,8 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 			}
 		}
 		rb.isKinematic = true;
-		base.transform.position = spawnPosition;
-		base.transform.rotation = spawnRotation;
+		transform.position = spawnPosition;
+		transform.rotation = spawnRotation;
 		lastHeldTime = -1f;
 		syncedState.Init(spawnPosition, spawnRotation);
 	}
@@ -579,9 +579,9 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 
 	public override void OnHover(InteractionPoint pointHovered, GameObject hoveringHand)
 	{
-		if (!base.IsMine && NetworkSystem.Instance.InRoom && !pendingOwnershipRequest && syncedState.riderId == -1)
+		if (!IsMine && NetworkSystem.Instance.InRoom && !pendingOwnershipRequest && syncedState.riderId == -1)
 		{
-			ownershipGuard.RequestOwnershipImmediately(delegate
+			ownershipGuard.RequestOwnershipImmediately(() =>
 			{
 				pendingOwnershipRequest = false;
 			});
@@ -596,13 +596,13 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 
 	public override void OnGrab(InteractionPoint pointGrabbed, GameObject grabbingHand)
 	{
-		if (base.IsMine || !NetworkSystem.Instance.InRoom || pendingOwnershipRequest)
+		if (IsMine || !NetworkSystem.Instance.InRoom || pendingOwnershipRequest)
 		{
 			OnGrabAuthority(pointGrabbed, grabbingHand);
 		}
-		else if (NetworkSystem.Instance.InRoom && !base.IsMine && !pendingOwnershipRequest && syncedState.riderId == -1)
+		else if (NetworkSystem.Instance.InRoom && !IsMine && !pendingOwnershipRequest && syncedState.riderId == -1)
 		{
-			ownershipGuard.RequestOwnershipImmediately(delegate
+			ownershipGuard.RequestOwnershipImmediately(() =>
 			{
 				pendingOwnershipRequest = false;
 			});
@@ -618,7 +618,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 
 	public void OnGrabAuthority(InteractionPoint pointGrabbed, GameObject grabbingHand)
 	{
-		if (!base.IsMine && NetworkSystem.Instance.InRoom && !pendingOwnershipRequest)
+		if (!IsMine && NetworkSystem.Instance.InRoom && !pendingOwnershipRequest)
 		{
 			return;
 		}
@@ -637,24 +637,24 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		Vector3 worldGrabPoint = ClosestPointInHandle(grabbingHand.transform.position, pointGrabbed);
 		if (flag)
 		{
-			leftHold.Activate(grabbingHand.transform, base.transform, worldGrabPoint);
+			leftHold.Activate(grabbingHand.transform, transform, worldGrabPoint);
 		}
 		else
 		{
-			rightHold.Activate(grabbingHand.transform, base.transform, worldGrabPoint);
+			rightHold.Activate(grabbingHand.transform, transform, worldGrabPoint);
 		}
 		if (leftHold.active && rightHold.active)
 		{
 			Vector3 handsVector = GetHandsVector(leftHold.transform.position, rightHold.transform.position, GTPlayer.Instance.headCollider.transform.position, flipBasedOnFacingDir: true);
-			twoHandRotationOffsetAxis = Vector3.Cross(handsVector, base.transform.right).normalized;
+			twoHandRotationOffsetAxis = Vector3.Cross(handsVector, transform.right).normalized;
 			if ((double)twoHandRotationOffsetAxis.sqrMagnitude < 0.001)
 			{
-				twoHandRotationOffsetAxis = base.transform.right;
+				twoHandRotationOffsetAxis = transform.right;
 				twoHandRotationOffsetAngle = 0f;
 			}
 			else
 			{
-				twoHandRotationOffsetAngle = Vector3.SignedAngle(handsVector, base.transform.right, twoHandRotationOffsetAxis);
+				twoHandRotationOffsetAngle = Vector3.SignedAngle(handsVector, transform.right, twoHandRotationOffsetAxis);
 			}
 		}
 		rb.isKinematic = true;
@@ -706,11 +706,11 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		{
 			if (flag)
 			{
-				rightHold.Activate(rightHold.transform, base.transform, ClosestPointInHandle(rightHold.transform.position, handle));
+				rightHold.Activate(rightHold.transform, transform, ClosestPointInHandle(rightHold.transform.position, handle));
 			}
 			else
 			{
-				leftHold.Activate(leftHold.transform, base.transform, ClosestPointInHandle(leftHold.transform.position, handle));
+				leftHold.Activate(leftHold.transform, transform, ClosestPointInHandle(leftHold.transform.position, handle));
 			}
 		}
 		Vector3 averageVelocity = GTPlayer.Instance.GetHandVelocityTracker(flag).GetAverageVelocity(worldSpace: true);
@@ -727,7 +727,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 			leftHoldPositionLocal = null;
 			rightHoldPositionLocal = null;
 			ridersMaterialOverideIndex = 0;
-			if (base.IsMine || !NetworkSystem.Instance.InRoom)
+			if (IsMine || !NetworkSystem.Instance.InRoom)
 			{
 				rb.isKinematic = false;
 				rb.useGravity = true;
@@ -735,8 +735,8 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 				syncedState.riderId = -1;
 				syncedState.tagged = false;
 				syncedState.materialIndex = 0;
-				syncedState.position = base.transform.position;
-				syncedState.rotation = base.transform.rotation;
+				syncedState.position = transform.position;
+				syncedState.rotation = transform.rotation;
 				syncedState.audioLevel = 0;
 			}
 			leafMesh.material = baseLeafMaterial;
@@ -750,7 +750,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 
 	public void FixedUpdate()
 	{
-		if (!base.IsMine && NetworkSystem.Instance.InRoom && !pendingOwnershipRequest)
+		if (!IsMine && NetworkSystem.Instance.InRoom && !pendingOwnershipRequest)
 		{
 			return;
 		}
@@ -768,9 +768,9 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 			accelerationAverage.AddSample((currentVelocity - previousVelocity) / Time.fixedDeltaTime, Time.fixedTime);
 			float rollAngle180Wrapping = GetRollAngle180Wrapping();
 			float angle = liftIncreaseVsRoll.Evaluate(Mathf.Clamp01(Mathf.Abs(rollAngle180Wrapping / 180f))) * liftIncreaseVsRollMaxAngle;
-			Vector3 vector = Vector3.RotateTowards(currentVelocity, Quaternion.AngleAxis(angle, -base.transform.right) * base.transform.forward * magnitude, pitchVelocityFollowRateAngle * (MathF.PI / 180f) * fixedDeltaTime, pitchVelocityFollowRateMagnitude * fixedDeltaTime);
+			Vector3 vector = Vector3.RotateTowards(currentVelocity, Quaternion.AngleAxis(angle, -transform.right) * transform.forward * magnitude, pitchVelocityFollowRateAngle * (MathF.PI / 180f) * fixedDeltaTime, pitchVelocityFollowRateMagnitude * fixedDeltaTime);
 			Vector3 vector2 = vector - currentVelocity;
-			float num = NormalizeAngle180(Vector3.SignedAngle(Vector3.ProjectOnPlane(currentVelocity, base.transform.right), base.transform.forward, base.transform.right));
+			float num = NormalizeAngle180(Vector3.SignedAngle(Vector3.ProjectOnPlane(currentVelocity, transform.right), transform.forward, transform.right));
 			if (num > 90f)
 			{
 				num = Mathf.Lerp(0f, 90f, Mathf.InverseLerp(180f, 90f, num));
@@ -802,8 +802,8 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		}
 		else
 		{
-			Vector3 vector3 = WindResistanceForceOffset(base.transform.up, Vector3.down);
-			Vector3 position = base.transform.position - vector3 * gravityUprightTorqueMultiplier;
+			Vector3 vector3 = WindResistanceForceOffset(transform.up, Vector3.down);
+			Vector3 position = transform.position - vector3 * gravityUprightTorqueMultiplier;
 			rb.AddForceAtPosition((0f - fallingGravityReduction) * Physics.gravity * rb.mass, position, ForceMode.Force);
 		}
 	}
@@ -811,7 +811,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 	public void LateUpdate()
 	{
 		float deltaTime = Time.deltaTime;
-		if (base.IsMine || !NetworkSystem.Instance.InRoom || pendingOwnershipRequest)
+		if (IsMine || !NetworkSystem.Instance.InRoom || pendingOwnershipRequest)
 		{
 			AuthorityUpdate(deltaTime);
 		}
@@ -882,9 +882,9 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		{
 			flag = gorillaTagManager.IsInfected(NetworkSystem.Instance.LocalPlayer);
 		}
-		bool num = flag != infectedState;
+		bool flag2 = flag != infectedState;
 		infectedState = flag;
-		if (num)
+		if (flag2)
 		{
 			if (infectedState)
 			{
@@ -897,20 +897,20 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		}
 		Vector3 average = accelerationAverage.GetAverage();
 		accelerationSmoothed = Mathf.Lerp(average.magnitude, accelerationSmoothed, Mathf.Exp((0f - accelSmoothingFollowRateExp) * dt));
-		float num2 = Mathf.InverseLerp(hapticMaxSpeedInputRange.x, hapticMaxSpeedInputRange.y, magnitude);
-		float num3 = Mathf.InverseLerp(hapticAccelInputRange.x, hapticAccelInputRange.y, accelerationSmoothed);
-		float num4 = Mathf.InverseLerp(hapticSpeedInputRange.x, hapticSpeedInputRange.y, magnitude);
-		UpdateAudioSource(calmAudio, num2 * audioVolumeMultiplier);
-		UpdateAudioSource(activeAudio, num3 * num2 * audioVolumeMultiplier);
+		float num = Mathf.InverseLerp(hapticMaxSpeedInputRange.x, hapticMaxSpeedInputRange.y, magnitude);
+		float num2 = Mathf.InverseLerp(hapticAccelInputRange.x, hapticAccelInputRange.y, accelerationSmoothed);
+		float num3 = Mathf.InverseLerp(hapticSpeedInputRange.x, hapticSpeedInputRange.y, magnitude);
+		UpdateAudioSource(calmAudio, num * audioVolumeMultiplier);
+		UpdateAudioSource(activeAudio, num2 * num * audioVolumeMultiplier);
 		if (infectedState)
 		{
-			UpdateAudioSource(whistlingAudio, Mathf.InverseLerp(whistlingAudioSpeedInputRange.x, whistlingAudioSpeedInputRange.y, magnitude) * num3 * num2 * audioVolumeMultiplier);
+			UpdateAudioSource(whistlingAudio, Mathf.InverseLerp(whistlingAudioSpeedInputRange.x, whistlingAudioSpeedInputRange.y, magnitude) * num2 * num * audioVolumeMultiplier);
 		}
 		else
 		{
 			UpdateAudioSource(whistlingAudio, 0f);
 		}
-		float amplitude = Mathf.Max(num3 * hapticAccelOutputMax * num2, num4 * hapticSpeedOutputMax);
+		float amplitude = Mathf.Max(num2 * hapticAccelOutputMax * num, num3 * hapticSpeedOutputMax);
 		if (rightHold.active)
 		{
 			GorillaTagger.Instance.DoVibration(XRNode.RightHand, amplitude, dt);
@@ -970,16 +970,16 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 				GorillaTagger.Instance.DebugDrawTagCasts(Color.yellow);
 			}
 		}
-		Vector3 normalized = Vector3.ProjectOnPlane(base.transform.right, Vector3.up).normalized;
-		Vector3 normalized2 = Vector3.ProjectOnPlane(base.transform.forward, Vector3.up).normalized;
-		float num5 = 0f - Vector3.Dot(vector - handle.transform.position, normalized2);
-		Vector3 vector2 = handle.transform.position - normalized2 * (riderPosRange.y * 0.5f + riderPosRangeOffset + num5);
-		float num6 = Vector3.Dot(headCenterPosition - vector2, normalized);
-		float num7 = Vector3.Dot(headCenterPosition - vector2, normalized2);
-		num6 /= riderPosRange.x * 0.5f;
-		num7 /= riderPosRange.y * 0.5f;
-		riderPosition.x = Mathf.Sign(num6) * Mathf.Lerp(0f, 1f, Mathf.InverseLerp(riderPosRangeNormalizedDeadzone.x, 1f, Mathf.Abs(num6)));
-		riderPosition.y = Mathf.Sign(num7) * Mathf.Lerp(0f, 1f, Mathf.InverseLerp(riderPosRangeNormalizedDeadzone.y, 1f, Mathf.Abs(num7)));
+		Vector3 normalized = Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized;
+		Vector3 normalized2 = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+		float num4 = 0f - Vector3.Dot(vector - handle.transform.position, normalized2);
+		Vector3 vector2 = handle.transform.position - normalized2 * (riderPosRange.y * 0.5f + riderPosRangeOffset + num4);
+		float num5 = Vector3.Dot(headCenterPosition - vector2, normalized);
+		float num6 = Vector3.Dot(headCenterPosition - vector2, normalized2);
+		num5 /= riderPosRange.x * 0.5f;
+		num6 /= riderPosRange.y * 0.5f;
+		riderPosition.x = Mathf.Sign(num5) * Mathf.Lerp(0f, 1f, Mathf.InverseLerp(riderPosRangeNormalizedDeadzone.x, 1f, Mathf.Abs(num5)));
+		riderPosition.y = Mathf.Sign(num6) * Mathf.Lerp(0f, 1f, Mathf.InverseLerp(riderPosRangeNormalizedDeadzone.y, 1f, Mathf.Abs(num6)));
 		Vector3 vector3;
 		Vector3 vector4;
 		if (leftHold.active && rightHold.active)
@@ -1022,53 +1022,53 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 			}
 		}
 		GetHandsOrientationVectors(vector3, vector4, GTPlayer.Instance.headCollider.transform, flipBasedOnFacingDir: false, out var handsVector, out var handsUpVector);
-		float num8 = riderPosition.y * riderPosDirectPitchMax;
+		float num7 = riderPosition.y * riderPosDirectPitchMax;
 		if (!leftHold.active || !rightHold.active)
 		{
-			num8 *= oneHandPitchMultiplier;
+			num7 *= oneHandPitchMultiplier;
 		}
-		Spring.CriticalSpringDamperExact(ref pitch, ref pitchVel, num8, 0f, pitchHalfLife, dt);
+		Spring.CriticalSpringDamperExact(ref pitch, ref pitchVel, num7, 0f, pitchHalfLife, dt);
 		pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
 		Quaternion quaternion = Quaternion.AngleAxis(pitch, Vector3.right);
 		twoHandRotationOffsetAngle = Mathf.Lerp(0f, twoHandRotationOffsetAngle, Mathf.Exp(-8f * dt));
 		Vector3 upwards = (twoHandGliderInversionOnYawInsteadOfRoll ? handsUpVector : Vector3.up);
 		Quaternion quaternion2 = Quaternion.AngleAxis(twoHandRotationOffsetAngle, twoHandRotationOffsetAxis) * Quaternion.LookRotation(handsVector, upwards) * Quaternion.AngleAxis(-90f, Vector3.up);
-		float num9 = ((leftHold.active && rightHold.active) ? twoHandRotationRateExp : oneHandRotationRateExp);
-		base.transform.rotation = Quaternion.Slerp(quaternion2 * quaternion, base.transform.rotation, Mathf.Exp((0f - num9) * dt));
+		float num8 = ((leftHold.active && rightHold.active) ? twoHandRotationRateExp : oneHandRotationRateExp);
+		transform.rotation = Quaternion.Slerp(quaternion2 * quaternion, transform.rotation, Mathf.Exp((0f - num8) * dt));
 		if (subtlePlayerPitchActive || subtlePlayerRollActive)
 		{
 			float a = Mathf.InverseLerp(subtlePlayerRotationSpeedRampMinMax.x, subtlePlayerRotationSpeedRampMinMax.y, currentVelocity.magnitude);
 			Quaternion quaternion3 = Quaternion.identity;
 			if (subtlePlayerRollActive)
 			{
-				float num10 = GetRollAngle180Wrapping();
-				if (num10 > 90f)
+				float num9 = GetRollAngle180Wrapping();
+				if (num9 > 90f)
 				{
-					num10 = Mathf.Lerp(0f, 90f, Mathf.InverseLerp(180f, 90f, num10));
+					num9 = Mathf.Lerp(0f, 90f, Mathf.InverseLerp(180f, 90f, num9));
 				}
-				else if (num10 < -90f)
+				else if (num9 < -90f)
 				{
-					num10 = Mathf.Lerp(0f, -90f, Mathf.InverseLerp(-180f, -90f, num10));
+					num9 = Mathf.Lerp(0f, -90f, Mathf.InverseLerp(-180f, -90f, num9));
 				}
 				Vector3 normalized3 = new Vector3(currentVelocity.x, 0f, currentVelocity.z).normalized;
 				Vector3 vector7 = new Vector3(average.x, 0f, average.z);
-				float num11 = Vector3.Dot(vector7 - Vector3.Dot(vector7, normalized3) * normalized3, Vector3.Cross(normalized3, Vector3.up));
-				turnAccelerationSmoothed = Mathf.Lerp(num11, turnAccelerationSmoothed, Mathf.Exp((0f - accelSmoothingFollowRateExp) * dt));
+				float num10 = Vector3.Dot(vector7 - Vector3.Dot(vector7, normalized3) * normalized3, Vector3.Cross(normalized3, Vector3.up));
+				turnAccelerationSmoothed = Mathf.Lerp(num10, turnAccelerationSmoothed, Mathf.Exp((0f - accelSmoothingFollowRateExp) * dt));
 				float b = 0f;
-				if (num11 * num10 > 0f)
+				if (num10 * num9 > 0f)
 				{
 					b = Mathf.InverseLerp(subtlePlayerRollAccelMinMax.x, subtlePlayerRollAccelMinMax.y, Mathf.Abs(turnAccelerationSmoothed));
 				}
-				float a2 = num10 * subtlePlayerRollFactor * Mathf.Min(a, b);
+				float a2 = num9 * subtlePlayerRollFactor * Mathf.Min(a, b);
 				subtlePlayerRoll = Mathf.Lerp(a2, subtlePlayerRoll, Mathf.Exp((0f - subtlePlayerRollRateExp) * dt));
-				quaternion3 = Quaternion.AngleAxis(subtlePlayerRoll, base.transform.forward);
+				quaternion3 = Quaternion.AngleAxis(subtlePlayerRoll, transform.forward);
 			}
 			Quaternion quaternion4 = Quaternion.identity;
 			if (subtlePlayerPitchActive)
 			{
 				float a3 = pitch * subtlePlayerPitchFactor * Mathf.Min(a, 1f);
 				subtlePlayerPitch = Mathf.Lerp(a3, subtlePlayerPitch, Mathf.Exp((0f - subtlePlayerPitchRateExp) * dt));
-				quaternion4 = Quaternion.AngleAxis(subtlePlayerPitch, -base.transform.right);
+				quaternion4 = Quaternion.AngleAxis(subtlePlayerPitch, -transform.right);
 			}
 			GTPlayerTransform.ApplyRotationOverride(quaternion4 * quaternion3, Time.frameCount);
 		}
@@ -1082,14 +1082,14 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		syncedState.materialIndex = (byte)ridersMaterialOverideIndex;
 		if (cachedRig != null)
 		{
-			syncedState.position = cachedRig.transform.InverseTransformPoint(base.transform.position);
-			syncedState.rotation = Quaternion.Inverse(cachedRig.transform.rotation) * base.transform.rotation;
+			syncedState.position = cachedRig.transform.InverseTransformPoint(transform.position);
+			syncedState.rotation = Quaternion.Inverse(cachedRig.transform.rotation) * transform.rotation;
 		}
 		else
 		{
 			Debug.LogError("Glider failed to get a reference to the local player's VRRig while the player was flying", this);
 		}
-		audioLevel = num3 * num2;
+		audioLevel = num2 * num;
 		if (OutOfBounds)
 		{
 			Respawn();
@@ -1106,8 +1106,8 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 
 	private void AuthorityUpdateUnheld(float dt)
 	{
-		syncedState.position = base.transform.position;
-		syncedState.rotation = base.transform.rotation;
+		syncedState.position = transform.position;
+		syncedState.rotation = transform.rotation;
 		if (gliderState != GliderState.LocallyDropped)
 		{
 			gliderState = GliderState.LocallyDropped;
@@ -1148,24 +1148,24 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		}
 		if (syncedState.riderId == -1)
 		{
-			base.transform.position = Vector3.Lerp(syncedState.position, base.transform.position, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
-			base.transform.rotation = Quaternion.Slerp(syncedState.rotation, base.transform.rotation, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
+			transform.position = Vector3.Lerp(syncedState.position, transform.position, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
+			transform.rotation = Quaternion.Slerp(syncedState.rotation, transform.rotation, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
 		}
 		else if (cachedRig != null)
 		{
 			positionLocalToVRRig = Vector3.Lerp(syncedState.position, positionLocalToVRRig, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
 			rotationLocalToVRRig = Quaternion.Slerp(syncedState.rotation, rotationLocalToVRRig, Mathf.Exp((0f - networkSyncFollowRateExp) * dt));
-			base.transform.position = cachedRig.transform.TransformPoint(positionLocalToVRRig);
-			base.transform.rotation = cachedRig.transform.rotation * rotationLocalToVRRig;
+			transform.position = cachedRig.transform.TransformPoint(positionLocalToVRRig);
+			transform.rotation = cachedRig.transform.rotation * rotationLocalToVRRig;
 		}
 		bool flag2 = false;
 		if (GorillaGameManager.instance as GorillaTagManager != null)
 		{
 			flag2 = syncedState.tagged;
 		}
-		bool num2 = flag2 != infectedState;
+		bool flag3 = flag2 != infectedState;
 		infectedState = flag2;
-		if (num2 || flag)
+		if (flag3 | flag)
 		{
 			if (infectedState)
 			{
@@ -1176,10 +1176,10 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 				leafMesh.material = GetMaterialFromIndex(syncedState.materialIndex);
 			}
 		}
-		float num3 = Mathf.Clamp01((float)(int)syncedState.audioLevel / 255f);
-		if (audioLevel != num3)
+		float num2 = Mathf.Clamp01((float)(int)syncedState.audioLevel / 255f);
+		if (audioLevel != num2)
 		{
-			audioLevel = num3;
+			audioLevel = num2;
 			if (syncedState.riderId != -1 && (bool)syncedState.tagged)
 			{
 				UpdateAudioSource(calmAudio, audioLevel * infectedAudioVolumeMultiplier);
@@ -1214,7 +1214,15 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		Vector3 vector = startingPoint;
 		if (component != null)
 		{
-			Vector3 vector2 = ((component.direction == 0) ? Vector3.right : ((component.direction == 1) ? Vector3.up : Vector3.forward));
+			Vector3 vector2;
+			if (component.direction != 0)
+			{
+				vector2 = ((component.direction == 1) ? Vector3.up : Vector3.forward);
+			}
+			else
+			{
+				vector2 = Vector3.right;
+			}
 			Vector3 vector3 = component.transform.rotation * vector2;
 			Vector3 vector4 = component.transform.position + component.transform.rotation * component.center;
 			float num = Mathf.Clamp(Vector3.Dot(vector - vector4, vector3), (0f - component.height) * 0.5f, component.height * 0.5f);
@@ -1227,17 +1235,17 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 	{
 		if (leftHold.active && rightHold.active)
 		{
-			Vector3 vector = leftHold.transform.TransformPoint(leftHold.holdLocalPos) + base.transform.TransformVector(leftHold.handleLocalPos);
-			Vector3 vector2 = rightHold.transform.TransformPoint(rightHold.holdLocalPos) + base.transform.TransformVector(rightHold.handleLocalPos);
-			base.transform.position = (vector + vector2) * 0.5f;
+			Vector3 vector = leftHold.transform.TransformPoint(leftHold.holdLocalPos) + transform.TransformVector(leftHold.handleLocalPos);
+			Vector3 vector2 = rightHold.transform.TransformPoint(rightHold.holdLocalPos) + transform.TransformVector(rightHold.handleLocalPos);
+			transform.position = (vector + vector2) * 0.5f;
 		}
 		else if (leftHold.active)
 		{
-			base.transform.position = leftHold.transform.TransformPoint(leftHold.holdLocalPos) + base.transform.TransformVector(leftHold.handleLocalPos);
+			transform.position = leftHold.transform.TransformPoint(leftHold.holdLocalPos) + transform.TransformVector(leftHold.handleLocalPos);
 		}
 		else if (rightHold.active)
 		{
-			base.transform.position = rightHold.transform.TransformPoint(rightHold.holdLocalPos) + base.transform.TransformVector(rightHold.handleLocalPos);
+			transform.position = rightHold.transform.TransformPoint(rightHold.holdLocalPos) + transform.TransformVector(rightHold.handleLocalPos);
 		}
 	}
 
@@ -1267,11 +1275,11 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		Vector3 vector3 = Vector3.ProjectOnPlane(vector2 - head.position, Vector3.up);
 		float magnitude2 = vector3.magnitude;
 		vector3 /= Mathf.Max(magnitude2, 0.001f);
-		Vector3 normalized2 = Vector3.ProjectOnPlane(-base.transform.forward, Vector3.up).normalized;
+		Vector3 normalized2 = Vector3.ProjectOnPlane(-transform.forward, Vector3.up).normalized;
 		Vector3 vector4 = -vector3 * num + position;
 		float num2 = Vector3.Dot(normalized2, -vector3);
 		float num3 = Vector3.Dot(normalized2, normalized);
-		if (Vector3.Dot(base.transform.up, Vector3.up) < 0f)
+		if (Vector3.Dot(transform.up, Vector3.up) < 0f)
 		{
 			num2 = Mathf.Abs(num2);
 			num3 = Mathf.Abs(num3);
@@ -1299,8 +1307,8 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 
 	private float GetRollAngle180Wrapping()
 	{
-		Vector3 normalized = Vector3.ProjectOnPlane(base.transform.forward, Vector3.up).normalized;
-		float angle = Vector3.SignedAngle(Vector3.Cross(Vector3.up, normalized).normalized, base.transform.right, base.transform.forward);
+		Vector3 normalized = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+		float angle = Vector3.SignedAngle(Vector3.Cross(Vector3.up, normalized).normalized, transform.right, transform.forward);
 		return NormalizeAngle180(angle);
 	}
 
@@ -1346,7 +1354,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 	public void OnTriggerStay(Collider other)
 	{
 		GliderWindVolume component = other.GetComponent<GliderWindVolume>();
-		if (!(component == null) && (base.IsMine || !NetworkSystem.Instance.InRoom || pendingOwnershipRequest) && Time.frameCount != windVolumeForceAppliedFrame)
+		if (!(component == null) && (IsMine || !NetworkSystem.Instance.InRoom || pendingOwnershipRequest) && Time.frameCount != windVolumeForceAppliedFrame)
 		{
 			if (leftHold.active || rightHold.active)
 			{
@@ -1357,8 +1365,8 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 			else
 			{
 				Vector3 accelFromVelocity2 = component.GetAccelFromVelocity(rb.linearVelocity);
-				Vector3 vector = WindResistanceForceOffset(base.transform.up, component.WindDirection);
-				Vector3 position = base.transform.position + vector * windUprightTorqueMultiplier;
+				Vector3 vector = WindResistanceForceOffset(transform.up, component.WindDirection);
+				Vector3 position = transform.position + vector * windUprightTorqueMultiplier;
 				rb.AddForceAtPosition(accelFromVelocity2 * rb.mass, position, ForceMode.Force);
 				windVolumeForceAppliedFrame = Time.frameCount;
 			}
@@ -1433,7 +1441,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 		if (toPlayer == NetworkSystem.Instance.LocalPlayer)
 		{
 			pendingOwnershipRequest = false;
-			if (!leftHold.active && !rightHold.active && (spawnPosition - base.transform.position).sqrMagnitude > 1f)
+			if (!leftHold.active && !rightHold.active && (spawnPosition - transform.position).sqrMagnitude > 1f)
 			{
 				rb.isKinematic = false;
 				rb.WakeUp();
@@ -1444,7 +1452,7 @@ public class GliderHoldable : NetworkHoldableObject, IRequestableOwnershipGuardC
 
 	public bool OnOwnershipRequest(NetPlayer fromPlayer)
 	{
-		if (base.IsMine && NetworkSystem.Instance.InRoom && (leftHold.active || rightHold.active))
+		if (IsMine && NetworkSystem.Instance.InRoom && (leftHold.active || rightHold.active))
 		{
 			return false;
 		}

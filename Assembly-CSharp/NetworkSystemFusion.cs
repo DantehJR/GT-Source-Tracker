@@ -114,18 +114,18 @@ public class NetworkSystemFusion : NetworkSystem
 		get
 		{
 			NetworkRunner networkRunner = runner;
-			bool? obj;
+			bool? flag;
 			if ((object)networkRunner == null)
 			{
-				obj = null;
+				flag = null;
 			}
 			else
 			{
 				SessionInfo sessionInfo = networkRunner.SessionInfo;
-				obj = ((sessionInfo != null) ? new bool?(!sessionInfo.IsVisible) : ((bool?)null));
+				flag = ((sessionInfo != null) ? new bool?(!sessionInfo.IsVisible) : ((bool?)null));
 			}
-			bool? flag = obj;
-			return flag == true;
+			bool? flag2 = flag;
+			return flag2 == true;
 		}
 	}
 
@@ -209,14 +209,14 @@ public class NetworkSystemFusion : NetworkSystem
 	{
 		base.Initialise();
 		myObjectProvider = new CustomObjectProvider();
-		base.netState = NetSystemState.Initialization;
+		netState = NetSystemState.Initialization;
 		internalState = InternalState.Idle;
 		await ReturnToSinglePlayer();
 		AwaitAuth();
 		CreateRegionCrawler();
-		GameModeSerializer.FusionGameModeOwnerChanged = (Action<NetPlayer>)Delegate.Combine(GameModeSerializer.FusionGameModeOwnerChanged, new Action<NetPlayer>(base.OnMasterClientSwitchedCallback));
+		GameModeSerializer.FusionGameModeOwnerChanged = (Action<NetPlayer>)Delegate.Combine(GameModeSerializer.FusionGameModeOwnerChanged, new Action<NetPlayer>(OnMasterClientSwitchedCallback));
 		OnMasterClientSwitchedEvent += new Action<NetPlayer>(OnMasterSwitch);
-		base.netState = NetSystemState.Idle;
+		netState = NetSystemState.Idle;
 		playerPool = new ObjectPool<FusionNetPlayer>(20);
 		UpdatePlayers();
 	}
@@ -224,7 +224,7 @@ public class NetworkSystemFusion : NetworkSystem
 	private void CreateRegionCrawler()
 	{
 		GameObject gameObject = new GameObject("[Network Crawler]");
-		gameObject.transform.SetParent(base.transform);
+		gameObject.transform.SetParent(transform);
 		regionCrawler = gameObject.AddComponent<FusionRegionCrawler>();
 	}
 
@@ -236,7 +236,7 @@ public class NetworkSystemFusion : NetworkSystem
 			await Task.Yield();
 		}
 		internalState = InternalState.Idle;
-		base.netState = NetSystemState.Idle;
+		netState = NetSystemState.Idle;
 	}
 
 	public override void FinishAuthenticating()
@@ -257,7 +257,7 @@ public class NetworkSystemFusion : NetworkSystem
 		{
 			return NetJoinResult.Failed_Other;
 		}
-		if (base.netState != NetSystemState.Idle && base.netState != NetSystemState.InGame)
+		if (netState != NetSystemState.Idle && netState != NetSystemState.InGame)
 		{
 			return NetJoinResult.Failed_Other;
 		}
@@ -265,7 +265,7 @@ public class NetworkSystemFusion : NetworkSystem
 		{
 			return NetJoinResult.AlreadyInRoom;
 		}
-		base.netState = NetSystemState.Connecting;
+		netState = NetSystemState.Connecting;
 		Utils.Log("Connecting to:" + (string.IsNullOrEmpty(roomName) ? "random room" : roomName));
 		NetJoinResult result;
 		if (!string.IsNullOrEmpty(roomName))
@@ -287,11 +287,11 @@ public class NetworkSystemFusion : NetworkSystem
 			ResetSystem();
 			return result;
 		case NetJoinResult.AlreadyInRoom:
-			base.netState = NetSystemState.InGame;
+			netState = NetSystemState.InGame;
 			return result;
 		default:
 			UpdatePlayers();
-			base.netState = NetSystemState.InGame;
+			netState = NetSystemState.InGame;
 			Utils.Log("Connect to room result: " + result);
 			return result;
 		}
@@ -316,7 +316,7 @@ public class NetworkSystemFusion : NetworkSystem
 			UnityEngine.Object.Destroy(volatileNetObj);
 		}
 		volatileNetObj = new GameObject("VolatileFusionObj");
-		volatileNetObj.transform.parent = base.transform;
+		volatileNetObj.transform.parent = transform;
 		runner = volatileNetObj.AddComponent<NetworkRunner>();
 		internalRPCProvider = runner.AddBehaviour<FusionInternalRPCs>();
 		callbackHandler = volatileNetObj.AddComponent<FusionCallbackHandler>();
@@ -344,7 +344,7 @@ public class NetworkSystemFusion : NetworkSystem
 		Utils.Log("Startuptask finished : " + startupTask.Result.ToString());
 		if (!startupTask.Result.Ok)
 		{
-			base.CurrentRoom = null;
+			CurrentRoom = null;
 			return startupTask.Result.Ok;
 		}
 		if (cachedNetSceneObjects.Count > 0)
@@ -356,7 +356,7 @@ public class NetworkSystemFusion : NetworkSystem
 		}
 		AttachSceneObjects();
 		AddVoice();
-		base.CurrentRoom = opts;
+		CurrentRoom = opts;
 		if (IsTotalAuthority() || runner.IsSharedModeMasterClient)
 		{
 			opts.SetFusionOpts(runner);
@@ -431,7 +431,7 @@ public class NetworkSystemFusion : NetworkSystem
 		opts.createIfMissing = false;
 		Task<bool> connectTask = Connect(Fusion.GameMode.Shared, null, opts);
 		await connectTask;
-		if (!connectTask.Result && shouldCreateIfNone)
+		if (!connectTask.Result & shouldCreateIfNone)
 		{
 			opts.createIfMissing = shouldCreateIfNone;
 			string randomRoomName = NetworkSystem.GetRandomRoomName();
@@ -456,7 +456,7 @@ public class NetworkSystemFusion : NetworkSystem
 		Dictionary<string, PlayFab.ClientModels.SharedGroupDataRecord> dummyData = new Dictionary<string, PlayFab.ClientModels.SharedGroupDataRecord>();
 		try
 		{
-			base.groupJoinInProgress = true;
+			groupJoinInProgress = true;
 			while (!foundFriend && searchStartTime + timeToSpendSearching > Time.realtimeSinceStartup)
 			{
 				Dictionary<string, PlayFab.ClientModels.SharedGroupDataRecord> data = dummyData;
@@ -465,12 +465,12 @@ public class NetworkSystemFusion : NetworkSystem
 				{
 					Keys = new List<string> { keyToFollow },
 					SharedGroupId = userID
-				}, delegate(GetSharedGroupDataResult result)
+				}, (GetSharedGroupDataResult result) =>
 				{
 					data = result.Data;
 					UnityEngine.Debug.Log($"Got friend follow data, {data.Count} entries");
 					callbackFinished = true;
-				}, delegate(PlayFabError error)
+				}, (PlayFabError error) =>
 				{
 					UnityEngine.Debug.Log($"GetSharedGroupData returns error: {error}");
 					callbackFinished = true;
@@ -519,7 +519,7 @@ public class NetworkSystemFusion : NetworkSystem
 		}
 		finally
 		{
-			base.groupJoinInProgress = false;
+			groupJoinInProgress = false;
 		}
 	}
 
@@ -530,9 +530,9 @@ public class NetworkSystemFusion : NetworkSystem
 
 	public override async Task ReturnToSinglePlayer()
 	{
-		if (base.netState == NetSystemState.InGame || base.netState == NetSystemState.Initialization)
+		if (netState == NetSystemState.InGame || netState == NetSystemState.Initialization)
 		{
-			base.netState = NetSystemState.Disconnecting;
+			netState = NetSystemState.Disconnecting;
 			Utils.Log("Returning to single player");
 			if ((bool)runner)
 			{
@@ -540,7 +540,7 @@ public class NetworkSystemFusion : NetworkSystem
 				await Task.Yield();
 				Utils.Log("Connect in return to single player");
 			}
-			base.netState = NetSystemState.Idle;
+			netState = NetSystemState.Idle;
 			internalState = InternalState.Idle;
 			SinglePlayerStarted();
 		}
@@ -583,7 +583,7 @@ public class NetworkSystemFusion : NetworkSystem
 			StopAllCoroutines();
 			await Connect(Fusion.GameMode.Single, "--", RoomConfig.SPConfig());
 			Utils.Log("Connect in return to single player");
-			base.netState = NetSystemState.Idle;
+			netState = NetSystemState.Idle;
 			internalState = InternalState.Idle;
 		}
 	}
@@ -605,7 +605,7 @@ public class NetworkSystemFusion : NetworkSystem
 		appSettings.AppIdFusion = PhotonAppSettings.Global.AppSettings.AppIdFusion;
 		appSettings.AppIdVoice = PhotonAppSettings.Global.AppSettings.AppIdVoice;
 		FusionVoice.Settings = appSettings;
-		remoteVoiceAddedCallbacks.ForEach(delegate(Action<RemoteVoiceLink> callback)
+		remoteVoiceAddedCallbacks.ForEach((Action<RemoteVoiceLink> callback) =>
 		{
 			FusionVoice.RemoteVoiceAdded += callback;
 		});
@@ -659,7 +659,7 @@ public class NetworkSystemFusion : NetworkSystem
 	{
 		if (!onlyCached)
 		{
-			SceneObjectsToAttach.ForEach(delegate(GameObject obj)
+			SceneObjectsToAttach.ForEach((GameObject obj) =>
 			{
 				if (!cachedNetSceneObjects.Exists((NetworkObject o) => o.gameObject == obj.gameObject))
 				{
@@ -976,12 +976,12 @@ public class NetworkSystemFusion : NetworkSystem
 	{
 		if (runner == null && (netPlayerCache.Count > 1 || !netPlayerCache.Exists((NetPlayer p) => p.IsLocal)))
 		{
-			netPlayerCache.ForEach(delegate(NetPlayer p)
+			netPlayerCache.ForEach((NetPlayer p) =>
 			{
 				playerPool.Return((FusionNetPlayer)p);
 			});
 			netPlayerCache.Clear();
-			netPlayerCache.Add(new FusionNetPlayer(default(PlayerRef)));
+			netPlayerCache.Add(new FusionNetPlayer(default));
 			return;
 		}
 		NetPlayer[] array;
@@ -1067,7 +1067,7 @@ public class NetworkSystemFusion : NetworkSystem
 		if (runner == null)
 		{
 			UnityEngine.Debug.LogWarning("There is no runner yet - returning default player ref");
-			return default(PlayerRef);
+			return default;
 		}
 		foreach (PlayerRef activePlayer in runner.ActivePlayers)
 		{
@@ -1077,7 +1077,7 @@ public class NetworkSystemFusion : NetworkSystem
 			}
 		}
 		UnityEngine.Debug.LogWarning($"GetPlayerRef - Couldn't find active player with ID #{playerID}");
-		return default(PlayerRef);
+		return default;
 	}
 
 	public override NetPlayer GetLocalPlayer()
@@ -1241,6 +1241,11 @@ public class NetworkSystemFusion : NetworkSystem
 		return "";
 	}
 
+	public override string GetPlayerMothershipId(NetPlayer player)
+	{
+		return "";
+	}
+
 	public override int GlobalPlayerCount()
 	{
 		if (regionCrawler == null)
@@ -1325,11 +1330,7 @@ public class NetworkSystemFusion : NetworkSystem
 	{
 		if (runner.IsSharedModeMasterClient)
 		{
-			Dictionary<string, SessionProperty> customProperties = new Dictionary<string, SessionProperty> { 
-			{
-				"MasterClient",
-				base.LocalPlayer.ActorNumber
-			} };
+			Dictionary<string, SessionProperty> customProperties = new Dictionary<string, SessionProperty> { { "MasterClient", LocalPlayer.ActorNumber } };
 			runner.SessionInfo.UpdateCustomProperties(customProperties);
 		}
 	}

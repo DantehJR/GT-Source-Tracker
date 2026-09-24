@@ -190,7 +190,7 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 			if (m_throttleFlapXforms[j] == null)
 			{
 				throttleFlapInitialRots = Array.Empty<Quaternion>();
-				Debug.LogError("[SIGadgetWristJet]  ERROR!!!  Awake: Throttle indicator flaps will not animate because entry is null in " + string.Format("array at `{0}[{1}]`. Path={2}", "m_throttleFlapXforms", j, base.transform.GetPathQ()), this);
+				Debug.LogError("[SIGadgetWristJet]  ERROR!!!  Awake: Throttle indicator flaps will not animate because entry is null in " + string.Format("array at `{0}[{1}]`. Path={2}", "m_throttleFlapXforms", j, transform.GetPathQ()), this);
 				break;
 			}
 			throttleFlapInitialRots[j] = m_throttleFlapXforms[j].localRotation;
@@ -200,11 +200,11 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 	private void Start()
 	{
 		gtPlayer = GTPlayer.Instance;
-		gameEntity.OnStateChanged += OnEntityStateChanged;
-		GameEntity obj = gameEntity;
-		obj.OnReleased = (Action)Delegate.Combine(obj.OnReleased, new Action(HandleStopInteraction));
-		GameEntity obj2 = gameEntity;
-		obj2.OnUnsnapped = (Action)Delegate.Combine(obj2.OnUnsnapped, new Action(HandleStopInteraction));
+		base.gameEntity.OnStateChanged += OnEntityStateChanged;
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnReleased = (Action)Delegate.Combine(gameEntity.OnReleased, new Action(HandleStopInteraction));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnUnsnapped = (Action)Delegate.Combine(gameEntity2.OnUnsnapped, new Action(HandleStopInteraction));
 	}
 
 	protected override void OnEnable()
@@ -337,7 +337,7 @@ public class SIGadgetWristJet : SIGadget, I_SIDisruptable, IEnergyGadget
 	{
 		Vector3 rigidbodyVelocity = gtPlayer.RigidbodyVelocity;
 		float num = jetForce * _currentBurnRate;
-		Vector3 vector = rigidbodyVelocity + base.transform.forward * (num * Time.fixedDeltaTime);
+		Vector3 vector = rigidbodyVelocity + transform.forward * (num * Time.fixedDeltaTime);
 		Vector3 vector2 = new Vector3(vector.x, 0f, vector.z);
 		if (vector2.sqrMagnitude > _maxSqrHorizontalSpeed)
 		{

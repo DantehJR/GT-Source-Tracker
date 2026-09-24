@@ -91,10 +91,10 @@ public class CustomMapsGorillaZipline : GorillaZipline
 		if (ziplinePlaceholder.PlaceholderObject == GTObject.ZipLine)
 		{
 			segmentDistance = ziplinePlaceholder.ziplineSegmentGenerationOffset;
-			spline = base.gameObject.GetComponent<BezierSpline>();
+			spline = gameObject.GetComponent<BezierSpline>();
 			if (spline == null)
 			{
-				spline = base.gameObject.AddComponent<BezierSpline>();
+				spline = gameObject.AddComponent<BezierSpline>();
 			}
 			spline.BuildSplineFromPoints(ziplinePlaceholder.spline.GetControlPoints(), ConvertControlPointModes(ziplinePlaceholder.spline.GetControlPointModes()), ziplinePlaceholder.spline.Loop);
 			for (int i = 0; i < ziplinePlaceholder.ziplineSegments.Count; i++)

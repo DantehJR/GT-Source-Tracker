@@ -148,10 +148,10 @@ public class FishingRod : TransferrableObject
 		}
 		VRMapThumb vRMapThumb = (flag ? rig.rightThumb : rig.leftThumb);
 		VRMapIndex vRMapIndex = (flag ? rig.rightIndex : rig.leftIndex);
-		VRMapMiddle obj = (flag ? rig.rightMiddle : rig.leftMiddle);
+		VRMapMiddle vRMapMiddle = (flag ? rig.rightMiddle : rig.leftMiddle);
 		float calcT = vRMapThumb.calcT;
 		float calcT2 = vRMapIndex.calcT;
-		float calcT3 = obj.calcT;
+		float calcT3 = vRMapMiddle.calcT;
 		bool flag2 = calcT >= 0.1f && calcT2 >= 0.2f && calcT3 >= 0.2f;
 		_grippingHand = (flag2 ? transform : null);
 		return flag2;

@@ -51,101 +51,101 @@ public class AudioChangesHandler : VoiceComponent
 			if (StartWhenDeviceChange)
 			{
 				recorder.MicrophoneDeviceChangeDetected = true;
-				if (base.Logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("An attempt to auto start recording should follow shortly.");
+					Logger.LogInfo("An attempt to auto start recording should follow shortly.");
 				}
 			}
-			else if (base.Logger.IsInfoEnabled)
+			else if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Device change detected but will not try to start recording as StartWhenDeviceChange is false.");
+				Logger.LogInfo("Device change detected but will not try to start recording as StartWhenDeviceChange is false.");
 			}
 		}
 		else if (HandleDeviceChange)
 		{
 			recorder.MicrophoneDeviceChangeDetected = true;
 		}
-		else if (base.Logger.IsInfoEnabled)
+		else if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Device change detected but will not try to handle this as HandleDeviceChange is false.");
+			Logger.LogInfo("Device change detected but will not try to handle this as HandleDeviceChange is false.");
 		}
 	}
 
 	private void SubscribeToSystemChanges()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Subscribing to system (audio) changes.");
+			Logger.LogDebug("Subscribing to system (audio) changes.");
 		}
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Skipped subscribing to audio change notifications via Photon's AudioInChangeNotifier as not supported on current platform: {0}", VoiceComponent.CurrentPlatform);
+			Logger.LogInfo("Skipped subscribing to audio change notifications via Photon's AudioInChangeNotifier as not supported on current platform: {0}", VoiceComponent.CurrentPlatform);
 		}
-		if (subscribedToSystemChangesPhoton && base.Logger.IsErrorEnabled)
+		if (subscribedToSystemChangesPhoton && Logger.IsErrorEnabled)
 		{
-			base.Logger.LogError("Unexpected: subscribedToSystemChangesPhoton is set to true while platform is not supported!.");
+			Logger.LogError("Unexpected: subscribedToSystemChangesPhoton is set to true while platform is not supported!.");
 		}
 		if (subscribedToSystemChangesUnity)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Already subscribed to audio changes via Unity OnAudioConfigurationChanged callback.");
+				Logger.LogWarning("Already subscribed to audio changes via Unity OnAudioConfigurationChanged callback.");
 			}
 			return;
 		}
 		AudioSettings.OnAudioConfigurationChanged += OnAudioConfigChanged;
 		subscribedToSystemChangesUnity = true;
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Subscribed to audio configuration changes via Unity OnAudioConfigurationChanged callback.");
+			Logger.LogInfo("Subscribed to audio configuration changes via Unity OnAudioConfigurationChanged callback.");
 		}
 	}
 
 	private void OnAudioConfigChanged(bool deviceWasChanged)
 	{
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("OnAudioConfigurationChanged: {0}", deviceWasChanged ? "Device was changed." : "AudioSettings.Reset was called.");
+			Logger.LogInfo("OnAudioConfigurationChanged: {0}", deviceWasChanged ? "Device was changed." : "AudioSettings.Reset was called.");
 		}
 		AudioConfiguration configuration = AudioSettings.GetConfiguration();
 		bool flag = false;
 		if (configuration.dspBufferSize != audioConfiguration.dspBufferSize)
 		{
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("OnAudioConfigurationChanged: dspBufferSize old={0} new={1}", audioConfiguration.dspBufferSize, configuration.dspBufferSize);
+				Logger.LogInfo("OnAudioConfigurationChanged: dspBufferSize old={0} new={1}", audioConfiguration.dspBufferSize, configuration.dspBufferSize);
 			}
 			flag = true;
 		}
 		if (configuration.numRealVoices != audioConfiguration.numRealVoices)
 		{
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("OnAudioConfigurationChanged: numRealVoices old={0} new={1}", audioConfiguration.numRealVoices, configuration.numRealVoices);
+				Logger.LogInfo("OnAudioConfigurationChanged: numRealVoices old={0} new={1}", audioConfiguration.numRealVoices, configuration.numRealVoices);
 			}
 			flag = true;
 		}
 		if (configuration.numVirtualVoices != audioConfiguration.numVirtualVoices)
 		{
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("OnAudioConfigurationChanged: numVirtualVoices old={0} new={1}", audioConfiguration.numVirtualVoices, configuration.numVirtualVoices);
+				Logger.LogInfo("OnAudioConfigurationChanged: numVirtualVoices old={0} new={1}", audioConfiguration.numVirtualVoices, configuration.numVirtualVoices);
 			}
 			flag = true;
 		}
 		if (configuration.sampleRate != audioConfiguration.sampleRate)
 		{
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("OnAudioConfigurationChanged: sampleRate old={0} new={1}", audioConfiguration.sampleRate, configuration.sampleRate);
+				Logger.LogInfo("OnAudioConfigurationChanged: sampleRate old={0} new={1}", audioConfiguration.sampleRate, configuration.sampleRate);
 			}
 			flag = true;
 		}
 		if (configuration.speakerMode != audioConfiguration.speakerMode)
 		{
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("OnAudioConfigurationChanged: speakerMode old={0} new={1}", audioConfiguration.speakerMode, configuration.speakerMode);
+				Logger.LogInfo("OnAudioConfigurationChanged: speakerMode old={0} new={1}", audioConfiguration.speakerMode, configuration.speakerMode);
 			}
 			flag = true;
 		}
@@ -163,20 +163,20 @@ public class AudioChangesHandler : VoiceComponent
 			{
 				if (HandleConfigChange)
 				{
-					if (base.Logger.IsInfoEnabled)
+					if (Logger.IsInfoEnabled)
 					{
-						base.Logger.LogInfo("Config change detected; an attempt to auto start recording should follow shortly.");
+						Logger.LogInfo("Config change detected; an attempt to auto start recording should follow shortly.");
 					}
 					recorder.MicrophoneDeviceChangeDetected = true;
 				}
-				else if (base.Logger.IsInfoEnabled)
+				else if (Logger.IsInfoEnabled)
 				{
-					base.Logger.LogInfo("Config change detected but will not try to handle this as HandleConfigChange is false.");
+					Logger.LogInfo("Config change detected but will not try to handle this as HandleConfigChange is false.");
 				}
 			}
-			else if (base.Logger.IsInfoEnabled)
+			else if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Config change detected but ignored as recording not started.");
+				Logger.LogInfo("Config change detected but ignored as recording not started.");
 			}
 		}
 		else if (deviceWasChanged)
@@ -185,9 +185,9 @@ public class AudioChangesHandler : VoiceComponent
 			{
 				OnDeviceChange();
 			}
-			else if (base.Logger.IsInfoEnabled)
+			else if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Device change detected but will not try to handle this as UseOnAudioConfigurationChanged is false.");
+				Logger.LogInfo("Device change detected but will not try to handle this as UseOnAudioConfigurationChanged is false.");
 			}
 		}
 	}
@@ -198,9 +198,9 @@ public class AudioChangesHandler : VoiceComponent
 		{
 			AudioSettings.OnAudioConfigurationChanged -= OnAudioConfigChanged;
 			subscribedToSystemChangesUnity = false;
-			if (base.Logger.IsInfoEnabled)
+			if (Logger.IsInfoEnabled)
 			{
-				base.Logger.LogInfo("Unsubscribed from audio changes via Unity OnAudioConfigurationChanged callback.");
+				Logger.LogInfo("Unsubscribed from audio changes via Unity OnAudioConfigurationChanged callback.");
 			}
 		}
 		if (!subscribedToSystemChangesPhoton)
@@ -209,9 +209,9 @@ public class AudioChangesHandler : VoiceComponent
 		}
 		if (photonMicChangeNotifier == null)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Unexpected: photonMicChangeNotifier is null while subscribedToSystemChangesPhoton is true.");
+				Logger.LogError("Unexpected: photonMicChangeNotifier is null while subscribedToSystemChangesPhoton is true.");
 			}
 		}
 		else
@@ -220,9 +220,9 @@ public class AudioChangesHandler : VoiceComponent
 			photonMicChangeNotifier = null;
 		}
 		subscribedToSystemChangesPhoton = false;
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Unsubscribed from audio in change notifications via Photon plugin.");
+			Logger.LogInfo("Unsubscribed from audio in change notifications via Photon plugin.");
 		}
 	}
 }

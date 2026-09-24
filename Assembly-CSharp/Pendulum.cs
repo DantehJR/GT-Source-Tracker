@@ -12,7 +12,7 @@ public class Pendulum : MonoBehaviour
 
 	private void Start()
 	{
-		pendulum = (ClockPendulum = base.gameObject.GetComponent<Transform>());
+		pendulum = (ClockPendulum = gameObject.GetComponent<Transform>());
 	}
 
 	private void Update()

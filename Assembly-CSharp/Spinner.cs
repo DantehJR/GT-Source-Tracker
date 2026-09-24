@@ -14,6 +14,6 @@ public class Spinner : MonoBehaviour
 	public void Update()
 	{
 		m_angle += Speed * 360f * Time.deltaTime;
-		base.transform.rotation = Quaternion.Euler(0f, 0f - m_angle, 0f);
+		transform.rotation = Quaternion.Euler(0f, 0f - m_angle, 0f);
 	}
 }

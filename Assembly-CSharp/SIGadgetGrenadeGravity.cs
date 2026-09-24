@@ -225,7 +225,7 @@ public class SIGadgetGrenadeGravity : SIGadgetGrenade
 		Vector3 vector2 = Vector3.zero;
 		if (!thrownGadget.IsHeldLocal())
 		{
-			vector2 = (base.transform.position - player.headCollider.transform.position).normalized * attractorStrength;
+			vector2 = (transform.position - player.headCollider.transform.position).normalized * attractorStrength;
 		}
 		player.AddForce((vector + vector2) * player.scale, ForceMode.Acceleration);
 	}

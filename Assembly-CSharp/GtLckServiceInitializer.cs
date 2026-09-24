@@ -21,7 +21,7 @@ public class GtLckServiceInitializer : MonoBehaviour
 			return;
 		}
 		Debug.Log("LCK: Initializing with GT-SPECIFIC overrides.");
-		LckServiceInitializer.ConfigureServices(instance, _qualityConfig, delegate(LckDiContainer container)
+		LckServiceInitializer.ConfigureServices(instance, _qualityConfig, (LckDiContainer container) =>
 		{
 			container.AddSingleton<ILckCosmeticsFeatureFlagManager, LckCosmeticsFeatureFlagManagerPlayFab>();
 			container.AddSingleton<ILckCosmeticsCoordinator, LckCoreCosmeticsCoordinator>();

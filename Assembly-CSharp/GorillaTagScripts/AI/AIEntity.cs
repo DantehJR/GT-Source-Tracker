@@ -45,8 +45,8 @@ public class AIEntity : MonoBehaviour
 
 	protected void Awake()
 	{
-		navMeshAgent = base.gameObject.GetComponent<NavMeshAgent>();
-		animator = base.gameObject.GetComponent<Animator>();
+		navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+		animator = gameObject.GetComponent<Animator>();
 		if (waypointsContainer != null)
 		{
 			Transform[] componentsInChildren = waypointsContainer.GetComponentsInChildren<Transform>();
@@ -87,7 +87,7 @@ public class AIEntity : MonoBehaviour
 			VRRig rig = activeRigContainer.Rig;
 			if (rig.head != null && !rig.head.rigTarget.IsNull())
 			{
-				float sqrMagnitude = (base.transform.position - rig.head.rigTarget.transform.position).sqrMagnitude;
+				float sqrMagnitude = (transform.position - rig.head.rigTarget.transform.position).sqrMagnitude;
 				if (sqrMagnitude < minChaseRange * minChaseRange && sqrMagnitude < num)
 				{
 					num = sqrMagnitude;

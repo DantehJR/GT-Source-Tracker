@@ -10,14 +10,14 @@ public class GorillaHandHistory : MonoBehaviour
 
 	private void Start()
 	{
-		direction = default(Vector3);
-		lastPosition = default(Vector3);
+		direction = default;
+		lastPosition = default;
 	}
 
 	private void FixedUpdate()
 	{
-		direction = lastPosition - base.transform.position;
+		direction = lastPosition - transform.position;
 		lastLastPosition = lastPosition;
-		lastPosition = base.transform.position;
+		lastPosition = transform.position;
 	}
 }

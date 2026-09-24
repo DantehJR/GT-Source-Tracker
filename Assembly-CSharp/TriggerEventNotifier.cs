@@ -13,11 +13,11 @@ public class TriggerEventNotifier : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		this.TriggerEnterEvent?.Invoke(this, other);
+		TriggerEnterEvent?.Invoke(this, other);
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		this.TriggerExitEvent?.Invoke(this, other);
+		TriggerExitEvent?.Invoke(this, other);
 	}
 }

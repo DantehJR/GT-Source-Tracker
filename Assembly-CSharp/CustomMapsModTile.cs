@@ -86,7 +86,7 @@ public class CustomMapsModTile : CustomMapsScreenTouchPoint
 	public void ActivateTile(bool useMapName)
 	{
 		isActive = true;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		ShowTileText(show: true, useMapName);
 		CustomMapsScreenTouchPoint.pressTime = Time.time;
 	}
@@ -94,7 +94,7 @@ public class CustomMapsModTile : CustomMapsScreenTouchPoint
 	public void DeactivateTile()
 	{
 		isActive = false;
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		highlight.SetActive(value: false);
 		ShowTileText(show: false, useMapName: false);
 		ResetLogo();

@@ -30,6 +30,7 @@ public class SpawnRegion<TItem, TRegion> : MonoBehaviour where TItem : Object wh
 
 	public static List<TRegion> Regions => _regions;
 
+	[field: SerializeField]
 	public int MaxItems { get; private set; } = 10;
 
 	private bool HasSpawnOrigins
@@ -49,6 +50,7 @@ public class SpawnRegion<TItem, TRegion> : MonoBehaviour where TItem : Object wh
 
 	public int ItemCount => _items.Count;
 
+	[field: SerializeField]
 	public int ID { get; private set; }
 
 	private void OnEnable()
@@ -126,13 +128,13 @@ public class SpawnRegion<TItem, TRegion> : MonoBehaviour where TItem : Object wh
 			}
 		}
 		float num = _scale / 2f;
-		Vector3 item = base.transform.TransformPoint(new Vector3(Random.Range(0f - num, num), num, Random.Range(0f - num, num)));
+		Vector3 item = transform.TransformPoint(new Vector3(Random.Range(0f - num, num), num, Random.Range(0f - num, num)));
 		return (isOnGround: false, position: item, normal: Vector3.up);
 	}
 
 	private bool TryGetSpawnPoint(out RaycastHit spawnPoint)
 	{
-		float num = base.transform.lossyScale.y * _scale;
+		float num = transform.lossyScale.y * _scale;
 		Vector3 position;
 		if (_useSpawnOrigins)
 		{
@@ -145,14 +147,14 @@ public class SpawnRegion<TItem, TRegion> : MonoBehaviour where TItem : Object wh
 				}
 				return true;
 			}
-			spawnPoint = default(RaycastHit);
+			spawnPoint = default;
 			return false;
 		}
 		float num2 = _scale / 2f;
-		position = base.transform.TransformPoint(new Vector3(Random.Range(0f - num2, num2), num2, Random.Range(0f - num2, num2)));
+		position = transform.TransformPoint(new Vector3(Random.Range(0f - num2, num2), num2, Random.Range(0f - num2, num2)));
 		if (_testAgainstGeo && IsInsideGeo(position))
 		{
-			spawnPoint = default(RaycastHit);
+			spawnPoint = default;
 			return false;
 		}
 		return TryGetSpawnPoint(position, Vector3.down, num, out spawnPoint);
@@ -167,7 +169,7 @@ public class SpawnRegion<TItem, TRegion> : MonoBehaviour where TItem : Object wh
 			return true;
 		}
 		Debug.DrawLine(origin, origin + direction * distance, Color.red, 5f);
-		spawnPoint = default(RaycastHit);
+		spawnPoint = default;
 		return false;
 	}
 

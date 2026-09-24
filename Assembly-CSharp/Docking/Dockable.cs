@@ -31,8 +31,8 @@ public class Dockable : MonoBehaviour
 		{
 			return;
 		}
-		base.transform.position = potentialDock.transform.position;
-		base.transform.rotation = potentialDock.transform.rotation;
+		transform.position = potentialDock.transform.position;
+		transform.rotation = potentialDock.transform.rotation;
 		potentialDock.NotifyDocked();
 		if (potentialDock.Moveable)
 		{
@@ -47,7 +47,10 @@ public class Dockable : MonoBehaviour
 
 	public virtual void UnDock()
 	{
-		currentDock.NotifyUnDocked();
+		if (currentDock != null)
+		{
+			currentDock.NotifyUnDocked();
+		}
 		currentDock = null;
 		potentialDock = null;
 		undockTime = 0f;
@@ -57,10 +60,10 @@ public class Dockable : MonoBehaviour
 	{
 		if (currentDock != null)
 		{
-			base.transform.position = currentDock.transform.position;
+			transform.position = currentDock.transform.position;
 			if (rotate)
 			{
-				base.transform.rotation = currentDock.transform.rotation;
+				transform.rotation = currentDock.transform.rotation;
 			}
 			if (undockTime > 0f && undockTime < Time.time)
 			{

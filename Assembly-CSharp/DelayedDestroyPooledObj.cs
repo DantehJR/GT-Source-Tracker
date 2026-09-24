@@ -19,7 +19,7 @@ public class DelayedDestroyPooledObj : MonoBehaviour
 	{
 		if (Time.time > timeToDie)
 		{
-			ObjectPools.instance.Destroy(base.gameObject);
+			ObjectPools.instance.Destroy(gameObject);
 		}
 	}
 }

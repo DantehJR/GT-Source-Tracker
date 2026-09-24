@@ -8,7 +8,7 @@ namespace Photon.Realtime;
 
 public class LoadBalancingPeer : PhotonPeer
 {
-	private readonly Pool<ParameterDictionary> paramDictionaryPool = new Pool<ParameterDictionary>(() => new ParameterDictionary(), delegate(ParameterDictionary x)
+	private readonly Pool<ParameterDictionary> paramDictionaryPool = new Pool<ParameterDictionary>(() => new ParameterDictionary(), (ParameterDictionary x) =>
 	{
 		x.Clear();
 	}, 1);
@@ -37,7 +37,7 @@ public class LoadBalancingPeer : PhotonPeer
 	public LoadBalancingPeer(IPhotonPeerListener listener, ConnectionProtocol protocolType)
 		: this(protocolType)
 	{
-		base.Listener = listener;
+		Listener = listener;
 	}
 
 	[Conditional("SUPPORTED_UNITY")]
@@ -74,7 +74,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpJoinLobby()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpJoinLobby()");
 		}
 		Dictionary<byte, object> dictionary = null;
 		if (lobby != null && !lobby.IsDefault)
@@ -90,7 +90,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpLeaveLobby()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpLeaveLobby()");
 		}
 		return SendOperation((byte)228, (Dictionary<byte, object>)null, SendOptions.SendReliable);
 	}
@@ -172,7 +172,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpCreateRoom()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpCreateRoom()");
 		}
 		Dictionary<byte, object> dictionary = new Dictionary<byte, object>();
 		if (!string.IsNullOrEmpty(opParams.RoomName))
@@ -204,7 +204,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpJoinRoom()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpJoinRoom()");
 		}
 		Dictionary<byte, object> dictionary = new Dictionary<byte, object>();
 		if (!string.IsNullOrEmpty(opParams.RoomName))
@@ -247,7 +247,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpJoinRandomRoom()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpJoinRandomRoom()");
 		}
 		Hashtable hashtable = new Hashtable();
 		hashtable.MergeStringKeys(opJoinRandomRoomParams.ExpectedCustomRoomProperties);
@@ -284,7 +284,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpJoinRandomOrCreateRoom()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpJoinRandomOrCreateRoom()");
 		}
 		Hashtable hashtable = new Hashtable();
 		hashtable.MergeStringKeys(opJoinRandomRoomParams.ExpectedCustomRoomProperties);
@@ -344,13 +344,13 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList()");
 		}
 		if (lobby == null)
 		{
 			if ((int)DebugOut >= 3)
 			{
-				base.Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList not sent. Lobby cannot be null.");
+				Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList not sent. Lobby cannot be null.");
 			}
 			return false;
 		}
@@ -358,7 +358,7 @@ public class LoadBalancingPeer : PhotonPeer
 		{
 			if ((int)DebugOut >= 3)
 			{
-				base.Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList not sent. LobbyType must be SqlLobby.");
+				Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList not sent. LobbyType must be SqlLobby.");
 			}
 			return false;
 		}
@@ -366,7 +366,7 @@ public class LoadBalancingPeer : PhotonPeer
 		{
 			if ((int)DebugOut >= 3)
 			{
-				base.Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList not sent. LobbyName must be not null and not empty.");
+				Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList not sent. LobbyName must be not null and not empty.");
 			}
 			return false;
 		}
@@ -374,7 +374,7 @@ public class LoadBalancingPeer : PhotonPeer
 		{
 			if ((int)DebugOut >= 3)
 			{
-				base.Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList not sent. queryData must be not null and not empty.");
+				Listener.DebugReturn(DebugLevel.INFO, "OpGetGameList not sent. queryData must be not null and not empty.");
 			}
 			return false;
 		}
@@ -409,13 +409,13 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpSetPropertiesOfActor()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpSetPropertiesOfActor()");
 		}
 		if (actorNr <= 0 || actorProperties == null || actorProperties.Count == 0)
 		{
 			if ((int)DebugOut >= 3)
 			{
-				base.Listener.DebugReturn(DebugLevel.INFO, "OpSetPropertiesOfActor not sent. ActorNr must be > 0 and actorProperties must be not null nor empty.");
+				Listener.DebugReturn(DebugLevel.INFO, "OpSetPropertiesOfActor not sent. ActorNr must be > 0 and actorProperties must be not null nor empty.");
 			}
 			return false;
 		}
@@ -450,13 +450,13 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpSetPropertiesOfRoom()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpSetPropertiesOfRoom()");
 		}
 		if (gameProperties == null || gameProperties.Count == 0)
 		{
 			if ((int)DebugOut >= 3)
 			{
-				base.Listener.DebugReturn(DebugLevel.INFO, "OpSetPropertiesOfRoom not sent. gameProperties must be not null nor empty.");
+				Listener.DebugReturn(DebugLevel.INFO, "OpSetPropertiesOfRoom not sent. gameProperties must be not null nor empty.");
 			}
 			return false;
 		}
@@ -478,7 +478,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpAuthenticate()");
+			Listener.DebugReturn(DebugLevel.INFO, "OpAuthenticate()");
 		}
 		Dictionary<byte, object> dictionary = new Dictionary<byte, object>();
 		if (getLobbyStatistics)
@@ -526,7 +526,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 3)
 		{
-			base.Listener.DebugReturn(DebugLevel.INFO, "OpAuthenticateOnce(): authValues = " + authValues?.ToString() + ", region = " + regionCode + ", encryption = " + encryptionMode);
+			Listener.DebugReturn(DebugLevel.INFO, "OpAuthenticateOnce(): authValues = " + authValues?.ToString() + ", region = " + regionCode + ", encryption = " + encryptionMode);
 		}
 		Dictionary<byte, object> dictionary = new Dictionary<byte, object>();
 		if (authValues != null && authValues.Token != null)
@@ -583,7 +583,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 5)
 		{
-			base.Listener.DebugReturn(DebugLevel.ALL, "OpChangeGroups()");
+			Listener.DebugReturn(DebugLevel.ALL, "OpChangeGroups()");
 		}
 		Dictionary<byte, object> dictionary = new Dictionary<byte, object>();
 		if (groupsToRemove != null)
@@ -660,7 +660,7 @@ public class LoadBalancingPeer : PhotonPeer
 	{
 		if ((int)DebugOut >= 5)
 		{
-			base.Listener.DebugReturn(DebugLevel.ALL, "OpSettings()");
+			Listener.DebugReturn(DebugLevel.ALL, "OpSettings()");
 		}
 		Dictionary<byte, object> dictionary = new Dictionary<byte, object>();
 		if (receiveLobbyStats)

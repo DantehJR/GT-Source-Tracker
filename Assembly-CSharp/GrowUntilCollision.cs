@@ -35,7 +35,7 @@ public class GrowUntilCollision : MonoBehaviour
 
 	private void zero()
 	{
-		base.transform.localScale = Vector3.one * initialRadius;
+		transform.localScale = Vector3.one * initialRadius;
 		if (audioSource != null)
 		{
 			audioSource.volume = 0f;
@@ -46,22 +46,22 @@ public class GrowUntilCollision : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		tryToTrigger(base.transform.position, other.transform.position);
+		tryToTrigger(transform.position, other.transform.position);
 	}
 
 	private void OnTriggerExit(Collider other)
 	{
-		tryToTrigger(base.transform.position, other.transform.position);
+		tryToTrigger(transform.position, other.transform.position);
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		tryToTrigger(base.transform.position, collision.GetContact(0).point);
+		tryToTrigger(transform.position, collision.GetContact(0).point);
 	}
 
 	private void OnCollisionExit(Collision collision)
 	{
-		tryToTrigger(base.transform.position, collision.GetContact(0).point);
+		tryToTrigger(transform.position, collision.GetContact(0).point);
 	}
 
 	private void tryToTrigger(Vector3 p1, Vector3 p2)
@@ -78,14 +78,14 @@ public class GrowUntilCollision : MonoBehaviour
 
 	private void Update()
 	{
-		float num = Mathf.Max(base.transform.lossyScale.x, base.transform.lossyScale.y, base.transform.lossyScale.z);
-		if (base.transform.localScale.x < maxSize * num)
+		float num = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
+		if (transform.localScale.x < maxSize * num)
 		{
-			base.transform.localScale += Vector3.one * Time.deltaTime * num;
+			transform.localScale += Vector3.one * Time.deltaTime * num;
 			if (audioSource != null)
 			{
-				audioSource.volume = maxVolume * (base.transform.localScale.x / maxSize);
-				audioSource.pitch = 1f + maxPitch * (base.transform.localScale.x / maxSize);
+				audioSource.volume = maxVolume * (transform.localScale.x / maxSize);
+				audioSource.pitch = 1f + maxPitch * (transform.localScale.x / maxSize);
 			}
 		}
 		timeSinceTrigger += Time.deltaTime;

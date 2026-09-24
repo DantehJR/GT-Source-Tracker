@@ -12,13 +12,13 @@ public class PredicatableRandomRotation : MonoBehaviour
 	{
 		if (source == null)
 		{
-			source = base.transform;
+			source = transform;
 		}
 	}
 
 	private void Update()
 	{
 		float num = (source.position.x * source.position.x + source.position.y * source.position.y + source.position.z * source.position.z) % 1f;
-		base.transform.Rotate(rot * num);
+		transform.Rotate(rot * num);
 	}
 }

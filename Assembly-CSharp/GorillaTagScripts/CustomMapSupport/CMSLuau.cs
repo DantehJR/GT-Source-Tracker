@@ -7,7 +7,7 @@ public class CMSLuau : CMSTrigger
 		base.Trigger(triggerTime, originatedLocally, ignoreTriggerCount);
 		if (originatedLocally)
 		{
-			LuauVm.touchEventsQueue.Enqueue(base.gameObject);
+			LuauVm.touchEventsQueue.Enqueue(gameObject);
 		}
 	}
 }

@@ -36,7 +36,7 @@ public class CrittersActorSpawnerPoint : CrittersActor
 			{
 				spawnedActorID = -1;
 			}
-			this.OnSpawnChanged?.Invoke(spawnedActor);
+			OnSpawnChanged?.Invoke(spawnedActor);
 			updatedSinceLastFrame = true;
 		}
 	}
@@ -61,7 +61,7 @@ public class CrittersActorSpawnerPoint : CrittersActor
 			spawnedActorID = newSpawnedActorID;
 			spawnedActor = value;
 		}
-		this.OnSpawnChanged?.Invoke(spawnedActor);
+		OnSpawnChanged?.Invoke(spawnedActor);
 	}
 
 	public override void SendDataByCrittersActorType(PhotonStream stream)

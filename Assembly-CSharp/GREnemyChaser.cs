@@ -177,16 +177,16 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 	public void OnEntityInit()
 	{
 		abilityIdle.Setup(agent, anim, audioSource, null, null, null);
-		abilityChase.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
+		abilityChase.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
 		abilitySearch.Setup(agent, anim, audioSource, null, null, null);
-		abilityAttackSwipe.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityInvestigate.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityPatrol.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityWander.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityStagger.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityDie.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityFlashed.Setup(agent, anim, audioSource, base.transform, null, null);
-		abilityJump.Setup(agent, anim, audioSource, base.transform, null, null);
+		abilityAttackSwipe.Setup(agent, anim, audioSource, transform, null, null);
+		abilityInvestigate.Setup(agent, anim, audioSource, transform, null, null);
+		abilityPatrol.Setup(agent, anim, audioSource, transform, null, null);
+		abilityWander.Setup(agent, anim, audioSource, transform, null, null);
+		abilityStagger.Setup(agent, anim, audioSource, transform, null, null);
+		abilityDie.Setup(agent, anim, audioSource, transform, null, null);
+		abilityFlashed.Setup(agent, anim, audioSource, transform, null, null);
+		abilityJump.Setup(agent, anim, audioSource, transform, null, null);
 		senseNearby.Setup(headTransform, entity);
 		Setup(entity.createData);
 		if ((bool)entity && (bool)entity.manager && (bool)entity.manager.ghostReactorManager && (bool)entity.manager.ghostReactorManager.reactor)
@@ -462,8 +462,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 		tempRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 		senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-		float outDistanceSq;
-		VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+		VRRig vRRig = senseNearby.PickClosest(out var _);
 		agent.RequestTarget((vRRig == null) ? null : vRRig.OwningNetPlayer);
 		switch (currBehavior)
 		{
@@ -502,19 +501,19 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			if (agent.targetPlayer != null)
 			{
 				Vector3 position = GRPlayer.Get(agent.targetPlayer).transform.position;
-				Vector3 vector = position - base.transform.position;
+				Vector3 vector = position - transform.position;
 				float magnitude = vector.magnitude;
 				if (magnitude < attackRange)
 				{
 					SetBehavior(Behavior.Attack);
 				}
-				else if (canChaseJump && abilityJump.IsCoolDownOver(chaseJumpMinInterval) && magnitude > attackRange + minChaseJumpDistance && GRSenseLineOfSight.HasNavmeshLineOfSight(base.transform.position, position, 10f))
+				else if (canChaseJump && abilityJump.IsCoolDownOver(chaseJumpMinInterval) && magnitude > attackRange + minChaseJumpDistance && GRSenseLineOfSight.HasNavmeshLineOfSight(transform.position, position, 10f))
 				{
 					Vector3 vector2 = vector / magnitude;
 					float num = Mathf.Clamp(chaseJumpDistance, minChaseJumpDistance, magnitude - attackRange * 0.5f);
-					if (NavMesh.SamplePosition(base.transform.position + vector2 * num, out var hit, 0.5f, AbilityHelperFunctions.GetNavMeshWalkableArea()))
+					if (NavMesh.SamplePosition(transform.position + vector2 * num, out var hit, 0.5f, AbilityHelperFunctions.GetNavMeshWalkableArea()))
 					{
-						agent.GetGameAgentManager().RequestJump(agent, base.transform.position, hit.position, 0.25f, 1.5f);
+						agent.GetGameAgentManager().RequestJump(agent, transform.position, hit.position, 0.25f, 1.5f);
 						return;
 					}
 				}
@@ -523,7 +522,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 		}
 		else
 		{
-			investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(base.transform.position, hearingRadius, investigateLocation);
+			investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(transform.position, hearingRadius, investigateLocation);
 			if (investigateLocation.HasValue)
 			{
 				abilityInvestigate.SetTargetPos(investigateLocation.Value);
@@ -612,7 +611,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			if (gRPlayer != null)
 			{
 				float num = attackRange * attackRange;
-				if ((gRPlayer.transform.position - base.transform.position).sqrMagnitude < num)
+				if ((gRPlayer.transform.position - transform.position).sqrMagnitude < num)
 				{
 					SetBehavior(Behavior.Attack);
 				}
@@ -637,7 +636,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			}
 			if (GhostReactorManager.noiseDebugEnabled)
 			{
-				DebugUtil.DrawLine(base.transform.position, abilityInvestigate.GetTargetPos(), Color.green);
+				DebugUtil.DrawLine(transform.position, abilityInvestigate.GetTargetPos(), Color.green);
 			}
 			break;
 		case Behavior.Jump:
@@ -714,7 +713,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 			}
 			lastSeenTargetPosition = tool.transform.position;
 			lastSeenTargetTime = Time.timeAsDouble;
-			Vector3 vector = lastSeenTargetPosition - base.transform.position;
+			Vector3 vector = lastSeenTargetPosition - transform.position;
 			vector.y = 0f;
 			searchPosition = lastSeenTargetPosition + vector.normalized * 1.5f;
 			abilityStagger.SetStaggerVelocity(hit.hitImpulse);
@@ -751,7 +750,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 				SetBodyState(BodyState.Bones);
 				if (grTool.gameEntity.IsHeldByLocalPlayer())
 				{
-					PlayerGameEvents.MiscEvent("GRArmorBreak_" + base.name);
+					PlayerGameEvents.MiscEvent("GRArmorBreak_" + name);
 				}
 				if (grTool.HasUpgradeInstalled(GRToolProgressionManager.ToolParts.FlashDamage3))
 				{
@@ -766,7 +765,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 				}
 				lastSeenTargetPosition = grTool.transform.position;
 				lastSeenTargetTime = Time.timeAsDouble;
-				Vector3 vector = lastSeenTargetPosition - base.transform.position;
+				Vector3 vector = lastSeenTargetPosition - transform.position;
 				vector.y = 0f;
 				searchPosition = lastSeenTargetPosition + vector.normalized * 1.5f;
 				RefreshBody();
@@ -804,7 +803,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 		if (component != null)
 		{
 			GameHittable component2 = GetComponent<GameHittable>();
-			component.BlockHittable(headTransform.position, base.transform.forward, component2);
+			component.BlockHittable(headTransform.position, transform.forward, component2);
 			return;
 		}
 		Rigidbody attachedRigidbody = collider.attachedRigidbody;
@@ -845,7 +844,7 @@ public class GREnemyChaser : MonoBehaviour, IGameEntityComponent, IGameEntitySer
 		if (currBehavior == Behavior.Attack && player != null && player.gamePlayer.IsLocal() && Time.time > lastHitPlayerTime + minTimeBetweenHits)
 		{
 			lastHitPlayerTime = Time.time;
-			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, base.transform.position);
+			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, transform.position);
 		}
 	}
 

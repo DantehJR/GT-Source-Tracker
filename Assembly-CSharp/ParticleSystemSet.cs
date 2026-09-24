@@ -26,7 +26,7 @@ public class ParticleSystemSet : MonoBehaviour
 
 	private void Awake()
 	{
-		localScale = base.transform.localScale;
+		localScale = transform.localScale;
 		ps = GetComponentsInChildren<ParticleSystem>();
 		List<ParticleSystem.MainModule> list = new List<ParticleSystem.MainModule>();
 		List<ParticleSystem.EmissionModule> list2 = new List<ParticleSystem.EmissionModule>();
@@ -145,7 +145,7 @@ public class ParticleSystemSet : MonoBehaviour
 
 	public void SetScaleXZ(float scaler)
 	{
-		base.transform.localScale = new Vector3(localScale.x * scaler, localScale.y, localScale.z * scaler);
+		transform.localScale = new Vector3(localScale.x * scaler, localScale.y, localScale.z * scaler);
 	}
 
 	public async void FadeScaleXZ(float scaler)
@@ -156,9 +156,9 @@ public class ParticleSystemSet : MonoBehaviour
 		{
 			for (int i = 0; i < psMains.Length; i++)
 			{
-				base.transform.localScale = Vector3.MoveTowards(base.transform.localScale, targetScale, Time.deltaTime * fadeRate);
+				transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, Time.deltaTime * fadeRate);
 			}
-			loop = base.transform.localScale != targetScale;
+			loop = transform.localScale != targetScale;
 			await Task.Yield();
 		}
 	}

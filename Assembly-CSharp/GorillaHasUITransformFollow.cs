@@ -9,7 +9,7 @@ public class GorillaHasUITransformFollow : MonoBehaviour
 		GorillaUITransformFollow[] array = transformFollowers;
 		for (int i = 0; i < array.Length; i++)
 		{
-			array[i].gameObject.SetActive(base.gameObject.activeSelf);
+			array[i].gameObject.SetActive(gameObject.activeSelf);
 		}
 	}
 

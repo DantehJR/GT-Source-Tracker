@@ -28,7 +28,7 @@ public class ColliderOffsetOverride : MonoBehaviour
 
 	public void FindColliders()
 	{
-		foreach (Collider item in base.gameObject.GetComponents<Collider>().ToList())
+		foreach (Collider item in gameObject.GetComponents<Collider>().ToList())
 		{
 			if (!colliders.Contains(item))
 			{
@@ -39,7 +39,7 @@ public class ColliderOffsetOverride : MonoBehaviour
 
 	public void FindCollidersRecursively()
 	{
-		foreach (Collider item in base.gameObject.GetComponentsInChildren<Collider>().ToList())
+		foreach (Collider item in gameObject.GetComponentsInChildren<Collider>().ToList())
 		{
 			if (!colliders.Contains(item))
 			{

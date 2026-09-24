@@ -344,7 +344,7 @@ public class RankedMultiplayerScore : MonoBehaviourTick
 		{
 			return value;
 		}
-		return default(PlayerScoreInRound);
+		return default;
 	}
 
 	public void OnTagReported(NetPlayer taggedPlayer, NetPlayer taggingPlayer)

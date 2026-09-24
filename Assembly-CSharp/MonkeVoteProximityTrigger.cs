@@ -17,7 +17,7 @@ public class MonkeVoteProximityTrigger : GorillaTriggerBox
 		if (triggerTime + retriggerDelay < Time.unscaledTime)
 		{
 			triggerTime = Time.unscaledTime;
-			this.OnEnter?.Invoke();
+			OnEnter?.Invoke();
 		}
 	}
 

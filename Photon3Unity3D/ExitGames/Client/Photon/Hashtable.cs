@@ -81,7 +81,7 @@ public class Hashtable : Dictionary<object, object>
 	public override string ToString()
 	{
 		List<string> list = new List<string>();
-		foreach (object key in base.Keys)
+		foreach (object key in Keys)
 		{
 			if (key == null || this[key] == null)
 			{

@@ -27,7 +27,7 @@ public class LoudSpeakerNetwork : MonoBehaviour
 	{
 		if (_speakerSources == null || _speakerSources.Length == 0)
 		{
-			_speakerSources = base.transform.GetComponentsInChildren<AudioSource>();
+			_speakerSources = transform.GetComponentsInChildren<AudioSource>();
 		}
 		_currentSpeakers = new List<Speaker>();
 	}
@@ -48,7 +48,7 @@ public class LoudSpeakerNetwork : MonoBehaviour
 	{
 		if (_rigContainer == null)
 		{
-			_rigContainer = base.transform.GetComponentInParent<RigContainer>();
+			_rigContainer = transform.GetComponentInParent<RigContainer>();
 		}
 		rigContainer = _rigContainer;
 		return rigContainer != null;
@@ -101,9 +101,9 @@ public class LoudSpeakerNetwork : MonoBehaviour
 				_localRecorder.DebugEchoMode = true;
 				if (ReparentLocalSpeaker)
 				{
-					Transform obj = _rigContainer.Voice.SpeakerInUse.transform;
-					obj.transform.SetParent(base.transform, worldPositionStays: false);
-					obj.localPosition = Vector3.zero;
+					Transform transform = _rigContainer.Voice.SpeakerInUse.transform;
+					transform.transform.SetParent(base.transform, worldPositionStays: false);
+					transform.localPosition = Vector3.zero;
 				}
 			}
 			return;
@@ -112,14 +112,14 @@ public class LoudSpeakerNetwork : MonoBehaviour
 		{
 			if (enumerator.MoveNext())
 			{
-				GTSpeaker obj2 = (GTSpeaker)enumerator.Current;
-				obj2.ToggleAudioSource(toggle: true);
-				obj2.BroadcastExternal = true;
+				GTSpeaker gTSpeaker = (GTSpeaker)enumerator.Current;
+				gTSpeaker.ToggleAudioSource(toggle: true);
+				gTSpeaker.BroadcastExternal = true;
 				if (VRRigCache.Instance.TryGetVrrig(NetworkSystem.Instance.GetPlayer(actorNumber), out var playerRig))
 				{
-					Transform obj3 = playerRig.Voice.SpeakerInUse.transform;
-					obj3.SetParent(base.transform, worldPositionStays: false);
-					obj3.localPosition = Vector3.zero;
+					Transform transform2 = playerRig.Voice.SpeakerInUse.transform;
+					transform2.SetParent(base.transform, worldPositionStays: false);
+					transform2.localPosition = Vector3.zero;
 				}
 			}
 		}
@@ -144,9 +144,9 @@ public class LoudSpeakerNetwork : MonoBehaviour
 				_localRecorder.DebugEchoMode = false;
 				if (ReparentLocalSpeaker && GetParentRigContainer(out var rigContainer))
 				{
-					Transform obj = rigContainer.Voice.SpeakerInUse.transform;
-					obj.SetParent(rigContainer.SpeakerHead, worldPositionStays: false);
-					obj.localPosition = Vector3.zero;
+					Transform transform = rigContainer.Voice.SpeakerInUse.transform;
+					transform.SetParent(rigContainer.SpeakerHead, worldPositionStays: false);
+					transform.localPosition = Vector3.zero;
 				}
 			}
 		}
@@ -160,14 +160,14 @@ public class LoudSpeakerNetwork : MonoBehaviour
 			{
 				if (enumerator.MoveNext())
 				{
-					GTSpeaker obj2 = (GTSpeaker)enumerator.Current;
-					obj2.ToggleAudioSource(toggle: false);
-					obj2.BroadcastExternal = false;
+					GTSpeaker gTSpeaker = (GTSpeaker)enumerator.Current;
+					gTSpeaker.ToggleAudioSource(toggle: false);
+					gTSpeaker.BroadcastExternal = false;
 					if (VRRigCache.Instance.TryGetVrrig(NetworkSystem.Instance.GetPlayer(actorNumber), out var playerRig))
 					{
-						Transform obj3 = playerRig.Voice.SpeakerInUse.transform;
-						obj3.SetParent(playerRig.SpeakerHead, worldPositionStays: false);
-						obj3.localPosition = Vector3.zero;
+						Transform transform2 = playerRig.Voice.SpeakerInUse.transform;
+						transform2.SetParent(playerRig.SpeakerHead, worldPositionStays: false);
+						transform2.localPosition = Vector3.zero;
 					}
 				}
 			}

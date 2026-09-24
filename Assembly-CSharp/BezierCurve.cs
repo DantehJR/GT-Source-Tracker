@@ -33,7 +33,7 @@ public class BezierCurve : MonoBehaviour
 
 	public void Reset()
 	{
-		referenceTransform = base.transform;
+		referenceTransform = transform;
 		points = new Vector3[4]
 		{
 			new Vector3(1f, 0f, 0f),

@@ -40,7 +40,7 @@ public class RigOwnedTransformView : MonoBehaviourPun, IPunObservable
 
 	public void Awake()
 	{
-		m_StoredPosition = base.transform.localPosition;
+		m_StoredPosition = transform.localPosition;
 		m_NetworkPosition = Vector3.zero;
 		m_networkScale = Vector3.one;
 		m_NetworkRotation = Quaternion.identity;

@@ -53,7 +53,7 @@ public class GorillaDayNight : MonoBehaviour
 		}
 		else if (instance != this)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 		test = false;
 		working = false;

@@ -47,13 +47,13 @@ public class StatesGui : MonoBehaviour
 	{
 		if (Instance != null)
 		{
-			Object.DestroyImmediate(base.gameObject);
+			Object.DestroyImmediate(gameObject);
 			return;
 		}
 		if (DontDestroy)
 		{
 			Instance = this;
-			Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(gameObject);
 		}
 		if (EventsIn)
 		{

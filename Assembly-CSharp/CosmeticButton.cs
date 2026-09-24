@@ -23,7 +23,7 @@ public class CosmeticButton : GorillaPressableButton
 
 	public void Awake()
 	{
-		startingPos = base.transform.localPosition;
+		startingPos = transform.localPosition;
 		Initialized = true;
 	}
 
@@ -35,7 +35,7 @@ public class CosmeticButton : GorillaPressableButton
 			SetOffText(myText.IsNotNull(), myTmpText.IsNotNull(), myTmpText2.IsNotNull());
 			return;
 		}
-		if (!base.enabled)
+		if (!enabled)
 		{
 			buttonRenderer.material = disabledMaterial;
 			SetOffText(myText != null);
@@ -56,7 +56,7 @@ public class CosmeticButton : GorillaPressableButton
 	public virtual void UpdatePosition()
 	{
 		Vector3 localPosition = startingPos;
-		if (!base.enabled)
+		if (!enabled)
 		{
 			localPosition += disabledOffset;
 		}
@@ -64,9 +64,9 @@ public class CosmeticButton : GorillaPressableButton
 		{
 			localPosition += pressedOffset;
 		}
-		posOffset = base.transform.position;
-		base.transform.localPosition = localPosition;
-		posOffset = base.transform.position - posOffset;
+		posOffset = transform.position;
+		transform.localPosition = localPosition;
+		posOffset = transform.position - posOffset;
 		if (myText != null)
 		{
 			myText.transform.position += posOffset;

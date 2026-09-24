@@ -32,8 +32,8 @@ public class TorusZone : BasicGravityZone
 
 	protected override Vector3 GetGravityVectorAtPoint(in Vector3 worldPosition, in MonkeGravityController controller)
 	{
-		Vector3 up = base.transform.up;
-		Vector3 vector = worldPosition - base.transform.position;
+		Vector3 up = transform.up;
+		Vector3 vector = worldPosition - transform.position;
 		Vector3 vector2 = vector - up * Vector3.Dot(vector, up);
 		float sqrMagnitude = vector2.sqrMagnitude;
 		Vector3 vector4;
@@ -44,11 +44,11 @@ public class TorusZone : BasicGravityZone
 			{
 				vector3 = Vector3.Cross(up, Vector3.forward);
 			}
-			vector4 = base.transform.position + vector3.normalized * majorRadius;
+			vector4 = transform.position + vector3.normalized * majorRadius;
 		}
 		else
 		{
-			vector4 = base.transform.position + vector2 * (majorRadius / Mathf.Sqrt(sqrMagnitude));
+			vector4 = transform.position + vector2 * (majorRadius / Mathf.Sqrt(sqrMagnitude));
 		}
 		return worldPosition - vector4;
 	}

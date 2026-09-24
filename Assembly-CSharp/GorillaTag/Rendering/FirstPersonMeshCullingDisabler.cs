@@ -28,9 +28,9 @@ public class FirstPersonMeshCullingDisabler : MonoBehaviour
 		Camera main = Camera.main;
 		if (!(main == null))
 		{
-			Transform obj = main.transform;
-			Vector3 position = obj.position;
-			Vector3 vector = Vector3.Normalize(obj.forward);
+			Transform transform = main.transform;
+			Vector3 position = transform.position;
+			Vector3 vector = Vector3.Normalize(transform.forward);
 			float nearClipPlane = main.nearClipPlane;
 			float num = (main.farClipPlane - nearClipPlane) / 2f + nearClipPlane;
 			Vector3 position2 = position + vector * num;

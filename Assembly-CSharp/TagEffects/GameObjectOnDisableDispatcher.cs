@@ -10,9 +10,9 @@ public class GameObjectOnDisableDispatcher : MonoBehaviour
 
 	private void OnDisable()
 	{
-		if (this.OnDisabled != null)
+		if (OnDisabled != null)
 		{
-			this.OnDisabled(this);
+			OnDisabled(this);
 		}
 	}
 }

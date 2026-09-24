@@ -25,7 +25,17 @@ public class CurrencyBoard : MonoBehaviour
 	{
 		if (dailyRocksTextTMP.IsNotNull())
 		{
-			dailyRocksTextTMP.text = ((!checkedDaily) ? "CHECKING DAILY ROCKS..." : (gotDaily ? "SUCCESSFULLY GOT DAILY ROCKS!" : "WAITING TO GET DAILY ROCKS..."));
+			TMP_Text tMP_Text = dailyRocksTextTMP;
+			string text;
+			if (checkedDaily)
+			{
+				text = (gotDaily ? "SUCCESSFULLY GOT DAILY ROCKS!" : "WAITING TO GET DAILY ROCKS...");
+			}
+			else
+			{
+				text = "CHECKING DAILY ROCKS...";
+			}
+			tMP_Text.text = text;
 		}
 		if (currencyBoardTextTMP.IsNotNull())
 		{

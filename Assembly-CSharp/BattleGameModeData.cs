@@ -65,14 +65,14 @@ public class BattleGameModeData : FusionGameModeData
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void BattleGameModeData::RPC_ReportSlinshotHit(System.Int32,UnityEngine.Vector3,System.Int32,Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void BattleGameModeData::RPC_ReportSlinshotHit(System.Int32,UnityEngine.Vector3,System.Int32,Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			int num = 8;
@@ -84,11 +84,11 @@ public class BattleGameModeData : FusionGameModeData
 				NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void BattleGameModeData::RPC_ReportSlinshotHit(System.Int32,UnityEngine.Vector3,System.Int32,Fusion.RpcInfo)", num);
 				return;
 			}
-			if (base.Runner.HasAnyActiveConnections())
+			if (Runner.HasAnyActiveConnections())
 			{
-				SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+				SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 				byte* ptr2 = (byte*)ptr + 28;
-				*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
+				*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
 				int num2 = 8;
 				*(int*)(ptr2 + num2) = taggedPlayerID;
 				num2 += 4;
@@ -97,13 +97,13 @@ public class BattleGameModeData : FusionGameModeData
 				*(int*)(ptr2 + num2) = projectileCount;
 				num2 += 4;
 				ptr->Offset = num2 * 8;
-				base.Runner.SendRpc(ptr);
+				Runner.SendRpc(ptr);
 			}
 			if ((localAuthorityMask & 7) == 0)
 			{
 				return;
 			}
-			rpcInfo = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			rpcInfo = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		PhotonMessageInfoWrapped photonMessageInfoWrapped = new PhotonMessageInfoWrapped(rpcInfo);
 		MonkeAgent.IncrementRPCCall(photonMessageInfoWrapped, "RPC_ReportSlinshotHit");

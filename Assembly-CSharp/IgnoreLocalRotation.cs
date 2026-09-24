@@ -4,6 +4,6 @@ public class IgnoreLocalRotation : MonoBehaviour
 {
 	private void LateUpdate()
 	{
-		base.transform.rotation = Quaternion.identity;
+		transform.rotation = Quaternion.identity;
 	}
 }

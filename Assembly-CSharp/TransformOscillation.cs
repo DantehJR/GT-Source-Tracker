@@ -115,12 +115,12 @@ public class TransformOscillation : MonoBehaviour
 		{
 			float timeSeconds = GetTimeSeconds();
 			ComputeOffsets(timeSeconds);
-			Transform obj = base.transform;
+			Transform transform = base.transform;
 			Quaternion quaternion = Quaternion.Euler(offsRot);
-			Vector3 vector = obj.localPosition - lastPosOffs;
-			Quaternion quaternion2 = obj.localRotation * Quaternion.Inverse(lastRotOffs);
-			obj.localPosition = vector + offsPos;
-			obj.localRotation = quaternion2 * quaternion;
+			Vector3 vector = transform.localPosition - lastPosOffs;
+			Quaternion quaternion2 = transform.localRotation * Quaternion.Inverse(lastRotOffs);
+			transform.localPosition = vector + offsPos;
+			transform.localRotation = quaternion2 * quaternion;
 			lastPosOffs = offsPos;
 			lastRotOffs = quaternion;
 		}
@@ -132,13 +132,13 @@ public class TransformOscillation : MonoBehaviour
 		{
 			float timeSeconds = GetTimeSeconds();
 			ComputeOffsets(timeSeconds);
-			Transform obj = base.transform;
+			Transform transform = base.transform;
 			Quaternion quaternion = Quaternion.Euler(offsRot);
-			Transform parent = obj.parent;
+			Transform parent = transform.parent;
 			Vector3 vector = (parent ? parent.TransformVector(lastPosOffs) : lastPosOffs);
 			Quaternion rotation = (parent ? (parent.rotation * lastRotOffs * Quaternion.Inverse(parent.rotation)) : lastRotOffs);
-			Vector3 vector2 = obj.position - vector;
-			Quaternion quaternion2 = obj.rotation * Quaternion.Inverse(rotation);
+			Vector3 vector2 = transform.position - vector;
+			Quaternion quaternion2 = transform.rotation * Quaternion.Inverse(rotation);
 			Vector3 vector3 = (parent ? parent.TransformVector(offsPos) : offsPos);
 			Quaternion quaternion3 = (parent ? (parent.rotation * quaternion * Quaternion.Inverse(parent.rotation)) : quaternion);
 			targetRigidbody.MovePosition(vector2 + vector3);

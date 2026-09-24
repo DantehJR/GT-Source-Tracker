@@ -54,15 +54,15 @@ public abstract class CustomMapsScreenTouchPoint : MonoBehaviour, IClickable
 
 	private void OnTriggerEnter(Collider collider)
 	{
-		GTDev.Log($"trigger {base.gameObject.name} pressTime={pressTime} time={Time.time}");
+		GTDev.Log($"trigger {gameObject.name} pressTime={pressTime} time={Time.time}");
 		if (Time.time < pressTime + pressedTime || !(collider.GetComponentInParent<GorillaTriggerColliderHandIndicator>() != null))
 		{
 			return;
 		}
 		Vector3 rhs = GetForwardDirection();
-		if (!(Vector3.Dot((collider.transform.position - base.transform.position).normalized, rhs) < 0f))
+		if (!(Vector3.Dot((collider.transform.position - transform.position).normalized, rhs) < 0f))
 		{
-			GTDev.Log($"trigger {base.gameObject.name} collider {collider.gameObject.name} postion {collider.transform.position}");
+			GTDev.Log($"trigger {gameObject.name} collider {collider.gameObject.name} postion {collider.transform.position}");
 			GorillaTriggerColliderHandIndicator component = collider.GetComponent<GorillaTriggerColliderHandIndicator>();
 			pressTime = Time.time;
 			OnButtonPressedEvent();
@@ -80,7 +80,7 @@ public abstract class CustomMapsScreenTouchPoint : MonoBehaviour, IClickable
 
 	public virtual void PressButtonColourUpdate()
 	{
-		if (base.gameObject.activeInHierarchy)
+		if (gameObject.activeInHierarchy)
 		{
 			touchPointRenderer.color = buttonColorSettings.PressedColor;
 			colorUpdateCoroutine = StartCoroutine(ButtonColorUpdate_Local());
@@ -100,13 +100,13 @@ public abstract class CustomMapsScreenTouchPoint : MonoBehaviour, IClickable
 	{
 		return forwardDirection switch
 		{
-			TouchPointDirections.Forward => base.transform.forward, 
-			TouchPointDirections.Backward => -base.transform.forward, 
-			TouchPointDirections.Left => -base.transform.right, 
-			TouchPointDirections.Right => base.transform.right, 
-			TouchPointDirections.Up => base.transform.up, 
-			TouchPointDirections.Down => -base.transform.up, 
-			_ => base.transform.forward, 
+			TouchPointDirections.Forward => transform.forward, 
+			TouchPointDirections.Backward => -transform.forward, 
+			TouchPointDirections.Left => -transform.right, 
+			TouchPointDirections.Right => transform.right, 
+			TouchPointDirections.Up => transform.up, 
+			TouchPointDirections.Down => -transform.up, 
+			_ => transform.forward, 
 		};
 	}
 

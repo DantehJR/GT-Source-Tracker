@@ -14,7 +14,7 @@ public class Monkeye_LazerFX : MonoBehaviour
 
 	private void Awake()
 	{
-		base.enabled = false;
+		enabled = false;
 		LineRenderer[] array = lines;
 		foreach (LineRenderer obj in array)
 		{
@@ -34,7 +34,7 @@ public class Monkeye_LazerFX : MonoBehaviour
 			eyeBones = eyes_;
 			targetRig = rig_;
 			targetPos = targetRig.transform.position;
-			base.enabled = true;
+			enabled = true;
 			LineRenderer[] array = lines;
 			for (int i = 0; i < array.Length; i++)
 			{
@@ -53,7 +53,7 @@ public class Monkeye_LazerFX : MonoBehaviour
 		eyeBones = eyes_;
 		targetRig = null;
 		targetPos = targetPos_;
-		base.enabled = true;
+		enabled = true;
 		LineRenderer[] array = lines;
 		for (int i = 0; i < array.Length; i++)
 		{
@@ -69,9 +69,9 @@ public class Monkeye_LazerFX : MonoBehaviour
 	public void DisableLazer()
 	{
 		targetRig = null;
-		if (base.enabled)
+		if (enabled)
 		{
-			base.enabled = false;
+			enabled = false;
 			LineRenderer[] array = lines;
 			for (int i = 0; i < array.Length; i++)
 			{

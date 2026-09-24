@@ -58,8 +58,8 @@ public class GRToolUpgradePiece : MonoBehaviour, IGameEntityComponent
 
 	private void EnableProcAnimLoop()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnTick = (Action)Delegate.Combine(obj.OnTick, new Action(Tick));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnTick = (Action)Delegate.Combine(gameEntity.OnTick, new Action(Tick));
 		if (!humAudioSource.isPlaying)
 		{
 			humAudioSource.volume = 0f;
@@ -69,8 +69,8 @@ public class GRToolUpgradePiece : MonoBehaviour, IGameEntityComponent
 
 	private void DisableProcAnimLoop()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnTick = (Action)Delegate.Remove(obj.OnTick, new Action(Tick));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnTick = (Action)Delegate.Remove(gameEntity.OnTick, new Action(Tick));
 		SwitchMagnetizedTarget(null);
 		childVisualTransform.localPosition = Vector3.zero;
 		childVisualTransform.localRotation = Quaternion.identity;
@@ -200,18 +200,18 @@ public class GRToolUpgradePiece : MonoBehaviour, IGameEntityComponent
 
 	private void OnEnable()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(GrabbedByPlayer));
-		GameEntity obj2 = gameEntity;
-		obj2.OnReleased = (Action)Delegate.Combine(obj2.OnReleased, new Action(ReleasedByPlayer));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(GrabbedByPlayer));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnReleased = (Action)Delegate.Combine(gameEntity2.OnReleased, new Action(ReleasedByPlayer));
 	}
 
 	private void OnDisable()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Remove(obj.OnGrabbed, new Action(GrabbedByPlayer));
-		GameEntity obj2 = gameEntity;
-		obj2.OnReleased = (Action)Delegate.Remove(obj2.OnReleased, new Action(ReleasedByPlayer));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Remove(gameEntity.OnGrabbed, new Action(GrabbedByPlayer));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnReleased = (Action)Delegate.Remove(gameEntity2.OnReleased, new Action(ReleasedByPlayer));
 	}
 
 	public void GrabbedByPlayer()
@@ -221,7 +221,7 @@ public class GRToolUpgradePiece : MonoBehaviour, IGameEntityComponent
 			GRPlayer gRPlayer = GRPlayer.Get(gameEntity.heldByActorNumber);
 			if ((bool)gRPlayer)
 			{
-				gRPlayer.GrabbedItem(gameEntity.id, base.gameObject.name);
+				gRPlayer.GrabbedItem(gameEntity.id, gameObject.name);
 			}
 		}
 		EnableProcAnimLoop();

@@ -57,7 +57,7 @@ public class SIGadgetGrenadeDisrupt : SIGadgetGrenade
 
 	private void TriggerExplosion()
 	{
-		Collider[] array = Physics.OverlapSphere(base.transform.position, explosionRadius);
+		Collider[] array = Physics.OverlapSphere(transform.position, explosionRadius);
 		for (int i = 0; i < array.Length; i++)
 		{
 			array[i].GetComponentInParent<I_SIDisruptable>()?.Disrupt(disruptTime);

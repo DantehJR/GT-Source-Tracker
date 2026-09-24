@@ -321,7 +321,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 
 	private KeyValueStringPair[] eyeScanData = new KeyValueStringPair[6];
 
-	int IEyeScannable.scannableId => base.gameObject.GetInstanceID();
+	int IEyeScannable.scannableId => gameObject.GetInstanceID();
 
 	Vector3 IEyeScannable.Position => bodyCollider.bounds.center;
 
@@ -336,7 +336,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 		base.Initialize();
 		rB = GetComponentInChildren<Rigidbody>();
 		soundsHeard = new Dictionary<int, CrittersActor>();
-		base.transform.eulerAngles = new Vector3(0f, UnityEngine.Random.value * 360f, 0f);
+		transform.eulerAngles = new Vector3(0f, UnityEngine.Random.value * 360f, 0f);
 		raycastHits = new RaycastHit[20];
 		wasSomethingInTheWay = false;
 		_spawnAnimationDuration = spawnInHeighMovement.keys.Last().time;
@@ -391,23 +391,23 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 	public void LocalJump(float maxVel, float jumpAngle)
 	{
 		maxVel *= slowSpeedMod;
-		lastImpulsePosition = base.transform.position;
-		lastImpulseVelocity = base.transform.forward * (Mathf.Sin(MathF.PI / 180f * jumpAngle) * maxVel) + Vector3.up * (Mathf.Cos(MathF.PI / 180f * jumpAngle) * maxVel);
+		lastImpulsePosition = transform.position;
+		lastImpulseVelocity = transform.forward * (Mathf.Sin(MathF.PI / 180f * jumpAngle) * maxVel) + Vector3.up * (Mathf.Cos(MathF.PI / 180f * jumpAngle) * maxVel);
 		lastImpulseTime = (PhotonNetwork.InRoom ? PhotonNetwork.Time : ((double)Time.time));
 		lastImpulseTime += GetAdditiveJumpDelay();
-		lastImpulseQuaternion = base.transform.rotation;
+		lastImpulseQuaternion = transform.rotation;
 		rB.linearVelocity = lastImpulseVelocity;
 		rb.angularVelocity = Vector3.zero;
 	}
 
 	private bool CanSeeActor(Vector3 actorPosition)
 	{
-		Vector3 to = actorPosition - base.transform.position;
+		Vector3 to = actorPosition - transform.position;
 		if (!(to.sqrMagnitude < autoSeeFoodDistance))
 		{
 			if (to.sqrMagnitude < sensoryRange)
 			{
-				return Vector3.Angle(base.transform.forward, to) < visionConeAngle;
+				return Vector3.Angle(transform.forward, to) < visionConeAngle;
 			}
 			return false;
 		}
@@ -418,7 +418,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 	{
 		if (actor.grabbing)
 		{
-			return (base.transform.position - actor.grabPosition.position).magnitude < actor.grabDistance;
+			return (transform.position - actor.grabPosition.position).magnitude < actor.grabDistance;
 		}
 		return false;
 	}
@@ -439,9 +439,9 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			}
 			return false;
 		case CrittersActorType.LoudNoise:
-			return (actor.transform.position - base.transform.position).sqrMagnitude < sensoryRange;
+			return (actor.transform.position - transform.position).sqrMagnitude < sensoryRange;
 		case CrittersActorType.StickyGoo:
-			return ((CrittersStickyGoo)actor).CanAffect(base.transform.position);
+			return ((CrittersStickyGoo)actor).CanAffect(transform.position);
 		case CrittersActorType.Grabber:
 			return CanSeeActor(actor.transform.position);
 		case CrittersActorType.Cage:
@@ -530,7 +530,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			{
 				canJump = true;
 			}
-			if (base.transform.position.y < killHeight)
+			if (transform.position.y < killHeight)
 			{
 				SetState(CreatureState.Despawning);
 			}
@@ -546,7 +546,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			if ((!(lifeTime <= 0.0)) ? ((PhotonNetwork.InRoom ? PhotonNetwork.Time : ((double)Time.time)) - lifeTimeStart > lifeTime) : (creatureConfiguration != null && !creatureConfiguration.ShouldDespawn()))
 			{
 				SetState(CreatureState.WaitingToDespawn);
-				spawningStartingPosition = base.gameObject.transform.position;
+				spawningStartingPosition = gameObject.transform.position;
 				despawnStartTime = (PhotonNetwork.InRoom ? PhotonNetwork.Time : ((double)Time.time));
 			}
 		}
@@ -571,9 +571,9 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			LastTemplateIndex = TemplateIndex;
 			InitializeTemplateValues();
 		}
-		if (this.OnDataChange != null)
+		if (OnDataChange != null)
 		{
-			this.OnDataChange();
+			OnDataChange();
 		}
 	}
 
@@ -612,7 +612,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 		}
 		if (currentState == CreatureState.Captured)
 		{
-			base.transform.localScale = Vector3.one;
+			transform.localScale = Vector3.one;
 		}
 		ClearOngoingStateFX();
 		currentState = newState;
@@ -621,14 +621,14 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 		case CreatureState.Spawning:
 			if (CrittersManager.instance.LocalAuthority())
 			{
-				spawningStartingPosition = base.gameObject.transform.position;
+				spawningStartingPosition = gameObject.transform.position;
 				spawnStartTime = (PhotonNetwork.InRoom ? ((float)PhotonNetwork.Time) : Time.time);
 			}
 			break;
 		case CreatureState.Despawning:
 			if (CrittersManager.instance.LocalAuthority())
 			{
-				spawningStartingPosition = base.gameObject.transform.position;
+				spawningStartingPosition = gameObject.transform.position;
 				despawnStartTime = (PhotonNetwork.InRoom ? ((float)PhotonNetwork.Time) : Time.time);
 			}
 			break;
@@ -640,7 +640,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			GameObject pooled = CrittersPool.GetPooled(valueOrDefault);
 			if (pooled != null)
 			{
-				pooled.transform.position = base.transform.position;
+				pooled.transform.position = transform.position;
 			}
 		}
 		currentAnimTime = 0f;
@@ -654,9 +654,9 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			animTarget.localPosition = Vector3.zero;
 			animTarget.localScale = Vector3.one;
 		}
-		if (this.OnDataChange != null)
+		if (OnDataChange != null)
 		{
-			this.OnDataChange();
+			OnDataChange();
 		}
 	}
 
@@ -677,7 +677,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			currentOngoingStateFX = CrittersPool.GetPooled(valueOrDefault);
 			if (currentOngoingStateFX.IsNotNull())
 			{
-				currentOngoingStateFX.transform.SetParent(base.transform, worldPositionStays: false);
+				currentOngoingStateFX.transform.SetParent(transform, worldPositionStays: false);
 				currentOngoingStateFX.transform.localPosition = Vector3.zero;
 			}
 		}
@@ -734,7 +734,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			animTarget.localPosition = new Vector3(x, y, z);
 			float num2 = 1f - num;
 			num2 *= 0.5f;
-			num2 += 1f;
+			num2++;
 			animTarget.localScale = new Vector3(num2, num, num2);
 		}
 	}
@@ -853,13 +853,13 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 				eatingTarget = CrittersManager.ClosestFood(this);
 				if (eatingTarget != null)
 				{
-					withinEatingRadius = (eatingTarget.food.transform.position - base.transform.position).sqrMagnitude < eatingRadiusMaxSquared;
+					withinEatingRadius = (eatingTarget.food.transform.position - transform.position).sqrMagnitude < eatingRadiusMaxSquared;
 					if (!withinEatingRadius)
 					{
 						JumpTowards(eatingTarget.food.transform.position);
 						return;
 					}
-					base.transform.forward = (eatingTarget.food.transform.position - base.transform.position).X_Z().normalized;
+					transform.forward = (eatingTarget.food.transform.position - transform.position).X_Z().normalized;
 					SetState(CreatureState.Eating);
 					debugStateIndicator.material.color = debugColorEating;
 				}
@@ -909,7 +909,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			grabbedTarget = null;
 			if ((bool)OnReleasedFX)
 			{
-				CrittersPool.GetPooled(OnReleasedFX).transform.position = base.transform.position;
+				CrittersPool.GetPooled(OnReleasedFX).transform.position = transform.position;
 			}
 		}
 	}
@@ -931,12 +931,12 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			grabbedTarget = null;
 			if ((bool)OnReleasedFX)
 			{
-				CrittersPool.GetPooled(OnReleasedFX).transform.position = base.transform.position;
+				CrittersPool.GetPooled(OnReleasedFX).transform.position = transform.position;
 			}
 		}
 		else if (currentState == CreatureState.Captured)
 		{
-			base.transform.localScale = Vector3.one;
+			transform.localScale = Vector3.one;
 			fearTarget = cageTarget;
 			cageTarget.SetHasCritter(value: false);
 			cageTarget = null;
@@ -990,7 +990,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 		_despawnAnimTime = (PhotonNetwork.InRoom ? PhotonNetwork.Time : ((double)Time.time)) - despawnStartTime;
 		if (_despawnAnimTime >= (double)_despawnAnimationDuration)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			TemplateIndex = -1;
 		}
 	}
@@ -998,7 +998,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 	public void SpawningStateUpdate()
 	{
 		_spawnAnimTime = (PhotonNetwork.InRoom ? PhotonNetwork.Time : ((double)Time.time)) - spawnStartTime;
-		MoveActor(spawningStartingPosition + new Vector3(0f, spawnInHeighMovement.Evaluate(Mathf.Clamp((float)_spawnAnimTime, 0f, _spawnAnimationDuration)), 0f), base.transform.rotation);
+		MoveActor(spawningStartingPosition + new Vector3(0f, spawnInHeighMovement.Evaluate(Mathf.Clamp((float)_spawnAnimTime, 0f, _spawnAnimationDuration)), 0f), transform.rotation);
 		if (_spawnAnimTime >= (double)_spawnAnimationDuration)
 		{
 			SetState(CreatureState.Idle);
@@ -1165,7 +1165,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			base.transform.eulerAngles = new Vector3(0f, 360f * UnityEngine.Random.value, 0f);
+			transform.eulerAngles = new Vector3(0f, 360f * UnityEngine.Random.value, 0f);
 			if (!SomethingInTheWay())
 			{
 				break;
@@ -1176,21 +1176,21 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 
 	public void JumpTowards(Vector3 targetPos)
 	{
-		if (SomethingInTheWay((targetPos - base.transform.position).X_Z()))
+		if (SomethingInTheWay((targetPos - transform.position).X_Z()))
 		{
 			RandomJump();
 			return;
 		}
-		base.transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(targetPos - base.transform.position, Vector3.up), Vector3.up);
-		LocalJump(JumpVelocityForDistanceAtAngle(Vector3.ProjectOnPlane(targetPos - base.transform.position, Vector3.up).magnitude * fudge, 45f), 45f);
+		transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(targetPos - transform.position, Vector3.up), Vector3.up);
+		LocalJump(JumpVelocityForDistanceAtAngle(Vector3.ProjectOnPlane(targetPos - transform.position, Vector3.up).magnitude * fudge, 45f), 45f);
 	}
 
 	public void JumpAwayFrom(Vector3 targetPos)
 	{
-		Vector3 vector = (base.transform.position - targetPos).X_Z();
+		Vector3 vector = (transform.position - targetPos).X_Z();
 		if (vector == Vector3.zero)
 		{
-			vector = base.transform.forward;
+			vector = transform.forward;
 		}
 		Vector3 vector2 = Quaternion.Euler(0f, UnityEngine.Random.Range(-30, 30), 0f) * vector;
 		if (SomethingInTheWay(vector2))
@@ -1198,7 +1198,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			RandomJump();
 			return;
 		}
-		base.transform.rotation = Quaternion.LookRotation(vector2, Vector3.up);
+		transform.rotation = Quaternion.LookRotation(vector2, Vector3.up);
 		LocalJump(maxJumpVel, 45f);
 	}
 
@@ -1206,7 +1206,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 	{
 		if (direction == default(Vector3))
 		{
-			direction = base.transform.forward;
+			direction = transform.forward;
 		}
 		bool flag = Physics.RaycastNonAlloc(bodyCollider.bounds.center, direction, raycastHits, obstacleSeeDistance, CrittersManager.instance.movementLayers) > 0;
 		wasSomethingInTheWay |= flag;
@@ -1239,7 +1239,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			actorIdTarget = cageTarget.actorId;
 			if (CrittersManager.instance.LocalAuthority())
 			{
-				base.transform.localScale = cageTarget.critterScale;
+				transform.localScale = cageTarget.critterScale;
 			}
 			base.GrabbedBy(grabbingActor, positionOverride, localRotation, localOffset, disableGrabbing);
 			break;
@@ -1257,7 +1257,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 			actorIdTarget = cageTarget.actorId;
 			if (CrittersManager.instance.LocalAuthority())
 			{
-				base.transform.localScale = cageTarget.critterScale;
+				transform.localScale = cageTarget.critterScale;
 			}
 			break;
 		case CrittersActorType.Grabber:
@@ -1448,7 +1448,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 				cageTarget = (CrittersCage)value;
 				if (cageTarget != null)
 				{
-					base.transform.localScale = cageTarget.critterScale;
+					transform.localScale = cageTarget.critterScale;
 				}
 			}
 			grabbedTarget = null;
@@ -1497,7 +1497,7 @@ public class CrittersPawn : CrittersActor, IEyeScannable
 				cageTarget = (CrittersCage)value;
 				if (cageTarget != null)
 				{
-					base.transform.localScale = cageTarget.critterScale;
+					transform.localScale = cageTarget.critterScale;
 				}
 			}
 			grabbedTarget = null;

@@ -38,7 +38,7 @@ public class StoreUpdater : MonoBehaviour
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 	}
 
@@ -57,10 +57,13 @@ public class StoreUpdater : MonoBehaviour
 	public void Initialize()
 	{
 		FindAllCosmeticItemPrefabs();
-		OVRManager.HMDMounted += HandleHMDMounted;
-		OVRManager.HMDUnmounted += HandleHMDUnmounted;
-		OVRManager.HMDLost += HandleHMDUnmounted;
-		OVRManager.HMDAcquired += HandleHMDMounted;
+		if (OVRManager.instance != null)
+		{
+			OVRManager.HMDMounted += HandleHMDMounted;
+			OVRManager.HMDUnmounted += HandleHMDUnmounted;
+			OVRManager.HMDLost += HandleHMDUnmounted;
+			OVRManager.HMDAcquired += HandleHMDMounted;
+		}
 		if (bLoadFromJSON)
 		{
 			GetEventsFromTitleData();
@@ -69,10 +72,13 @@ public class StoreUpdater : MonoBehaviour
 
 	public void OnDestroy()
 	{
-		OVRManager.HMDMounted -= HandleHMDMounted;
-		OVRManager.HMDUnmounted -= HandleHMDUnmounted;
-		OVRManager.HMDLost -= HandleHMDUnmounted;
-		OVRManager.HMDAcquired -= HandleHMDMounted;
+		if (OVRManager.instance != null)
+		{
+			OVRManager.HMDMounted -= HandleHMDMounted;
+			OVRManager.HMDUnmounted -= HandleHMDUnmounted;
+			OVRManager.HMDLost -= HandleHMDUnmounted;
+			OVRManager.HMDAcquired -= HandleHMDMounted;
+		}
 	}
 
 	private void HandleHMDUnmounted()
@@ -257,11 +263,11 @@ public class StoreUpdater : MonoBehaviour
 			HandleRecievingEventsFromTitleData(updateEvents);
 			return;
 		}
-		PlayFabTitleDataCache.Instance.GetTitleData("TOTD", delegate(string result)
+		PlayFabTitleDataCache.Instance.GetTitleData("TOTD", (string result) =>
 		{
 			List<StoreUpdateEvent> updateEvents2 = StoreUpdateEvent.DeserializeFromJSonList(result);
 			HandleRecievingEventsFromTitleData(updateEvents2);
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.Log("StoreUpdater - Error Title Data : " + error.ErrorMessage);
 		});

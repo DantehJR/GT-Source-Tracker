@@ -36,10 +36,10 @@ public class TransformOrbiter : MonoBehaviour
 
 	private async void Start()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		if (!(barycenter == null))
 		{
-			while (((bool)base.gameObject && GorillaComputer.instance == null) || GorillaComputer.instance.GetServerTime().Year < 2000)
+			while (((bool)gameObject && GorillaComputer.instance == null) || GorillaComputer.instance.GetServerTime().Year < 2000)
 			{
 				await Task.Yield();
 			}
@@ -50,9 +50,9 @@ public class TransformOrbiter : MonoBehaviour
 				await Task.Yield();
 			}
 			Debug.Log($"TransformOrbiter :: anchor = {anchor}");
-			if ((bool)base.gameObject)
+			if ((bool)gameObject)
 			{
-				base.gameObject.SetActive(value: true);
+				gameObject.SetActive(value: true);
 			}
 		}
 	}
@@ -64,10 +64,10 @@ public class TransformOrbiter : MonoBehaviour
 
 	private void UpdatePosRot(double t)
 	{
-		base.transform.position = GetPositionAtTime(t);
+		transform.position = GetPositionAtTime(t);
 		if (faceBarycenter)
 		{
-			base.transform.rotation = Quaternion.LookRotation(barycenter.position - base.transform.position);
+			transform.rotation = Quaternion.LookRotation(barycenter.position - transform.position);
 		}
 	}
 
@@ -96,7 +96,7 @@ public class TransformOrbiter : MonoBehaviour
 
 	private bool validateBarycenter()
 	{
-		return validateBarycenter(base.transform);
+		return validateBarycenter(transform);
 	}
 
 	private bool validateBarycenter(Transform t)

@@ -132,7 +132,7 @@ public class PickupableCosmetic : PickupableVariant
 
 	private void Start()
 	{
-		base.enabled = false;
+		enabled = false;
 	}
 
 	private void OnEnable()
@@ -161,11 +161,11 @@ public class PickupableCosmetic : PickupableVariant
 		rb.isKinematic = true;
 		if (holdableParent != null)
 		{
-			base.transform.parent = holdableParent.transform;
+			transform.parent = holdableParent.transform;
 		}
-		base.transform.localPosition = Vector3.zero;
-		base.transform.localRotation = Quaternion.identity;
-		base.transform.localScale = Vector3.one;
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
+		transform.localScale = Vector3.one;
 		scale = 1f;
 		placedOnFloorTime = -1f;
 		placedOnFloor = false;
@@ -190,7 +190,7 @@ public class PickupableCosmetic : PickupableVariant
 		{
 			bodyCollider.enabled = true;
 		}
-		base.enabled = false;
+		enabled = false;
 	}
 
 	protected internal override void DelayedPickup()
@@ -207,9 +207,9 @@ public class PickupableCosmetic : PickupableVariant
 	protected internal override void Release(HoldableObject holdable, Vector3 startPosition, Vector3 velocity, float playerScale)
 	{
 		holdableParent = holdable;
-		base.transform.parent = null;
-		base.transform.position = startPosition;
-		base.transform.localScale = Vector3.one * playerScale;
+		transform.parent = null;
+		transform.position = startPosition;
+		transform.localScale = Vector3.one * playerScale;
 		rb.isKinematic = false;
 		rb.useGravity = true;
 		rb.linearVelocity = velocity;
@@ -223,7 +223,7 @@ public class PickupableCosmetic : PickupableVariant
 			interactionPoint.enabled = false;
 		}
 		scale = playerScale;
-		base.enabled = true;
+		enabled = true;
 		transferrableParent = holdableParent as TransferrableObject;
 		currentRayIndex = 0;
 		frameCounter = 0;
@@ -242,7 +242,7 @@ public class PickupableCosmetic : PickupableVariant
 		if (isBreakable && placedOnFloor)
 		{
 			bool flag = ((uint)transferrableParent.itemState & (uint)breakableBitmask) != 0;
-			if (flag != broken && flag)
+			if ((flag != broken) & flag)
 			{
 				OnBreakReplicated();
 			}
@@ -256,11 +256,11 @@ public class PickupableCosmetic : PickupableVariant
 				throwablePickupableCosmetic.OnReturnToDockPositionShared?.Invoke();
 			}
 		}
-		if (autoPickupDistance > 0f && transferrableParent != null && (transferrableParent.ownerRig.transform.position - base.transform.position).IsLongerThan(autoPickupDistance))
+		if (autoPickupDistance > 0f && transferrableParent != null && (transferrableParent.ownerRig.transform.position - transform.position).IsLongerThan(autoPickupDistance))
 		{
 			Pickup();
 		}
-		if (placedOnFloor || !base.enabled)
+		if (placedOnFloor || !enabled)
 		{
 			return;
 		}
@@ -302,9 +302,9 @@ public class PickupableCosmetic : PickupableVariant
 			bodyCollider.enabled = false;
 		}
 		Vector3 normal = hitInfo.normal;
-		base.transform.position = hitInfo.point + normal * placementOffset;
-		Quaternion rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(base.transform.forward, normal).normalized, normal);
-		base.transform.rotation = rotation;
+		transform.position = hitInfo.point + normal * placementOffset;
+		Quaternion rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(transform.forward, normal).normalized, normal);
+		transform.rotation = rotation;
 	}
 
 	private Vector3 GetFibonacciSphereDirection(int index, int total)
@@ -359,7 +359,7 @@ public class PickupableCosmetic : PickupableVariant
 			}
 			else
 			{
-				GTDev.LogError("PickupableCosmetic " + base.gameObject.name + " has no TransferrableObject parent. Break effects cannot be replicated");
+				GTDev.LogError("PickupableCosmetic " + gameObject.name + " has no TransferrableObject parent. Break effects cannot be replicated");
 			}
 		}
 	}

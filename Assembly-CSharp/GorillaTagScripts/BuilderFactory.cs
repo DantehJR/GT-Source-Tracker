@@ -107,7 +107,14 @@ public class BuilderFactory : MonoBehaviour
 				else
 				{
 					BuilderPiece builderPiece = list[value];
-					text2 = ((!(builderPiece != null)) ? (text2 + "And (should never happen) the piece at that slot is null!") : ((!(text == builderPiece.name)) ? (text2 + "Also the conflicting pieceType has the same hash but different name \"" + builderPiece.name + "\"!") : (text2 + "The conflicting piece has the same name (as expected).")));
+					if (builderPiece != null)
+					{
+						text2 = ((!(text == builderPiece.name)) ? (text2 + "Also the conflicting pieceType has the same hash but different name \"" + builderPiece.name + "\"!") : (text2 + "The conflicting piece has the same name (as expected)."));
+					}
+					else
+					{
+						text2 += "And (should never happen) the piece at that slot is null!";
+					}
 				}
 				Debug.LogError(text2, this);
 			}

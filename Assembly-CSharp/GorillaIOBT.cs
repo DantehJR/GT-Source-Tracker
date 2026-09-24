@@ -194,20 +194,20 @@ public class GorillaIOBT : MonoBehaviour
 		if (!(trackingSpace == null))
 		{
 			Matrix4x4 localToWorldMatrix = trackingSpace.localToWorldMatrix;
-			bool num = this.TrackingSpaceChanged != null && !_previousTrackingSpaceTransform.Equals(localToWorldMatrix);
+			bool num = TrackingSpaceChanged != null && !_previousTrackingSpaceTransform.Equals(localToWorldMatrix);
 			_previousTrackingSpaceTransform = localToWorldMatrix;
 			if (num)
 			{
-				this.TrackingSpaceChanged(trackingSpace);
+				TrackingSpaceChanged(trackingSpace);
 			}
 		}
 	}
 
 	protected virtual void RaiseUpdatedAnchorsEvent()
 	{
-		if (this.UpdatedAnchors != null)
+		if (UpdatedAnchors != null)
 		{
-			this.UpdatedAnchors(this);
+			UpdatedAnchors(this);
 		}
 	}
 
@@ -294,7 +294,7 @@ public class GorillaIOBT : MonoBehaviour
 
 	protected void CheckForAnchorsInParent()
 	{
-		Transform parent = base.transform.parent;
+		Transform parent = transform.parent;
 		while ((bool)parent)
 		{
 			Check<OVRSpatialAnchor>(parent);
@@ -307,7 +307,7 @@ public class GorillaIOBT : MonoBehaviour
 			if ((bool)component && component.enabled)
 			{
 				component.enabled = false;
-				Debug.LogError("The " + typeof(T).Name + " '" + component.name + "' is a parent of the GorillaIOBT '" + base.name + "', which is not allowed. An " + typeof(T).Name + " may not be the parent of an GorillaIOBT because the GorillaIOBT defines the tracking space for the anchor, and its transform is relative to the GorillaIOBT.");
+				Debug.LogError("The " + typeof(T).Name + " '" + component.name + "' is a parent of the GorillaIOBT '" + name + "', which is not allowed. An " + typeof(T).Name + " may not be the parent of an GorillaIOBT because the GorillaIOBT defines the tracking space for the anchor, and its transform is relative to the GorillaIOBT.");
 			}
 		}
 	}

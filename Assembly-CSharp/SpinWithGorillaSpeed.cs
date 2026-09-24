@@ -57,7 +57,7 @@ public class SpinWithGorillaSpeed : MonoBehaviour
 	private void Awake()
 	{
 		rig = GetComponentInParent<VRRig>();
-		initialRotation = base.transform.localRotation;
+		initialRotation = transform.localRotation;
 		spinAxis = initialRotation * axisOfRotation * Vector3.forward;
 	}
 
@@ -69,7 +69,7 @@ public class SpinWithGorillaSpeed : MonoBehaviour
 		float num = Time.deltaTime * degreesPerSecondAtSpeed.Evaluate(time) * (clockwise ? (-1f) : 1f);
 		currentAngle = Mathf.Repeat(currentAngle + num, 360f);
 		Quaternion quaternion = initialRotation * Quaternion.AngleAxis(currentAngle, spinAxis);
-		base.transform.SetLocalPositionAndRotation(quaternion * centerOfRotation, quaternion);
+		transform.SetLocalPositionAndRotation(quaternion * centerOfRotation, quaternion);
 		if (tickSound != null && tickClips.Length != 0)
 		{
 			tickAngle += num;

@@ -38,9 +38,9 @@ public class GorillaSimpleBackgroundWorkerManager : MonoBehaviour
 
 	public static void CreateManager()
 	{
-		GameObject obj = new GameObject("GorillaSimpleBackgroundWorkerManager");
-		GorillaSimpleBackgroundWorkerManager instance = obj.AddComponent<GorillaSimpleBackgroundWorkerManager>();
-		Object.DontDestroyOnLoad(obj);
+		GameObject gameObject = new GameObject("GorillaSimpleBackgroundWorkerManager");
+		GorillaSimpleBackgroundWorkerManager instance = gameObject.AddComponent<GorillaSimpleBackgroundWorkerManager>();
+		Object.DontDestroyOnLoad(gameObject);
 		SetInstance(instance);
 	}
 

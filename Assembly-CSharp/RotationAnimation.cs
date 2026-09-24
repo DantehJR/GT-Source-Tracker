@@ -45,15 +45,15 @@ public class RotationAnimation : MonoBehaviour, ITickSystemTick
 			zero *= num;
 			if (num < Mathf.Epsilon)
 			{
-				base.enabled = false;
+				enabled = false;
 			}
 		}
-		base.transform.localRotation = Quaternion.Euler(zero) * baseRotation;
+		transform.localRotation = Quaternion.Euler(zero) * baseRotation;
 	}
 
 	private void Awake()
 	{
-		baseRotation = base.transform.localRotation;
+		baseRotation = transform.localRotation;
 	}
 
 	private void OnEnable()
@@ -76,7 +76,7 @@ public class RotationAnimation : MonoBehaviour, ITickSystemTick
 
 	private void OnDisable()
 	{
-		base.transform.localRotation = baseRotation;
+		transform.localRotation = baseRotation;
 		TickSystem<object>.RemoveTickCallback(this);
 	}
 }

@@ -23,7 +23,7 @@ public class LightningGenerator : MonoBehaviour
 			}
 			else
 			{
-				strikes[i] = Object.Instantiate(prototype, base.transform);
+				strikes[i] = Object.Instantiate(prototype, transform);
 			}
 			strikes[i].gameObject.SetActive(value: false);
 		}

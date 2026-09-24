@@ -19,6 +19,6 @@ public class DrawSphere : DrawBase
 
 	protected override void Draw(Color color, DebugUtil.Style style, bool depthTest)
 	{
-		DebugUtil.DrawSphere(base.transform.position, base.transform.rotation, Radius * base.transform.lossyScale.x, LatSegments, LongSegments, color, depthTest, style);
+		DebugUtil.DrawSphere(transform.position, transform.rotation, Radius * transform.lossyScale.x, LatSegments, LongSegments, color, depthTest, style);
 	}
 }

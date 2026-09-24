@@ -13,8 +13,8 @@ public class UFOCamera : MonoBehaviour
 	{
 		if (!(Target == null))
 		{
-			m_targetOffset = base.transform.position - Target.position;
-			m_spring.Reset(base.transform.position);
+			m_targetOffset = transform.position - Target.position;
+			m_spring.Reset(transform.position);
 		}
 	}
 
@@ -23,7 +23,7 @@ public class UFOCamera : MonoBehaviour
 		if (!(Target == null))
 		{
 			Vector3 targetValue = Target.position + m_targetOffset;
-			base.transform.position = m_spring.TrackExponential(targetValue, 0.02f, Time.fixedDeltaTime);
+			transform.position = m_spring.TrackExponential(targetValue, 0.02f, Time.fixedDeltaTime);
 		}
 	}
 }

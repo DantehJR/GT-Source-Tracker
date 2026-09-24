@@ -134,14 +134,14 @@ public class GRTool : MonoBehaviour, IGameEntitySerialize, IGameEntityComponent,
 
 	private void OnEnable()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(GrabbedByPlayer));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(GrabbedByPlayer));
 	}
 
 	private void OnDisable()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Remove(obj.OnGrabbed, new Action(GrabbedByPlayer));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Remove(gameEntity.OnGrabbed, new Action(GrabbedByPlayer));
 	}
 
 	public void RefillEnergy(int count, GameEntityId chargingEntityId)
@@ -179,7 +179,7 @@ public class GRTool : MonoBehaviour, IGameEntitySerialize, IGameEntityComponent,
 		int num = energy;
 		energy = Mathf.Clamp(value, 0, GetEnergyMax());
 		int energyChange = energy - num;
-		this.OnEnergyChange?.Invoke(this, energyChange, chargingEntityId);
+		OnEnergyChange?.Invoke(this, energyChange, chargingEntityId);
 		RefreshMeters();
 	}
 
@@ -311,7 +311,7 @@ public class GRTool : MonoBehaviour, IGameEntitySerialize, IGameEntityComponent,
 				}
 			}
 		}
-		this.onToolUpgraded?.Invoke(this);
+		onToolUpgraded?.Invoke(this);
 	}
 
 	public void ClearUpgradeSlot(int slot)
@@ -380,7 +380,7 @@ public class GRTool : MonoBehaviour, IGameEntitySerialize, IGameEntityComponent,
 			GRPlayer gRPlayer = GRPlayer.Get(gameEntity.heldByActorNumber);
 			if ((bool)gRPlayer)
 			{
-				gRPlayer.GrabbedItem(gameEntity.id, base.gameObject.name);
+				gRPlayer.GrabbedItem(gameEntity.id, gameObject.name);
 			}
 		}
 	}

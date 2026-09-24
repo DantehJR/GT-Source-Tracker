@@ -10,6 +10,6 @@ public class SkeletonPathingNode : MonoBehaviour
 
 	private void Awake()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 }

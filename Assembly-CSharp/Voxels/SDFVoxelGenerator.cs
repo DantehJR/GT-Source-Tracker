@@ -45,7 +45,7 @@ public class SDFVoxelGenerator : VoxelGenerator
 			Vector3 size = Shape switch
 			{
 				Shape.Sphere => new Vector3(Radius * 2f, Radius * 2f, Radius * 2f), 
-				Shape.Cube => Size, 
+				Shape.Cube => (Vector3)Size, 
 				_ => Vector3.zero, 
 			};
 			return new Bounds(Position, size);
@@ -60,6 +60,8 @@ public class SDFVoxelGenerator : VoxelGenerator
 		public int chunkSize;
 
 		public int dimension;
+
+		public bool blocky;
 
 		public float noiseScale;
 
@@ -93,7 +95,7 @@ public class SDFVoxelGenerator : VoxelGenerator
 			float num5 = float.MaxValue;
 			float num6 = float.MaxValue;
 			byte material = fill;
-			SDFPrimitive sDFPrimitive = default(SDFPrimitive);
+			SDFPrimitive sDFPrimitive = default;
 			foreach (SDFPrimitive operation in operations)
 			{
 				float distance = GetDistance(operation, float5);
@@ -137,7 +139,12 @@ public class SDFVoxelGenerator : VoxelGenerator
 				}
 			}
 			materials[index] = value;
-			voxels[index] = num4.ToByte();
+			byte b = num4.ToByte();
+			if (blocky)
+			{
+				b = (byte)(b.IsSolid() ? 255u : 0u);
+			}
+			voxels[index] = b;
 		}
 
 		private static float GetDistance(SDFPrimitive primitive, float3 position)
@@ -162,8 +169,10 @@ public class SDFVoxelGenerator : VoxelGenerator
 
 	public byte fill;
 
+	public bool Blocky;
+
 	[Header("Noise")]
-	public float NoiseScale = 2f;
+	public float NoiseScale;
 
 	public float Frequency = 0.1f;
 
@@ -189,6 +198,7 @@ public class SDFVoxelGenerator : VoxelGenerator
 			chunkPosition = chunk.Id,
 			chunkSize = chunk.Size.x,
 			dimension = chunk.Dimensions.x,
+			blocky = Blocky,
 			seed = Seed,
 			voxels = chunk.Density,
 			materials = chunk.Material,
@@ -199,7 +209,7 @@ public class SDFVoxelGenerator : VoxelGenerator
 			octaves = Octaves,
 			persistence = Persistence
 		}, chunk.VoxelCount, 64);
-		Action onComplete = delegate
+		Action onComplete = () =>
 		{
 			chunk.IsDataGenerated = true;
 			chunk.IsMeshGenerated = false;
@@ -238,7 +248,7 @@ public class SDFVoxelGenerator : VoxelGenerator
 	{
 		if (Primitives.Length < 1)
 		{
-			return default(UnityEngine.BoundsInt);
+			return default;
 		}
 		Bounds bounds = Primitives[0].GetBounds();
 		SDFPrimitive[] primitives = Primitives;
@@ -264,7 +274,7 @@ public class SDFVoxelGenerator : VoxelGenerator
 		world.SetWorldBounds(GetWorldBounds());
 	}
 
-	public void SetPrimitive(UnityEngine.BoundsInt worldBounds)
+	public void SetPrimitive(UnityEngine.BoundsInt worldBounds, byte material = 0)
 	{
 		Vector3 vector = ((Vector3)worldBounds.min + (Vector3)worldBounds.max) / 2f;
 		Primitives = new SDFPrimitive[1];
@@ -274,7 +284,7 @@ public class SDFVoxelGenerator : VoxelGenerator
 			Shape = Shape.Cube,
 			Position = vector,
 			Size = (Vector3)worldBounds.size,
-			Material = 0
+			Material = material
 		};
 	}
 }

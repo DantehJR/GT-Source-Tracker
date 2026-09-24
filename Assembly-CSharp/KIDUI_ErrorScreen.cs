@@ -23,12 +23,12 @@ public class KIDUI_ErrorScreen : MonoBehaviour
 		_titleTxt.text = title;
 		_emailTxt.text = email;
 		_errorTxt.text = errorMessage;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnClose()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_mainScreen.ShowMainScreen(EMainScreenStatus.None);
 	}
 
@@ -39,7 +39,7 @@ public class KIDUI_ErrorScreen : MonoBehaviour
 
 	public void OnBack()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_setupScreen.OnStartSetup();
 	}
 }

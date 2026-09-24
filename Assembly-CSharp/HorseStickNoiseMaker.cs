@@ -28,10 +28,10 @@ public class HorseStickNoiseMaker : MonoBehaviour
 
 	protected void OnEnable()
 	{
-		if (!gorillaPlayerXform && !base.transform.TryFindByPath(gorillaPlayerXform_path, out gorillaPlayerXform))
+		if (!gorillaPlayerXform && !transform.TryFindByPath(gorillaPlayerXform_path, out gorillaPlayerXform))
 		{
-			Debug.LogError("HorseStickNoiseMaker: DEACTIVATING! Could not find gorillaPlayerXform using path: \"" + gorillaPlayerXform_path + "\"\nThis component's transform path: \"" + base.transform.GetPath() + "\"");
-			base.gameObject.SetActive(value: false);
+			Debug.LogError("HorseStickNoiseMaker: DEACTIVATING! Could not find gorillaPlayerXform using path: \"" + gorillaPlayerXform_path + "\"\nThis component's transform path: \"" + transform.GetPath() + "\"");
+			gameObject.SetActive(value: false);
 		}
 		else
 		{

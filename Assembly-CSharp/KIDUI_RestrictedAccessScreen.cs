@@ -13,7 +13,7 @@ public class KIDUI_RestrictedAccessScreen : MonoBehaviour
 
 	public void ShowRestrictedAccessScreen(SessionStatus? sessionStatus)
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		_pendingStatusIndicator.SetActive(value: false);
 		_prohibitedStatusIndicator.SetActive(value: false);
 		if (sessionStatus.HasValue && sessionStatus.HasValue)
@@ -36,8 +36,8 @@ public class KIDUI_RestrictedAccessScreen : MonoBehaviour
 
 	public void OnChangeAgePressed()
 	{
-		PrivateUIRoom.RemoveUI(base.transform);
-		base.gameObject.SetActive(value: false);
+		PrivateUIRoom.RemoveUI(transform);
+		gameObject.SetActive(value: false);
 		_ageAppealScreen.ShowAgeAppealScreen();
 	}
 

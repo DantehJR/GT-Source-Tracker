@@ -145,7 +145,7 @@ public class CustomMapModeSelector : GameModeSelectorButtonLayout
 		{
 			if (count == currentButtons.Count)
 			{
-				currentButtons.Add(UnityEngine.Object.Instantiate(pf_button, base.transform));
+				currentButtons.Add(UnityEngine.Object.Instantiate(pf_button, transform));
 			}
 			ModeSelectButton modeSelectButton = currentButtons[count];
 			modeSelectButton.transform.localPosition = new Vector3((float)count * -0.15f, 0f, 0f);

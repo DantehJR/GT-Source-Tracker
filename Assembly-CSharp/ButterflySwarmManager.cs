@@ -83,7 +83,7 @@ public class ButterflySwarmManager : MonoBehaviour
 		butterflies = new List<AnimatedButterfly>(numBees);
 		for (int i = 0; i < numBees; i++)
 		{
-			AnimatedButterfly item = default(AnimatedButterfly);
+			AnimatedButterfly item = default;
 			item.InitVisual(beePrefab, this);
 			if (BeeColors.Length != 0)
 			{

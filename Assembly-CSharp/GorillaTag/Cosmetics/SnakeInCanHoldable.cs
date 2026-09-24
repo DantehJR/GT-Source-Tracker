@@ -47,8 +47,20 @@ public class SnakeInCanHoldable : TransferrableObject
 		}
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((base.myOnlineRig != null) ? base.myOnlineRig.creator : ((!(base.myRig != null)) ? null : ((base.myRig.creator != null) ? base.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (myOnlineRig != null)
+			{
+				netPlayer = myOnlineRig.creator;
+			}
+			else if (myRig != null)
+			{
+				netPlayer = ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);

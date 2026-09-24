@@ -55,7 +55,7 @@ public class PartyHornTransferableObject : TransferrableObject
 	{
 		if (!mouthPiece)
 		{
-			return base.transform.position + mouthPieceZOffset * base.transform.forward;
+			return transform.position + mouthPieceZOffset * transform.forward;
 		}
 		return mouthPiece.position;
 	}
@@ -67,7 +67,7 @@ public class PartyHornTransferableObject : TransferrableObject
 		{
 			return;
 		}
-		_ = base.transform;
+		_ = transform;
 		Vector3 vector = CalcMouthPiecePos();
 		float num = mouthPieceRadius * mouthPieceRadius * GTPlayer.Instance.scale * GTPlayer.Instance.scale;
 		bool flag = (GorillaTagger.Instance.offlineVRRig.GetMouthPosition() - vector).sqrMagnitude < num;

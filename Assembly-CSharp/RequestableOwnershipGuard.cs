@@ -99,7 +99,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 	public override void OnDisable()
 	{
 		base.OnDisable();
-		RequestableOwnershipGaurdHandler.RemoveViews(netViews, this);
+		RequestableOwnershipGuardHandler.RemoveViews(netViews, this);
 		NetworkSystem.Instance.OnPlayerJoined -= new Action<NetPlayer>(PlayerEnteredRoom);
 		NetworkSystem.Instance.OnPlayerLeft -= new Action<NetPlayer>(PlayerLeftRoom);
 		NetworkSystem.Instance.OnJoinedRoomEvent -= new Action(JoinedRoom);
@@ -122,7 +122,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 		{
 			return;
 		}
-		RequestableOwnershipGaurdHandler.RegisterViews(netViews, this);
+		RequestableOwnershipGuardHandler.RegisterViews(netViews, this);
 		NetworkSystem.Instance.OnPlayerJoined += new Action<NetPlayer>(PlayerEnteredRoom);
 		NetworkSystem.Instance.OnPlayerLeft += new Action<NetPlayer>(PlayerLeftRoom);
 		NetworkSystem.Instance.OnJoinedRoomEvent += new Action(JoinedRoom);
@@ -149,7 +149,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 		}
 		else
 		{
-			GorillaTagger.OnPlayerSpawned(delegate
+			GorillaTagger.OnPlayerSpawned(() =>
 			{
 				SetOwnership(NetworkSystem.Instance.LocalPlayer);
 			});
@@ -182,7 +182,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 		case NetworkingState.IsClient:
 		case NetworkingState.ForcefullyTakingOver:
 		case NetworkingState.RequestingOwnership:
-			callbacksList.ForEachBackwards(delegate(IRequestableOwnershipGuardCallbacks callback)
+			callbacksList.ForEachBackwards((IRequestableOwnershipGuardCallbacks callback) =>
 			{
 				callback.OnMyOwnerLeft();
 			});
@@ -220,14 +220,14 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 		case NetworkingState.IsClient:
 			if (creator != null && object.Equals(creator, otherPlayer))
 			{
-				callbacksList.ForEachBackwards(delegate(IRequestableOwnershipGuardCallbacks callback)
+				callbacksList.ForEachBackwards((IRequestableOwnershipGuardCallbacks callback) =>
 				{
 					callback.OnMyCreatorLeft();
 				});
 			}
 			if (object.Equals(actualOwner, otherPlayer))
 			{
-				callbacksList.ForEachBackwards(delegate(IRequestableOwnershipGuardCallbacks callback)
+				callbacksList.ForEachBackwards((IRequestableOwnershipGuardCallbacks callback) =>
 				{
 					callback.OnMyOwnerLeft();
 				});
@@ -255,14 +255,14 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 		case NetworkingState.RequestingOwnership:
 			if (creator != null && object.Equals(creator, otherPlayer))
 			{
-				callbacksList.ForEachBackwards(delegate(IRequestableOwnershipGuardCallbacks callback)
+				callbacksList.ForEachBackwards((IRequestableOwnershipGuardCallbacks callback) =>
 				{
 					callback.OnMyCreatorLeft();
 				});
 			}
 			if (currentState == NetworkingState.ForcefullyTakingOver && object.Equals(currentOwner, otherPlayer))
 			{
-				callbacksList.ForEachBackwards(delegate(IRequestableOwnershipGuardCallbacks callback)
+				callbacksList.ForEachBackwards((IRequestableOwnershipGuardCallbacks callback) =>
 				{
 					callback.OnMyOwnerLeft();
 				});
@@ -354,7 +354,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 		}
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(nextplayer);
 		NetPlayer player2 = NetworkSystem.Instance.GetPlayer(info.Sender);
-		if (!PlayerHasAuthority(NetworkSystem.Instance.LocalPlayer) && base.photonView.OwnerActorNr != info.Sender.ActorNumber && currentOwner?.ActorNumber != info.Sender.ActorNumber && actualOwner?.ActorNumber != info.Sender.ActorNumber)
+		if (!PlayerHasAuthority(NetworkSystem.Instance.LocalPlayer) && photonView.OwnerActorNr != info.Sender.ActorNumber && currentOwner?.ActorNumber != info.Sender.ActorNumber && actualOwner?.ActorNumber != info.Sender.ActorNumber)
 		{
 			return;
 		}
@@ -367,7 +367,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 		}
 		else
 		{
-			if (currentOwner.ActorNumber != base.photonView.OwnerActorNr || actualOwner.ActorNumber == player.ActorNumber)
+			if (currentOwner.ActorNumber != photonView.OwnerActorNr || actualOwner.ActorNumber == player.ActorNumber)
 			{
 				return;
 			}
@@ -504,7 +504,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 	{
 		if (NetworkSystem.Instance.InRoom)
 		{
-			if (base.photonView.IsMine)
+			if (photonView.IsMine)
 			{
 				SetOwnership(player);
 				netView.SendRPC("TransferOwnershipFromToRPC", RpcTarget.Others, player.GetPlayerRef(), Nonce);
@@ -560,7 +560,7 @@ public class RequestableOwnershipGuard : MonoBehaviourPunCallbacks, ISelfValidat
 	{
 		if (!object.Equals(player, currentOwner) && !dontPropigate)
 		{
-			callbacksList.ForEachBackwards(delegate(IRequestableOwnershipGuardCallbacks actualOwner)
+			callbacksList.ForEachBackwards((IRequestableOwnershipGuardCallbacks actualOwner) =>
 			{
 				actualOwner.OnOwnershipTransferred(player, currentOwner);
 			});

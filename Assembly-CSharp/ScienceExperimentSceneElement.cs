@@ -11,9 +11,9 @@ public class ScienceExperimentSceneElement : MonoBehaviour, ITickSystemPost
 
 	void ITickSystemPost.PostTick()
 	{
-		base.transform.position = followElement.position;
-		base.transform.rotation = followElement.rotation;
-		base.transform.localScale = followElement.localScale;
+		transform.position = followElement.position;
+		transform.rotation = followElement.rotation;
+		transform.localScale = followElement.localScale;
 	}
 
 	private void Start()

@@ -8,7 +8,7 @@ public class ZoneRootRegister : MonoBehaviour
 
 	private void Awake()
 	{
-		watchableSlot.Value = base.gameObject;
+		watchableSlot.Value = gameObject;
 	}
 
 	private void OnDestroy()

@@ -38,7 +38,7 @@ public class FeatherDusterHoldable : MonoBehaviour, IGorillaSliceableSimple
 	public void OnEnable()
 	{
 		GorillaSlicerSimpleManager.RegisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.Update);
-		lastWorldPos = base.transform.position;
+		lastWorldPos = transform.position;
 		lastSliceTime = Time.unscaledTime;
 		emissionModule.rateOverTimeMultiplier = 0f;
 	}

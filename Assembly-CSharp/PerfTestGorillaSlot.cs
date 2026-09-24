@@ -16,6 +16,6 @@ public class PerfTestGorillaSlot : MonoBehaviour
 
 	private void Start()
 	{
-		localStartPosition = base.transform.localPosition;
+		localStartPosition = transform.localPosition;
 	}
 }

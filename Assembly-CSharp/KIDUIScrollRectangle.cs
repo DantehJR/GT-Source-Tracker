@@ -46,7 +46,7 @@ public class KIDUIScrollRectangle : ScrollRect, IPointerEnterHandler, IEventSyst
 		{
 			return;
 		}
-		if (_currentPointerData.hovered.Contains(base.viewport.gameObject) && !_currentPointerData.hovered.Contains(base.verticalScrollbar.gameObject))
+		if (_currentPointerData.hovered.Contains(viewport.gameObject) && !_currentPointerData.hovered.Contains(verticalScrollbar.gameObject))
 		{
 			_isPointerInside = true;
 		}
@@ -67,12 +67,12 @@ public class KIDUIScrollRectangle : ScrollRect, IPointerEnterHandler, IEventSyst
 			XRRayInteractor xRRayInteractor2 = xRRayInteractor;
 			if (xRRayInteractor2.TryGetCurrentUIRaycastResult(out var raycastResult))
 			{
-				RectTransformUtility.ScreenPointToLocalPointInRectangle(base.viewRect, raycastResult.screenPosition, thirdPersonCamera, out var localPoint);
+				RectTransformUtility.ScreenPointToLocalPointInRectangle(viewRect, raycastResult.screenPosition, thirdPersonCamera, out var localPoint);
 				if (!_isHolding && _isPointerInside && ControllerBehaviour.Instance.TriggerDown)
 				{
 					_isHolding = true;
 					m_PointerStartLocalCursor = localPoint;
-					m_ContentStartPosition = base.content.anchoredPosition;
+					m_ContentStartPosition = content.anchoredPosition;
 				}
 				if (_isHolding)
 				{
@@ -87,7 +87,7 @@ public class KIDUIScrollRectangle : ScrollRect, IPointerEnterHandler, IEventSyst
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		if (eventData.hovered.Contains(base.viewport.gameObject))
+		if (eventData.hovered.Contains(viewport.gameObject))
 		{
 			_isPointerInside = true;
 			_currentPointerData = eventData;

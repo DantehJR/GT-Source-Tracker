@@ -112,7 +112,7 @@ public class CosmeticPlaySoundOnColision : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		speed = Vector3.Distance(base.transform.position, previousFramePosition) * Time.fixedDeltaTime * 100f;
-		previousFramePosition = base.transform.position;
+		speed = Vector3.Distance(transform.position, previousFramePosition) * Time.fixedDeltaTime * 100f;
+		previousFramePosition = transform.position;
 	}
 }

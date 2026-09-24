@@ -18,7 +18,7 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 	{
 		public bool isStarted = false;
 
-		public AsyncOperationHandle<GameObject> loadOp = default(AsyncOperationHandle<GameObject>);
+		public AsyncOperationHandle<GameObject> loadOp = default;
 
 		public GameObject resultGObj = null;
 
@@ -794,7 +794,7 @@ public class CosmeticsV2Spawner_Dirty : IDelayedExecListener
 			int num = index - list.Count + 1;
 			for (int i = 0; i < num; i++)
 			{
-				list.Add(default(T));
+				list.Add(default);
 			}
 		}
 		list[index] = item;

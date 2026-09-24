@@ -99,11 +99,11 @@ public class Speaker : VoiceComponent
 			}
 			if (playbackOnlyWhenEnabled)
 			{
-				if (base.isActiveAndEnabled == PlaybackStarted)
+				if (isActiveAndEnabled == PlaybackStarted)
 				{
 					return;
 				}
-				if (base.isActiveAndEnabled)
+				if (isActiveAndEnabled)
 				{
 					if (!playbackExplicitlyStopped)
 					{
@@ -152,21 +152,21 @@ public class Speaker : VoiceComponent
 	{
 		if (IsInitialized)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Already initialized.");
+				Logger.LogWarning("Already initialized.");
 			}
 			return;
 		}
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Initializing.");
+			Logger.LogDebug("Initializing.");
 		}
 		Func<IAudioOut<float>> func = ((CustomAudioOutFactory == null) ? GetDefaultAudioOutFactory() : CustomAudioOutFactory);
 		audioOutput = func();
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("Initialized.");
+			Logger.LogDebug("Initialized.");
 		}
 	}
 
@@ -178,16 +178,16 @@ public class Speaker : VoiceComponent
 			High = playbackDelaySettings.MaxDelaySoft,
 			Max = playbackDelaySettings.MaxDelayHard
 		};
-		return () => new UnityAudioOut(GetComponent<AudioSource>(), pdc, base.Logger, string.Empty, base.Logger.IsDebugEnabled);
+		return () => new UnityAudioOut(GetComponent<AudioSource>(), pdc, Logger, string.Empty, Logger.IsDebugEnabled);
 	}
 
 	internal bool OnRemoteVoiceInfo(RemoteVoiceLink stream)
 	{
 		if (stream == null)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("RemoteVoiceLink is null, cancelled linking");
+				Logger.LogError("RemoteVoiceLink is null, cancelled linking");
 			}
 			return false;
 		}
@@ -195,23 +195,23 @@ public class Speaker : VoiceComponent
 		{
 			Initialize();
 		}
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("OnRemoteVoiceInfo {0}", stream);
+			Logger.LogDebug("OnRemoteVoiceInfo {0}", stream);
 		}
 		if (IsLinked)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Speaker already linked to {0}, cancelled linking to {1}", remoteVoiceLink, stream);
+				Logger.LogWarning("Speaker already linked to {0}, cancelled linking to {1}", remoteVoiceLink, stream);
 			}
 			return false;
 		}
 		if (stream.Info.Channels <= 0)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Received voice info channels is not expected (<= 0), cancelled linking to {0}", stream);
+				Logger.LogError("Received voice info channels is not expected (<= 0), cancelled linking to {0}", stream);
 			}
 			return false;
 		}
@@ -219,7 +219,7 @@ public class Speaker : VoiceComponent
 		remoteVoiceLink.RemoteVoiceRemoved += OnRemoteVoiceRemove;
 		if (IsInitialized)
 		{
-			if (!PlaybackOnlyWhenEnabled || base.isActiveAndEnabled)
+			if (!PlaybackOnlyWhenEnabled || isActiveAndEnabled)
 			{
 				return StartPlayback();
 			}
@@ -230,9 +230,9 @@ public class Speaker : VoiceComponent
 
 	internal void OnRemoteVoiceRemove()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("OnRemoteVoiceRemove {0}", remoteVoiceLink);
+			Logger.LogDebug("OnRemoteVoiceRemove {0}", remoteVoiceLink);
 		}
 		StopPlaying();
 		if (OnRemoteVoiceRemoveAction != null)
@@ -255,48 +255,48 @@ public class Speaker : VoiceComponent
 	{
 		if (!IsLinked)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Cannot start playback because speaker is not linked");
+				Logger.LogWarning("Cannot start playback because speaker is not linked");
 			}
 			return false;
 		}
 		if (PlaybackStarted)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Playback is already started");
+				Logger.LogWarning("Playback is already started");
 			}
 			return false;
 		}
 		if (!IsInitialized)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Cannot start playback because not initialized yet");
+				Logger.LogWarning("Cannot start playback because not initialized yet");
 			}
 			return false;
 		}
-		if (!base.isActiveAndEnabled && PlaybackOnlyWhenEnabled)
+		if (!isActiveAndEnabled && PlaybackOnlyWhenEnabled)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Cannot start playback because PlaybackOnlyWhenEnabled is true and Speaker is not enabled or its GameObject is not active in the hierarchy.");
+				Logger.LogWarning("Cannot start playback because PlaybackOnlyWhenEnabled is true and Speaker is not enabled or its GameObject is not active in the hierarchy.");
 			}
 			return false;
 		}
 		VoiceInfo info = remoteVoiceLink.Info;
 		if (info.Channels == 0)
 		{
-			if (base.Logger.IsErrorEnabled)
+			if (Logger.IsErrorEnabled)
 			{
-				base.Logger.LogError("Cannot start playback because Channels == 0, stream {0}", remoteVoiceLink);
+				Logger.LogError("Cannot start playback because Channels == 0, stream {0}", remoteVoiceLink);
 			}
 			return false;
 		}
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Speaker about to start playback stream {0}, delay {1}", remoteVoiceLink, playbackDelaySettings);
+			Logger.LogInfo("Speaker about to start playback stream {0}, delay {1}", remoteVoiceLink, playbackDelaySettings);
 		}
 		AudioOutputStart(info.SamplingRate, info.Channels, info.FrameDurationSamples);
 		remoteVoiceLink.FloatFrameDecoded += OnAudioFrame;
@@ -312,9 +312,9 @@ public class Speaker : VoiceComponent
 
 	private void OnDestroy()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("OnDestroy");
+			Logger.LogDebug("OnDestroy");
 		}
 		StopPlaying(force: true);
 		CleanUp();
@@ -322,15 +322,15 @@ public class Speaker : VoiceComponent
 
 	private bool StopPlaying(bool force = false)
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("StopPlaying");
+			Logger.LogDebug("StopPlaying");
 		}
 		if (!force && !PlaybackStarted)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Cannot stop playback because it's not started");
+				Logger.LogWarning("Cannot stop playback because it's not started");
 			}
 			return false;
 		}
@@ -338,17 +338,17 @@ public class Speaker : VoiceComponent
 		{
 			remoteVoiceLink.FloatFrameDecoded -= OnAudioFrame;
 		}
-		else if (!force && base.Logger.IsWarningEnabled)
+		else if (!force && Logger.IsWarningEnabled)
 		{
-			base.Logger.LogWarning("Speaker not linked while stopping playback");
+			Logger.LogWarning("Speaker not linked while stopping playback");
 		}
 		if (IsInitialized)
 		{
 			AudioOutputStop();
 		}
-		else if (!force && base.Logger.IsWarningEnabled)
+		else if (!force && Logger.IsWarningEnabled)
 		{
-			base.Logger.LogWarning("audioOutput is null while stopping playback");
+			Logger.LogWarning("audioOutput is null while stopping playback");
 		}
 		PlaybackStarted = false;
 		return true;
@@ -361,9 +361,9 @@ public class Speaker : VoiceComponent
 
 	private void CleanUp()
 	{
-		if (base.Logger.IsDebugEnabled)
+		if (Logger.IsDebugEnabled)
 		{
-			base.Logger.LogDebug("CleanUp");
+			Logger.LogDebug("CleanUp");
 		}
 		if (remoteVoiceLink != null)
 		{
@@ -395,9 +395,9 @@ public class Speaker : VoiceComponent
 	{
 		if (playbackExplicitlyStopped)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Cannot stop playback because it was already been explicitly stopped.");
+				Logger.LogWarning("Cannot stop playback because it was already been explicitly stopped.");
 			}
 			return false;
 		}
@@ -449,9 +449,9 @@ public class Speaker : VoiceComponent
 				return true;
 			}
 		}
-		else if (base.Logger.IsErrorEnabled)
+		else if (Logger.IsErrorEnabled)
 		{
-			base.Logger.LogError("Wrong playback delay config values, make sure 0 <= Low < High, low={0}, high={1}, max={2}", low, high, max);
+			Logger.LogError("Wrong playback delay config values, make sure 0 <= Low < High, low={0}, high={1}, max={2}", low, high, max);
 		}
 		return false;
 	}

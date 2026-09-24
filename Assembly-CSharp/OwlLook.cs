@@ -59,10 +59,10 @@ public class OwlLook : MonoBehaviour
 			{
 				continue;
 			}
-			Vector3 vector = rigs[i].tagSound.transform.position - base.transform.position;
+			Vector3 vector = rigs[i].tagSound.transform.position - transform.position;
 			if (!(vector.magnitude > lookRadius))
 			{
-				float num4 = Vector3.Dot(-base.transform.up, vector.normalized);
+				float num4 = Vector3.Dot(-transform.up, vector.normalized);
 				if (num4 > num2)
 				{
 					overlapRigs[num3++] = rigs[i];
@@ -72,8 +72,8 @@ public class OwlLook : MonoBehaviour
 		lookTarget = null;
 		for (int j = 0; j < num3; j++)
 		{
-			Vector3 vector = (overlapRigs[j].tagSound.transform.position - base.transform.position).normalized;
-			float num4 = Vector3.Dot(base.transform.forward, vector);
+			Vector3 vector = (overlapRigs[j].tagSound.transform.position - transform.position).normalized;
+			float num4 = Vector3.Dot(transform.forward, vector);
 			if (num4 > num)
 			{
 				num = num4;

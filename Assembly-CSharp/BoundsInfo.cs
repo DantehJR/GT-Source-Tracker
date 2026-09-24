@@ -32,7 +32,7 @@ public struct BoundsInfo
 	{
 		if (vertices.Length == 0)
 		{
-			return default(BoundsInfo);
+			return default;
 		}
 		OrientedBoundingBox orientedBoundingBox = OrientedBoundingBox.BruteEnclosing(vertices);
 		Vector4 column = orientedBoundingBox.Axis1;

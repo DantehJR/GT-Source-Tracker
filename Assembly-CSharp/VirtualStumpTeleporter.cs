@@ -75,7 +75,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 	{
 		if (netSerializer.IsNull())
 		{
-			Debug.LogError("VStump Teleporter \"" + base.gameObject.GetPath() + "\" needs a reference to a VirtualStumpTeleporterSerializer for networked FX to function. Check out the teleporter prefabs in arcade or the stump", this);
+			Debug.LogError("VStump Teleporter \"" + gameObject.GetPath() + "\" needs a reference to a VirtualStumpTeleporterSerializer for networked FX to function. Check out the teleporter prefabs in arcade or the stump", this);
 			return false;
 		}
 		return true;
@@ -87,7 +87,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 		{
 			DenyAccess();
 		}
-		if (accessDenied && (NetworkSystem.Instance.netState == NetSystemState.Idle || NetworkSystem.Instance.netState == NetSystemState.InGame) && !UGCPermissionManager.IsUGCDisabled)
+		if (accessDenied && (NetworkSystem.Instance.netState == NetSystemState.Idle || NetworkSystem.Instance.netState == NetSystemState.InGame) && !UGCPermissionManager.HasNoMapAccess)
 		{
 			AllowAccess();
 		}
@@ -97,9 +97,9 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 	{
 		if (netSerializer.IsNull())
 		{
-			Debug.LogWarning("[VStumpTeleporter.OnEnable] Net Serializer is null for \"" + base.gameObject.GetPath() + "\", networked teleport FX will not function.");
+			Debug.LogWarning("[VStumpTeleporter.OnEnable] Net Serializer is null for \"" + gameObject.GetPath() + "\", networked teleport FX will not function.");
 		}
-		if (UGCPermissionManager.IsUGCDisabled || (NetworkSystem.Instance.netState != NetSystemState.Idle && NetworkSystem.Instance.netState != NetSystemState.InGame))
+		if (UGCPermissionManager.HasNoMapAccess || (NetworkSystem.Instance.netState != NetSystemState.Idle && NetworkSystem.Instance.netState != NetSystemState.InGame))
 		{
 			_ = lastLoggingHandsMsgId;
 			lastLoggingHandsMsgId = 1;
@@ -111,27 +111,27 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 			lastLoggingHandsMsgId = 2;
 			AllowAccess();
 		}
-		UGCPermissionManager.SubscribeToUGCEnabled(OnUGCEnabled);
-		UGCPermissionManager.SubscribeToUGCDisabled(OnUGCDisabled);
+		UGCPermissionManager.SubscribeToVirtualStumpEnabled(OnVirtualStumpEnabled);
+		UGCPermissionManager.SubscribeToVirtualStumpDisabled(OnVirtualStumpDisabled);
 		GorillaSlicerSimpleManager.RegisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.Update);
 	}
 
 	public void OnDisable()
 	{
 		AllowAccess();
-		UGCPermissionManager.UnsubscribeFromUGCEnabled(OnUGCEnabled);
-		UGCPermissionManager.UnsubscribeFromUGCDisabled(OnUGCDisabled);
+		UGCPermissionManager.UnsubscribeFromVirtualStumpEnabled(OnVirtualStumpEnabled);
+		UGCPermissionManager.UnsubscribeFromVirtualStumpDisabled(OnVirtualStumpDisabled);
 		GorillaSlicerSimpleManager.UnregisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.Update);
 	}
 
-	private void OnUGCEnabled()
+	private void OnVirtualStumpEnabled()
 	{
 		AllowAccess();
 		_ = lastLoggingHandsMsgId;
 		lastLoggingHandsMsgId = 3;
 	}
 
-	private void OnUGCDisabled()
+	private void OnVirtualStumpDisabled()
 	{
 		DenyAccess();
 		_ = lastLoggingHandsMsgId;
@@ -140,7 +140,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 
 	public void OnTriggerEnter(Collider other)
 	{
-		if (!UGCPermissionManager.IsUGCDisabled && !accessDenied && !teleporting && !CustomMapManager.WaitingForRoomJoin && !CustomMapManager.WaitingForDisconnect && other.gameObject == GorillaTagger.Instance.headCollider.gameObject)
+		if (!UGCPermissionManager.HasNoMapAccess && !accessDenied && !teleporting && !CustomMapManager.WaitingForRoomJoin && !CustomMapManager.WaitingForDisconnect && other.gameObject == GorillaTagger.Instance.headCollider.gameObject)
 		{
 			triggerEntryTime = Time.time;
 			ShowCountdownText();
@@ -149,7 +149,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 
 	public void OnTriggerStay(Collider other)
 	{
-		if (!UGCPermissionManager.IsUGCDisabled && !accessDenied && other.gameObject == GorillaTagger.Instance.headCollider.gameObject && triggerEntryTime >= 0f)
+		if (!UGCPermissionManager.HasNoMapAccess && !accessDenied && other.gameObject == GorillaTagger.Instance.headCollider.gameObject && triggerEntryTime >= 0f)
 		{
 			UpdateCountdownText();
 			if (!teleporting && triggerEntryTime + stayInTriggerDuration <= Time.time)
@@ -162,7 +162,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 
 	public void OnTriggerExit(Collider other)
 	{
-		if (!UGCPermissionManager.IsUGCDisabled && !accessDenied && other.gameObject == GorillaTagger.Instance.headCollider.gameObject)
+		if (!UGCPermissionManager.HasNoMapAccess && !accessDenied && other.gameObject == GorillaTagger.Instance.headCollider.gameObject)
 		{
 			triggerEntryTime = -1f;
 			HideCountdownText();
@@ -171,7 +171,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 
 	private void ShowCountdownText()
 	{
-		if (UGCPermissionManager.IsUGCDisabled || accessDenied || countdownTexts.IsNullOrEmpty())
+		if (UGCPermissionManager.HasNoMapAccess || accessDenied || countdownTexts.IsNullOrEmpty())
 		{
 			return;
 		}
@@ -204,7 +204,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 
 	private void UpdateCountdownText()
 	{
-		if (UGCPermissionManager.IsUGCDisabled || accessDenied || countdownTexts.IsNullOrEmpty())
+		if (UGCPermissionManager.HasNoMapAccess || accessDenied || countdownTexts.IsNullOrEmpty())
 		{
 			return;
 		}
@@ -221,7 +221,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 
 	public void TeleportPlayer()
 	{
-		if (!UGCPermissionManager.IsUGCDisabled && !accessDenied && !teleporting)
+		if (!UGCPermissionManager.HasNoMapAccess && !accessDenied && !teleporting)
 		{
 			teleporting = true;
 			GorillaTelemetry.EnqueueTelemetryEvent("vstump_teleported_in", new Dictionary<string, object>());
@@ -253,7 +253,7 @@ public class VirtualStumpTeleporter : MonoBehaviour, IBuildValidation, IGorillaS
 
 	private void AllowAccess()
 	{
-		if (UGCPermissionManager.IsUGCDisabled)
+		if (UGCPermissionManager.HasNoMapAccess)
 		{
 			return;
 		}

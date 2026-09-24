@@ -70,7 +70,7 @@ public class VoxelInteractor : MonoBehaviour
 		{
 			return;
 		}
-		if (Physics.Linecast(base.transform.position, base.transform.position + base.transform.forward * rayLength, out var hitInfo, layerMask, QueryTriggerInteraction.Ignore))
+		if (Physics.Linecast(transform.position, transform.position + transform.forward * rayLength, out var hitInfo, layerMask, QueryTriggerInteraction.Ignore))
 		{
 			ChunkComponent component = hitInfo.collider.GetComponent<ChunkComponent>();
 			if ((bool)component)
@@ -93,10 +93,10 @@ public class VoxelInteractor : MonoBehaviour
 		}
 		if (_hitColliders == null)
 		{
-			_hitColliders = new Collider[5];
+			_hitColliders = new Collider[20];
 		}
 		_hitWorlds.Clear();
-		int num = Physics.OverlapSphereNonAlloc(base.transform.position, action.radius, _hitColliders, layerMask);
+		int num = Physics.OverlapSphereNonAlloc(transform.position, action.radius, _hitColliders, layerMask);
 		if (num == _hitColliders.Length)
 		{
 			Array.Resize(ref _hitColliders, _hitColliders.Length * 2);
@@ -106,7 +106,7 @@ public class VoxelInteractor : MonoBehaviour
 			if (_hitColliders[i].TryGetComponent<ChunkComponent>(out var component) && !_hitWorlds.Contains(component.World))
 			{
 				_hitWorlds.Add(component.World);
-				component.World.PerformAction(base.transform.position, action);
+				component.World.PerformAction(transform.position, action);
 			}
 		}
 		_nextActionTime = Time.time + cooldown;
@@ -151,9 +151,9 @@ public class VoxelInteractor : MonoBehaviour
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.green;
-		Vector3 vector = base.transform.position + base.transform.forward * rayLength;
-		Gizmos.DrawLine(base.transform.position, vector);
-		Gizmos.DrawWireSphere(base.transform.position, 0.01f);
+		Vector3 vector = transform.position + transform.forward * rayLength;
+		Gizmos.DrawLine(transform.position, vector);
+		Gizmos.DrawWireSphere(transform.position, 0.01f);
 		Gizmos.DrawWireSphere(vector, 0.01f);
 	}
 }

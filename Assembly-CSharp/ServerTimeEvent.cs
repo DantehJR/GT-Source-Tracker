@@ -34,7 +34,7 @@ public class ServerTimeEvent : TimeEvent
 		{
 			EventTime item = new EventTime(GorillaComputer.instance.GetServerTime().Hour, GorillaComputer.instance.GetServerTime().Minute);
 			bool flag = eventTimes.Contains(item);
-			if (!_ongoing && flag)
+			if (!_ongoing & flag)
 			{
 				StartEvent();
 			}

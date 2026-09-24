@@ -51,8 +51,8 @@ internal class TPeer : PeerBase
 			InitEncryption(photonPeer.PayloadEncryptionSecret);
 		}
 		incomingList = new Queue<StreamBuffer>(32);
-		timestampOfLastReceive = base.timeInt;
-		lastPingActivity = base.timeInt;
+		timestampOfLastReceive = timeInt;
+		lastPingActivity = timeInt;
 		waitForInitResponse = true;
 	}
 
@@ -74,7 +74,7 @@ internal class TPeer : PeerBase
 
 	public override void OnConnect()
 	{
-		lastPingActivity = base.timeInt;
+		lastPingActivity = timeInt;
 		if (DoFraming || PhotonToken != null)
 		{
 			waitForInitResponse = true;
@@ -92,9 +92,9 @@ internal class TPeer : PeerBase
 	{
 		if (peerConnectionState != ConnectionStateValue.Disconnected && peerConnectionState != ConnectionStateValue.Disconnecting)
 		{
-			if ((int)base.debugOut >= 5)
+			if ((int)debugOut >= 5)
 			{
-				base.Listener.DebugReturn(DebugLevel.ALL, "TPeer.Disconnect()");
+				Listener.DebugReturn(DebugLevel.ALL, "TPeer.Disconnect()");
 			}
 			StopConnection();
 		}
@@ -129,16 +129,16 @@ internal class TPeer : PeerBase
 		Protocol.Serialize(data.Length + array.Length, array, ref targetOffset);
 		streamBuffer.Write(array, 0, array.Length);
 		streamBuffer.Write(data, 0, data.Length);
-		if (base.TrafficStatsEnabled)
+		if (TrafficStatsEnabled)
 		{
-			base.TrafficStatsOutgoing.CountControlCommand(streamBuffer.Length);
+			TrafficStatsOutgoing.CountControlCommand(streamBuffer.Length);
 		}
 		EnqueueMessageAsPayload(DeliveryMode.Reliable, streamBuffer, 0);
 	}
 
 	internal override bool DispatchIncomingCommands()
 	{
-		if (peerConnectionState == ConnectionStateValue.Connected && base.timeInt - timestampOfLastReceive > base.DisconnectTimeout)
+		if (peerConnectionState == ConnectionStateValue.Connected && timeInt - timestampOfLastReceive > DisconnectTimeout)
 		{
 			EnqueueStatusCallback(StatusCode.TimeoutDisconnect);
 			EnqueueActionForDispatch(Disconnect);
@@ -184,7 +184,7 @@ internal class TPeer : PeerBase
 		{
 			return false;
 		}
-		timeLastSendOutgoing = base.timeInt;
+		timeLastSendOutgoing = timeInt;
 		lock (outgoingStream)
 		{
 			int num = 0;
@@ -204,7 +204,7 @@ internal class TPeer : PeerBase
 				{
 					PeerBase.MessageBufferPoolPut(streamBuffer);
 				}
-				if (num2 >= base.mtu || photonSocketError == PhotonSocketError.PendingSend)
+				if (num2 >= mtu || photonSocketError == PhotonSocketError.PendingSend)
 				{
 					break;
 				}
@@ -270,31 +270,31 @@ internal class TPeer : PeerBase
 			outgoingCommandsInStream++;
 		}
 		int num = (ByteCountLastOperation = opMessage.Length);
-		if (base.TrafficStatsEnabled)
+		if (TrafficStatsEnabled)
 		{
 			switch (deliveryMode)
 			{
 			case DeliveryMode.Unreliable:
 			case DeliveryMode.UnreliableUnsequenced:
-				base.TrafficStatsOutgoing.CountUnreliableOpCommand(num);
+				TrafficStatsOutgoing.CountUnreliableOpCommand(num);
 				break;
 			case DeliveryMode.Reliable:
 			case DeliveryMode.ReliableUnsequenced:
-				base.TrafficStatsOutgoing.CountReliableOpCommand(num);
+				TrafficStatsOutgoing.CountReliableOpCommand(num);
 				break;
 			}
-			base.TrafficStatsGameLevel.CountOperation(num);
+			TrafficStatsGameLevel.CountOperation(num);
 		}
 		return true;
 	}
 
 	internal void SendPing()
 	{
-		if (base.timeInt - lastPingActivity < base.timePingInterval || (peerConnectionState != ConnectionStateValue.Connected && (peerConnectionState != ConnectionStateValue.Connecting || waitForInitResponse)))
+		if (timeInt - lastPingActivity < timePingInterval || (peerConnectionState != ConnectionStateValue.Connected && (peerConnectionState != ConnectionStateValue.Connecting || waitForInitResponse)))
 		{
 			return;
 		}
-		int num = (lastPingActivity = base.timeInt);
+		int num = (lastPingActivity = timeInt);
 		StreamBuffer streamBuffer;
 		if (!DoFraming)
 		{
@@ -311,9 +311,9 @@ internal class TPeer : PeerBase
 			streamBuffer = PeerBase.MessageBufferPoolGet();
 			streamBuffer.Write(pingRequest, 0, pingRequest.Length);
 		}
-		if (base.TrafficStatsEnabled)
+		if (TrafficStatsEnabled)
 		{
-			base.TrafficStatsOutgoing.CountControlCommand(streamBuffer.Length);
+			TrafficStatsOutgoing.CountControlCommand(streamBuffer.Length);
 		}
 		if (SendData(streamBuffer.GetBuffer(), streamBuffer.Length) == PhotonSocketError.Success)
 		{
@@ -327,12 +327,12 @@ internal class TPeer : PeerBase
 		try
 		{
 			bytesOut += length;
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsOutgoing.TotalPacketCount++;
-				base.TrafficStatsOutgoing.TotalCommandsInPackets++;
+				TrafficStatsOutgoing.TotalPacketCount++;
+				TrafficStatsOutgoing.TotalCommandsInPackets++;
 			}
-			if (base.NetworkSimulationSettings.IsSimulationEnabled)
+			if (NetworkSimulationSettings.IsSimulationEnabled)
 			{
 				byte[] array = new byte[length];
 				Buffer.BlockCopy(data, 0, array, 0, length);
@@ -340,9 +340,9 @@ internal class TPeer : PeerBase
 			}
 			else
 			{
-				int num = base.timeInt;
+				int num = timeInt;
 				result = PhotonSocket.Send(data, length);
-				int num2 = base.timeInt - num;
+				int num2 = timeInt - num;
 				if (num2 > longestSentCall)
 				{
 					longestSentCall = num2;
@@ -351,9 +351,9 @@ internal class TPeer : PeerBase
 		}
 		catch (Exception ex)
 		{
-			if ((int)base.debugOut >= 1)
+			if ((int)debugOut >= 1)
 			{
-				base.Listener.DebugReturn(DebugLevel.ERROR, ex.ToString());
+				Listener.DebugReturn(DebugLevel.ERROR, ex.ToString());
 			}
 			SupportClass.WriteStackTrace(ex);
 		}
@@ -364,18 +364,18 @@ internal class TPeer : PeerBase
 	{
 		if (inbuff == null)
 		{
-			if ((int)base.debugOut >= 1)
+			if ((int)debugOut >= 1)
 			{
 				EnqueueDebugReturn(DebugLevel.ERROR, "checkAndQueueIncomingCommands() inBuff: null");
 			}
 			return;
 		}
-		timestampOfLastReceive = base.timeInt;
+		timestampOfLastReceive = timeInt;
 		bytesIn += dataLength + 7;
-		if (base.TrafficStatsEnabled)
+		if (TrafficStatsEnabled)
 		{
-			base.TrafficStatsIncoming.TotalPacketCount++;
-			base.TrafficStatsIncoming.TotalCommandsInPackets++;
+			TrafficStatsIncoming.TotalPacketCount++;
+			TrafficStatsIncoming.TotalCommandsInPackets++;
 		}
 		if (inbuff[0] == 243)
 		{
@@ -396,10 +396,10 @@ internal class TPeer : PeerBase
 		}
 		else if (inbuff[0] == 240)
 		{
-			base.TrafficStatsIncoming.CountControlCommand(dataLength);
+			TrafficStatsIncoming.CountControlCommand(dataLength);
 			ReadPingResult(inbuff);
 		}
-		else if ((int)base.debugOut >= 1 && dataLength > 0)
+		else if ((int)debugOut >= 1 && dataLength > 0)
 		{
 			EnqueueDebugReturn(DebugLevel.ERROR, "receiveIncomingCommands() MagicNumber should be 0xF0 or 0xF3. Is: " + inbuff[0] + " dataLength: " + dataLength);
 		}
@@ -412,7 +412,7 @@ internal class TPeer : PeerBase
 		int offset = 1;
 		Protocol.Deserialize(out value, inbuff, ref offset);
 		Protocol.Deserialize(out value2, inbuff, ref offset);
-		lastRoundTripTime = base.timeInt - value2;
+		lastRoundTripTime = timeInt - value2;
 		if (!serverTimeOffsetIsAvailable)
 		{
 			roundTripTime = lastRoundTripTime;
@@ -420,7 +420,7 @@ internal class TPeer : PeerBase
 		UpdateRoundTripTimeAndVariance(lastRoundTripTime);
 		if (!serverTimeOffsetIsAvailable)
 		{
-			serverTimeOffset = value + (lastRoundTripTime >> 1) - base.timeInt;
+			serverTimeOffset = value + (lastRoundTripTime >> 1) - timeInt;
 			serverTimeOffsetIsAvailable = true;
 		}
 	}
@@ -429,7 +429,7 @@ internal class TPeer : PeerBase
 	{
 		int num = (int)operationResponse.Parameters[2];
 		int num2 = (int)operationResponse.Parameters[1];
-		lastRoundTripTime = base.timeInt - num2;
+		lastRoundTripTime = timeInt - num2;
 		if (!serverTimeOffsetIsAvailable)
 		{
 			roundTripTime = lastRoundTripTime;
@@ -437,7 +437,7 @@ internal class TPeer : PeerBase
 		UpdateRoundTripTimeAndVariance(lastRoundTripTime);
 		if (!serverTimeOffsetIsAvailable)
 		{
-			serverTimeOffset = num + (lastRoundTripTime >> 1) - base.timeInt;
+			serverTimeOffset = num + (lastRoundTripTime >> 1) - timeInt;
 			serverTimeOffsetIsAvailable = true;
 		}
 	}

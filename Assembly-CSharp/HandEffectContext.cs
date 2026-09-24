@@ -117,11 +117,11 @@ internal class HandEffectContext : IFXEffectContextObject
 	{
 		if (isDownTap)
 		{
-			this.handTapDown?.Invoke(this);
+			handTapDown?.Invoke(this);
 		}
 		else
 		{
-			this.handTapUp?.Invoke(this);
+			handTapUp?.Invoke(this);
 		}
 	}
 

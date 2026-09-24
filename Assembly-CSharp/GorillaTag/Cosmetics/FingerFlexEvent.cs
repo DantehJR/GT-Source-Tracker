@@ -98,7 +98,7 @@ public class FingerFlexEvent : MonoBehaviourTick
 		}
 		bool flag = parentTransferable != null || myHeldItem != null;
 		bool flag2 = ((parentTransferable != null) ? parentTransferable.InHand() : (myHeldItem?.InHand() ?? true));
-		if (!ignoreTransferable && listener.fireOnlyWhileHeld && flag && !flag2 && listener.eventType == EventType.OnFingerReleased)
+		if (((!ignoreTransferable && listener.fireOnlyWhileHeld) & flag) && !flag2 && listener.eventType == EventType.OnFingerReleased)
 		{
 			if (listener.fingerRightLastValue > listener.fingerReleaseValue)
 			{
@@ -111,7 +111,7 @@ public class FingerFlexEvent : MonoBehaviourTick
 				listener.fingerLeftLastValue = 0f;
 			}
 		}
-		if (!(!ignoreTransferable && flag) || !listener.fireOnlyWhileHeld || flag2)
+		if (!(!ignoreTransferable & flag) || !listener.fireOnlyWhileHeld || flag2)
 		{
 			switch (fingerType)
 			{
@@ -150,12 +150,12 @@ public class FingerFlexEvent : MonoBehaviourTick
 	private void FireEvents(Listener listener, float leftFinger, float rightFinger)
 	{
 		bool flag = parentTransferable != null || myHeldItem != null;
-		if ((ignoreTransferable && listener.checkLeftHand) || (!ignoreTransferable && flag && FingerFlexValidation(isLeftHand: true)))
+		if ((ignoreTransferable && listener.checkLeftHand) || ((!ignoreTransferable & flag) && FingerFlexValidation(isLeftHand: true)))
 		{
 			CheckFingerValue(listener, leftFinger, isLeft: true, ref listener.fingerLeftLastValue);
 			return;
 		}
-		if ((ignoreTransferable && !listener.checkLeftHand) || (!ignoreTransferable && flag && FingerFlexValidation(isLeftHand: false)))
+		if ((ignoreTransferable && !listener.checkLeftHand) || ((!ignoreTransferable & flag) && FingerFlexValidation(isLeftHand: false)))
 		{
 			CheckFingerValue(listener, rightFinger, isLeft: false, ref listener.fingerRightLastValue);
 			return;
@@ -203,7 +203,7 @@ public class FingerFlexEvent : MonoBehaviourTick
 		{
 			return false;
 		}
-		if (!flag && isLeftHand)
+		if (!flag & isLeftHand)
 		{
 			return false;
 		}

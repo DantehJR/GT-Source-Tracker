@@ -253,7 +253,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 			break;
 		case MonkeyeAI_ReplState.EStates.Chasing:
 		{
-			if (!lockedOn && ClosestPlayer(base.transform.position, out var outRig) && outRig != targetRig)
+			if (!lockedOn && ClosestPlayer(transform.position, out var outRig) && outRig != targetRig)
 			{
 				SetTargetPlayer(outRig);
 			}
@@ -273,7 +273,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 			break;
 		}
 		calculatingPath = true;
-		seeker.StartPath(base.transform.position, targetPosition, OnPathComplete);
+		seeker.StartPath(transform.position, targetPosition, OnPathComplete);
 	}
 
 	private void Awake()
@@ -310,7 +310,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 
 	private void Start()
 	{
-		NetworkSystem.Instance.RegisterSceneNetworkItem(base.gameObject);
+		NetworkSystem.Instance.RegisterSceneNetworkItem(gameObject);
 	}
 
 	private void OnPathComplete(Path path_)
@@ -319,8 +319,8 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 		currentWaypoint = 0;
 		if (path.vectorPath.Count < 1)
 		{
-			base.transform.position = sleepPt.position;
-			base.transform.rotation = sleepPt.rotation;
+			transform.position = sleepPt.position;
+			transform.rotation = sleepPt.rotation;
 			path = null;
 		}
 		calculatingPath = false;
@@ -336,7 +336,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 				return;
 			}
 		}
-		if (Distance2D(base.transform.position, path.vectorPath[currentWaypoint]) < 0.01f)
+		if (Distance2D(transform.position, path.vectorPath[currentWaypoint]) < 0.01f)
 		{
 			if (currentWaypoint + 1 == path.vectorPath.Count)
 			{
@@ -345,15 +345,15 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 			}
 			currentWaypoint++;
 		}
-		Vector3 normalized = (path.vectorPath[currentWaypoint] - base.transform.position).normalized;
+		Vector3 normalized = (path.vectorPath[currentWaypoint] - transform.position).normalized;
 		normalized.y = 0f;
 		if (animController.GetCurrentAnimatorStateInfo(0).IsName("Move"))
 		{
 			Vector3 vector = normalized * speed;
-			base.transform.position += vector * deltaTime;
+			transform.position += vector * deltaTime;
 		}
-		Mathf.Clamp01(Vector3.Dot(base.transform.forward, normalized) / (MathF.PI / 2f));
-		if (Mathf.Sign(Vector3.Cross(base.transform.forward, normalized).y) > 0f)
+		Mathf.Clamp01(Vector3.Dot(transform.forward, normalized) / (MathF.PI / 2f));
+		if (Mathf.Sign(Vector3.Cross(transform.forward, normalized).y) > 0f)
 		{
 			animController.SetLayerWeight(layerRight, 0f);
 		}
@@ -362,8 +362,8 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 			animController.SetLayerWeight(layerLeft, 0f);
 		}
 		animController.SetLayerWeight(layerForward, 0f);
-		Vector3 forward = Vector3.RotateTowards(base.transform.forward, normalized, rotationSpeed * deltaTime, 0f);
-		base.transform.rotation = Quaternion.LookRotation(forward);
+		Vector3 forward = Vector3.RotateTowards(transform.forward, normalized, rotationSpeed * deltaTime, 0f);
+		transform.rotation = Quaternion.LookRotation(forward);
 	}
 
 	private bool PlayerNear(VRRig rig, float dist, out float playerDist)
@@ -373,10 +373,10 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 			playerDist = float.PositiveInfinity;
 			return false;
 		}
-		playerDist = Distance2D(rig.transform.position, base.transform.position);
+		playerDist = Distance2D(rig.transform.position, transform.position);
 		if (playerDist < dist)
 		{
-			return Physics.RaycastNonAlloc(new Ray(base.transform.position, rig.transform.position - base.transform.position), rayResults, playerDist, layerMask) <= 0;
+			return Physics.RaycastNonAlloc(new Ray(transform.position, rig.transform.position - transform.position), rayResults, playerDist, layerMask) <= 0;
 		}
 		return false;
 	}
@@ -467,7 +467,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 		{
 			SetState(MonkeyeAI_ReplState.EStates.Patrolling);
 		}
-		else if (Distance2D(base.transform.position, targetRig.transform.position) < attackDistance)
+		else if (Distance2D(transform.position, targetRig.transform.position) < attackDistance)
 		{
 			SetState(MonkeyeAI_ReplState.EStates.BeginAttack);
 		}
@@ -483,7 +483,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 		{
 			SetState(MonkeyeAI_ReplState.EStates.Chasing);
 		}
-		else if (Distance2D(base.transform.position, sleepPt.position) < 0.01f)
+		else if (Distance2D(transform.position, sleepPt.position) < 0.01f)
 		{
 			SetState(MonkeyeAI_ReplState.EStates.Sleeping);
 		}
@@ -570,7 +570,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 		replState.floorEnabled = true;
 		replState.timer = 0f;
 		replState.userId = "";
-		replState.attackPos = base.transform.position;
+		replState.attackPos = transform.position;
 		replState.portalEnabled = false;
 		replState.freezePlayer = false;
 		replState.alpha = 0f;
@@ -695,7 +695,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 			setEyeColor(monkEyeEyeColorAttacking);
 			if (replState.IsMine)
 			{
-				replState.attackPos = ((targetRig != null) ? targetRig.transform.position : base.transform.position);
+				replState.attackPos = ((targetRig != null) ? targetRig.transform.position : transform.position);
 				replState.timer = beginAttackTime;
 			}
 			break;
@@ -805,7 +805,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 			{
 				if (!(containedRig == null))
 				{
-					float num2 = Vector3.Distance(base.transform.position, containedRig.transform.position);
+					float num2 = Vector3.Distance(transform.position, containedRig.transform.position);
 					if (num2 < num)
 					{
 						netPlayer = containedRig.creator;
@@ -855,8 +855,8 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 		if (path != null)
 		{
 			FollowPath();
-			velocity = base.transform.position - prevPosition;
-			prevPosition = base.transform.position;
+			velocity = transform.position - prevPosition;
+			prevPosition = transform.position;
 		}
 	}
 
@@ -880,7 +880,7 @@ public class MonkeyeAI : MonoBehaviour, IGorillaSliceableSimple
 			}
 			foreach (MonkeyeAI monkeyeAi in playerCollection.monkeyeAis)
 			{
-				if (monkeyeAi == this || !(Vector3.Distance(base.transform.position, monkeyeAi.transform.position) < overlapRadius) || !((double)Vector3.Dot(base.transform.forward, monkeyeAi.transform.forward) > 0.2))
+				if (monkeyeAi == this || !(Vector3.Distance(transform.position, monkeyeAi.transform.position) < overlapRadius) || !((double)Vector3.Dot(transform.forward, monkeyeAi.transform.forward) > 0.2))
 				{
 					continue;
 				}

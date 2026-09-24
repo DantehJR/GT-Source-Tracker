@@ -44,7 +44,7 @@ public abstract class AverageCalculator<T> where T : struct
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	protected virtual T DefaultTypeValue()
 	{
-		return default(T);
+		return default;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

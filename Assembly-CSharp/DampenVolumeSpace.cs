@@ -11,7 +11,7 @@ public class DampenVolumeSpace : MonoBehaviour
 	{
 		if (audioSource == null)
 		{
-			base.enabled = false;
+			enabled = false;
 		}
 	}
 

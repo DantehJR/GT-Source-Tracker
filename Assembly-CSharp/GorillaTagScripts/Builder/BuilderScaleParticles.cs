@@ -78,7 +78,7 @@ public class BuilderScaleParticles : MonoBehaviour
 		{
 			if (useLossyScale)
 			{
-				SetScale(base.transform.lossyScale.x);
+				SetScale(transform.lossyScale.x);
 			}
 			setScaleNextFrame = false;
 		}
@@ -102,7 +102,7 @@ public class BuilderScaleParticles : MonoBehaviour
 		}
 		if (Mathf.Approximately(inScale, scale))
 		{
-			if (autoPlay || isPlaying)
+			if (autoPlay | isPlaying)
 			{
 				system.Play(withChildren: true);
 			}
@@ -112,7 +112,7 @@ public class BuilderScaleParticles : MonoBehaviour
 		RevertScale();
 		if (Mathf.Approximately(scale, 1f))
 		{
-			if (autoPlay || isPlaying)
+			if (autoPlay | isPlaying)
 			{
 				system.Play(withChildren: true);
 			}
@@ -191,7 +191,7 @@ public class BuilderScaleParticles : MonoBehaviour
 			ScaleCurve(ref curve7, scale);
 			forceOverLifetime.z = curve7;
 		}
-		if (autoPlay || isPlaying)
+		if (autoPlay | isPlaying)
 		{
 			system.Play(withChildren: true);
 		}

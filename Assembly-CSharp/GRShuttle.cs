@@ -437,9 +437,9 @@ public class GRShuttle : MonoBehaviour, IGorillaSliceableSimple
 		{
 			return true;
 		}
-		bool num = GameEntityManager.IsPlayerHandNearPosition(player.gamePlayer, entryCardScanner.transform.position, isLeftHand: false, checkBothHands: true);
-		bool flag = GameEntityManager.IsPlayerHandNearPosition(player.gamePlayer, departCardScanner.transform.position, isLeftHand: false, checkBothHands: true);
-		return num || flag;
+		bool flag = GameEntityManager.IsPlayerHandNearPosition(player.gamePlayer, entryCardScanner.transform.position, isLeftHand: false, checkBothHands: true);
+		bool flag2 = GameEntityManager.IsPlayerHandNearPosition(player.gamePlayer, departCardScanner.transform.position, isLeftHand: false, checkBothHands: true);
+		return flag | flag2;
 	}
 
 	public bool IsPlayerOwner(NetPlayer player)

@@ -19,6 +19,6 @@ public class DevInspector : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Object.Destroy(base.gameObject);
+		Object.Destroy(gameObject);
 	}
 }

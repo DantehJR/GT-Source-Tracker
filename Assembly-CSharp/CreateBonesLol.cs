@@ -14,11 +14,11 @@ public class CreateBonesLol : MonoBehaviour
 		}
 		foreach (OVRBone bone in skeleton.Bones)
 		{
-			GameObject obj = Object.Instantiate(cube);
-			obj.transform.parent = bone.Transform;
-			obj.transform.localPosition = Vector3.zero;
-			obj.transform.localRotation = Quaternion.identity;
+			GameObject gameObject = Object.Instantiate(cube);
+			gameObject.transform.parent = bone.Transform;
+			gameObject.transform.localPosition = Vector3.zero;
+			gameObject.transform.localRotation = Quaternion.identity;
 		}
-		base.enabled = false;
+		enabled = false;
 	}
 }

@@ -110,8 +110,8 @@ public class LegacyTransferrableObject : HoldableObject
 	protected void Awake()
 	{
 		latched = false;
-		initOffset = base.transform.localPosition;
-		initRotation = base.transform.localRotation;
+		initOffset = transform.localPosition;
+		initRotation = transform.localRotation;
 	}
 
 	protected virtual void Start()
@@ -125,12 +125,12 @@ public class LegacyTransferrableObject : HoldableObject
 	{
 		if (myRig == null && myOnlineRig != null && myOnlineRig.netView != null && myOnlineRig.netView.IsMine)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		if (myRig == null && myOnlineRig == null)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		objectIndex = targetDock.ReturnTransferrableItemIndex(myIndex);
@@ -159,7 +159,7 @@ public class LegacyTransferrableObject : HoldableObject
 		}
 		if (objectIndex == -1)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		if (currentState == TransferrableObject.PositionState.OnLeftArm && flipOnXForLeftArm)
@@ -186,7 +186,7 @@ public class LegacyTransferrableObject : HoldableObject
 				myIndex,
 				PhotonNetwork.LocalPlayer
 			};
-			worldShareableInstance = PhotonNetwork.Instantiate("Objects/equipment/WorldShareableItem", base.transform.position, base.transform.rotation, 0, data);
+			worldShareableInstance = PhotonNetwork.Instantiate("Objects/equipment/WorldShareableItem", transform.position, transform.rotation, 0, data);
 			if (myRig != null && worldShareableInstance != null)
 			{
 				OnWorldShareableItemSpawn();
@@ -252,7 +252,7 @@ public class LegacyTransferrableObject : HoldableObject
 		{
 			return anchor;
 		}
-		return base.transform;
+		return transform;
 	}
 
 	private Transform GetAnchor(TransferrableObject.PositionState pos)
@@ -367,7 +367,7 @@ public class LegacyTransferrableObject : HoldableObject
 
 	public void DropItem()
 	{
-		base.transform.parent = null;
+		transform.parent = null;
 	}
 
 	protected virtual void LateUpdateShared()
@@ -383,12 +383,12 @@ public class LegacyTransferrableObject : HoldableObject
 		}
 		if (disableItem)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		if (previousState != currentState && detatchOnGrab && InHand())
 		{
-			base.transform.parent = null;
+			transform.parent = null;
 		}
 		if (currentState != TransferrableObject.PositionState.Dropped)
 		{
@@ -482,7 +482,7 @@ public class LegacyTransferrableObject : HoldableObject
 		{
 			if (previousState == TransferrableObject.PositionState.None)
 			{
-				base.gameObject.SetActive(value: false);
+				gameObject.SetActive(value: false);
 			}
 			currentState = previousState;
 		}
@@ -507,7 +507,7 @@ public class LegacyTransferrableObject : HoldableObject
 		}
 		if (flag)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -569,11 +569,11 @@ public class LegacyTransferrableObject : HoldableObject
 			{
 				bool num = currentState == TransferrableObject.PositionState.InLeftHand && zoneReleased.dropPosition == BodyDockPositions.DropPositions.LeftArm;
 				bool flag = currentState == TransferrableObject.PositionState.InRightHand && zoneReleased.dropPosition == BodyDockPositions.DropPositions.RightArm;
-				if (num || flag)
+				if (num | flag)
 				{
 					return false;
 				}
-				if (targetDock.DropZoneStorageUsed(zoneReleased.dropPosition) == -1 && zoneReleased.forBodyDock == targetDock && (zoneReleased.dropPosition & dockPositions) != BodyDockPositions.DropPositions.None)
+				if (targetDock.DropZoneStorageUsed(zoneReleased.dropPosition) == -1 && zoneReleased.forBodyDock == targetDock && (zoneReleased.dropPosition & dockPositions) != 0)
 				{
 					storedZone = zoneReleased.dropPosition;
 				}

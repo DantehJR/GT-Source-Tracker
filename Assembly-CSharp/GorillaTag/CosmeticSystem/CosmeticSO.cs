@@ -16,6 +16,6 @@ public class CosmeticSO : ScriptableObject
 
 	public void OnEnable()
 	{
-		info.debugCosmeticSOName = base.name;
+		info.debugCosmeticSOName = name;
 	}
 }

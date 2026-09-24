@@ -31,12 +31,12 @@ public class PhotonRigidbody2DView : MonoBehaviourPun, IPunObservable
 	public void Awake()
 	{
 		m_Body = GetComponent<Rigidbody2D>();
-		m_NetworkPosition = default(Vector2);
+		m_NetworkPosition = default;
 	}
 
 	public void FixedUpdate()
 	{
-		if (!base.photonView.IsMine)
+		if (!photonView.IsMine)
 		{
 			m_Body.position = Vector2.MoveTowards(m_Body.position, m_NetworkPosition, m_Distance * (1f / (float)PhotonNetwork.SerializationRate));
 			m_Body.rotation = Mathf.MoveTowards(m_Body.rotation, m_NetworkRotation, m_Angle * (1f / (float)PhotonNetwork.SerializationRate));

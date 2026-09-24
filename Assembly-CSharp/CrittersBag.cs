@@ -83,7 +83,7 @@ public class CrittersBag : CrittersActor
 		}
 		if (attachedToLocalPlayer != flag)
 		{
-			bool flag2 = attachedToLocalPlayer || flag;
+			bool flag2 = attachedToLocalPlayer | flag;
 			audioSrc.transform.localPosition = Vector3.zero;
 			audioSrc.GTPlayOneShot(attachedToLocalPlayer ? equipSound : unequipSound, flag2 ? 1f : 0.5f);
 		}
@@ -136,12 +136,12 @@ public class CrittersBag : CrittersActor
 		{
 			if (attachedColliders[actor.actorId].IsNull())
 			{
-				attachedColliders[actor.actorId] = CrittersManager.DuplicateCapsuleCollider(base.transform, actor.storeCollider).gameObject;
+				attachedColliders[actor.actorId] = CrittersManager.DuplicateCapsuleCollider(transform, actor.storeCollider).gameObject;
 			}
 		}
 		else
 		{
-			attachedColliders.Add(actor.actorId, CrittersManager.DuplicateCapsuleCollider(base.transform, actor.storeCollider).gameObject);
+			attachedColliders.Add(actor.actorId, CrittersManager.DuplicateCapsuleCollider(transform, actor.storeCollider).gameObject);
 		}
 		audioSrc.transform.position = actor.transform.position;
 		audioSrc.GTPlayOneShot(attachSound);

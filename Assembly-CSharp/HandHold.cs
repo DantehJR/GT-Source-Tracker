@@ -90,14 +90,14 @@ public class HandHold : MonoBehaviour, IGorillaGrabable
 	void IGorillaGrabable.OnGrabbed(GorillaGrabber g, out Transform grabbedTransform, out Vector3 localGrabbedPosition)
 	{
 		Initialize();
-		grabbedTransform = base.transform;
+		grabbedTransform = transform;
 		Vector3 position = g.transform.position;
-		localGrabbedPosition = base.transform.InverseTransformPoint(position);
-		g.Player.AddHandHold(base.transform, localGrabbedPosition, g, g.IsLeftHand, rotatePlayerWhenHeld, out var grabbedVelocity);
+		localGrabbedPosition = transform.InverseTransformPoint(position);
+		g.Player.AddHandHold(transform, localGrabbedPosition, g, g.IsLeftHand, rotatePlayerWhenHeld, out var grabbedVelocity);
 		currentGrabbers.AddIfNew(g);
-		if (handSnapMethod != HandSnapMethod.None && HandHold.HandPositionRequestOverride != null)
+		if (handSnapMethod != HandSnapMethod.None && HandPositionRequestOverride != null)
 		{
-			HandHold.HandPositionRequestOverride(this, g.IsLeftHand, CalculateOffset(position));
+			HandPositionRequestOverride(this, g.IsLeftHand, CalculateOffset(position));
 		}
 		OnGrab?.Invoke(grabbedVelocity);
 		OnGrabHandHold?.Invoke(this);
@@ -113,9 +113,9 @@ public class HandHold : MonoBehaviour, IGorillaGrabable
 		Initialize();
 		g.Player.RemoveHandHold(g, g.IsLeftHand);
 		currentGrabbers.Remove(g);
-		if (handSnapMethod != HandSnapMethod.None && HandHold.HandPositionReleaseOverride != null)
+		if (handSnapMethod != HandSnapMethod.None && HandPositionReleaseOverride != null)
 		{
-			HandHold.HandPositionReleaseOverride(this, g.IsLeftHand);
+			HandPositionReleaseOverride(this, g.IsLeftHand);
 		}
 		OnRelease?.Invoke();
 		OnReleaseHandHold?.Invoke(this);
@@ -139,13 +139,13 @@ public class HandHold : MonoBehaviour, IGorillaGrabable
 					return Vector3.zero;
 				}
 			}
-			return base.transform.position - myCollider.ClosestPoint(position);
+			return transform.position - myCollider.ClosestPoint(position);
 		case HandSnapMethod.SnapToXAxisPoint:
-			return base.transform.position - base.transform.TransformPoint(Vector3.right * base.transform.InverseTransformPoint(position).x);
+			return transform.position - transform.TransformPoint(Vector3.right * transform.InverseTransformPoint(position).x);
 		case HandSnapMethod.SnapToYAxisPoint:
-			return base.transform.position - base.transform.TransformPoint(Vector3.up * base.transform.InverseTransformPoint(position).y);
+			return transform.position - transform.TransformPoint(Vector3.up * transform.InverseTransformPoint(position).y);
 		case HandSnapMethod.SnapToZAxisPoint:
-			return base.transform.position - base.transform.TransformPoint(Vector3.forward * base.transform.InverseTransformPoint(position).z);
+			return transform.position - transform.TransformPoint(Vector3.forward * transform.InverseTransformPoint(position).z);
 		default:
 			return Vector3.zero;
 		}

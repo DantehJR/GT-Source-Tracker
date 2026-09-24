@@ -41,10 +41,10 @@ public class RigidbodyHighlighter : MonoBehaviour
 
 	private void Awake()
 	{
-		UnityEngine.Object.Destroy(base.gameObject);
+		UnityEngine.Object.Destroy(gameObject);
 		if (Instance != null && Instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		Instance = this;
 		_lineRenderer.startWidth = _lineWidth;
@@ -114,7 +114,7 @@ public class RigidbodyHighlighter : MonoBehaviour
 
 	private static void DrawBox(Transform tx, Color color, float duration)
 	{
-		Matrix4x4 matrix4x = default(Matrix4x4);
+		Matrix4x4 matrix4x = default;
 		matrix4x.SetTRS(tx.position, tx.rotation, tx.lossyScale);
 		Vector3 vector = matrix4x.MultiplyPoint(new Vector3(-0.5f, -0.5f, -0.5f));
 		Vector3 vector2 = matrix4x.MultiplyPoint(new Vector3(-0.5f, -0.5f, 0.5f));

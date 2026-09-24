@@ -83,7 +83,7 @@ public class SIGadgetGrenadeBlackHole : SIGadgetGrenade
 
 	private void TriggerExplosion()
 	{
-		Vector3 vector = base.transform.position - GTPlayer.Instance.transform.position;
+		Vector3 vector = transform.position - GTPlayer.Instance.transform.position;
 		float sqrMagnitude = vector.sqrMagnitude;
 		if (explosionRadius * explosionRadius > sqrMagnitude)
 		{

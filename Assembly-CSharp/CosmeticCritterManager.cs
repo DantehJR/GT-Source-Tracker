@@ -172,7 +172,7 @@ public class CosmeticCritterManager : NetworkSceneObject, ITickSystemTick
 		{
 			value = new Stack<CosmeticCritter>();
 			inactiveCrittersByType.Add(critterType, value);
-			result = UnityEngine.Object.Instantiate(spawner.GetCritterPrefab(), base.transform).GetComponent<CosmeticCritter>();
+			result = UnityEngine.Object.Instantiate(spawner.GetCritterPrefab(), transform).GetComponent<CosmeticCritter>();
 		}
 		else if (value.TryPop(out result))
 		{
@@ -180,7 +180,7 @@ public class CosmeticCritterManager : NetworkSceneObject, ITickSystemTick
 		}
 		else
 		{
-			result = UnityEngine.Object.Instantiate(spawner.GetCritterPrefab(), base.transform).GetComponent<CosmeticCritter>();
+			result = UnityEngine.Object.Instantiate(spawner.GetCritterPrefab(), transform).GetComponent<CosmeticCritter>();
 		}
 		result.SetSeedSpawnerTypeAndTime(seed, spawner, critterType, time);
 		activeCritters.Add(result);
@@ -251,16 +251,16 @@ public class CosmeticCritterManager : NetworkSceneObject, ITickSystemTick
 				{
 					double num = (PhotonNetwork.InRoom ? PhotonNetwork.Time : Time.timeAsDouble);
 					cosmeticCritterCatcher.OnCatch(cosmeticCritter, localCatchAction, num);
-					if ((localCatchAction & CosmeticCritterAction.Despawn) != CosmeticCritterAction.None)
+					if ((localCatchAction & CosmeticCritterAction.Despawn) != 0)
 					{
 						FreeCritter(cosmeticCritter);
 						i--;
 					}
-					if ((localCatchAction & CosmeticCritterAction.SpawnLinked) != CosmeticCritterAction.None && cosmeticCritterCatcher.GetLinkedSpawner() != null)
+					if ((localCatchAction & CosmeticCritterAction.SpawnLinked) != 0 && cosmeticCritterCatcher.GetLinkedSpawner() != null)
 					{
 						ReuseOrSpawnNewCritter(cosmeticCritterCatcher.GetLinkedSpawner(), cosmeticCritter.Seed + 1, num);
 					}
-					if (PhotonNetwork.InRoom && (localCatchAction & CosmeticCritterAction.RPC) != CosmeticCritterAction.None)
+					if (PhotonNetwork.InRoom && (localCatchAction & CosmeticCritterAction.RPC) != 0)
 					{
 						photonView.RPC("CosmeticCritterRPC", RpcTarget.Others, localCatchAction, cosmeticCritterCatcher.OwnerID, cosmeticCritter.Seed);
 					}
@@ -321,11 +321,11 @@ public class CosmeticCritterManager : NetworkSceneObject, ITickSystemTick
 			if (cosmeticCritterCatcher.OwningPlayerMatches(info) && cosmeticCritterCatcher.ValidateRemoteCatchAction(value, catchAction, info.SentServerTime))
 			{
 				cosmeticCritterCatcher.OnCatch(value, catchAction, info.SentServerTime);
-				if ((catchAction & CosmeticCritterAction.Despawn) != CosmeticCritterAction.None)
+				if ((catchAction & CosmeticCritterAction.Despawn) != 0)
 				{
 					FreeCritter(value);
 				}
-				if ((catchAction & CosmeticCritterAction.SpawnLinked) != CosmeticCritterAction.None && cosmeticCritterCatcher.GetLinkedSpawner() != null && (!activeCrittersPerType.TryGetValue(cosmeticCritterCatcher.GetLinkedSpawner().GetCritterType(), out var value2) || value2 < cosmeticCritterCatcher.GetLinkedSpawner().GetCritter().GetGlobalMaxCritters() + 1))
+				if ((catchAction & CosmeticCritterAction.SpawnLinked) != 0 && cosmeticCritterCatcher.GetLinkedSpawner() != null && (!activeCrittersPerType.TryGetValue(cosmeticCritterCatcher.GetLinkedSpawner().GetCritterType(), out var value2) || value2 < cosmeticCritterCatcher.GetLinkedSpawner().GetCritter().GetGlobalMaxCritters() + 1))
 				{
 					ReuseOrSpawnNewCritter(cosmeticCritterCatcher.GetLinkedSpawner(), seed + 1, info.SentServerTime);
 				}

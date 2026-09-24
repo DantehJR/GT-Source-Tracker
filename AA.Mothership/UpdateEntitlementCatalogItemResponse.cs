@@ -73,12 +73,12 @@ public class UpdateEntitlementCatalogItemResponse : MothershipResponse
 
 	public override bool ParseFromResponseString(string response)
 	{
-		bool num = MothershipApiPINVOKE.UpdateEntitlementCatalogItemResponse_ParseFromResponseString(swigCPtr, response);
+		bool flag = MothershipApiPINVOKE.UpdateEntitlementCatalogItemResponse_ParseFromResponseString(swigCPtr, response);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
-		return num;
+		return flag;
 	}
 
 	public static UpdateEntitlementCatalogItemResponse FromMothershipResponse(MothershipResponse response)

@@ -19,7 +19,7 @@ public class AutoSyncTransforms : MonoBehaviour
 	{
 		if (m_transform.IsNull())
 		{
-			m_transform = base.transform;
+			m_transform = transform;
 		}
 		if (m_rigidbody.IsNull())
 		{
@@ -27,7 +27,7 @@ public class AutoSyncTransforms : MonoBehaviour
 		}
 		if (m_transform.IsNull() || m_rigidbody.IsNull())
 		{
-			base.enabled = false;
+			enabled = false;
 			Debug.LogError("AutoSyncTransforms: Rigidbody or Transform is null, disabling!! Please add the missing reference or component", this);
 		}
 		else

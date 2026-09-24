@@ -412,7 +412,7 @@ public class CosmeticItemPrefab : MonoBehaviour
 			}
 			currentUpdateEvent = storeUpdateEvent;
 			SetCosmeticItemFromCosmeticController(CosmeticsController.instance.GetItemFromDict(storeUpdateEvent.ItemName));
-			if (base.isActiveAndEnabled)
+			if (isActiveAndEnabled)
 			{
 				countdownTimerCoRoutine = StartCoroutine(PlayCountdownTimer());
 			}

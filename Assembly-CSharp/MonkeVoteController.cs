@@ -143,7 +143,7 @@ public class MonkeVoteController : MonoBehaviour, IGorillaSliceableSimple
 		{
 			GTDev.Log("Active vote poll completed.");
 			hasCurrentPollCompleted = true;
-			this.OnCurrentPollEnded?.Invoke();
+			OnCurrentPollEnded?.Invoke();
 		}
 	}
 
@@ -167,7 +167,7 @@ public class MonkeVoteController : MonoBehaviour, IGorillaSliceableSimple
 		}
 		else
 		{
-			this.OnPollsUpdated?.Invoke();
+			OnPollsUpdated?.Invoke();
 		}
 	}
 
@@ -270,7 +270,7 @@ public class MonkeVoteController : MonoBehaviour, IGorillaSliceableSimple
 		{
 			GTDev.LogError("Error: Could not fetch polls!");
 		}
-		this.OnPollsUpdated?.Invoke();
+		OnPollsUpdated?.Invoke();
 	}
 
 	public void Vote(int pollId, int option, bool isPrediction)
@@ -369,11 +369,11 @@ public class MonkeVoteController : MonoBehaviour, IGorillaSliceableSimple
 		if (response != null)
 		{
 			lastVoteData = response;
-			this.OnVoteAccepted?.Invoke();
+			OnVoteAccepted?.Invoke();
 		}
 		else
 		{
-			this.OnVoteFailed?.Invoke();
+			OnVoteFailed?.Invoke();
 		}
 	}
 

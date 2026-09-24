@@ -15,13 +15,13 @@ public class GorillaIKHandTarget : MonoBehaviour
 
 	private void Start()
 	{
-		thisRigidbody = base.gameObject.GetComponent<Rigidbody>();
+		thisRigidbody = gameObject.GetComponent<Rigidbody>();
 	}
 
 	private void FixedUpdate()
 	{
 		thisRigidbody.MovePosition(handToStickTo.transform.position);
-		base.transform.rotation = handToStickTo.transform.rotation;
+		transform.rotation = handToStickTo.transform.rotation;
 	}
 
 	private void OnCollisionEnter(Collision collision)

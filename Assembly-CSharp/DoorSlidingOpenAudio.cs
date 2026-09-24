@@ -22,12 +22,12 @@ public class DoorSlidingOpenAudio : MonoBehaviour, IBuildValidation, ITickSystem
 	{
 		if (button == null)
 		{
-			Debug.LogError("reference button missing for doorslidingopenaudio", base.gameObject);
+			Debug.LogError("reference button missing for doorslidingopenaudio", gameObject);
 			return false;
 		}
 		if (audioSource == null)
 		{
-			Debug.LogError("missing audio source on doorslidingopenaudio", base.gameObject);
+			Debug.LogError("missing audio source on doorslidingopenaudio", gameObject);
 			return false;
 		}
 		return true;

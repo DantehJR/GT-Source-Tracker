@@ -31,7 +31,7 @@ public class BuilderMovingSnapPiece : MonoBehaviour, IBuilderPieceComponent, IBu
 		myPiece = GetComponent<BuilderPiece>();
 		if (myPiece == null)
 		{
-			Debug.LogWarning("Missing BuilderPiece component " + base.gameObject.name);
+			Debug.LogWarning("Missing BuilderPiece component " + gameObject.name);
 		}
 		foreach (BuilderMovingPart movingPart in MovingParts)
 		{
@@ -161,7 +161,7 @@ public class BuilderMovingSnapPiece : MonoBehaviour, IBuilderPieceComponent, IBu
 			moving = true;
 			if (startMovingFX != null)
 			{
-				ObjectPools.instance.Instantiate(startMovingFX, base.transform.position);
+				ObjectPools.instance.Instantiate(startMovingFX, transform.position);
 			}
 			{
 				foreach (BuilderMovingPart movingPart in MovingParts)
@@ -177,7 +177,7 @@ public class BuilderMovingSnapPiece : MonoBehaviour, IBuilderPieceComponent, IBu
 		}
 		if (moving && stopMovingFX != null)
 		{
-			ObjectPools.instance.Instantiate(stopMovingFX, base.transform.position);
+			ObjectPools.instance.Instantiate(stopMovingFX, transform.position);
 		}
 		moving = false;
 		currentPauseNode = (byte)(newState - 1);
@@ -236,12 +236,12 @@ public class BuilderMovingSnapPiece : MonoBehaviour, IBuilderPieceComponent, IBu
 				{
 					num += builderAttachGridPlane.GetChildCount();
 				}
-				bool num2 = num <= 5;
-				if (num2 && !moving)
+				bool flag = num <= 5;
+				if (flag && !moving)
 				{
 					table.builderNetworking.FunctionalPieceStateChangeMaster(myPiece.pieceId, 0, PhotonNetwork.MasterClient, NetworkSystem.Instance.ServerTimestamp);
 				}
-				if (!num2 && moving)
+				if (!flag && moving)
 				{
 					byte state = (byte)(movingPart.GetNearestNode() + 1);
 					table.builderNetworking.FunctionalPieceStateChangeMaster(myPiece.pieceId, state, PhotonNetwork.MasterClient, NetworkSystem.Instance.ServerTimestamp);

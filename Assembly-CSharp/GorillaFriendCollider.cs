@@ -109,7 +109,7 @@ public class GorillaFriendCollider : MonoBehaviour, IGorillaSliceableSimple
 		for (int i = 0; i < playerRigs.Count; i++)
 		{
 			float y = playerRigs[i].bodyTransform.transform.position.y;
-			if ((!applyCapsuleYLimits || (y >= capsuleColliderYLimits.x && y <= capsuleColliderYLimits.y)) && ((flag && WithinBounds.PointWithinBoxColliderBounds(playerRigs[i].rigContainer.SpeakerHead.position, thisBox)) || (!flag && flag2 && WithinBounds.PointWithinCapsuleColliderBounds(playerRigs[i].rigContainer.SpeakerHead.position, thisCapsule))))
+			if ((!applyCapsuleYLimits || (y >= capsuleColliderYLimits.x && y <= capsuleColliderYLimits.y)) && ((flag && WithinBounds.PointWithinBoxColliderBounds(playerRigs[i].rigContainer.SpeakerHead.position, thisBox)) || ((!flag & flag2) && WithinBounds.PointWithinCapsuleColliderBounds(playerRigs[i].rigContainer.SpeakerHead.position, thisCapsule))))
 			{
 				playerIDsCurrentlyTouching.Add(playerRigs[i].isLocal ? localPlayer.UserId : playerRigs[i].creator.UserId);
 			}

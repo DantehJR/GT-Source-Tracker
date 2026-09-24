@@ -124,7 +124,7 @@ public class MaterialInstance : MonoBehaviour
 		{
 			AcquireInstances();
 		}
-		base.gameObject.GetComponent<Material>();
+		gameObject.GetComponent<Material>();
 		return instanceMaterials;
 	}
 
@@ -134,7 +134,7 @@ public class MaterialInstance : MonoBehaviour
 		if (autoDestroy && materialOwners.Count == 0)
 		{
 			DestroySafe(this);
-			if (!base.gameObject.activeInHierarchy)
+			if (!gameObject.activeInHierarchy)
 			{
 				RestoreRenderer();
 			}

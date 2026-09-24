@@ -66,7 +66,7 @@ public class LckEntitlementsManager : MonoBehaviour
 	{
 		if (Instance != null && Instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		else
 		{
@@ -226,7 +226,7 @@ public class LckEntitlementsManager : MonoBehaviour
 				return;
 			}
 			string sessionId = "DefaultSessionId";
-			await Task.Run(async delegate
+			await Task.Run(async () =>
 			{
 				for (int attempt = 1; attempt <= 2; attempt++)
 				{

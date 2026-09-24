@@ -72,7 +72,7 @@ public class PlayerTimerManager : MonoBehaviourPunCallbacks
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 			return;
 		}
 		callLimiters = new CallLimiter[2];
@@ -294,8 +294,7 @@ public class PlayerTimerManager : MonoBehaviourPunCallbacks
 		{
 			return;
 		}
-		PlayerTimerData value2;
-		bool flag = playerTimerData.TryGetValue(info.Sender.ActorNumber, out value2);
+		bool flag = playerTimerData.TryGetValue(info.Sender.ActorNumber, out var value2);
 		if ((startTimer || flag) && (!flag || startTimer || value2.isStarted))
 		{
 			int num = info.SentServerTimestamp;

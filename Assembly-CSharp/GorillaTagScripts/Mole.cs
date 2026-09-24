@@ -66,7 +66,7 @@ public class Mole : Tappable
 	private void Awake()
 	{
 		currentState = MoleState.Hidden;
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		origin = (target = position);
 		visiblePosition = new Vector3(position.x, position.y + positionOffset, position.z);
 		hiddenPosition = new Vector3(position.x, position.y - positionOffset, position.z);
@@ -99,7 +99,7 @@ public class Mole : Tappable
 		case MoleState.TransitionToHidden:
 		{
 			float num = animCurve.Evaluate(Mathf.Clamp01((Time.time - animStartTime) / travelTime));
-			base.transform.position = Vector3.Lerp(origin, target, num);
+			transform.position = Vector3.Lerp(origin, target, num);
 			if (num >= 1f)
 			{
 				currentState++;
@@ -138,7 +138,7 @@ public class Mole : Tappable
 			}
 		}
 		showMoleDuration = _showMoleDuration;
-		origin = base.transform.position;
+		origin = transform.position;
 		target = visiblePosition;
 		animCurve = normalAnimCurve;
 		currentState = MoleState.TransitionToVisible;
@@ -150,7 +150,7 @@ public class Mole : Tappable
 	{
 		if (currentState >= MoleState.TransitionToVisible && currentState <= MoleState.Visible)
 		{
-			origin = base.transform.position;
+			origin = transform.position;
 			target = hiddenPosition;
 			animCurve = (isHit ? hitAnimCurve : normalAnimCurve);
 			animStartTime = Time.time;
@@ -183,14 +183,14 @@ public class Mole : Tappable
 			}
 			if (moleTypes != null)
 			{
-				this.OnTapped?.Invoke(moleTypes, base.transform.position, flag, isLeft);
+				OnTapped?.Invoke(moleTypes, transform.position, flag, isLeft);
 			}
 		}
 	}
 
 	public void ResetPosition()
 	{
-		base.transform.position = hiddenPosition;
+		transform.position = hiddenPosition;
 		currentState = MoleState.Reset;
 	}
 

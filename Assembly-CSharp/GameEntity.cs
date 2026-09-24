@@ -233,10 +233,17 @@ public class GameEntity : MonoBehaviour
 		rigidBody = GetComponent<Rigidbody>();
 		if (gravityController == null)
 		{
-			gravityController = GetComponent<MonkeGravityController>();
-			if (gravityController == null)
+			if (TryGetComponent<MonkeGravityController>(out gravityController))
 			{
-				gravityController = base.gameObject.AddComponent<MonkeGravityController>();
+				if (rigidBody != null)
+				{
+					gravityController.GlobalGravityIntent = rigidBody.useGravity;
+					rigidBody.useGravity = false;
+				}
+			}
+			else
+			{
+				gravityController = gameObject.AddComponent<MonkeGravityController>();
 			}
 		}
 		heldByActorNumber = -1;
@@ -266,7 +273,7 @@ public class GameEntity : MonoBehaviour
 	{
 		if (IsScenePlaced && !PhotonNetwork.InRoom)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -308,7 +315,7 @@ public class GameEntity : MonoBehaviour
 			{
 				entityComponents[i].OnEntityDestroy();
 			}
-			this.onEntityDestroyed?.Invoke(this);
+			onEntityDestroyed?.Invoke(this);
 			if (IsScenePlaced)
 			{
 				GameEntityManager.UnregisterScenePlacedEntity(this);
@@ -413,6 +420,11 @@ public class GameEntity : MonoBehaviour
 		return state;
 	}
 
+	public void RequestState(long newState)
+	{
+		RequestState(id, newState);
+	}
+
 	public void RequestState(GameEntityId id, long newState)
 	{
 		manager.RequestState(id, newState);
@@ -434,7 +446,7 @@ public class GameEntity : MonoBehaviour
 		{
 			long prevState = state;
 			state = newState;
-			this.OnStateChanged?.Invoke(prevState, newState);
+			OnStateChanged?.Invoke(prevState, newState);
 			for (int i = 0; i < entityComponents.Count; i++)
 			{
 				entityComponents[i].OnEntityStateChange(prevState, newState);

@@ -103,18 +103,18 @@ public class GameEntityDelayedReturn : MonoBehaviour, IGameEntityComponent, IDel
 		Rigidbody componentInParent = GetComponentInParent<Rigidbody>();
 		initialIsKinematic = componentInParent != null && componentInParent.isKinematic;
 		initialized = true;
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(OnInteractionStarted));
-		GameEntity obj2 = gameEntity;
-		obj2.OnSnapped = (Action)Delegate.Combine(obj2.OnSnapped, new Action(OnInteractionStarted));
-		GameEntity obj3 = gameEntity;
-		obj3.OnAttached = (Action)Delegate.Combine(obj3.OnAttached, new Action(OnInteractionStarted));
-		GameEntity obj4 = gameEntity;
-		obj4.OnReleased = (Action)Delegate.Combine(obj4.OnReleased, new Action(OnInteractionEnded));
-		GameEntity obj5 = gameEntity;
-		obj5.OnUnsnapped = (Action)Delegate.Combine(obj5.OnUnsnapped, new Action(OnInteractionEnded));
-		GameEntity obj6 = gameEntity;
-		obj6.OnDetached = (Action)Delegate.Combine(obj6.OnDetached, new Action(OnInteractionEnded));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(OnInteractionStarted));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnSnapped = (Action)Delegate.Combine(gameEntity2.OnSnapped, new Action(OnInteractionStarted));
+		GameEntity gameEntity3 = this.gameEntity;
+		gameEntity3.OnAttached = (Action)Delegate.Combine(gameEntity3.OnAttached, new Action(OnInteractionStarted));
+		GameEntity gameEntity4 = this.gameEntity;
+		gameEntity4.OnReleased = (Action)Delegate.Combine(gameEntity4.OnReleased, new Action(OnInteractionEnded));
+		GameEntity gameEntity5 = this.gameEntity;
+		gameEntity5.OnUnsnapped = (Action)Delegate.Combine(gameEntity5.OnUnsnapped, new Action(OnInteractionEnded));
+		GameEntity gameEntity6 = this.gameEntity;
+		gameEntity6.OnDetached = (Action)Delegate.Combine(gameEntity6.OnDetached, new Action(OnInteractionEnded));
 		if (!IsCurrentlyInteracting())
 		{
 			StartTimer();
@@ -125,18 +125,18 @@ public class GameEntityDelayedReturn : MonoBehaviour, IGameEntityComponent, IDel
 	{
 		if (initialized)
 		{
-			GameEntity obj = gameEntity;
-			obj.OnGrabbed = (Action)Delegate.Remove(obj.OnGrabbed, new Action(OnInteractionStarted));
-			GameEntity obj2 = gameEntity;
-			obj2.OnSnapped = (Action)Delegate.Remove(obj2.OnSnapped, new Action(OnInteractionStarted));
-			GameEntity obj3 = gameEntity;
-			obj3.OnAttached = (Action)Delegate.Remove(obj3.OnAttached, new Action(OnInteractionStarted));
-			GameEntity obj4 = gameEntity;
-			obj4.OnReleased = (Action)Delegate.Remove(obj4.OnReleased, new Action(OnInteractionEnded));
-			GameEntity obj5 = gameEntity;
-			obj5.OnUnsnapped = (Action)Delegate.Remove(obj5.OnUnsnapped, new Action(OnInteractionEnded));
-			GameEntity obj6 = gameEntity;
-			obj6.OnDetached = (Action)Delegate.Remove(obj6.OnDetached, new Action(OnInteractionEnded));
+			GameEntity gameEntity = this.gameEntity;
+			gameEntity.OnGrabbed = (Action)Delegate.Remove(gameEntity.OnGrabbed, new Action(OnInteractionStarted));
+			GameEntity gameEntity2 = this.gameEntity;
+			gameEntity2.OnSnapped = (Action)Delegate.Remove(gameEntity2.OnSnapped, new Action(OnInteractionStarted));
+			GameEntity gameEntity3 = this.gameEntity;
+			gameEntity3.OnAttached = (Action)Delegate.Remove(gameEntity3.OnAttached, new Action(OnInteractionStarted));
+			GameEntity gameEntity4 = this.gameEntity;
+			gameEntity4.OnReleased = (Action)Delegate.Remove(gameEntity4.OnReleased, new Action(OnInteractionEnded));
+			GameEntity gameEntity5 = this.gameEntity;
+			gameEntity5.OnUnsnapped = (Action)Delegate.Remove(gameEntity5.OnUnsnapped, new Action(OnInteractionEnded));
+			GameEntity gameEntity6 = this.gameEntity;
+			gameEntity6.OnDetached = (Action)Delegate.Remove(gameEntity6.OnDetached, new Action(OnInteractionEnded));
 			CancelTimer();
 		}
 	}
@@ -175,7 +175,7 @@ public class GameEntityDelayedReturn : MonoBehaviour, IGameEntityComponent, IDel
 		_timerRunning = true;
 		if (options.disappearSound != null)
 		{
-			_delayedDisappearAudioIndex = GTAudioOneShot.PlayDelayed(options.disappearSound, base.transform.parent, base.transform.localPosition, options.delay, options.disappearVolume);
+			_delayedDisappearAudioIndex = GTAudioOneShot.PlayDelayed(options.disappearSound, transform.parent, transform.localPosition, options.delay, options.disappearVolume);
 		}
 		else
 		{
@@ -183,7 +183,7 @@ public class GameEntityDelayedReturn : MonoBehaviour, IGameEntityComponent, IDel
 		}
 		if (options.pooledDisappearPrefab != null)
 		{
-			_delayedDisappearPoolIndex = ObjectPools.InstantiateDelayed(options.pooledDisappearPrefab, base.transform.parent, base.transform.localPosition, options.delay);
+			_delayedDisappearPoolIndex = ObjectPools.InstantiateDelayed(options.pooledDisappearPrefab, transform.parent, transform.localPosition, options.delay);
 		}
 		else
 		{
@@ -264,15 +264,15 @@ public class GameEntityDelayedReturn : MonoBehaviour, IGameEntityComponent, IDel
 		case 0:
 			if (_delayedDisappearAudioIndex >= 0)
 			{
-				GTAudioOneShot.UpdateDelayed(_delayedDisappearAudioIndex, base.transform.parent, base.transform.localPosition);
+				GTAudioOneShot.UpdateDelayed(_delayedDisappearAudioIndex, transform.parent, transform.localPosition);
 			}
 			if (_delayedDisappearPoolIndex >= 0)
 			{
-				ObjectPools.UpdateDelayedInstantiate(_delayedDisappearPoolIndex, base.transform.parent, base.transform.localPosition);
+				ObjectPools.UpdateDelayedInstantiate(_delayedDisappearPoolIndex, transform.parent, transform.localPosition);
 			}
 			if (options.beepSound != null)
 			{
-				GTAudioOneShot.Play(options.beepSound, base.transform.position, options.beepVolume);
+				GTAudioOneShot.Play(options.beepSound, transform.position, options.beepVolume);
 			}
 			break;
 		case 1:
@@ -303,13 +303,13 @@ public class GameEntityDelayedReturn : MonoBehaviour, IGameEntityComponent, IDel
 		_timerRunning = false;
 		if (resetTarget != null)
 		{
-			base.transform.SetPositionAndRotation(resetTarget.position, resetTarget.rotation);
-			base.transform.localScale = resetTarget.localScale;
+			transform.SetPositionAndRotation(resetTarget.position, resetTarget.rotation);
+			transform.localScale = resetTarget.localScale;
 		}
 		else
 		{
-			base.transform.SetPositionAndRotation(initialPosition, initialRotation);
-			base.transform.localScale = initialScale;
+			transform.SetPositionAndRotation(initialPosition, initialRotation);
+			transform.localScale = initialScale;
 		}
 		Rigidbody componentInParent = GetComponentInParent<Rigidbody>(includeInactive: true);
 		if (componentInParent != null)
@@ -319,7 +319,7 @@ public class GameEntityDelayedReturn : MonoBehaviour, IGameEntityComponent, IDel
 			componentInParent.isKinematic = forceKinematicOnReset || initialIsKinematic;
 		}
 		gameEntity.gameObject.SetActive(value: true);
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		Options options = m_options;
 		if (options.reappearSound != null)
 		{

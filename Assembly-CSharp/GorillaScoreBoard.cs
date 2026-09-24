@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using GorillaGameModes;
+using GorillaNetworking;
 using GorillaTagScripts;
 using TMPro;
 using UnityEngine;
@@ -108,7 +109,8 @@ public class GorillaScoreBoard : MonoBehaviour
 		{
 			text = $" ({20})";
 		}
-		return "ROOM ID: " + (NetworkSystem.Instance.SessionIsPrivate ? "-PRIVATE- GAME: " : (NetworkSystem.Instance.RoomName + "   GAME: ")) + RoomType() + text + "\n  PLAYER     COLOR   MUTE  REPORT";
+		string text2 = ((GorillaComputer.instance != null) ? GorillaComputer.instance.GetVStumpRoomDisplayName(NetworkSystem.Instance.RoomName) : NetworkSystem.Instance.RoomName);
+		return "ROOM ID: " + (NetworkSystem.Instance.SessionIsPrivate ? "-PRIVATE- GAME: " : (text2 + "   GAME: ")) + RoomType() + text + "\n  PLAYER     COLOR   MUTE  REPORT";
 	}
 
 	private string RoomType()
@@ -301,7 +303,7 @@ public class GorillaScoreBoard : MonoBehaviour
 				{
 					buttonStringBuilder.Append("MUTE                HATE SPEECH    TOXICITY     CHEATING       CANCEL\n");
 				}
-				lines[j].ToggleRoomControlButtons(roomControlsActive && flag2, hideConfirm: false);
+				lines[j].ToggleRoomControlButtons(roomControlsActive & flag2, hideConfirm: false);
 			}
 			else
 			{
@@ -331,7 +333,7 @@ public class GorillaScoreBoard : MonoBehaviour
 
 	private void CheckZoneForControls()
 	{
-		ZoneDef zoneDef = ZoneGraphBSP.Instance.FindZoneAtPoint(base.transform.position);
+		ZoneDef zoneDef = ZoneGraphBSP.Instance.FindZoneAtPoint(transform.position);
 		allowWeatherControls = false;
 		for (int i = 0; i < allowedWeatherControlZones.Length; i++)
 		{

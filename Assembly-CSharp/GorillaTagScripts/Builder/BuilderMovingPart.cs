@@ -78,8 +78,8 @@ public class BuilderMovingPart : MonoBehaviour
 			obj.movesOnPlace = true;
 			obj.movingPart = this;
 		}
-		initLocalPos = base.transform.localPosition;
-		initLocalRotation = base.transform.localRotation;
+		initLocalPos = transform.localPosition;
+		initLocalRotation = transform.localRotation;
 	}
 
 	private long NetworkTimeMs()
@@ -194,7 +194,7 @@ public class BuilderMovingPart : MonoBehaviour
 		switch (moveType)
 		{
 		case BuilderMovingPartType.Translation:
-			base.transform.localPosition = UpdatePointToPoint(num);
+			transform.localPosition = UpdatePointToPoint(num);
 			break;
 		case BuilderMovingPartType.Rotation:
 			UpdateRotation(num);
@@ -253,7 +253,7 @@ public class BuilderMovingPart : MonoBehaviour
 		switch (moveType)
 		{
 		case BuilderMovingPartType.Translation:
-			base.transform.localPosition = UpdatePointToPoint(percent);
+			transform.localPosition = UpdatePointToPoint(percent);
 			break;
 		case BuilderMovingPartType.Rotation:
 			UpdateRotation(percent);
@@ -272,12 +272,12 @@ public class BuilderMovingPart : MonoBehaviour
 	private void UpdateRotation(float perc)
 	{
 		Quaternion localRotation = Quaternion.AngleAxis(perc * 360f, Vector3.up);
-		base.transform.localRotation = localRotation;
+		transform.localRotation = localRotation;
 	}
 
 	private void ResetMovingGrid()
 	{
-		base.transform.SetLocalPositionAndRotation(initLocalPos, initLocalRotation);
+		transform.SetLocalPositionAndRotation(initLocalPos, initLocalRotation);
 	}
 
 	private void Progress()

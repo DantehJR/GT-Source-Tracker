@@ -40,7 +40,7 @@ public class CullingHandler : MonoBehaviour, IPunObservable
 		}
 		previousActiveCells = new List<byte>(0);
 		activeCells = new List<byte>(0);
-		currentPosition = (lastPosition = base.transform.position);
+		currentPosition = (lastPosition = transform.position);
 	}
 
 	private void Start()
@@ -69,7 +69,7 @@ public class CullingHandler : MonoBehaviour, IPunObservable
 		if (!(timeSinceUpdate < timeBetweenUpdatesMin))
 		{
 			lastPosition = currentPosition;
-			currentPosition = base.transform.position;
+			currentPosition = transform.position;
 			if (currentPosition != lastPosition && HaveActiveCellsChanged())
 			{
 				UpdateInterestGroups();
@@ -118,7 +118,7 @@ public class CullingHandler : MonoBehaviour, IPunObservable
 			return false;
 		}
 		previousActiveCells = new List<byte>(activeCells);
-		activeCells = cullArea.GetActiveCells(base.transform.position);
+		activeCells = cullArea.GetActiveCells(transform.position);
 		while (activeCells.Count <= cullArea.NumberOfSubdivisions)
 		{
 			activeCells.Add(cullArea.FIRST_GROUP_ID);

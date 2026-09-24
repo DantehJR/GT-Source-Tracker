@@ -54,7 +54,7 @@ public class RopeSwingManager : NetworkSceneObject
 		}
 		else
 		{
-			SetVelocityShared(ropeId, boneIndex, velocity, wholeRope, default(PhotonMessageInfoWrapped));
+			SetVelocityShared(ropeId, boneIndex, velocity, wholeRope, default);
 		}
 	}
 

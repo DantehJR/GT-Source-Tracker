@@ -28,7 +28,7 @@ public class BeeAvoiderTest : MonoBehaviour
 	public void Update()
 	{
 		Vector3 position = patrolPoints[nextPatrolPoint].transform.position;
-		Vector3 position2 = base.transform.position;
+		Vector3 position2 = transform.position;
 		Vector3 target = (position - position2).normalized * speed;
 		velocity = Vector3.MoveTowards(velocity * drag, target, acceleration);
 		if ((position2 - position).IsLongerThan(instabilityOffRadius))
@@ -50,8 +50,8 @@ public class BeeAvoiderTest : MonoBehaviour
 				velocity += vector2;
 			}
 		}
-		base.transform.position = vector;
-		base.transform.rotation = Quaternion.LookRotation(position - vector);
+		transform.position = vector;
+		transform.rotation = Quaternion.LookRotation(position - vector);
 		if ((vector - position).IsShorterThan(patrolArrivedRadius))
 		{
 			nextPatrolPoint = (nextPatrolPoint + 1) % patrolPoints.Length;

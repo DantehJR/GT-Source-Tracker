@@ -536,15 +536,15 @@ public static class PhotonNetwork
 				NetworkingClient.ConnectionCallbackTargets.OnConnectedToMaster();
 				return;
 			}
-			bool num = offlineModeRoom != null;
-			if (num)
+			bool flag = offlineModeRoom != null;
+			if (flag)
 			{
 				LeftRoomCleanup();
 			}
 			offlineModeRoom = null;
 			NetworkingClient.CurrentRoom = null;
 			NetworkingClient.ChangeLocalID(-1);
-			if (num)
+			if (flag)
 			{
 				NetworkingClient.MatchMakingCallbackTargets.OnLeftRoom();
 			}
@@ -794,7 +794,7 @@ public static class PhotonNetwork
 			{
 				return NetworkingClient.ServerPortOverrides;
 			}
-			return default(PhotonPortDefinition);
+			return default;
 		}
 		set
 		{
@@ -1734,7 +1734,7 @@ public static class PhotonNetwork
 		bool flag = !instantiateEvent && LocalPlayer.Equals(parameters.creator);
 		IPunPrefabPoolVerify punPrefabPoolVerify = prefabPool as IPunPrefabPoolVerify;
 		bool flag2 = punPrefabPoolVerify != null;
-		if (!flag && flag2)
+		if (!flag & flag2)
 		{
 			Vector3 position = parameters.position;
 			Quaternion rotation = parameters.rotation;
@@ -2406,9 +2406,9 @@ public static class PhotonNetwork
 				Player owner = value.Owner;
 				value.OwnerActorNr = value.CreatorActorNr;
 				value.ControllerActorNr = value.CreatorActorNr;
-				if (PhotonNetwork.OnOwnershipTransferedEv != null)
+				if (OnOwnershipTransferedEv != null)
 				{
-					PhotonNetwork.OnOwnershipTransferedEv(value, owner);
+					OnOwnershipTransferedEv(value, owner);
 				}
 			}
 		}
@@ -3233,26 +3233,26 @@ public static class PhotonNetwork
 		}
 		if (!one.Equals(two))
 		{
-			if (one is object target)
+			if (one is Vector3 target)
 			{
 				Vector3 second = (Vector3)two;
-				if (((Vector3)target).AlmostEquals(second, PrecisionForVectorSynchronization))
+				if (target.AlmostEquals(second, PrecisionForVectorSynchronization))
 				{
 					return true;
 				}
 			}
-			else if (one is object target2)
+			else if (one is Vector2 target2)
 			{
 				Vector2 second2 = (Vector2)two;
-				if (((Vector2)target2).AlmostEquals(second2, PrecisionForVectorSynchronization))
+				if (target2.AlmostEquals(second2, PrecisionForVectorSynchronization))
 				{
 					return true;
 				}
 			}
-			else if (one is object target3)
+			else if (one is Quaternion target3)
 			{
 				Quaternion second3 = (Quaternion)two;
-				if (((Quaternion)target3).AlmostEquals(second3, PrecisionForQuaternionSynchronization))
+				if (target3.AlmostEquals(second3, PrecisionForQuaternionSynchronization))
 				{
 					return true;
 				}

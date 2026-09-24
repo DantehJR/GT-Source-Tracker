@@ -36,7 +36,7 @@ public class StoreController : MonoBehaviour
 		}
 		else if (instance != this)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 			return;
 		}
 		CosmeticStandsDict = new Dictionary<string, DynamicCosmeticStand>();
@@ -66,7 +66,7 @@ public class StoreController : MonoBehaviour
 						string text = department.departmentName + "|" + storeDisplay.displayName + "|" + dynamicCosmeticStand.StandName;
 						if (CosmeticStandsDict.ContainsKey(text))
 						{
-							Debug.LogError("StoreStuff: Duplicate Stand Name: " + text + " Please Fix Gameobject : " + dynamicCosmeticStand.gameObject.GetPath() + dynamicCosmeticStand.gameObject.name, base.gameObject);
+							Debug.LogError("StoreStuff: Duplicate Stand Name: " + text + " Please Fix Gameobject : " + dynamicCosmeticStand.gameObject.GetPath() + dynamicCosmeticStand.gameObject.name, gameObject);
 						}
 						else
 						{
@@ -85,7 +85,7 @@ public class StoreController : MonoBehaviour
 			string text = stand.parentDepartment.departmentName + "|" + stand.parentDisplay.displayName + "|" + stand.StandName;
 			if (CosmeticStandsDict.ContainsKey(text))
 			{
-				Debug.LogError("StoreStuff: Duplicate Stand Name: " + text + " Please Fix Gameobject : " + stand.gameObject.GetPath() + stand.gameObject.name, base.gameObject);
+				Debug.LogError("StoreStuff: Duplicate Stand Name: " + text + " Please Fix Gameobject : " + stand.gameObject.GetPath() + stand.gameObject.name, gameObject);
 			}
 			else
 			{
@@ -101,7 +101,7 @@ public class StoreController : MonoBehaviour
 			string text = stand.parentDepartment.departmentName + "|" + stand.parentDisplay.displayName + "|" + stand.StandName;
 			if (!CosmeticStandsDict.ContainsKey(text))
 			{
-				Debug.LogError("StoreStuff: StoreController doesn't have stand in its dict. that's weird!: " + text + " Please Fix Gameobject : " + stand.gameObject.GetPath() + stand.gameObject.name, base.gameObject);
+				Debug.LogError("StoreStuff: StoreController doesn't have stand in its dict. that's weird!: " + text + " Please Fix Gameobject : " + stand.gameObject.GetPath() + stand.gameObject.name, gameObject);
 			}
 			else
 			{
@@ -153,10 +153,10 @@ public class StoreController : MonoBehaviour
 
 	private void InitializeFromTitleData()
 	{
-		PlayFabTitleDataCache.Instance.GetTitleData("StoreLayoutData", delegate(string data)
+		PlayFabTitleDataCache.Instance.GetTitleData("StoreLayoutData", (string data) =>
 		{
 			ImportCosmeticStandLayoutFromTitleData(data);
-		}, delegate(PlayFabError e)
+		}, (PlayFabError e) =>
 		{
 			Debug.LogError($"Error getting StoreLayoutData data: {e}");
 		});

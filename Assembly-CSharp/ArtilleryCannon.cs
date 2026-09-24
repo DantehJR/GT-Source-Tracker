@@ -227,15 +227,15 @@ public class ArtilleryCannon : MonoBehaviour
 		{
 			Vector3 position = muzzle.position;
 			Vector3 forward = muzzle.forward;
-			GameObject obj = ObjectPools.instance.Instantiate(projectileHash);
-			obj.transform.position = position;
-			obj.transform.rotation = Quaternion.LookRotation(forward);
-			BuilderProjectile component = obj.GetComponent<BuilderProjectile>();
+			GameObject gameObject = ObjectPools.instance.Instantiate(projectileHash);
+			gameObject.transform.position = position;
+			gameObject.transform.rotation = Quaternion.LookRotation(forward);
+			BuilderProjectile component = gameObject.GetComponent<BuilderProjectile>();
 			if (component != null)
 			{
 				component.aoeKnockbackConfig = knockbackConfig;
 			}
-			Rigidbody component2 = obj.GetComponent<Rigidbody>();
+			Rigidbody component2 = gameObject.GetComponent<Rigidbody>();
 			if (component2 != null)
 			{
 				component2.linearVelocity = forward * launchSpeed;

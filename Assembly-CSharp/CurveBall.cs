@@ -19,10 +19,10 @@ public class CurveBall : MonoBehaviour
 		m_speedX = 40f * num;
 		m_speedZ = 40f * num2;
 		m_timer = 0f;
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		position.x = -10f * num;
 		position.z = -10f * num2;
-		base.transform.position = position;
+		transform.position = position;
 	}
 
 	public void Start()
@@ -37,10 +37,10 @@ public class CurveBall : MonoBehaviour
 		{
 			Reset();
 		}
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		position.x += m_speedX * deltaTime;
 		position.z += m_speedZ * deltaTime;
-		base.transform.position = position;
+		transform.position = position;
 		m_timer += deltaTime;
 	}
 }

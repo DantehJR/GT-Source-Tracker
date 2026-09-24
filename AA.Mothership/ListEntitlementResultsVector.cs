@@ -96,10 +96,18 @@ public class ListEntitlementResultsVector : IDisposable, IEnumerable, IEnumerabl
 	{
 		get
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to get an out of bounds element from this vector");
+			}
 			return getitem(index);
 		}
 		set
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to set an out of bounds element from this vector");
+			}
 			setitem(index, value);
 		}
 	}
@@ -119,6 +127,8 @@ public class ListEntitlementResultsVector : IDisposable, IEnumerable, IEnumerabl
 			reserve((uint)value);
 		}
 	}
+
+	public bool IsEmpty => empty();
 
 	public int Count => (int)size();
 
@@ -204,6 +214,80 @@ public class ListEntitlementResultsVector : IDisposable, IEnumerable, IEnumerabl
 		}
 	}
 
+	public void Insert(int index, MothershipEntitlementCatalogItem value)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insert(index, value);
+	}
+
+	public void InsertRange(int index, ListEntitlementResultsVector values)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insertRange(index, values);
+	}
+
+	public void RemoveAt(int index)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		_removeAt(index);
+	}
+
+	public void RemoveRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("count", "Tried to remove a negative count from this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_removeRange(index, count);
+	}
+
+	public void ReverseRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse from an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse an invalid count in this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_reverseRange(index, count);
+	}
+
+	public void SetRange(int index, ListEntitlementResultsVector values)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		if (index < 0 || index > Count || index + values.Count > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		_setRange(index, values);
+	}
+
 	public void CopyTo(MothershipEntitlementCatalogItem[] array)
 	{
 		CopyTo(0, array, 0, Count);
@@ -242,6 +326,10 @@ public class ListEntitlementResultsVector : IDisposable, IEnumerable, IEnumerabl
 		}
 		for (int i = 0; i < count; i++)
 		{
+			if (i > array.Length - 1)
+			{
+				throw new ArgumentOutOfRangeException("Somehow we tried to copy to an array index that's out of bounds");
+			}
 			array.SetValue(getitemcopy(index + i), arrayIndex + i);
 		}
 	}
@@ -266,6 +354,24 @@ public class ListEntitlementResultsVector : IDisposable, IEnumerable, IEnumerabl
 	public ListEntitlementResultsVectorEnumerator GetEnumerator()
 	{
 		return new ListEntitlementResultsVectorEnumerator(this);
+	}
+
+	public ListEntitlementResultsVector()
+		: this(MothershipApiPINVOKE.new_ListEntitlementResultsVector__SWIG_0(), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public ListEntitlementResultsVector(ListEntitlementResultsVector other)
+		: this(MothershipApiPINVOKE.new_ListEntitlementResultsVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
 	}
 
 	public void Clear()
@@ -296,6 +402,16 @@ public class ListEntitlementResultsVector : IDisposable, IEnumerable, IEnumerabl
 		return result;
 	}
 
+	private bool empty()
+	{
+		bool result = MothershipApiPINVOKE.ListEntitlementResultsVector_empty(swigCPtr);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private uint capacity()
 	{
 		uint result = MothershipApiPINVOKE.ListEntitlementResultsVector_capacity(swigCPtr);
@@ -309,24 +425,6 @@ public class ListEntitlementResultsVector : IDisposable, IEnumerable, IEnumerabl
 	private void reserve(uint n)
 	{
 		MothershipApiPINVOKE.ListEntitlementResultsVector_reserve(swigCPtr, n);
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public ListEntitlementResultsVector()
-		: this(MothershipApiPINVOKE.new_ListEntitlementResultsVector__SWIG_0(), cMemoryOwn: true)
-	{
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public ListEntitlementResultsVector(ListEntitlementResultsVector other)
-		: this(MothershipApiPINVOKE.new_ListEntitlementResultsVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
-	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -380,85 +478,63 @@ public class ListEntitlementResultsVector : IDisposable, IEnumerable, IEnumerabl
 		}
 	}
 
-	public ListEntitlementResultsVector GetRange(int index, int count)
+	private void _insert(int index, MothershipEntitlementCatalogItem x)
 	{
-		IntPtr intPtr = MothershipApiPINVOKE.ListEntitlementResultsVector_GetRange(swigCPtr, index, count);
-		ListEntitlementResultsVector result = ((intPtr == IntPtr.Zero) ? null : new ListEntitlementResultsVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
-	}
-
-	public void Insert(int index, MothershipEntitlementCatalogItem x)
-	{
-		MothershipApiPINVOKE.ListEntitlementResultsVector_Insert(swigCPtr, index, MothershipEntitlementCatalogItem.getCPtr(x));
+		MothershipApiPINVOKE.ListEntitlementResultsVector__insert(swigCPtr, index, MothershipEntitlementCatalogItem.getCPtr(x));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void InsertRange(int index, ListEntitlementResultsVector values)
+	private void _insertRange(int index, ListEntitlementResultsVector values)
 	{
-		MothershipApiPINVOKE.ListEntitlementResultsVector_InsertRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.ListEntitlementResultsVector__insertRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveAt(int index)
+	private void _removeAt(int index)
 	{
-		MothershipApiPINVOKE.ListEntitlementResultsVector_RemoveAt(swigCPtr, index);
+		MothershipApiPINVOKE.ListEntitlementResultsVector__removeAt(swigCPtr, index);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveRange(int index, int count)
+	private void _removeRange(int index, int count)
 	{
-		MothershipApiPINVOKE.ListEntitlementResultsVector_RemoveRange(swigCPtr, index, count);
+		MothershipApiPINVOKE.ListEntitlementResultsVector__removeRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
-	}
-
-	public static ListEntitlementResultsVector Repeat(MothershipEntitlementCatalogItem value, int count)
-	{
-		IntPtr intPtr = MothershipApiPINVOKE.ListEntitlementResultsVector_Repeat(MothershipEntitlementCatalogItem.getCPtr(value), count);
-		ListEntitlementResultsVector result = ((intPtr == IntPtr.Zero) ? null : new ListEntitlementResultsVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
 	}
 
 	public void Reverse()
 	{
-		MothershipApiPINVOKE.ListEntitlementResultsVector_Reverse__SWIG_0(swigCPtr);
+		MothershipApiPINVOKE.ListEntitlementResultsVector_Reverse(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void Reverse(int index, int count)
+	private void _reverseRange(int index, int count)
 	{
-		MothershipApiPINVOKE.ListEntitlementResultsVector_Reverse__SWIG_1(swigCPtr, index, count);
+		MothershipApiPINVOKE.ListEntitlementResultsVector__reverseRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void SetRange(int index, ListEntitlementResultsVector values)
+	private void _setRange(int index, ListEntitlementResultsVector values)
 	{
-		MothershipApiPINVOKE.ListEntitlementResultsVector_SetRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.ListEntitlementResultsVector__setRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

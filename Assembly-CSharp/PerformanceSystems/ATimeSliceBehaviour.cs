@@ -27,7 +27,7 @@ public abstract class ATimeSliceBehaviour : MonoBehaviour, ITimeSlice
 		float deltaTime = Time.realtimeSinceStartup - _lastUpdateTime;
 		_lastUpdateTime = Time.realtimeSinceStartup;
 		SliceUpdateAlways(deltaTime);
-		if (_updateIfDisabled || base.gameObject.activeSelf)
+		if (_updateIfDisabled || gameObject.activeSelf)
 		{
 			SliceUpdate(deltaTime);
 		}

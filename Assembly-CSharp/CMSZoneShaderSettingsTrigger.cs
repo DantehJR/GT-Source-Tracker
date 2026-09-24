@@ -23,7 +23,7 @@ public class CMSZoneShaderSettingsTrigger : MonoBehaviour
 
 	public void CopySettings(ZoneShaderTriggerSettings triggerSettings)
 	{
-		base.gameObject.layer = UnityLayer.GorillaBoundary.ToLayerIndex();
+		gameObject.layer = UnityLayer.GorillaBoundary.ToLayerIndex();
 		activateOnEnable = triggerSettings.activateOnEnable;
 		if (triggerSettings.activationType == ZoneShaderTriggerSettings.ActivationType.ActivateCustomMapDefaults)
 		{

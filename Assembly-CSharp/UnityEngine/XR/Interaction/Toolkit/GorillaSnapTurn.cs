@@ -245,7 +245,7 @@ public class GorillaSnapTurn : LocomotionProvider, ITickSystemTick
 
 	private void StartTurn(float amount)
 	{
-		if ((!(m_TimeStarted + m_DebounceTime > Time.time) || m_AxisReset) && !base.isLocomotionActive && turningOverriders.Count <= 0)
+		if ((!(m_TimeStarted + m_DebounceTime > Time.time) || m_AxisReset) && !isLocomotionActive && turningOverriders.Count <= 0)
 		{
 			m_TimeStarted = Time.time;
 			m_CurrentTurnAmount = amount;

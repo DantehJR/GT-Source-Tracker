@@ -68,7 +68,7 @@ public class GhostLabReliableState : NetworkComponent
 
 	protected override void WriteDataPUN(PhotonStream stream, PhotonMessageInfo info)
 	{
-		if (base.IsMine || info.Sender.IsMasterClient)
+		if (IsMine || info.Sender.IsMasterClient)
 		{
 			stream.SendNext(doorState);
 			for (int i = 0; i < singleDoorOpen.Length; i++)
@@ -80,7 +80,7 @@ public class GhostLabReliableState : NetworkComponent
 
 	protected override void ReadDataPUN(PhotonStream stream, PhotonMessageInfo info)
 	{
-		if (base.IsMine || info.Sender.IsMasterClient)
+		if (IsMine || info.Sender.IsMasterClient)
 		{
 			doorState = (GhostLab.EntranceDoorsState)stream.ReceiveNext();
 			for (int i = 0; i < singleDoorOpen.Length; i++)
@@ -124,14 +124,14 @@ public class GhostLabReliableState : NetworkComponent
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GhostLabReliableState::RPC_RemoteEntranceDoorState(GhostLab/EntranceDoorsState,Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GhostLabReliableState::RPC_RemoteEntranceDoorState(GhostLab/EntranceDoorsState,Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			if ((localAuthorityMask & 1) != 1)
@@ -143,26 +143,26 @@ public class GhostLabReliableState : NetworkComponent
 					NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GhostLabReliableState::RPC_RemoteEntranceDoorState(GhostLab/EntranceDoorsState,Fusion.RpcInfo)", num);
 					return;
 				}
-				if (base.Runner.HasAnyActiveConnections())
+				if (Runner.HasAnyActiveConnections())
 				{
-					SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+					SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 					byte* ptr2 = (byte*)ptr + 28;
-					*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
+					*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
 					int num2 = 8;
 					*(GhostLab.EntranceDoorsState*)(ptr2 + num2) = newState;
 					num2 += 4;
 					ptr->Offset = num2 * 8;
-					base.Runner.SendRpc(ptr);
+					Runner.SendRpc(ptr);
 				}
 				if ((localAuthorityMask & 1) == 0)
 				{
 					return;
 				}
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		MonkeAgent.IncrementRPCCall(info, "RPC_RemoteEntranceDoorState");
-		if (base.IsMine)
+		if (IsMine)
 		{
 			doorState = newState;
 		}
@@ -178,14 +178,14 @@ public class GhostLabReliableState : NetworkComponent
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GhostLabReliableState::RPC_RemoteSingleDoorState(System.Int32,Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GhostLabReliableState::RPC_RemoteSingleDoorState(System.Int32,Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			if ((localAuthorityMask & 1) != 1)
@@ -197,26 +197,26 @@ public class GhostLabReliableState : NetworkComponent
 					NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GhostLabReliableState::RPC_RemoteSingleDoorState(System.Int32,Fusion.RpcInfo)", num);
 					return;
 				}
-				if (base.Runner.HasAnyActiveConnections())
+				if (Runner.HasAnyActiveConnections())
 				{
-					SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+					SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 					byte* ptr2 = (byte*)ptr + 28;
-					*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 2);
+					*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 2);
 					int num2 = 8;
 					*(int*)(ptr2 + num2) = doorIndex;
 					num2 += 4;
 					ptr->Offset = num2 * 8;
-					base.Runner.SendRpc(ptr);
+					Runner.SendRpc(ptr);
 				}
 				if ((localAuthorityMask & 1) == 0)
 				{
 					return;
 				}
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		MonkeAgent.IncrementRPCCall(info, "RPC_RemoteSingleDoorState");
-		if (base.IsMine && doorIndex < singleDoorCount)
+		if (IsMine && doorIndex < singleDoorCount)
 		{
 			singleDoorOpen[doorIndex] = !singleDoorOpen[doorIndex];
 		}
@@ -226,7 +226,7 @@ public class GhostLabReliableState : NetworkComponent
 	public void RemoteEntranceDoorState(GhostLab.EntranceDoorsState newState, PhotonMessageInfo info)
 	{
 		MonkeAgent.IncrementRPCCall(info, "RemoteEntranceDoorState");
-		if (base.IsMine)
+		if (IsMine)
 		{
 			doorState = newState;
 		}
@@ -236,7 +236,7 @@ public class GhostLabReliableState : NetworkComponent
 	public void RemoteSingleDoorState(int doorIndex, PhotonMessageInfo info)
 	{
 		MonkeAgent.IncrementRPCCall(info, "RemoteSingleDoorState");
-		if (base.IsMine && doorIndex < singleDoorCount)
+		if (IsMine && doorIndex < singleDoorCount)
 		{
 			singleDoorOpen[doorIndex] = !singleDoorOpen[doorIndex];
 		}

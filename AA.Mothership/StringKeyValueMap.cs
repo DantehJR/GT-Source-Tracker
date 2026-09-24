@@ -96,6 +96,10 @@ public class StringKeyValueMap : IDisposable, IDictionary<string, string>, IColl
 	{
 		get
 		{
+			if (!ContainsKey(key))
+			{
+				throw new ArgumentOutOfRangeException("key", "The given key '" + key + "' was not present in the dictionary.");
+			}
 			return getitem(key);
 		}
 		set
@@ -208,6 +212,10 @@ public class StringKeyValueMap : IDisposable, IDictionary<string, string>, IColl
 
 	public void Add(KeyValuePair<string, string> item)
 	{
+		if (ContainsKey(item.Key))
+		{
+			throw new ArgumentOutOfRangeException("Key", "An item with the same key '" + item.Key + "' has already been added to the dictionary.");
+		}
 		Add(item.Key, item.Value);
 	}
 

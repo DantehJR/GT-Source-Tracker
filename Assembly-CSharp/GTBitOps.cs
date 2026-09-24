@@ -3,13 +3,20 @@ using System.Runtime.CompilerServices;
 
 public static class GTBitOps
 {
-	public readonly struct BitWriteInfo(int index, int count)
+	public readonly struct BitWriteInfo
 	{
-		public readonly int index = index;
+		public readonly int index;
 
-		public readonly int valueMask = GetValueMask(count);
+		public readonly int valueMask;
 
-		public readonly int clearMask = GetClearMask(index, valueMask);
+		public readonly int clearMask;
+
+		public BitWriteInfo(int index, int count)
+		{
+			this.index = index;
+			valueMask = GetValueMask(count);
+			clearMask = GetClearMask(index, valueMask);
+		}
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]

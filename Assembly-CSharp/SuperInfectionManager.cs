@@ -109,8 +109,8 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 
 	private void Awake()
 	{
-		GameEntityManager obj = gameEntityManager;
-		obj.OnEntityRemoved = (Action<GameEntity>)Delegate.Combine(obj.OnEntityRemoved, new Action<GameEntity>(OnEntityRemoved));
+		GameEntityManager gameEntityManager = this.gameEntityManager;
+		gameEntityManager.OnEntityRemoved = (Action<GameEntity>)Delegate.Combine(gameEntityManager.OnEntityRemoved, new Action<GameEntity>(OnEntityRemoved));
 	}
 
 	public void OnEnableZoneSuperInfection(SuperInfection zone)
@@ -142,7 +142,7 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 	{
 		if (!siManagerByZone.TryAdd(gameEntityManager.zone, this))
 		{
-			Debug.LogError("[GT/SuperInfectionManager]  ERROR!!!  " + $"Tried to add a duplicate Manager for zone `{gameEntityManager.zone}`. Did you forget to change the " + "zone on the GameEntityManager on GameObject at path: " + base.transform.GetPathQ(), this);
+			Debug.LogError("[GT/SuperInfectionManager]  ERROR!!!  " + $"Tried to add a duplicate Manager for zone `{gameEntityManager.zone}`. Did you forget to change the " + "zone on the GameEntityManager on GameObject at path: " + transform.GetPathQ(), this);
 		}
 		else
 		{
@@ -855,11 +855,11 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		}
 		if (techTreeSO.TryGetUpgradeTypeByEntityTypeId(entityTypeId, out var upgradeType))
 		{
-			bool num2 = sIPlayer.CurrentProgression.IsUnlocked(upgradeType);
-			bool flag = _ValidatePlayerHasGadgetUpgrades(createData, sIPlayer, upgradeType);
+			bool flag = sIPlayer.CurrentProgression.IsUnlocked(upgradeType);
+			bool flag2 = _ValidatePlayerHasGadgetUpgrades(createData, sIPlayer, upgradeType);
 			new SIUpgradeSet((int)((createData & 0x7FFFFFFF00000000L) >> 32));
 			sIPlayer.GetUpgrades((SITechTreePageId)upgradeType.GetPageId());
-			if (!num2 || !flag)
+			if (!flag || !flag2)
 			{
 				return false;
 			}
@@ -892,14 +892,14 @@ public class SuperInfectionManager : MonoBehaviour, IGameEntityZoneComponent, IF
 		{
 			return false;
 		}
-		bool num = sIPlayer.CurrentProgression.IsUnlocked(upgradeType);
-		bool flag = _ValidatePlayerHasGadgetUpgrades(createData, sIPlayer, upgradeType);
-		if (!num || !flag)
+		bool flag = sIPlayer.CurrentProgression.IsUnlocked(upgradeType);
+		bool flag2 = _ValidatePlayerHasGadgetUpgrades(createData, sIPlayer, upgradeType);
+		if (!flag || !flag2)
 		{
 			new SIUpgradeSet((int)((createData & 0x7FFFFFFF00000000L) >> 32));
 			sIPlayer.GetUpgrades((SITechTreePageId)upgradeType.GetPageId());
 		}
-		return num && flag;
+		return flag & flag2;
 	}
 
 	private static bool _ValidatePlayerHasGadgetUpgrades(long createData, SIPlayer siPlayer, SIUpgradeType upgradeType)

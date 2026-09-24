@@ -17,7 +17,7 @@ public class VelocityHelperTest : MonoBehaviour
 
 	private void Setup()
 	{
-		lastPosition = base.transform.position;
+		lastPosition = transform.position;
 		lastVelocity = Vector3.zero;
 		velocity = Vector3.zero;
 		speed = 0f;
@@ -31,7 +31,7 @@ public class VelocityHelperTest : MonoBehaviour
 	private void FixedUpdate()
 	{
 		float deltaTime = Time.deltaTime;
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		Vector3 b = (position - lastPosition) / deltaTime;
 		velocity = Vector3.Lerp(lastVelocity, b, deltaTime);
 		speed = velocity.magnitude;

@@ -18,7 +18,7 @@ public class ParticleSystemEventShortcut : MonoBehaviour
 			initialized = true;
 			ps = GetComponent<ParticleSystem>();
 			shape = ps.shape;
-			poolExists = ObjectPools.instance.DoesPoolExist(base.gameObject);
+			poolExists = ObjectPools.instance.DoesPoolExist(gameObject);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class ParticleSystemEventShortcut : MonoBehaviour
 		InitIfNeeded();
 		if (poolExists)
 		{
-			ObjectPools.instance.Destroy(base.gameObject);
+			ObjectPools.instance.Destroy(gameObject);
 		}
 	}
 

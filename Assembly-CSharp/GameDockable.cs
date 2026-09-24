@@ -40,10 +40,10 @@ public class GameDockable : MonoBehaviour
 			GameDock component = snappedEntity.GetComponent<GameDock>();
 			if (!(component == null) && component.CanDock(this))
 			{
-				Transform obj = component.dockMarker.transform;
+				Transform transform = component.dockMarker.transform;
 				Vector3 zero = Vector3.zero;
 				Quaternion identity = Quaternion.identity;
-				float num2 = Vector3.Distance(obj.TransformPoint(identity * zero), base.transform.position);
+				float num2 = Vector3.Distance(transform.TransformPoint(identity * zero), base.transform.position);
 				float num3 = dockableRadius + component.dockRadius;
 				if (num2 < num && num2 < num3)
 				{
@@ -62,10 +62,10 @@ public class GameDockable : MonoBehaviour
 			GameDock component2 = grabbedGameEntity.GetComponent<GameDock>();
 			if (!(component2 == null) && component2.CanDock(this))
 			{
-				Transform obj2 = component2.dockMarker.transform;
+				Transform transform2 = component2.dockMarker.transform;
 				Vector3 zero2 = Vector3.zero;
 				Quaternion identity2 = Quaternion.identity;
-				float num2 = Vector3.Distance(obj2.TransformPoint(identity2 * zero2), base.transform.position);
+				float num2 = Vector3.Distance(transform2.TransformPoint(identity2 * zero2), base.transform.position);
 				float num4 = dockableRadius + component2.dockRadius;
 				if (num2 < num && num2 < num4)
 				{
@@ -87,7 +87,7 @@ public class GameDockable : MonoBehaviour
 		{
 			return dockablePoint;
 		}
-		return base.transform;
+		return transform;
 	}
 
 	public void OnDock(GameEntity gameEntity, GameEntity attachedToGameEntity)

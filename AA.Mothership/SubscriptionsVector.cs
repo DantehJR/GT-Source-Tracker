@@ -96,10 +96,18 @@ public class SubscriptionsVector : IDisposable, IEnumerable, IEnumerable<Subscri
 	{
 		get
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to get an out of bounds element from this vector");
+			}
 			return getitem(index);
 		}
 		set
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to set an out of bounds element from this vector");
+			}
 			setitem(index, value);
 		}
 	}
@@ -119,6 +127,8 @@ public class SubscriptionsVector : IDisposable, IEnumerable, IEnumerable<Subscri
 			reserve((uint)value);
 		}
 	}
+
+	public bool IsEmpty => empty();
 
 	public int Count => (int)size();
 
@@ -204,6 +214,80 @@ public class SubscriptionsVector : IDisposable, IEnumerable, IEnumerable<Subscri
 		}
 	}
 
+	public void Insert(int index, Subscription value)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insert(index, value);
+	}
+
+	public void InsertRange(int index, SubscriptionsVector values)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insertRange(index, values);
+	}
+
+	public void RemoveAt(int index)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		_removeAt(index);
+	}
+
+	public void RemoveRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("count", "Tried to remove a negative count from this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_removeRange(index, count);
+	}
+
+	public void ReverseRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse from an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse an invalid count in this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_reverseRange(index, count);
+	}
+
+	public void SetRange(int index, SubscriptionsVector values)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		if (index < 0 || index > Count || index + values.Count > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		_setRange(index, values);
+	}
+
 	public void CopyTo(Subscription[] array)
 	{
 		CopyTo(0, array, 0, Count);
@@ -242,6 +326,10 @@ public class SubscriptionsVector : IDisposable, IEnumerable, IEnumerable<Subscri
 		}
 		for (int i = 0; i < count; i++)
 		{
+			if (i > array.Length - 1)
+			{
+				throw new ArgumentOutOfRangeException("Somehow we tried to copy to an array index that's out of bounds");
+			}
 			array.SetValue(getitemcopy(index + i), arrayIndex + i);
 		}
 	}
@@ -266,6 +354,24 @@ public class SubscriptionsVector : IDisposable, IEnumerable, IEnumerable<Subscri
 	public SubscriptionsVectorEnumerator GetEnumerator()
 	{
 		return new SubscriptionsVectorEnumerator(this);
+	}
+
+	public SubscriptionsVector()
+		: this(MothershipApiPINVOKE.new_SubscriptionsVector__SWIG_0(), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public SubscriptionsVector(SubscriptionsVector other)
+		: this(MothershipApiPINVOKE.new_SubscriptionsVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
 	}
 
 	public void Clear()
@@ -296,6 +402,16 @@ public class SubscriptionsVector : IDisposable, IEnumerable, IEnumerable<Subscri
 		return result;
 	}
 
+	private bool empty()
+	{
+		bool result = MothershipApiPINVOKE.SubscriptionsVector_empty(swigCPtr);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private uint capacity()
 	{
 		uint result = MothershipApiPINVOKE.SubscriptionsVector_capacity(swigCPtr);
@@ -309,24 +425,6 @@ public class SubscriptionsVector : IDisposable, IEnumerable, IEnumerable<Subscri
 	private void reserve(uint n)
 	{
 		MothershipApiPINVOKE.SubscriptionsVector_reserve(swigCPtr, n);
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public SubscriptionsVector()
-		: this(MothershipApiPINVOKE.new_SubscriptionsVector__SWIG_0(), cMemoryOwn: true)
-	{
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public SubscriptionsVector(SubscriptionsVector other)
-		: this(MothershipApiPINVOKE.new_SubscriptionsVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
-	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -380,85 +478,63 @@ public class SubscriptionsVector : IDisposable, IEnumerable, IEnumerable<Subscri
 		}
 	}
 
-	public SubscriptionsVector GetRange(int index, int count)
+	private void _insert(int index, Subscription x)
 	{
-		IntPtr intPtr = MothershipApiPINVOKE.SubscriptionsVector_GetRange(swigCPtr, index, count);
-		SubscriptionsVector result = ((intPtr == IntPtr.Zero) ? null : new SubscriptionsVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
-	}
-
-	public void Insert(int index, Subscription x)
-	{
-		MothershipApiPINVOKE.SubscriptionsVector_Insert(swigCPtr, index, Subscription.getCPtr(x));
+		MothershipApiPINVOKE.SubscriptionsVector__insert(swigCPtr, index, Subscription.getCPtr(x));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void InsertRange(int index, SubscriptionsVector values)
+	private void _insertRange(int index, SubscriptionsVector values)
 	{
-		MothershipApiPINVOKE.SubscriptionsVector_InsertRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.SubscriptionsVector__insertRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveAt(int index)
+	private void _removeAt(int index)
 	{
-		MothershipApiPINVOKE.SubscriptionsVector_RemoveAt(swigCPtr, index);
+		MothershipApiPINVOKE.SubscriptionsVector__removeAt(swigCPtr, index);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveRange(int index, int count)
+	private void _removeRange(int index, int count)
 	{
-		MothershipApiPINVOKE.SubscriptionsVector_RemoveRange(swigCPtr, index, count);
+		MothershipApiPINVOKE.SubscriptionsVector__removeRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
-	}
-
-	public static SubscriptionsVector Repeat(Subscription value, int count)
-	{
-		IntPtr intPtr = MothershipApiPINVOKE.SubscriptionsVector_Repeat(Subscription.getCPtr(value), count);
-		SubscriptionsVector result = ((intPtr == IntPtr.Zero) ? null : new SubscriptionsVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
 	}
 
 	public void Reverse()
 	{
-		MothershipApiPINVOKE.SubscriptionsVector_Reverse__SWIG_0(swigCPtr);
+		MothershipApiPINVOKE.SubscriptionsVector_Reverse(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void Reverse(int index, int count)
+	private void _reverseRange(int index, int count)
 	{
-		MothershipApiPINVOKE.SubscriptionsVector_Reverse__SWIG_1(swigCPtr, index, count);
+		MothershipApiPINVOKE.SubscriptionsVector__reverseRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void SetRange(int index, SubscriptionsVector values)
+	private void _setRange(int index, SubscriptionsVector values)
 	{
-		MothershipApiPINVOKE.SubscriptionsVector_SetRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.SubscriptionsVector__setRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

@@ -176,8 +176,7 @@ public class CatmullRomSpline : MonoBehaviour
 		{
 			return;
 		}
-		Vector3 linePoint;
-		float closestEvaluationOnSpline = GetClosestEvaluationOnSpline(debugTransform.position, out linePoint);
+		float closestEvaluationOnSpline = GetClosestEvaluationOnSpline(debugTransform.position, out var linePoint);
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(Evaluate(closestEvaluationOnSpline), 0.2f);
 		Gizmos.color = Color.yellow;

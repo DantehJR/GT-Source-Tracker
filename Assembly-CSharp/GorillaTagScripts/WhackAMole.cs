@@ -404,7 +404,7 @@ public class WhackAMole : NetworkComponent
 			{
 				array[i].enabled = flag;
 			}
-			bool active = isMasterClient || flag;
+			bool active = isMasterClient | flag;
 			ZoneBasedObject[] array2 = zoneBasedVisuals;
 			for (int i = 0; i < array2.Length; i++)
 			{
@@ -484,7 +484,7 @@ public class WhackAMole : NetworkComponent
 			{
 				GTDev.LogError($"[WAM] Lvl:{currentLevel.levelNumber} Only Picked {levelGoodMolesPicked}/{minScore} good moles!");
 			}
-			if (base.IsMine)
+			if (IsMine)
 			{
 				GorillaTelemetry.WamLevelEnd(playerId, gameId, machineId, currentLevel.levelNumber, levelGoodMolesPicked, levelHazardMolesPicked, minScore, currentScore, levelHazardMolesHit, curentGameResult.ToString());
 			}
@@ -494,12 +494,12 @@ public class WhackAMole : NetworkComponent
 			continuePressedTime = Time.time;
 			audioSource.GTStop();
 			audioSource.GTPlayOneShot(counterClip);
-			if (base.IsMine)
+			if (IsMine)
 			{
 				pickedMolesIndex.Clear();
 			}
 			ResetGame();
-			if (base.IsMine)
+			if (IsMine)
 			{
 				LoadNextLevel();
 			}
@@ -696,7 +696,7 @@ public class WhackAMole : NetworkComponent
 		{
 			totalScore = 0;
 		}
-		if (currentLevelIndex == 0 && base.IsMine)
+		if (currentLevelIndex == 0 && IsMine)
 		{
 			gameId = CreateNewGameID();
 			Debug.LogWarning("GAME ID" + gameId);
@@ -785,7 +785,7 @@ public class WhackAMole : NetworkComponent
 		GameState gameState = currentState;
 		if (gameState == GameState.TimesUp || gameState == GameState.Off)
 		{
-			base.GetView.RPC("WhackAMoleButtonPressed", RpcTarget.All);
+			GetView.RPC("WhackAMoleButtonPressed", RpcTarget.All);
 		}
 	}
 
@@ -805,14 +805,14 @@ public class WhackAMole : NetworkComponent
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTagScripts.WhackAMole::RPC_WhackAMoleButtonPressed(Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTagScripts.WhackAMole::RPC_WhackAMoleButtonPressed(Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			int num = 8;
@@ -821,20 +821,20 @@ public class WhackAMole : NetworkComponent
 				NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GorillaTagScripts.WhackAMole::RPC_WhackAMoleButtonPressed(Fusion.RpcInfo)", num);
 				return;
 			}
-			if (base.Runner.HasAnyActiveConnections())
+			if (Runner.HasAnyActiveConnections())
 			{
-				SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+				SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 				byte* ptr2 = (byte*)ptr + 28;
-				*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
+				*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
 				int num2 = 8;
 				ptr->Offset = num2 * 8;
-				base.Runner.SendRpc(ptr);
+				Runner.SendRpc(ptr);
 			}
 			if ((localAuthorityMask & 7) == 0)
 			{
 				return;
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		WhackAMoleButtonPressedShared(info);
 	}

@@ -548,7 +548,7 @@ public class GhostReactor : MonoBehaviourTick, IBuildValidation
 						}
 					}
 					bool flag3 = iGRSleepableEntity.IsSleeping();
-					if (flag3 && flag2)
+					if (flag3 & flag2)
 					{
 						iGRSleepableEntity.WakeUp();
 					}
@@ -610,7 +610,7 @@ public class GhostReactor : MonoBehaviourTick, IBuildValidation
 		vrRigs.Clear();
 		vrRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(vrRigs);
-		vrRigs.Sort(delegate(VRRig a, VRRig b)
+		vrRigs.Sort((VRRig a, VRRig b) =>
 		{
 			if (a == null || a.OwningNetPlayer == null)
 			{
@@ -877,7 +877,7 @@ public class GhostReactor : MonoBehaviourTick, IBuildValidation
 			RenderParams renderParams = new RenderParams(handPrintMaterial);
 			renderParams.shadowCastingMode = ShadowCastingMode.Off;
 			renderParams.receiveShadows = false;
-			renderParams.layer = base.gameObject.layer;
+			renderParams.layer = gameObject.layer;
 			renderParams.matProps = handPrintMPB;
 			renderParams.worldBounds = new Bounds(Vector3.zero, Vector3.one * 2000f);
 			RenderParams rparams = renderParams;
@@ -931,7 +931,7 @@ public class GhostReactor : MonoBehaviourTick, IBuildValidation
 
 	public void AddHandprint(Vector3 pos, Quaternion orient)
 	{
-		Matrix4x4 item = default(Matrix4x4);
+		Matrix4x4 item = default;
 		item.SetTRS(pos, orient * Quaternion.Euler(90f, 0f, 180f), Vector3.one * handPrintScale);
 		handPrintLocations.Add(item);
 		handPrintData.Add(handPrintFadeTime);

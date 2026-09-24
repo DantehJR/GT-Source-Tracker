@@ -8,7 +8,7 @@ public struct ModIORequestResult
 
 	public static ModIORequestResult CreateFailureResult(string inMessage)
 	{
-		ModIORequestResult result = default(ModIORequestResult);
+		ModIORequestResult result = default;
 		result.success = false;
 		result.message = inMessage;
 		return result;
@@ -16,7 +16,7 @@ public struct ModIORequestResult
 
 	public static ModIORequestResult CreateSuccessResult()
 	{
-		ModIORequestResult result = default(ModIORequestResult);
+		ModIORequestResult result = default;
 		result.success = true;
 		result.message = "";
 		return result;
@@ -24,7 +24,7 @@ public struct ModIORequestResult
 
 	public static ModIORequestResult CreateFromError(Error error)
 	{
-		ModIORequestResult result = default(ModIORequestResult);
+		ModIORequestResult result = default;
 		if ((bool)error)
 		{
 			result.success = false;

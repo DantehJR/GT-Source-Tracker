@@ -54,11 +54,11 @@ public class RankedMultiplayerStatisticString : RankedMultiplayerStatistic
 		switch (serializationType)
 		{
 		case SerializationType.PlayerPrefs:
-			base.IsValid = true;
+			IsValid = true;
 			stringValue = PlayerPrefs.GetString(name, stringValue);
 			break;
 		case SerializationType.Mothership:
-			base.IsValid = false;
+			IsValid = false;
 			break;
 		}
 	}

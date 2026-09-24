@@ -63,8 +63,8 @@ public class ScavengerTarget : MonoBehaviour, IGorillaGrabable
 	public void OnGrabbed(GorillaGrabber grabber, out Transform grabbedTransform, out Vector3 localGrabbedPosition)
 	{
 		Collect();
-		grabbedTransform = base.transform;
-		localGrabbedPosition = base.transform.InverseTransformPoint(grabber.transform.position);
+		grabbedTransform = transform;
+		localGrabbedPosition = transform.InverseTransformPoint(grabber.transform.position);
 	}
 
 	public void OnGrabReleased(GorillaGrabber grabber)

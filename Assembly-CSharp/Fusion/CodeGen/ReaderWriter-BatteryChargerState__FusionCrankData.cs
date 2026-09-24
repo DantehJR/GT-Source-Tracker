@@ -5,7 +5,7 @@ namespace Fusion.CodeGen;
 
 [StructLayout(LayoutKind.Sequential, Size = 1)]
 [WeaverGenerated]
-internal struct ReaderWriter_0040BatteryChargerState__FusionCrankData : IElementReaderWriter<BatteryChargerState.FusionCrankData>
+internal struct ReaderWriter_0040BatteryChargerState__FusionCrankData
 {
 	[WeaverGenerated]
 	public static IElementReaderWriter<BatteryChargerState.FusionCrankData> Instance;

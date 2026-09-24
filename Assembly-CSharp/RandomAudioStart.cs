@@ -8,7 +8,7 @@ public class RandomAudioStart : MonoBehaviour, IBuildValidation
 	{
 		if (audioSource == null)
 		{
-			Debug.LogError("audio source is missing for RandomAudioStart, it won't work correctly", base.gameObject);
+			Debug.LogError("audio source is missing for RandomAudioStart, it won't work correctly", gameObject);
 			return false;
 		}
 		return true;

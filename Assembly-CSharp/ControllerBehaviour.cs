@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 
-[Obsolete("Use ControllerInputPoller instead", false)]
 public class ControllerBehaviour : MonoBehaviour, IBuildValidation
 {
 	public delegate void OnActionEvent();
@@ -197,8 +195,8 @@ public class ControllerBehaviour : MonoBehaviour, IBuildValidation
 	{
 		if (Instance != null)
 		{
-			Debug.LogError("[CONTROLLER_BEHAVIOUR] Trying to create new singleton but one already exists", base.gameObject);
-			UnityEngine.Object.DestroyImmediate(this);
+			Debug.LogError("[CONTROLLER_BEHAVIOUR] Trying to create new singleton but one already exists", gameObject);
+			Object.DestroyImmediate(this);
 		}
 		else
 		{
@@ -211,7 +209,7 @@ public class ControllerBehaviour : MonoBehaviour, IBuildValidation
 		bool flag = (IsLeftStick && wasLeftStick) || (IsRightStick && wasRightStick) || (IsUpStick && wasUpStick) || (IsDownStick && wasDownStick);
 		if (!(Time.time - actionTime < actionDelay / repeatAction))
 		{
-			if (wasHeld && flag)
+			if (wasHeld & flag)
 			{
 				repeatAction += actionRepeatDelayReduction;
 			}
@@ -223,9 +221,9 @@ public class ControllerBehaviour : MonoBehaviour, IBuildValidation
 			{
 				actionTime = Time.time;
 			}
-			if (this.OnAction != null)
+			if (OnAction != null)
 			{
-				this.OnAction();
+				OnAction();
 			}
 			wasHeld = flag;
 			wasDownStick = IsDownStick;

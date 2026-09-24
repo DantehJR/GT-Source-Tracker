@@ -155,14 +155,14 @@ public class SIGadgetAirGrab : SIGadget
 
 	private void Awake()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(_HandleStartInteraction));
-		GameEntity obj2 = gameEntity;
-		obj2.OnSnapped = (Action)Delegate.Combine(obj2.OnSnapped, new Action(_HandleStartInteraction));
-		GameEntity obj3 = gameEntity;
-		obj3.OnReleased = (Action)Delegate.Combine(obj3.OnReleased, new Action(_HandleStopInteraction));
-		GameEntity obj4 = gameEntity;
-		obj4.OnUnsnapped = (Action)Delegate.Combine(obj4.OnUnsnapped, new Action(_HandleStopInteraction));
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(_HandleStartInteraction));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnSnapped = (Action)Delegate.Combine(gameEntity2.OnSnapped, new Action(_HandleStartInteraction));
+		GameEntity gameEntity3 = base.gameEntity;
+		gameEntity3.OnReleased = (Action)Delegate.Combine(gameEntity3.OnReleased, new Action(_HandleStopInteraction));
+		GameEntity gameEntity4 = base.gameEntity;
+		gameEntity4.OnUnsnapped = (Action)Delegate.Combine(gameEntity4.OnUnsnapped, new Action(_HandleStopInteraction));
 		_groundedUseCounter = new ResettableUseCounter(1, m_maxSuperchargeUses, OnRecharge);
 		AudioClip[] clips = m_clips;
 		foreach (AudioClip audioClip in clips)
@@ -187,14 +187,14 @@ public class SIGadgetAirGrab : SIGadget
 	{
 		if (!ApplicationQuittingState.IsQuitting)
 		{
-			GameEntity obj = gameEntity;
-			obj.OnGrabbed = (Action)Delegate.Remove(obj.OnGrabbed, new Action(_HandleStartInteraction));
-			GameEntity obj2 = gameEntity;
-			obj2.OnSnapped = (Action)Delegate.Remove(obj2.OnSnapped, new Action(_HandleStartInteraction));
-			GameEntity obj3 = gameEntity;
-			obj3.OnReleased = (Action)Delegate.Remove(obj3.OnReleased, new Action(_HandleStopInteraction));
-			GameEntity obj4 = gameEntity;
-			obj4.OnUnsnapped = (Action)Delegate.Remove(obj4.OnUnsnapped, new Action(_HandleStopInteraction));
+			GameEntity gameEntity = base.gameEntity;
+			gameEntity.OnGrabbed = (Action)Delegate.Remove(gameEntity.OnGrabbed, new Action(_HandleStartInteraction));
+			GameEntity gameEntity2 = base.gameEntity;
+			gameEntity2.OnSnapped = (Action)Delegate.Remove(gameEntity2.OnSnapped, new Action(_HandleStartInteraction));
+			GameEntity gameEntity3 = base.gameEntity;
+			gameEntity3.OnReleased = (Action)Delegate.Remove(gameEntity3.OnReleased, new Action(_HandleStopInteraction));
+			GameEntity gameEntity4 = base.gameEntity;
+			gameEntity4.OnUnsnapped = (Action)Delegate.Remove(gameEntity4.OnUnsnapped, new Action(_HandleStopInteraction));
 		}
 	}
 
@@ -213,7 +213,7 @@ public class SIGadgetAirGrab : SIGadget
 		if (m_airGrabXform != null)
 		{
 			m_airGrabXform.gameObject.SetActive(value: false);
-			m_airGrabXform.SetParent(base.transform, worldPositionStays: false);
+			m_airGrabXform.SetParent(transform, worldPositionStays: false);
 		}
 	}
 
@@ -301,7 +301,7 @@ public class SIGadgetAirGrab : SIGadget
 			}
 			else
 			{
-				m_airGrabXform.transform.parent = base.transform;
+				m_airGrabXform.transform.parent = transform;
 				m_airGrabXform.gameObject.SetActive(value: false);
 			}
 			break;
@@ -323,7 +323,7 @@ public class SIGadgetAirGrab : SIGadget
 			break;
 		}
 		case EState.DashUsed:
-			m_airGrabXform.transform.parent = base.transform;
+			m_airGrabXform.transform.parent = transform;
 			m_airGrabXform.gameObject.SetActive(value: false);
 			ClearGravityOverride();
 			SetStateAuthority(EState.Idle);
@@ -349,7 +349,7 @@ public class SIGadgetAirGrab : SIGadget
 			_SetStateShared(eState);
 			if (_state == EState.PreparedToDash)
 			{
-				m_airGrabXform.transform.parent = base.transform;
+				m_airGrabXform.transform.parent = transform;
 				m_airGrabXform.transform.position = ((_HandIndex == 0) ? GetAttachedPlayerRig().leftHand : GetAttachedPlayerRig().rightHand).GetExtrapolatedControllerPosition();
 				m_airGrabXform.gameObject.SetActive(value: true);
 			}

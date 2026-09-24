@@ -171,7 +171,7 @@ public class TappableGuardianIdol : Tappable
 	{
 		if (info.Sender.IsLocal)
 		{
-			zoneManager.SetScaleCenterPoint(base.transform);
+			zoneManager.SetScaleCenterPoint(transform);
 		}
 		if (isChangingPositions || !zoneManager.IsZoneValid())
 		{
@@ -179,7 +179,7 @@ public class TappableGuardianIdol : Tappable
 		}
 		if (PhotonNetwork.LocalPlayer.IsMasterClient && VRRigCache.Instance.TryGetVrrig(info.Sender, out var playerRig))
 		{
-			if (Vector3.Magnitude(playerRig.Rig.transform.position - base.transform.position) > requiredTapDistance + Mathf.Epsilon)
+			if (Vector3.Magnitude(playerRig.Rig.transform.position - transform.position) > requiredTapDistance + Mathf.Epsilon)
 			{
 				return;
 			}
@@ -193,7 +193,7 @@ public class TappableGuardianIdol : Tappable
 
 	public void SetPosition(Vector3 position)
 	{
-		base.transform.position = position + new Vector3(0f, activeHeight, 0f);
+		transform.position = position + new Vector3(0f, activeHeight, 0f);
 		UpdateStageActivatedObjects();
 		_audio.GTPlayOneShot(_activateSound, _audio.volume);
 		StartCoroutine(Unshrink());
@@ -299,7 +299,7 @@ public class TappableGuardianIdol : Tappable
 			{
 				return null;
 			}
-			Vector3 position = base.transform.position;
+			Vector3 position = transform.position;
 			float num = float.MaxValue;
 			Transform result = null;
 			foreach (RigContainer activeRigContainer in VRRigCache.ActiveRigContainers)
@@ -363,12 +363,12 @@ public class TappableGuardianIdol : Tappable
 		}
 		if ((bool)explodeFX)
 		{
-			ObjectPools.instance.Instantiate(explodeFX, base.transform.position);
+			ObjectPools.instance.Instantiate(explodeFX, transform.position);
 		}
 		UpdateActivationProgress(-1f, progressing: false);
 		idolMeshRoot.SetActive(value: false);
 		tapCollision.enabled = false;
-		base.transform.position = transitionPos;
+		transform.position = transitionPos;
 		yield return new WaitForSeconds(floatDuration);
 		idolMeshRoot.SetActive(value: true);
 		tapCollision.enabled = true;
@@ -384,10 +384,10 @@ public class TappableGuardianIdol : Tappable
 		while (fall < fallDuration)
 		{
 			fall += Time.deltaTime;
-			base.transform.position = Vector3.Lerp(startPos, destinationPos, fall / fallDuration);
+			transform.position = Vector3.Lerp(startPos, destinationPos, fall / fallDuration);
 			yield return null;
 		}
-		base.transform.position = destinationPos;
+		transform.position = destinationPos;
 		trailFX.Stop();
 		if ((bool)landedFX)
 		{
@@ -406,12 +406,12 @@ public class TappableGuardianIdol : Tappable
 		while (activateLerp < 1f)
 		{
 			activateLerp = Mathf.Clamp01(activateLerp + Time.deltaTime / activationDuration);
-			base.transform.position = Vector3.Lerp(startPos, destinationPos, animCurve.Evaluate(activateLerp));
+			transform.position = Vector3.Lerp(startPos, destinationPos, animCurve.Evaluate(activateLerp));
 			yield return null;
 		}
 		if ((bool)activatedFX)
 		{
-			ObjectPools.instance.Instantiate(activatedFX, base.transform.position);
+			ObjectPools.instance.Instantiate(activatedFX, transform.position);
 		}
 		if (knockbackOnActivate)
 		{

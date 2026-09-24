@@ -118,10 +118,10 @@ public class StickyCosmetic : MonoBehaviour
 			if (Vector3.Distance(endRigidbody.position, startPosition.position) <= 0.01f)
 			{
 				endRigidbody.position = startPosition.position;
-				Transform obj = endRigidbody.transform;
-				obj.parent = endPositionParent;
-				obj.localRotation = quaternion.identity;
-				obj.localScale = Vector3.one;
+				Transform transform = endRigidbody.transform;
+				transform.parent = endPositionParent;
+				transform.localRotation = quaternion.identity;
+				transform.localScale = Vector3.one;
 				if (lastState == ObjectState.AutoUnstuck || lastState == ObjectState.AutoRetract)
 				{
 					UpdateState(ObjectState.JustRetracted);

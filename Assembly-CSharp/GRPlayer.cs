@@ -172,7 +172,7 @@ public class GRPlayer : MonoBehaviourTick
 
 	private double shieldStealthModeEndTime;
 
-	public Color shieldColorNormal = new Color(36f / 85f, 13f / 51f, 1f, 0.45490196f);
+	public Color shieldColorNormal = new Color(108f / 255f, 65f / 255f, 1f, 116f / 255f);
 
 	public Color shieldColorLight = new Color(1f, 1f, 1f, 0.5f);
 
@@ -1494,7 +1494,7 @@ public class GRPlayer : MonoBehaviourTick
 				points = _points,
 				redeemedPoints = _redeemedPoints
 			};
-			if (gamePlayer.IsLocal() && saveProgression)
+			if (gamePlayer.IsLocal() & saveProgression)
 			{
 				SaveMyProgression();
 			}

@@ -20,6 +20,6 @@ public class FingerFlagTwirlTest : MonoBehaviour
 		animTimes.x %= 1f;
 		animTimes.y %= 1f;
 		animTimes.z %= 1f;
-		base.transform.localRotation = Quaternion.Euler(rotXAnimCurve.Evaluate(animTimes.x) * rotAnimAmplitudes.x, rotYAnimCurve.Evaluate(animTimes.y) * rotAnimAmplitudes.y, rotZAnimCurve.Evaluate(animTimes.z) * rotAnimAmplitudes.z);
+		transform.localRotation = Quaternion.Euler(rotXAnimCurve.Evaluate(animTimes.x) * rotAnimAmplitudes.x, rotYAnimCurve.Evaluate(animTimes.y) * rotAnimAmplitudes.y, rotZAnimCurve.Evaluate(animTimes.z) * rotAnimAmplitudes.z);
 	}
 }

@@ -81,8 +81,8 @@ public class EdibleWearable : MonoBehaviour
 	{
 		if (ownerRig == null)
 		{
-			Debug.LogError("EdibleWearable \"" + base.transform.GetPath() + "\": Deactivating because ownerRig is null.", this);
-			base.gameObject.SetActive(value: false);
+			Debug.LogError("EdibleWearable \"" + transform.GetPath() + "\": Deactivating because ownerRig is null.", this);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		for (int i = 0; i < edibleStateInfos.Length; i++)
@@ -124,7 +124,7 @@ public class EdibleWearable : MonoBehaviour
 		}
 		else if (Time.time > lastEatTime + biteCooldown)
 		{
-			Vector3 vector = base.transform.TransformPoint(edibleBiteOffset);
+			Vector3 vector = transform.TransformPoint(edibleBiteOffset);
 			bool flag = false;
 			float num = biteDistance * biteDistance;
 			if (!GorillaParent.hasInstance)

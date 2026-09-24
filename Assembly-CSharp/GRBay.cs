@@ -71,12 +71,12 @@ public class GRBay : MonoBehaviour
 					hideWhenOpen[i].SetActive(!open);
 					continue;
 				}
-				Debug.LogErrorFormat("Why is hideWhenOpen null {0} at {1}", base.gameObject.name, i);
+				Debug.LogErrorFormat("Why is hideWhenOpen null {0} at {1}", gameObject.name, i);
 			}
 		}
 		else
 		{
-			Debug.LogErrorFormat("Why is hideWhenOpen null {0}", base.gameObject.name);
+			Debug.LogErrorFormat("Why is hideWhenOpen null {0}", gameObject.name);
 		}
 		if (hideWhenClosed != null)
 		{
@@ -87,12 +87,12 @@ public class GRBay : MonoBehaviour
 					hideWhenClosed[j].SetActive(open);
 					continue;
 				}
-				Debug.LogErrorFormat("Why is hideWhenClosed null {0} at {1} ", base.gameObject.name, j);
+				Debug.LogErrorFormat("Why is hideWhenClosed null {0} at {1} ", gameObject.name, j);
 			}
 		}
 		else
 		{
-			Debug.LogErrorFormat("Why is hideWhenClosed null {0}", base.gameObject.name);
+			Debug.LogErrorFormat("Why is hideWhenClosed null {0}", gameObject.name);
 		}
 		if (bayDoorAnimation != null && isOpen != open)
 		{
@@ -117,7 +117,7 @@ public class GRBay : MonoBehaviour
 		{
 			NetPlayer owner = unlockShuttle.GetOwner();
 			bool flag = owner != null && unlockShuttle.IsPodUnlocked();
-			open = unlockShuttle.GetState() == GRShuttleState.Docked && flag;
+			open = (unlockShuttle.GetState() == GRShuttleState.Docked) & flag;
 			if (playerName != null)
 			{
 				playerName.text = ((!flag) ? null : owner.SanitizedNickName);

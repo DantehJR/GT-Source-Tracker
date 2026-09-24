@@ -50,45 +50,45 @@ public class HauntedObject : MonoBehaviour
 
 	private void Awake()
 	{
-		lurkerGhost = GameObject.FindGameObjectWithTag("LurkerGhost");
-		if (lurkerGhost != null && lurkerGhost.TryGetComponent<LurkerGhost>(out var component))
+		this.lurkerGhost = GameObject.FindGameObjectWithTag("LurkerGhost");
+		if (this.lurkerGhost != null && this.lurkerGhost.TryGetComponent<LurkerGhost>(out var component))
 		{
-			LurkerGhost obj = component;
-			obj.TriggerHauntedObjects = (UnityAction<GameObject>)Delegate.Combine(obj.TriggerHauntedObjects, new UnityAction<GameObject>(TriggerEffects));
+			LurkerGhost lurkerGhost = component;
+			lurkerGhost.TriggerHauntedObjects = (UnityAction<GameObject>)Delegate.Combine(lurkerGhost.TriggerHauntedObjects, new UnityAction<GameObject>(TriggerEffects));
 		}
-		wanderingGhost = GameObject.FindGameObjectWithTag("WanderingGhost");
-		if (wanderingGhost != null && wanderingGhost.TryGetComponent<WanderingGhost>(out var component2))
+		this.wanderingGhost = GameObject.FindGameObjectWithTag("WanderingGhost");
+		if (this.wanderingGhost != null && this.wanderingGhost.TryGetComponent<WanderingGhost>(out var component2))
 		{
-			WanderingGhost obj2 = component2;
-			obj2.TriggerHauntedObjects = (UnityAction<GameObject>)Delegate.Combine(obj2.TriggerHauntedObjects, new UnityAction<GameObject>(TriggerEffects));
+			WanderingGhost wanderingGhost = component2;
+			wanderingGhost.TriggerHauntedObjects = (UnityAction<GameObject>)Delegate.Combine(wanderingGhost.TriggerHauntedObjects, new UnityAction<GameObject>(TriggerEffects));
 		}
-		animators = base.transform.GetComponentsInChildren<Animator>();
+		animators = transform.GetComponentsInChildren<Animator>();
 	}
 
 	private void OnDestroy()
 	{
-		if (lurkerGhost != null && lurkerGhost.TryGetComponent<LurkerGhost>(out var component))
+		if (this.lurkerGhost != null && this.lurkerGhost.TryGetComponent<LurkerGhost>(out var component))
 		{
-			LurkerGhost obj = component;
-			obj.TriggerHauntedObjects = (UnityAction<GameObject>)Delegate.Remove(obj.TriggerHauntedObjects, new UnityAction<GameObject>(TriggerEffects));
+			LurkerGhost lurkerGhost = component;
+			lurkerGhost.TriggerHauntedObjects = (UnityAction<GameObject>)Delegate.Remove(lurkerGhost.TriggerHauntedObjects, new UnityAction<GameObject>(TriggerEffects));
 		}
-		if (wanderingGhost != null && wanderingGhost.TryGetComponent<WanderingGhost>(out var component2))
+		if (this.wanderingGhost != null && this.wanderingGhost.TryGetComponent<WanderingGhost>(out var component2))
 		{
-			WanderingGhost obj2 = component2;
-			obj2.TriggerHauntedObjects = (UnityAction<GameObject>)Delegate.Remove(obj2.TriggerHauntedObjects, new UnityAction<GameObject>(TriggerEffects));
+			WanderingGhost wanderingGhost = component2;
+			wanderingGhost.TriggerHauntedObjects = (UnityAction<GameObject>)Delegate.Remove(wanderingGhost.TriggerHauntedObjects, new UnityAction<GameObject>(TriggerEffects));
 		}
 	}
 
 	private void Start()
 	{
-		initialPos = base.transform.position;
+		initialPos = transform.position;
 		passedTime = 0f;
 		lightPassedTime = 0f;
 	}
 
 	private void TriggerEffects(GameObject go)
 	{
-		if (base.gameObject != go)
+		if (gameObject != go)
 		{
 			return;
 		}
@@ -102,7 +102,7 @@ public class HauntedObject : MonoBehaviour
 		}
 		if ((bool)FBXprefab)
 		{
-			ObjectPools.instance.Instantiate(FBXprefab, base.transform.position);
+			ObjectPools.instance.Instantiate(FBXprefab, transform.position);
 		}
 		if (TurnOffLight != null)
 		{
@@ -123,7 +123,7 @@ public class HauntedObject : MonoBehaviour
 		while (passedTime < duration)
 		{
 			passedTime += Time.deltaTime;
-			base.transform.position = new Vector3(initialPos.x + Mathf.Sin(Time.time * speed) * amount, initialPos.y + Mathf.Sin(Time.time * speed) * amount, initialPos.z);
+			transform.position = new Vector3(initialPos.x + Mathf.Sin(Time.time * speed) * amount, initialPos.y + Mathf.Sin(Time.time * speed) * amount, initialPos.z);
 			yield return null;
 		}
 		passedTime = 0f;

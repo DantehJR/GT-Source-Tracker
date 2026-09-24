@@ -25,7 +25,7 @@ public class Luau
 		LUA_TPROTO = 11,
 		LUA_TUPVAL = 12,
 		LUA_TDEADKEY = 13,
-		LUA_T_COUNT = 11
+		LUA_T_COUNT = LUA_TPROTO
 	}
 
 	public enum lua_Status
@@ -453,9 +453,9 @@ public class Luau
 		{
 			lua_getmetatable(L, idx);
 			luaL_getmetatable(L, ptr);
-			bool num2 = lua_rawequal(L, -1, -2) == 1;
+			bool flag = lua_rawequal(L, -1, -2) == 1;
 			lua_pop(L, 2);
-			if (num2)
+			if (flag)
 			{
 				lua_getfield(L, idx, "__ptr");
 				if (lua_type(L, -1) == 2)
@@ -491,9 +491,9 @@ public class Luau
 		{
 			lua_getmetatable(L, idx);
 			luaL_getmetatable(L, ptr);
-			bool num2 = lua_rawequal(L, -1, -2) == 1;
+			bool flag = lua_rawequal(L, -1, -2) == 1;
 			lua_pop(L, 1);
-			if (num2)
+			if (flag)
 			{
 				FixedString32Bytes output = "__ptr";
 				lua_getfield(L, idx, (byte*)UnsafeUtility.AddressOf(ref output) + 2);
@@ -530,9 +530,9 @@ public class Luau
 		{
 			lua_getmetatable(L, idx);
 			luaL_getmetatable(L, ptr);
-			bool num2 = lua_rawequal(L, -1, -2) == 1;
+			bool flag = lua_rawequal(L, -1, -2) == 1;
 			lua_pop(L, 1);
-			if (num2)
+			if (flag)
 			{
 				FixedString32Bytes output = "__ptr";
 				lua_getfield(L, idx, (byte*)UnsafeUtility.AddressOf(ref output) + 2);

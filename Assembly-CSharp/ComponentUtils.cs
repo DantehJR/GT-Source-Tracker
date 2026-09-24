@@ -89,7 +89,7 @@ public static class ComponentUtils
 	{
 		if (c == null)
 		{
-			return default(Hash128);
+			return default;
 		}
 		Transform transform = c.transform;
 		Component[] components = c.gameObject.GetComponents(typeof(Component));

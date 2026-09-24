@@ -46,12 +46,12 @@ public class PoseStiffnessComparison : MonoBehaviour
 			m_timer = Mathf.Repeat(m_timer, Period + Rest);
 			for (int i = 0; i < 2; i++)
 			{
-				Transform obj = source.ElementAt(i);
+				Transform transform = source.ElementAt(i);
 				float y = source2.ElementAt(i);
-				Vector3 position = obj.position;
+				Vector3 position = transform.position;
 				position.y = y;
 				position.z = 0f - num;
-				obj.position = position;
+				transform.position = position;
 			}
 			foreach (BoingBones item in enumerable)
 			{
@@ -62,12 +62,12 @@ public class PoseStiffnessComparison : MonoBehaviour
 		float num3 = 1f - Mathf.Pow(1f - num2, 1.5f);
 		for (int j = 0; j < 2; j++)
 		{
-			Transform obj2 = source.ElementAt(j);
+			Transform transform2 = source.ElementAt(j);
 			float num4 = source2.ElementAt(j);
-			Vector3 position2 = obj2.position;
+			Vector3 position2 = transform2.position;
 			position2.y = num4 + 2f * Mathf.Sin(MathF.PI * 4f * num3);
 			position2.z = Mathf.Lerp(0f - num, num, num3);
-			obj2.position = position2;
+			transform2.position = position2;
 		}
 	}
 }

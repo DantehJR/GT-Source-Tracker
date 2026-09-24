@@ -29,7 +29,7 @@ public class GTSpeaker : Speaker
 
 	public void Start()
 	{
-		LoudSpeakerNetwork componentInChildren = base.transform.root.GetComponentInChildren<LoudSpeakerNetwork>();
+		LoudSpeakerNetwork componentInChildren = transform.root.GetComponentInChildren<LoudSpeakerNetwork>();
 		if (componentInChildren != null)
 		{
 			AddExternalAudioSources(componentInChildren.SpeakerSources);
@@ -51,11 +51,11 @@ public class GTSpeaker : Speaker
 
 	protected override void Initialize()
 	{
-		if (base.IsInitialized)
+		if (IsInitialized)
 		{
-			if (base.Logger.IsWarningEnabled)
+			if (Logger.IsWarningEnabled)
 			{
-				base.Logger.LogWarning("Already initialized.");
+				Logger.LogWarning("Already initialized.");
 			}
 		}
 		else
@@ -83,7 +83,7 @@ public class GTSpeaker : Speaker
 
 	private Func<IAudioOut<float>> GetAudioOutFactoryFromSource(AudioSource source, AudioOutDelayControl.PlayDelayConfig pdc)
 	{
-		return () => new UnityAudioOut(source, pdc, base.Logger, string.Empty, base.Logger.IsDebugEnabled);
+		return () => new UnityAudioOut(source, pdc, Logger, string.Empty, Logger.IsDebugEnabled);
 	}
 
 	protected override void OnAudioFrame(FrameOut<float> frame)

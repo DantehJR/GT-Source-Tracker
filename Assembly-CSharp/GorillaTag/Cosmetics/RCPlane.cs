@@ -135,8 +135,8 @@ public class RCPlane : RCVehicle
 	protected override void AuthorityBeginMobilization()
 	{
 		base.AuthorityBeginMobilization();
-		float x = base.transform.lossyScale.x;
-		rb.linearVelocity = base.transform.forward * initialSpeed * x;
+		float x = transform.lossyScale.x;
+		rb.linearVelocity = transform.forward * initialSpeed * x;
 	}
 
 	protected override void AuthorityUpdate(float dt)
@@ -234,9 +234,9 @@ public class RCPlane : RCVehicle
 
 	private void FixedUpdate()
 	{
-		if (base.HasLocalAuthority && localState == State.Mobilized)
+		if (HasLocalAuthority && localState == State.Mobilized)
 		{
-			float x = base.transform.lossyScale.x;
+			float x = transform.lossyScale.x;
 			float num = thrustVelocityTarget * x;
 			float num2 = thrustAccel * x;
 			float fixedDeltaTime = Time.fixedDeltaTime;
@@ -260,26 +260,26 @@ public class RCPlane : RCVehicle
 			rollVel = Mathf.MoveTowards(rollVel, target3, rollAccel * fixedDeltaTime);
 			roll += rollVel * fixedDeltaTime;
 			Quaternion quaternion = Quaternion.Euler(new Vector3(pitch - num3, 0f, roll - num4));
-			base.transform.rotation = base.transform.rotation * quaternion;
+			transform.rotation *= quaternion;
 			rb.angularVelocity = Vector3.zero;
 			Vector3 linearVelocity = rb.linearVelocity;
 			float magnitude = linearVelocity.magnitude;
-			float num5 = Mathf.Max(Vector3.Dot(base.transform.forward, linearVelocity), 0f);
+			float num5 = Mathf.Max(Vector3.Dot(transform.forward, linearVelocity), 0f);
 			float num6 = activeInput.trigger * num;
 			float num7 = 0.1f * x;
 			if (num6 > num7 && num6 > num5)
 			{
 				float num8 = Mathf.MoveTowards(num5, num6, num2 * fixedDeltaTime);
-				rb.AddForce(base.transform.forward * (num8 - num5) * rb.mass, ForceMode.Impulse);
+				rb.AddForce(transform.forward * (num8 - num5) * rb.mass, ForceMode.Impulse);
 			}
 			float b = 0.01f * x;
-			float time = Vector3.Dot(linearVelocity / Mathf.Max(magnitude, b), base.transform.forward);
+			float time = Vector3.Dot(linearVelocity / Mathf.Max(magnitude, b), transform.forward);
 			float num9 = liftVsAttackCurve.Evaluate(time);
 			float num10 = Mathf.Lerp(liftVsSpeedOutput.x, liftVsSpeedOutput.y, Mathf.InverseLerp(liftVsSpeedInput.x, liftVsSpeedInput.y, magnitude / x));
 			float num11 = num9 * num10;
-			Vector3 vector = Vector3.RotateTowards(linearVelocity, base.transform.forward * magnitude, pitchVelocityFollowRateAngle * (MathF.PI / 180f) * fixedDeltaTime, pitchVelocityFollowRateMagnitude * fixedDeltaTime) - linearVelocity;
+			Vector3 vector = Vector3.RotateTowards(linearVelocity, transform.forward * magnitude, pitchVelocityFollowRateAngle * (MathF.PI / 180f) * fixedDeltaTime, pitchVelocityFollowRateMagnitude * fixedDeltaTime) - linearVelocity;
 			rb.AddForce(vector * num11 * rb.mass, ForceMode.Impulse);
-			float time2 = Vector3.Dot(linearVelocity.normalized, base.transform.up);
+			float time2 = Vector3.Dot(linearVelocity.normalized, transform.up);
 			float num12 = dragVsAttackCurve.Evaluate(time2);
 			rb.AddForce(-linearVelocity * maxDrag * num12 * rb.mass, ForceMode.Force);
 			if (rb.useGravity)
@@ -292,7 +292,7 @@ public class RCPlane : RCVehicle
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (base.HasLocalAuthority && localState == State.Mobilized)
+		if (HasLocalAuthority && localState == State.Mobilized)
 		{
 			for (int i = 0; i < collision.contactCount; i++)
 			{
@@ -306,7 +306,7 @@ public class RCPlane : RCVehicle
 		}
 		bool flag = collision.collider.gameObject.IsOnLayer(UnityLayer.GorillaThrowable);
 		bool flag2 = collision.collider.gameObject.IsOnLayer(UnityLayer.GorillaHand);
-		if (!(flag || flag2) || localState != State.Mobilized)
+		if (!(flag | flag2) || localState != State.Mobilized)
 		{
 			return;
 		}
@@ -325,7 +325,7 @@ public class RCPlane : RCVehicle
 		}
 		if (flag || vector.sqrMagnitude > 0.01f)
 		{
-			if (base.HasLocalAuthority)
+			if (HasLocalAuthority)
 			{
 				AuthorityApplyImpact(vector, flag);
 			}

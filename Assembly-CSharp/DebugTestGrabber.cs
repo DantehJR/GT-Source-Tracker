@@ -40,8 +40,8 @@ public class DebugTestGrabber : MonoBehaviour
 	{
 		if (transformToFollow != null)
 		{
-			base.transform.rotation = transformToFollow.rotation;
-			base.transform.position = transformToFollow.position;
+			transform.rotation = transformToFollow.rotation;
+			transform.position = transformToFollow.position;
 		}
 		if (!(grabber == null))
 		{
@@ -68,7 +68,7 @@ public class DebugTestGrabber : MonoBehaviour
 	private void DoGrab()
 	{
 		grabber.grabbing = true;
-		int num = Physics.OverlapSphereNonAlloc(base.transform.position, grabRadius, colliders, LayerMask.GetMask("GorillaInteractable"));
+		int num = Physics.OverlapSphereNonAlloc(transform.position, grabRadius, colliders, LayerMask.GetMask("GorillaInteractable"));
 		if (num <= 0)
 		{
 			return;

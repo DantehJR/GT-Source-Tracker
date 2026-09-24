@@ -16,7 +16,7 @@ public class LocalizationTextSyncer : MonoBehaviour
 
 		public bool GetOverrideForLanguage(out LocalisationFontPair fontData)
 		{
-			fontData = default(LocalisationFontPair);
+			fontData = default;
 			for (int i = 0; i < _fontOverrides.Count; i++)
 			{
 				if (_fontOverrides[i].ContainsLocale(LocalisationManager.CurrentLanguage))
@@ -64,8 +64,7 @@ public class LocalizationTextSyncer : MonoBehaviour
 	private void OnLanguageChanged()
 	{
 		LocalisationManager.GetFontAssetForCurrentLocale(out var result);
-		LocalisationFontPair fontDataOverride;
-		bool flag = TryGetFontDataOverride(out fontDataOverride);
+		bool flag = TryGetFontDataOverride(out var fontDataOverride);
 		if (!flag && !LocalisationManager.GetFontAssetForCurrentLocale(out fontDataOverride))
 		{
 			return;
@@ -104,7 +103,7 @@ public class LocalizationTextSyncer : MonoBehaviour
 
 	private bool TryGetFontDataOverride(out LocalisationFontPair fontDataOverride)
 	{
-		fontDataOverride = default(LocalisationFontPair);
+		fontDataOverride = default;
 		for (int i = 0; i < _universalFontOverrides.Count; i++)
 		{
 			if (_universalFontOverrides[i].ContainsLocale(LocalisationManager.CurrentLanguage))

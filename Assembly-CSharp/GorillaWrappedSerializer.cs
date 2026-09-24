@@ -45,7 +45,7 @@ internal abstract class GorillaWrappedSerializer : NetworkBehaviour, IPunObserva
 
 	public override void Spawned()
 	{
-		PhotonMessageInfoWrapped wrappedInfo = new PhotonMessageInfoWrapped(base.Object.StateAuthority.PlayerId, base.Runner.Tick.Raw);
+		PhotonMessageInfoWrapped wrappedInfo = new PhotonMessageInfoWrapped(Object.StateAuthority.PlayerId, Runner.Tick.Raw);
 		ProcessSpawn(wrappedInfo);
 	}
 
@@ -76,7 +76,7 @@ internal abstract class GorillaWrappedSerializer : NetworkBehaviour, IPunObserva
 	protected virtual bool OnSpawnSetupCheck(PhotonMessageInfoWrapped wrappedInfo, out GameObject outTargetObject, out Type outTargetType)
 	{
 		outTargetType = typeof(IWrappedSerializable);
-		outTargetObject = base.gameObject;
+		outTargetObject = gameObject;
 		return true;
 	}
 
@@ -107,7 +107,7 @@ internal abstract class GorillaWrappedSerializer : NetworkBehaviour, IPunObserva
 
 	public override void Render()
 	{
-		if (!base.Object.HasStateAuthority)
+		if (!Object.HasStateAuthority)
 		{
 			serializeTarget.OnSerializeRead(data);
 		}
@@ -142,7 +142,7 @@ internal abstract class GorillaWrappedSerializer : NetworkBehaviour, IPunObserva
 
 	public virtual T AddRPCComponent<T>() where T : RPCNetworkBase
 	{
-		T val = base.gameObject.AddComponent<T>();
+		T val = gameObject.AddComponent<T>();
 		netView.GetView.RefreshRpcMonoBehaviourCache();
 		val.SetClassTarget(serializeTarget, this);
 		return val;

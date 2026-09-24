@@ -32,7 +32,7 @@ public class ManipulatableLever : ManipulatableObject
 
 	private void Awake()
 	{
-		localSpace = base.transform.worldToLocalMatrix;
+		localSpace = transform.worldToLocalMatrix;
 	}
 
 	protected override bool ShouldHandDetach(GameObject hand)
@@ -45,7 +45,7 @@ public class ManipulatableLever : ManipulatableObject
 	protected override void OnHeldUpdate(GameObject hand)
 	{
 		Vector3 position = hand.transform.position;
-		Vector3 upwards = Vector3.Normalize(localSpace.MultiplyPoint3x4(position) - base.transform.localPosition);
+		Vector3 upwards = Vector3.Normalize(localSpace.MultiplyPoint3x4(position) - transform.localPosition);
 		Vector3 eulerAngles = Quaternion.LookRotation(Vector3.forward, upwards).eulerAngles;
 		if (eulerAngles.z > 180f)
 		{
@@ -56,15 +56,15 @@ public class ManipulatableLever : ManipulatableObject
 			eulerAngles.z += 360f;
 		}
 		eulerAngles.z = Mathf.Clamp(eulerAngles.z, minAngle, maxAngle);
-		base.transform.localEulerAngles = eulerAngles;
+		transform.localEulerAngles = eulerAngles;
 	}
 
 	public void SetValue(float value)
 	{
 		float z = Mathf.Lerp(minAngle, maxAngle, value);
-		Vector3 localEulerAngles = base.transform.localEulerAngles;
+		Vector3 localEulerAngles = transform.localEulerAngles;
 		localEulerAngles.z = z;
-		base.transform.localEulerAngles = localEulerAngles;
+		transform.localEulerAngles = localEulerAngles;
 	}
 
 	public void SetNotch(int notchValue)
@@ -86,7 +86,7 @@ public class ManipulatableLever : ManipulatableObject
 
 	public float GetValue()
 	{
-		Vector3 localEulerAngles = base.transform.localEulerAngles;
+		Vector3 localEulerAngles = transform.localEulerAngles;
 		if (localEulerAngles.z > 180f)
 		{
 			localEulerAngles.z -= 360f;

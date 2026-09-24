@@ -51,7 +51,7 @@ public class DecorativeItem : TransferrableObject
 	public override void OnSpawn(VRRig rig)
 	{
 		base.OnSpawn(rig);
-		parent = base.transform.parent;
+		parent = transform.parent;
 	}
 
 	protected override void Start()
@@ -130,9 +130,9 @@ public class DecorativeItem : TransferrableObject
 			}
 			itemState = ItemStates.State3;
 			SetWillTeleport();
-			Transform obj = base.transform;
-			obj.position = randPosition;
-			obj.rotation = randRotation;
+			Transform transform = base.transform;
+			transform.position = randPosition;
+			transform.rotation = randRotation;
 			if ((bool)reliableState)
 			{
 				reliableState.respawnPosition = randPosition;
@@ -143,7 +143,7 @@ public class DecorativeItem : TransferrableObject
 
 	private void PlayVFX(GameObject vfx)
 	{
-		ObjectPools.instance.Instantiate(vfx, base.transform.position);
+		ObjectPools.instance.Instantiate(vfx, transform.position);
 	}
 
 	private bool Reparent(Transform _transform)
@@ -155,7 +155,7 @@ public class DecorativeItem : TransferrableObject
 		if ((bool)parent)
 		{
 			parent.SetParent(_transform);
-			base.transform.SetParent(parent);
+			transform.SetParent(parent);
 			return true;
 		}
 		return false;
@@ -184,8 +184,8 @@ public class DecorativeItem : TransferrableObject
 				return;
 			}
 			itemState = ItemStates.State2;
-			base.transform.parent.localPosition = Vector3.zero;
-			base.transform.localPosition = Vector3.zero;
+			transform.parent.localPosition = Vector3.zero;
+			transform.localPosition = Vector3.zero;
 			reliableState.isSnapped = true;
 			if ((bool)audioSource && (bool)snapAudio && ShouldPlayFX())
 			{

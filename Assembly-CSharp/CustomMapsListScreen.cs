@@ -8,6 +8,7 @@ using Modio;
 using Modio.Errors;
 using Modio.Mods;
 using Modio.Users;
+using PlayFab;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -355,7 +356,7 @@ public class CustomMapsListScreen : CustomMapsTerminalScreen
 		switch (buttonPressed)
 		{
 		case CustomMapKeyboardBinding.option3:
-			ModIOManager.RefreshUserProfile(delegate(bool result)
+			ModIOManager.RefreshUserProfile((bool result) =>
 			{
 				if (result)
 				{
@@ -563,7 +564,7 @@ public class CustomMapsListScreen : CustomMapsTerminalScreen
 		if (!loadingFeaturedMods && featuredMods.Count <= 0)
 		{
 			loadingFeaturedMods = true;
-			PlayFabTitleDataCache.Instance.GetTitleData(featuredModsPlayFabKey, OnGetFeaturedModsTitleData, delegate
+			PlayFabTitleDataCache.Instance.GetTitleData(featuredModsPlayFabKey, OnGetFeaturedModsTitleData, (PlayFabError error) =>
 			{
 				loadingFeaturedMods = false;
 				RefreshScreenState();
@@ -600,7 +601,7 @@ public class CustomMapsListScreen : CustomMapsTerminalScreen
 					continue;
 				}
 				(Error, Mod) tuple = await ModIOManager.GetMod(new ModId(featuredModId));
-				if (!tuple.Item1)
+				if (!tuple.Item1 && (!UGCPermissionManager.FeaturedMapsOnly || ModIOManager.IsFeaturedMap(tuple.Item2)))
 				{
 					featuredModIds.Add(featuredModId);
 					featuredMods.Add(tuple.Item2);
@@ -627,6 +628,10 @@ public class CustomMapsListScreen : CustomMapsTerminalScreen
 			if (communityMapsOnly)
 			{
 				modSearchFilter.AddTag(communityMapsTag);
+			}
+			if (UGCPermissionManager.FeaturedMapsOnly)
+			{
+				modSearchFilter.AddTag("Featured");
 			}
 			modSearchFilter.IsSortAscending = isAscendingOrder;
 			var (error, modioPage) = await ModIOManager.GetMods(modSearchFilter.GetModsFilter());

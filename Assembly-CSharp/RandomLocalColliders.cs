@@ -46,8 +46,8 @@ public class RandomLocalColliders : MonoBehaviour
 
 	private void seek()
 	{
-		float num = Mathf.Max(base.transform.lossyScale.x, base.transform.lossyScale.y, base.transform.lossyScale.z);
-		int num2 = Physics.RaycastNonAlloc(base.transform.position, rand.NextPointOnSphere(1f), raycastHits, maxRadias * num);
+		float num = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
+		int num2 = Physics.RaycastNonAlloc(transform.position, rand.NextPointOnSphere(1f), raycastHits, maxRadias * num);
 		if (num2 <= 0)
 		{
 			return;
@@ -57,7 +57,7 @@ public class RandomLocalColliders : MonoBehaviour
 		{
 			if (!(raycastHits[(i + num3) % num2].distance < minRadias * num))
 			{
-				colliderFound.Invoke(base.transform.position, raycastHits[(i + num3) % num2].point);
+				colliderFound.Invoke(transform.position, raycastHits[(i + num3) % num2].point);
 				break;
 			}
 		}

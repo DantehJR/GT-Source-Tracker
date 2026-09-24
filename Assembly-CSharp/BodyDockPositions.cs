@@ -15,8 +15,8 @@ public class BodyDockPositions : MonoBehaviour
 		Chest = 4,
 		LeftBack = 8,
 		RightBack = 0x10,
-		MaxDropPostions = 5,
-		All = 0x1F,
+		MaxDropPostions = LeftArm | Chest,
+		All = MaxDropPostions | RightArm | LeftBack | RightBack,
 		None = 0
 	}
 
@@ -354,7 +354,7 @@ public class BodyDockPositions : MonoBehaviour
 		for (int i = 0; i < 5; i++)
 		{
 			DropPositions dropPositions = (DropPositions)(1 << i);
-			if ((allObjects[allItemIndex].dockPositions & dropPositions) != DropPositions.None)
+			if ((allObjects[allItemIndex].dockPositions & dropPositions) != 0)
 			{
 				return dropPositions;
 			}
@@ -487,7 +487,15 @@ public class BodyDockPositions : MonoBehaviour
 		{
 			return new DockingResult();
 		}
-		DropPositions startingPos = ((!isLeftHand) ? (((allObjects[list[0]].dockPositions & DropPositions.LeftArm) != DropPositions.None) ? DropPositions.LeftArm : DropPositions.RightBack) : (((allObjects[list[0]].dockPositions & DropPositions.RightArm) != DropPositions.None) ? DropPositions.RightArm : DropPositions.LeftBack));
+		DropPositions startingPos;
+		if (isLeftHand)
+		{
+			startingPos = (((allObjects[list[0]].dockPositions & DropPositions.RightArm) != 0) ? DropPositions.RightArm : DropPositions.LeftBack);
+		}
+		else
+		{
+			startingPos = (((allObjects[list[0]].dockPositions & DropPositions.LeftArm) != 0) ? DropPositions.LeftArm : DropPositions.RightBack);
+		}
 		return ToggleTransferrableItem(transferrableItemName, startingPos, bothHands);
 	}
 
@@ -591,7 +599,7 @@ public class BodyDockPositions : MonoBehaviour
 			myRig = GetComponentInParent<VRRig>(includeInactive: true);
 			if (!myRig)
 			{
-				Debug.LogError("BodyDockPositions.RefreshTransferrableItems: (should never happen) myRig is null and could not be found on same GameObject or parents. Path: " + base.transform.GetPathQ(), this);
+				Debug.LogError("BodyDockPositions.RefreshTransferrableItems: (should never happen) myRig is null and could not be found on same GameObject or parents. Path: " + transform.GetPathQ(), this);
 			}
 		}
 		objectsToEnable.Clear();

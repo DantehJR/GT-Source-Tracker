@@ -10,6 +10,7 @@ using Photon.Realtime;
 using Photon.Voice.Unity;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.CloudScriptModels;
 using Steamworks;
 using UnityEngine;
 
@@ -207,12 +208,18 @@ public abstract class NetworkSystem : MonoBehaviour
 
 	internal void RaiseEvent(byte eventCode, object data, int source)
 	{
-		this.OnRaiseEvent?.Invoke(eventCode, data, source);
+		OnRaiseEvent?.Invoke(eventCode, data, source);
 	}
 
 	internal void CustomAuthenticationResponse(Dictionary<string, object> response)
 	{
-		this.OnCustomAuthenticationResponse?.Invoke(response);
+		PersistLog.Log("Custom authentication succeeded");
+		OnCustomAuthenticationResponse?.Invoke(response);
+	}
+
+	internal void CustomAuthenticationFailed(string debugMessage)
+	{
+		PersistLog.Log("Custom authentication failed: " + debugMessage);
 	}
 
 	public virtual void Initialise()
@@ -220,7 +227,7 @@ public abstract class NetworkSystem : MonoBehaviour
 		Debug.Log("INITIALISING NETWORKSYSTEMS");
 		if ((bool)Instance)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 			return;
 		}
 		Instance = this;
@@ -315,7 +322,7 @@ public abstract class NetworkSystem : MonoBehaviour
 		}
 		if (GorillaComputer.instance.IsPlayerInVirtualStump())
 		{
-			text = GorillaComputer.instance.VStumpRoomPrepend + text;
+			text = GorillaComputer.instance.VStumpRoomFullPrepend + text;
 		}
 		if (GorillaComputer.instance.CheckAutoBanListForName(text))
 		{
@@ -368,9 +375,9 @@ public abstract class NetworkSystem : MonoBehaviour
 			KeyToFollow = key,
 			RoomToJoin = roomToJoin,
 			Set = create
-		}, delegate
+		}, (ExecuteFunctionResult result) =>
 		{
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 		});
 	}
@@ -382,13 +389,13 @@ public abstract class NetworkSystem : MonoBehaviour
 		{
 			Keys = new List<string> { keyToFollow },
 			SharedGroupId = userID
-		}, delegate(GetSharedGroupDataResult result)
+		}, (GetSharedGroupDataResult result) =>
 		{
 			if (result.Data.Count > 0)
 			{
 				success = true;
 			}
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 		});
 		return success;
@@ -512,7 +519,14 @@ public abstract class NetworkSystem : MonoBehaviour
 		return GetPlayerPlatform(GetPlayer(playerID));
 	}
 
+	public string GetPlayerMothershipId(int playerID)
+	{
+		return GetPlayerMothershipId(GetPlayer(playerID));
+	}
+
 	public abstract string GetPlayerPlatform(NetPlayer player);
+
+	public abstract string GetPlayerMothershipId(NetPlayer player);
 
 	public void AddVoiceSettings(SO_NetworkVoiceSettings settings)
 	{

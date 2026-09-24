@@ -217,7 +217,7 @@ public class GRToolUpgradePurchaseStationFull : MonoBehaviour, ITickSystemTick
 	public void HideOrShowTextBasedOnLocalPlayerDistance()
 	{
 		Vector3 position = GRPlayer.Get(VRRig.LocalRig).transform.position;
-		Vector3 position2 = base.transform.position;
+		Vector3 position2 = transform.position;
 		float num = (currentlyShowingText ? 8f : 6f);
 		bool flag = (position - position2).sqrMagnitude < num * num;
 		if (flag != currentlyShowingText)
@@ -945,7 +945,15 @@ public class GRToolUpgradePurchaseStationFull : MonoBehaviour, ITickSystemTick
 		}
 		GRToolUpgradePurchaseStationMagnetPoint component2 = entity.GetComponent<GRToolUpgradePurchaseStationMagnetPoint>();
 		GameDockable component3 = entity.GetComponent<GameDockable>();
-		Transform dock = ((component2 != null) ? component2.magnetAttachTransform : ((component3 != null) ? component3.dockablePoint : entity.transform));
+		Transform dock;
+		if (component2 != null)
+		{
+			dock = component2.magnetAttachTransform;
+		}
+		else
+		{
+			dock = ((component3 != null) ? component3.dockablePoint : entity.transform);
+		}
 		AttachEntityToMagnet_DockGoesToLocation(magnet, entity.transform, dock, new Vector3(0f, -0.03f, 0f));
 		float angle = 0f;
 		float angle2 = 0f;
@@ -1001,11 +1009,11 @@ public class GRToolUpgradePurchaseStationFull : MonoBehaviour, ITickSystemTick
 		{
 			flag2 = false;
 		}
-		if (!bGripLeftLastFrame && flag)
+		if (!bGripLeftLastFrame & flag)
 		{
 			bIsGrippingLeft = true;
 		}
-		else if (bGripLeftLastFrame && flag)
+		else if (bGripLeftLastFrame & flag)
 		{
 			Vector3 forward = pageSelectionHandle.transform.forward;
 			float num5 = Vector3.Dot(lhs, forward);
@@ -1015,11 +1023,11 @@ public class GRToolUpgradePurchaseStationFull : MonoBehaviour, ITickSystemTick
 		{
 			bIsGrippingLeft = false;
 		}
-		if (!bGripRightLastFrame && flag2)
+		if (!bGripRightLastFrame & flag2)
 		{
 			bIsGrippingRight = true;
 		}
-		else if (bGripRightLastFrame && flag2)
+		else if (bGripRightLastFrame & flag2)
 		{
 			Vector3 forward2 = pageSelectionHandle.transform.forward;
 			float num6 = Vector3.Dot(lhs2, forward2);
@@ -1127,7 +1135,7 @@ public class GRToolUpgradePurchaseStationFull : MonoBehaviour, ITickSystemTick
 		needsUIRefresh = true;
 		if (!fromNetworkRPC)
 		{
-			if (flag || flag2)
+			if (flag | flag2)
 			{
 				grManager.RequestNetworkShelfAndItemChange(this, selectedShelf, selectedItem);
 			}

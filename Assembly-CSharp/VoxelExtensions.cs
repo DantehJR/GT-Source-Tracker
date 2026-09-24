@@ -96,8 +96,20 @@ public static class VoxelExtensions
 			Vector3 vector3 = _verts[_tris[triangleIndex * 3]];
 			Vector3 vector4 = _verts[_tris[triangleIndex * 3 + 1]];
 			Vector3 vector5 = _verts[_tris[triangleIndex * 3 + 2]];
-			Vector3 position = ((!((vector2 - vector3).sqrMagnitude < (vector2 - vector4).sqrMagnitude)) ? (((vector2 - vector4).sqrMagnitude < (vector2 - vector5).sqrMagnitude) ? vector4 : vector5) : (((vector2 - vector3).sqrMagnitude < (vector2 - vector5).sqrMagnitude) ? vector3 : vector5));
+			Vector3 position;
+			if ((vector2 - vector3).sqrMagnitude < (vector2 - vector4).sqrMagnitude)
+			{
+				position = (((vector2 - vector3).sqrMagnitude < (vector2 - vector5).sqrMagnitude) ? vector3 : vector5);
+			}
+			else
+			{
+				position = (((vector2 - vector4).sqrMagnitude < (vector2 - vector5).sqrMagnitude) ? vector4 : vector5);
+			}
 			position = (_lastVertex = meshCollider.transform.TransformPoint(position));
+			if ((hit.point - position).sqrMagnitude > world.Scale * 1.6f)
+			{
+				position = (_lastVertex = hit.point);
+			}
 			if (_showDebug)
 			{
 				Debug.Log($"Closest vertex to {vector}: {position}");
@@ -126,7 +138,7 @@ public static class VoxelExtensions
 		{
 			Debug.DrawLine(Camera.main.transform.position, vector, Color.white, 20f);
 		}
-		int3 v = vector.ToInt3();
+		int3 v = vector.RoundToInt();
 		if (_showDebug)
 		{
 			Debug.DrawLine(Camera.main.transform.position, v.ToVector3(), Color.yellow, 20f);
@@ -165,7 +177,7 @@ public static class VoxelExtensions
 		{
 			Debug.DrawLine(Camera.main.transform.position, end, Color.white, 20f);
 		}
-		int3 v = end.ToInt3();
+		int3 v = end.RoundToInt();
 		if (_showDebug)
 		{
 			Debug.DrawLine(Camera.main.transform.position, v.ToVector3(), Color.yellow, 20f);
@@ -185,8 +197,11 @@ public static class VoxelExtensions
 		}
 	}
 
-	public static int[] PerformLocalMiningOperation(this VoxelWorld world, Vector3 hitPoint, Vector3 hitNormal, VoxelOperation op, bool immediate = true)
+	public static int[] PerformLocalMiningOperation(this VoxelWorld world, VoxelManager.VoxelMineOperation mineOp, bool immediate = true)
 	{
+		VoxelOperation op = mineOp.op;
+		Vector3 worldPosition = world.GetWorldPosition(mineOp.localHitPoint);
+		Vector3 hitNormal = mineOp.hitNormal;
 		_lastBounds = world.GetBounds(op.origin, op.radius);
 		_opMaterialSet = world.MaterialSet;
 		_op = op;
@@ -198,7 +213,7 @@ public static class VoxelExtensions
 			world.SetVoxelDataCustom(_lastBounds, MineAt, immediate);
 			if (_opTotalMined > 0)
 			{
-				world.MaterialSet.PlayDigFX(hitPoint, hitNormal, _opMined);
+				VoxelEvents.HandleResourceMined(world, worldPosition, hitNormal, _opMined);
 			}
 			break;
 		case OperationType.Add:
@@ -415,7 +430,7 @@ public static class VoxelExtensions
 			if (!sharedMesh)
 			{
 				Debug.LogError($"{meshCollider} has no mesh!?");
-				return default((Vector3, Vector3, Vector3));
+				return default;
 			}
 			if (_tris == null)
 			{
@@ -430,7 +445,7 @@ public static class VoxelExtensions
 			if (triangleIndex < 0 || triangleIndex >= _tris.Count / 3)
 			{
 				Debug.LogError($"Invalid triangle index {triangleIndex} for mesh {sharedMesh.name}");
-				return default((Vector3, Vector3, Vector3));
+				return default;
 			}
 			Transform transform = meshCollider.transform;
 			Vector3 item = transform.TransformPoint(_verts[_tris[triangleIndex * 3]]);
@@ -478,10 +493,10 @@ public static class VoxelExtensions
 
 	public static int FastDistance(int3 a, int3 b)
 	{
-		int3 obj = math.abs(a - b);
-		int num = obj.x;
-		int num2 = obj.y;
-		int num3 = obj.z;
+		int3 int5 = math.abs(a - b);
+		int num = int5.x;
+		int num2 = int5.y;
+		int num3 = int5.z;
 		if (num < num2)
 		{
 			int num4 = num2;

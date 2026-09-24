@@ -18,12 +18,12 @@ public class KIDUI_AgeAppealEmailError : MonoBehaviour
 		this.hasChallenge = hasChallenge;
 		this.newAge = newAge;
 		_emailText.text = email;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void onBackPressed()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		_ageAppealEmailScreen.ShowAgeAppealEmailScreen(hasChallenge, newAge);
 	}
 }

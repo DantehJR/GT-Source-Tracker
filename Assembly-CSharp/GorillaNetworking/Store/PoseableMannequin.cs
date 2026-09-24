@@ -80,7 +80,7 @@ public class PoseableMannequin : MonoBehaviour
 		GTPosRotConstraints[] array = cosmeticConstraints;
 		for (int i = 0; i < array.Length; i++)
 		{
-			array[i].constraints.ForEach(delegate(GorillaPosRotConstraint c)
+			array[i].constraints.ForEach((GorillaPosRotConstraint c) =>
 			{
 				c.follower.rotation = c.source.rotation;
 				c.follower.position = c.source.position;

@@ -34,23 +34,23 @@ public class FlameThrowerParticleCollisionHandler : MonoBehaviour
 	{
 		if (GorillaComputer.instance == null)
 		{
-			Debug.LogError("FlameThrowerParticleCollisionHandler: Disabling because GorillaComputer not found! Hierarchy path: " + base.transform.GetPath(), this);
-			base.enabled = false;
+			Debug.LogError("FlameThrowerParticleCollisionHandler: Disabling because GorillaComputer not found! Hierarchy path: " + transform.GetPath(), this);
+			enabled = false;
 			return;
 		}
 		if (_prefabToSpawn != null && !_isPrefabInPool)
 		{
 			if (_prefabToSpawn.CompareTag("Untagged"))
 			{
-				Debug.LogError("FlameThrowerParticleCollisionHandler: Disabling because Spawn Prefab has no tag! Hierarchy path: " + base.transform.GetPath(), this);
-				base.enabled = false;
+				Debug.LogError("FlameThrowerParticleCollisionHandler: Disabling because Spawn Prefab has no tag! Hierarchy path: " + transform.GetPath(), this);
+				enabled = false;
 				return;
 			}
 			_isPrefabInPool = ObjectPools.instance.DoesPoolExist(_prefabToSpawn);
 			if (!_isPrefabInPool)
 			{
-				Debug.LogError("FlameThrowerParticleCollisionHandler: Disabling because Spawn Prefab not in pool! Hierarchy path: " + base.transform.GetPath(), this);
-				base.enabled = false;
+				Debug.LogError("FlameThrowerParticleCollisionHandler: Disabling because Spawn Prefab not in pool! Hierarchy path: " + transform.GetPath(), this);
+				enabled = false;
 				return;
 			}
 			_pool = ObjectPools.instance.GetPoolByObjectType(_prefabToSpawn);
@@ -62,8 +62,8 @@ public class FlameThrowerParticleCollisionHandler : MonoBehaviour
 		}
 		if (_particleSystem == null)
 		{
-			Debug.LogError("FlameThrowerParticleCollisionHandler: Disabling because could not find ParticleSystem! Hierarchy path: " + base.transform.GetPath(), this);
-			base.enabled = false;
+			Debug.LogError("FlameThrowerParticleCollisionHandler: Disabling because could not find ParticleSystem! Hierarchy path: " + transform.GetPath(), this);
+			enabled = false;
 		}
 		else if (_collisionEvents == null)
 		{
@@ -83,7 +83,7 @@ public class FlameThrowerParticleCollisionHandler : MonoBehaviour
 			if (_hasPrefabToSpawn && _isPrefabInPool && _pool.GetInactiveCount() > 0)
 			{
 				ParticleCollisionEvent particleCollisionEvent = _collisionEvents[0];
-				FireManager.SpawnFire(_pool, particleCollisionEvent.intersection, particleCollisionEvent.normal, base.transform.lossyScale.x);
+				FireManager.SpawnFire(_pool, particleCollisionEvent.intersection, particleCollisionEvent.normal, transform.lossyScale.x);
 			}
 			if (_extinguishAmount > 0f)
 			{

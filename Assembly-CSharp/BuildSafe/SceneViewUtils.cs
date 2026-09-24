@@ -12,7 +12,7 @@ public static class SceneViewUtils
 
 	private static bool RaycastWorldSafe(Vector2 screenPos, out RaycastHit hit)
 	{
-		hit = default(RaycastHit);
+		hit = default;
 		return false;
 	}
 }

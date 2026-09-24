@@ -277,7 +277,7 @@ public class PhotonView : MonoBehaviour
 	{
 		if (!removedFromLocalViewList && PhotonNetwork.LocalCleanPhotonView(this) && InstantiationId > 0 && !ConnectionHandler.AppQuits && PhotonNetwork.LogLevel >= PunLogLevel.Informational)
 		{
-			Debug.Log("PUN-instantiated '" + base.gameObject.name + "' got destroyed by engine. This is OK when loading levels. Otherwise use: PhotonNetwork.Destroy().");
+			Debug.Log("PUN-instantiated '" + gameObject.name + "' got destroyed by engine. This is OK when loading levels. Otherwise use: PhotonNetwork.Destroy().");
 		}
 	}
 
@@ -308,7 +308,7 @@ public class PhotonView : MonoBehaviour
 			{
 				ObservedComponents.Clear();
 			}
-			base.transform.GetNestedComponentsInChildren<Component, IPunObservable, PhotonView>(force || observableSearch == ObservableSearch.AutoFindAll, ObservedComponents);
+			transform.GetNestedComponentsInChildren<Component, IPunObservable, PhotonView>(force || observableSearch == ObservableSearch.AutoFindAll, ObservedComponents);
 		}
 	}
 
@@ -485,6 +485,6 @@ public class PhotonView : MonoBehaviour
 
 	public override string ToString()
 	{
-		return string.Format("View {0}{3} on {1} {2}", ViewID, (base.gameObject != null) ? base.gameObject.name : "GO==null", IsRoomView ? "(scene)" : string.Empty, (Prefix > 0) ? ("lvl" + Prefix) : "");
+		return string.Format("View {0}{3} on {1} {2}", ViewID, (gameObject != null) ? gameObject.name : "GO==null", IsRoomView ? "(scene)" : string.Empty, (Prefix > 0) ? ("lvl" + Prefix) : "");
 	}
 }

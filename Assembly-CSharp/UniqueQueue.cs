@@ -48,7 +48,7 @@ public class UniqueQueue<T> : IEnumerable<T>, IEnumerable
 	{
 		if (queue.Count < 1)
 		{
-			item = default(T);
+			item = default;
 			return false;
 		}
 		item = Dequeue();

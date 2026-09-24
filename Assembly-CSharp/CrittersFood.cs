@@ -41,7 +41,7 @@ public class CrittersFood : CrittersActor
 		{
 			return flag;
 		}
-		wasEnabled = base.gameObject.activeSelf;
+		wasEnabled = gameObject.activeSelf;
 		ProcessFood();
 		bool flag2 = Mathf.FloorToInt(currentFood) != lastFood;
 		lastFood = Mathf.FloorToInt(currentFood);
@@ -49,11 +49,11 @@ public class CrittersFood : CrittersActor
 		{
 			isEnabled = false;
 		}
-		if (base.gameObject.activeSelf != isEnabled)
+		if (gameObject.activeSelf != isEnabled)
 		{
-			base.gameObject.SetActive(isEnabled);
+			gameObject.SetActive(isEnabled);
 		}
-		updatedSinceLastFrame = flag || flag2 || wasEnabled != isEnabled;
+		updatedSinceLastFrame = (flag | flag2) || wasEnabled != isEnabled;
 		return updatedSinceLastFrame;
 	}
 

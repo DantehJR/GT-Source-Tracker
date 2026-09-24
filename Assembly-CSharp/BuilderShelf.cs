@@ -135,7 +135,7 @@ public class BuilderShelf : MonoBehaviour
 	{
 		if (center == null)
 		{
-			center = base.transform;
+			center = transform;
 		}
 		Vector3 vector = Vector3.zero;
 		Vector3 euler = Vector3.zero;

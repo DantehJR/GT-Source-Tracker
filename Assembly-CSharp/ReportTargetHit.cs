@@ -68,10 +68,10 @@ public class ReportTargetHit : MonoBehaviour
 	{
 		if (targets.Length != 0)
 		{
-			Vector3 direction = targets[rand.NextInt(targets.Length)].position - base.transform.position;
-			if (Physics.Raycast(base.transform.position, direction, out var hitInfo) && colliderFound != null)
+			Vector3 direction = targets[rand.NextInt(targets.Length)].position - transform.position;
+			if (Physics.Raycast(transform.position, direction, out var hitInfo) && colliderFound != null)
 			{
-				colliderFound.Invoke(base.transform.position, hitInfo.point);
+				colliderFound.Invoke(transform.position, hitInfo.point);
 			}
 		}
 	}

@@ -109,9 +109,9 @@ public class GorillaThrowable : MonoBehaviourPun, IPunObservable, IPhotonViewCal
 		for (int i = 0; i < trackingHistorySize; i++)
 		{
 			velocityHistory[i] = Vector3.zero;
-			positionHistory[i] = base.transform.position - headsetTransform.position;
+			positionHistory[i] = transform.position - headsetTransform.position;
 			headsetPositionHistory[i] = headsetTransform.position;
-			rotationHistory[i] = base.transform.eulerAngles;
+			rotationHistory[i] = transform.eulerAngles;
 			rotationalVelocityHistory[i] = Vector3.zero;
 		}
 		currentIndex = 0;
@@ -120,24 +120,24 @@ public class GorillaThrowable : MonoBehaviourPun, IPunObservable, IPhotonViewCal
 
 	public virtual void LateUpdate()
 	{
-		if (isHeld && base.photonView.IsMine)
+		if (isHeld && photonView.IsMine)
 		{
-			base.transform.rotation = transformToFollow.rotation * offsetRotation;
-			if (!initialLerp && (base.transform.position - transformToFollow.position).magnitude > lerpDistanceLimit)
+			transform.rotation = transformToFollow.rotation * offsetRotation;
+			if (!initialLerp && (transform.position - transformToFollow.position).magnitude > lerpDistanceLimit)
 			{
-				base.transform.position = Vector3.Lerp(base.transform.position, transformToFollow.position + transformToFollow.rotation * offset, pickupLerp);
+				transform.position = Vector3.Lerp(transform.position, transformToFollow.position + transformToFollow.rotation * offset, pickupLerp);
 			}
 			else
 			{
 				initialLerp = true;
-				base.transform.position = transformToFollow.position + transformToFollow.rotation * offset;
+				transform.position = transformToFollow.position + transformToFollow.rotation * offset;
 			}
 		}
-		if (!base.photonView.IsMine)
+		if (!photonView.IsMine)
 		{
 			rigidbody.isKinematic = true;
-			base.transform.position = Vector3.Lerp(base.transform.position, targetPosition, lerpValue);
-			base.transform.rotation = Quaternion.Lerp(base.transform.rotation, targetRotation, lerpValue);
+			transform.position = Vector3.Lerp(transform.position, targetPosition, lerpValue);
+			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, lerpValue);
 		}
 		StoreHistories();
 	}
@@ -152,9 +152,9 @@ public class GorillaThrowable : MonoBehaviourPun, IPunObservable, IPhotonViewCal
 		previousRotation = rotationHistory[currentIndex];
 		previousHeadsetPosition = headsetPositionHistory[currentIndex];
 		currentIndex = (currentIndex + 1) % trackingHistorySize;
-		currentVelocity = (base.transform.position - headsetTransform.position - previousPosition) / Time.deltaTime;
+		currentVelocity = (transform.position - headsetTransform.position - previousPosition) / Time.deltaTime;
 		currentHeadsetVelocity = (headsetTransform.position - previousHeadsetPosition) / Time.deltaTime;
-		currentRotationalVelocity = (base.transform.eulerAngles - previousRotation) / Time.deltaTime;
+		currentRotationalVelocity = (transform.eulerAngles - previousRotation) / Time.deltaTime;
 		denormalizedVelocityAverage = Vector3.zero;
 		denormalizedRotationalVelocityAverage = Vector3.zero;
 		for (loopIndex = 0; loopIndex < trackingHistorySize; loopIndex++)
@@ -165,9 +165,9 @@ public class GorillaThrowable : MonoBehaviourPun, IPunObservable, IPhotonViewCal
 		denormalizedVelocityAverage /= (float)trackingHistorySize;
 		denormalizedRotationalVelocityAverage /= (float)trackingHistorySize;
 		velocityHistory[currentIndex] = currentVelocity;
-		positionHistory[currentIndex] = base.transform.position - headsetTransform.position;
+		positionHistory[currentIndex] = transform.position - headsetTransform.position;
 		headsetPositionHistory[currentIndex] = headsetTransform.position;
-		rotationHistory[currentIndex] = base.transform.eulerAngles;
+		rotationHistory[currentIndex] = transform.eulerAngles;
 		rotationalVelocityHistory[currentIndex] = currentRotationalVelocity;
 	}
 
@@ -176,11 +176,11 @@ public class GorillaThrowable : MonoBehaviourPun, IPunObservable, IPhotonViewCal
 		grabbingTransform = grabTransform;
 		isHeld = true;
 		transformToFollow = grabbingTransform;
-		offsetRotation = base.transform.rotation * Quaternion.Inverse(transformToFollow.rotation);
+		offsetRotation = transform.rotation * Quaternion.Inverse(transformToFollow.rotation);
 		initialLerp = false;
 		rigidbody.isKinematic = true;
 		rigidbody.useGravity = false;
-		base.photonView.RequestOwnership();
+		photonView.RequestOwnership();
 	}
 
 	public virtual void ThrowThisThingo()
@@ -214,8 +214,8 @@ public class GorillaThrowable : MonoBehaviourPun, IPunObservable, IPhotonViewCal
 	{
 		if (stream.IsWriting)
 		{
-			stream.SendNext(base.transform.position);
-			stream.SendNext(base.transform.rotation);
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
 			stream.SendNext(rigidbody.linearVelocity);
 		}
 		else
@@ -234,7 +234,7 @@ public class GorillaThrowable : MonoBehaviourPun, IPunObservable, IPhotonViewCal
 		{
 			if (NetworkSystem.Instance.InRoom)
 			{
-				base.photonView.RPC("PlaySurfaceHit", RpcTarget.Others, bounceAudioClip, InterpolateVolume());
+				photonView.RPC("PlaySurfaceHit", RpcTarget.Others, bounceAudioClip, InterpolateVolume());
 			}
 			PlaySurfaceHit(collision.collider.GetComponent<GorillaSurfaceOverride>().overrideIndex, InterpolateVolume());
 		}

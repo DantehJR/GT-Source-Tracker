@@ -23,7 +23,7 @@ public class CompositeTriggerEvents : MonoBehaviour
 	{
 		if (individualTriggerColliders.Count > 32)
 		{
-			Debug.LogError("The max number of triggers was exceeded in this composite trigger event sender on GameObject: " + base.gameObject.name + ".");
+			Debug.LogError("The max number of triggers was exceeded in this composite trigger event sender on GameObject: " + gameObject.name + ".");
 		}
 		for (int i = 0; i < individualTriggerColliders.Count; i++)
 		{
@@ -39,7 +39,7 @@ public class CompositeTriggerEvents : MonoBehaviour
 	{
 		if (individualTriggerColliders.Count >= 32)
 		{
-			Debug.LogError("The max number of triggers are already present in this composite trigger event sender on GameObject: " + base.gameObject.name + ".");
+			Debug.LogError("The max number of triggers are already present in this composite trigger event sender on GameObject: " + gameObject.name + ".");
 			return;
 		}
 		individualTriggerColliders.Add(colliderToAdd);
@@ -89,7 +89,7 @@ public class CompositeTriggerEvents : MonoBehaviour
 		{
 			foreach (KeyValuePair<Collider, int> item in overlapMask)
 			{
-				this.CompositeTriggerExit?.Invoke(item.Key);
+				CompositeTriggerExit?.Invoke(item.Key);
 			}
 		}
 		overlapMask.Clear();
@@ -104,7 +104,7 @@ public class CompositeTriggerEvents : MonoBehaviour
 	{
 		if (individualTriggerColliders.Count >= 32)
 		{
-			Debug.LogError("The max number of triggers are already present in this composite trigger event sender on GameObject: " + base.gameObject.name + ".");
+			Debug.LogError("The max number of triggers are already present in this composite trigger event sender on GameObject: " + gameObject.name + ".");
 			return -1;
 		}
 		int num = 0;
@@ -138,7 +138,7 @@ public class CompositeTriggerEvents : MonoBehaviour
 		{
 			int value2 = SetMaskIndexTrue(0, notifier.maskIndex);
 			overlapMask.Add(other, value2);
-			this.CompositeTriggerEnter?.Invoke(other);
+			CompositeTriggerEnter?.Invoke(other);
 		}
 	}
 
@@ -150,7 +150,7 @@ public class CompositeTriggerEvents : MonoBehaviour
 			if (value == 0)
 			{
 				overlapMask.Remove(other);
-				this.CompositeTriggerExit?.Invoke(other);
+				CompositeTriggerExit?.Invoke(other);
 			}
 			else
 			{
@@ -165,7 +165,7 @@ public class CompositeTriggerEvents : MonoBehaviour
 		{
 			if (value != 0)
 			{
-				this.CompositeTriggerExit?.Invoke(other);
+				CompositeTriggerExit?.Invoke(other);
 			}
 			overlapMask.Remove(other);
 		}
@@ -173,12 +173,12 @@ public class CompositeTriggerEvents : MonoBehaviour
 
 	public void CompositeTriggerEnterReceiver(Collider other)
 	{
-		this.CompositeTriggerEnter?.Invoke(other);
+		CompositeTriggerEnter?.Invoke(other);
 	}
 
 	public void CompositeTriggerExitReceiver(Collider other)
 	{
-		this.CompositeTriggerExit?.Invoke(other);
+		CompositeTriggerExit?.Invoke(other);
 	}
 
 	private bool TestMaskIndex(int mask, int index)

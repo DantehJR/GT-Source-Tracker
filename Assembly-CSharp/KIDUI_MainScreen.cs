@@ -346,7 +346,7 @@ public class KIDUI_MainScreen : MonoBehaviour
 	public void ShowMainScreen(EMainScreenStatus showStatus)
 	{
 		ShownSettingsScreen = true;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		ConfigurePermissionsButtons();
 		UpdateScreenStatus(showStatus);
 	}
@@ -434,7 +434,7 @@ public class KIDUI_MainScreen : MonoBehaviour
 
 	public void HideMainScreen()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	public async void OnAskForPermission()
@@ -452,7 +452,7 @@ public class KIDUI_MainScreen : MonoBehaviour
 		{
 			return;
 		}
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		if (KIDManager.CurrentSession.IsDefault)
 		{
 			_setupKidScreen.OnStartSetup();
@@ -487,13 +487,13 @@ public class KIDUI_MainScreen : MonoBehaviour
 				UpdateOptInSetting(allPermissionsData[i], EKIDFeatures.Mods, null);
 				break;
 			case "voice-chat":
-				UpdateOptInSetting(allPermissionsData[i], EKIDFeatures.Voice_Chat, delegate(bool b, Permission p, bool hasOptedInPreviously)
+				UpdateOptInSetting(allPermissionsData[i], EKIDFeatures.Voice_Chat, (bool b, Permission p, bool hasOptedInPreviously) =>
 				{
 					GorillaComputer.instance.KID_SetVoiceChatSettingOnStart(b, p.ManagedBy, hasOptedInPreviously);
 				});
 				break;
 			case "custom-username":
-				UpdateOptInSetting(allPermissionsData[i], EKIDFeatures.Custom_Nametags, delegate(bool b, Permission p, bool hasOptedInPreviously)
+				UpdateOptInSetting(allPermissionsData[i], EKIDFeatures.Custom_Nametags, (bool b, Permission p, bool hasOptedInPreviously) =>
 				{
 					GorillaComputer.instance.SetNametagSetting(b, p.ManagedBy, hasOptedInPreviously);
 				});
@@ -552,7 +552,7 @@ public class KIDUI_MainScreen : MonoBehaviour
 		bool hasUpdated = false;
 		bool wasSuccess = false;
 		float cutOffDuration = Time.realtimeSinceStartup + 15f;
-		KIDManager.UpdateSession(delegate(bool success)
+		KIDManager.UpdateSession((bool success) =>
 		{
 			hasUpdated = true;
 			wasSuccess = success;

@@ -21,9 +21,14 @@ public sealed class AlarmClockManager : MonoBehaviour
 
 		public GTZone[] Zones;
 
+		[Tooltip("Skip waiting for the zone scenes to report loaded. Use for zones with no real backing scene (e.g. customMaps / the virtual stump), which are activated by object toggling and would otherwise never satisfy the load check and hang the wake-up.")]
+		public bool SkipZoneReadyWait;
+
 		public XSceneRef[] Objects;
 
 		public Transform SpawnPoint;
+
+		public UnityEvent OnSpawn;
 	}
 
 	public const string SaveDataKey = "AlarmClock";
@@ -102,73 +107,99 @@ public sealed class AlarmClockManager : MonoBehaviour
 			yield return null;
 		}
 		PrivateUIRoom.ForceStartOverlay(PrivateUIRoom.OverlaySource.AlarmClock, _loadingMessage);
-		PersistLog.Log($"[AC][F{Time.frameCount}] Waiting for game systems");
-		while (!GameSystemsLoaded())
+		PersistLog.Log($"[AC][F{Time.frameCount}] Waiting for feature flags.");
+		while (true)
 		{
+			GorillaServer instance = GorillaServer.Instance;
+			if ((object)instance == null || instance.FeatureFlagsReady)
+			{
+				break;
+			}
 			yield return null;
 		}
-		PersistLog.Log($"[AC][F{Time.frameCount}] Game systems loaded");
-		if (!_activeClockData.VIMOnly || ((bool)PlayFabAuthenticator.instance && SubscriptionManager.IsLocalSubscribed()))
+		if (GorillaServer.Instance?.CheckAlarmClocksEnabled() ?? false)
 		{
-			RequestLoadZones();
-			yield return null;
-			while (!AllZonesLoaded())
+			PersistLog.Log($"[AC][F{Time.frameCount}] Waiting for game systems");
+			while (!GameSystemsLoaded())
 			{
-				while (ZoneManagement.instance.AnyActiveLoadOps())
-				{
-					yield return null;
-				}
-				if (!AllZonesLoaded())
-				{
-					PersistLog.Log(string.Format("[AC][F{0}] Missing zones.  Requested:{1} Active: {2}", Time.frameCount, string.Join(", ", _activeClockData.Zones), string.Join(", ", GetActiveZones())));
-					RequestLoadZones();
-					yield return null;
-				}
-			}
-			PersistLog.Log($"[AC][F{Time.frameCount}] All zones loaded.");
-			XSceneRef[] objects = _activeClockData.Objects;
-			foreach (XSceneRef xSceneRef in objects)
-			{
-				if (xSceneRef.TryResolve(out GameObject result))
-				{
-					result.SetActive(value: true);
-				}
-			}
-			yield return null;
-			GTPlayer.Instance.TeleportTo(_teleportTarget, matchDestinationRotation: true, maintainVelocity: false);
-			yield return null;
-			int fixAttempts = 0;
-			while ((GTPlayer.Instance.mainCamera.transform.position - _teleportTarget.position).sqrMagnitude > _wrongWarpTolerance * _wrongWarpTolerance)
-			{
-				int i = fixAttempts + 1;
-				fixAttempts = i;
-				if (i > 10)
-				{
-					break;
-				}
-				PersistLog.Log($"[AC][F{Time.frameCount}] AlarmClockManager attempting wrong warp fix. (Off by {GTPlayer.Instance.mainCamera.transform.position - _teleportTarget.position:F2})");
-				GTPlayer.Instance.TeleportTo(_teleportTarget, matchDestinationRotation: true, maintainVelocity: false);
 				yield return null;
 			}
-			GTPlayer.Instance.disableMovement = false;
-			PrivateUIRoom.StopForcedOverlay(PrivateUIRoom.OverlaySource.AlarmClock);
-			OnWakeUp?.Invoke();
-			SendTelemetryEvent("wake_complete", ActiveKey);
+			PersistLog.Log($"[AC][F{Time.frameCount}] Game systems loaded");
+			if (!_activeClockData.VIMOnly || ((bool)PlayFabAuthenticator.instance && SubscriptionManager.IsLocalSubscribed()))
+			{
+				RequestLoadZones();
+				yield return null;
+				if (!_activeClockData.SkipZoneReadyWait)
+				{
+					while (!AllZonesLoaded())
+					{
+						while (ZoneManagement.instance.AnyActiveLoadOps())
+						{
+							yield return null;
+						}
+						if (!AllZonesLoaded())
+						{
+							PersistLog.Log(string.Format("[AC][F{0}] Missing zones.  Requested:{1} Active: {2}", Time.frameCount, string.Join(", ", _activeClockData.Zones), string.Join(", ", GetActiveZones())));
+							RequestLoadZones();
+							yield return null;
+						}
+					}
+					PersistLog.Log($"[AC][F{Time.frameCount}] All zones loaded.");
+				}
+				else
+				{
+					PersistLog.Log($"[AC][F{Time.frameCount}] Skipped zone load check.");
+				}
+				XSceneRef[] objects = _activeClockData.Objects;
+				foreach (XSceneRef xSceneRef in objects)
+				{
+					if (xSceneRef.TryResolve(out GameObject result))
+					{
+						result.SetActive(value: true);
+					}
+				}
+				yield return null;
+				GTPlayer.Instance.TeleportTo(_teleportTarget, matchDestinationRotation: true, maintainVelocity: false);
+				yield return null;
+				int fixAttempts = 0;
+				while ((GTPlayer.Instance.mainCamera.transform.position - _teleportTarget.position).sqrMagnitude > _wrongWarpTolerance * _wrongWarpTolerance)
+				{
+					int i = fixAttempts + 1;
+					fixAttempts = i;
+					if (i > 10)
+					{
+						break;
+					}
+					PersistLog.Log($"[AC][F{Time.frameCount}] AlarmClockManager attempting wrong warp fix. (Off by {GTPlayer.Instance.mainCamera.transform.position - _teleportTarget.position:F2})");
+					GTPlayer.Instance.TeleportTo(_teleportTarget, matchDestinationRotation: true, maintainVelocity: false);
+					yield return null;
+				}
+				GTPlayer.Instance.disableMovement = false;
+				PrivateUIRoom.StopForcedOverlay(PrivateUIRoom.OverlaySource.AlarmClock);
+				OnWakeUp?.Invoke();
+				_activeClockData.OnSpawn?.Invoke();
+				SendTelemetryEvent("wake_complete", ActiveKey);
+			}
+			else
+			{
+				if (PlayFabAuthenticator.instance == null)
+				{
+					PersistLog.Log($"[AC][F{Time.frameCount}] AlarmClockManager failed wake up because PlayFabAuthenticator was null.");
+				}
+				else if (PlayFabAuthenticator.instance.loginFailed)
+				{
+					PersistLog.Log($"[AC][F{Time.frameCount}] AlarmClockManager failed wake up because login failed.");
+				}
+				SendTelemetryEvent("wake_abort", ActiveKey);
+				PersistLog.Log("VIM Only destination [" + ActiveKey + "] and no subscription.  Clearing clock data.");
+				PlayerPrefs.SetString("AlarmClock", "");
+				StartCoroutine(ClearUnsubPlayerData());
+			}
 		}
 		else
 		{
-			if (PlayFabAuthenticator.instance == null)
-			{
-				PersistLog.Log($"[AC][F{Time.frameCount}] AlarmClockManager failed wake up because PlayFabAuthenticator was null.");
-			}
-			else if (PlayFabAuthenticator.instance.loginFailed)
-			{
-				PersistLog.Log($"[AC][F{Time.frameCount}] AlarmClockManager failed wake up because login failed.");
-			}
-			SendTelemetryEvent("wake_abort", ActiveKey);
-			PersistLog.Log("VIM Only destination [" + ActiveKey + "] and no subscription.  Clearing clock data.");
-			PlayerPrefs.SetString("AlarmClock", "");
-			StartCoroutine(ClearUnsubPlayerData());
+			PersistLog.Log($"[AC][F{Time.frameCount}] Alarm clocks disabled.");
+			SendTelemetryEvent("wake_abort_disabled", ActiveKey);
 		}
 		Initialized = true;
 		GTPlayer.Instance.disableMovement = false;
@@ -198,7 +229,7 @@ public sealed class AlarmClockManager : MonoBehaviour
 			SendTelemetryEvent("set", clock.Key);
 		}
 		PlayerPrefs.SetString("AlarmClock", ActiveKey);
-		Debug.Log("Alarm clock data set to \"" + ActiveKey + "\".");
+		PlayerPrefs.Save();
 	}
 
 	private void OnDestroy()

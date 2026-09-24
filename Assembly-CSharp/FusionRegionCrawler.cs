@@ -30,7 +30,7 @@ public class FusionRegionCrawler : MonoBehaviour, INetworkRunnerCallbacks, IPubl
 
 	public void Start()
 	{
-		regionRunner = base.gameObject.AddComponent<NetworkRunner>();
+		regionRunner = gameObject.AddComponent<NetworkRunner>();
 		regionRunner.AddCallbacks(this);
 		StartCoroutine(OccasionalUpdate());
 	}
@@ -47,7 +47,7 @@ public class FusionRegionCrawler : MonoBehaviour, INetworkRunnerCallbacks, IPubl
 	public IEnumerator UpdatePlayerCount()
 	{
 		int tempGlobalPlayerCount = 0;
-		StartGameArgs startGameArgs = default(StartGameArgs);
+		StartGameArgs startGameArgs = default;
 		string[] regionNames = NetworkSystem.Instance.regionNames;
 		foreach (string fixedRegion in regionNames)
 		{

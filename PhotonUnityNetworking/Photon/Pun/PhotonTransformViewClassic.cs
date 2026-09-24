@@ -53,7 +53,7 @@ public class PhotonTransformViewClassic : MonoBehaviourPun, IPunObservable
 	{
 		if (m_PositionModel.SynchronizeEnabled && m_ReceivedNetworkUpdate)
 		{
-			base.transform.localPosition = m_PositionControl.UpdatePosition(base.transform.localPosition);
+			transform.localPosition = m_PositionControl.UpdatePosition(transform.localPosition);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class PhotonTransformViewClassic : MonoBehaviourPun, IPunObservable
 	{
 		if (m_RotationModel.SynchronizeEnabled && m_ReceivedNetworkUpdate)
 		{
-			base.transform.localRotation = m_RotationControl.GetRotation(base.transform.localRotation);
+			transform.localRotation = m_RotationControl.GetRotation(transform.localRotation);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class PhotonTransformViewClassic : MonoBehaviourPun, IPunObservable
 	{
 		if (m_ScaleModel.SynchronizeEnabled && m_ReceivedNetworkUpdate)
 		{
-			base.transform.localScale = m_ScaleControl.GetScale(base.transform.localScale);
+			transform.localScale = m_ScaleControl.GetScale(transform.localScale);
 		}
 	}
 
@@ -80,9 +80,9 @@ public class PhotonTransformViewClassic : MonoBehaviourPun, IPunObservable
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
-		m_PositionControl.OnPhotonSerializeView(base.transform.localPosition, stream, info);
-		m_RotationControl.OnPhotonSerializeView(base.transform.localRotation, stream, info);
-		m_ScaleControl.OnPhotonSerializeView(base.transform.localScale, stream, info);
+		m_PositionControl.OnPhotonSerializeView(transform.localPosition, stream, info);
+		m_RotationControl.OnPhotonSerializeView(transform.localRotation, stream, info);
+		m_ScaleControl.OnPhotonSerializeView(transform.localScale, stream, info);
 		if (!stream.IsReading)
 		{
 			return;
@@ -93,15 +93,15 @@ public class PhotonTransformViewClassic : MonoBehaviourPun, IPunObservable
 			m_firstTake = false;
 			if (m_PositionModel.SynchronizeEnabled)
 			{
-				base.transform.localPosition = m_PositionControl.GetNetworkPosition();
+				transform.localPosition = m_PositionControl.GetNetworkPosition();
 			}
 			if (m_RotationModel.SynchronizeEnabled)
 			{
-				base.transform.localRotation = m_RotationControl.GetNetworkRotation();
+				transform.localRotation = m_RotationControl.GetNetworkRotation();
 			}
 			if (m_ScaleModel.SynchronizeEnabled)
 			{
-				base.transform.localScale = m_ScaleControl.GetNetworkScale();
+				transform.localScale = m_ScaleControl.GetNetworkScale();
 			}
 		}
 	}

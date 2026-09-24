@@ -649,9 +649,9 @@ public class PhotonPeer
 
 	internal void OnDisconnectMessageCall(DisconnectMessage dm)
 	{
-		if (this.OnDisconnectMessage != null)
+		if (OnDisconnectMessage != null)
 		{
-			this.OnDisconnectMessage(dm);
+			OnDisconnectMessage(dm);
 		}
 	}
 
@@ -675,7 +675,7 @@ public class PhotonPeer
 	{
 		if (AsyncKeyExchange)
 		{
-			SupportClass.StartBackgroundCalls(delegate
+			SupportClass.StartBackgroundCalls(() =>
 			{
 				peerBase.ExchangeKeysForEncryption(SendOutgoingLockObject);
 				return false;

@@ -19,7 +19,7 @@ public class GuidedRefTargetMonoGameObject : MonoBehaviour, IGuidedRefTargetMono
 		}
 	}
 
-	public Object GuidedRefTargetObject => base.gameObject;
+	public Object GuidedRefTargetObject => gameObject;
 
 	protected void Awake()
 	{

@@ -17,14 +17,14 @@ public class CustomObjectProvider : NetworkObjectProviderDefault
 
 	public override NetworkObjectAcquireResult AcquirePrefabInstance(NetworkRunner runner, in NetworkPrefabAcquireContext context, out NetworkObject instance)
 	{
-		NetworkObjectAcquireResult num = base.AcquirePrefabInstance(runner, in context, out instance);
-		if (num == NetworkObjectAcquireResult.Success)
+		NetworkObjectAcquireResult networkObjectAcquireResult = base.AcquirePrefabInstance(runner, in context, out instance);
+		if (networkObjectAcquireResult == NetworkObjectAcquireResult.Success)
 		{
 			IsGameMode(instance);
-			return num;
+			return networkObjectAcquireResult;
 		}
 		instance = null;
-		return num;
+		return networkObjectAcquireResult;
 	}
 
 	private void IsGameMode(NetworkObject instance)

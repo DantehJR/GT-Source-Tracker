@@ -22,14 +22,14 @@ public class SpawnWorldEffectsTrigger : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		spawnTime = Time.time;
-		swe.RequestSpawn(base.transform.position);
+		swe.RequestSpawn(transform.position);
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
 		if (!(Time.time - spawnTime < spawnCooldown))
 		{
-			swe.RequestSpawn(base.transform.position);
+			swe.RequestSpawn(transform.position);
 			spawnTime = Time.time;
 		}
 	}

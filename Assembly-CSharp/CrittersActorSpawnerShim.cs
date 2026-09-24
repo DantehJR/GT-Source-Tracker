@@ -22,7 +22,7 @@ public class CrittersActorSpawnerShim : MonoBehaviour
 	[ContextMenu("Copy Spawner Data To Shim")]
 	private CrittersActorSpawner CopySpawnerDataInPrefab()
 	{
-		CrittersActorSpawner component = base.gameObject.GetComponent<CrittersActorSpawner>();
+		CrittersActorSpawner component = gameObject.GetComponent<CrittersActorSpawner>();
 		spawnerPointTransform = component.spawnPoint.transform;
 		actorType = component.actorType;
 		subActorIndex = component.subActorIndex;
@@ -30,7 +30,7 @@ public class CrittersActorSpawnerShim : MonoBehaviour
 		spawnDelay = component.spawnDelay;
 		applyImpulseOnSpawn = component.applyImpulseOnSpawn;
 		attachSpawnedObjectToSpawnLocation = component.attachSpawnedObjectToSpawnLocation;
-		colliderTrigger = base.gameObject.GetComponent<BoxCollider>();
+		colliderTrigger = gameObject.GetComponent<BoxCollider>();
 		return component;
 	}
 

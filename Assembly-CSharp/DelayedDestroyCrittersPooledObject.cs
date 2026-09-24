@@ -18,7 +18,7 @@ public class DelayedDestroyCrittersPooledObject : MonoBehaviour
 	{
 		if (Time.time >= timeToDie)
 		{
-			CrittersPool.Return(base.gameObject);
+			CrittersPool.Return(gameObject);
 		}
 	}
 }

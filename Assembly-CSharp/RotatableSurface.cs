@@ -9,6 +9,6 @@ public class RotatableSurface : MonoBehaviour
 	private void LateUpdate()
 	{
 		float angle = spinner.angle;
-		base.transform.localRotation = Quaternion.Euler(0f, angle * rotationScale, 0f);
+		transform.localRotation = Quaternion.Euler(0f, angle * rotationScale, 0f);
 	}
 }

@@ -186,7 +186,7 @@ public class ScienceExperimentPlatformGenerator : MonoBehaviourPun, ITickSystemP
 
 	private void SpawnNewBubbles(double currentTime)
 	{
-		if (!base.photonView.IsMine || scienceExperimentManager.GameState != ScienceExperimentManager.RisingLiquidState.Rising)
+		if (!photonView.IsMine || scienceExperimentManager.GameState != ScienceExperimentManager.RisingLiquidState.Rising)
 		{
 			return;
 		}
@@ -228,7 +228,7 @@ public class ScienceExperimentPlatformGenerator : MonoBehaviourPun, ITickSystemP
 
 	private void UpdateTrails(double currentTime)
 	{
-		if (!base.photonView.IsMine)
+		if (!photonView.IsMine)
 		{
 			return;
 		}
@@ -283,7 +283,7 @@ public class ScienceExperimentPlatformGenerator : MonoBehaviourPun, ITickSystemP
 				float num11 = trailBubbleSize;
 				float num12 = trailBubbleLifetimeVsProgress.Evaluate(scienceExperimentManager.RiseProgressLinear) * trailBubbleLifetimeMultiplier;
 				trailHeads.RemoveAt(num5);
-				base.photonView.RPC("SpawnSodaBubbleRPC", RpcTarget.Others, vector3, num11, num12, currentTime);
+				photonView.RPC("SpawnSodaBubbleRPC", RpcTarget.Others, vector3, num11, num12, currentTime);
 				SpawnSodaBubbleLocal(vector3, num11, num12, currentTime, addAsTrail: true, vector);
 			}
 		}
@@ -291,7 +291,7 @@ public class ScienceExperimentPlatformGenerator : MonoBehaviourPun, ITickSystemP
 
 	private void SpawnRockAuthority(double currentTime, float lavaProgress)
 	{
-		if (base.photonView.IsMine)
+		if (photonView.IsMine)
 		{
 			float num = rockLifetimeMultiplierVsLavaProgress.Evaluate(lavaProgress);
 			float num2 = rockMaxSizeMultiplierVsLavaProgress.Evaluate(lavaProgress);
@@ -300,21 +300,21 @@ public class ScienceExperimentPlatformGenerator : MonoBehaviourPun, ITickSystemP
 			float num5 = spawnRadiusMultiplierVsLavaProgress.Evaluate(lavaProgress);
 			Vector2 inputPosition = UnityEngine.Random.insideUnitCircle.normalized * UnityEngine.Random.Range(surfaceRadiusSpawnRange.x, surfaceRadiusSpawnRange.y) * num5;
 			inputPosition = GetSpawnPositionWithClearance(inputPosition, num4 * scaleFactor, surfaceRadiusSpawnRange.y, liquidSurfacePlane.transform.position);
-			base.photonView.RPC("SpawnSodaBubbleRPC", RpcTarget.Others, inputPosition, num4, num3, currentTime);
+			photonView.RPC("SpawnSodaBubbleRPC", RpcTarget.Others, inputPosition, num4, num3, currentTime);
 			SpawnSodaBubbleLocal(inputPosition, num4, num3, currentTime);
 		}
 	}
 
 	private void SpawnTrailAuthority(double currentTime, float lavaProgress)
 	{
-		if (base.photonView.IsMine)
+		if (photonView.IsMine)
 		{
 			float num = trailBubbleLifetimeVsProgress.Evaluate(scienceExperimentManager.RiseProgressLinear) * trailBubbleLifetimeMultiplier;
 			float num2 = trailBubbleSize;
 			Vector2 inputPosition = UnityEngine.Random.insideUnitCircle.normalized * UnityEngine.Random.Range(surfaceRadiusSpawnRange.x, surfaceRadiusSpawnRange.y);
 			inputPosition = GetSpawnPositionWithClearance(inputPosition, num2 * scaleFactor, surfaceRadiusSpawnRange.y, liquidSurfacePlane.transform.position);
 			Vector3 direction = Quaternion.AngleAxis(UnityEngine.Random.Range(0f, 360f), Vector3.up) * Vector3.forward;
-			base.photonView.RPC("SpawnSodaBubbleRPC", RpcTarget.Others, inputPosition, num2, num, currentTime);
+			photonView.RPC("SpawnSodaBubbleRPC", RpcTarget.Others, inputPosition, num2, num, currentTime);
 			SpawnSodaBubbleLocal(inputPosition, num2, num, currentTime, addAsTrail: true, direction);
 		}
 	}
@@ -333,7 +333,7 @@ public class ScienceExperimentPlatformGenerator : MonoBehaviourPun, ITickSystemP
 				isTrail = false
 			};
 			item.bubble = ObjectPools.instance.Instantiate(spawnedPrefab, item.position, Quaternion.identity, 0f).GetComponent<SodaBubble>();
-			if (base.photonView.IsMine && addAsTrail)
+			if (photonView.IsMine & addAsTrail)
 			{
 				item.direction = direction;
 				item.isTrail = true;
@@ -403,7 +403,7 @@ public class ScienceExperimentPlatformGenerator : MonoBehaviourPun, ITickSystemP
 
 	void IGuidedRefReceiverMono.OnAllGuidedRefsResolved()
 	{
-		if (base.enabled)
+		if (enabled)
 		{
 			TickSystem<object>.AddPostTickCallback(this);
 		}

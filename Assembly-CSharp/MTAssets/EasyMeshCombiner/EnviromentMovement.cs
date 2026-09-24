@@ -14,7 +14,7 @@ public class EnviromentMovement : MonoBehaviour
 
 	private void Start()
 	{
-		thisTransform = base.gameObject.GetComponent<Transform>();
+		thisTransform = gameObject.GetComponent<Transform>();
 		nextPosition = pos1;
 	}
 
@@ -22,7 +22,7 @@ public class EnviromentMovement : MonoBehaviour
 	{
 		if (Vector3.Distance(thisTransform.position, nextPosition) > 0.5f)
 		{
-			base.transform.position = Vector3.Lerp(thisTransform.position, nextPosition, 2f * Time.deltaTime);
+			transform.position = Vector3.Lerp(thisTransform.position, nextPosition, 2f * Time.deltaTime);
 		}
 		else if (nextPosition == pos1)
 		{

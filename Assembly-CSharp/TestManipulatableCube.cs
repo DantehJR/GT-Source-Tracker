@@ -28,8 +28,8 @@ public class TestManipulatableCube : ManipulatableObject
 
 	private void Awake()
 	{
-		localSpace = base.transform.worldToLocalMatrix;
-		startingPos = base.transform.localPosition;
+		localSpace = transform.worldToLocalMatrix;
+		startingPos = transform.localPosition;
 	}
 
 	protected override void OnStartManipulation(GameObject grabbingHand)
@@ -46,7 +46,7 @@ public class TestManipulatableCube : ManipulatableObject
 
 	protected override bool ShouldHandDetach(GameObject hand)
 	{
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		Vector3 position2 = hand.transform.position;
 		return Vector3.SqrMagnitude(position - position2) > breakDistance * breakDistance;
 	}
@@ -58,14 +58,14 @@ public class TestManipulatableCube : ManipulatableObject
 		localPosition.y = Mathf.Clamp(localPosition.y, minYOffset, maxYOffset);
 		localPosition.z = Mathf.Clamp(localPosition.z, minZOffset, maxZOffset);
 		localPosition += startingPos;
-		base.transform.localPosition = localPosition;
+		transform.localPosition = localPosition;
 	}
 
 	protected override void OnReleasedUpdate()
 	{
 		if (velocity != Vector3.zero)
 		{
-			Vector3 localPosition = localSpace.MultiplyPoint(base.transform.position);
+			Vector3 localPosition = localSpace.MultiplyPoint(transform.position);
 			localPosition += velocity * Time.deltaTime;
 			if (localPosition.x < minXOffset)
 			{
@@ -98,7 +98,7 @@ public class TestManipulatableCube : ManipulatableObject
 				velocity.z = 0f;
 			}
 			localPosition += startingPos;
-			base.transform.localPosition = localPosition;
+			transform.localPosition = localPosition;
 			velocity *= 1f - releaseDrag * Time.deltaTime;
 			if (velocity.sqrMagnitude < 0.001f)
 			{
@@ -119,7 +119,7 @@ public class TestManipulatableCube : ManipulatableObject
 		localPosition.y = Mathf.Clamp(localPosition.y, minYOffset, maxYOffset);
 		localPosition.z = Mathf.Clamp(localPosition.z, minZOffset, maxZOffset);
 		localPosition += startingPos;
-		base.transform.localPosition = localPosition;
+		transform.localPosition = localPosition;
 	}
 
 	public void SetCubeToSpecificPosition(float x, float y, float z)
@@ -129,6 +129,6 @@ public class TestManipulatableCube : ManipulatableObject
 		localPosition.y = Mathf.Clamp(y, minYOffset, maxYOffset);
 		localPosition.z = Mathf.Clamp(z, minZOffset, maxZOffset);
 		localPosition += startingPos;
-		base.transform.localPosition = localPosition;
+		transform.localPosition = localPosition;
 	}
 }

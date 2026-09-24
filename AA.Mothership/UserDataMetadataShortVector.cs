@@ -96,10 +96,18 @@ public class UserDataMetadataShortVector : IDisposable, IEnumerable, IEnumerable
 	{
 		get
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to get an out of bounds element from this vector");
+			}
 			return getitem(index);
 		}
 		set
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to set an out of bounds element from this vector");
+			}
 			setitem(index, value);
 		}
 	}
@@ -119,6 +127,8 @@ public class UserDataMetadataShortVector : IDisposable, IEnumerable, IEnumerable
 			reserve((uint)value);
 		}
 	}
+
+	public bool IsEmpty => empty();
 
 	public int Count => (int)size();
 
@@ -204,6 +214,80 @@ public class UserDataMetadataShortVector : IDisposable, IEnumerable, IEnumerable
 		}
 	}
 
+	public void Insert(int index, MothershipUserDataMetadataShort value)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insert(index, value);
+	}
+
+	public void InsertRange(int index, UserDataMetadataShortVector values)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insertRange(index, values);
+	}
+
+	public void RemoveAt(int index)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		_removeAt(index);
+	}
+
+	public void RemoveRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("count", "Tried to remove a negative count from this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_removeRange(index, count);
+	}
+
+	public void ReverseRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse from an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse an invalid count in this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_reverseRange(index, count);
+	}
+
+	public void SetRange(int index, UserDataMetadataShortVector values)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		if (index < 0 || index > Count || index + values.Count > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		_setRange(index, values);
+	}
+
 	public void CopyTo(MothershipUserDataMetadataShort[] array)
 	{
 		CopyTo(0, array, 0, Count);
@@ -242,6 +326,10 @@ public class UserDataMetadataShortVector : IDisposable, IEnumerable, IEnumerable
 		}
 		for (int i = 0; i < count; i++)
 		{
+			if (i > array.Length - 1)
+			{
+				throw new ArgumentOutOfRangeException("Somehow we tried to copy to an array index that's out of bounds");
+			}
 			array.SetValue(getitemcopy(index + i), arrayIndex + i);
 		}
 	}
@@ -266,6 +354,24 @@ public class UserDataMetadataShortVector : IDisposable, IEnumerable, IEnumerable
 	public UserDataMetadataShortVectorEnumerator GetEnumerator()
 	{
 		return new UserDataMetadataShortVectorEnumerator(this);
+	}
+
+	public UserDataMetadataShortVector()
+		: this(MothershipApiPINVOKE.new_UserDataMetadataShortVector__SWIG_0(), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public UserDataMetadataShortVector(UserDataMetadataShortVector other)
+		: this(MothershipApiPINVOKE.new_UserDataMetadataShortVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
 	}
 
 	public void Clear()
@@ -296,6 +402,16 @@ public class UserDataMetadataShortVector : IDisposable, IEnumerable, IEnumerable
 		return result;
 	}
 
+	private bool empty()
+	{
+		bool result = MothershipApiPINVOKE.UserDataMetadataShortVector_empty(swigCPtr);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private uint capacity()
 	{
 		uint result = MothershipApiPINVOKE.UserDataMetadataShortVector_capacity(swigCPtr);
@@ -309,24 +425,6 @@ public class UserDataMetadataShortVector : IDisposable, IEnumerable, IEnumerable
 	private void reserve(uint n)
 	{
 		MothershipApiPINVOKE.UserDataMetadataShortVector_reserve(swigCPtr, n);
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public UserDataMetadataShortVector()
-		: this(MothershipApiPINVOKE.new_UserDataMetadataShortVector__SWIG_0(), cMemoryOwn: true)
-	{
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public UserDataMetadataShortVector(UserDataMetadataShortVector other)
-		: this(MothershipApiPINVOKE.new_UserDataMetadataShortVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
-	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -380,85 +478,63 @@ public class UserDataMetadataShortVector : IDisposable, IEnumerable, IEnumerable
 		}
 	}
 
-	public UserDataMetadataShortVector GetRange(int index, int count)
+	private void _insert(int index, MothershipUserDataMetadataShort x)
 	{
-		IntPtr intPtr = MothershipApiPINVOKE.UserDataMetadataShortVector_GetRange(swigCPtr, index, count);
-		UserDataMetadataShortVector result = ((intPtr == IntPtr.Zero) ? null : new UserDataMetadataShortVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
-	}
-
-	public void Insert(int index, MothershipUserDataMetadataShort x)
-	{
-		MothershipApiPINVOKE.UserDataMetadataShortVector_Insert(swigCPtr, index, MothershipUserDataMetadataShort.getCPtr(x));
+		MothershipApiPINVOKE.UserDataMetadataShortVector__insert(swigCPtr, index, MothershipUserDataMetadataShort.getCPtr(x));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void InsertRange(int index, UserDataMetadataShortVector values)
+	private void _insertRange(int index, UserDataMetadataShortVector values)
 	{
-		MothershipApiPINVOKE.UserDataMetadataShortVector_InsertRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.UserDataMetadataShortVector__insertRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveAt(int index)
+	private void _removeAt(int index)
 	{
-		MothershipApiPINVOKE.UserDataMetadataShortVector_RemoveAt(swigCPtr, index);
+		MothershipApiPINVOKE.UserDataMetadataShortVector__removeAt(swigCPtr, index);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveRange(int index, int count)
+	private void _removeRange(int index, int count)
 	{
-		MothershipApiPINVOKE.UserDataMetadataShortVector_RemoveRange(swigCPtr, index, count);
+		MothershipApiPINVOKE.UserDataMetadataShortVector__removeRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
-	}
-
-	public static UserDataMetadataShortVector Repeat(MothershipUserDataMetadataShort value, int count)
-	{
-		IntPtr intPtr = MothershipApiPINVOKE.UserDataMetadataShortVector_Repeat(MothershipUserDataMetadataShort.getCPtr(value), count);
-		UserDataMetadataShortVector result = ((intPtr == IntPtr.Zero) ? null : new UserDataMetadataShortVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
 	}
 
 	public void Reverse()
 	{
-		MothershipApiPINVOKE.UserDataMetadataShortVector_Reverse__SWIG_0(swigCPtr);
+		MothershipApiPINVOKE.UserDataMetadataShortVector_Reverse(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void Reverse(int index, int count)
+	private void _reverseRange(int index, int count)
 	{
-		MothershipApiPINVOKE.UserDataMetadataShortVector_Reverse__SWIG_1(swigCPtr, index, count);
+		MothershipApiPINVOKE.UserDataMetadataShortVector__reverseRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void SetRange(int index, UserDataMetadataShortVector values)
+	private void _setRange(int index, UserDataMetadataShortVector values)
 	{
-		MothershipApiPINVOKE.UserDataMetadataShortVector_SetRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.UserDataMetadataShortVector__setRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

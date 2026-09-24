@@ -40,7 +40,7 @@ public class UberShaderProperty
 		case ShaderPropertyType.Int:
 			return ValueAs<int, T>(target.GetInt(nameID));
 		default:
-			return default(T);
+			return default;
 		}
 	}
 

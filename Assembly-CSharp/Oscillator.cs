@@ -67,7 +67,7 @@ public class Oscillator : MonoBehaviour
 
 	public void OnEnable()
 	{
-		m_initCenter = base.transform.position;
+		m_initCenter = transform.position;
 	}
 
 	public void Update()
@@ -77,6 +77,6 @@ public class Oscillator : MonoBehaviour
 		position.x += Radius.x * SampleWave(Phase.x);
 		position.y += Radius.y * SampleWave(Phase.y);
 		position.z += Radius.z * SampleWave(Phase.z);
-		base.transform.position = position;
+		transform.position = position;
 	}
 }

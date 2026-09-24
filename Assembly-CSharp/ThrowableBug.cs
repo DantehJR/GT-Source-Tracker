@@ -169,7 +169,7 @@ public class ThrowableBug : TransferrableObject, ITickSystemTick
 		{
 			if (!(tbb.Range <= 0f))
 			{
-				return Vector3.Distance(tbb.transform.position, base.transform.position) <= tbb.Range;
+				return Vector3.Distance(tbb.transform.position, transform.position) <= tbb.Range;
 			}
 			return true;
 		}
@@ -180,7 +180,7 @@ public class ThrowableBug : TransferrableObject, ITickSystemTick
 	{
 		if (isValid(tbb))
 		{
-			reliableState.travelingDirection = tbb.transform.position - base.transform.position;
+			reliableState.travelingDirection = tbb.transform.position - transform.position;
 		}
 	}
 
@@ -188,7 +188,7 @@ public class ThrowableBug : TransferrableObject, ITickSystemTick
 	{
 		if (isValid(tbb))
 		{
-			reliableState.travelingDirection = tbb.transform.position - base.transform.position;
+			reliableState.travelingDirection = tbb.transform.position - transform.position;
 			lockedTarget = tbb.transform;
 			locked = true;
 		}
@@ -198,7 +198,7 @@ public class ThrowableBug : TransferrableObject, ITickSystemTick
 	{
 		if (isValid(tbb))
 		{
-			reliableState.travelingDirection = base.transform.position - tbb.transform.position;
+			reliableState.travelingDirection = transform.position - tbb.transform.position;
 			locked = false;
 		}
 	}
@@ -318,9 +318,9 @@ public class ThrowableBug : TransferrableObject, ITickSystemTick
 		{
 			return;
 		}
-		if (locked && Vector3.Distance(lockedTarget.position, base.transform.position) > 0.1f)
+		if (locked && Vector3.Distance(lockedTarget.position, transform.position) > 0.1f)
 		{
-			reliableState.travelingDirection = lockedTarget.position - base.transform.position;
+			reliableState.travelingDirection = lockedTarget.position - transform.position;
 		}
 		if (slowingDownProgress < 1f)
 		{
@@ -345,7 +345,7 @@ public class ThrowableBug : TransferrableObject, ITickSystemTick
 		float num3 = (isTooLowTravelingUp ? maximumHeightOffOfTheGroundBeforeStoppingAscent : minimumHeightOffOfTheGroundBeforeStartingAscent);
 		if (raycastFrameCounter == 0)
 		{
-			if (Physics.RaycastNonAlloc(base.transform.position, Vector3.down, rayCastNonAllocColliders2, maxDistance, collisionCheckMask) > 0)
+			if (Physics.RaycastNonAlloc(transform.position, Vector3.down, rayCastNonAllocColliders2, maxDistance, collisionCheckMask) > 0)
 			{
 				isTooHighTravelingDown = false;
 				if (descentSlerp > 0f)
@@ -377,9 +377,9 @@ public class ThrowableBug : TransferrableObject, ITickSystemTick
 		}
 		vector += Time.deltaTime * Mathf.SmoothStep(0f, 1f, descentSlerp) * descentRate * Vector3.down;
 		vector += Time.deltaTime * Mathf.SmoothStep(0f, 1f, ascentSlerp) * ascentRate * Vector3.up;
-		Quaternion.FromToRotation(base.transform.rotation * Vector3.up, Quaternion.identity * Vector3.up).ToAngleAxis(out var angle, out var axis);
+		Quaternion.FromToRotation(transform.rotation * Vector3.up, Quaternion.identity * Vector3.up).ToAngleAxis(out var angle, out var axis);
 		Quaternion quaternion = Quaternion.AngleAxis(angle * 0.02f, axis);
-		Quaternion.FromToRotation(base.transform.rotation * Vector3.forward, reliableState.travelingDirection.normalized).ToAngleAxis(out var angle2, out var axis2);
+		Quaternion.FromToRotation(transform.rotation * Vector3.forward, reliableState.travelingDirection.normalized).ToAngleAxis(out var angle2, out var axis2);
 		Quaternion quaternion2 = Quaternion.AngleAxis(angle2 * 0.005f, axis2);
 		quaternion = quaternion2 * quaternion;
 		vector = quaternion * quaternion * quaternion * quaternion * vector;
@@ -387,27 +387,27 @@ public class ThrowableBug : TransferrableObject, ITickSystemTick
 		speedMultiplier = Mathf.MoveTowards(speedMultiplier, 1f, Time.deltaTime);
 		if (raycastFrameCounter == 0)
 		{
-			if (Physics.SphereCastNonAlloc(base.transform.position, collisionHitRadius, vector.normalized, rayCastNonAllocColliders, vector.magnitude, collisionCheckMask) > 0)
+			if (Physics.SphereCastNonAlloc(transform.position, collisionHitRadius, vector.normalized, rayCastNonAllocColliders, vector.magnitude, collisionCheckMask) > 0)
 			{
 				Vector3 normal = rayCastNonAllocColliders[0].normal;
 				reliableState.travelingDirection = Vector3.Reflect(reliableState.travelingDirection, normal).x0z();
-				base.transform.position += Vector3.Reflect(vector, normal);
+				transform.position += Vector3.Reflect(vector, normal);
 				thrownVeloicity = Vector3.Reflect(thrownVeloicity, normal);
 				targetVelocity = Vector3.Reflect(targetVelocity, normal).x0z();
 			}
 			else
 			{
-				base.transform.position += vector;
+				transform.position += vector;
 			}
 		}
 		else
 		{
-			base.transform.position += vector;
+			transform.position += vector;
 		}
 		bugRotationalVelocity = quaternion * bugRotationalVelocity;
 		bugRotationalVelocity.ToAngleAxis(out var angle3, out var axis3);
 		bugRotationalVelocity = Quaternion.AngleAxis(angle3 * 0.9f, axis3);
-		base.transform.rotation = bugRotationalVelocity * base.transform.rotation;
+		transform.rotation = bugRotationalVelocity * transform.rotation;
 	}
 
 	private float RandomizeBobingFrequency()

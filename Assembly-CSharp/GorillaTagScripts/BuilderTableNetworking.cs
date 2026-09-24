@@ -275,7 +275,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			table.linkedTerminal.ResetTerminalControl();
 			if (NetworkSystem.Instance.IsMasterClient)
 			{
-				base.photonView.RPC("SetBlocksTerminalDriverRPC", RpcTarget.All, -2);
+				photonView.RPC("SetBlocksTerminalDriverRPC", RpcTarget.All, -2);
 			}
 		}
 		if (PhotonNetwork.IsMasterClient)
@@ -349,7 +349,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			}
 			else if (table.linkedTerminal != null)
 			{
-				base.photonView.RPC("SetBlocksTerminalDriverRPC", player, table.linkedTerminal.GetDriverID);
+				photonView.RPC("SetBlocksTerminalDriverRPC", player, table.linkedTerminal.GetDriverID);
 			}
 		}
 		else
@@ -685,7 +685,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 		int num = table.CreatePieceId();
 		long num2 = BitPackUtils.PackWorldPosForNetwork(position);
 		int num3 = BitPackUtils.PackQuaternionForNetwork(rotation);
-		base.photonView.RPC("PieceCreatedByShelfRPC", RpcTarget.All, pieceType, num, num2, num3, materialType, (byte)state, shelfID, PhotonNetwork.LocalPlayer);
+		photonView.RPC("PieceCreatedByShelfRPC", RpcTarget.All, pieceType, num, num2, num3, materialType, (byte)state, shelfID, PhotonNetwork.LocalPlayer);
 	}
 
 	[PunRPC]
@@ -725,7 +725,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			{
 				long num = BitPackUtils.PackWorldPosForNetwork(position);
 				int num2 = BitPackUtils.PackQuaternionForNetwork(rotation);
-				base.photonView.RPC("PieceDestroyedRPC", RpcTarget.All, pieceId, num, num2, playFX, (short)recyclerID);
+				photonView.RPC("PieceDestroyedRPC", RpcTarget.All, pieceId, num, num2, playFX, (short)recyclerID);
 			}
 		}
 	}
@@ -769,7 +769,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			int num4 = BuilderTable.PackPiecePlacement(twist, bumpOffsetX, bumpOffsetZ);
 			if (table.GetTableState() == BuilderTable.TableState.Ready)
 			{
-				base.photonView.RPC("RequestPlacePieceRPC", RpcTarget.MasterClient, num3, pieceId, num2, num4, num, attachIndex, parentAttachIndex, PhotonNetwork.LocalPlayer);
+				photonView.RPC("RequestPlacePieceRPC", RpcTarget.MasterClient, num3, pieceId, num2, num4, num, attachIndex, parentAttachIndex, PhotonNetwork.LocalPlayer);
 			}
 		}
 	}
@@ -799,13 +799,13 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			BuilderPiece piece = table.GetPiece(parentPieceId);
 			if (piece != null && piece.TryGetPlotComponent(out var plot) && !plot.IsPlotClaimed())
 			{
-				base.photonView.RPC("PlotClaimedRPC", RpcTarget.All, parentPieceId, placedByPlayer, true);
+				photonView.RPC("PlotClaimedRPC", RpcTarget.All, parentPieceId, placedByPlayer, true);
 			}
-			base.photonView.RPC("PiecePlacedRPC", RpcTarget.All, localCommandId, pieceId, attachPieceId, placement, parentPieceId, attachIndex, parentAttachIndex, placedByPlayer, info.SentServerTimestamp);
+			photonView.RPC("PiecePlacedRPC", RpcTarget.All, localCommandId, pieceId, attachPieceId, placement, parentPieceId, attachIndex, parentAttachIndex, placedByPlayer, info.SentServerTimestamp);
 		}
 		else
 		{
-			base.photonView.RPC("RequestFailedRPC", info.Sender, localCommandId);
+			photonView.RPC("RequestFailedRPC", info.Sender, localCommandId);
 		}
 	}
 
@@ -847,7 +847,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			if (table.GetTableState() == BuilderTable.TableState.Ready)
 			{
 				long num2 = BitPackUtils.PackHandPosRotForNetwork(localPosition, localRotation);
-				base.photonView.RPC("RequestGrabPieceRPC", RpcTarget.MasterClient, num, piece.pieceId, isLefHand, num2, PhotonNetwork.LocalPlayer);
+				photonView.RPC("RequestGrabPieceRPC", RpcTarget.MasterClient, num, piece.pieceId, isLefHand, num2, PhotonNetwork.LocalPlayer);
 			}
 		}
 	}
@@ -882,11 +882,11 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			{
 				CheckForFreedPlot(pieceId, grabbedByPlayer);
 			}
-			base.photonView.RPC("PieceGrabbedRPC", RpcTarget.All, localCommandId, pieceId, isLeftHand, packedPosRot, grabbedByPlayer);
+			photonView.RPC("PieceGrabbedRPC", RpcTarget.All, localCommandId, pieceId, isLeftHand, packedPosRot, grabbedByPlayer);
 		}
 		else
 		{
-			base.photonView.RPC("RequestFailedRPC", info.Sender, localCommandId);
+			photonView.RPC("RequestFailedRPC", info.Sender, localCommandId);
 		}
 	}
 
@@ -897,7 +897,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			BuilderPiece piece = GetTable().GetPiece(pieceId);
 			if (piece != null && piece.parentPiece != null && piece.parentPiece.IsPrivatePlot() && piece.parentPiece.firstChildPiece.Equals(piece) && piece.nextSiblingPiece == null)
 			{
-				base.photonView.RPC("PlotClaimedRPC", RpcTarget.All, piece.parentPiece.pieceId, grabbedByPlayer, false);
+				photonView.RPC("PlotClaimedRPC", RpcTarget.All, piece.parentPiece.pieceId, grabbedByPlayer, false);
 			}
 		}
 	}
@@ -939,7 +939,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			table.DropPiece(num, pieceId, position, rotation, velocity, angVelocity, NetPlayer.Get(PhotonNetwork.LocalPlayer), force: true);
 			if (table.GetTableState() == BuilderTable.TableState.Ready)
 			{
-				base.photonView.RPC("RequestDropPieceRPC", RpcTarget.MasterClient, num, pieceId, position, rotation, velocity, angVelocity, PhotonNetwork.LocalPlayer);
+				photonView.RPC("RequestDropPieceRPC", RpcTarget.MasterClient, num, pieceId, position, rotation, velocity, angVelocity, PhotonNetwork.LocalPlayer);
 			}
 		}
 	}
@@ -963,11 +963,11 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			}
 			if (flag)
 			{
-				base.photonView.RPC("PieceDroppedRPC", RpcTarget.All, localCommandId, pieceId, position, rotation, velocity, angVelocity, droppedByPlayer);
+				photonView.RPC("PieceDroppedRPC", RpcTarget.All, localCommandId, pieceId, position, rotation, velocity, angVelocity, droppedByPlayer);
 			}
 			else
 			{
-				base.photonView.RPC("RequestFailedRPC", info.Sender, localCommandId);
+				photonView.RPC("RequestFailedRPC", info.Sender, localCommandId);
 			}
 		}
 	}
@@ -1000,7 +1000,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			{
 				long num = BitPackUtils.PackWorldPosForNetwork(rootPiece.transform.position);
 				int num2 = BitPackUtils.PackQuaternionForNetwork(rootPiece.transform.rotation);
-				base.photonView.RPC("PieceEnteredDropZoneRPC", RpcTarget.All, rootPiece.pieceId, num, num2, dropZoneId);
+				photonView.RPC("PieceEnteredDropZoneRPC", RpcTarget.All, rootPiece.pieceId, num, num2, dropZoneId);
 			}
 		}
 	}
@@ -1074,7 +1074,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			int num = table.CreatePieceId();
 			int num2 = table.CreatePieceId();
 			int staticHash = table.armShelfPieceType.name.GetStaticHash();
-			base.photonView.RPC("ArmShelfCreatedRPC", RpcTarget.All, num, num2, staticHash, player);
+			photonView.RPC("ArmShelfCreatedRPC", RpcTarget.All, num, num2, staticHash, player);
 		}
 	}
 
@@ -1112,7 +1112,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 		}
 		if (table.GetTableState() == BuilderTable.TableState.Ready)
 		{
-			base.photonView.RPC("RequestShelfSelectionRPC", RpcTarget.MasterClient, shelfID, groupID, isConveyor);
+			photonView.RPC("RequestShelfSelectionRPC", RpcTarget.MasterClient, shelfID, groupID, isConveyor);
 		}
 	}
 
@@ -1125,7 +1125,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			BuilderTable table = GetTable();
 			if ((RoomSystem.WasRoomPrivate || table.IsInBuilderZone()) && table.isTableMutable && table.ValidateShelfSelectionParams(shelfId, setId, isConveyor, info.Sender))
 			{
-				base.photonView.RPC("ShelfSelectionChangedRPC", RpcTarget.All, shelfId, setId, isConveyor, info.Sender);
+				photonView.RPC("ShelfSelectionChangedRPC", RpcTarget.All, shelfId, setId, isConveyor, info.Sender);
 			}
 		}
 	}
@@ -1149,7 +1149,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 		BuilderTable table = GetTable();
 		if (table.ValidateFunctionalPieceState(pieceID, state, NetworkSystem.Instance.LocalPlayer) && table.GetTableState() == BuilderTable.TableState.Ready)
 		{
-			base.photonView.RPC("RequestFunctionalPieceStateChangeRPC", RpcTarget.MasterClient, pieceID, state);
+			photonView.RPC("RequestFunctionalPieceStateChangeRPC", RpcTarget.MasterClient, pieceID, state);
 		}
 	}
 
@@ -1174,7 +1174,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			BuilderTable table = GetTable();
 			if (table.ValidateFunctionalPieceState(pieceID, state, NetPlayer.Get(instigator)) && state != table.GetPiece(pieceID).functionalPieceState)
 			{
-				base.photonView.RPC("FunctionalPieceStateChangeRPC", RpcTarget.All, pieceID, state, instigator, timeStamp);
+				photonView.RPC("FunctionalPieceStateChangeRPC", RpcTarget.All, pieceID, state, instigator, timeStamp);
 			}
 		}
 	}
@@ -1202,7 +1202,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 		BuilderTable table = GetTable();
 		if (!table.isTableMutable && !(table.linkedTerminal == null) && table.linkedTerminal.IsTerminalLocked != locked)
 		{
-			base.photonView.RPC("RequestBlocksTerminalControlRPC", RpcTarget.MasterClient, locked);
+			photonView.RPC("RequestBlocksTerminalControlRPC", RpcTarget.MasterClient, locked);
 		}
 	}
 
@@ -1216,7 +1216,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 			if ((RoomSystem.WasRoomPrivate || table.IsInBuilderZone()) && !table.isTableMutable && !(table.linkedTerminal == null) && VRRigCache.Instance != null && VRRigCache.Instance.TryGetVrrig(info.Sender, out var playerRig) && !((table.linkedTerminal.transform.position - playerRig.Rig.bodyTransform.position).sqrMagnitude > 9f) && table.linkedTerminal.ValidateTerminalControlRequest(lockedStatus, info.Sender.ActorNumber))
 			{
 				int num = (lockedStatus ? info.Sender.ActorNumber : (-2));
-				base.photonView.RPC("SetBlocksTerminalDriverRPC", RpcTarget.All, num);
+				photonView.RPC("SetBlocksTerminalDriverRPC", RpcTarget.All, num);
 			}
 		}
 	}
@@ -1237,7 +1237,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 
 	public void RequestLoadSharedBlocksMap(string mapID)
 	{
-		base.photonView.RPC("LoadSharedBlocksMapRPC", RpcTarget.MasterClient, mapID);
+		photonView.RPC("LoadSharedBlocksMapRPC", RpcTarget.MasterClient, mapID);
 	}
 
 	[PunRPC]
@@ -1266,7 +1266,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 		if (tableState == BuilderTable.TableState.Ready || tableState == BuilderTable.TableState.BadData)
 		{
 			table.SetPendingMap(mapID);
-			base.photonView.RPC("SharedTableEventRPC", RpcTarget.Others, (byte)0, mapID);
+			photonView.RPC("SharedTableEventRPC", RpcTarget.Others, (byte)0, mapID);
 			localClientTableInit.Reset();
 			table.OnMapCleared?.Invoke();
 			table.SetTableState(BuilderTable.TableState.WaitingForSharedMapLoad);
@@ -1283,7 +1283,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 	{
 		if (NetworkSystem.Instance.IsMasterClient && mapID.Length <= 8)
 		{
-			base.photonView.RPC("SharedTableEventRPC", RpcTarget.All, (byte)1, mapID);
+			photonView.RPC("SharedTableEventRPC", RpcTarget.All, (byte)1, mapID);
 		}
 	}
 
@@ -1291,7 +1291,7 @@ public class BuilderTableNetworking : MonoBehaviourPunCallbacks, ITickSystemTick
 	{
 		if (NetworkSystem.Instance.IsMasterClient && mapID.Length <= 8)
 		{
-			base.photonView.RPC("SharedTableEventRPC", RpcTarget.All, (byte)2, mapID);
+			photonView.RPC("SharedTableEventRPC", RpcTarget.All, (byte)2, mapID);
 		}
 	}
 

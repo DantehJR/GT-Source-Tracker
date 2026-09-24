@@ -74,7 +74,7 @@ public class HoverboardVisual : MonoBehaviour, ICallBack
 		{
 			if (!IsHeld)
 			{
-				return base.transform.parent;
+				return transform.parent;
 			}
 			return (IsLeftHanded ? parentRig.leftHand : parentRig.rightHand).rigTarget.transform;
 		}
@@ -96,13 +96,13 @@ public class HoverboardVisual : MonoBehaviour, ICallBack
 			isCallbackActive = true;
 		}
 		IsHeld = true;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		IsLeftHanded = isHeldLeftHanded;
 		NominalLocalPosition = localPosition;
 		NominalLocalRotation = localRotation;
 		Transform nominalParentTransform = NominalParentTransform;
-		interpolatedLocalPosition = nominalParentTransform.InverseTransformPoint(base.transform.position);
-		interpolatedLocalRotation = nominalParentTransform.InverseTransformRotation(base.transform.rotation);
+		interpolatedLocalPosition = nominalParentTransform.InverseTransformPoint(transform.position);
+		interpolatedLocalRotation = nominalParentTransform.InverseTransformRotation(transform.rotation);
 		positionLerpSpeed = (interpolatedLocalPosition - NominalLocalPosition).magnitude / lerpIntoHandDuration;
 		(Quaternion.Inverse(interpolatedLocalRotation) * NominalLocalRotation).ToAngleAxis(out var angle, out var _);
 		rotationLerpSpeed = angle / lerpIntoHandDuration;
@@ -123,17 +123,17 @@ public class HoverboardVisual : MonoBehaviour, ICallBack
 	public void SetNotHeld()
 	{
 		bool isHeld = IsHeld;
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		IsHeld = false;
-		interpolatedLocalPosition = base.transform.localPosition;
-		interpolatedLocalRotation = base.transform.localRotation;
+		interpolatedLocalPosition = transform.localPosition;
+		interpolatedLocalRotation = transform.localRotation;
 		positionLerpSpeed = (interpolatedLocalPosition - NominalLocalPosition).magnitude / lerpIntoHandDuration;
 		(Quaternion.Inverse(interpolatedLocalRotation) * NominalLocalRotation).ToAngleAxis(out var angle, out var _);
 		rotationLerpSpeed = angle / lerpIntoHandDuration;
 		if (!isHeld)
 		{
-			base.transform.position = base.transform.parent.TransformPoint(NominalLocalPosition);
-			base.transform.rotation = base.transform.parent.TransformRotation(NominalLocalRotation);
+			transform.position = transform.parent.TransformPoint(NominalLocalPosition);
+			transform.rotation = transform.parent.TransformRotation(NominalLocalRotation);
 		}
 		if (parentRig.isLocal)
 		{
@@ -147,8 +147,8 @@ public class HoverboardVisual : MonoBehaviour, ICallBack
 		Transform nominalParentTransform = NominalParentTransform;
 		if ((interpolatedLocalPosition - NominalLocalPosition).IsShorterThan(0.01f))
 		{
-			base.transform.position = nominalParentTransform.TransformPoint(NominalLocalPosition);
-			base.transform.rotation = nominalParentTransform.TransformRotation(NominalLocalRotation);
+			transform.position = nominalParentTransform.TransformPoint(NominalLocalPosition);
+			transform.rotation = nominalParentTransform.TransformRotation(NominalLocalRotation);
 			if (!IsHeld)
 			{
 				parentRig.RemoveLateUpdateCallback(this);
@@ -159,14 +159,14 @@ public class HoverboardVisual : MonoBehaviour, ICallBack
 		{
 			interpolatedLocalPosition = Vector3.MoveTowards(interpolatedLocalPosition, NominalLocalPosition, positionLerpSpeed * Time.deltaTime);
 			interpolatedLocalRotation = Quaternion.RotateTowards(interpolatedLocalRotation, NominalLocalRotation, rotationLerpSpeed * Time.deltaTime);
-			base.transform.position = nominalParentTransform.TransformPoint(interpolatedLocalPosition);
-			base.transform.rotation = nominalParentTransform.TransformRotation(interpolatedLocalRotation);
+			transform.position = nominalParentTransform.TransformPoint(interpolatedLocalPosition);
+			transform.rotation = nominalParentTransform.TransformRotation(interpolatedLocalRotation);
 		}
 		if (IsHeld)
 		{
 			if (parentRig.isLocal)
 			{
-				GTPlayer.Instance.SetHoverboardPosRot(base.transform.position, base.transform.rotation);
+				GTPlayer.Instance.SetHoverboardPosRot(transform.position, transform.rotation);
 			}
 			else
 			{
@@ -198,7 +198,7 @@ public class HoverboardVisual : MonoBehaviour, ICallBack
 
 	public void DropFreeBoard()
 	{
-		FreeHoverboardManager.instance.SendDropBoardRPC(base.transform.position, base.transform.rotation, velocityEstimator.linearVelocity, velocityEstimator.angularVelocity, boardColor);
+		FreeHoverboardManager.instance.SendDropBoardRPC(transform.position, transform.rotation, velocityEstimator.linearVelocity, velocityEstimator.angularVelocity, boardColor);
 	}
 
 	public void SetRaceDisplay(string text)

@@ -61,13 +61,13 @@ public class SeedPacketTriggerHandler : MonoBehaviour
 	private void Destroy()
 	{
 		triggerEntered = false;
-		if (ObjectPools.instance.DoesPoolExist(base.gameObject))
+		if (ObjectPools.instance.DoesPoolExist(gameObject))
 		{
-			ObjectPools.instance.Destroy(base.gameObject);
+			ObjectPools.instance.Destroy(gameObject);
 		}
 		else
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 }

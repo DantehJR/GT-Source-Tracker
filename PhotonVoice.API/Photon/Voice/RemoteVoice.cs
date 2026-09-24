@@ -61,7 +61,7 @@ internal class RemoteVoice : IDisposable
 			disposed = true;
 			return;
 		}
-		Thread thread = new Thread((ThreadStart)delegate
+		Thread thread = new Thread(() =>
 		{
 			decodeThread();
 		});

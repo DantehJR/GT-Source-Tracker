@@ -39,9 +39,9 @@ public class PerSceneRenderData : MonoBehaviour
 
 	public Action<PerSceneRenderData> OnPopulateToAndFromLightmapsCompleted;
 
-	public string sceneName => base.gameObject.scene.name;
+	public string sceneName => gameObject.scene.name;
 
-	public int sceneIndex => base.gameObject.scene.buildIndex;
+	public int sceneIndex => gameObject.scene.buildIndex;
 
 	public bool IsLoadingLightmaps => resourceRequests.Count != 0;
 
@@ -117,7 +117,7 @@ public class PerSceneRenderData : MonoBehaviour
 			}
 			request = Resources.LoadAsync<Texture2D>(Path.Combine(lightmapsResourcePath, timeOfDay));
 			resourceRequests.Add(timeOfDay, request);
-			request.completed += delegate
+			request.completed += (AsyncOperation ao) =>
 			{
 				if (!(this == null))
 				{
@@ -204,7 +204,7 @@ public class PerSceneRenderData : MonoBehaviour
 		}
 		request = Resources.LoadAsync<Texture2D>(Path.Combine(lightmapsResourcePath, momentName));
 		resourceRequests.Add(momentName, request);
-		request.completed += delegate
+		request.completed += (AsyncOperation ao) =>
 		{
 			if (!(this == null) && !ApplicationQuittingState.IsQuitting)
 			{

@@ -25,7 +25,7 @@ public class GorillaTextManager : MonoBehaviourPostTick
 	{
 		if (instance != null)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 		else
 		{

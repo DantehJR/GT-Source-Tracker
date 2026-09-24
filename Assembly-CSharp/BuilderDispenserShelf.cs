@@ -263,7 +263,7 @@ public class BuilderDispenserShelf : MonoBehaviour
 
 	public void OnShelfPieceCreated(BuilderPiece piece, bool playfx)
 	{
-		if (playSpawnSetSound && playfx)
+		if (playSpawnSetSound & playfx)
 		{
 			audioSource.GTPlayOneShot(spawnNewSetSound);
 			playSpawnSetSound = false;

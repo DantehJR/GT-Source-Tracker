@@ -23,7 +23,7 @@ public class KIDUI_AgeAppealController : MonoBehaviour
 	{
 		Debug.LogFormat("[KID::UI::AGEAPPEALCONTROLLER] Showing k-ID Age Appeal Screens");
 		HandRayController.Instance.EnableHandRays();
-		PrivateUIRoom.AddUI(base.transform);
+		PrivateUIRoom.AddUI(transform);
 		_firstAgeAppealScreen.ShowRestrictedAccessScreen(sessionStatus);
 		if (KIDManager.TryGetAgeStatusTypeFromAge(KIDAgeGate.UserAge, out var ageType))
 		{
@@ -48,17 +48,17 @@ public class KIDUI_AgeAppealController : MonoBehaviour
 
 	public void CloseKIDScreens()
 	{
-		PrivateUIRoom.RemoveUI(base.transform);
+		PrivateUIRoom.RemoveUI(transform);
 		HandRayController.Instance.DisableHandRays();
 		_firstAgeAppealScreen.gameObject.SetActive(value: false);
-		Object.DestroyImmediate(base.gameObject);
+		Object.DestroyImmediate(gameObject);
 	}
 
 	public void StartTooYoungToPlayScreen()
 	{
 		Debug.LogFormat("[KID::UI::AGEAPPEALCONTROLLER] Showing k-ID Too Young to Play Screen");
 		HandRayController.Instance.EnableHandRays();
-		PrivateUIRoom.AddUI(base.transform);
+		PrivateUIRoom.AddUI(transform);
 		_tooYoungToPlayScreen.ShowTooYoungToPlayScreen();
 		TelemetryData telemetryData = new TelemetryData
 		{

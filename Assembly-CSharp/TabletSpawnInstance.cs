@@ -147,13 +147,13 @@ public class TabletSpawnInstance : IDisposable
 		{
 			_cameraGameObjectInstance = UnityEngine.Object.Instantiate(_cameraSpawnPrefab, _cameraSpawnParentTransform);
 			_lckSocialCameraManager = _cameraGameObjectInstance.GetComponent<LckSocialCameraManager>();
-			_lckSocialCameraManager.lckDirectGrabbable.onGrabbed += delegate
+			_lckSocialCameraManager.lckDirectGrabbable.onGrabbed += () =>
 			{
-				this.onGrabbed?.Invoke();
+				onGrabbed?.Invoke();
 			};
-			_lckSocialCameraManager.lckDirectGrabbable.onReleased += delegate
+			_lckSocialCameraManager.lckDirectGrabbable.onReleased += () =>
 			{
-				this.onReleased?.Invoke();
+				onReleased?.Invoke();
 			};
 			_cameraSpawnInstanceTransform = _cameraGameObjectInstance.transform;
 			Controller = _cameraGameObjectInstance.GetComponent<GTLckController>();

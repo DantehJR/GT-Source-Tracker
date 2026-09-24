@@ -39,7 +39,7 @@ public class GorillaGeoHideShowTrigger : GorillaTriggerBox, IGuidedRefReceiverMo
 			{
 				if (gameObject == null)
 				{
-					Debug.LogError("GorillaGeoHideShowTrigger: null item in makeSureThisIsDisabled. \"" + base.transform.GetPath() + "\"", this);
+					Debug.LogError("GorillaGeoHideShowTrigger: null item in makeSureThisIsDisabled. \"" + transform.GetPath() + "\"", this);
 					return;
 				}
 				gameObject.SetActive(value: false);
@@ -54,7 +54,7 @@ public class GorillaGeoHideShowTrigger : GorillaTriggerBox, IGuidedRefReceiverMo
 		{
 			if (gameObject2 == null)
 			{
-				Debug.LogError("GorillaGeoHideShowTrigger: null item in makeSureThisIsDisabled. \"" + base.transform.GetPath() + "\"", this);
+				Debug.LogError("GorillaGeoHideShowTrigger: null item in makeSureThisIsDisabled. \"" + transform.GetPath() + "\"", this);
 				break;
 			}
 			gameObject2.SetActive(value: true);

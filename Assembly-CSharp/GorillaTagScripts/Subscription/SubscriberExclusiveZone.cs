@@ -71,7 +71,7 @@ public class SubscriberExclusiveZone : MonoBehaviour, IGorillaSliceableSimple
 			if (restrictedZoneCollider != null && !restrictedZoneCollider.isTrigger)
 			{
 				Debug.LogError("restrictedZone must be a trigger collider!", this);
-				base.enabled = false;
+				enabled = false;
 				return;
 			}
 			SubscriberZoneTrigger subscriberZoneTrigger = restrictedZone.GetComponent<SubscriberZoneTrigger>();
@@ -88,7 +88,7 @@ public class SubscriberExclusiveZone : MonoBehaviour, IGorillaSliceableSimple
 			if (influenceZoneCollider != null && !influenceZoneCollider.isTrigger)
 			{
 				Debug.LogError("influenceZone must be a trigger collider!", this);
-				base.enabled = false;
+				enabled = false;
 				return;
 			}
 			SubscriberZoneTrigger subscriberZoneTrigger2 = warningZone.GetComponent<SubscriberZoneTrigger>();
@@ -102,7 +102,7 @@ public class SubscriberExclusiveZone : MonoBehaviour, IGorillaSliceableSimple
 		if (ejectionPoint == null)
 		{
 			Debug.LogError("Assign an ejectionPoint!", this);
-			base.enabled = false;
+			enabled = false;
 		}
 		else
 		{

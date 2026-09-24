@@ -155,7 +155,7 @@ public class EvolvingCosmetic : MonoBehaviour, ITickSystemTick
 
 	private void Awake()
 	{
-		base.gameObject.GetOrAddComponent(ref networkEvents);
+		gameObject.GetOrAddComponent(ref networkEvents);
 		myRig = GetComponentInParent<VRRig>();
 		for (int i = 0; i < stages.Length; i++)
 		{

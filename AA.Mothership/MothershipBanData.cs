@@ -278,6 +278,27 @@ public class MothershipBanData : MothershipResponse
 		}
 	}
 
+	public string mothership_player_id
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipBanData_mothership_player_id_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipBanData_mothership_player_id_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
 	internal MothershipBanData(IntPtr cPtr, bool cMemoryOwn)
 		: base(MothershipApiPINVOKE.MothershipBanData_SWIGUpcast(cPtr), cMemoryOwn)
 	{
@@ -325,6 +346,16 @@ public class MothershipBanData : MothershipResponse
 	public bool ParseFromString(string response)
 	{
 		bool result = MothershipApiPINVOKE.MothershipBanData_ParseFromString(swigCPtr, response);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public bool ParseFromJson(SWIGTYPE_p_rapidjson__GenericObjectT_false_rapidjson__Value_t object_)
+	{
+		bool result = MothershipApiPINVOKE.MothershipBanData_ParseFromJson(swigCPtr, SWIGTYPE_p_rapidjson__GenericObjectT_false_rapidjson__Value_t.getCPtr(object_));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

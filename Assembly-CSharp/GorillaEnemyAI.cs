@@ -26,7 +26,7 @@ public class GorillaEnemyAI : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
 		agent = GetComponent<NavMeshAgent>();
 		r = GetComponent<Rigidbody>();
 		r.useGravity = true;
-		if (!base.photonView.IsMine)
+		if (!photonView.IsMine)
 		{
 			agent.enabled = false;
 			r.isKinematic = true;
@@ -37,8 +37,8 @@ public class GorillaEnemyAI : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
 	{
 		if (stream.IsWriting)
 		{
-			stream.SendNext(base.transform.position);
-			stream.SendNext(base.transform.eulerAngles);
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.eulerAngles);
 		}
 		else
 		{
@@ -56,13 +56,13 @@ public class GorillaEnemyAI : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
 			{
 				agent.destination = playerTransform.position;
 			}
-			base.transform.LookAt(new Vector3(playerTransform.transform.position.x, base.transform.position.y, playerTransform.position.z));
+			transform.LookAt(new Vector3(playerTransform.transform.position.x, transform.position.y, playerTransform.position.z));
 			r.linearVelocity *= 0.99f;
 		}
 		else
 		{
-			base.transform.position = Vector3.Lerp(base.transform.position, targetPosition, lerpValue);
-			base.transform.eulerAngles = Vector3.Lerp(base.transform.eulerAngles, targetRotation, lerpValue);
+			transform.position = Vector3.Lerp(transform.position, targetPosition, lerpValue);
+			transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, targetRotation, lerpValue);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class GorillaEnemyAI : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
 		VRRig[] array2 = array;
 		foreach (VRRig vRRig2 in array2)
 		{
-			Vector3 vector = vRRig2.transform.position - base.transform.position;
+			Vector3 vector = vRRig2.transform.position - transform.position;
 			if (vector.magnitude < num)
 			{
 				vRRig = vRRig2;
@@ -88,7 +88,7 @@ public class GorillaEnemyAI : MonoBehaviourPun, IPunObservable, IInRoomCallbacks
 	{
 		if (collision.gameObject.layer == 19)
 		{
-			PhotonNetwork.Destroy(base.photonView);
+			PhotonNetwork.Destroy(photonView);
 		}
 	}
 

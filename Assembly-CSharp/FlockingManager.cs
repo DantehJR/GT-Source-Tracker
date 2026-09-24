@@ -113,7 +113,7 @@ public class FlockingManager : NetworkComponent
 
 	private new void Start()
 	{
-		NetworkSystem.Instance.RegisterSceneNetworkItem(base.gameObject);
+		NetworkSystem.Instance.RegisterSceneNetworkItem(gameObject);
 	}
 
 	private void OnDestroy()
@@ -179,7 +179,7 @@ public class FlockingManager : NetworkComponent
 
 	public Vector3 RestrictPointToArea(Vector3 point, FishArea fish)
 	{
-		Vector3 result = default(Vector3);
+		Vector3 result = default;
 		float num = float.MaxValue;
 		BoxCollider[] colliders = fish.colliders;
 		foreach (BoxCollider boxCollider in colliders)

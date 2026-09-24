@@ -59,6 +59,15 @@ public class CustomMapsDisplayScreen : CustomMapsTerminalScreen
 	private string mapAutoDownloadingString = "DOWNLOADING...";
 
 	[SerializeField]
+	private string mapDownloadingProgressString = "DOWNLOADING:";
+
+	[SerializeField]
+	private string mapInstallingString = "INSTALLING...";
+
+	[SerializeField]
+	private string mapInstallingProgressString = "INSTALLING:";
+
+	[SerializeField]
 	private string mapLoadingString = "LOADING:";
 
 	[SerializeField]
@@ -176,7 +185,7 @@ public class CustomMapsDisplayScreen : CustomMapsTerminalScreen
 
 	private void HandleModManagementEvent(Mod mod, Modfile modfile, ModInstallationManagement.OperationType jobType, ModInstallationManagement.OperationPhase jobPhase)
 	{
-		if (base.isActiveAndEnabled && hasModProfile && GetModId() == mod.Id)
+		if (isActiveAndEnabled && hasModProfile && GetModId() == mod.Id)
 		{
 			UpdateStatus(jobPhase == ModInstallationManagement.OperationPhase.Cancelled || jobPhase == ModInstallationManagement.OperationPhase.Failed);
 			if (jobPhase == ModInstallationManagement.OperationPhase.Failed)
@@ -256,13 +265,22 @@ public class CustomMapsDisplayScreen : CustomMapsTerminalScreen
 		loadingText.gameObject.SetActive(value: true);
 		if (CustomMapLoader.IsMapLoaded() || CustomMapManager.IsLoading() || CustomMapManager.IsUnloading())
 		{
-			ModId modId = new ModId(CustomMapLoader.IsMapLoaded() ? ((long)CustomMapLoader.LoadedMapModId) : (CustomMapManager.IsLoading() ? CustomMapManager.LoadingMapId : CustomMapManager.UnloadingMapId));
+			long id;
+			if (CustomMapLoader.IsMapLoaded())
+			{
+				id = CustomMapLoader.LoadedMapModId;
+			}
+			else
+			{
+				id = (CustomMapManager.IsLoading() ? CustomMapManager.LoadingMapId : CustomMapManager.UnloadingMapId);
+			}
+			ModId modId = new ModId(id);
 			if (hasModProfile && GetModId() == modId)
 			{
 				UpdateMapDetails();
 				return;
 			}
-			RetrieveModFromModIO(modId, forceUpdate: false, delegate(Error error, Mod mod)
+			RetrieveModFromModIO(modId, forceUpdate: false, (Error error, Mod mod) =>
 			{
 				OnProfileReceived(error, mod);
 			});
@@ -326,7 +344,7 @@ public class CustomMapsDisplayScreen : CustomMapsTerminalScreen
 				OnMapLoadComplete_UIUpdate();
 				return;
 			}
-			RetrieveModFromModIO(modId, forceUpdate: false, delegate(Error error, Mod mod)
+			RetrieveModFromModIO(modId, forceUpdate: false, (Error error, Mod mod) =>
 			{
 				OnProfileReceived(error, mod);
 			});
@@ -375,7 +393,7 @@ public class CustomMapsDisplayScreen : CustomMapsTerminalScreen
 
 	private async Task UpdateStatus(bool errorEncountered = false)
 	{
-		if (!base.isActiveAndEnabled || currentMapMod == null)
+		if (!isActiveAndEnabled || currentMapMod == null)
 		{
 			return;
 		}
@@ -389,7 +407,7 @@ public class CustomMapsDisplayScreen : CustomMapsTerminalScreen
 		if (currentMapMod != null)
 		{
 			playerCountText.gameObject.SetActive(value: true);
-			PlayerCountHelper.GetPlayerCount(currentMapMod, delegate(string count)
+			PlayerCountHelper.GetPlayerCount(currentMapMod, (string count) =>
 			{
 				playerCountText.text = count;
 			});
@@ -485,7 +503,20 @@ public class CustomMapsDisplayScreen : CustomMapsTerminalScreen
 		switch (loadStatus)
 		{
 		case MapLoadStatus.Downloading:
-			loadingMapLabelText.text = mapAutoDownloadingString;
+			loadingMapLabelText.text = ((progress > 0) ? (mapDownloadingProgressString + " " + progress + "%") : mapAutoDownloadingString);
+			loadingMapLabelText.gameObject.SetActive(value: true);
+			loadingMapMessageText.gameObject.SetActive(value: false);
+			loadingMapMessageText.text = "";
+			break;
+		case MapLoadStatus.None:
+			if (!mapLoadError)
+			{
+				loadingMapLabelText.gameObject.SetActive(value: false);
+				loadingMapMessageText.gameObject.SetActive(value: false);
+			}
+			break;
+		case MapLoadStatus.Installing:
+			loadingMapLabelText.text = ((progress > 0) ? (mapInstallingProgressString + " " + progress + "%") : mapInstallingString);
 			loadingMapLabelText.gameObject.SetActive(value: true);
 			loadingMapMessageText.gameObject.SetActive(value: false);
 			loadingMapMessageText.text = "";

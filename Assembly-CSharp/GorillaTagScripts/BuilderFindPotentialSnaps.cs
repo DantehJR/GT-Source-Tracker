@@ -41,7 +41,7 @@ public struct BuilderFindPotentialSnaps : IJobParallelFor
 		for (int i = 0; i < checkGridPlanes.Length; i++)
 		{
 			BuilderGridPlaneData checkGridPlane = checkGridPlanes[i];
-			BuilderPotentialPlacementData potentialPlacement = default(BuilderPotentialPlacementData);
+			BuilderPotentialPlacementData potentialPlacement = default;
 			if (TryPlaceGridPlaneOnGridPlane(ref gridPlane, ref checkGridPlane, ref potentialPlacement))
 			{
 				potentialPlacements.Enqueue(potentialPlacement);
@@ -105,7 +105,7 @@ public struct BuilderFindPotentialSnaps : IJobParallelFor
 		float num4 = Vector3.Dot(lhs, Vector3.right);
 		bool flag = Mathf.Abs(num3) > maxTwistDotProduct;
 		bool flag2 = Mathf.Abs(num4) > maxTwistDotProduct;
-		if (!(flag || flag2))
+		if (!(flag | flag2))
 		{
 			return false;
 		}

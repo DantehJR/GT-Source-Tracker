@@ -131,7 +131,7 @@ public class WanderingGhost : NetworkComponent
 	private void DelayedStart()
 	{
 		PickNextWaypoint();
-		base.transform.position = currentWaypoint._transform.position;
+		transform.position = currentWaypoint._transform.position;
 		PickNextWaypoint();
 		ChangeState(ghostState.patrol);
 	}
@@ -181,7 +181,7 @@ public class WanderingGhost : NetworkComponent
 
 	private bool MaybeHideGhost()
 	{
-		int num = Physics.OverlapSphereNonAlloc(base.transform.position, sphereColliderRadius, hitColliders);
+		int num = Physics.OverlapSphereNonAlloc(transform.position, sphereColliderRadius, hitColliders);
 		for (int i = 0; i < num; i++)
 		{
 			if (hitColliders[i].gameObject.IsOnLayer(UnityLayer.GorillaHand) || hitColliders[i].gameObject.IsOnLayer(UnityLayer.GorillaBodyCollider))
@@ -232,7 +232,7 @@ public class WanderingGhost : NetworkComponent
 				break;
 			}
 			Patrol();
-			if (Vector3.Distance(base.transform.position, currentWaypoint._transform.position) < 0.2f)
+			if (Vector3.Distance(transform.position, currentWaypoint._transform.position) < 0.2f)
 			{
 				if (currentWaypoint._visible)
 				{
@@ -258,7 +258,7 @@ public class WanderingGhost : NetworkComponent
 	private void HauntObjects()
 	{
 		Collider[] array = new Collider[20];
-		int num = Physics.OverlapSphereNonAlloc(base.transform.position, sphereColliderRadius, array);
+		int num = Physics.OverlapSphereNonAlloc(transform.position, sphereColliderRadius, array);
 		for (int i = 0; i < num; i++)
 		{
 			if (array[i].CompareTag("HauntedObject"))
@@ -297,9 +297,9 @@ public class WanderingGhost : NetworkComponent
 
 	private void ReadDataShared(ghostState state)
 	{
-		ghostState num = currentState;
+		ghostState ghostState2 = currentState;
 		currentState = state;
-		if (num != currentState)
+		if (ghostState2 != currentState)
 		{
 			ChangeState(currentState);
 		}
@@ -316,8 +316,8 @@ public class WanderingGhost : NetworkComponent
 
 	private void SpawnFlowerNearby()
 	{
-		Vector3 position = base.transform.position + Vector3.down * 0.25f;
-		if (Physics.Raycast(new Ray(base.transform.position + UnityEngine.Random.insideUnitCircle.x0y() * flowerSpawnRadius, Vector3.down), out var hitInfo, 3f, flowerGroundMask))
+		Vector3 position = transform.position + Vector3.down * 0.25f;
+		if (Physics.Raycast(new Ray(transform.position + UnityEngine.Random.insideUnitCircle.x0y() * flowerSpawnRadius, Vector3.down), out var hitInfo, 3f, flowerGroundMask))
 		{
 			position = hitInfo.point;
 		}

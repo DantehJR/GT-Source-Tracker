@@ -55,13 +55,13 @@ public class Gorillanalytics : MonoBehaviour
 
 	private IEnumerator Start()
 	{
-		PlayFabTitleDataCache.Instance.GetTitleData("GorillanalyticsChance", delegate(string s)
+		PlayFabTitleDataCache.Instance.GetTitleData("GorillanalyticsChance", (string s) =>
 		{
 			if (double.TryParse(s, out var result))
 			{
 				oneOverChance = result;
 			}
-		}, delegate
+		}, (PlayFabError e) =>
 		{
 		});
 		while (true)

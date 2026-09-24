@@ -102,11 +102,11 @@ public class StickyProjectile : MonoBehaviour, IProjectile, ITickSystemTick
 	public void Launch(Vector3 startPosition, Quaternion startRotation, Vector3 velocity, float chargeFrac, VRRig ownerRig, int progress)
 	{
 		OnLaunch?.Invoke();
-		stickyPart.SetParent(base.transform, worldPositionStays: false);
+		stickyPart.SetParent(transform, worldPositionStays: false);
 		stickyPart.SetLocalPositionAndRotation(stickyPartLocalPosition, stickyPartLocalRotation);
 		stickyPart.localScale = stickyPartLocalScale;
-		base.transform.SetPositionAndRotation(startPosition, startRotation);
-		base.transform.localScale = Vector3.one * ownerRig.scaleFactor;
+		transform.SetPositionAndRotation(startPosition, startRotation);
+		transform.localScale = Vector3.one * ownerRig.scaleFactor;
 		rb.isKinematic = false;
 		rb.position = startPosition;
 		rb.rotation = startRotation;
@@ -141,7 +141,7 @@ public class StickyProjectile : MonoBehaviour, IProjectile, ITickSystemTick
 	{
 		TickSystem<object>.RemoveTickCallback(this);
 		ContactPoint contact = collision.GetContact(0);
-		StickTo(collision.transform, contact.point, alignToHitNormal ? Quaternion.LookRotation(contact.normal, UnityEngine.Random.onUnitSphere) : base.transform.rotation);
+		StickTo(collision.transform, contact.point, alignToHitNormal ? Quaternion.LookRotation(contact.normal, UnityEngine.Random.onUnitSphere) : transform.rotation);
 		stickEvents.InvokeAll(StickFlags.Wall);
 	}
 
@@ -153,20 +153,27 @@ public class StickyProjectile : MonoBehaviour, IProjectile, ITickSystemTick
 		}
 		TickSystem<object>.RemoveTickCallback(this);
 		Vector3 vector = Time.fixedDeltaTime * 2f * rb.linearVelocity;
-		Vector3 vector2 = base.transform.position - vector;
+		Vector3 vector2 = transform.position - vector;
 		Vector3 vector3;
 		Quaternion rotation;
 		if (alignToHitNormal)
 		{
 			float magnitude = vector.magnitude;
-			other.Raycast(new Ray(vector2, vector / magnitude), out var hitInfo, 2f * magnitude);
-			vector3 = hitInfo.point;
-			rotation = Quaternion.LookRotation(hitInfo.normal, UnityEngine.Random.onUnitSphere);
+			if (other.Raycast(new Ray(vector2, vector / magnitude), out var hitInfo, 2f * magnitude))
+			{
+				vector3 = hitInfo.point;
+				rotation = Quaternion.LookRotation(hitInfo.normal, UnityEngine.Random.onUnitSphere);
+			}
+			else
+			{
+				vector3 = transform.position;
+				rotation = transform.rotation;
+			}
 		}
 		else
 		{
 			vector3 = other.ClosestPoint(vector2);
-			rotation = base.transform.rotation;
+			rotation = transform.rotation;
 		}
 		VRRig componentInParent = other.GetComponentInParent<VRRig>();
 		if (componentInParent != null)

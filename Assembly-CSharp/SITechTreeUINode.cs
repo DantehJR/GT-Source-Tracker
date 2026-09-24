@@ -40,7 +40,7 @@ public class SITechTreeUINode : MonoBehaviour
 		if (!techTreeStation.techTreeSO.TryGetNode(nodeUpgradeType, out _node))
 		{
 			Debug.LogError($"Node {nodeUpgradeType} doesn't exist in tree.  Disabling.");
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		upgradeType = nodeUpgradeType;
@@ -52,7 +52,7 @@ public class SITechTreeUINode : MonoBehaviour
 			nodeNickName.rectTransform.sizeDelta = sizeDelta;
 		}
 		string text = (nodeNickName.text = _node.Value.nickName);
-		base.name = text;
+		name = text;
 		button.data = _node.Value.upgradeType.GetNodeId();
 		button.buttonPressed.RemoveAllListeners();
 		button.buttonPressed.AddListener(techTreeStation.TouchscreenButtonPressed);
@@ -101,7 +101,7 @@ public class SITechTreeUINode : MonoBehaviour
 
 	public void AdjustPosition(Vector3 positionOffset)
 	{
-		base.transform.localPosition += positionOffset;
+		transform.localPosition += positionOffset;
 		foreach (SITechTreeUINode child in Children)
 		{
 			child.AdjustPosition(positionOffset);

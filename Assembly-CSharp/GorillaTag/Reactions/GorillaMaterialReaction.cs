@@ -109,11 +109,11 @@ public class GorillaMaterialReaction : MonoBehaviour, ITickSystemPost
 								{
 									if (gameObjectStates2.onEnter.activeState)
 									{
-										list.Add(base.gameObject);
+										list.Add(gameObject);
 									}
 									else
 									{
-										list2.Add(base.gameObject);
+										list2.Add(gameObject);
 									}
 								}
 								break;
@@ -122,11 +122,11 @@ public class GorillaMaterialReaction : MonoBehaviour, ITickSystemPost
 								{
 									if (gameObjectStates2.onEnter.activeState)
 									{
-										list.Add(base.gameObject);
+										list.Add(gameObject);
 									}
 									else
 									{
-										list2.Add(base.gameObject);
+										list2.Add(gameObject);
 									}
 								}
 								break;
@@ -135,11 +135,11 @@ public class GorillaMaterialReaction : MonoBehaviour, ITickSystemPost
 								{
 									if (gameObjectStates2.onEnter.activeState)
 									{
-										list.Add(base.gameObject);
+										list.Add(gameObject);
 									}
 									else
 									{
-										list2.Add(base.gameObject);
+										list2.Add(gameObject);
 									}
 								}
 								break;
@@ -171,8 +171,8 @@ public class GorillaMaterialReaction : MonoBehaviour, ITickSystemPost
 		}
 		if (_ownerVRRig == null)
 		{
-			Debug.LogError("GorillaMaterialReaction: Disabling because could not find VRRig! Hierarchy path: " + base.transform.GetPath(), this);
-			base.enabled = false;
+			Debug.LogError("GorillaMaterialReaction: Disabling because could not find VRRig! Hierarchy path: " + transform.GetPath(), this);
+			enabled = false;
 			return;
 		}
 		_reactionsRemaining = 0;

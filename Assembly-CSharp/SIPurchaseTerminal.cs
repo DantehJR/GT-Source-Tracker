@@ -213,12 +213,12 @@ public class SIPurchaseTerminal : MonoBehaviour, ITouchScreenStation
 			return;
 		}
 		UpdateState(PurchaseTerminalState.PendingPurchasePopup);
-		ProgressionManager.Instance.PurchaseTechPoints(purchaseSize, delegate
+		ProgressionManager.Instance.PurchaseTechPoints(purchaseSize, () =>
 		{
 			SIProgression.Instance.SendPurchaseTechPointsData(purchaseSize);
 			UpdateState(PurchaseTerminalState.PurchaseCompletePopup);
 			ProgressionManager.Instance.RefreshUserInventory();
-		}, delegate(string error)
+		}, (string error) =>
 		{
 			Debug.LogError("[SIPurchaseTerminal] PurchaseTechPoints failed: " + error);
 			UpdateState(PurchaseTerminalState.UnableToCompletePurchasePopup);

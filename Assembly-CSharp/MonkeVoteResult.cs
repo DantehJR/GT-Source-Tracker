@@ -61,9 +61,9 @@ public class MonkeVoteResult : MonoBehaviour
 		_optionIndicator.SetActive(value: true);
 		_scoreText.text = ((percentage >= 0) ? $"{percentage}%" : "--");
 		_voteIndicator.SetActive(showVote);
-		_guessWinIndicator.SetActive(showPrediction && isWinner);
+		_guessWinIndicator.SetActive(showPrediction & isWinner);
 		_guessLoseIndicator.SetActive(showPrediction && !isWinner);
-		_youWinIndicator.SetActive(isWinner && showPrediction);
+		_youWinIndicator.SetActive(isWinner & showPrediction);
 		_mostPopularIndicator.SetActive(isWinner);
 		ShowRockPile(percentage);
 	}

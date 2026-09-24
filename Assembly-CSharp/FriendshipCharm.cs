@@ -38,7 +38,7 @@ public class FriendshipCharm : HoldableObject
 
 	private void Awake()
 	{
-		parent = base.transform.parent;
+		parent = transform.parent;
 	}
 
 	private void LateUpdate()
@@ -70,8 +70,8 @@ public class FriendshipCharm : HoldableObject
 		bool flag = grabbingHand == EquipmentInteractor.instance.leftHand;
 		EquipmentInteractor.instance.UpdateHandEquipment(this, flag);
 		GorillaTagger.Instance.StartVibration(flag, GorillaTagger.Instance.tapHapticStrength * 2f, GorillaTagger.Instance.tapHapticDuration * 2f);
-		base.transform.SetParent(flag ? leftHandHoldAnchor : rightHandHoldAnchor);
-		base.transform.localPosition = Vector3.zero;
+		transform.SetParent(flag ? leftHandHoldAnchor : rightHandHoldAnchor);
+		transform.localPosition = Vector3.zero;
 	}
 
 	public override bool OnRelease(DropZone zoneReleased, GameObject releasingHand)
@@ -84,9 +84,9 @@ public class FriendshipCharm : HoldableObject
 
 	private void UpdatePosition()
 	{
-		base.transform.SetParent(parent);
-		base.transform.localPosition = releasePosition.localPosition;
-		base.transform.localRotation = releasePosition.localRotation;
+		transform.SetParent(parent);
+		transform.localPosition = releasePosition.localPosition;
+		transform.localRotation = releasePosition.localRotation;
 	}
 
 	private void OnCollisionEnter(Collision other)

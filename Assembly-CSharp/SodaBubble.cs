@@ -24,6 +24,6 @@ public class SodaBubble : MonoBehaviour
 		yield return new WaitForSeconds(1f);
 		bubbleMesh.gameObject.SetActive(value: true);
 		bubbleCollider.gameObject.SetActive(value: true);
-		ObjectPools.instance.Destroy(base.gameObject);
+		ObjectPools.instance.Destroy(gameObject);
 	}
 }

@@ -348,10 +348,35 @@ public class ZoneShaderSettings : MonoBehaviour, ITickSystemPost
 			Vector3 up = transform.up;
 			float w = 0f - Vector3.Dot(up, position);
 			Shader.SetGlobalVector(shaderParam_GlobalMainWaterSurfacePlane, new Vector4(up.x, up.y, up.z, w));
-			ELiquidShape eLiquidShape = (liquidShape_previousValue = ((liquidShape_overrideMode == EOverrideMode.ApplyNewValue || isDefaultValues) ? liquidShape : ((liquidShape_overrideMode != EOverrideMode.ApplyDefaultValue || !hasDefaultsInstance) ? liquidShape_previousValue : defaultsInstance.liquidShape)));
-			float y = (((liquidBottomTransform_overrideMode == EOverrideMode.ApplyNewValue || isDefaultValues) && hasLiquidBottomTransform) ? liquidBottomTransform.position.y : ((liquidBottomTransform_overrideMode != EOverrideMode.ApplyDefaultValue || !hasDefaultsInstance || !defaultsInstance.hasLiquidBottomTransform) ? liquidBottomPosY_previousValue : defaultsInstance.liquidBottomTransform.position.y));
-			float num = ((liquidShapeRadius_overrideMode == EOverrideMode.ApplyNewValue || isDefaultValues) ? liquidShapeRadius : ((liquidShape_overrideMode != EOverrideMode.ApplyDefaultValue || !hasDefaultsInstance) ? liquidShapeRadius_previousValue : defaultsInstance.liquidShapeRadius));
-			if (eLiquidShape == ELiquidShape.Cylinder)
+			ELiquidShape eLiquidShape;
+			if (liquidShape_overrideMode == EOverrideMode.ApplyNewValue || isDefaultValues)
+			{
+				eLiquidShape = liquidShape;
+			}
+			else
+			{
+				eLiquidShape = ((liquidShape_overrideMode != EOverrideMode.ApplyDefaultValue || !hasDefaultsInstance) ? liquidShape_previousValue : defaultsInstance.liquidShape);
+			}
+			ELiquidShape eLiquidShape2 = (liquidShape_previousValue = eLiquidShape);
+			float y;
+			if ((liquidBottomTransform_overrideMode == EOverrideMode.ApplyNewValue || isDefaultValues) && hasLiquidBottomTransform)
+			{
+				y = liquidBottomTransform.position.y;
+			}
+			else
+			{
+				y = ((liquidBottomTransform_overrideMode != EOverrideMode.ApplyDefaultValue || !hasDefaultsInstance || !defaultsInstance.hasLiquidBottomTransform) ? liquidBottomPosY_previousValue : defaultsInstance.liquidBottomTransform.position.y);
+			}
+			float num;
+			if (liquidShapeRadius_overrideMode == EOverrideMode.ApplyNewValue || isDefaultValues)
+			{
+				num = liquidShapeRadius;
+			}
+			else
+			{
+				num = ((liquidShape_overrideMode != EOverrideMode.ApplyDefaultValue || !hasDefaultsInstance) ? liquidShapeRadius_previousValue : defaultsInstance.liquidShapeRadius);
+			}
+			if (eLiquidShape2 == ELiquidShape.Cylinder)
 			{
 				Shader.SetGlobalVector(shaderParam_ZoneLiquidPosRadiusSq, new Vector4(position.x, y, position.z, num * num));
 				liquidShapeRadius_previousValue = num;
@@ -368,8 +393,8 @@ public class ZoneShaderSettings : MonoBehaviour, ITickSystemPost
 		if (hasDefaultsInstance && defaultsInstance != null && defaultsInstance != this)
 		{
 			string path = defaultsInstance.transform.GetPath();
-			Debug.LogError("ZoneShaderSettings: Destroying conflicting defaults instance.\n- keeping: \"" + path + "\"\n- destroying (this): \"" + base.transform.GetPath() + "\"", this);
-			Object.Destroy(base.gameObject);
+			Debug.LogError("ZoneShaderSettings: Destroying conflicting defaults instance.\n- keeping: \"" + path + "\"\n- destroying (this): \"" + transform.GetPath() + "\"", this);
+			Object.Destroy(gameObject);
 			return false;
 		}
 		defaultsInstance = this;

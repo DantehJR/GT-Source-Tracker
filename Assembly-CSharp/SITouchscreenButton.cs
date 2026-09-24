@@ -124,7 +124,7 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 			}
 			if (_pressSound != null)
 			{
-				GTAudioOneShot.Play(_pressSound, base.transform.position, _pressSoundVolume);
+				GTAudioOneShot.Play(_pressSound, transform.position, _pressSoundVolume);
 			}
 		}
 	}
@@ -135,7 +135,7 @@ public class SITouchscreenButton : MonoBehaviour, IClickable
 		{
 			bool flag = _isToggledOn != state;
 			_isToggledOn = state;
-			if (invokeEvent && flag)
+			if (invokeEvent & flag)
 			{
 				buttonToggled.Invoke(buttonType, data, NetworkSystem.Instance.LocalPlayer.ActorNumber, _isToggledOn);
 			}

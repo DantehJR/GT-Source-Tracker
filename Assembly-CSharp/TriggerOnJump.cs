@@ -43,7 +43,7 @@ public class TriggerOnJump : MonoBehaviour, ITickSystemTick
 		}
 		if (_events == null && myRig != null && myRig.Creator != null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
 			_events.Init(myRig.creator);
 		}
 		if (_events != null)
@@ -51,9 +51,8 @@ public class TriggerOnJump : MonoBehaviour, ITickSystemTick
 			_events.Activate += new Action<int, int, object[], PhotonMessageInfoWrapped>(OnActivate);
 		}
 		bool num = !PhotonNetwork.InRoom && myRig != null && myRig.isOfflineVRRig;
-		RigContainer playerRig;
-		bool flag = PhotonNetwork.InRoom && myRig != null && VRRigCache.Instance.TryGetVrrig(PhotonNetwork.LocalPlayer, out playerRig) && playerRig != null && playerRig.Rig != null && playerRig.Rig == myRig;
-		if (num || flag)
+		bool flag = PhotonNetwork.InRoom && myRig != null && VRRigCache.Instance.TryGetVrrig(PhotonNetwork.LocalPlayer, out var playerRig) && playerRig != null && playerRig.Rig != null && playerRig.Rig == myRig;
+		if (num | flag)
 		{
 			TickSystem<object>.AddCallbackTarget(this);
 		}
@@ -97,7 +96,7 @@ public class TriggerOnJump : MonoBehaviour, ITickSystemTick
 		{
 			waitingForGrounding = false;
 		}
-		if (!playerOnGround && flag)
+		if (!playerOnGround & flag)
 		{
 			jumpStartTime = time;
 		}

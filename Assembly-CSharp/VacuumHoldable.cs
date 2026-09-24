@@ -73,7 +73,7 @@ public class VacuumHoldable : TransferrableObject
 	protected override void LateUpdateShared()
 	{
 		base.LateUpdateShared();
-		if (!IsMyItem() && base.myOnlineRig != null && base.myOnlineRig.muted)
+		if (!IsMyItem() && myOnlineRig != null && myOnlineRig.muted)
 		{
 			itemState = ItemStates.State0;
 		}

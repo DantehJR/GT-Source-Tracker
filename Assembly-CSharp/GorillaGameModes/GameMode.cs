@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Fusion;
 using GorillaExtensions;
 using UnityEngine;
@@ -40,6 +41,9 @@ public class GameMode : MonoBehaviour
 	[OnEnterPlay_SetNull]
 	private static GameModeSerializer activeNetworkHandler;
 
+	[CompilerGenerated]
+	private static GameModeType CurrentGameModeType__BackingField;
+
 	[OnEnterPlay_Clear]
 	private static readonly HashSet<int> optOutPlayers;
 
@@ -60,7 +64,19 @@ public class GameMode : MonoBehaviour
 
 	public static GameModeZoneMapping GameModeZoneMapping => instance.gameModeZoneMapping;
 
-	public static GameModeType CurrentGameModeType { get; private set; }
+	public static GameModeType CurrentGameModeType
+	{
+		[CompilerGenerated]
+		get
+		{
+			return CurrentGameModeType__BackingField;
+		}
+		[CompilerGenerated]
+		private set
+		{
+			CurrentGameModeType__BackingField = value;
+		}
+	}
 
 	public static int CurrentGameModeFlag => 1 << (int)CurrentGameModeType;
 
@@ -75,7 +91,7 @@ public class GameMode : MonoBehaviour
 		if (instance.IsNull())
 		{
 			instance = this;
-			GorillaGameManager[] componentsInChildren = base.gameObject.GetComponentsInChildren<GorillaGameManager>(includeInactive: true);
+			GorillaGameManager[] componentsInChildren = gameObject.GetComponentsInChildren<GorillaGameManager>(includeInactive: true);
 			foreach (GorillaGameManager gorillaGameManager in componentsInChildren)
 			{
 				int num = (int)gorillaGameManager.GameType();
@@ -115,7 +131,7 @@ public class GameMode : MonoBehaviour
 		activatedGameModes = new List<GorillaGameManager>(13);
 		activeGameMode = null;
 		activeNetworkHandler = null;
-		CurrentGameModeType = GameModeType.None;
+		CurrentGameModeType__BackingField = GameModeType.None;
 		optOutPlayers = new HashSet<int>(20);
 		_participatingPlayers = new List<NetPlayer>(20);
 		_oldPlayersBuffer = new NetPlayer[20];
@@ -224,7 +240,7 @@ public class GameMode : MonoBehaviour
 			GTDev.LogError("Unable to find game mode prefab to spawn");
 			return false;
 		}
-		if (NetworkSystem.Instance.NetInstantiate(prefab, Vector3.zero, Quaternion.identity, isRoomObject: true, 0, new object[1] { key }, delegate(NetworkRunner runner, NetworkObject no)
+		if (NetworkSystem.Instance.NetInstantiate(prefab, Vector3.zero, Quaternion.identity, isRoomObject: true, 0, new object[1] { key }, (NetworkRunner runner, NetworkObject no) =>
 		{
 			no.GetComponent<GameModeSerializer>().Init(key);
 		}).IsNull())
@@ -270,7 +286,7 @@ public class GameMode : MonoBehaviour
 	{
 		GorillaGameManager gameModeInstance = networkSerializer.GameModeInstance;
 		bool flag = gameModeInstance != activeGameMode;
-		if (activeGameMode.IsNotNull() && gameModeInstance.IsNotNull() && flag)
+		if ((activeGameMode.IsNotNull() && gameModeInstance.IsNotNull()) & flag)
 		{
 			StopGameModeSafe(activeGameMode);
 		}
@@ -285,9 +301,9 @@ public class GameMode : MonoBehaviour
 		if (flag)
 		{
 			StartGameModeSafe(activeGameMode);
-			if (GameMode.OnStartGameMode != null)
+			if (OnStartGameMode != null)
 			{
-				GameMode.OnStartGameMode(activeGameMode.GameType());
+				OnStartGameMode(activeGameMode.GameType());
 			}
 		}
 	}
@@ -467,9 +483,9 @@ public class GameMode : MonoBehaviour
 				_tempAddedPlayers.Add(netPlayer2);
 			}
 		}
-		if ((_tempAddedPlayers.Count > 0 || _tempRemovedPlayers.Count > 0) && GameMode.ParticipatingPlayersChanged != null)
+		if ((_tempAddedPlayers.Count > 0 || _tempRemovedPlayers.Count > 0) && ParticipatingPlayersChanged != null)
 		{
-			GameMode.ParticipatingPlayersChanged(_tempAddedPlayers, _tempRemovedPlayers);
+			ParticipatingPlayersChanged(_tempAddedPlayers, _tempRemovedPlayers);
 		}
 	}
 

@@ -19,7 +19,7 @@ public static class NetInput
 
 	public static NetworkedInput GetInput()
 	{
-		NetworkedInput result = default(NetworkedInput);
+		NetworkedInput result = default;
 		if (LocalPlayerVRRig == null)
 		{
 			return result;

@@ -321,7 +321,8 @@ public class ContinuousProperty
 		{
 			if (!ThresholdError)
 			{
-				return "The threshold will be true" + ((thresholdOption != ThresholdOption.Normal) ? (((range.x > 0f) ? (" below " + range.x) : "") + ((range.x > 0f && range.y < 1f) ? " and" : "") + ((range.y < 1f) ? (" above " + range.y) : "")) : ((range.x > 0f && range.y < 1f) ? $" between {range.x} and {range.y}" : ((range.x > 0f) ? (" above " + range.x) : (" below " + range.y)))) + ", and false otherwise.";
+				string text = ((thresholdOption != ThresholdOption.Normal) ? (((range.x > 0f) ? (" below " + range.x) : "") + ((range.x > 0f && range.y < 1f) ? " and" : "") + ((range.y < 1f) ? (" above " + range.y) : "")) : ((range.x > 0f && range.y < 1f) ? $" between {range.x} and {range.y}" : ((range.x > 0f) ? (" above " + range.x) : (" below " + range.y))));
+				return "The threshold will be true" + text + ", and false otherwise.";
 			}
 			return ThresholdErrorMessage;
 		}
@@ -865,12 +866,12 @@ public class ContinuousProperty
 			return ThresholdResult.Null;
 		}
 		bool flag = f >= range.x && f <= range.y;
-		if (!previousBoolValue && ((thresholdOption == ThresholdOption.Normal && flag) || (thresholdOption == ThresholdOption.Invert && !flag)))
+		if (!previousBoolValue && (((thresholdOption == ThresholdOption.Normal) & flag) || (thresholdOption == ThresholdOption.Invert && !flag)))
 		{
 			previousBoolValue = true;
 			return ThresholdResult.RisingEdge;
 		}
-		if (previousBoolValue && ((thresholdOption == ThresholdOption.Normal && !flag) || (thresholdOption == ThresholdOption.Invert && flag)))
+		if (previousBoolValue && ((thresholdOption == ThresholdOption.Normal && !flag) || ((thresholdOption == ThresholdOption.Invert) & flag)))
 		{
 			previousBoolValue = false;
 			return ThresholdResult.FallingEdge;

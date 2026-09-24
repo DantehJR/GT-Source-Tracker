@@ -10,7 +10,7 @@ public class GorillaPressableReleaseButton : GorillaPressableButton
 
 	private new void OnTriggerEnter(Collider other)
 	{
-		if (!base.enabled || !(touchTime + debounceTime < Time.time) || (bool)touchingCollider)
+		if (!enabled || !(touchTime + debounceTime < Time.time) || (bool)touchingCollider)
 		{
 			return;
 		}
@@ -33,7 +33,7 @@ public class GorillaPressableReleaseButton : GorillaPressableButton
 
 	private void OnTriggerExit(Collider other)
 	{
-		if (!base.enabled || other != touchingCollider)
+		if (!enabled || other != touchingCollider)
 		{
 			return;
 		}

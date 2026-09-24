@@ -38,7 +38,7 @@ public class BundlePurchaseButton : GorillaPressableButton, IGorillaSliceableSim
 	{
 		if (NetworkSystem.Instance != null && NetworkSystem.Instance.WrongVersion && !bError)
 		{
-			base.enabled = false;
+			enabled = false;
 			GetComponent<BoxCollider>().enabled = false;
 			buttonRenderer.material = pressedMaterial;
 			myText.text = UnavailableText;
@@ -59,7 +59,7 @@ public class BundlePurchaseButton : GorillaPressableButton, IGorillaSliceableSim
 	{
 		if (!bError)
 		{
-			base.enabled = false;
+			enabled = false;
 			GetComponent<BoxCollider>().enabled = false;
 			buttonRenderer.material = pressedMaterial;
 			onText = AlreadyOwnText;
@@ -72,7 +72,7 @@ public class BundlePurchaseButton : GorillaPressableButton, IGorillaSliceableSim
 	{
 		if (!bError)
 		{
-			base.enabled = true;
+			enabled = true;
 			GetComponent<BoxCollider>().enabled = true;
 			buttonRenderer.material = unpressedMaterial;
 			SetOffText(setMyText: true);
@@ -92,7 +92,7 @@ public class BundlePurchaseButton : GorillaPressableButton, IGorillaSliceableSim
 		bError = true;
 		myText.text = ErrorText;
 		buttonRenderer.material = unpressedMaterial;
-		base.enabled = false;
+		enabled = false;
 		offText = ErrorText;
 		onText = ErrorText;
 		isOn = false;
@@ -104,16 +104,16 @@ public class BundlePurchaseButton : GorillaPressableButton, IGorillaSliceableSim
 		{
 			SetOffText(setMyText: true);
 			buttonRenderer.material = unpressedMaterial;
-			base.enabled = true;
+			enabled = true;
 			isOn = false;
 		}
 	}
 
-	public void UpdatePurchaseButtonText(string purchaseText)
+	public void UpdatePurchaseButtonText(string text)
 	{
 		if (!bError)
 		{
-			offText = purchaseText;
+			offText = text;
 			UpdateColor();
 		}
 	}

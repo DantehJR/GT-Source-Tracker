@@ -535,7 +535,7 @@ public class CritterTemplate : ScriptableObject
 		{
 			return parent.GetTemplateValue<T>(valueName);
 		}
-		return default(T);
+		return default;
 	}
 
 	public T GetTemplateValue<T>(string valueName)
@@ -548,7 +548,7 @@ public class CritterTemplate : ScriptableObject
 		{
 			return parent.GetTemplateValue<T>(valueName);
 		}
-		return default(T);
+		return default;
 	}
 
 	public void ApplyToCritter(CrittersPawn critter)

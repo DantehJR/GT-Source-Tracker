@@ -124,7 +124,7 @@ public class ShakeReactorCosmetic : MonoBehaviour, ISpawnable
 		pathSinceLastReversal = 0f;
 		recentHalfCycleDurations.Clear();
 		hasLastDir = false;
-		lastPosition = ((speedTracker != null) ? speedTracker.transform.position : base.transform.position);
+		lastPosition = ((speedTracker != null) ? speedTracker.transform.position : transform.position);
 		isShaking = false;
 		debugCurrentHalfCycleDistance = 0f;
 		debugCurrentRateHz = 0f;
@@ -136,7 +136,7 @@ public class ShakeReactorCosmetic : MonoBehaviour, ISpawnable
 		}
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
 		}
 		NetPlayer netPlayer = ((myRig != null) ? (myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : NetworkSystem.Instance.LocalPlayer);
 		if (netPlayer != null)
@@ -224,7 +224,7 @@ public class ShakeReactorCosmetic : MonoBehaviour, ISpawnable
 		{
 			if (!isShaking)
 			{
-				if (Time.time >= nextAllowedShakeStartTime && flag3 && flag4)
+				if ((Time.time >= nextAllowedShakeStartTime) & flag3 & flag4)
 				{
 					isShaking = true;
 					if (PhotonNetwork.InRoom && _events != null && _events.Activate != null)
@@ -240,7 +240,7 @@ public class ShakeReactorCosmetic : MonoBehaviour, ISpawnable
 				float num4 = ((shakeRateThreshold > 1E-05f) ? (0.5f / shakeRateThreshold) : float.PositiveInfinity);
 				float num5 = 1f * num4;
 				bool flag5 = Time.time - lastReversalTime > num5;
-				if ((!flag3 && !flag2) || flag5)
+				if ((!flag3 && !flag2) | flag5)
 				{
 					isShaking = false;
 					if (PhotonNetwork.InRoom && _events != null && _events.Activate != null)
@@ -255,9 +255,9 @@ public class ShakeReactorCosmetic : MonoBehaviour, ISpawnable
 		}
 		if (useMaxes && isShaking)
 		{
-			bool num6 = num3 >= maxShakeRate;
-			bool flag6 = lastAmplitudeMeters >= maxShakeAmplitude;
-			if (num6 || flag6)
+			bool flag6 = num3 >= maxShakeRate;
+			bool flag7 = lastAmplitudeMeters >= maxShakeAmplitude;
+			if (flag6 | flag7)
 			{
 				MaxShake?.Invoke();
 			}
@@ -265,15 +265,15 @@ public class ShakeReactorCosmetic : MonoBehaviour, ISpawnable
 		float strength = 0f;
 		if (isShaking)
 		{
-			float num7 = Mathf.Max(1E-05f, shakeAmplitudeThreshold);
-			if (useMaxes && maxShakeAmplitude > num7)
+			float num6 = Mathf.Max(1E-05f, shakeAmplitudeThreshold);
+			if (useMaxes && maxShakeAmplitude > num6)
 			{
-				strength = Mathf.InverseLerp(num7, maxShakeAmplitude, lastAmplitudeMeters);
+				strength = Mathf.InverseLerp(num6, maxShakeAmplitude, lastAmplitudeMeters);
 			}
 			else
 			{
-				float b2 = Mathf.Max(num7, shakeAmplitudeThreshold * Mathf.Max(1f, softMaxMultiplier));
-				strength = Mathf.InverseLerp(num7, b2, lastAmplitudeMeters);
+				float b2 = Mathf.Max(num6, shakeAmplitudeThreshold * Mathf.Max(1f, softMaxMultiplier));
+				strength = Mathf.InverseLerp(num6, b2, lastAmplitudeMeters);
 			}
 		}
 		ApplyStrength(strength);

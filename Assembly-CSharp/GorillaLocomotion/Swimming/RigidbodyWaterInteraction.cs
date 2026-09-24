@@ -73,16 +73,22 @@ public class RigidbodyWaterInteraction : MonoBehaviour
 			return;
 		}
 		bool flag = overlappingWaterVolumes.Count > 0;
-		WaterVolume.SurfaceQuery surfaceQuery = default(WaterVolume.SurfaceQuery);
+		WaterVolume.SurfaceQuery surfaceQuery = default;
 		float num = float.MinValue;
 		if (flag && enablePreciseWaterCollision)
 		{
-			Vector3 vector = base.transform.position + GTPlayerTransform.PhysicsDown * 2f * objectRadiusForWaterCollision * buoyancyEquilibrium;
+			Vector3 vector = transform.position + GTPlayerTransform.PhysicsDown * 2f * objectRadiusForWaterCollision * buoyancyEquilibrium;
 			bool flag2 = false;
 			activeWaterCurrents.Clear();
 			for (int i = 0; i < overlappingWaterVolumes.Count; i++)
 			{
-				if (overlappingWaterVolumes[i].GetSurfaceQueryForPoint(vector, out var result))
+				WaterVolume.SurfaceQuery result;
+				if (overlappingWaterVolumes[i] == null)
+				{
+					overlappingWaterVolumes.RemoveAt(i);
+					i--;
+				}
+				else if (overlappingWaterVolumes[i].GetSurfaceQueryForPoint(vector, out result))
 				{
 					float num2 = Vector3.Dot(result.surfacePoint - vector, result.surfaceNormal);
 					if (num2 > num)
@@ -100,11 +106,11 @@ public class RigidbodyWaterInteraction : MonoBehaviour
 			}
 			if (flag2)
 			{
-				bool num3 = num > (0f - (1f - buoyancyEquilibrium)) * 2f * objectRadiusForWaterCollision;
-				float num4 = (enablePreciseWaterCollision ? objectRadiusForWaterCollision : 0f);
+				bool flag3 = num > (0f - (1f - buoyancyEquilibrium)) * 2f * objectRadiusForWaterCollision;
+				float num3 = (enablePreciseWaterCollision ? objectRadiusForWaterCollision : 0f);
 				Vector3 vector2 = surfaceQuery.surfacePoint - surfaceQuery.surfaceNormal * surfaceQuery.maxDepth;
-				bool flag3 = Vector3.Dot(base.transform.position + surfaceQuery.surfaceNormal * num4 - vector2, surfaceQuery.surfaceNormal) > 0f;
-				flag = num3 && flag3;
+				bool flag4 = Vector3.Dot(transform.position + surfaceQuery.surfaceNormal * num3 - vector2, surfaceQuery.surfaceNormal) > 0f;
+				flag = flag3 & flag4;
 			}
 			else
 			{
@@ -121,7 +127,7 @@ public class RigidbodyWaterInteraction : MonoBehaviour
 				Vector3 zero2 = Vector3.zero;
 				for (int j = 0; j < activeWaterCurrents.Count; j++)
 				{
-					if (activeWaterCurrents[j].GetCurrentAtPoint(startingVelocity: vector3 + zero, worldPoint: base.transform.position, dt: fixedDeltaTime, currentVelocity: out var currentVelocity, velocityChange: out var velocityChange))
+					if (activeWaterCurrents[j].GetCurrentAtPoint(startingVelocity: vector3 + zero, worldPoint: transform.position, dt: fixedDeltaTime, currentVelocity: out var currentVelocity, velocityChange: out var velocityChange))
 					{
 						zero2 += currentVelocity;
 						zero += velocityChange;
@@ -129,7 +135,7 @@ public class RigidbodyWaterInteraction : MonoBehaviour
 				}
 				if (enablePreciseWaterCollision)
 				{
-					Vector3 position = (surfaceQuery.surfacePoint + (base.transform.position + GTPlayerTransform.PhysicsDown * objectRadiusForWaterCollision)) * 0.5f;
+					Vector3 position = (surfaceQuery.surfacePoint + (transform.position + GTPlayerTransform.PhysicsDown * objectRadiusForWaterCollision)) * 0.5f;
 					rb.AddForceAtPosition(zero * rb.mass, position, ForceMode.Impulse);
 				}
 				else
@@ -144,8 +150,8 @@ public class RigidbodyWaterInteraction : MonoBehaviour
 				if (enablePreciseWaterCollision)
 				{
 					float b = 2f * objectRadiusForWaterCollision * buoyancyEquilibrium;
-					float num5 = Mathf.InverseLerp(0f, b, num);
-					vector4 = GTPlayerTransform.PhysicsUp * Physics.gravity.magnitude * underWaterBuoyancyFactor * num5 * fixedDeltaTime;
+					float num4 = Mathf.InverseLerp(0f, b, num);
+					vector4 = GTPlayerTransform.PhysicsUp * Physics.gravity.magnitude * underWaterBuoyancyFactor * num4 * fixedDeltaTime;
 				}
 				else
 				{
@@ -155,10 +161,10 @@ public class RigidbodyWaterInteraction : MonoBehaviour
 				{
 					float magnitude = zero.magnitude;
 					Vector3 vector5 = zero / magnitude;
-					float num6 = Vector3.Dot(vector4, vector5);
-					if (num6 < 0f)
+					float num5 = Vector3.Dot(vector4, vector5);
+					if (num5 < 0f)
 					{
-						vector4 -= num6 * vector5;
+						vector4 -= num5 * vector5;
 					}
 				}
 				vector3 += vector4;
@@ -167,30 +173,30 @@ public class RigidbodyWaterInteraction : MonoBehaviour
 			if (magnitude2 > 0.001f && applyDamping)
 			{
 				Vector3 vector6 = vector3 / magnitude2;
-				float num7 = Spring.DamperDecayExact(magnitude2, underWaterDampingHalfLife, fixedDeltaTime);
+				float num6 = Spring.DamperDecayExact(magnitude2, underWaterDampingHalfLife, fixedDeltaTime);
 				if (enablePreciseWaterCollision)
 				{
 					float a = Spring.DamperDecayExact(magnitude2, waterSurfaceDampingHalfLife, fixedDeltaTime);
-					float t = Mathf.Clamp((0f - Vector3.Dot(base.transform.position - surfaceQuery.surfacePoint, surfaceQuery.surfaceNormal)) / objectRadiusForWaterCollision, -1f, 1f) * 0.5f + 0.5f;
-					vector3 = Mathf.Lerp(a, num7, t) * vector6;
+					float t = Mathf.Clamp((0f - Vector3.Dot(transform.position - surfaceQuery.surfacePoint, surfaceQuery.surfaceNormal)) / objectRadiusForWaterCollision, -1f, 1f) * 0.5f + 0.5f;
+					vector3 = Mathf.Lerp(a, num6, t) * vector6;
 				}
 				else
 				{
-					vector3 = num7 * vector6;
+					vector3 = num6 * vector6;
 				}
 			}
 			if (applySurfaceTorque && enablePreciseWaterCollision)
 			{
-				float num8 = Vector3.Dot(base.transform.position - surfaceQuery.surfacePoint, surfaceQuery.surfaceNormal);
-				if (num8 < objectRadiusForWaterCollision && num8 > 0f)
+				float num7 = Vector3.Dot(transform.position - surfaceQuery.surfacePoint, surfaceQuery.surfaceNormal);
+				if (num7 < objectRadiusForWaterCollision && num7 > 0f)
 				{
 					Vector3 rhs = vector3 - Vector3.Dot(vector3, surfaceQuery.surfaceNormal) * surfaceQuery.surfaceNormal;
 					Vector3 normalized = Vector3.Cross(surfaceQuery.surfaceNormal, rhs).normalized;
-					float num9 = Vector3.Dot(rb.angularVelocity, normalized);
-					float num10 = rhs.magnitude / objectRadiusForWaterCollision - num9;
-					if (num10 > 0f)
+					float num8 = Vector3.Dot(rb.angularVelocity, normalized);
+					float num9 = rhs.magnitude / objectRadiusForWaterCollision - num8;
+					if (num9 > 0f)
 					{
-						rb.AddTorque(surfaceTorqueAmount * num10 * normalized, ForceMode.Acceleration);
+						rb.AddTorque(surfaceTorqueAmount * num9 * normalized, ForceMode.Acceleration);
 					}
 				}
 			}

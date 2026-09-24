@@ -516,43 +516,37 @@ public class Protocol18 : IProtocol
 
 	internal short ReadInt16(StreamBuffer stream)
 	{
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(2, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(2, out var offset);
 		return (short)(bufferAndAdvance[offset++] | (bufferAndAdvance[offset] << 8));
 	}
 
 	internal ushort ReadUShort(StreamBuffer stream)
 	{
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(2, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(2, out var offset);
 		return (ushort)(bufferAndAdvance[offset++] | (bufferAndAdvance[offset] << 8));
 	}
 
 	internal int ReadInt32(StreamBuffer stream)
 	{
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(4, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(4, out var offset);
 		return (bufferAndAdvance[offset++] << 24) | (bufferAndAdvance[offset++] << 16) | (bufferAndAdvance[offset++] << 8) | bufferAndAdvance[offset];
 	}
 
 	internal long ReadInt64(StreamBuffer stream)
 	{
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(4, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(4, out var offset);
 		return (long)(((ulong)bufferAndAdvance[offset++] << 56) | ((ulong)bufferAndAdvance[offset++] << 48) | ((ulong)bufferAndAdvance[offset++] << 40) | ((ulong)bufferAndAdvance[offset++] << 32) | ((ulong)bufferAndAdvance[offset++] << 24) | ((ulong)bufferAndAdvance[offset++] << 16) | ((ulong)bufferAndAdvance[offset++] << 8) | bufferAndAdvance[offset]);
 	}
 
 	internal float ReadSingle(StreamBuffer stream)
 	{
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(4, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(4, out var offset);
 		return BitConverter.ToSingle(bufferAndAdvance, offset);
 	}
 
 	internal double ReadDouble(StreamBuffer stream)
 	{
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(8, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(8, out var offset);
 		return BitConverter.ToDouble(bufferAndAdvance, offset);
 	}
 
@@ -906,9 +900,7 @@ public class Protocol18 : IProtocol
 
 	private IDictionary ReadDictionary(StreamBuffer stream, DeserializationFlags flags, ParameterDictionary parameters)
 	{
-		GpType keyReadType;
-		GpType valueReadType;
-		Type type = ReadDictionaryType(stream, out keyReadType, out valueReadType);
+		Type type = ReadDictionaryType(stream, out var keyReadType, out var valueReadType);
 		if (type == null)
 		{
 			return null;
@@ -1016,8 +1008,7 @@ public class Protocol18 : IProtocol
 		int num = (int)ReadCompressedUInt32(stream);
 		int num2 = num * 4;
 		float[] array = new float[num];
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(num2, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(num2, out var offset);
 		Buffer.BlockCopy(bufferAndAdvance, offset, array, 0, num2);
 		return array;
 	}
@@ -1027,8 +1018,7 @@ public class Protocol18 : IProtocol
 		int num = (int)ReadCompressedUInt32(stream);
 		int num2 = num * 8;
 		double[] array = new double[num];
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(num2, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(num2, out var offset);
 		Buffer.BlockCopy(bufferAndAdvance, offset, array, 0, num2);
 		return array;
 	}
@@ -1057,9 +1047,7 @@ public class Protocol18 : IProtocol
 
 	private IDictionary[] ReadDictionaryArray(StreamBuffer stream, DeserializationFlags flags, ParameterDictionary parameters)
 	{
-		GpType keyReadType;
-		GpType valueReadType;
-		Type type = ReadDictionaryType(stream, out keyReadType, out valueReadType);
+		Type type = ReadDictionaryType(stream, out var keyReadType, out var valueReadType);
 		uint num = ReadCompressedUInt32(stream);
 		IDictionary[] array = (IDictionary[])Array.CreateInstance(type, (int)num);
 		for (uint num2 = 0u; num2 < num; num2++)
@@ -1501,8 +1489,7 @@ public class Protocol18 : IProtocol
 		{
 			stream.WriteByte(6);
 		}
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(8, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(8, out var offset);
 		lock (memDoubleBlock)
 		{
 			memDoubleBlock[0] = value;
@@ -1516,8 +1503,7 @@ public class Protocol18 : IProtocol
 		{
 			stream.WriteByte(5);
 		}
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(4, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(4, out var offset);
 		lock (memFloatBlock)
 		{
 			memFloatBlock[0] = value;
@@ -1710,8 +1696,7 @@ public class Protocol18 : IProtocol
 		}
 		WriteIntLength(stream, values.Length);
 		int num = values.Length * 4;
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(num, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(num, out var offset);
 		Buffer.BlockCopy(values, 0, bufferAndAdvance, offset, num);
 	}
 
@@ -1723,8 +1708,7 @@ public class Protocol18 : IProtocol
 		}
 		WriteIntLength(stream, values.Length);
 		int num = values.Length * 8;
-		int offset;
-		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(num, out offset);
+		byte[] bufferAndAdvance = stream.GetBufferAndAdvance(num, out var offset);
 		Buffer.BlockCopy(values, 0, bufferAndAdvance, offset, num);
 	}
 

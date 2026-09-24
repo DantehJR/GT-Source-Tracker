@@ -30,7 +30,7 @@ public class NonAllocDictionary<K, V> : IDictionary<K, V>, ICollection<KeyValueP
 			{
 				if (_index == 0)
 				{
-					return default(K);
+					return default;
 				}
 				return _dict._nodes[_index].Key;
 			}
@@ -76,7 +76,7 @@ public class NonAllocDictionary<K, V> : IDictionary<K, V>, ICollection<KeyValueP
 			{
 				if (_index == 0)
 				{
-					return default(V);
+					return default;
 				}
 				return _dict._nodes[_index].Val;
 			}
@@ -146,7 +146,7 @@ public class NonAllocDictionary<K, V> : IDictionary<K, V>, ICollection<KeyValueP
 			{
 				if (_index == 0)
 				{
-					return default(KeyValuePair<K, V>);
+					return default;
 				}
 				return new KeyValuePair<K, V>(_dict._nodes[_index].Key, _dict._nodes[_index].Val);
 			}
@@ -283,7 +283,7 @@ public class NonAllocDictionary<K, V> : IDictionary<K, V>, ICollection<KeyValueP
 			val = _nodes[num].Val;
 			return true;
 		}
-		val = default(V);
+		val = default;
 		return false;
 	}
 
@@ -343,7 +343,7 @@ public class NonAllocDictionary<K, V> : IDictionary<K, V>, ICollection<KeyValueP
 					}
 					_nodes[num].Used = false;
 					_nodes[num].Next = _freeHead;
-					_nodes[num].Val = default(V);
+					_nodes[num].Val = default;
 					_freeHead = num;
 					_freeCount++;
 					return true;

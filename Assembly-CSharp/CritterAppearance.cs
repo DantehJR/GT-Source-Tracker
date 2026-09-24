@@ -58,9 +58,9 @@ public struct CritterAppearance(string hatName, float size = 1f)
 
 	public static CritterAppearance ReadFromPhotonStream(PhotonStream data)
 	{
-		string obj = (string)data.ReceiveNext();
+		string text = (string)data.ReceiveNext();
 		float num = (float)data.ReceiveNext();
-		return new CritterAppearance(obj, num);
+		return new CritterAppearance(text, num);
 	}
 
 	public override string ToString()

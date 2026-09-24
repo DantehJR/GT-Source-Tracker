@@ -25,7 +25,7 @@ public class TempMask : MonoBehaviour
 		myRig = GetComponentInParent<VRRig>();
 		if (myRig != null && myRig.netView.IsMine && !myRig.isOfflineVRRig)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 	}
 

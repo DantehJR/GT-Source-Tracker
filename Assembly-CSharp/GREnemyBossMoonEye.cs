@@ -144,12 +144,12 @@ public class GREnemyBossMoonEye : MonoBehaviour, IGameEntityComponent, IGameEnti
 		currBehavior = Behavior.None;
 		currAbility = null;
 		SetupAbility(Behavior.Idle, abilityIdle, agent, anim, audioSource, null, null, null);
-		SetupAbility(Behavior.AttackLaser, abilityAttackLaser, agent, anim, audioSource, base.transform, headTransform, null);
+		SetupAbility(Behavior.AttackLaser, abilityAttackLaser, agent, anim, audioSource, transform, headTransform, null);
 		SetupAbility(Behavior.Closed, abilityClosed, agent, anim, audioSource, null, null, null);
 		SetupAbility(Behavior.GravityStart, abilityGravityStart, agent, anim, audioSource, null, null, null);
 		SetupAbility(Behavior.GravityEnd, abilityGravityEnd, agent, anim, audioSource, null, null, null);
 		SetupAbility(Behavior.GravityIdle, abilityGravityIdle, agent, anim, audioSource, null, null, null);
-		SetupAbility(Behavior.Dying, abilityDie, agent, anim, audioSource, base.transform, null, null);
+		SetupAbility(Behavior.Dying, abilityDie, agent, anim, audioSource, transform, null, null);
 		senseNearby.Setup(headTransform, entity);
 		Setup(entity.createData);
 		if ((bool)entity && (bool)entity.manager && (bool)entity.manager.ghostReactorManager && (bool)entity.manager.ghostReactorManager.reactor)
@@ -236,7 +236,7 @@ public class GREnemyBossMoonEye : MonoBehaviour, IGameEntityComponent, IGameEnti
 		}
 		if (newBehavior < Behavior.Idle || (int)newBehavior >= abilities.Length)
 		{
-			Debug.LogErrorFormat("New Behavior Index is invalid {0} {1} {2}", (int)newBehavior, newBehavior, base.gameObject.name);
+			Debug.LogErrorFormat("New Behavior Index is invalid {0} {1} {2}", (int)newBehavior, newBehavior, gameObject.name);
 			return;
 		}
 		GRAbilityBase gRAbilityBase = abilities[(int)newBehavior];
@@ -292,8 +292,7 @@ public class GREnemyBossMoonEye : MonoBehaviour, IGameEntityComponent, IGameEnti
 			tempRigs.Add(VRRig.LocalRig);
 			VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 			senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-			float outDistanceSq;
-			VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+			VRRig vRRig = senseNearby.PickClosest(out var _);
 			agent.RequestTarget((vRRig == null) ? null : vRRig.OwningNetPlayer);
 			if (currAbility != null)
 			{
@@ -430,7 +429,7 @@ public class GREnemyBossMoonEye : MonoBehaviour, IGameEntityComponent, IGameEnti
 		if (component != null)
 		{
 			GameHittable component2 = GetComponent<GameHittable>();
-			component.BlockHittable(headTransform.position, base.transform.forward, component2);
+			component.BlockHittable(headTransform.position, transform.forward, component2);
 			return;
 		}
 		Rigidbody attachedRigidbody = collider.attachedRigidbody;
@@ -471,10 +470,10 @@ public class GREnemyBossMoonEye : MonoBehaviour, IGameEntityComponent, IGameEnti
 		if (player != null && player.gamePlayer.IsLocal() && Time.time > lastHitPlayerTime + minTimeBetweenHits)
 		{
 			lastHitPlayerTime = Time.time;
-			Vector3 vector = player.transform.position - base.transform.position;
+			Vector3 vector = player.transform.position - transform.position;
 			vector.y = 0f;
 			vector = vector.normalized * 6f;
-			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, base.transform.position, vector);
+			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, transform.position, vector);
 		}
 	}
 

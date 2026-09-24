@@ -148,8 +148,20 @@ public class RubberDuck : TransferrableObject
 		base.OnEnable();
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((base.myOnlineRig != null) ? base.myOnlineRig.creator : ((!(base.myRig != null)) ? null : ((base.myRig.creator != null) ? base.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (myOnlineRig != null)
+			{
+				netPlayer = myOnlineRig.creator;
+			}
+			else if (myRig != null)
+			{
+				netPlayer = ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);
@@ -218,7 +230,7 @@ public class RubberDuck : TransferrableObject
 		float num = 0f;
 		if (InHand())
 		{
-			tempHandPos = ((base.myOnlineRig != null) ? base.myOnlineRig.ReturnHandPosition() : base.myRig.ReturnHandPosition());
+			tempHandPos = ((myOnlineRig != null) ? myOnlineRig.ReturnHandPosition() : myRig.ReturnHandPosition());
 			num = ((currentState != PositionState.InLeftHand) ? ((float)Mathf.FloorToInt((float)(tempHandPos % 10) / 1f)) : ((float)Mathf.FloorToInt((float)(tempHandPos % 10000) / 1000f)));
 		}
 		if (hasSkinRenderer)

@@ -57,7 +57,7 @@ public class GorillaMetaReport : MonoBehaviour
 	{
 		localPlayer.inOverlay = false;
 		MothershipClientApiUnity.OnMessageNotificationSocket += new Action<NotificationsMessageResponse, IntPtr>(OnNotification);
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	private void OnDisable()
@@ -223,7 +223,7 @@ public class GorillaMetaReport : MonoBehaviour
 		closeButton.UpdateColor();
 		localPlayer.InReportMenu = false;
 		ToggleLevelVisibility(state: true);
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 		foreach (GorillaPlayerScoreboardLine line in currentScoreboard.lines)
 		{
 			line.doneReporting = false;
@@ -274,7 +274,7 @@ public class GorillaMetaReport : MonoBehaviour
 			localPlayer.InReportMenu = true;
 			localPlayer.disableMovement = true;
 			localPlayer.inOverlay = true;
-			base.gameObject.SetActive(value: true);
+			gameObject.SetActive(value: true);
 			if (PhotonNetwork.InRoom && !isSanction)
 			{
 				DuplicateScoreboard();

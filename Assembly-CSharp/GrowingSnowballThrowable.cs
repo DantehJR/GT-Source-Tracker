@@ -65,6 +65,12 @@ public class GrowingSnowballThrowable : SnowballThrowable
 	[HideInInspector]
 	public static bool twoHandedSnowballGrowing = true;
 
+	private static bool k_useAOE = false;
+
+	public static bool ForceAOEEnabled = false;
+
+	private static readonly List<SnowballKnockbackEnabler> s_KnockSources = new List<SnowballKnockbackEnabler>(3);
+
 	private Queue<AOERangeDebugDraw> aoeRangeDebugDrawQueue = new Queue<AOERangeDebugDraw>();
 
 	private GrowingSnowballThrowable otherHandSnowball;
@@ -75,15 +81,47 @@ public class GrowingSnowballThrowable : SnowballThrowable
 
 	public int MaxSizeLevel => Mathf.Max(snowballSizeLevels.Count - 1, 0);
 
+	public static bool IsAOEEnabled
+	{
+		get
+		{
+			if (!ForceAOEEnabled)
+			{
+				return k_useAOE;
+			}
+			return true;
+		}
+	}
+
 	public float CurrentSnowballRadius
 	{
 		get
 		{
 			if (snowballSizeLevels.Count > 0 && sizeLevel > -1 && sizeLevel < snowballSizeLevels.Count)
 			{
-				return snowballSizeLevels[sizeLevel].snowballScale * modelRadius * base.transform.lossyScale.x;
+				return snowballSizeLevels[sizeLevel].snowballScale * modelRadius * transform.lossyScale.x;
 			}
-			return modelRadius * base.transform.lossyScale.x;
+			return modelRadius * transform.lossyScale.x;
+		}
+	}
+
+	public static void NotifyEnableKnockbackIntent(SnowballKnockbackEnabler source)
+	{
+		if (source.IsNotNull() && !s_KnockSources.Contains(source))
+		{
+			s_KnockSources.Add(source);
+		}
+		if (s_KnockSources.Count > 0)
+		{
+			k_useAOE = true;
+		}
+	}
+
+	public static void NotifyDisableKnockbackIntent(SnowballKnockbackEnabler source)
+	{
+		if (source.IsNotNull() && s_KnockSources.Remove(source) && s_KnockSources.Count < 1)
+		{
+			k_useAOE = false;
 		}
 	}
 
@@ -160,16 +198,16 @@ public class GrowingSnowballThrowable : SnowballThrowable
 		{
 			if (changeSizeEvent == null)
 			{
-				_ = "SnowballThrowable" + base.gameObject.name + (isLeftHanded ? "ChangeSizeEventLeft" : "ChangeSizeEventRight") + targetRig.netView.ViewID;
-				int eventId = StaticHash.Compute("SnowballThrowable", base.gameObject.name, isLeftHanded ? "ChangeSizeEventLeft" : "ChangeSizeEventRight", targetRig.netView.ViewID.ToString());
+				_ = "SnowballThrowable" + gameObject.name + (isLeftHanded ? "ChangeSizeEventLeft" : "ChangeSizeEventRight") + targetRig.netView.ViewID;
+				int eventId = StaticHash.Compute("SnowballThrowable", gameObject.name, isLeftHanded ? "ChangeSizeEventLeft" : "ChangeSizeEventRight", targetRig.netView.ViewID.ToString());
 				changeSizeEvent = new PhotonEvent(eventId);
 				changeSizeEvent.reliable = true;
 				changeSizeEvent += new Action<int, int, object[], PhotonMessageInfoWrapped>(ChangeSizeEventReceiver);
 			}
 			if (snowballThrowEvent == null)
 			{
-				_ = "SnowballThrowable" + base.gameObject.name + (isLeftHanded ? "SnowballThrowEventLeft" : "SnowballThrowEventRight") + targetRig.netView.ViewID;
-				int eventId2 = StaticHash.Compute("SnowballThrowable", base.gameObject.name, isLeftHanded ? "SnowballThrowEventLeft" : "SnowballThrowEventRight", targetRig.netView.ViewID.ToString());
+				_ = "SnowballThrowable" + gameObject.name + (isLeftHanded ? "SnowballThrowEventLeft" : "SnowballThrowEventRight") + targetRig.netView.ViewID;
+				int eventId2 = StaticHash.Compute("SnowballThrowable", gameObject.name, isLeftHanded ? "SnowballThrowEventLeft" : "SnowballThrowEventRight", targetRig.netView.ViewID.ToString());
 				snowballThrowEvent = new PhotonEvent(eventId2);
 				snowballThrowEvent.reliable = true;
 				snowballThrowEvent += new Action<int, int, object[], PhotonMessageInfoWrapped>(SnowballThrowEventReceiver);
@@ -244,7 +282,7 @@ public class GrowingSnowballThrowable : SnowballThrowable
 				sizeIncreaseSoundBankPlayer.Play();
 			}
 			SetSizeLevelLocal(num2);
-			if (!base.gameObject.activeSelf)
+			if (!gameObject.activeSelf)
 			{
 				maintainSizeLevelUntilLocalTime = Time.time + 0.1f;
 			}
@@ -317,7 +355,7 @@ public class GrowingSnowballThrowable : SnowballThrowable
 
 	protected override void OnSnowballRelease()
 	{
-		if (base.isActiveAndEnabled)
+		if (isActiveAndEnabled)
 		{
 			PerformSnowballThrowAuthority();
 		}
@@ -342,9 +380,9 @@ public class GrowingSnowballThrowable : SnowballThrowable
 			}
 			Vector3 vector3 = vector2 + vector;
 			targetRig.GetThrowableProjectileColor(isLeftHanded);
-			Transform obj = snowballModelTransform;
-			Vector3 position = obj.position;
-			float x = obj.lossyScale.x;
+			Transform transform = snowballModelTransform;
+			Vector3 position = transform.position;
+			float x = transform.lossyScale.x;
 			SlingshotProjectile slingshotProjectile = LaunchSnowballLocal(position, vector3, x);
 			SetSnowballActiveLocal(enabled: false);
 			if (randModelIndex > -1 && randModelIndex < localModels.Count && localModels[randModelIndex].destroyAfterRelease)
@@ -401,7 +439,7 @@ public class GrowingSnowballThrowable : SnowballThrowable
 	private SlingshotProjectile SpawnGrowingSnowball(ref Vector3 velocity, float scale)
 	{
 		SlingshotProjectile component = ObjectPools.instance.Instantiate(randomModelSelection ? localModels[randModelIndex].projectilePrefab : projectilePrefab).GetComponent<SlingshotProjectile>();
-		if (snowballSizeLevels.Count > 0 && sizeLevel >= 0 && sizeLevel < snowballSizeLevels.Count)
+		if (IsAOEEnabled && snowballSizeLevels.Count > 0 && sizeLevel >= 0 && sizeLevel < snowballSizeLevels.Count)
 		{
 			float num = scale / snowballSizeLevels[sizeLevel].snowballScale;
 			SlingshotProjectile.AOEKnockbackConfig aoeKnockbackConfig = snowballSizeLevels[sizeLevel].aoeKnockbackConfig;

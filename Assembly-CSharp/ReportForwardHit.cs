@@ -73,10 +73,10 @@ public class ReportForwardHit : MonoBehaviour
 
 	private void seek()
 	{
-		float num = Mathf.Max(base.transform.lossyScale.x, base.transform.lossyScale.y, base.transform.lossyScale.z);
-		if (Physics.Raycast(base.transform.position, base.transform.forward, out var hitInfo, maxRadias * num) && colliderFound != null)
+		float num = Mathf.Max(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z);
+		if (Physics.Raycast(transform.position, transform.forward, out var hitInfo, maxRadias * num) && colliderFound != null)
 		{
-			colliderFound.Invoke(base.transform.position, hitInfo.point);
+			colliderFound.Invoke(transform.position, hitInfo.point);
 		}
 	}
 }

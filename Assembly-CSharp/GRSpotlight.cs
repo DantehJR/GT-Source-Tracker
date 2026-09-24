@@ -18,8 +18,8 @@ public class GRSpotlight : MonoBehaviourTick
 
 	private void Awake()
 	{
-		yStart = base.transform.rotation.eulerAngles.y;
-		xStart = base.transform.rotation.eulerAngles.x;
+		yStart = transform.rotation.eulerAngles.y;
+		xStart = transform.rotation.eulerAngles.x;
 		timeOffset = Random.value * 360f;
 		yFrequency += Random.value / 100f;
 		xFrequency += Random.value / 100f;
@@ -27,6 +27,6 @@ public class GRSpotlight : MonoBehaviourTick
 
 	public override void Tick()
 	{
-		base.transform.eulerAngles = new Vector3(xStart + xAmplitude * Mathf.Sin(Time.time * xFrequency), yStart + yAmplitude * Mathf.Cos(Time.time * yFrequency), 0f);
+		transform.eulerAngles = new Vector3(xStart + xAmplitude * Mathf.Sin(Time.time * xFrequency), yStart + yAmplitude * Mathf.Cos(Time.time * yFrequency), 0f);
 	}
 }

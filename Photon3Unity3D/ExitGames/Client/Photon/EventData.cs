@@ -33,8 +33,7 @@ public class EventData
 		{
 			if (sender == -1)
 			{
-				int value;
-				bool flag = Parameters.TryGetValue(SenderKey, out value);
+				bool flag = Parameters.TryGetValue(SenderKey, out int value);
 				sender = (flag ? value : (-1));
 			}
 			return sender;

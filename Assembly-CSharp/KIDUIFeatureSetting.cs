@@ -86,8 +86,8 @@ public class KIDUIFeatureSetting : MonoBehaviour
 		}
 		_featureName = result;
 		SetFeatureName();
-		GameObject obj = base.gameObject;
-		obj.name = obj.name + "_" + feature.featureName;
+		GameObject gameObject = base.gameObject;
+		gameObject.name = gameObject.name + "_" + feature.featureName;
 		_permissionName = feature.permissionName;
 		_featureToggle.gameObject.SetActive(featureToggleEnabled);
 		AlwaysCheckFeatureSetting = alwaysCheckFeatureSetting;
@@ -163,7 +163,7 @@ public class KIDUIFeatureSetting : MonoBehaviour
 
 	public void SetFeatureSettingVisible(bool visible)
 	{
-		base.gameObject.SetActive(visible);
+		gameObject.SetActive(visible);
 	}
 
 	public void SetFeatureToggle(bool enableToggle)
@@ -214,7 +214,7 @@ public class KIDUIFeatureSetting : MonoBehaviour
 			EventTrigger eventTrigger = obj.AddComponent<EventTrigger>();
 			EventTrigger.Entry entry = new EventTrigger.Entry();
 			entry.eventID = EventTriggerType.PointerDown;
-			entry.callback.AddListener(delegate
+			entry.callback.AddListener((BaseEventData data) =>
 			{
 				Debug.Log("[KIDUIFeatureSetting] Guardian-managed feature clicked - playing denied sound");
 				KIDAudioManager.Instance?.PlaySound(KIDAudioManager.KIDSoundType.Denied);

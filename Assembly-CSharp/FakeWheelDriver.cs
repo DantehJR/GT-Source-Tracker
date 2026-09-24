@@ -56,7 +56,7 @@ public class FakeWheelDriver : MonoBehaviour
 	{
 		if (hasCollision)
 		{
-			Vector3 vector = base.transform.rotation * thrust;
+			Vector3 vector = transform.rotation * thrust;
 			if (myRigidBody.linearVelocity.IsShorterThan(maxSpeed))
 			{
 				vector = vector.ProjectOntoPlane(collisionNormal).normalized * thrust.magnitude;

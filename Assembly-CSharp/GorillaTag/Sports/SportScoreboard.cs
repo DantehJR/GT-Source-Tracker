@@ -129,7 +129,7 @@ public class SportScoreboard : NetworkComponent
 
 	public void TeamScored(int team)
 	{
-		if (base.IsMine && !runningMatchEndCoroutine)
+		if (IsMine && !runningMatchEndCoroutine)
 		{
 			if (team >= 0 && team < teamScores.Count)
 			{
@@ -141,7 +141,7 @@ public class SportScoreboard : NetworkComponent
 
 	public void ResetScores()
 	{
-		if (base.IsMine && !runningMatchEndCoroutine)
+		if (IsMine && !runningMatchEndCoroutine)
 		{
 			for (int i = 0; i < teamScores.Count; i++)
 			{

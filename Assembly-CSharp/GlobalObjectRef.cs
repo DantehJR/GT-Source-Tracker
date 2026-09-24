@@ -25,7 +25,7 @@ public struct GlobalObjectRef
 
 	public static GlobalObjectRef ObjectToRefSlow(UnityEngine.Object target)
 	{
-		return default(GlobalObjectRef);
+		return default;
 	}
 
 	public static UnityEngine.Object RefToObjectSlow(GlobalObjectRef @ref)

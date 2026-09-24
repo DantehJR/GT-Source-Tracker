@@ -100,13 +100,13 @@ public class BuilderPaintBrush : HoldableObject
 		rb.useGravity = false;
 		if (inLeftHand)
 		{
-			base.transform.SetParent(myBodyDockPositions.leftHandTransform, worldPositionStays: true);
+			transform.SetParent(myBodyDockPositions.leftHandTransform, worldPositionStays: true);
 		}
 		else
 		{
-			base.transform.SetParent(myBodyDockPositions.rightHandTransform, worldPositionStays: true);
+			transform.SetParent(myBodyDockPositions.rightHandTransform, worldPositionStays: true);
 		}
-		base.transform.localScale = Vector3.one;
+		transform.localScale = Vector3.one;
 		EquipmentInteractor.instance.UpdateHandEquipment(this, inLeftHand);
 		GorillaTagger.Instance.StartVibration(inLeftHand, GorillaTagger.Instance.tapHapticStrength / 8f, GorillaTagger.Instance.tapHapticDuration * 0.5f);
 		brushState = PaintBrushState.Held;
@@ -125,8 +125,8 @@ public class BuilderPaintBrush : HoldableObject
 			inLeftHand = false;
 			handVelocity = null;
 			ClearHoveredPiece();
-			base.transform.parent = null;
-			base.transform.localScale = Vector3.one;
+			transform.parent = null;
+			transform.localScale = Vector3.one;
 			rb.isKinematic = false;
 			rb.linearVelocity = Vector3.zero;
 			rb.angularVelocity = Vector3.zero;

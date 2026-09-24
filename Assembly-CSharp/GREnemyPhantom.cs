@@ -153,15 +153,15 @@ public class GREnemyPhantom : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 
 	public void OnEntityInit()
 	{
-		abilityMine.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityIdle.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityRage.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityAlert.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityChase.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityReturn.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityAttack.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityInvestigate.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityJump.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
+		abilityMine.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityIdle.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityRage.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityAlert.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityChase.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityReturn.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityAttack.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityInvestigate.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityJump.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
 		int num = (int)entity.createData;
 		Setup(num);
 		if ((bool)entity && (bool)entity.manager && (bool)entity.manager.ghostReactorManager && (bool)entity.manager.ghostReactorManager.reactor)
@@ -404,7 +404,7 @@ public class GREnemyPhantom : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 			SetBehavior(Behavior.Alert);
 			return;
 		}
-		investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(base.transform.position, hearingRadius, investigateLocation);
+		investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(transform.position, hearingRadius, investigateLocation);
 		if (investigateLocation.HasValue)
 		{
 			abilityInvestigate.SetTargetPos(investigateLocation.Value);
@@ -433,8 +433,7 @@ public class GREnemyPhantom : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 		tempRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 		senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-		float outDistanceSq;
-		VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+		VRRig vRRig = senseNearby.PickClosest(out var _);
 		agent.RequestTarget((vRRig == null) ? null : vRRig.OwningNetPlayer);
 		switch (currBehavior)
 		{
@@ -490,7 +489,7 @@ public class GREnemyPhantom : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 			abilityMine.UpdateAuthority(dt);
 			if (idleLocation != null)
 			{
-				GameAgent.UpdateFacingDir(base.transform, agent.navAgent, idleLocation.forward, 180f);
+				GameAgent.UpdateFacingDir(transform, agent.navAgent, idleLocation.forward, 180f);
 			}
 			break;
 		case Behavior.Rage:
@@ -522,7 +521,7 @@ public class GREnemyPhantom : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 			if (gRPlayer != null)
 			{
 				float num = attackRange * attackRange;
-				if ((gRPlayer.transform.position - base.transform.position).sqrMagnitude < num)
+				if ((gRPlayer.transform.position - transform.position).sqrMagnitude < num)
 				{
 					SetBehavior(Behavior.Attack);
 				}
@@ -601,7 +600,7 @@ public class GREnemyPhantom : MonoBehaviour, IGameEntityComponent, IGameEntitySe
 			GRPlayer component = attachedRigidbody.GetComponent<GRPlayer>();
 			if (component != null && component.gamePlayer.IsLocal())
 			{
-				GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Phantom, entity.id, component, base.transform.position);
+				GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Phantom, entity.id, component, transform.position);
 			}
 			GRBreakable component2 = attachedRigidbody.GetComponent<GRBreakable>();
 			GameHittable component3 = attachedRigidbody.GetComponent<GameHittable>();

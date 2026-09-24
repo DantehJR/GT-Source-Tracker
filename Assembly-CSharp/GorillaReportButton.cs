@@ -50,7 +50,7 @@ public class GorillaReportButton : MonoBehaviour
 
 	private void OnTriggerEnter(Collider collider)
 	{
-		if (base.enabled && touchTime + debounceTime < Time.time)
+		if (enabled && touchTime + debounceTime < Time.time)
 		{
 			isOn = !isOn;
 			UpdateColor();

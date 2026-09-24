@@ -59,25 +59,25 @@ public class SlingshotProjectileTrail : MonoBehaviour
 	{
 		if (followObject.IsNull())
 		{
-			ObjectPools.instance.Destroy(base.gameObject);
+			ObjectPools.instance.Destroy(gameObject);
 			return;
 		}
-		base.gameObject.transform.position = followXform.position;
+		gameObject.transform.position = followXform.position;
 		if (!followObject.activeSelf && timeToDie < 0f)
 		{
 			timeToDie = Time.time + trailRenderer.time;
 		}
 		if (timeToDie > 0f && Time.time > timeToDie)
 		{
-			base.transform.localScale = Vector3.one * initialScale;
-			ObjectPools.instance.Destroy(base.gameObject);
+			transform.localScale = Vector3.one * initialScale;
+			ObjectPools.instance.Destroy(gameObject);
 		}
 	}
 
 	public void SetColor(Color color)
 	{
-		TrailRenderer obj = trailRenderer;
-		Color startColor = (trailRenderer.endColor = color);
-		obj.startColor = startColor;
+		TrailRenderer trailRenderer = this.trailRenderer;
+		Color startColor = (this.trailRenderer.endColor = color);
+		trailRenderer.startColor = startColor;
 	}
 }

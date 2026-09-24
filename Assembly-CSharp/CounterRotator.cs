@@ -22,12 +22,12 @@ public class CounterRotator : MonoBehaviour
 	private void LateUpdate()
 	{
 		Quaternion quaternion = startingRotation * Quaternion.Inverse(stabilizedObject.transform.rotation);
-		base.transform.rotation = quaternion * base.transform.rotation;
+		transform.rotation = quaternion * transform.rotation;
 		Vector3 vector = startingPosition - stabilizedObject.transform.position;
-		base.transform.position += vector;
+		transform.position += vector;
 		if (gravityCompensator != null)
 		{
-			gravityCompensator.SetGravityDirection(-base.transform.up);
+			gravityCompensator.SetGravityDirection(-transform.up);
 		}
 	}
 }

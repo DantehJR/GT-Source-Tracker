@@ -11,7 +11,7 @@ public struct ChunkTask
 
 	private Action _onJobComplete;
 
-	public bool IsCreated => !Handle.Equals(default(JobHandle));
+	public bool IsCreated => !Handle.Equals(default);
 
 	public bool IsCompleted => Handle.IsCompleted;
 
@@ -45,13 +45,13 @@ public struct ChunkTask
 		{
 			chunk.IsCollisionBaked = true;
 			chunk.IsDirty = true;
-			return default(ChunkTask);
+			return default;
 		}
 		JobHandle handle = new CollisionJob
 		{
 			MeshId = chunk.Mesh.GetEntityId()
 		}.Schedule();
-		Action onJobComplete = delegate
+		Action onJobComplete = () =>
 		{
 			chunk.IsCollisionBaked = true;
 			chunk.IsDirty = true;

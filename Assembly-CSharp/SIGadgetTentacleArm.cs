@@ -270,15 +270,15 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 		{
 			Array.Resize(ref m_gaugeMatSlots, num);
 		}
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(OnGrabbed));
-		GameEntity obj2 = gameEntity;
-		obj2.OnSnapped = (Action)Delegate.Combine(obj2.OnSnapped, new Action(OnSnapped));
-		GameEntity obj3 = gameEntity;
-		obj3.OnReleased = (Action)Delegate.Combine(obj3.OnReleased, new Action(OnReleased));
-		GameEntity obj4 = gameEntity;
-		obj4.OnUnsnapped = (Action)Delegate.Combine(obj4.OnUnsnapped, new Action(OnUnsnapped));
-		gameEntity.OnStateChanged += OnEntityStateChanged;
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(OnGrabbed));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnSnapped = (Action)Delegate.Combine(gameEntity2.OnSnapped, new Action(OnSnapped));
+		GameEntity gameEntity3 = base.gameEntity;
+		gameEntity3.OnReleased = (Action)Delegate.Combine(gameEntity3.OnReleased, new Action(OnReleased));
+		GameEntity gameEntity4 = base.gameEntity;
+		gameEntity4.OnUnsnapped = (Action)Delegate.Combine(gameEntity4.OnUnsnapped, new Action(OnUnsnapped));
+		base.gameEntity.OnStateChanged += OnEntityStateChanged;
 		heldPlayerCallback = new HeldPlayerCallback(this);
 	}
 
@@ -299,8 +299,7 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 		}
 		if (hasGravityOverride)
 		{
-			GTPlayer.Instance.UnsetGravityOverride(this);
-			hasGravityOverride = false;
+			RemoveGravityOverride();
 		}
 		heldPlayerCallback.Unregister();
 	}
@@ -355,9 +354,9 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 	{
 		Vector3 position = rig.bodyTransform.position;
 		position.y += 0.05f;
-		Vector3 position2 = base.transform.position;
+		Vector3 position2 = transform.position;
 		Vector3 vector = position2 - position;
-		return position2 + vector * LengthFactor + base.transform.forward * tentacleForwardAdjustment;
+		return position2 + vector * LengthFactor + transform.forward * tentacleForwardAdjustment;
 	}
 
 	protected override void OnUpdateAuthority(float dt)
@@ -374,9 +373,9 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 				isGripBroken = false;
 			}
 		}
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		Vector3 idealClawPosition = GetIdealClawPosition(VRRig.LocalRig);
-		Quaternion rotation = base.transform.rotation;
+		Quaternion rotation = transform.rotation;
 		float num = 0.15f;
 		bool flag2 = isLowFuel;
 		if ((knownSafePosition - idealClawPosition).IsLongerThan(1f))
@@ -424,7 +423,7 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 					GTPlayer.Instance.RequestTentacleMove(isLeftHanded, v);
 					GTPlayer.Instance.TentacleActiveAtFrame = Time.frameCount + 1;
 					lastRequestedPlayerPosition = position3 + v;
-					if ((clawAnchorPosition - base.transform.position).IsLongerThan(maxTentacleLength))
+					if ((clawAnchorPosition - transform.position).IsLongerThan(maxTentacleLength))
 					{
 						isGripBroken = true;
 						ClearClawAnchor();
@@ -457,32 +456,31 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 				return;
 			}
 		}
-		RaycastHit hitInfo2;
-		bool num2 = Physics.SphereCast(new Ray(knownSafePosition, idealClawPosition - knownSafePosition), num, out hitInfo2, (idealClawPosition - knownSafePosition).magnitude, worldCollisionLayers);
+		bool flag3 = Physics.SphereCast(new Ray(knownSafePosition, idealClawPosition - knownSafePosition), num, out var hitInfo2, (idealClawPosition - knownSafePosition).magnitude, worldCollisionLayers);
 		Vector3 vector = idealClawPosition;
 		Quaternion clawRotation = rotation;
-		bool flag3 = false;
-		bool flag4 = currentFuel < FuelCost_Grab + FuelPerSecond_Holding;
-		if (flag4 && flag)
+		bool flag4 = false;
+		bool flag5 = currentFuel < FuelCost_Grab + FuelPerSecond_Holding;
+		if (flag5 & flag)
 		{
 			isGripBroken = true;
 			flag = false;
 			attachFailSound.Play();
 		}
-		if (num2)
+		if (flag3)
 		{
-			if (!flag4)
+			if (!flag5)
 			{
-				float num3 = Vector3.Dot(hitInfo2.normal, Vector3.up);
-				if (num3 >= _min_grab_dot)
+				float num2 = Vector3.Dot(hitInfo2.normal, GTPlayerTransform.Instance.GravityUp);
+				if (num2 >= _min_grab_dot)
 				{
-					_current_grab_fps = ((num3 >= _wall_angle_dot) ? FuelPerSecond_Holding : (FuelPerSecond_Holding * FuelCost_Wall_Multiplier));
-					flag3 = true;
+					_current_grab_fps = ((num2 >= _wall_angle_dot) ? FuelPerSecond_Holding : (FuelPerSecond_Holding * FuelCost_Wall_Multiplier));
+					flag4 = true;
 					if (GTPlayer.Instance.GetSlidePercentage(hitInfo2) > 0.5f)
 					{
 						if (!canHoldSlipperyWalls)
 						{
-							flag3 = false;
+							flag4 = false;
 							if (flag && !hasFailedToGrab)
 							{
 								attachFailSound.Play();
@@ -508,7 +506,7 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 		{
 			knownSafePosition = idealClawPosition;
 		}
-		if (flag && flag3)
+		if (flag & flag4)
 		{
 			vector = hitInfo2.point + hitInfo2.normal * 0.01f;
 			clawRotation = Quaternion.LookRotation(-hitInfo2.normal, rotation * Vector3.up);
@@ -554,7 +552,7 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 				}
 			}
 			Vector3 axis = Quaternion.AngleAxis(Time.time * 180f, Vector3.forward) * Vector3.up;
-			if (flag3)
+			if (flag4)
 			{
 				clawRotation = Quaternion.Lerp(rotation, Quaternion.LookRotation(-hitInfo2.normal, rotation * Vector3.up), 0.75f);
 				clawRotation *= Quaternion.AngleAxis(5f, axis);
@@ -597,26 +595,25 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 			return;
 		}
 		Vector3 idealClawPosition = GetIdealClawPosition(attachedPlayerRig);
-		Quaternion rotation = base.transform.rotation;
-		Vector3 position = base.transform.position;
+		Quaternion rotation = transform.rotation;
+		Vector3 position = transform.position;
 		if ((knownSafePosition - idealClawPosition).IsLongerThan(1f))
 		{
 			knownSafePosition = position;
 		}
 		if (isHoldingHand)
 		{
-			TakeMyHand_HandLink obj = (isLeftHanded ? attachedPlayerRig.leftHandLink : attachedPlayerRig.rightHandLink);
+			TakeMyHand_HandLink takeMyHand_HandLink = (isLeftHanded ? attachedPlayerRig.leftHandLink : attachedPlayerRig.rightHandLink);
 			Vector3 position2 = (isLeftHanded ? attachedPlayerRig.leftHand : attachedPlayerRig.rightHand).rigTarget.position;
-			obj.TentacleOffset = idealClawPosition - position2;
+			takeMyHand_HandLink.TentacleOffset = idealClawPosition - position2;
 			return;
 		}
 		float num = 0.15f;
-		RaycastHit hitInfo;
-		bool num2 = Physics.SphereCast(new Ray(knownSafePosition, idealClawPosition - knownSafePosition), num, out hitInfo, (idealClawPosition - knownSafePosition).magnitude, worldCollisionLayers);
+		bool flag = Physics.SphereCast(new Ray(knownSafePosition, idealClawPosition - knownSafePosition), num, out var hitInfo, (idealClawPosition - knownSafePosition).magnitude, worldCollisionLayers);
 		Vector3 axis = Quaternion.AngleAxis(Time.time * 180f, Vector3.forward) * Vector3.up;
 		Vector3 vector = idealClawPosition;
 		Quaternion quaternion = rotation;
-		if (num2)
+		if (flag)
 		{
 			knownSafePosition += (idealClawPosition - knownSafePosition).normalized * (hitInfo.distance - num * 2.01f);
 			vector = hitInfo.point + hitInfo.normal * 0.1f;
@@ -675,8 +672,7 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 		if (IsEquippedLocal())
 		{
 			lastRequestedPlayerPosition = GTPlayer.Instance.transform.position;
-			GTPlayer.Instance.SetGravityOverride(this, GravityOverrideFunction);
-			hasGravityOverride = true;
+			SetGravityOverride();
 			SIPlayer.LocalPlayer.OnKnockback += OnKnockback;
 			gameEntity.RequestState(gameEntity.id, GetStateLong());
 		}
@@ -699,8 +695,7 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 		isHoldingHand = false;
 		if (hasGravityOverride)
 		{
-			GTPlayer.Instance.UnsetGravityOverride(this);
-			hasGravityOverride = false;
+			RemoveGravityOverride();
 		}
 		if (IsEquippedLocal() && !IsBlocked(SIExclusionType.AffectsLocalMovement))
 		{
@@ -732,6 +727,18 @@ public class SIGadgetTentacleArm : SIGadget, ICallBack, IEnergyGadget
 			isGripBroken = true;
 			ClearClawAnchor();
 		}
+	}
+
+	private void SetGravityOverride()
+	{
+		GTPlayer.Instance.SetGravityOverride(this, GravityOverrideFunction);
+		hasGravityOverride = true;
+	}
+
+	private void RemoveGravityOverride()
+	{
+		GTPlayer.Instance.UnsetGravityOverride(this);
+		hasGravityOverride = false;
 	}
 
 	private void GravityOverrideFunction(GTPlayer player)

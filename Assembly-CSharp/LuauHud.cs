@@ -36,7 +36,7 @@ public class LuauHud : MonoBehaviour
 	{
 		if (_instance != null && _instance != this)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 			return;
 		}
 		_instance = this;
@@ -101,7 +101,7 @@ public class LuauHud : MonoBehaviour
 				}
 			}
 		}
-		if (!(flag && flag2))
+		if (!(flag & flag2))
 		{
 			resetTimer = Time.time;
 		}

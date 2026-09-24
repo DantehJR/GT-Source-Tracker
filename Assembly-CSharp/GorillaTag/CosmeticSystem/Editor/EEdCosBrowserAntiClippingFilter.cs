@@ -15,5 +15,5 @@ public enum EEdCosBrowserAntiClippingFilter
 	BuilderWatch = 0x40,
 	FriendshipBraceletLeft = 0x80,
 	FriendshipBraceletRight = 0x100,
-	All = 0x1FF
+	All = NameTag | LeftArm | RightArm | Chest | HuntComputer | Badge | BuilderWatch | FriendshipBraceletLeft | FriendshipBraceletRight
 }

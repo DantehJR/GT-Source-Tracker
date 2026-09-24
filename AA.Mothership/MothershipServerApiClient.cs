@@ -400,6 +400,16 @@ public class MothershipServerApiClient : MothershipApiClient
 		return result;
 	}
 
+	public bool RunTransactionWithRef(string titleId, string envId, string userId, string transactionId, string refId, string externalServiceName, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_RunTransactionWithRef(swigCPtr, titleId, envId, userId, transactionId, refId, externalServiceName, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	public void SetGetLastTransactionRunCompleteServerDelegateWrapper(GetLastTransactionCompleteServerDelegateWrapper wrapper)
 	{
 		MothershipApiPINVOKE.MothershipServerApiClient_SetGetLastTransactionRunCompleteServerDelegateWrapper(swigCPtr, GetLastTransactionCompleteServerDelegateWrapper.getCPtr(wrapper));
@@ -412,6 +422,25 @@ public class MothershipServerApiClient : MothershipApiClient
 	public bool GetLastTransactionRun(string titleId, string envId, string userId, string transactionId, IntPtr userData)
 	{
 		bool result = MothershipApiPINVOKE.MothershipServerApiClient_GetLastTransactionRun(swigCPtr, titleId, envId, userId, transactionId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetConsumeConsumableCompleteServerDelegateWrapper(ServerConsumeConsumableCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetConsumeConsumableCompleteServerDelegateWrapper(swigCPtr, ServerConsumeConsumableCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ConsumeConsumable(string titleId, string envId, string callerId, string entitlementId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ConsumeConsumable(swigCPtr, titleId, envId, callerId, entitlementId, userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -751,9 +780,9 @@ public class MothershipServerApiClient : MothershipApiClient
 		}
 	}
 
-	public bool UpdateGameSession(string id, int currentPlayerCount, StringStringMap extraProperties, IntPtr userData)
+	public bool UpdateGameSession(string id, int currentPlayerCount, StringKeyValueMap extraProperties, IntPtr userData)
 	{
-		bool result = MothershipApiPINVOKE.MothershipServerApiClient_UpdateGameSession(swigCPtr, id, currentPlayerCount, StringStringMap.getCPtr(extraProperties), userData);
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_UpdateGameSession(swigCPtr, id, currentPlayerCount, StringKeyValueMap.getCPtr(extraProperties), userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -770,9 +799,9 @@ public class MothershipServerApiClient : MothershipApiClient
 		}
 	}
 
-	public bool RegisterGameSession(string gameSessionId, string provider, string gameSessionName, string ip, int port, string requiredTags, int maxPlayerCount, string region, string partition, StringStringMap extraProperties, IntPtr userData)
+	public bool RegisterGameSession(string gameSessionId, string provider, string gameSessionName, string ip, int port, string requiredTags, int maxPlayerCount, string region, string partition, StringKeyValueMap extraProperties, IntPtr userData)
 	{
-		bool result = MothershipApiPINVOKE.MothershipServerApiClient_RegisterGameSession(swigCPtr, gameSessionId, provider, gameSessionName, ip, port, requiredTags, maxPlayerCount, region, partition, StringStringMap.getCPtr(extraProperties), userData);
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_RegisterGameSession(swigCPtr, gameSessionId, provider, gameSessionName, ip, port, requiredTags, maxPlayerCount, region, partition, StringKeyValueMap.getCPtr(extraProperties), userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -821,6 +850,44 @@ public class MothershipServerApiClient : MothershipApiClient
 	public bool ServerGetFileByNameOrAliasAndVersion(string fileNameOrAlias, string versionOrLatest, IntPtr userData)
 	{
 		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ServerGetFileByNameOrAliasAndVersion(swigCPtr, fileNameOrAlias, versionOrLatest, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetServerStartMatchBackfillCompleteDelegateWrapper(StartMatchBackfillCompleteServerDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetServerStartMatchBackfillCompleteDelegateWrapper(swigCPtr, StartMatchBackfillCompleteServerDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ServerStartMatchBackfill(string ticketId, string gamemode, MatchmakingPlayerVector players, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ServerStartMatchBackfill(swigCPtr, ticketId, gamemode, MatchmakingPlayerVector.getCPtr(players), userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetServerStopMatchmakingCompleteDelegateWrapper(StopMatchmakingCompleteServerDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipServerApiClient_SetServerStopMatchmakingCompleteDelegateWrapper(swigCPtr, StopMatchmakingCompleteServerDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ServerStopMatchmaking(string ticketId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipServerApiClient_ServerStopMatchmaking(swigCPtr, ticketId, userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

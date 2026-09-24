@@ -5,7 +5,7 @@ namespace Fusion.CodeGen;
 
 [StructLayout(LayoutKind.Sequential, Size = 1)]
 [WeaverGenerated]
-internal struct ReaderWriter_0040BarrelCannon__BarrelCannonState : IElementReaderWriter<BarrelCannon.BarrelCannonState>
+internal struct ReaderWriter_0040BarrelCannon__BarrelCannonState
 {
 	[WeaverGenerated]
 	public static IElementReaderWriter<BarrelCannon.BarrelCannonState> Instance;

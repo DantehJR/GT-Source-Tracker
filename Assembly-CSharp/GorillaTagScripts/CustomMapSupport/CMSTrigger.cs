@@ -80,10 +80,10 @@ public class CMSTrigger : MonoBehaviour
 		case TriggerSource.Head:
 		case TriggerSource.Body:
 		case TriggerSource.HeadOrBody:
-			base.gameObject.layer = UnityLayer.GorillaTrigger.ToLayerIndex();
+			gameObject.layer = UnityLayer.GorillaTrigger.ToLayerIndex();
 			break;
 		case TriggerSource.Hands:
-			base.gameObject.layer = UnityLayer.GorillaInteractable.ToLayerIndex();
+			gameObject.layer = UnityLayer.GorillaInteractable.ToLayerIndex();
 			break;
 		}
 		onEnableTriggerDelay = settings.onEnableTriggerDelay;
@@ -102,9 +102,9 @@ public class CMSTrigger : MonoBehaviour
 		syncedToAllPlayers = settings.syncedToAllPlayers_private;
 		if (syncedToAllPlayers)
 		{
-			CMSSerializer.RegisterTrigger(base.gameObject.scene.name, this);
+			CMSSerializer.RegisterTrigger(gameObject.scene.name, this);
 		}
-		Collider[] components = base.gameObject.GetComponents<Collider>();
+		Collider[] components = gameObject.GetComponents<Collider>();
 		for (int i = 0; i < components.Length; i++)
 		{
 			components[i].isTrigger = true;
@@ -141,7 +141,7 @@ public class CMSTrigger : MonoBehaviour
 		bool num = gameObject == GorillaTagger.Instance.headCollider.gameObject && (triggeredBy == TriggerSource.Head || triggeredBy == TriggerSource.HeadOrBody);
 		bool flag = ((!GorillaTagger.Instance.bodyCollider.enabled) ? (gameObject == VRRig.LocalRig.gameObject && (triggeredBy == TriggerSource.Body || triggeredBy == TriggerSource.HeadOrBody)) : (gameObject == GorillaTagger.Instance.bodyCollider.gameObject && (triggeredBy == TriggerSource.Body || triggeredBy == TriggerSource.HeadOrBody)));
 		bool flag2 = (gameObject == GorillaTagger.Instance.leftHandTriggerCollider.gameObject || gameObject == GorillaTagger.Instance.rightHandTriggerCollider.gameObject) && triggeredBy == TriggerSource.Hands;
-		return num || flag || flag2;
+		return num | flag | flag2;
 	}
 
 	private void OnTriggerActivation(Collider activatingCollider)
@@ -212,7 +212,7 @@ public class CMSTrigger : MonoBehaviour
 		lastTriggerTime = triggerTime;
 		if (numAllowedTriggers > 0 && numTimesTriggered >= numAllowedTriggers)
 		{
-			Collider[] components = base.gameObject.GetComponents<Collider>();
+			Collider[] components = gameObject.GetComponents<Collider>();
 			for (int i = 0; i < components.Length; i++)
 			{
 				components[i].enabled = false;
@@ -227,7 +227,7 @@ public class CMSTrigger : MonoBehaviour
 			lastTriggerTime = -1.0;
 		}
 		numTimesTriggered = 0;
-		Collider[] components = base.gameObject.GetComponents<Collider>();
+		Collider[] components = gameObject.GetComponents<Collider>();
 		for (int i = 0; i < components.Length; i++)
 		{
 			components[i].enabled = true;
@@ -240,7 +240,7 @@ public class CMSTrigger : MonoBehaviour
 		numTimesTriggered = Math.Min(value, numAllowedTriggers);
 		if (numTimesTriggered >= numAllowedTriggers)
 		{
-			Collider[] components = base.gameObject.GetComponents<Collider>();
+			Collider[] components = gameObject.GetComponents<Collider>();
 			for (int i = 0; i < components.Length; i++)
 			{
 				components[i].enabled = false;

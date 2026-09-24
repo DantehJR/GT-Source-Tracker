@@ -82,7 +82,7 @@ public class PaperPlaneThrowable : TransferrableObject
 	internal override void OnEnable()
 	{
 		PhotonNetwork.NetworkingClient.EventReceived += OnPhotonEvent;
-		_lastWorldPos = base.transform.position;
+		_lastWorldPos = transform.position;
 		_renderer.forceRenderingOff = false;
 		base.OnEnable();
 	}
@@ -134,7 +134,7 @@ public class PaperPlaneThrowable : TransferrableObject
 			}
 			break;
 		}
-		if (v.IsValid(10000f) && q.IsValid() && v2.IsValid(10000f) && !_renderer.forceRenderingOff && !base.myOnlineRig.IsNull() && base.myOnlineRig.IsPositionInRange(v, 4f))
+		if (v.IsValid(10000f) && q.IsValid() && v2.IsValid(10000f) && !_renderer.forceRenderingOff && !myOnlineRig.IsNull() && myOnlineRig.IsPositionInRange(v, 4f))
 		{
 			LaunchProjectileLocal(v, q, v2);
 		}
@@ -159,7 +159,19 @@ public class PaperPlaneThrowable : TransferrableObject
 
 	private static int FetchViewID(PaperPlaneThrowable ppt)
 	{
-		NetPlayer netPlayer = ((ppt.myOnlineRig != null) ? ppt.myOnlineRig.creator : ((!(ppt.myRig != null)) ? null : ((ppt.myRig.creator != null) ? ppt.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+		NetPlayer netPlayer;
+		if (ppt.myOnlineRig != null)
+		{
+			netPlayer = ppt.myOnlineRig.creator;
+		}
+		else if (ppt.myRig != null)
+		{
+			netPlayer = ((ppt.myRig.creator != null) ? ppt.myRig.creator : NetworkSystem.Instance.LocalPlayer);
+		}
+		else
+		{
+			netPlayer = null;
+		}
 		if (netPlayer == null)
 		{
 			return -1;
@@ -192,8 +204,8 @@ public class PaperPlaneThrowable : TransferrableObject
 		}
 		bool isLeftHand = releasingHand == EquipmentInteractor.instance.leftHand;
 		GorillaVelocityTracker interactPointVelocityTracker = GTPlayer.Instance.GetInteractPointVelocityTracker(isLeftHand);
-		Vector3 vector = base.transform.TransformPoint(Vector3.zero);
-		Quaternion rotation = base.transform.rotation;
+		Vector3 vector = transform.TransformPoint(Vector3.zero);
+		Quaternion rotation = transform.rotation;
 		Vector3 averageVelocity = interactPointVelocityTracker.GetAverageVelocity(worldSpace: true);
 		FetchViewID(this);
 		GetThrowableId();
@@ -226,11 +238,11 @@ public class PaperPlaneThrowable : TransferrableObject
 
 	private void LaunchProjectileLocal(Vector3 launchPos, Quaternion launchRot, Vector3 releaseVel)
 	{
-		if (!(releaseVel.sqrMagnitude <= minThrowSpeed * base.transform.lossyScale.z * base.transform.lossyScale.z))
+		if (!(releaseVel.sqrMagnitude <= minThrowSpeed * transform.lossyScale.z * transform.lossyScale.z))
 		{
-			GameObject obj = ObjectPools.instance.Instantiate(_projectilePrefab.gameObject, launchPos);
-			obj.transform.localScale = base.transform.lossyScale;
-			PaperPlaneProjectile component = obj.GetComponent<PaperPlaneProjectile>();
+			GameObject gameObject = ObjectPools.instance.Instantiate(_projectilePrefab.gameObject, launchPos);
+			gameObject.transform.localScale = transform.lossyScale;
+			PaperPlaneProjectile component = gameObject.GetComponent<PaperPlaneProjectile>();
 			component.OnHit += OnProjectileHit;
 			if (networkedStateEvents != SyncOptions.None)
 			{
@@ -238,7 +250,7 @@ public class PaperPlaneThrowable : TransferrableObject
 				component.SetTransferrableState(networkedStateEvents, state);
 			}
 			component.ResetProjectile();
-			component.SetVRRig(base.myRig);
+			component.SetVRRig(myRig);
 			component.Launch(launchPos, launchRot, releaseVel);
 			_renderer.forceRenderingOff = true;
 		}
@@ -264,10 +276,10 @@ public class PaperPlaneThrowable : TransferrableObject
 	protected override void LateUpdateLocal()
 	{
 		base.LateUpdateLocal();
-		Transform obj = base.transform;
-		Vector3 position = obj.position;
+		Transform transform = base.transform;
+		Vector3 position = transform.position;
 		_itemWorldVel = (position - _lastWorldPos) / Time.deltaTime;
-		Quaternion localRotation = obj.localRotation;
+		Quaternion localRotation = transform.localRotation;
 		_itemWorldAngVel = CalcAngularVelocity(_lastWorldRot, localRotation, Time.deltaTime);
 		_lastWorldRot = localRotation;
 		_lastWorldPos = position;

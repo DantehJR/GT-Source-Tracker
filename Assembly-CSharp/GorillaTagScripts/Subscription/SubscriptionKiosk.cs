@@ -427,8 +427,7 @@ public class SubscriptionKiosk : MonoBehaviour, ITouchScreenStation, IGorillaSli
 		ToggleSubscriptionSettingValue(SubscriptionManager.SubscriptionFeatures.IOBT, state);
 		if (GorillaIK.playerIK != null)
 		{
-			GorillaIK.playerIK.ResetIKData();
-			GorillaIK.playerIK.usingUpdatedIK = state;
+			GorillaIK.playerIK.DelayedUpdateIK(state);
 		}
 	}
 
@@ -506,13 +505,13 @@ public class SubscriptionKiosk : MonoBehaviour, ITouchScreenStation, IGorillaSli
 			UpdatePurchaseResultScreen(PurchaseResult.Cancel);
 			UpdateState(ScreenState.SubscriptionPurchaseResult);
 		}
-		MothershipClientApiUnity.FinalizeSteamSubscriptionTransaction(steamOrderId, delegate
+		MothershipClientApiUnity.FinalizeSteamSubscriptionTransaction(steamOrderId, (FinalizeSteamSubscriptionPurchaseResponse Response) =>
 		{
 			ProcessingSubscriptionPurchase = false;
 			UpdatePurchaseResultScreen(PurchaseResult.Success);
 			UpdateState(ScreenState.SubscriptionPurchaseResult);
 			SubscriptionManager.InitializePersonalSubscriptionData();
-		}, delegate(MothershipError Error, int Status)
+		}, (MothershipError Error, int Status) =>
 		{
 			ProcessingSubscriptionPurchase = false;
 			UpdatePurchaseResultScreen(PurchaseResult.Failure);
@@ -555,10 +554,10 @@ public class SubscriptionKiosk : MonoBehaviour, ITouchScreenStation, IGorillaSli
 			break;
 		}
 		ProcessingSubscriptionPurchase = true;
-		MothershipClientApiUnity.InitSteamSubscriptionTransaction("40494", frequencyUnit, frequency, priceInUSDCents, delegate(InitSteamSubscriptionPurchaseResponse Response)
+		MothershipClientApiUnity.InitSteamSubscriptionTransaction("40494", frequencyUnit, frequency, priceInUSDCents, (InitSteamSubscriptionPurchaseResponse Response) =>
 		{
 			steamOrderId = Response.SteamOrderId;
-		}, delegate(MothershipError Error, int Status)
+		}, (MothershipError Error, int Status) =>
 		{
 			UpdatePurchaseResultScreen(PurchaseResult.Failure);
 			UpdateState(ScreenState.SubscriptionPurchaseResult);
@@ -642,9 +641,9 @@ public class SubscriptionKiosk : MonoBehaviour, ITouchScreenStation, IGorillaSli
 		{
 			return;
 		}
-		Vector3 vector = VRRig.LocalRig.transform.position - base.transform.position;
+		Vector3 vector = VRRig.LocalRig.transform.position - transform.position;
 		float sqrMagnitude = vector.sqrMagnitude;
-		float num = Vector3.Dot(base.transform.forward, vector.normalized);
+		float num = Vector3.Dot(transform.forward, vector.normalized);
 		if (subsVideoPlayer.enabled)
 		{
 			if (num < 0f && sqrMagnitude >= videoViewableDist * videoViewableDist)
@@ -662,6 +661,6 @@ public class SubscriptionKiosk : MonoBehaviour, ITouchScreenStation, IGorillaSli
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.magenta;
-		Gizmos.DrawWireSphere(base.transform.position, videoViewableDist);
+		Gizmos.DrawWireSphere(transform.position, videoViewableDist);
 	}
 }

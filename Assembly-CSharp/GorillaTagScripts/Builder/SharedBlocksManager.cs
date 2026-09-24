@@ -511,14 +511,14 @@ public class SharedBlocksManager : MonoBehaviour
 					localMapIds.Add(localPublishDatum.Value.mapID);
 				}
 			}
-			SharedBlocksManager.OnSaveTimeUpdated?.Invoke();
+			OnSaveTimeUpdated?.Invoke();
 		}
 		else
 		{
 			localMapIds.Clear();
 			GetPlayfabLastSaveTime();
 		}
-		SharedBlocksManager.OnRecentMapIdsUpdated?.Invoke();
+		OnRecentMapIdsUpdated?.Invoke();
 	}
 
 	private void SaveRecentVotesToPlayerPrefs()
@@ -575,7 +575,7 @@ public class SharedBlocksManager : MonoBehaviour
 				if (recentUpVotes.Remove(mapId))
 				{
 					SaveRecentVotesToPlayerPrefs();
-					SharedBlocksManager.OnRecentMapIdsUpdated?.Invoke();
+					OnRecentMapIdsUpdated?.Invoke();
 				}
 			}
 			else if (!recentUpVotes.Contains(mapId))
@@ -586,7 +586,7 @@ public class SharedBlocksManager : MonoBehaviour
 				}
 				recentUpVotes.AddFirst(mapId);
 				SaveRecentVotesToPlayerPrefs();
-				SharedBlocksManager.OnRecentMapIdsUpdated?.Invoke();
+				OnRecentMapIdsUpdated?.Invoke();
 			}
 			voteInProgress = false;
 			callback?.Invoke(arg1: true, "");
@@ -654,7 +654,7 @@ public class SharedBlocksManager : MonoBehaviour
 		{
 			if (hasCachedTopMaps && Time.realtimeSinceStartupAsDouble <= lastGetTopMapsTime + 60.0 && latestPopularMaps != null && latestPopularMaps.Count > 0)
 			{
-				this.OnGetPopularMapsComplete?.Invoke(obj: true);
+				OnGetPopularMapsComplete?.Invoke(obj: true);
 			}
 			else
 			{
@@ -710,7 +710,7 @@ public class SharedBlocksManager : MonoBehaviour
 			if (!localMapIds.Contains(mapID))
 			{
 				localMapIds.Add(mapID);
-				SharedBlocksManager.OnRecentMapIdsUpdated?.Invoke();
+				OnRecentMapIdsUpdated?.Invoke();
 			}
 			SharedBlocksMap map = new SharedBlocksMap
 			{
@@ -720,11 +720,11 @@ public class SharedBlocksManager : MonoBehaviour
 				UpdateTime = DateTime.Now
 			};
 			AddMapToResponseCache(map);
-			this.OnSavePrivateScanSuccess?.Invoke(currentSaveScanIndex);
+			OnSavePrivateScanSuccess?.Invoke(currentSaveScanIndex);
 		}
 		else
 		{
-			this.OnSavePrivateScanFailed?.Invoke(currentSaveScanIndex, "ERROR PUBLISHING: " + response);
+			OnSavePrivateScanFailed?.Invoke(currentSaveScanIndex, "ERROR PUBLISHING: " + response);
 		}
 		currentSaveScanIndex = -1;
 		currentSaveScanData = string.Empty;
@@ -1063,11 +1063,11 @@ public class SharedBlocksManager : MonoBehaviour
 				}
 			}
 			hasCachedTopMaps = true;
-			this.OnGetPopularMapsComplete?.Invoke(obj: true);
+			OnGetPopularMapsComplete?.Invoke(obj: true);
 		}
 		else
 		{
-			this.OnGetPopularMapsComplete?.Invoke(obj: false);
+			OnGetPopularMapsComplete?.Invoke(obj: false);
 		}
 	}
 
@@ -1181,7 +1181,7 @@ public class SharedBlocksManager : MonoBehaviour
 	{
 		if (fetchedTableConfig)
 		{
-			this.OnGetTableConfiguration?.Invoke(tableConfigResponse);
+			OnGetTableConfiguration?.Invoke(tableConfigResponse);
 		}
 	}
 
@@ -1195,7 +1195,7 @@ public class SharedBlocksManager : MonoBehaviour
 		GTDev.Log("SharedBlocksManager OnGetConfigurationSuccess");
 		tableConfigResponse = dataRecord;
 		fetchedTableConfig = true;
-		this.OnGetTableConfiguration?.Invoke(tableConfigResponse);
+		OnGetTableConfiguration?.Invoke(tableConfigResponse);
 	}
 
 	private void OnGetConfigurationFail(PlayFabError error)
@@ -1211,7 +1211,7 @@ public class SharedBlocksManager : MonoBehaviour
 		{
 			tableConfigResponse = string.Empty;
 			fetchedTableConfig = true;
-			this.OnGetTableConfiguration?.Invoke(tableConfigResponse);
+			OnGetTableConfiguration?.Invoke(tableConfigResponse);
 		}
 	}
 
@@ -1225,7 +1225,7 @@ public class SharedBlocksManager : MonoBehaviour
 	{
 		if (fetchTitleDataBuildComplete)
 		{
-			this.OnGetTitleDataBuildComplete?.Invoke(titleDataBuildCache);
+			OnGetTitleDataBuildComplete?.Invoke(titleDataBuildCache);
 		}
 		else if (!fetchTitleDataBuildInProgress)
 		{
@@ -1242,13 +1242,13 @@ public class SharedBlocksManager : MonoBehaviour
 		{
 			titleDataBuildCache = dataRecord;
 			fetchTitleDataBuildComplete = true;
-			this.OnGetTitleDataBuildComplete?.Invoke(titleDataBuildCache);
+			OnGetTitleDataBuildComplete?.Invoke(titleDataBuildCache);
 		}
 		else
 		{
 			titleDataBuildCache = string.Empty;
 			fetchTitleDataBuildComplete = true;
-			this.OnGetTitleDataBuildComplete?.Invoke(titleDataBuildCache);
+			OnGetTitleDataBuildComplete?.Invoke(titleDataBuildCache);
 		}
 	}
 
@@ -1266,7 +1266,7 @@ public class SharedBlocksManager : MonoBehaviour
 		{
 			titleDataBuildCache = string.Empty;
 			fetchTitleDataBuildComplete = true;
-			this.OnGetTitleDataBuildComplete?.Invoke(titleDataBuildCache);
+			OnGetTitleDataBuildComplete?.Invoke(titleDataBuildCache);
 		}
 	}
 
@@ -1284,7 +1284,7 @@ public class SharedBlocksManager : MonoBehaviour
 	{
 		if (hasQueriedSaveTime)
 		{
-			SharedBlocksManager.OnSaveTimeUpdated?.Invoke();
+			OnSaveTimeUpdated?.Invoke();
 			return;
 		}
 		PlayFab.ClientModels.GetUserDataRequest request = new PlayFab.ClientModels.GetUserDataRequest
@@ -1323,7 +1323,7 @@ public class SharedBlocksManager : MonoBehaviour
 		{
 			SaveLocalMapIdsToPlayerPrefs();
 		}
-		SharedBlocksManager.OnSaveTimeUpdated?.Invoke();
+		OnSaveTimeUpdated?.Invoke();
 	}
 
 	private void OnGetLastSaveTimeFailure(PlayFabError error)
@@ -1336,7 +1336,7 @@ public class SharedBlocksManager : MonoBehaviour
 	{
 		if (hasPulledPrivateScanPlayfab[currentGetScanIndex])
 		{
-			this.OnFetchPrivateScanComplete?.Invoke(currentGetScanIndex, arg2: true);
+			OnFetchPrivateScanComplete?.Invoke(currentGetScanIndex, arg2: true);
 			currentGetScanIndex = -1;
 			getScanInProgress = false;
 		}
@@ -1389,7 +1389,7 @@ public class SharedBlocksManager : MonoBehaviour
 			privateScanDataCache[currentGetScanIndex] = string.Empty;
 			hasPulledPrivateScanPlayfab[currentGetScanIndex] = true;
 		}
-		this.OnFetchPrivateScanComplete?.Invoke(currentGetScanIndex, arg2: true);
+		OnFetchPrivateScanComplete?.Invoke(currentGetScanIndex, arg2: true);
 		currentGetScanIndex = -1;
 	}
 
@@ -1407,7 +1407,7 @@ public class SharedBlocksManager : MonoBehaviour
 			privateScanDataCache[currentGetScanIndex] = string.Empty;
 			hasPulledPrivateScanPlayfab[currentGetScanIndex] = true;
 			getScanInProgress = false;
-			this.OnFetchPrivateScanComplete?.Invoke(currentGetScanIndex, arg2: false);
+			OnFetchPrivateScanComplete?.Invoke(currentGetScanIndex, arg2: false);
 			currentGetScanIndex = -1;
 		}
 	}
@@ -1475,7 +1475,7 @@ public class SharedBlocksManager : MonoBehaviour
 		if (getScanInProgress && currentGetScanIndex != scanIndex)
 		{
 			GTDev.LogWarning("SharedBLocksManager PullMothershipPrivateScanThenPush GetScan in progress");
-			this.OnSavePrivateScanFailed?.Invoke(scanIndex, "ERROR SAVING: BUSY");
+			OnSavePrivateScanFailed?.Invoke(scanIndex, "ERROR SAVING: BUSY");
 			currentSaveScanIndex = -1;
 			currentSaveScanData = string.Empty;
 		}
@@ -1544,7 +1544,7 @@ public class SharedBlocksManager : MonoBehaviour
 				RequestPublishMap(serializationConfig.scanSlotMothershipKeys[currentSaveScanIndex]);
 				return;
 			}
-			this.OnSavePrivateScanFailed?.Invoke(currentSaveScanIndex, "ERROR SAVING");
+			OnSavePrivateScanFailed?.Invoke(currentSaveScanIndex, "ERROR SAVING");
 			currentSaveScanIndex = -1;
 			currentSaveScanData = string.Empty;
 		}
@@ -1576,7 +1576,7 @@ public class SharedBlocksManager : MonoBehaviour
 		if (hasPulledPrivateScanMothership[slot])
 		{
 			bool arg = privateScanDataCache[slot].Length > 0;
-			this.OnFetchPrivateScanComplete?.Invoke(slot, arg);
+			OnFetchPrivateScanComplete?.Invoke(slot, arg);
 			return;
 		}
 		if (getScanInProgress)
@@ -1584,7 +1584,7 @@ public class SharedBlocksManager : MonoBehaviour
 			Debug.LogError("SharedBlocksManager RequestFetchPrivateScan: request already in progress");
 			if (slot != currentGetScanIndex)
 			{
-				this.OnFetchPrivateScanComplete?.Invoke(slot, arg2: false);
+				OnFetchPrivateScanComplete?.Invoke(slot, arg2: false);
 			}
 			return;
 		}
@@ -1597,7 +1597,7 @@ public class SharedBlocksManager : MonoBehaviour
 				Debug.LogError("SharedBlocksManager RequestFetchPrivateScan failed ");
 				currentGetScanIndex = -1;
 				getScanInProgress = false;
-				this.OnFetchPrivateScanComplete?.Invoke(slot, arg2: false);
+				OnFetchPrivateScanComplete?.Invoke(slot, arg2: false);
 			}
 		}
 		catch (Exception ex)
@@ -1605,7 +1605,7 @@ public class SharedBlocksManager : MonoBehaviour
 			Debug.LogError("SharedBlocksManager RequestFetchPrivateScan exception " + ex.Message);
 			currentGetScanIndex = -1;
 			getScanInProgress = false;
-			this.OnFetchPrivateScanComplete?.Invoke(slot, arg2: false);
+			OnFetchPrivateScanComplete?.Invoke(slot, arg2: false);
 		}
 	}
 
@@ -1634,7 +1634,7 @@ public class SharedBlocksManager : MonoBehaviour
 				}
 				currentGetScanIndex = -1;
 				getScanInProgress = false;
-				this.OnFetchPrivateScanComplete?.Invoke(arg, arg2: true);
+				OnFetchPrivateScanComplete?.Invoke(arg, arg2: true);
 			}
 			else
 			{
@@ -1645,7 +1645,7 @@ public class SharedBlocksManager : MonoBehaviour
 		{
 			currentGetScanIndex = -1;
 			getScanInProgress = false;
-			this.OnFetchPrivateScanComplete?.Invoke(arg, arg2: false);
+			OnFetchPrivateScanComplete?.Invoke(arg, arg2: false);
 		}
 		response?.Dispose();
 	}
@@ -1662,7 +1662,7 @@ public class SharedBlocksManager : MonoBehaviour
 		}
 		getScanInProgress = false;
 		currentGetScanIndex = -1;
-		this.OnFetchPrivateScanComplete?.Invoke(arg, arg2: false);
+		OnFetchPrivateScanComplete?.Invoke(arg, arg2: false);
 		error?.Dispose();
 	}
 }

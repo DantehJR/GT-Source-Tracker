@@ -35,20 +35,20 @@ public class StayOutsideOfGeo : MonoBehaviour
 
 	private void Reset()
 	{
-		_target = base.transform;
+		_target = transform;
 	}
 
 	private void Start()
 	{
 		if ((object)_target == null)
 		{
-			_target = base.transform;
+			_target = transform;
 		}
-		_voxelWorld = VoxelWorld.GetFor(base.gameObject);
+		_voxelWorld = VoxelWorld.GetFor(gameObject);
 		if (_voxelWorld == null)
 		{
 			Debug.LogError("VoxelWorld not found in the scene. Please ensure there is a VoxelWorld component present.");
-			base.enabled = false;
+			enabled = false;
 		}
 	}
 
@@ -85,7 +85,7 @@ public class StayOutsideOfGeo : MonoBehaviour
 
 	private bool ResolvePenetration(int3 pos)
 	{
-		Debug.LogWarning($"{base.name} inside geo in {_voxelWorld.GetChunkForLocalPosition(pos)} [{_target.position.RoundToInt()}={_voxelWorld.GetVoxelForWorldPosition(_target.position)}->{_maxDensity:F2}]", this);
+		Debug.LogWarning($"{name} inside geo in {_voxelWorld.GetChunkForLocalPosition(pos)} [{_target.position.RoundToInt()}={_voxelWorld.GetVoxelForWorldPosition(_target.position)}->{_maxDensity:F2}]", this);
 		for (int i = 0; i < _positionHistory.Count; i++)
 		{
 			int3 int5 = PopMostRecentPosition();

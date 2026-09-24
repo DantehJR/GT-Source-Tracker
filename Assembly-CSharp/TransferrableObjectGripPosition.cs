@@ -12,7 +12,7 @@ public class TransferrableObjectGripPosition : MonoBehaviour
 	{
 		if (parentObject == null)
 		{
-			parentObject = base.transform.parent.GetComponent<TransferrableItemSlotTransformOverride>();
+			parentObject = transform.parent.GetComponent<TransferrableItemSlotTransformOverride>();
 		}
 		parentObject.AddGripPosition(attachmentType, this);
 	}

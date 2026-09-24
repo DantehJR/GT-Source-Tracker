@@ -93,10 +93,10 @@ public class LocalVoiceFramed<T> : LocalVoiceFramedBase
 	{
 		if (frameSize == 0)
 		{
-			throw new Exception(base.LogPrefix + ": non 0 frame size required for framed stream");
+			throw new Exception(LogPrefix + ": non 0 frame size required for framed stream");
 		}
-		framer = new Framer<T>(base.FrameSize);
-		bufferFactory = new FactoryPrimitiveArrayPool<T>(50, base.Name + " Data", base.FrameSize);
+		framer = new Framer<T>(FrameSize);
+		bufferFactory = new FactoryPrimitiveArrayPool<T>(50, Name + " Data", FrameSize);
 	}
 
 	public void PushDataAsync(T[] buf)
@@ -107,10 +107,10 @@ public class LocalVoiceFramed<T> : LocalVoiceFramedBase
 		}
 		if (!dataEncodeThreadStarted)
 		{
-			voiceClient.logger.LogInfo(base.LogPrefix + ": Starting data encode thread");
+			voiceClient.logger.LogInfo(LogPrefix + ": Starting data encode thread");
 			Thread thread = new Thread(PushDataAsyncThread);
 			thread.Start();
-			Util.SetThreadName(thread, "[PV] EncData " + base.shortName);
+			Util.SetThreadName(thread, "[PV] EncData " + shortName);
 			dataEncodeThreadStarted = true;
 		}
 		if (PushDataAsyncReady)
@@ -125,7 +125,7 @@ public class LocalVoiceFramed<T> : LocalVoiceFramedBase
 		bufferFactory.Free(buf, buf.Length);
 		if (framesSkipped == framesSkippedNextLog)
 		{
-			voiceClient.logger.LogWarning(base.LogPrefix + ": PushData queue overflow. Frames skipped: " + (framesSkipped + 1));
+			voiceClient.logger.LogWarning(LogPrefix + ": PushData queue overflow. Frames skipped: " + (framesSkipped + 1));
 			framesSkippedNextLog = framesSkipped + 10;
 		}
 		framesSkipped++;
@@ -159,7 +159,7 @@ public class LocalVoiceFramed<T> : LocalVoiceFramedBase
 		}
 		catch (Exception ex)
 		{
-			voiceClient.logger.LogError(base.LogPrefix + ": Exception in encode thread: " + ex);
+			voiceClient.logger.LogError(LogPrefix + ": Exception in encode thread: " + ex);
 			throw ex;
 		}
 		finally
@@ -167,13 +167,13 @@ public class LocalVoiceFramed<T> : LocalVoiceFramedBase
 			Dispose();
 			bufferFactory.Dispose();
 			pushDataQueueReady.Close();
-			voiceClient.logger.LogInfo(base.LogPrefix + ": Exiting data encode thread");
+			voiceClient.logger.LogInfo(LogPrefix + ": Exiting data encode thread");
 		}
 	}
 
 	public void PushData(T[] buf)
 	{
-		if (!voiceClient.transport.IsChannelJoined(channelId) || !base.TransmitEnabled)
+		if (!voiceClient.transport.IsChannelJoined(channelId) || !TransmitEnabled)
 		{
 			return;
 		}
@@ -205,7 +205,7 @@ public class LocalVoiceFramed<T> : LocalVoiceFramedBase
 				return;
 			}
 		}
-		throw new Exception(base.LogPrefix + ": PushData(T[]) called on encoder of unsupported type " + ((encoder == null) ? "null" : encoder.GetType().ToString()));
+		throw new Exception(LogPrefix + ": PushData(T[]) called on encoder of unsupported type " + ((encoder == null) ? "null" : encoder.GetType().ToString()));
 	}
 
 	public override void Dispose()

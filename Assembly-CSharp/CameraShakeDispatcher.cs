@@ -53,7 +53,7 @@ public class CameraShakeDispatcher : MonoBehaviour
 
 	public void ShakeInProximity(float distance)
 	{
-		CameraShaker.ShakeInProximity(duration, magnitude, freqRange, rollOffOverDuration, base.transform, distance);
+		CameraShaker.ShakeInProximity(duration, magnitude, freqRange, rollOffOverDuration, transform, distance);
 	}
 
 	public void Halt()

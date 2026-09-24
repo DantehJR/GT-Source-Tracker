@@ -66,7 +66,7 @@ public class FingerFlagWearable : MonoBehaviour, ISpawnable
 		myRig = GetComponentInParent<VRRig>(includeInactive: true);
 		if (!myRig)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -87,7 +87,7 @@ public class FingerFlagWearable : MonoBehaviour, ISpawnable
 		bool flag = ControllerInputPoller.GripFloat((XRNode)node) > 0.25f;
 		bool flag2 = ControllerInputPoller.PrimaryButtonPress((XRNode)node);
 		bool flag3 = ControllerInputPoller.SecondaryButtonPress((XRNode)node);
-		bool flag4 = flag && (flag2 || flag3);
+		bool flag4 = flag && (flag2 | flag3);
 		networkedExtended = flag4;
 		if (PhotonNetwork.InRoom && (bool)myRig)
 		{
@@ -102,9 +102,9 @@ public class FingerFlagWearable : MonoBehaviour, ISpawnable
 			extended = networkedExtended;
 			OnExtendStateChanged(playAudio: true);
 		}
-		bool num = fullyRetracted;
+		bool flag = fullyRetracted;
 		fullyRetracted = extended && retractExtendTime <= 0f;
-		if (num != fullyRetracted)
+		if (flag != fullyRetracted)
 		{
 			Transform[] array = clothRigidbodies;
 			for (int i = 0; i < array.Length; i++)

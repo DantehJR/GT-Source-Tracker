@@ -78,7 +78,7 @@ public class VODTarget : ObservableBehavior, IBuildValidation
 
 	public void ClearNext()
 	{
-		upNextData = default(VODPlayer.VODNextStreamData);
+		upNextData = default;
 	}
 
 	public bool VerifyChannel(VODPlayer.VODStream.VODStreamChannel ch)
@@ -117,7 +117,7 @@ public class VODTarget : ObservableBehavior, IBuildValidation
 	{
 		if (targetRenderer == null)
 		{
-			Debug.LogError("VODTarget " + base.name + " must set a Target Renderer");
+			Debug.LogError("VODTarget " + name + " must set a Target Renderer");
 			return false;
 		}
 		return true;

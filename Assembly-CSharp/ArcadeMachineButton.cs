@@ -17,21 +17,21 @@ public class ArcadeMachineButton : GorillaPressableButton
 		if (!state)
 		{
 			state = true;
-			if (this.OnStateChange != null)
+			if (OnStateChange != null)
 			{
-				this.OnStateChange(ButtonID, state);
+				OnStateChange(ButtonID, state);
 			}
 		}
 	}
 
 	private void OnTriggerExit(Collider collider)
 	{
-		if (base.enabled && state && !(collider.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
+		if (enabled && state && !(collider.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
 		{
 			state = false;
-			if (this.OnStateChange != null)
+			if (OnStateChange != null)
 			{
-				this.OnStateChange(ButtonID, state);
+				OnStateChange(ButtonID, state);
 			}
 		}
 	}

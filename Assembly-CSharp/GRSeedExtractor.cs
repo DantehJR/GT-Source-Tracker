@@ -351,12 +351,12 @@ public class GRSeedExtractor : MonoBehaviour
 		idCardScanner.OnPlayerCardSwipe += OnPlayerCardSwipe;
 		for (int i = 0; i < maxVisualChaosSeedCount; i++)
 		{
-			GameObject gameObject = UnityEngine.Object.Instantiate(chaosSeedVisualPrefab, base.transform);
+			GameObject gameObject = UnityEngine.Object.Instantiate(chaosSeedVisualPrefab, transform);
 			gameObject.SetActive(value: false);
 			chaosSeedVisuals.Add(gameObject);
 		}
 		UpdateOverdrivePurchaseButtons();
-		base.enabled = false;
+		enabled = false;
 	}
 
 	public void Init(GRToolProgressionManager progression, GhostReactor gr)
@@ -394,7 +394,7 @@ public class GRSeedExtractor : MonoBehaviour
 		processingAmountVisual = 0f;
 		overdriveAmount = 0f;
 		overdriveAmountVisual = 0f;
-		currentPlayerData = default(PlayerData);
+		currentPlayerData = default;
 		overdriveLiquidScaleParent.transform.localScale = new Vector3(1f, Mathf.Clamp01(overdriveAmountVisual), 1f);
 		processingLiquidScaleParent.transform.localScale = new Vector3(1f, Mathf.Clamp01(processingAmountVisual), 1f);
 	}
@@ -474,7 +474,7 @@ public class GRSeedExtractor : MonoBehaviour
 		UpdateScreenDisplay();
 		if (!stationOpen && shutterDoorOpenAmount <= 0f && overdriveAmountVisual <= 0f)
 		{
-			base.enabled = false;
+			enabled = false;
 		}
 	}
 
@@ -495,7 +495,7 @@ public class GRSeedExtractor : MonoBehaviour
 			if (player != null && VRRigCache.Instance.TryGetVrrig(player, out var playerRig))
 			{
 				float num = 5f;
-				if (playerRig.Rig != null && playerRig.Rig.OwningNetPlayer == player && (playerRig.Rig.GetMouthPosition() - base.transform.position).sqrMagnitude < num * num)
+				if (playerRig.Rig != null && playerRig.Rig.OwningNetPlayer == player && (playerRig.Rig.GetMouthPosition() - transform.position).sqrMagnitude < num * num)
 				{
 					flag = true;
 				}
@@ -527,7 +527,7 @@ public class GRSeedExtractor : MonoBehaviour
 			}
 			if (component.OwningNetPlayer.ActorNumber == NetworkSystem.Instance.LocalPlayer.ActorNumber)
 			{
-				localPlayerData = default(PlayerData);
+				localPlayerData = default;
 			}
 		}
 	}
@@ -633,7 +633,7 @@ public class GRSeedExtractor : MonoBehaviour
 		int num2 = 0;
 		bool flag = num < localPlayerData.overdriveSupply;
 		bool flag2 = localPlayerData.overdriveSupply == 0f && localPlayerData.coreCount > statusResponse.CurrentCoreCount;
-		if (statusResponse.CoresProcessedByOverdrive > 0 && (flag || flag2))
+		if (statusResponse.CoresProcessedByOverdrive > 0 && (flag | flag2))
 		{
 			num2 = statusResponse.CoresProcessedByOverdrive;
 		}
@@ -797,7 +797,7 @@ public class GRSeedExtractor : MonoBehaviour
 		{
 			if (currentPlayerData.actorNumber != playerActorNumber)
 			{
-				currentPlayerData = default(PlayerData);
+				currentPlayerData = default;
 			}
 			coreCount = Mathf.Clamp(coreCount, 0, maxVisualChaosSeedCount);
 			coresProcessedByOverdrive = Mathf.Clamp(coresProcessedByOverdrive, 0, MAX_OVERDRIVE_USES);
@@ -805,7 +805,7 @@ public class GRSeedExtractor : MonoBehaviour
 			overdriveSupply = Mathf.Clamp(overdriveSupply, 0f, 1f);
 			bool flag = overdriveSupply < currentPlayerData.overdriveSupply;
 			bool flag2 = currentPlayerData.overdriveSupply == 0f && currentPlayerData.coreCount > coreCount;
-			if (playerActorNumber != NetworkSystem.Instance.LocalPlayer.ActorNumber && coresProcessedByOverdrive > 0 && (flag || flag2))
+			if (playerActorNumber != NetworkSystem.Instance.LocalPlayer.ActorNumber && coresProcessedByOverdrive > 0 && (flag | flag2))
 			{
 				currentPlayerData.coresPendingOverdriveProcessing += coresProcessedByOverdrive;
 			}
@@ -828,7 +828,7 @@ public class GRSeedExtractor : MonoBehaviour
 			{
 				doorAudioSource.PlayOneShot(doorOpenAudio, doorOpenVolume);
 			}
-			base.enabled = true;
+			enabled = true;
 			currentPlayerActorNumber = playerActorNumber;
 			stationOpen = true;
 			stationOpenRequestTime = Time.time;
@@ -1038,7 +1038,7 @@ public class GRSeedExtractor : MonoBehaviour
 			}
 			if (value.rampProgress < 1f)
 			{
-				GameObject obj = chaosSeedVisuals[value.poolIndex];
+				GameObject gameObject = chaosSeedVisuals[value.poolIndex];
 				value.speed = Mathf.MoveTowards(value.speed, num, num * dt);
 				float num3 = value.speed * dt;
 				float num4 = num3 / magnitude;
@@ -1049,26 +1049,26 @@ public class GRSeedExtractor : MonoBehaviour
 					value.speed = 0f;
 					num3 = 0f;
 				}
-				obj.transform.localPosition = Vector3.Lerp(seedTubeStart.localPosition, seedTubeEnd.localPosition, value.rampProgress);
+				gameObject.transform.localPosition = Vector3.Lerp(seedTubeStart.localPosition, seedTubeEnd.localPosition, value.rampProgress);
 				value.rollAngle += num3 / visualChaosSeedRadius;
-				obj.transform.localRotation = Quaternion.AngleAxis(value.rollAngle * 57.29578f, Vector3.forward);
+				gameObject.transform.localRotation = Quaternion.AngleAxis(value.rollAngle * 57.29578f, Vector3.forward);
 			}
 			if (i == 0 && value.rampProgress >= 1f)
 			{
-				GameObject gameObject = chaosSeedVisuals[value.poolIndex];
+				GameObject gameObject2 = chaosSeedVisuals[value.poolIndex];
 				if (value.dropProgress < 1f)
 				{
 					value.dropProgress += 1f / seedVisualDropTime * dt;
 					value.rampProgress = 1f + value.dropProgress;
 					float t = tubeEndToProcessingPathY.Evaluate(value.dropProgress);
 					float t2 = tubeEndToProcessingPathX.Evaluate(value.dropProgress);
-					Vector3 localPosition = gameObject.transform.localPosition;
+					Vector3 localPosition = gameObject2.transform.localPosition;
 					localPosition.y = Mathf.Lerp(seedTubeEnd.localPosition.y, seedProcessingPosition.localPosition.y, t);
 					localPosition.x = Mathf.Lerp(seedTubeEnd.localPosition.x, seedProcessingPosition.localPosition.x, t2);
-					gameObject.transform.localPosition = localPosition;
+					gameObject2.transform.localPosition = localPosition;
 					float num5 = value.speed * dt;
 					value.rollAngle += num5 / visualChaosSeedRadius;
-					gameObject.transform.localRotation = Quaternion.AngleAxis(value.rollAngle * 57.29578f, Vector3.forward);
+					gameObject2.transform.localRotation = Quaternion.AngleAxis(value.rollAngle * 57.29578f, Vector3.forward);
 					if (value.dropProgress >= 1f)
 					{
 						juicerAudioSource.PlayOneShot(seedDropAudio, seedDropVolume);
@@ -1076,7 +1076,7 @@ public class GRSeedExtractor : MonoBehaviour
 				}
 				if (value.dropProgress >= 1f && !drainingProcessingBeaker)
 				{
-					gameObject.transform.localScale = Vector3.one * Mathf.Lerp(seedVisualScaleRange.y, seedVisualScaleRange.x, processingAmountVisual);
+					gameObject2.transform.localScale = Vector3.one * Mathf.Lerp(seedVisualScaleRange.y, seedVisualScaleRange.x, processingAmountVisual);
 				}
 			}
 			seedProcessingStates[i] = value;
@@ -1209,9 +1209,9 @@ public class GRSeedExtractor : MonoBehaviour
 		localPlayerData.researchPoints = numberOfResearchPoints;
 		if (StationOpenForLocalPlayer)
 		{
-			bool num = currentPlayerData.researchPoints != localPlayerData.researchPoints;
+			bool flag = currentPlayerData.researchPoints != localPlayerData.researchPoints;
 			currentPlayerData.researchPoints = localPlayerData.researchPoints;
-			if (num)
+			if (flag)
 			{
 				ghostReactor.grManager.RequestApplySeedExtractorState(localPlayerData.coreCount, localPlayerData.coresProcessedByOverdrive, localPlayerData.researchPoints, localPlayerData.coreProcessingPercentage, localPlayerData.overdriveSupply);
 				OnStateUpdated();

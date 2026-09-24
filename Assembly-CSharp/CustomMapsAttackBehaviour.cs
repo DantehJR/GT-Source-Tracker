@@ -202,7 +202,15 @@ public class CustomMapsAttackBehaviour : CustomMapsBehaviourBase
 	private void TriggerAttack(GRPlayer targetPlayer = null)
 	{
 		lastAttackTime = Time.time;
-		GRPlayer gRPlayer = ((targetPlayer != null) ? targetPlayer : (controller.entity.IsAuthority() ? controller.TargetPlayer : null));
+		GRPlayer gRPlayer;
+		if (targetPlayer != null)
+		{
+			gRPlayer = targetPlayer;
+		}
+		else
+		{
+			gRPlayer = (controller.entity.IsAuthority() ? controller.TargetPlayer : null);
+		}
 		if (!controller.entity.IsAuthority() && gRPlayer == null)
 		{
 			Vector3 sourcePos = controller.transform.position + controller.transform.TransformVector(sightOffset);

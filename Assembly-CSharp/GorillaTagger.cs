@@ -414,8 +414,8 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 		GameObject gameObject = ((gRFirstTimeUserExperience != null) ? gRFirstTimeUserExperience.gameObject : null);
 		if (!disableTutorial && (testTutorial || (PlayerPrefs.GetString("tutorial") != "done" && PlayerPrefs.GetString("didTutorial") != "done" && NetworkSystemConfig.AppVersion != "dev")))
 		{
-			base.transform.parent.position = new Vector3(-140f, 28f, -102f);
-			base.transform.parent.eulerAngles = new Vector3(0f, 180f, 0f);
+			transform.parent.position = new Vector3(-140f, 28f, -102f);
+			transform.parent.eulerAngles = new Vector3(0f, 180f, 0f);
 			GTPlayer.Instance.InitializeValues();
 			PlayerPrefs.SetFloat("redValue", UnityEngine.Random.value);
 			PlayerPrefs.SetFloat("greenValue", UnityEngine.Random.value);
@@ -430,7 +430,7 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 			PlayerPrefs.SetString("didTutorial", "done");
 			PlayerPrefs.Save();
 			bool flag = true;
-			if (gameObject != null && PlayerPrefs.GetString("spawnInWrongStump") == "flagged" && flag)
+			if ((gameObject != null && PlayerPrefs.GetString("spawnInWrongStump") == "flagged") & flag)
 			{
 				gameObject.SetActive(value: true);
 				if (gameObject.TryGetComponent<GRFirstTimeUserExperience>(out var component) && component.spawnPoint != null)
@@ -449,7 +449,10 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 		gorillaTagColliderLayerMask = UnityLayer.GorillaTagCollider.ToLayerMask();
 		rigidbody = GetComponent<Rigidbody>();
 		cacheHandTapVolume = handTapVolume;
-		OVRManager.foveatedRenderingLevel = OVRManager.FoveatedRenderingLevel.Medium;
+		if (OVRManager.instance != null)
+		{
+			OVRManager.foveatedRenderingLevel = OVRManager.FoveatedRenderingLevel.Medium;
+		}
 		_leftHandDown = new DebouncedBool(_framesForHandTrigger);
 		_rightHandDown = new DebouncedBool(_framesForHandTrigger);
 		ClearFramerateTracker();
@@ -1330,8 +1333,8 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 		handSlideSource.GTStop();
 		bool wasStablyEnabled = debouncedBool.WasStablyEnabled;
 		debouncedBool.Set(wasHandTouching2);
-		bool flag = !wasHandTouching && wasHandTouching2 && debouncedBool.JustEnabled;
-		bool flag2 = wasHandTouching && !wasHandTouching2 && wasStablyEnabled;
+		bool flag = (!wasHandTouching & wasHandTouching2) && debouncedBool.JustEnabled;
+		bool flag2 = (wasHandTouching && !wasHandTouching2) & wasStablyEnabled;
 		wasHandTouching = wasHandTouching2;
 		if (!flag2 && !flag)
 		{
@@ -1340,14 +1343,14 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 		Tappable component = null;
 		bool flag3 = surfaceOverride != null && surfaceOverride.TryGetComponent<Tappable>(out component);
 		HandEffectContext handEffect = offlineVRRig.GetHandEffect(isLeftHand, stiltID);
-		if ((!flag3 || !component.overrideTapCooldown) && (!(handEffect.SeparateUpTapCooldown && flag2) || !(Time.time > lastTapUpTime + tapCoolDown)) && (!flag || !(Time.time > lastTapTime + tapCoolDown)))
+		if ((!flag3 || !component.overrideTapCooldown) && (!(handEffect.SeparateUpTapCooldown & flag2) || !(Time.time > lastTapUpTime + tapCoolDown)) && (!flag || !(Time.time > lastTapTime + tapCoolDown)))
 		{
 			return;
 		}
 		float sqrMagnitude = (handVelocityTracker.GetAverageVelocity(worldSpace: true, 0.03f) / GTPlayer.Instance.scale).sqrMagnitude;
 		float sqrMagnitude2 = handVelocityTracker.GetAverageVelocity(worldSpace: false, 0.03f).sqrMagnitude;
 		handTapSpeed = Mathf.Sqrt(Mathf.Max(sqrMagnitude, sqrMagnitude2));
-		if (handEffect.SeparateUpTapCooldown && flag2)
+		if (handEffect.SeparateUpTapCooldown & flag2)
 		{
 			lastTapUpTime = Time.time;
 		}
@@ -1400,7 +1403,7 @@ public class GorillaTagger : MonoBehaviour, IGuidedRefReceiverMono, IGuidedRefMo
 		StartVibration(isLeftHand, tapHapticStrength, tapHapticDuration);
 		offlineVRRig.SetHandEffectData(handEffect, audioClipIndex, flag, isLeftHand, stiltID, handTapVolume, handTapSpeed, dirFromHitToHand);
 		FXSystem.PlayFX(handEffect);
-		this.OnHandTap?.Invoke(isLeftHand, handHitInfo.point, handHitInfo.normal);
+		OnHandTap?.Invoke(isLeftHand, handHitInfo.point, handHitInfo.normal);
 		hasTappedSurface = true;
 		if (CrittersManager.instance.IsNotNull() && CrittersManager.instance.LocalAuthority())
 		{

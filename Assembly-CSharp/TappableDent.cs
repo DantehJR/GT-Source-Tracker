@@ -24,10 +24,10 @@ public class TappableDent : Tappable
 	{
 		if (parent == null)
 		{
-			parent = base.gameObject;
+			parent = gameObject;
 		}
-		offsetPerTap = base.transform.parent.InverseTransformVector(base.transform.TransformVector(finalLocalOffset / numTapsToDestroy));
-		scaleOffsetPerTap = (finalLocalScale - base.transform.localScale) / numTapsToDestroy;
+		offsetPerTap = transform.parent.InverseTransformVector(transform.TransformVector(finalLocalOffset / numTapsToDestroy));
+		scaleOffsetPerTap = (finalLocalScale - transform.localScale) / numTapsToDestroy;
 	}
 
 	public override void OnTapLocal(float tapStrength, float tapTime, PhotonMessageInfoWrapped info)
@@ -40,8 +40,8 @@ public class TappableDent : Tappable
 				parent.SetActive(value: false);
 				return;
 			}
-			base.transform.localPosition += offsetPerTap;
-			base.transform.localScale += scaleOffsetPerTap;
+			transform.localPosition += offsetPerTap;
+			transform.localScale += scaleOffsetPerTap;
 		}
 	}
 

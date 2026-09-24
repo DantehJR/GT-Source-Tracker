@@ -45,7 +45,7 @@ public class CrittersPool : MonoBehaviour
 	{
 		pools = new Dictionary<GameObject, List<GameObject>>();
 		GameObject gameObject = new GameObject("CrittersPool");
-		gameObject.transform.parent = base.transform;
+		gameObject.transform.parent = transform;
 		poolParent = gameObject.transform;
 		for (int i = 0; i < eventEffects.Length; i++)
 		{

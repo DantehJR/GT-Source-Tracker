@@ -27,7 +27,7 @@ public class SurfaceNetsWorld : MonoBehaviour
 				for (int k = -radius.z; k <= radius.z; k++)
 				{
 					int3 int5 = new int3(i, j, k);
-					SurfaceNetsChunk surfaceNetsChunk = Object.Instantiate(chunkPrefab, base.transform);
+					SurfaceNetsChunk surfaceNetsChunk = Object.Instantiate(chunkPrefab, transform);
 					surfaceNetsChunk.Id = int5;
 					surfaceNetsChunk.parameters = parameters;
 					surfaceNetsChunk.name = $"SurfaceNetsChunk_{int5.x}_{int5.y}_{int5.z}";
@@ -40,9 +40,9 @@ public class SurfaceNetsWorld : MonoBehaviour
 
 	private void DestroyChildren()
 	{
-		for (int num = base.transform.childCount - 1; num >= 0; num--)
+		for (int num = transform.childCount - 1; num >= 0; num--)
 		{
-			Transform child = base.transform.GetChild(num);
+			Transform child = transform.GetChild(num);
 			if (child != null)
 			{
 				JamUtil.Destroy(child.gameObject);

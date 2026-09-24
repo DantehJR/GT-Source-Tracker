@@ -14,7 +14,7 @@ public class EyeScannableMono : MonoBehaviour, IEyeScannable
 
 	int IEyeScannable.scannableId => GetInstanceID();
 
-	Vector3 IEyeScannable.Position => base.transform.position - _initialPosition + _bounds.center;
+	Vector3 IEyeScannable.Position => transform.position - _initialPosition + _bounds.center;
 
 	Bounds IEyeScannable.Bounds => _bounds;
 
@@ -46,12 +46,12 @@ public class EyeScannableMono : MonoBehaviour, IEyeScannable
 
 	private void RecalculateBounds()
 	{
-		_initialPosition = base.transform.position;
+		_initialPosition = transform.position;
 		Collider[] componentsInChildren = GetComponentsInChildren<Collider>();
-		_bounds = default(Bounds);
+		_bounds = default;
 		if (componentsInChildren.Length == 0)
 		{
-			_bounds.center = base.transform.position;
+			_bounds.center = transform.position;
 			_bounds.Expand(1f);
 			return;
 		}

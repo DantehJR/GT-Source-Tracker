@@ -100,7 +100,7 @@ public static class SurfaceNets
 		}
 		if (num == 0 || num == 8)
 		{
-			centroid = default(float3);
+			centroid = default;
 			return false;
 		}
 		float3 zero = float3.zero;
@@ -180,11 +180,11 @@ public static class SurfaceNets
 		{
 			return;
 		}
-		float3 obj = b.Positions[num3];
-		float3 float5 = b.Positions[num4];
-		float3 float6 = b.Positions[num5];
-		float3 float7 = b.Positions[num6];
-		if (math.lengthsq(obj - float7) < math.lengthsq(float5 - float6))
+		float3 float5 = b.Positions[num3];
+		float3 float6 = b.Positions[num4];
+		float3 float7 = b.Positions[num5];
+		float3 float8 = b.Positions[num6];
+		if (math.lengthsq(float5 - float8) < math.lengthsq(float6 - float7))
 		{
 			if (flag)
 			{
@@ -213,11 +213,11 @@ public static class SurfaceNets
 			int index2 = b.Indices[i + 1];
 			int index3 = b.Indices[i + 2];
 			float3 float5 = b.Positions[index];
-			float3 obj = b.Positions[index2];
-			float3 float6 = math.cross(y: b.Positions[index3] - float5, x: obj - float5);
-			b.Normals[index] += float6;
-			b.Normals[index2] += float6;
-			b.Normals[index3] += float6;
+			float3 float6 = b.Positions[index2];
+			float3 float7 = math.cross(y: b.Positions[index3] - float5, x: float6 - float5);
+			b.Normals[index] += float7;
+			b.Normals[index2] += float7;
+			b.Normals[index3] += float7;
 		}
 	}
 }

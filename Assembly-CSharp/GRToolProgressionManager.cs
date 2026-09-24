@@ -128,7 +128,7 @@ public class GRToolProgressionManager : MonoBehaviourTick
 	{
 		if (sendUpdate)
 		{
-			this.OnProgressionUpdated?.Invoke();
+			OnProgressionUpdated?.Invoke();
 			sendUpdate = false;
 		}
 		if (pendingTreeToProcess)
@@ -641,7 +641,7 @@ public class GRToolProgressionManager : MonoBehaviourTick
 
 	public int GetDropPodLevel()
 	{
-		if (IsPartUnlocked(ToolParts.DropPodBasic, out var unlocked) && unlocked)
+		if (IsPartUnlocked(ToolParts.DropPodBasic, out var unlocked) & unlocked)
 		{
 			return 1;
 		}
@@ -650,15 +650,15 @@ public class GRToolProgressionManager : MonoBehaviourTick
 
 	public int GetDropPodChasisLevel()
 	{
-		if (IsPartUnlocked(ToolParts.DropPodChassis3, out var unlocked) && unlocked)
+		if (IsPartUnlocked(ToolParts.DropPodChassis3, out var unlocked) & unlocked)
 		{
 			return 3;
 		}
-		if (IsPartUnlocked(ToolParts.DropPodChassis2, out unlocked) && unlocked)
+		if (IsPartUnlocked(ToolParts.DropPodChassis2, out unlocked) & unlocked)
 		{
 			return 2;
 		}
-		if (IsPartUnlocked(ToolParts.DropPodChassis1, out unlocked) && unlocked)
+		if (IsPartUnlocked(ToolParts.DropPodChassis1, out unlocked) & unlocked)
 		{
 			return 1;
 		}
@@ -667,19 +667,19 @@ public class GRToolProgressionManager : MonoBehaviourTick
 
 	public ProgressionManager.DrillUpgradeLevel GetDrillLevel()
 	{
-		if (IsPartUnlocked(ToolParts.DropPodChassis3, out var unlocked) && unlocked)
+		if (IsPartUnlocked(ToolParts.DropPodChassis3, out var unlocked) & unlocked)
 		{
 			return ProgressionManager.DrillUpgradeLevel.Upgrade3;
 		}
-		if (IsPartUnlocked(ToolParts.DropPodChassis2, out unlocked) && unlocked)
+		if (IsPartUnlocked(ToolParts.DropPodChassis2, out unlocked) & unlocked)
 		{
 			return ProgressionManager.DrillUpgradeLevel.Upgrade2;
 		}
-		if (IsPartUnlocked(ToolParts.DropPodChassis1, out unlocked) && unlocked)
+		if (IsPartUnlocked(ToolParts.DropPodChassis1, out unlocked) & unlocked)
 		{
 			return ProgressionManager.DrillUpgradeLevel.Upgrade1;
 		}
-		if (IsPartUnlocked(ToolParts.DropPodBasic, out unlocked) && unlocked)
+		if (IsPartUnlocked(ToolParts.DropPodBasic, out unlocked) & unlocked)
 		{
 			return ProgressionManager.DrillUpgradeLevel.Base;
 		}

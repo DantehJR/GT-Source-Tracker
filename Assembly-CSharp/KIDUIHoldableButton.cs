@@ -46,6 +46,8 @@ public class KIDUIHoldableButton : MonoBehaviour, IPointerDownHandler, IEventSys
 
 	private float _elapsedTime;
 
+	private ControllerBehaviour controllerBehaviour;
+
 	private bool inside;
 
 	private bool _isHoldingMouse;
@@ -71,7 +73,7 @@ public class KIDUIHoldableButton : MonoBehaviour, IPointerDownHandler, IEventSys
 	private void OnEnable()
 	{
 		_holdProgressFill.rectTransform.localScale = new Vector3(0f, 1f, 1f);
-		if ((bool)ControllerBehaviour.Instance)
+		if ((bool)controllerBehaviour)
 		{
 			ControllerBehaviour.Instance.OnAction += PostUpdate;
 		}
@@ -124,11 +126,11 @@ public class KIDUIHoldableButton : MonoBehaviour, IPointerDownHandler, IEventSys
 			return;
 		}
 		_elapsedTime += Time.deltaTime;
-		bool num = _elapsedTime > _holdDuration;
-		float num2 = _elapsedTime / _holdDuration;
-		_holdProgressFill.rectTransform.localScale = new Vector3(num2, 1f, 1f);
-		HandRayController.Instance.PulseActiveHandray(num2, 0.1f);
-		if (num)
+		bool flag = _elapsedTime > _holdDuration;
+		float num = _elapsedTime / _holdDuration;
+		_holdProgressFill.rectTransform.localScale = new Vector3(num, 1f, 1f);
+		HandRayController.Instance.PulseActiveHandray(num, 0.1f);
+		if (flag)
 		{
 			HoldComplete();
 		}
@@ -138,7 +140,7 @@ public class KIDUIHoldableButton : MonoBehaviour, IPointerDownHandler, IEventSys
 	{
 		ToggleHoldingButton(isPointerDown: false);
 		m_OnHoldComplete?.Invoke();
-		Debug.Log("[HOLD_BUTTON " + base.name + " ]: Hold Complete");
+		Debug.Log("[HOLD_BUTTON " + name + " ]: Hold Complete");
 		ResetButton();
 	}
 
@@ -176,7 +178,7 @@ public class KIDUIHoldableButton : MonoBehaviour, IPointerDownHandler, IEventSys
 		{
 			if (!_isHoldingButton)
 			{
-				string text = "[" + base.transform.parent.parent.parent.name + "." + base.transform.parent.parent.name + "." + base.transform.parent.name + "." + base.transform.name + "]";
+				string text = "[" + transform.parent.parent.parent.name + "." + transform.parent.parent.name + "." + transform.parent.name + "." + transform.name + "]";
 				Debug.Log("[KID::UIBUTTON::DEBUG] " + text + " - STEAM - OnClick is pressed. Time: [" + Time.time + "]", this);
 				ToggleHoldingButton(isPointerDown: true);
 				_triggeredThisFrame = true;
@@ -193,7 +195,7 @@ public class KIDUIHoldableButton : MonoBehaviour, IPointerDownHandler, IEventSys
 	{
 		if (_triggeredThisFrame)
 		{
-			string text = "[" + base.transform.parent.parent.parent.name + "." + base.transform.parent.parent.name + "." + base.transform.parent.name + "." + base.transform.name + "]";
+			string text = "[" + transform.parent.parent.parent.name + "." + transform.parent.parent.name + "." + transform.parent.name + "." + transform.name + "]";
 			Debug.Log("[KID::UIBUTTON::DEBUG] " + text + " - STEAM - OnLateUpdate triggered and Triggered Frame Reset. Time: [" + Time.time + "]", this);
 		}
 		_triggeredThisFrame = false;
@@ -211,7 +213,7 @@ public class KIDUIHoldableButton : MonoBehaviour, IPointerDownHandler, IEventSys
 
 	protected void OnDisable()
 	{
-		if ((bool)ControllerBehaviour.Instance)
+		if ((bool)controllerBehaviour)
 		{
 			ControllerBehaviour.Instance.OnAction -= PostUpdate;
 		}

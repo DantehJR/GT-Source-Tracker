@@ -64,7 +64,7 @@ public class GadgetNode : TechTreeNodeBase
 		{
 			if (InEditor)
 			{
-				return excludedGameModes != (ESuperGameModes)0;
+				return excludedGameModes != 0;
 			}
 			return true;
 		}
@@ -92,7 +92,7 @@ public class GadgetNode : TechTreeNodeBase
 		excludedGameModes = sourceNode.excludedGameModes;
 		nodeCost = sourceNode.nodeCost.ToArray();
 		costOverride = sourceNode.costOverride;
-		base.name = nickName;
+		name = nickName;
 	}
 
 	public void AssignParentUpgrades(SIUpgradeType[] prerequisites)
@@ -101,7 +101,7 @@ public class GadgetNode : TechTreeNodeBase
 		port.ClearConnections();
 		foreach (SIUpgradeType id in prerequisites)
 		{
-			GadgetNode gadgetNode = graph.nodes.FirstOrDefault(delegate(Node n)
+			GadgetNode gadgetNode = graph.nodes.FirstOrDefault((Node n) =>
 			{
 				GadgetNode obj = n as GadgetNode;
 				return (object)obj != null && obj.upgradeType == id;

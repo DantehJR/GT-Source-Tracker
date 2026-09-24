@@ -85,7 +85,7 @@ public class AOESender : MonoBehaviour
 
 	public void ApplyAOE()
 	{
-		ApplyAOE(base.transform.position);
+		ApplyAOE(transform.position);
 	}
 
 	public void ApplyAOE(Vector3 worldOrigin)
@@ -110,7 +110,7 @@ public class AOESender : MonoBehaviour
 					{
 						origin = worldOrigin,
 						radius = radius,
-						instigator = base.gameObject,
+						instigator = gameObject,
 						baseStrength = strength,
 						finalStrength = finalStrength,
 						distance = num3,

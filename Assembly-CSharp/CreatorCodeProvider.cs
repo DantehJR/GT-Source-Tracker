@@ -8,13 +8,13 @@ public class CreatorCodeProvider : MonoBehaviour, ICreatorCodeProvider, IBuildVa
 
 	string ICreatorCodeProvider.TerminalId => nexusCreatorCode.GroupId.Code + nexusCreatorCode.Code;
 
-	GameObject ICreatorCodeProvider.GameObject => base.gameObject;
+	GameObject ICreatorCodeProvider.GameObject => gameObject;
 
 	bool IBuildValidation.BuildValidationCheck()
 	{
 		if (nexusCreatorCode == null)
 		{
-			Debug.LogError("The CreatorCodeProvider component on " + base.name + " must be assigned a nexusCreatorCode.");
+			Debug.LogError("The CreatorCodeProvider component on " + name + " must be assigned a nexusCreatorCode.");
 			return false;
 		}
 		return true;

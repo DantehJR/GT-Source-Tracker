@@ -162,8 +162,8 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 		clientToClientRPCLimiter = new CallLimiter(25, 1f);
 		authorityToClientRPCLimiter = new CallLimiter(25, 1f);
 		currentProgression = new ProgressionData(itsNullLol: true);
-		GamePlayer obj = gamePlayer;
-		obj.OnPlayerLeftZone = (Action)Delegate.Combine(obj.OnPlayerLeftZone, new Action(ClearGadgetsOnLeaveZone));
+		GamePlayer gamePlayer = this.gamePlayer;
+		gamePlayer.OnPlayerLeftZone = (Action)Delegate.Combine(gamePlayer.OnPlayerLeftZone, new Action(ClearGadgetsOnLeaveZone));
 	}
 
 	private void OnEnable()
@@ -362,7 +362,7 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 			PlayerGameEvents.MiscEvent("SIVibratingSpringCollect");
 			break;
 		}
-		if (activeSuperInfectionManager != null && activeSuperInfectionManager.zoneSuperInfection != null && flag)
+		if ((activeSuperInfectionManager != null && activeSuperInfectionManager.zoneSuperInfection != null) & flag)
 		{
 			SIProgression.Instance.CollectResourceTelemetry(type, count);
 		}
@@ -435,7 +435,7 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 		bool num2 = num > 0 && currentProgression.stashedQuests > newProgression.stashedQuests;
 		bool flag = currentProgression.bonusProgress >= 4 && currentProgression.stashedBonusPoints > newProgression.stashedBonusPoints;
 		bool flag2 = currentProgression.limitedDepositTimeArray[1] == 0 && newProgression.limitedDepositTimeArray[1] == 1;
-		if ((num2 || flag || flag2) && currentProgression.resourceArray[0] < newProgression.resourceArray[0])
+		if ((num2 | flag | flag2) && currentProgression.resourceArray[0] < newProgression.resourceArray[0])
 		{
 			TechPointGrantedCelebrate();
 		}
@@ -546,7 +546,7 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 
 	public SIUpgradeSet GetUpgrades(SITechTreePageId pageId)
 	{
-		SIUpgradeSet result = default(SIUpgradeSet);
+		SIUpgradeSet result = default;
 		bool[] array = CurrentProgression.techTreeData[(int)pageId];
 		for (int i = 0; i < array.Length; i++)
 		{
@@ -625,7 +625,7 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 		{
 			tpParticleSystem.Stop();
 		}
-		else if (!tpParticleSystem.isPlaying && flag)
+		else if (!tpParticleSystem.isPlaying & flag)
 		{
 			tpParticleSystem.Play();
 		}
@@ -675,19 +675,19 @@ public class SIPlayer : MonoBehaviour, ITickSystemTick
 
 	public void NotifyBlasterHit()
 	{
-		this.OnBlasterHit?.Invoke();
+		OnBlasterHit?.Invoke();
 	}
 
 	public void NotifyBlasterSplashHit()
 	{
-		this.OnBlasterSplashHit?.Invoke();
+		OnBlasterSplashHit?.Invoke();
 	}
 
 	public void PlayerKnockback(Vector3 directionAndMagnitude, bool forceOffGround = true, bool applyExclusionZone = true)
 	{
 		if (!applyExclusionZone || exclusionZoneCount <= 0)
 		{
-			this.OnKnockback?.Invoke(directionAndMagnitude);
+			OnKnockback?.Invoke(directionAndMagnitude);
 			GTPlayer.Instance.ApplyClampedKnockback(directionAndMagnitude.normalized, directionAndMagnitude.magnitude, 1.5f, forceOffGround);
 		}
 	}

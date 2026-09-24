@@ -6,6 +6,6 @@ public class CosmeticExclusionSource : MonoBehaviour
 {
 	public bool IsRestricted()
 	{
-		return CosmeticExclusionZoneRegistryUtility.IsPositionRestricted(base.transform.position);
+		return CosmeticExclusionZoneRegistryUtility.IsPositionRestricted(transform.position);
 	}
 }

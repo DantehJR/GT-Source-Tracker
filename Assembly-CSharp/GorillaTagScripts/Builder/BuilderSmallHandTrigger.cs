@@ -36,7 +36,7 @@ public class BuilderSmallHandTrigger : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!base.enabled)
+		if (!enabled)
 		{
 			return;
 		}

@@ -115,22 +115,25 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 
 	public bool GetSurfaceQueryForPoint(Vector3 point, out SurfaceQuery result, bool debugDraw = false)
 	{
-		result = default(SurfaceQuery);
+		result = default;
 		if (!isStationary)
 		{
 			float num = float.MinValue;
 			float num2 = float.MaxValue;
 			for (int i = 0; i < volumeColliders.Count; i++)
 			{
-				float y = volumeColliders[i].bounds.max.y;
-				float y2 = volumeColliders[i].bounds.min.y;
-				if (y > num)
+				if (!(volumeColliders[i] == null))
 				{
-					num = y;
-				}
-				if (y2 < num2)
-				{
-					num2 = y2;
+					float y = volumeColliders[i].bounds.max.y;
+					float y2 = volumeColliders[i].bounds.min.y;
+					if (y > num)
+					{
+						num = y;
+					}
+					if (y2 < num2)
+					{
+						num2 = y2;
+					}
 				}
 			}
 			volumeMaxHeight = num;
@@ -142,18 +145,21 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 		float num4 = float.MaxValue;
 		for (int j = 0; j < volumeColliders.Count; j++)
 		{
-			Bounds bounds = volumeColliders[j].bounds;
-			float num5 = Vector3.Dot(bounds.center, vector);
-			float num6 = Vector3.Dot(bounds.extents, rhs);
-			float num7 = num5 + num6;
-			float num8 = num5 - num6;
-			if (num7 > num3)
+			if (!(volumeColliders[j] == null))
 			{
-				num3 = num7;
-			}
-			if (num8 < num4)
-			{
-				num4 = num8;
+				Bounds bounds = volumeColliders[j].bounds;
+				float num5 = Vector3.Dot(bounds.center, vector);
+				float num6 = Vector3.Dot(bounds.extents, rhs);
+				float num7 = num5 + num6;
+				float num8 = num5 - num6;
+				if (num7 > num3)
+				{
+					num3 = num7;
+				}
+				if (num8 < num4)
+				{
+					num4 = num8;
+				}
 			}
 		}
 		float num9 = Vector3.Dot(point, vector);
@@ -167,6 +173,10 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 		float num13 = 0f;
 		for (int k = 0; k < surfaceColliders.Count; k++)
 		{
+			if (surfaceColliders[k] == null)
+			{
+				continue;
+			}
 			bool flag3 = surfaceColliders[k].enabled;
 			surfaceColliders[k].enabled = true;
 			if (surfaceColliders[k].Raycast(ray, out var hitInfo, num10))
@@ -198,7 +208,7 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 			result.surfacePoint = point - Vector3.Dot(point - surfacePlane.position, surfacePlane.up) * surfacePlane.up;
 			result.surfaceNormal = surfacePlane.up;
 		}
-		if (flag && flag2)
+		if (flag & flag2)
 		{
 			result.maxDepth = Vector3.Dot(result.surfacePoint, vector) - num13;
 		}
@@ -283,7 +293,7 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 		{
 			return Physics.Raycast(new Ray(origin, direction), out hit, distance, layerMask, QueryTriggerInteraction.Collide);
 		}
-		hit = default(RaycastHit);
+		hit = default;
 		return false;
 	}
 
@@ -320,21 +330,24 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 		if (volumeColliders == null || volumeColliders.Count < 1)
 		{
 			volumeColliders = new List<Collider>();
-			volumeColliders.Add(base.gameObject.GetComponent<Collider>());
+			volumeColliders.Add(gameObject.GetComponent<Collider>());
 		}
 		float num = float.MinValue;
 		float num2 = float.MaxValue;
 		for (int i = 0; i < volumeColliders.Count; i++)
 		{
-			float y = volumeColliders[i].bounds.max.y;
-			float y2 = volumeColliders[i].bounds.min.y;
-			if (y > num)
+			if (!(volumeColliders[i] == null))
 			{
-				num = y;
-			}
-			if (y2 < num2)
-			{
-				num2 = y2;
+				float y = volumeColliders[i].bounds.max.y;
+				float y2 = volumeColliders[i].bounds.min.y;
+				if (y > num)
+				{
+					num = y;
+				}
+				if (y2 < num2)
+				{
+					num2 = y2;
+				}
 			}
 		}
 		volumeMaxHeight = num;
@@ -350,7 +363,7 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 				WaterOverlappingCollider value = persistentColliders[i];
 				value.inVolume = false;
 				value.playDripEffect = false;
-				this.ColliderExitedVolume?.Invoke(this, value.collider);
+				ColliderExitedVolume?.Invoke(this, value.collider);
 				persistentColliders[i] = value;
 			}
 			RemoveCollidersOutsideVolume(Time.time);
@@ -387,7 +400,7 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 			{
 				OnWaterSurfaceEnter(ref persistentCollider);
 			}
-			else if (!persistentCollider.inWater && inWater)
+			else if (!persistentCollider.inWater & inWater)
 			{
 				OnWaterSurfaceExit(ref persistentCollider, time);
 			}
@@ -446,16 +459,14 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 			else
 			{
 				persistentCollider.surfaceDetected = false;
-				persistentCollider.lastSurfaceQuery = default(SurfaceQuery);
+				persistentCollider.lastSurfaceQuery = default;
 			}
 		}
 		if (persistentCollider.surfaceDetected)
 		{
-			Vector3 obj = ((persistentCollider.collider is MeshCollider) ? persistentCollider.collider.ClosestPointOnBounds(position + Vector3.down * 10f) : persistentCollider.collider.ClosestPoint(position + Vector3.down * 10f));
-			bool flag2 = obj.y < persistentCollider.lastSurfaceQuery.surfacePoint.y;
-			Vector3 obj2 = ((persistentCollider.collider is MeshCollider) ? persistentCollider.collider.ClosestPointOnBounds(position + Vector3.up * 10f) : persistentCollider.collider.ClosestPoint(position + Vector3.up * 10f));
-			bool flag3 = obj2.y > persistentCollider.lastSurfaceQuery.surfacePoint.y - persistentCollider.lastSurfaceQuery.maxDepth;
-			persistentCollider.inWater = flag2 && flag3;
+			bool flag2 = ((persistentCollider.collider is MeshCollider) ? persistentCollider.collider.ClosestPointOnBounds(position + Vector3.down * 10f) : persistentCollider.collider.ClosestPoint(position + Vector3.down * 10f)).y < persistentCollider.lastSurfaceQuery.surfacePoint.y;
+			bool flag3 = ((persistentCollider.collider is MeshCollider) ? persistentCollider.collider.ClosestPointOnBounds(position + Vector3.up * 10f) : persistentCollider.collider.ClosestPoint(position + Vector3.up * 10f)).y > persistentCollider.lastSurfaceQuery.surfacePoint.y - persistentCollider.lastSurfaceQuery.maxDepth;
+			persistentCollider.inWater = flag2 & flag3;
 		}
 		else
 		{
@@ -488,7 +499,7 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 
 	private void OnWaterSurfaceEnter(ref WaterOverlappingCollider persistentCollider)
 	{
-		this.ColliderEnteredWater?.Invoke(this, persistentCollider.collider);
+		ColliderEnteredWater?.Invoke(this, persistentCollider.collider);
 		GTPlayer instance = GTPlayer.Instance;
 		if (persistentCollider.collider == instance.headCollider || persistentCollider.collider == instance.bodyCollider)
 		{
@@ -500,16 +511,16 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 			bool flag = Vector3.Dot(colliderVelocity, -persistentCollider.lastSurfaceQuery.surfaceNormal) > waterParams.splashSpeedRequirement * persistentCollider.scaleMultiplier;
 			bool flag2 = Vector3.Dot(colliderVelocity, -persistentCollider.lastSurfaceQuery.surfaceNormal) > waterParams.bigSplashSpeedRequirement * persistentCollider.scaleMultiplier;
 			persistentCollider.PlayRippleEffect(waterParams.rippleEffect, persistentCollider.lastSurfaceQuery.surfacePoint, persistentCollider.lastSurfaceQuery.surfaceNormal, waterParams.rippleEffectScale, Time.time, this);
-			if (waterParams.playSplashEffect && flag && (flag2 || !persistentCollider.playBigSplash))
+			if ((waterParams.playSplashEffect & flag) && (flag2 || !persistentCollider.playBigSplash))
 			{
-				persistentCollider.PlaySplashEffect(waterParams.splashEffect, persistentCollider.lastRipplePosition, waterParams.splashEffectScale, persistentCollider.playBigSplash && flag2, enteringWater: true, this);
+				persistentCollider.PlaySplashEffect(waterParams.splashEffect, persistentCollider.lastRipplePosition, waterParams.splashEffectScale, persistentCollider.playBigSplash & flag2, enteringWater: true, this);
 			}
 		}
 	}
 
 	private void OnWaterSurfaceExit(ref WaterOverlappingCollider persistentCollider, float currentTime)
 	{
-		this.ColliderExitedWater?.Invoke(this, persistentCollider.collider);
+		ColliderExitedWater?.Invoke(this, persistentCollider.collider);
 		persistentCollider.nextDripTime = currentTime + waterParams.perDripTimeDelay + UnityEngine.Random.Range((0f - waterParams.perDripTimeRandRange) * 0.5f, waterParams.perDripTimeRandRange * 0.5f);
 		GTPlayer instance = GTPlayer.Instance;
 		if (persistentCollider.collider == instance.headCollider || persistentCollider.collider == instance.bodyCollider)
@@ -522,9 +533,9 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 			bool flag = num > waterParams.splashSpeedRequirement * persistentCollider.scaleMultiplier;
 			bool flag2 = num > waterParams.bigSplashSpeedRequirement * persistentCollider.scaleMultiplier;
 			persistentCollider.PlayRippleEffect(waterParams.rippleEffect, persistentCollider.lastSurfaceQuery.surfacePoint, persistentCollider.lastSurfaceQuery.surfaceNormal, waterParams.rippleEffectScale, Time.time, this);
-			if (waterParams.playSplashEffect && flag && (flag2 || !persistentCollider.playBigSplash))
+			if ((waterParams.playSplashEffect & flag) && (flag2 || !persistentCollider.playBigSplash))
 			{
-				persistentCollider.PlaySplashEffect(waterParams.splashEffect, persistentCollider.lastRipplePosition, waterParams.splashEffectScale, persistentCollider.playBigSplash && flag2, enteringWater: false, this);
+				persistentCollider.PlaySplashEffect(waterParams.splashEffect, persistentCollider.lastRipplePosition, waterParams.splashEffectScale, persistentCollider.playBigSplash & flag2, enteringWater: false, this);
 			}
 		}
 	}
@@ -545,9 +556,9 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 		if ((!persistentCollider.overrideBoundingRadius) ? ((persistentCollider.collider.ClosestPointOnBounds(vector) - vector).sqrMagnitude < 0.001f) : ((persistentCollider.collider.transform.position - vector).sqrMagnitude < persistentCollider.boundingRadiusOverride * persistentCollider.boundingRadiusOverride))
 		{
 			float num = Mathf.Max(waterParams.minDistanceBetweenRipples, waterParams.defaultDistanceBetweenRipples * (persistentCollider.lastRippleScale / waterParams.rippleEffectScale));
-			bool num2 = (persistentCollider.lastRipplePosition - vector).sqrMagnitude > num * num;
-			bool flag = currentTime - persistentCollider.lastRippleTime > waterParams.minTimeBetweenRipples;
-			if (num2 || flag)
+			bool flag = (persistentCollider.lastRipplePosition - vector).sqrMagnitude > num * num;
+			bool flag2 = currentTime - persistentCollider.lastRippleTime > waterParams.minTimeBetweenRipples;
+			if (flag | flag2)
 			{
 				persistentCollider.PlayRippleEffect(waterParams.rippleEffect, persistentCollider.lastSurfaceQuery.surfacePoint, persistentCollider.lastSurfaceQuery.surfaceNormal, waterParams.rippleEffectScale, currentTime, this);
 			}
@@ -622,7 +633,7 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 		{
 			return;
 		}
-		this.ColliderEnteredVolume?.Invoke(this, other);
+		ColliderEnteredVolume?.Invoke(this, other);
 		for (int i = 0; i < persistentColliders.Count; i++)
 		{
 			if (persistentColliders[i].collider == other)
@@ -691,7 +702,7 @@ public class WaterVolume : BaseGuidedRefTargetMono, ITickSystemTick
 		{
 			return;
 		}
-		this.ColliderExitedVolume?.Invoke(this, other);
+		ColliderExitedVolume?.Invoke(this, other);
 		for (int i = 0; i < persistentColliders.Count; i++)
 		{
 			if (persistentColliders[i].collider == other)

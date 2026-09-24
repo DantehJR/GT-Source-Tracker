@@ -415,7 +415,7 @@ public class BuilderKiosk : MonoBehaviour
 
 	public void UpdateDiorama()
 	{
-		if (isMiniKiosk || !base.gameObject.activeInHierarchy)
+		if (isMiniKiosk || !gameObject.activeInHierarchy)
 		{
 			return;
 		}
@@ -630,7 +630,7 @@ public class BuilderKiosk : MonoBehaviour
 
 	public void PurchaseItem()
 	{
-		BuilderSetManager.instance.TryPurchaseItem(itemToBuy.setID, delegate(bool result)
+		BuilderSetManager.instance.TryPurchaseItem(itemToBuy.setID, (bool result) =>
 		{
 			if (result)
 			{

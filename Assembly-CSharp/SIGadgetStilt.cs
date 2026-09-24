@@ -141,15 +141,15 @@ public class SIGadgetStilt : SIGadget
 		hasMotor = motorTransform != null;
 		hasEndB = stiltEndB != null;
 		hasEndC = stiltEndC != null;
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(OnGrabbed));
-		GameEntity obj2 = gameEntity;
-		obj2.OnSnapped = (Action)Delegate.Combine(obj2.OnSnapped, new Action(OnSnapped));
-		GameEntity obj3 = gameEntity;
-		obj3.OnReleased = (Action)Delegate.Combine(obj3.OnReleased, new Action(OnReleased));
-		GameEntity obj4 = gameEntity;
-		obj4.OnUnsnapped = (Action)Delegate.Combine(obj4.OnUnsnapped, new Action(OnUnsnapped));
-		gameEntity.OnStateChanged += OnEntityStateChanged;
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(OnGrabbed));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnSnapped = (Action)Delegate.Combine(gameEntity2.OnSnapped, new Action(OnSnapped));
+		GameEntity gameEntity3 = base.gameEntity;
+		gameEntity3.OnReleased = (Action)Delegate.Combine(gameEntity3.OnReleased, new Action(OnReleased));
+		GameEntity gameEntity4 = base.gameEntity;
+		gameEntity4.OnUnsnapped = (Action)Delegate.Combine(gameEntity4.OnUnsnapped, new Action(OnUnsnapped));
+		base.gameEntity.OnStateChanged += OnEntityStateChanged;
 	}
 
 	private void DisableCurrentStilt()
@@ -427,7 +427,7 @@ public class SIGadgetStilt : SIGadget
 		{
 			return upgrades;
 		}
-		SIUpgradeSet result = default(SIUpgradeSet);
+		SIUpgradeSet result = default;
 		SIUpgradeType[] array = restrictedUpgrades;
 		foreach (SIUpgradeType upgrade in array)
 		{

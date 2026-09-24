@@ -45,7 +45,7 @@ public struct Id128 : IEquatable<Id128>, IComparable<Id128>, IEquatable<Guid>, I
 	public Id128(int a, int b, int c, int d)
 	{
 		guid = Guid.Empty;
-		h128 = default(Hash128);
+		h128 = default;
 		x = (y = 0L);
 		this.a = a;
 		this.b = b;
@@ -57,7 +57,7 @@ public struct Id128 : IEquatable<Id128>, IComparable<Id128>, IEquatable<Guid>, I
 	{
 		a = (b = (c = (d = 0)));
 		guid = Guid.Empty;
-		h128 = default(Hash128);
+		h128 = default;
 		this.x = x;
 		this.y = y;
 	}
@@ -74,7 +74,7 @@ public struct Id128 : IEquatable<Id128>, IComparable<Id128>, IEquatable<Guid>, I
 	{
 		a = (b = (c = (d = 0)));
 		x = (y = 0L);
-		h128 = default(Hash128);
+		h128 = default;
 		this.guid = guid;
 	}
 
@@ -86,7 +86,7 @@ public struct Id128 : IEquatable<Id128>, IComparable<Id128>, IEquatable<Guid>, I
 		}
 		a = (b = (c = (d = 0)));
 		x = (y = 0L);
-		h128 = default(Hash128);
+		h128 = default;
 		this.guid = Guid.Parse(guid);
 	}
 
@@ -102,7 +102,7 @@ public struct Id128 : IEquatable<Id128>, IComparable<Id128>, IEquatable<Guid>, I
 		}
 		a = (b = (c = (d = 0)));
 		x = (y = 0L);
-		h128 = default(Hash128);
+		h128 = default;
 		guid = new Guid(bytes);
 	}
 

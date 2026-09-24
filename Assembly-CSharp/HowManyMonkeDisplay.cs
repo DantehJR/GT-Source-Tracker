@@ -58,7 +58,7 @@ public class HowManyMonkeDisplay : MonoBehaviour, IGorillaSliceableSimple
 		text.text = time.ToString("N0");
 		ParticleSystem.EmissionModule emission = particleSystem.emission;
 		emission.rateOverTime = particleSystemRateToCount.Evaluate(time);
-		float sqrMagnitude = (VRRig.LocalRig.transform.position - base.transform.position).sqrMagnitude;
+		float sqrMagnitude = (VRRig.LocalRig.transform.position - transform.position).sqrMagnitude;
 		if (observable && sqrMagnitude > observableDistance)
 		{
 			observable = false;

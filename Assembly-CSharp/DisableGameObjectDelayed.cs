@@ -15,13 +15,13 @@ public class DisableGameObjectDelayed : MonoBehaviour
 	{
 		if (Time.time > enabledTime + delayTime)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
 	public void EnableAndResetTimer()
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		OnEnable();
 	}
 }

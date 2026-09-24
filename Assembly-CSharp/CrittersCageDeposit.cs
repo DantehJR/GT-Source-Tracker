@@ -65,9 +65,9 @@ public class CrittersCageDeposit : CrittersActorDeposit
 		}
 		if (crittersPawn.IsNotNull())
 		{
-			this.OnDepositCritter?.Invoke(critterData, lastGrabbedPlayer);
+			OnDepositCritter?.Invoke(critterData, lastGrabbedPlayer);
 			Vector3 zero = Vector3.zero;
-			crittersPawn.Released(keepWorldPosition: false, default(Quaternion), zero);
+			crittersPawn.Released(keepWorldPosition: false, default, zero);
 			crittersPawn.gameObject.SetActive(value: false);
 			depositAudio.GTPlayOneShot(depositCritterSound, isLocalDeposit ? 1f : 0.5f);
 		}
@@ -91,8 +91,8 @@ public class CrittersCageDeposit : CrittersActorDeposit
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.green;
-		Gizmos.DrawWireSphere(base.transform.TransformPoint(depositStartLocation), 0.1f);
-		Gizmos.DrawLine(base.transform.TransformPoint(depositStartLocation), base.transform.TransformPoint(depositEndLocation));
-		Gizmos.DrawWireSphere(base.transform.TransformPoint(depositEndLocation), 0.1f);
+		Gizmos.DrawWireSphere(transform.TransformPoint(depositStartLocation), 0.1f);
+		Gizmos.DrawLine(transform.TransformPoint(depositStartLocation), transform.TransformPoint(depositEndLocation));
+		Gizmos.DrawWireSphere(transform.TransformPoint(depositEndLocation), 0.1f);
 	}
 }

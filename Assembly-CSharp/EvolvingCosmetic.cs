@@ -60,7 +60,7 @@ public class EvolvingCosmetic : MonoBehaviour, ICosmeticStateSync
 
 	public int SelectedObjectIndex { get; private set; } = -1;
 
-	public string PlayfabId => base.gameObject.name;
+	public string PlayfabId => gameObject.name;
 
 	private void Awake()
 	{
@@ -106,10 +106,10 @@ public class EvolvingCosmetic : MonoBehaviour, ICosmeticStateSync
 		switch (ageRule)
 		{
 		case SubscriptionAgeRule.ItemAge:
-			_daysAccrued = m_parentRig.CheckCosmeticAge(base.name);
+			_daysAccrued = m_parentRig.CheckCosmeticAge(name);
 			break;
 		case SubscriptionAgeRule.MinItemSubscriptionAge:
-			_daysAccrued = Mathf.Min(subscriptionDetails.daysAccrued, m_parentRig.CheckCosmeticAge(base.name));
+			_daysAccrued = Mathf.Min(subscriptionDetails.daysAccrued, m_parentRig.CheckCosmeticAge(name));
 			break;
 		case SubscriptionAgeRule.SubscriptionAge:
 			_daysAccrued = subscriptionDetails.daysAccrued;
@@ -117,7 +117,7 @@ public class EvolvingCosmetic : MonoBehaviour, ICosmeticStateSync
 		case SubscriptionAgeRule.MinItemSubscriptionAgeActive:
 			if (subscriptionDetails.active)
 			{
-				_daysAccrued = Mathf.Min(subscriptionDetails.daysAccrued, m_parentRig.CheckCosmeticAge(base.name));
+				_daysAccrued = Mathf.Min(subscriptionDetails.daysAccrued, m_parentRig.CheckCosmeticAge(name));
 			}
 			break;
 		case SubscriptionAgeRule.SubscriptionAgeActive:
@@ -272,6 +272,7 @@ public class EvolvingCosmetic : MonoBehaviour, ICosmeticStateSync
 			CosmeticsController.CosmeticCategory.Hat => VRRigReliableState.StateSyncSlots.Hat, 
 			CosmeticsController.CosmeticCategory.Shirt => VRRigReliableState.StateSyncSlots.Shirt, 
 			CosmeticsController.CosmeticCategory.Face => VRRigReliableState.StateSyncSlots.Face, 
+			CosmeticsController.CosmeticCategory.Pants => VRRigReliableState.StateSyncSlots.Pants, 
 			_ => throw new Exception($"Unhandled CosmeticCategory {cosmeticSOFromDisplayName.info.category.Value}"), 
 		};
 	}

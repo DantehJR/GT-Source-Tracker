@@ -20,13 +20,13 @@ public abstract class ProjectileWeapon : TransferrableObject
 	internal override void OnEnable()
 	{
 		base.OnEnable();
-		if (base.myOnlineRig != null)
+		if (myOnlineRig != null)
 		{
-			base.myOnlineRig.projectileWeapon = this;
+			myOnlineRig.projectileWeapon = this;
 		}
-		if (base.myRig != null)
+		if (myRig != null)
 		{
-			base.myRig.projectileWeapon = this;
+			myRig.projectileWeapon = this;
 		}
 	}
 
@@ -35,7 +35,7 @@ public abstract class ProjectileWeapon : TransferrableObject
 		int hash = PoolUtils.GameObjHashCode(projectilePrefab);
 		int trailHash = PoolUtils.GameObjHashCode(projectileTrail);
 		GameObject gameObject = ObjectPools.instance.Instantiate(hash);
-		float num = Mathf.Abs(base.transform.lossyScale.x);
+		float num = Mathf.Abs(transform.lossyScale.x);
 		gameObject.transform.localScale = Vector3.one * num;
 		Vector3 launchPosition = GetLaunchPosition();
 		Vector3 launchVelocity = GetLaunchVelocity();
@@ -45,14 +45,14 @@ public abstract class ProjectileWeapon : TransferrableObject
 		if (NetworkSystem.Instance.InRoom)
 		{
 			int projectileCount = ProjectileTracker.AddAndIncrementLocalProjectile(component, launchVelocity, launchPosition, num);
-			component.Launch(launchPosition, launchVelocity, NetworkSystem.Instance.LocalPlayer, blueTeam, orangeTeam, projectileCount, num, shouldUsePlayerColor, base.myRig.playerColor);
+			component.Launch(launchPosition, launchVelocity, NetworkSystem.Instance.LocalPlayer, blueTeam, orangeTeam, projectileCount, num, shouldUsePlayerColor, myRig.playerColor);
 			_ = currentState;
 			RoomSystem.SendLaunchProjectile(launchPosition, launchVelocity, RoomSystem.ProjectileSource.ProjectileWeapon, projectileCount, randomColour: false, byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
 			PlayLaunchSfx();
 		}
 		else
 		{
-			component.Launch(launchPosition, launchVelocity, NetworkSystem.Instance.LocalPlayer, blueTeam, orangeTeam, 0, num, shouldUsePlayerColor, base.myRig.playerColor);
+			component.Launch(launchPosition, launchVelocity, NetworkSystem.Instance.LocalPlayer, blueTeam, orangeTeam, 0, num, shouldUsePlayerColor, myRig.playerColor);
 			PlayLaunchSfx();
 		}
 		PlayerGameEvents.LaunchedProjectile(projectilePrefab.name);

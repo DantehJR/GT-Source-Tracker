@@ -12,8 +12,8 @@ public class GorillaTriggerColliderHandIndicator : MonoBehaviourTick
 
 	public override void Tick()
 	{
-		currentVelocity = (base.transform.position - lastPosition) / Time.deltaTime;
-		lastPosition = base.transform.position;
+		currentVelocity = (transform.position - lastPosition) / Time.deltaTime;
+		lastPosition = transform.position;
 	}
 
 	private void OnTriggerEnter(Collider other)

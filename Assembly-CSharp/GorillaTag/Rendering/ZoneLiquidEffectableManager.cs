@@ -15,7 +15,7 @@ public class ZoneLiquidEffectableManager : MonoBehaviour
 	{
 		if (hasInstance && instance != this)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 		else
 		{

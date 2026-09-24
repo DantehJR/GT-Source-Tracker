@@ -213,7 +213,14 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 			string text = $"[SlotsReport] {header} | currManager={currGameEntityManager?.zone} localActor={PhotonNetwork.LocalPlayer?.ActorNumber ?? (-1)} | slots: ";
 			for (int i = 0; i < 4; i++)
 			{
-				text = ((!gamePlayer.TryGetSlotEntity(i, out var out_entity)) ? ((!gamePlayer.TryGetSlotData(i, out var out_slotData)) ? (text + $"[{i}: empty] ") : (text + $"[{i}: rawId={out_slotData.entityId.index} mgr={out_slotData.entityManager?.zone} ORPHANED_SLOT_DATA] ")) : ((!(out_entity != null)) ? (text + $"[{i}: STALE entity returned by TryGetSlotEntity!] ") : (text + $"[{i}: id={out_entity.id.index} '{out_entity.name}' type={out_entity.typeId} mgr={out_entity.manager?.zone}] ")));
+				if (gamePlayer.TryGetSlotEntity(i, out var out_entity))
+				{
+					text = ((!(out_entity != null)) ? (text + $"[{i}: STALE entity returned by TryGetSlotEntity!] ") : (text + $"[{i}: id={out_entity.id.index} '{out_entity.name}' type={out_entity.typeId} mgr={out_entity.manager?.zone}] "));
+				}
+				else
+				{
+					text = ((!gamePlayer.TryGetSlotData(i, out var out_slotData)) ? (text + $"[{i}: empty] ") : (text + $"[{i}: rawId={out_slotData.entityId.index} mgr={out_slotData.entityManager?.zone} ORPHANED_SLOT_DATA] "));
+				}
 			}
 		}
 		catch (Exception)
@@ -379,8 +386,7 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 				Vector3 vector = Vector3.Lerp(position, GetFingerTransform(handIndex).position, 0.5f);
 				Vector3 closestPointOnBoundingBox = position;
 				Quaternion rotation = handTransform.rotation;
-				bool fingerPositionUsed;
-				GameEntityId gameEntityId = gameEntityManager.TryGrabLocal(position, vector, flag2, out closestPointOnBoundingBox, out fingerPositionUsed);
+				GameEntityId gameEntityId = gameEntityManager.TryGrabLocal(position, vector, flag2, out closestPointOnBoundingBox, out var fingerPositionUsed);
 				if (flag4)
 				{
 					if (gameEntityId.IsValid())
@@ -566,7 +572,7 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 		InputData inputData = this.inputData[handIndex];
 		Vector3 vector = inputData.GetMaxSpeed(0f, 0.05f) * inputData.GetAvgVel(0f, 0.05f).normalized;
 		vector = rotation * vector;
-		return vector * base.transform.localScale.x;
+		return vector * transform.localScale.x;
 	}
 
 	public Vector3 GetHandAngularVelocity(int handIndex)
@@ -738,8 +744,7 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 			SlotRecoveryData slotRecoveryData = slotsRecoveryData[i];
 			int entityTypeId = slotRecoveryData.entityTypeId;
 			bool flag = entityTypeId != -1 && newEntityManager.FactoryPrefabById(entityTypeId) != null;
-			GamePlayer.SlotData out_slotData;
-			bool flag2 = gamePlayer.TryGetSlotData(i, out out_slotData);
+			bool flag2 = gamePlayer.TryGetSlotData(i, out var out_slotData);
 			if (!flag && !flag2)
 			{
 				continue;
@@ -749,7 +754,7 @@ public class GamePlayerLocal : MonoBehaviour, IDelayedExecListener
 			bool flag4 = gameEntity != null;
 			int num = (flag4 ? gameEntity.typeId : (-1));
 			bool flag5 = entityTypeId == num;
-			if (flag3 && flag4 && flag5)
+			if (flag3 & flag4 & flag5)
 			{
 				continue;
 			}

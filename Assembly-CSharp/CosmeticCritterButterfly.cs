@@ -32,6 +32,6 @@ public class CosmeticCritterButterfly : CosmeticCritter
 
 	public override void Tick()
 	{
-		base.transform.position = startPosition + (float)GetAliveTime() * speed * direction;
+		transform.position = startPosition + (float)GetAliveTime() * speed * direction;
 	}
 }

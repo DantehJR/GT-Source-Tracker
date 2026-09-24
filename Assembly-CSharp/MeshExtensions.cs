@@ -124,9 +124,9 @@ public static class MeshExtensions
 		{
 			int num = i * 3;
 			float3 float5 = V[T[num]];
-			float3 obj = V[T[num + 1]];
-			float3 float6 = math.cross(y: V[T[num + 2]] - float5, x: obj - float5);
-			Out[i] = ((AreaWeight == 0) ? math.normalize(float6) : float6);
+			float3 float6 = V[T[num + 1]];
+			float3 float7 = math.cross(y: V[T[num + 2]] - float5, x: float6 - float5);
+			Out[i] = ((AreaWeight == 0) ? math.normalize(float7) : float7);
 		}
 	}
 

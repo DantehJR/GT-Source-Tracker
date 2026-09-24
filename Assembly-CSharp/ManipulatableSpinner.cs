@@ -65,11 +65,11 @@ public class ManipulatableSpinner : ManipulatableObject
 		{
 			if (num2 > 0.5f)
 			{
-				num2 -= 1f;
+				num2--;
 			}
 			else if (num2 < -0.5f)
 			{
-				num2 += 1f;
+				num2++;
 			}
 		}
 		angle += num2;
@@ -102,7 +102,7 @@ public class ManipulatableSpinner : ManipulatableObject
 		int num = 200;
 		float num2 = 0.001f;
 		float num3 = 1f / (float)num;
-		float3 y = base.transform.InverseTransformPoint(grabPoint);
+		float3 y = transform.InverseTransformPoint(grabPoint);
 		float result = 0f;
 		float num4 = float.PositiveInfinity;
 		for (; i < num; i++)

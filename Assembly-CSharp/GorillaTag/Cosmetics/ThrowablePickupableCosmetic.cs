@@ -49,8 +49,18 @@ public class ThrowablePickupableCosmetic : TransferrableObject
 		base.OnEnable();
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			owner = ((transferrableObject.myOnlineRig != null) ? transferrableObject.myOnlineRig.creator : ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			ref NetPlayer reference = ref owner;
+			NetPlayer netPlayer;
+			if (transferrableObject.myOnlineRig != null)
+			{
+				netPlayer = transferrableObject.myOnlineRig.creator;
+			}
+			else
+			{
+				netPlayer = ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null);
+			}
+			reference = netPlayer;
 			if (owner != null)
 			{
 				_events.Init(owner);
@@ -94,8 +104,8 @@ public class ThrowablePickupableCosmetic : TransferrableObject
 			{
 				_events.Activate.RaiseOthers(false);
 			}
-			base.transform.position = pickupableVariant.transform.position;
-			base.transform.rotation = pickupableVariant.transform.rotation;
+			transform.position = pickupableVariant.transform.position;
+			transform.rotation = pickupableVariant.transform.rotation;
 			pickupableVariant.Pickup();
 			if (grabbingHand == EquipmentInteractor.instance.leftHand && currentState == PositionState.OnLeftArm)
 			{
@@ -124,7 +134,7 @@ public class ThrowablePickupableCosmetic : TransferrableObject
 		{
 			return false;
 		}
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		bool isLeftHand = releasingHand == EquipmentInteractor.instance.leftHand;
 		Vector3 averageVelocity = GTPlayer.Instance.GetInteractPointVelocityTracker(isLeftHand).GetAverageVelocity(worldSpace: true);
 		float scale = GTPlayer.Instance.scale;
@@ -174,8 +184,8 @@ public class ThrowablePickupableCosmetic : TransferrableObject
 		{
 			if (args[1] is Vector3 newVal && args[2] is Vector3 inVel && args[3] is float value)
 			{
-				Vector3 v = base.transform.position;
-				_ = base.transform.forward;
+				Vector3 v = transform.position;
+				_ = transform.forward;
 				v.SetValueSafe(in newVal);
 				if (ownerRig.IsPositionInRange(v, 20f))
 				{
@@ -213,23 +223,23 @@ public class ThrowablePickupableCosmetic : TransferrableObject
 		float result = 0f;
 		if (currentState == PositionState.OnRightShoulder)
 		{
-			result = Vector3.Distance(ownerRig.myBodyDockPositions.rightBackTransform.position, base.transform.position);
+			result = Vector3.Distance(ownerRig.myBodyDockPositions.rightBackTransform.position, transform.position);
 		}
 		else if (currentState == PositionState.OnLeftShoulder)
 		{
-			result = Vector3.Distance(ownerRig.myBodyDockPositions.leftBackTransform.position, base.transform.position);
+			result = Vector3.Distance(ownerRig.myBodyDockPositions.leftBackTransform.position, transform.position);
 		}
 		else if (currentState == PositionState.OnRightArm)
 		{
-			result = Vector3.Distance(ownerRig.myBodyDockPositions.rightArmTransform.position, base.transform.position);
+			result = Vector3.Distance(ownerRig.myBodyDockPositions.rightArmTransform.position, transform.position);
 		}
 		else if (currentState == PositionState.OnLeftArm)
 		{
-			result = Vector3.Distance(ownerRig.myBodyDockPositions.leftArmTransform.position, base.transform.position);
+			result = Vector3.Distance(ownerRig.myBodyDockPositions.leftArmTransform.position, transform.position);
 		}
 		else if (currentState == PositionState.OnChest)
 		{
-			result = Vector3.Distance(ownerRig.myBodyDockPositions.chestTransform.position, base.transform.position);
+			result = Vector3.Distance(ownerRig.myBodyDockPositions.chestTransform.position, transform.position);
 		}
 		return result;
 	}

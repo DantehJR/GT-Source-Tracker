@@ -41,7 +41,7 @@ public class LCKSocialCameraFollower : MonoBehaviour, ITickSystemTick
 		m_gtCameraVisuals = _cameraVisualsRoot.GetComponent<IGtCameraVisuals>();
 		if (m_rigContainer.Rig.isOfflineVRRig)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		m_rigContainer.RigEvents.disableEvent.Add(new Action<RigContainer>(PreRigDisable));
@@ -52,34 +52,34 @@ public class LCKSocialCameraFollower : MonoBehaviour, ITickSystemTick
 	{
 		if (!isParentedToRig)
 		{
-			base.transform.parent = null;
+			transform.parent = null;
 		}
 	}
 
 	public void SetParentToRig()
 	{
 		isParentedToRig = true;
-		base.transform.parent = m_rigContainer.transform;
-		base.transform.localPosition = new Vector3(0f, -0.2f, 0.132f);
-		base.transform.localRotation = Quaternion.identity;
+		transform.parent = m_rigContainer.transform;
+		transform.localPosition = new Vector3(0f, -0.2f, 0.132f);
+		transform.localRotation = Quaternion.identity;
 	}
 
 	public void SetParentNull()
 	{
 		isParentedToRig = false;
-		base.transform.parent = null;
+		transform.parent = null;
 	}
 
 	private void PostRigEnable(RigContainer _)
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		m_gtCameraVisuals.SetNetworkedVisualsActive(active: false);
 		m_gtCameraVisuals.SetRecordingState(isRecording: false);
 	}
 
 	private void PreRigDisable(RigContainer _)
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	public void SetNetworkController(LckSocialCamera networkController)
@@ -107,8 +107,8 @@ public class LCKSocialCameraFollower : MonoBehaviour, ITickSystemTick
 	{
 		if (!isParentedToRig && !(m_transformToFollow == null))
 		{
-			base.transform.position = m_transformToFollow.position;
-			base.transform.root.rotation = m_transformToFollow.rotation;
+			transform.position = m_transformToFollow.position;
+			transform.root.rotation = m_transformToFollow.rotation;
 		}
 	}
 }

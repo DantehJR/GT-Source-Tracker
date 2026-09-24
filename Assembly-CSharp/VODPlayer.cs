@@ -46,7 +46,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 				int num = 0;
 				while (subSchedule.hourly[i].repeats != null && num < subSchedule.hourly[i].repeats.Length)
 				{
-					VODHourlyStream item = default(VODHourlyStream);
+					VODHourlyStream item = default;
 					item.stream = subSchedule.hourly[i].stream;
 					item.minute = subSchedule.hourly[i].repeats[num];
 					item.startDateTime = subSchedule.hourly[i].startDateTime;
@@ -319,7 +319,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		}
 		o.Renderer.material = getStandby(o);
 		o.SetNext(GetNextStream(o.Channel));
-		if ((!player.isPlaying && targets.Count == 1) || flag)
+		if ((!player.isPlaying && targets.Count == 1) | flag)
 		{
 			PlayPreviouStream();
 		}
@@ -338,11 +338,11 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		o.ClearNext();
 		if (!playerBusy)
 		{
-			if (player.isPlaying && (targets.Count == 0 || flag))
+			if (player.isPlaying && ((targets.Count == 0) | flag))
 			{
 				player.Stop();
 			}
-			if (targets.Count > 0 && flag)
+			if ((targets.Count > 0) & flag)
 			{
 				PlayPreviouStream();
 			}
@@ -606,10 +606,10 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 				StartVideoPlayback(filePath2, str.id, str.ch, time, filePath2);
 				break;
 			}
-			MothershipClientApiUnity.GetDLCFileDetails(str.id, delegate(SharedDownloadableFileResult result)
+			MothershipClientApiUnity.GetDLCFileDetails(str.id, (SharedDownloadableFileResult result) =>
 			{
 				StartVideoPlayback(result.url, str.id, str.ch, time, null);
-			}, delegate(MothershipError error, int status)
+			}, (MothershipError error, int status) =>
 			{
 				Debug.Log("VOD: FILE FETCH FAILED Mothership Error: " + error.MothershipErrorCode + " Trace ID: " + error.TraceId + " Message: " + error.Message);
 				if (!str.url.IsNullOrEmpty())
@@ -631,10 +631,10 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 				StartImagePlayback(filePath, str.id, str.duration, str.ch, time, filePath);
 				break;
 			}
-			MothershipClientApiUnity.GetDLCFileDetails(str.id, delegate(SharedDownloadableFileResult result)
+			MothershipClientApiUnity.GetDLCFileDetails(str.id, (SharedDownloadableFileResult result) =>
 			{
 				StartImagePlayback(result.url, str.id, str.duration, str.ch, time, null);
-			}, delegate(MothershipError error, int status)
+			}, (MothershipError error, int status) =>
 			{
 				Debug.Log("VOD: FILE FETCH FAILED Mothership Error: " + error.MothershipErrorCode + " Trace ID: " + error.TraceId + " Message: " + error.Message);
 				if (!str.url.IsNullOrEmpty())
@@ -785,7 +785,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 			Debug.LogError("Crash(\"No schedule data\")");
 			return;
 		}
-		VODStreamSchedule subSchedule = default(VODStreamSchedule);
+		VODStreamSchedule subSchedule = default;
 		try
 		{
 			subSchedule = JsonConvert.DeserializeObject<VODStreamSchedule>(s);

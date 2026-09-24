@@ -62,7 +62,7 @@ public class FixedSizeTrail : MonoBehaviour
 
 	public void Setup()
 	{
-		_transform = base.transform;
+		_transform = transform;
 		if (_lineRenderer == null)
 		{
 			_lineRenderer = GetComponent<LineRenderer>();

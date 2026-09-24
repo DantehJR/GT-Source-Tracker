@@ -17,7 +17,7 @@ public class AttachPoint : MonoBehaviour
 
 	private void Start()
 	{
-		base.transform.parent.parent = null;
+		transform.parent.parent = null;
 	}
 
 	private void OnTriggerEnter(Collider other)

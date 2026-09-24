@@ -191,7 +191,7 @@ public class RCHoverboard : RCVehicle
 		base.AuthorityBeginDocked();
 		_currentTurnRate = 0f;
 		_currentTiltAngle = 0f;
-		float3 to = _ProjectOnPlane(base.transform.forward, math.up());
+		float3 to = _ProjectOnPlane(transform.forward, math.up());
 		_currentTurnAngle = _SignedAngle(new float3(0f, 0f, 1f), to, new float3(0f, 1f, 0f));
 		_motorLevel = 0f;
 		if (_hasAudioSource)
@@ -201,7 +201,7 @@ public class RCHoverboard : RCVehicle
 		}
 		if (connectedRemote == null)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -269,16 +269,15 @@ public class RCHoverboard : RCVehicle
 
 	protected void FixedUpdate()
 	{
-		if (base.HasLocalAuthority && localState == State.Mobilized)
+		if (HasLocalAuthority && localState == State.Mobilized)
 		{
 			float fixedDeltaTime = Time.fixedDeltaTime;
 			float num = m_inputThrustForward.Get(activeInput) - m_inputThrustBack.Get(activeInput);
 			float num2 = m_inputTurn.Get(activeInput);
 			float num3 = m_inputJump.Get(activeInput);
-			RaycastHit hitInfo;
-			bool flag = Physics.Raycast(base.transform.position, Vector3.down, out hitInfo, 10f, raycastLayers, QueryTriggerInteraction.Collide);
+			bool flag = Physics.Raycast(transform.position, Vector3.down, out var hitInfo, 10f, raycastLayers, QueryTriggerInteraction.Collide);
 			bool flag2 = flag && hitInfo.distance <= m_hoverHeight + 0.1f;
-			if (enableJumpInput && num3 > 0.001f && flag2 && !_hasJumped)
+			if (((enableJumpInput && num3 > 0.001f) & flag2) && !_hasJumped)
 			{
 				rb.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
 				_hasJumped = true;
@@ -292,8 +291,8 @@ public class RCHoverboard : RCVehicle
 			_currentTurnAngle += _currentTurnRate * fixedDeltaTime;
 			float target2 = math.lerp(0f - m_maxTiltAngle, m_maxTiltAngle, math.unlerp(-1f, 1f, num));
 			_currentTiltAngle = _MoveTowards(_currentTiltAngle, target2, _tiltAccel * fixedDeltaTime);
-			base.transform.rotation = quaternion.EulerXYZ(math.radians(new float3(_currentTiltAngle, _currentTurnAngle, 0f)));
-			float3 float5 = base.transform.forward;
+			transform.rotation = quaternion.EulerXYZ(math.radians(new float3(_currentTiltAngle, _currentTurnAngle, 0f)));
+			float3 float5 = transform.forward;
 			float num4 = math.dot(float5, rb.linearVelocity);
 			float num5 = num * m_maxForwardSpeed;
 			float num6 = ((math.abs(num5) > 0.001f && ((num5 > 0f && num4 < num5) || (num5 < 0f && num4 > num5))) ? math.sign(num5) : 0f);
@@ -313,7 +312,7 @@ public class RCHoverboard : RCVehicle
 		GameObject gameObject = collision.collider.gameObject;
 		bool flag = gameObject.IsOnLayer(UnityLayer.GorillaThrowable);
 		bool flag2 = gameObject.IsOnLayer(UnityLayer.GorillaHand);
-		if (!(flag || flag2) || localState != State.Mobilized)
+		if (!(flag | flag2) || localState != State.Mobilized)
 		{
 			return;
 		}
@@ -330,7 +329,7 @@ public class RCHoverboard : RCVehicle
 		{
 			vector = collision.rigidbody.linearVelocity;
 		}
-		if ((flag || vector.sqrMagnitude > 0.01f) && base.HasLocalAuthority)
+		if ((flag || vector.sqrMagnitude > 0.01f) && HasLocalAuthority)
 		{
 			AuthorityApplyImpact(vector, flag);
 			if (networkSync != null)

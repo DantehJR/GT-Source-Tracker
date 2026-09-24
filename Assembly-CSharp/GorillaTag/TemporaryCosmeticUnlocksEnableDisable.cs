@@ -19,11 +19,11 @@ public class TemporaryCosmeticUnlocksEnableDisable : MonoBehaviour
 		if (m_wardrobe.IsNull() || m_cosmeticAreaTrigger.IsNull())
 		{
 			Debug.LogError("TemporaryCosmeticUnlocksEnableDisable: reference is null, disabling self");
-			base.enabled = false;
+			enabled = false;
 		}
 		if (CosmeticsController.instance.IsNull() || !m_wardrobe.WardrobeButtonsInitialized())
 		{
-			base.enabled = false;
+			enabled = false;
 			m_timer = new TickSystemTimer(0.05f, CheckWardrobeRady);
 			m_timer.Start();
 		}
@@ -42,7 +42,7 @@ public class TemporaryCosmeticUnlocksEnableDisable : MonoBehaviour
 		{
 			m_timer.Stop();
 			m_timer = null;
-			base.enabled = true;
+			enabled = true;
 		}
 		else
 		{

@@ -16,8 +16,8 @@ public class GorillaUITransformFollow : MonoBehaviour
 	{
 		if (doesMove)
 		{
-			base.transform.rotation = transformToFollow.rotation;
-			base.transform.position = transformToFollow.position + transformToFollow.rotation * offset;
+			transform.rotation = transformToFollow.rotation;
+			transform.position = transformToFollow.position + transformToFollow.rotation * offset;
 		}
 	}
 }

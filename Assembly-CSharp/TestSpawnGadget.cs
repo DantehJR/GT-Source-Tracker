@@ -22,7 +22,7 @@ public class TestSpawnGadget : MonoBehaviour
 
 	public void Spawn(GameEntityManager gameEntityManager)
 	{
-		SIUpgradeSet upgrades = default(SIUpgradeSet);
+		SIUpgradeSet upgrades = default;
 		foreach (SpawnTypeWithUpgrades testSpawn in testSpawnList)
 		{
 			if (!(testSpawn.prefab == null))
@@ -54,7 +54,7 @@ public class TestSpawnGadget : MonoBehaviour
 	{
 		for (int i = 0; i < spawnBatchSize; i++)
 		{
-			gameEntityManager.RequestCreateItem(entityToSpawn.gameObject.name.GetStaticHash(), base.transform.position + UnityEngine.Random.insideUnitSphere, base.transform.rotation, (long)upgrades.GetBits() << 32);
+			gameEntityManager.RequestCreateItem(entityToSpawn.gameObject.name.GetStaticHash(), transform.position + UnityEngine.Random.insideUnitSphere, transform.rotation, (long)upgrades.GetBits() << 32);
 		}
 	}
 }

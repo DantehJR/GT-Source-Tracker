@@ -22,12 +22,12 @@ public class UIMatchRotation : MonoBehaviour
 	private void Start()
 	{
 		referenceTransform = Camera.main.transform;
-		base.transform.forward = x0z(referenceTransform.forward);
+		transform.forward = x0z(referenceTransform.forward);
 	}
 
 	private void Update()
 	{
-		Vector3 lhs = x0z(base.transform.forward);
+		Vector3 lhs = x0z(transform.forward);
 		Vector3 vector = x0z(referenceTransform.forward);
 		float num = Vector3.Dot(lhs, vector);
 		switch (state)
@@ -39,8 +39,8 @@ public class UIMatchRotation : MonoBehaviour
 			}
 			break;
 		case State.Rotating:
-			base.transform.forward = Vector3.Lerp(base.transform.forward, vector, Time.deltaTime * lerpSpeed);
-			if (Vector3.Dot(base.transform.forward, vector) > 0.995f)
+			transform.forward = Vector3.Lerp(transform.forward, vector, Time.deltaTime * lerpSpeed);
+			if (Vector3.Dot(transform.forward, vector) > 0.995f)
 			{
 				state = State.Ready;
 			}

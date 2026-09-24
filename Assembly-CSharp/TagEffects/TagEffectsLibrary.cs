@@ -50,7 +50,7 @@ public class TagEffectsLibrary : MonoBehaviour
 	{
 		if (_instance != null)
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 			return;
 		}
 		_instance = this;

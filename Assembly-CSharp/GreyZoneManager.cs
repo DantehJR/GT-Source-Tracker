@@ -134,7 +134,7 @@ public class GreyZoneManager : MonoBehaviourPun, IPunObservable, IInRoomCallback
 		{
 			if (PhotonNetwork.InRoom)
 			{
-				return base.photonView.IsMine;
+				return photonView.IsMine;
 			}
 			return true;
 		}
@@ -474,7 +474,15 @@ public class GreyZoneManager : MonoBehaviourPun, IPunObservable, IInRoomCallback
 		if (greyZoneActive)
 		{
 			summoningProgress = 1f;
-			double num = ((photonConnectedDuringActivation && PhotonNetwork.InRoom) ? PhotonNetwork.Time : ((photonConnectedDuringActivation || PhotonNetwork.InRoom) ? (-100.0) : ((double)Time.time)));
+			double num;
+			if (photonConnectedDuringActivation && PhotonNetwork.InRoom)
+			{
+				num = PhotonNetwork.Time;
+			}
+			else
+			{
+				num = ((photonConnectedDuringActivation || PhotonNetwork.InRoom) ? (-100.0) : ((double)Time.time));
+			}
 			if (num > greyZoneActivationTime + (double)greyZoneActiveDuration || num < greyZoneActivationTime - 10.0)
 			{
 				DeactivateGreyZoneAuthority();
@@ -505,7 +513,7 @@ public class GreyZoneManager : MonoBehaviourPun, IPunObservable, IInRoomCallback
 				Vector3 lhs2 = item2.SummoningFocusPoint - item.rightHand.rigTarget.position;
 				Vector3 right = item.rightHand.rigTarget.right;
 				bool flag2 = Vector3.Dot(lhs2, right) > 0f;
-				current2 = ((!(flag && flag2)) ? Mathf.MoveTowards(current2, 0f, num4 * deltaTime) : Mathf.MoveTowards(current2, 1f, num4 * deltaTime));
+				current2 = ((!(flag & flag2)) ? Mathf.MoveTowards(current2, 0f, num4 * deltaTime) : Mathf.MoveTowards(current2, 1f, num4 * deltaTime));
 				num3 += current2;
 				summoningPlayerProgress[summoningPlayer.Key] = current2;
 			}
@@ -580,7 +588,7 @@ public class GreyZoneManager : MonoBehaviourPun, IPunObservable, IInRoomCallback
 					greyZoneActive = false;
 				}
 			}
-			else if (!greyZoneActive && flag)
+			else if (!greyZoneActive & flag)
 			{
 				DeactivateGreyZoneLocal();
 			}

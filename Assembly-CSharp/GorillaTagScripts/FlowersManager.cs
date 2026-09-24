@@ -94,10 +94,10 @@ public class FlowersManager : NetworkComponent
 
 	private new void Start()
 	{
-		NetworkSystem.Instance.RegisterSceneNetworkItem(base.gameObject);
+		NetworkSystem.Instance.RegisterSceneNetworkItem(gameObject);
 		ZoneManagement instance = ZoneManagement.instance;
 		instance.onZoneChanged = (Action)Delegate.Combine(instance.onZoneChanged, new Action(HandleOnZoneChanged));
-		if (!base.IsMine)
+		if (!IsMine)
 		{
 			return;
 		}
@@ -133,7 +133,7 @@ public class FlowersManager : NetworkComponent
 
 	private void WaterFlowers(Collider collider)
 	{
-		if (!base.IsMine)
+		if (!IsMine)
 		{
 			return;
 		}
@@ -215,7 +215,7 @@ public class FlowersManager : NetworkComponent
 
 	public override void WriteDataFusion()
 	{
-		if (base.HasStateAuthority)
+		if (HasStateAuthority)
 		{
 			Data = new FlowersDataStruct(allFlowers);
 		}

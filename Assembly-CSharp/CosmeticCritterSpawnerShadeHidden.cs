@@ -14,6 +14,6 @@ public class CosmeticCritterSpawnerShadeHidden : CosmeticCritterSpawnerTimed
 	{
 		float y = Random.Range(orbitHeightOffsetMinMax.x, orbitHeightOffsetMinMax.y);
 		float radius = Random.Range(orbitRadiusMinMax.x, orbitRadiusMinMax.y);
-		(critter as CosmeticCritterShadeHidden).SetCenterAndRadius(base.transform.position + new Vector3(0f, y, 0f), radius);
+		(critter as CosmeticCritterShadeHidden).SetCenterAndRadius(transform.position + new Vector3(0f, y, 0f), radius);
 	}
 }

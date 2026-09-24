@@ -49,49 +49,49 @@ public class BspTestPlayer : MonoBehaviour
 		Vector3 zero = Vector3.zero;
 		if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
 		{
-			zero.x -= 1f;
+			zero.x--;
 		}
 		if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
 		{
-			zero.x += 1f;
+			zero.x++;
 		}
 		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
 		{
 			if (use3DMovement)
 			{
-				zero.z += 1f;
+				zero.z++;
 			}
 			else
 			{
-				zero.y += 1f;
+				zero.y++;
 			}
 		}
 		if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
 		{
 			if (use3DMovement)
 			{
-				zero.z -= 1f;
+				zero.z--;
 			}
 			else
 			{
-				zero.y -= 1f;
+				zero.y--;
 			}
 		}
 		if (use3DMovement)
 		{
 			if (Input.GetKey(KeyCode.Q))
 			{
-				zero.y += 1f;
+				zero.y++;
 			}
 			if (Input.GetKey(KeyCode.E))
 			{
-				zero.y -= 1f;
+				zero.y--;
 			}
 		}
 		if (zero != Vector3.zero)
 		{
 			zero = zero.normalized * moveSpeed * Time.deltaTime;
-			base.transform.position += zero;
+			transform.position += zero;
 		}
 	}
 
@@ -101,7 +101,7 @@ public class BspTestPlayer : MonoBehaviour
 		{
 			return;
 		}
-		ZoneDef zoneDef = bspSystem.FindZoneAtPoint(base.transform.position);
+		ZoneDef zoneDef = bspSystem.FindZoneAtPoint(transform.position);
 		if (zoneDef != currentZone)
 		{
 			currentZone = zoneDef;
@@ -125,7 +125,7 @@ public class BspTestPlayer : MonoBehaviour
 		}
 		if (positionDisplayText != null)
 		{
-			Vector3 position = base.transform.position;
+			Vector3 position = transform.position;
 			positionDisplayText.text = $"Position: ({position.x:F1}, {position.y:F1}, {position.z:F1})";
 		}
 	}
@@ -155,11 +155,11 @@ public class BspTestPlayer : MonoBehaviour
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = ((currentZone != null) ? Color.green : Color.red);
-		Gizmos.DrawWireSphere(base.transform.position, 0.5f);
+		Gizmos.DrawWireSphere(transform.position, 0.5f);
 		if (currentZone != null)
 		{
 			Gizmos.color = Color.cyan;
-			Gizmos.DrawWireCube(base.transform.position + Vector3.up * 2f, Vector3.one * 0.3f);
+			Gizmos.DrawWireCube(transform.position + Vector3.up * 2f, Vector3.one * 0.3f);
 		}
 		if (bspSystem != null && bspSystem.HasCompiledTree())
 		{
@@ -184,7 +184,7 @@ public class BspTestPlayer : MonoBehaviour
 				bounds.Encapsulate(boxCollider.bounds);
 			}
 			bounds.Expand(2f);
-			DrawPlayerPath(bSPTree, base.transform.position, bSPTree.rootIndex, bounds, 0);
+			DrawPlayerPath(bSPTree, transform.position, bSPTree.rootIndex, bounds, 0);
 		}
 	}
 

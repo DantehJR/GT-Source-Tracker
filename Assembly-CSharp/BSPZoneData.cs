@@ -12,5 +12,5 @@ public class BSPZoneData : MonoBehaviour
 
 	public int Priority => priority;
 
-	public string ZoneName => base.gameObject.name;
+	public string ZoneName => gameObject.name;
 }

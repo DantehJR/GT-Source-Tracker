@@ -66,7 +66,7 @@ public class RCRemoteHoldable : TransferrableObject, ISnapTurnOverride
 
 	public bool TurnOverrideActive()
 	{
-		if (base.gameObject.activeSelf && currentlyHeld)
+		if (gameObject.activeSelf && currentlyHeld)
 		{
 			return xrNode == XRNode.RightHand;
 		}
@@ -90,13 +90,25 @@ public class RCRemoteHoldable : TransferrableObject, ISnapTurnOverride
 		base.OnEnable();
 		if (!_TryFindRemoteVehicle())
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
-		if (_events.IsNotNull() || base.gameObject.TryGetComponent<RubberDuckEvents>(out _events))
+		if (_events.IsNotNull() || gameObject.TryGetComponent<RubberDuckEvents>(out _events))
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((base.myOnlineRig != null) ? base.myOnlineRig.creator : ((!(base.myRig != null)) ? null : ((base.myRig.creator != null) ? base.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (myOnlineRig != null)
+			{
+				netPlayer = myOnlineRig.creator;
+			}
+			else if (myRig != null)
+			{
+				netPlayer = ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);
@@ -184,7 +196,7 @@ public class RCRemoteHoldable : TransferrableObject, ISnapTurnOverride
 			return false;
 		}
 		currentlyHeld = false;
-		currentInput = default(RCInput);
+		currentInput = default;
 		if (targetVehicle != null)
 		{
 			targetVehicle.EndConnection();
@@ -243,12 +255,12 @@ public class RCRemoteHoldable : TransferrableObject, ISnapTurnOverride
 			Debug.LogError("RCRemoteHoldable: unable to find parent vrrig");
 			return false;
 		}
-		CosmeticItemInstance cosmeticItemInstance = componentInParent.cosmeticsObjectRegistry.Cosmetic(base.name);
+		CosmeticItemInstance cosmeticItemInstance = componentInParent.cosmeticsObjectRegistry.Cosmetic(name);
 		if (cosmeticItemInstance == null)
 		{
 			return false;
 		}
-		int instanceID = base.gameObject.GetInstanceID();
+		int instanceID = gameObject.GetInstanceID();
 		if (_TryFindRemoteVehicle_InCosmeticInstanceArray(instanceID, cosmeticItemInstance.objects))
 		{
 			return true;

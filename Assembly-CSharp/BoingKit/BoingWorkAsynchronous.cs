@@ -170,7 +170,7 @@ public static class BoingWorkAsynchronous
 		if (num > 0)
 		{
 			int num2 = 0;
-			BoingEffector.Params value2 = default(BoingEffector.Params);
+			BoingEffector.Params value2 = default;
 			foreach (KeyValuePair<int, BoingEffector> item2 in effectorMap)
 			{
 				_ = item2.Value;

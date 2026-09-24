@@ -102,7 +102,7 @@ public class Crossbow : ProjectileWeapon
 
 	protected override Vector3 GetLaunchVelocity()
 	{
-		return launchPosition.forward * launchSpeed * base.myRig.scaleFactor;
+		return launchPosition.forward * launchSpeed * myRig.scaleFactor;
 	}
 
 	protected override void LateUpdateLocal()
@@ -113,7 +113,7 @@ public class Crossbow : ProjectileWeapon
 			wasPressingTrigger = false;
 			return;
 		}
-		if ((InLeftHand() ? base.myRig.leftIndex.calcT : base.myRig.rightIndex.calcT) > 0.5f)
+		if ((InLeftHand() ? myRig.leftIndex.calcT : myRig.rightIndex.calcT) > 0.5f)
 		{
 			if (loadFraction == 1f && !wasPressingTrigger)
 			{

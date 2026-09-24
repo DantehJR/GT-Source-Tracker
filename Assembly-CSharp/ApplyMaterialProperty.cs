@@ -47,11 +47,11 @@ public class ApplyMaterialProperty : MonoBehaviour
 			name = propertyName;
 			id = Shader.PropertyToID(propertyName);
 			dataType = SuportedTypes.Color;
-			color = default(Color);
+			color = default;
 			@float = 0f;
-			vector2 = default(Vector2);
-			vector3 = default(Vector3);
-			vector4 = default(Vector4);
+			vector2 = default;
+			vector3 = default;
+			vector4 = default;
 			texture2D = null;
 		}
 
@@ -60,11 +60,11 @@ public class ApplyMaterialProperty : MonoBehaviour
 			name = propertyName;
 			id = propertyId;
 			dataType = SuportedTypes.Color;
-			color = default(Color);
+			color = default;
 			@float = 0f;
-			vector2 = default(Vector2);
-			vector3 = default(Vector3);
-			vector4 = default(Vector4);
+			vector2 = default;
+			vector3 = default;
+			vector4 = default;
 			texture2D = null;
 		}
 
@@ -164,7 +164,7 @@ public class ApplyMaterialProperty : MonoBehaviour
 			_instance = GetComponent<MaterialInstance>();
 			if (_instance == null)
 			{
-				_instance = base.gameObject.AddComponent<MaterialInstance>();
+				_instance = gameObject.AddComponent<MaterialInstance>();
 			}
 		}
 		Material material = (targetMaterial = _instance.Material);

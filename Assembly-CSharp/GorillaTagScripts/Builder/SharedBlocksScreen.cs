@@ -34,17 +34,17 @@ public class SharedBlocksScreen : MonoBehaviour
 
 	public virtual void Show()
 	{
-		if (!base.gameObject.activeSelf)
+		if (!gameObject.activeSelf)
 		{
-			base.gameObject.SetActive(value: true);
+			gameObject.SetActive(value: true);
 		}
 	}
 
 	public virtual void Hide()
 	{
-		if (base.gameObject.activeSelf)
+		if (gameObject.activeSelf)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 }

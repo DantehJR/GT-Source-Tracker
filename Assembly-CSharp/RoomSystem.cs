@@ -194,6 +194,8 @@ internal class RoomSystem : MonoBehaviour
 
 		public const byte MONKE_BIZ_STATION__POINTS_REDEEMED = 13;
 
+		public const byte GENERAL_FX = 14;
+
 		public const byte VOX_REQ_WORLD = 100;
 
 		public const byte VOX_REQ_OPERATION = 101;
@@ -220,13 +222,20 @@ internal class RoomSystem : MonoBehaviour
 		FrozenTime
 	}
 
-	public struct SoundEffect(int soundID, float soundVolume, bool _stopCurrentAudio)
+	public struct SoundEffect
 	{
-		public int id = soundID;
+		public int id;
 
-		public float volume = (volume = soundVolume);
+		public float volume;
 
-		public bool stopCurrentAudio = _stopCurrentAudio;
+		public bool stopCurrentAudio;
+
+		public SoundEffect(int soundID, float soundVolume, bool _stopCurrentAudio)
+		{
+			id = soundID;
+			volume = (volume = soundVolume);
+			stopCurrentAudio = _stopCurrentAudio;
+		}
 	}
 
 	[Serializable]
@@ -314,6 +323,8 @@ internal class RoomSystem : MonoBehaviour
 
 	private static Timer disconnectTimer;
 
+	private static StaticArrayBag<object> s_reusableArrayPool;
+
 	[OnExitPlay_Clear]
 	internal static readonly Dictionary<byte, Action<object[], PhotonMessageInfoWrapped>> netEventCallbacks;
 
@@ -331,6 +342,8 @@ internal class RoomSystem : MonoBehaviour
 	private static CallLimiter playerLaunchedCallLimiter;
 
 	private static CallLimiter hitPlayerCallLimiter;
+
+	private static Dictionary<int, RoomSystemEffect> s_effects;
 
 	private static object[] statusSendData;
 
@@ -540,7 +553,7 @@ internal class RoomSystem : MonoBehaviour
 			}
 			if (b <= 4)
 			{
-				LavaSyncEventData obj = default(LavaSyncEventData);
+				LavaSyncEventData obj = default;
 				obj.zone = zone;
 				obj.state = b;
 				obj.stateStartTime = value.GetFinite();
@@ -578,7 +591,7 @@ internal class RoomSystem : MonoBehaviour
 
 	private void Awake()
 	{
-		base.transform.SetParent(null, worldPositionStays: true);
+		transform.SetParent(null, worldPositionStays: true);
 		UnityEngine.Object.DontDestroyOnLoad(this);
 		playerImpactEffectPrefab = roomSettings.PlayerImpactEffect;
 		callbackInstance = this;
@@ -634,7 +647,7 @@ internal class RoomSystem : MonoBehaviour
 		roomGameMode = NetworkSystem.Instance.GameModeString;
 		WasRoomPrivate = NetworkSystem.Instance.SessionIsPrivate;
 		WasRoomSubscription = NetworkSystem.Instance.SessionIsSubscription;
-		IsVStumpRoom = NetworkSystem.Instance.RoomName.StartsWith(GorillaComputer.instance.VStumpRoomPrepend);
+		IsVStumpRoom = GorillaComputer.instance.IsVStumpRoomName(NetworkSystem.Instance.RoomName);
 		InitialJoinTrigger = GorillaComputer.instance.GetJoinTriggerFromFullGameModeString(roomGameMode);
 		if (!WasRoomPrivate)
 		{
@@ -763,6 +776,7 @@ internal class RoomSystem : MonoBehaviour
 		PlayerLeftEvent = new DelegateListProcessor<NetPlayer>();
 		PlayersChangedEvent = new DelegateListProcessor();
 		disconnectTimer = new Timer();
+		s_reusableArrayPool = new StaticArrayBag<object>();
 		netEventCallbacks = new Dictionary<byte, Action<object[], PhotonMessageInfoWrapped>>(20);
 		sendEventData = new object[3];
 		groupJoinSendData = new object[2];
@@ -770,6 +784,7 @@ internal class RoomSystem : MonoBehaviour
 		reportHitSendData = new object[3];
 		playerLaunchedCallLimiter = new CallLimiter(3, 15f);
 		hitPlayerCallLimiter = new CallLimiter(10, 2f);
+		s_effects = new Dictionary<int, RoomSystemEffect>(2);
 		statusSendData = new object[1];
 		soundSendData = new object[3];
 		sendSoundDataOther = new object[4];
@@ -796,6 +811,7 @@ internal class RoomSystem : MonoBehaviour
 		netEventCallbacks[9] = DeserializePlayerHit;
 		netEventCallbacks[12] = DeserializeLavaSync;
 		netEventCallbacks[13] = DeserializeMonkePointsRedeemed;
+		netEventCallbacks[14] = DeserializeEffect;
 		soundEffectCallback = OnPlaySoundEffect;
 		statusEffectCallback = OnStatusEffect;
 		VoxelManager.RegisterNetEventCallbacks();
@@ -1076,9 +1092,9 @@ internal class RoomSystem : MonoBehaviour
 		string shufflerStr = (string)shuffleData[0];
 		string newKeyStr = (string)shuffleData[1];
 		bool flag = KIDManager.HasPermissionToUseFeature(EKIDFeatures.Groups);
-		bool num = GRElevatorManager.ValidShuttleNetworking(info.Sender.ActorNumber);
-		bool flag2 = GRElevatorManager.ValidShuttleNetworking(NetworkSystem.Instance.LocalPlayer.ActorNumber);
-		if (num && flag2)
+		bool flag2 = GRElevatorManager.ValidShuttleNetworking(info.Sender.ActorNumber);
+		bool flag3 = GRElevatorManager.ValidShuttleNetworking(NetworkSystem.Instance.LocalPlayer.ActorNumber);
+		if (flag2 & flag3)
 		{
 			if (!flag)
 			{
@@ -1250,6 +1266,42 @@ internal class RoomSystem : MonoBehaviour
 		}
 	}
 
+	public static void AddEffect(RoomSystemEffect effect)
+	{
+		if (effect != null && !(effect.ID == -1) && !effect.Registered)
+		{
+			s_effects.Add(effect.ID, effect);
+			effect.Registered = true;
+		}
+	}
+
+	public static void RemoveEffect(RoomSystemEffect effect)
+	{
+		if (effect != null && !(effect.ID == -1) && effect.Registered)
+		{
+			s_effects.Remove(effect.ID);
+			effect.Registered = false;
+		}
+	}
+
+	internal static void PlayEffect(RoomSystemEffect effect)
+	{
+		if (effect != null && !(effect.ID == -1))
+		{
+			object[] staticArray = s_reusableArrayPool.GetStaticArray(1);
+			staticArray[0] = (int)effect.ID;
+			SendEvent(14, staticArray, in NetworkSystemRaiseEvent.neoOthers, reliable: false);
+		}
+	}
+
+	internal static void DeserializeEffect(object[] data, PhotonMessageInfoWrapped info)
+	{
+		if (data != null && data.Length == 1 && data[0] is int key && VRRigCache.Instance.TryGetVrrig(info.Sender, out var playerRig) && s_effects.TryGetValue(key, out var value))
+		{
+			value.PlayNetworkedEffect(playerRig, info);
+		}
+	}
+
 	private static void SetSlowedTime()
 	{
 		if (GorillaTagger.Instance.currentStatus != GorillaTagger.StatusEffect.Slowed)
@@ -1385,7 +1437,7 @@ internal class RoomSystem : MonoBehaviour
 			MonkeAgent.instance.SendReport("invalid sound effect", player.UserId, player.NickName);
 			return;
 		}
-		SoundEffect arg = default(SoundEffect);
+		SoundEffect arg = default;
 		arg.id = Convert.ToInt32(data[0]);
 		arg.volume = Convert.ToSingle(data[1]);
 		arg.stopCurrentAudio = Convert.ToBoolean(data[2]);

@@ -21,7 +21,7 @@ public class CrittersStickyGoo : CrittersActor
 
 	public bool CanAffect(Vector3 position)
 	{
-		return (base.transform.position - position).magnitude < range;
+		return (transform.position - position).magnitude < range;
 	}
 
 	public void EffectApplied(CrittersPawn critter)
@@ -38,7 +38,7 @@ public class CrittersStickyGoo : CrittersActor
 		bool result = base.ProcessLocal();
 		if (readyToDisable)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return true;
 		}
 		return result;

@@ -96,10 +96,18 @@ public class MuteDataVector : IDisposable, IEnumerable, IEnumerable<MothershipMu
 	{
 		get
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to get an out of bounds element from this vector");
+			}
 			return getitem(index);
 		}
 		set
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to set an out of bounds element from this vector");
+			}
 			setitem(index, value);
 		}
 	}
@@ -119,6 +127,8 @@ public class MuteDataVector : IDisposable, IEnumerable, IEnumerable<MothershipMu
 			reserve((uint)value);
 		}
 	}
+
+	public bool IsEmpty => empty();
 
 	public int Count => (int)size();
 
@@ -204,6 +214,80 @@ public class MuteDataVector : IDisposable, IEnumerable, IEnumerable<MothershipMu
 		}
 	}
 
+	public void Insert(int index, MothershipMuteData value)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insert(index, value);
+	}
+
+	public void InsertRange(int index, MuteDataVector values)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insertRange(index, values);
+	}
+
+	public void RemoveAt(int index)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		_removeAt(index);
+	}
+
+	public void RemoveRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("count", "Tried to remove a negative count from this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_removeRange(index, count);
+	}
+
+	public void ReverseRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse from an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse an invalid count in this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_reverseRange(index, count);
+	}
+
+	public void SetRange(int index, MuteDataVector values)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		if (index < 0 || index > Count || index + values.Count > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		_setRange(index, values);
+	}
+
 	public void CopyTo(MothershipMuteData[] array)
 	{
 		CopyTo(0, array, 0, Count);
@@ -242,6 +326,10 @@ public class MuteDataVector : IDisposable, IEnumerable, IEnumerable<MothershipMu
 		}
 		for (int i = 0; i < count; i++)
 		{
+			if (i > array.Length - 1)
+			{
+				throw new ArgumentOutOfRangeException("Somehow we tried to copy to an array index that's out of bounds");
+			}
 			array.SetValue(getitemcopy(index + i), arrayIndex + i);
 		}
 	}
@@ -266,6 +354,24 @@ public class MuteDataVector : IDisposable, IEnumerable, IEnumerable<MothershipMu
 	public MuteDataVectorEnumerator GetEnumerator()
 	{
 		return new MuteDataVectorEnumerator(this);
+	}
+
+	public MuteDataVector()
+		: this(MothershipApiPINVOKE.new_MuteDataVector__SWIG_0(), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public MuteDataVector(MuteDataVector other)
+		: this(MothershipApiPINVOKE.new_MuteDataVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
 	}
 
 	public void Clear()
@@ -296,6 +402,16 @@ public class MuteDataVector : IDisposable, IEnumerable, IEnumerable<MothershipMu
 		return result;
 	}
 
+	private bool empty()
+	{
+		bool result = MothershipApiPINVOKE.MuteDataVector_empty(swigCPtr);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private uint capacity()
 	{
 		uint result = MothershipApiPINVOKE.MuteDataVector_capacity(swigCPtr);
@@ -309,24 +425,6 @@ public class MuteDataVector : IDisposable, IEnumerable, IEnumerable<MothershipMu
 	private void reserve(uint n)
 	{
 		MothershipApiPINVOKE.MuteDataVector_reserve(swigCPtr, n);
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public MuteDataVector()
-		: this(MothershipApiPINVOKE.new_MuteDataVector__SWIG_0(), cMemoryOwn: true)
-	{
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public MuteDataVector(MuteDataVector other)
-		: this(MothershipApiPINVOKE.new_MuteDataVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
-	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -380,85 +478,63 @@ public class MuteDataVector : IDisposable, IEnumerable, IEnumerable<MothershipMu
 		}
 	}
 
-	public MuteDataVector GetRange(int index, int count)
+	private void _insert(int index, MothershipMuteData x)
 	{
-		IntPtr intPtr = MothershipApiPINVOKE.MuteDataVector_GetRange(swigCPtr, index, count);
-		MuteDataVector result = ((intPtr == IntPtr.Zero) ? null : new MuteDataVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
-	}
-
-	public void Insert(int index, MothershipMuteData x)
-	{
-		MothershipApiPINVOKE.MuteDataVector_Insert(swigCPtr, index, MothershipMuteData.getCPtr(x));
+		MothershipApiPINVOKE.MuteDataVector__insert(swigCPtr, index, MothershipMuteData.getCPtr(x));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void InsertRange(int index, MuteDataVector values)
+	private void _insertRange(int index, MuteDataVector values)
 	{
-		MothershipApiPINVOKE.MuteDataVector_InsertRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.MuteDataVector__insertRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveAt(int index)
+	private void _removeAt(int index)
 	{
-		MothershipApiPINVOKE.MuteDataVector_RemoveAt(swigCPtr, index);
+		MothershipApiPINVOKE.MuteDataVector__removeAt(swigCPtr, index);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveRange(int index, int count)
+	private void _removeRange(int index, int count)
 	{
-		MothershipApiPINVOKE.MuteDataVector_RemoveRange(swigCPtr, index, count);
+		MothershipApiPINVOKE.MuteDataVector__removeRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
-	}
-
-	public static MuteDataVector Repeat(MothershipMuteData value, int count)
-	{
-		IntPtr intPtr = MothershipApiPINVOKE.MuteDataVector_Repeat(MothershipMuteData.getCPtr(value), count);
-		MuteDataVector result = ((intPtr == IntPtr.Zero) ? null : new MuteDataVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
 	}
 
 	public void Reverse()
 	{
-		MothershipApiPINVOKE.MuteDataVector_Reverse__SWIG_0(swigCPtr);
+		MothershipApiPINVOKE.MuteDataVector_Reverse(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void Reverse(int index, int count)
+	private void _reverseRange(int index, int count)
 	{
-		MothershipApiPINVOKE.MuteDataVector_Reverse__SWIG_1(swigCPtr, index, count);
+		MothershipApiPINVOKE.MuteDataVector__reverseRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void SetRange(int index, MuteDataVector values)
+	private void _setRange(int index, MuteDataVector values)
 	{
-		MothershipApiPINVOKE.MuteDataVector_SetRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.MuteDataVector__setRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

@@ -164,7 +164,7 @@ public class ProximityLookAt : MonoBehaviour, IGorillaSliceableSimple
 		{
 			return GorillaTagger.Instance.offlineVRRig.tagSound.transform;
 		}
-		Vector3 lhs = base.transform.TransformDirection(normalizedLocalForward);
+		Vector3 lhs = transform.TransformDirection(normalizedLocalForward);
 		float num = float.NegativeInfinity;
 		Transform result = null;
 		foreach (VRRig activeRig in VRRigCache.ActiveRigs)
@@ -173,7 +173,7 @@ public class ProximityLookAt : MonoBehaviour, IGorillaSliceableSimple
 			{
 				continue;
 			}
-			Vector3 vector = activeRig.tagSound.transform.position - base.transform.position;
+			Vector3 vector = activeRig.tagSound.transform.position - transform.position;
 			if (!(vector.sqrMagnitude > sqrRadius))
 			{
 				Vector3 normalized = vector.normalized;

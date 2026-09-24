@@ -195,7 +195,7 @@ public class PhotonNetworkController : MonoBehaviour
 		}
 		else if (Instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		updatedName = false;
 		playersInRegion = new int[serverRegions.Length];
@@ -282,7 +282,7 @@ public class PhotonNetworkController : MonoBehaviour
 
 	private async void AttemptToJoinPublicRoomAsync(GorillaNetworkJoinTrigger triggeredTrigger, JoinType roomJoinType, List<(string, string)> additionalCustomProperties, bool filterSubscribed)
 	{
-		if ((KIDManager.KidEnabledAndReady && !KIDManager.CheckFeatureOptIn(EKIDFeatures.Multiplayer).hasOptedInPreviously) || !base.enabled || NetworkSystem.Instance.netState == NetSystemState.Connecting || NetworkSystem.Instance.netState == NetSystemState.Disconnecting)
+		if ((KIDManager.KidEnabledAndReady && !KIDManager.CheckFeatureOptIn(EKIDFeatures.Multiplayer).hasOptedInPreviously) || !enabled || NetworkSystem.Instance.netState == NetSystemState.Connecting || NetworkSystem.Instance.netState == NetSystemState.Disconnecting)
 		{
 			return;
 		}
@@ -374,7 +374,7 @@ public class PhotonNetworkController : MonoBehaviour
 
 	private async void AttemptToJoinRankedPublicRoomAsync(GorillaNetworkJoinTrigger triggeredTrigger, string mmrTier, string platform, JoinType roomJoinType)
 	{
-		if ((KIDManager.KidEnabledAndReady && !KIDManager.CheckFeatureOptIn(EKIDFeatures.Multiplayer).hasOptedInPreviously) || !base.enabled || NetworkSystem.Instance.netState == NetSystemState.Connecting || NetworkSystem.Instance.netState == NetSystemState.Disconnecting)
+		if ((KIDManager.KidEnabledAndReady && !KIDManager.CheckFeatureOptIn(EKIDFeatures.Multiplayer).hasOptedInPreviously) || !enabled || NetworkSystem.Instance.netState == NetSystemState.Connecting || NetworkSystem.Instance.netState == NetSystemState.Disconnecting)
 		{
 			return;
 		}
@@ -570,7 +570,7 @@ public class PhotonNetworkController : MonoBehaviour
 			if (flag && GorillaComputer.instance.friendJoinCollider != null && !GorillaComputer.instance.friendJoinCollider.playerIDsCurrentlyTouching.Contains(NetworkSystem.Instance.LocalPlayer.UserId))
 			{
 				GorillaNetworkJoinTrigger joinTriggerFromFullGameModeString = GorillaComputer.instance.GetJoinTriggerFromFullGameModeString(NetworkSystem.Instance.GameModeString);
-				if (!joinTriggerFromFullGameModeString.groupJoinRequiredZonesAB.HasAnyFlag(VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB))
+				if (joinTriggerFromFullGameModeString.groupJoinRequiredZonesAB != default(GroupJoinZoneAB) && !joinTriggerFromFullGameModeString.groupJoinRequiredZonesAB.HasAnyFlag(VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB))
 				{
 					Debug.Log($"NOT ALLOWED IN ROOM: Joined {ParseZoneFromGameMode(NetworkSystem.Instance.GameModeString)} room but physically in {VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB} zone");
 					PersistLog.Log($"NOT ALLOWED IN ROOM - FAILED JOIN: [PlayerZone:{VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB} TriggerZone:{joinTriggerFromFullGameModeString.groupJoinRequiredZonesAB}  Trigger:{joinTriggerFromFullGameModeString.name}]");

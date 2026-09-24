@@ -42,7 +42,7 @@ public class GRBarrierSpectral : MonoBehaviour, IGameEntityComponent, IGameHitta
 	{
 		entity.SetState(health);
 		Vector3 localScale = BitPackUtils.UnpackWorldPosFromNetwork(entity.createData);
-		base.transform.localScale = localScale;
+		transform.localScale = localScale;
 	}
 
 	public void OnEntityDestroy()

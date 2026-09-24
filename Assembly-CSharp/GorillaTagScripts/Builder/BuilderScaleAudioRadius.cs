@@ -59,7 +59,7 @@ public class BuilderScaleAudioRadius : MonoBehaviour
 		{
 			if (useLossyScaleOnEnable)
 			{
-				SetScale(base.transform.lossyScale.x);
+				SetScale(transform.lossyScale.x);
 			}
 			setScaleNextFrame = false;
 		}

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public class StringStringMap : IDisposable, IDictionary<string, string>, ICollection<KeyValuePair<string, string>>, IEnumerable<KeyValuePair<string, string>>, IEnumerable
+public class MatchedPlayerSessionMap : IDisposable, IDictionary<string, MatchedPlayerSession>, ICollection<KeyValuePair<string, MatchedPlayerSession>>, IEnumerable<KeyValuePair<string, MatchedPlayerSession>>, IEnumerable
 {
-	public sealed class StringStringMapEnumerator : IEnumerator, IEnumerator<KeyValuePair<string, string>>, IDisposable
+	public sealed class MatchedPlayerSessionMapEnumerator : IEnumerator, IEnumerator<KeyValuePair<string, MatchedPlayerSession>>, IDisposable
 	{
-		private StringStringMap collectionRef;
+		private MatchedPlayerSessionMap collectionRef;
 
 		private IList<string> keyCollection;
 
@@ -17,7 +17,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 		private int currentSize;
 
-		public KeyValuePair<string, string> Current
+		public KeyValuePair<string, MatchedPlayerSession> Current
 		{
 			get
 			{
@@ -33,13 +33,13 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 				{
 					throw new InvalidOperationException("Collection modified.");
 				}
-				return (KeyValuePair<string, string>)currentObject;
+				return (KeyValuePair<string, MatchedPlayerSession>)currentObject;
 			}
 		}
 
 		object IEnumerator.Current => Current;
 
-		public StringStringMapEnumerator(StringStringMap collection)
+		public MatchedPlayerSessionMapEnumerator(MatchedPlayerSessionMap collection)
 		{
 			collectionRef = collection;
 			keyCollection = new List<string>(collection.Keys);
@@ -59,7 +59,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 				{
 					currentIndex++;
 					string key = keyCollection[currentIndex];
-					currentObject = new KeyValuePair<string, string>(key, collectionRef[key]);
+					currentObject = new KeyValuePair<string, MatchedPlayerSession>(key, collectionRef[key]);
 					return (byte)num != 0;
 				}
 			}
@@ -92,10 +92,14 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	protected bool swigCMemOwn;
 
-	public string this[string key]
+	public MatchedPlayerSession this[string key]
 	{
 		get
 		{
+			if (!ContainsKey(key))
+			{
+				throw new ArgumentOutOfRangeException("key", "The given key '" + key + "' was not present in the dictionary.");
+			}
 			return getitem(key);
 		}
 		set
@@ -127,32 +131,32 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		}
 	}
 
-	public ICollection<string> Values
+	public ICollection<MatchedPlayerSession> Values
 	{
 		get
 		{
-			ICollection<string> collection = new List<string>();
-			using StringStringMapEnumerator stringStringMapEnumerator = GetEnumerator();
-			while (stringStringMapEnumerator.MoveNext())
+			ICollection<MatchedPlayerSession> collection = new List<MatchedPlayerSession>();
+			using MatchedPlayerSessionMapEnumerator matchedPlayerSessionMapEnumerator = GetEnumerator();
+			while (matchedPlayerSessionMapEnumerator.MoveNext())
 			{
-				collection.Add(stringStringMapEnumerator.Current.Value);
+				collection.Add(matchedPlayerSessionMapEnumerator.Current.Value);
 			}
 			return collection;
 		}
 	}
 
-	internal StringStringMap(IntPtr cPtr, bool cMemoryOwn)
+	internal MatchedPlayerSessionMap(IntPtr cPtr, bool cMemoryOwn)
 	{
 		swigCMemOwn = cMemoryOwn;
 		swigCPtr = new HandleRef(this, cPtr);
 	}
 
-	internal static HandleRef getCPtr(StringStringMap obj)
+	internal static HandleRef getCPtr(MatchedPlayerSessionMap obj)
 	{
 		return obj?.swigCPtr ?? new HandleRef(null, IntPtr.Zero);
 	}
 
-	internal static HandleRef swigRelease(StringStringMap obj)
+	internal static HandleRef swigRelease(MatchedPlayerSessionMap obj)
 	{
 		if (obj != null)
 		{
@@ -168,7 +172,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		return new HandleRef(null, IntPtr.Zero);
 	}
 
-	~StringStringMap()
+	~MatchedPlayerSessionMap()
 	{
 		Dispose(disposing: false);
 	}
@@ -188,14 +192,14 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 				if (swigCMemOwn)
 				{
 					swigCMemOwn = false;
-					MothershipApiPINVOKE.delete_StringStringMap(swigCPtr);
+					MothershipApiPINVOKE.delete_MatchedPlayerSessionMap(swigCPtr);
 				}
 				swigCPtr = new HandleRef(null, IntPtr.Zero);
 			}
 		}
 	}
 
-	public bool TryGetValue(string key, out string value)
+	public bool TryGetValue(string key, out MatchedPlayerSession value)
 	{
 		if (ContainsKey(key))
 		{
@@ -206,12 +210,16 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		return false;
 	}
 
-	public void Add(KeyValuePair<string, string> item)
+	public void Add(KeyValuePair<string, MatchedPlayerSession> item)
 	{
+		if (ContainsKey(item.Key))
+		{
+			throw new ArgumentOutOfRangeException("Key", "An item with the same key '" + item.Key + "' has already been added to the dictionary.");
+		}
 		Add(item.Key, item.Value);
 	}
 
-	public bool Remove(KeyValuePair<string, string> item)
+	public bool Remove(KeyValuePair<string, MatchedPlayerSession> item)
 	{
 		if (Contains(item))
 		{
@@ -220,7 +228,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		return false;
 	}
 
-	public bool Contains(KeyValuePair<string, string> item)
+	public bool Contains(KeyValuePair<string, MatchedPlayerSession> item)
 	{
 		if (this[item.Key] == item.Value)
 		{
@@ -229,12 +237,12 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		return false;
 	}
 
-	public void CopyTo(KeyValuePair<string, string>[] array)
+	public void CopyTo(KeyValuePair<string, MatchedPlayerSession>[] array)
 	{
 		CopyTo(array, 0);
 	}
 
-	public void CopyTo(KeyValuePair<string, string>[] array, int arrayIndex)
+	public void CopyTo(KeyValuePair<string, MatchedPlayerSession>[] array, int arrayIndex)
 	{
 		if (array == null)
 		{
@@ -256,27 +264,27 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		for (int i = 0; i < list.Count; i++)
 		{
 			string key = list[i];
-			array.SetValue(new KeyValuePair<string, string>(key, this[key]), arrayIndex + i);
+			array.SetValue(new KeyValuePair<string, MatchedPlayerSession>(key, this[key]), arrayIndex + i);
 		}
 	}
 
-	IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator()
+	IEnumerator<KeyValuePair<string, MatchedPlayerSession>> IEnumerable<KeyValuePair<string, MatchedPlayerSession>>.GetEnumerator()
 	{
-		return new StringStringMapEnumerator(this);
+		return new MatchedPlayerSessionMapEnumerator(this);
 	}
 
 	IEnumerator IEnumerable.GetEnumerator()
 	{
-		return new StringStringMapEnumerator(this);
+		return new MatchedPlayerSessionMapEnumerator(this);
 	}
 
-	public StringStringMapEnumerator GetEnumerator()
+	public MatchedPlayerSessionMapEnumerator GetEnumerator()
 	{
-		return new StringStringMapEnumerator(this);
+		return new MatchedPlayerSessionMapEnumerator(this);
 	}
 
-	public StringStringMap()
-		: this(MothershipApiPINVOKE.new_StringStringMap__SWIG_0(), cMemoryOwn: true)
+	public MatchedPlayerSessionMap()
+		: this(MothershipApiPINVOKE.new_MatchedPlayerSessionMap__SWIG_0(), cMemoryOwn: true)
 	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
@@ -284,8 +292,8 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		}
 	}
 
-	public StringStringMap(StringStringMap other)
-		: this(MothershipApiPINVOKE.new_StringStringMap__SWIG_1(getCPtr(other)), cMemoryOwn: true)
+	public MatchedPlayerSessionMap(MatchedPlayerSessionMap other)
+		: this(MothershipApiPINVOKE.new_MatchedPlayerSessionMap__SWIG_1(getCPtr(other)), cMemoryOwn: true)
 	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
@@ -295,7 +303,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	private uint size()
 	{
-		uint result = MothershipApiPINVOKE.StringStringMap_size(swigCPtr);
+		uint result = MothershipApiPINVOKE.MatchedPlayerSessionMap_size(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -305,7 +313,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	public bool empty()
 	{
-		bool result = MothershipApiPINVOKE.StringStringMap_empty(swigCPtr);
+		bool result = MothershipApiPINVOKE.MatchedPlayerSessionMap_empty(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -315,16 +323,16 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	public void Clear()
 	{
-		MothershipApiPINVOKE.StringStringMap_Clear(swigCPtr);
+		MothershipApiPINVOKE.MatchedPlayerSessionMap_Clear(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	private string getitem(string key)
+	private MatchedPlayerSession getitem(string key)
 	{
-		string result = MothershipApiPINVOKE.StringStringMap_getitem(swigCPtr, key);
+		MatchedPlayerSession result = new MatchedPlayerSession(MothershipApiPINVOKE.MatchedPlayerSessionMap_getitem(swigCPtr, key), cMemoryOwn: false);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -332,9 +340,9 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		return result;
 	}
 
-	private void setitem(string key, string x)
+	private void setitem(string key, MatchedPlayerSession x)
 	{
-		MothershipApiPINVOKE.StringStringMap_setitem(swigCPtr, key, x);
+		MothershipApiPINVOKE.MatchedPlayerSessionMap_setitem(swigCPtr, key, MatchedPlayerSession.getCPtr(x));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -343,7 +351,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	public bool ContainsKey(string key)
 	{
-		bool result = MothershipApiPINVOKE.StringStringMap_ContainsKey(swigCPtr, key);
+		bool result = MothershipApiPINVOKE.MatchedPlayerSessionMap_ContainsKey(swigCPtr, key);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -351,9 +359,9 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 		return result;
 	}
 
-	public void Add(string key, string value)
+	public void Add(string key, MatchedPlayerSession val)
 	{
-		MothershipApiPINVOKE.StringStringMap_Add(swigCPtr, key, value);
+		MothershipApiPINVOKE.MatchedPlayerSessionMap_Add(swigCPtr, key, MatchedPlayerSession.getCPtr(val));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -362,7 +370,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	public bool Remove(string key)
 	{
-		bool result = MothershipApiPINVOKE.StringStringMap_Remove(swigCPtr, key);
+		bool result = MothershipApiPINVOKE.MatchedPlayerSessionMap_Remove(swigCPtr, key);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -372,7 +380,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	private IntPtr create_iterator_begin()
 	{
-		IntPtr result = MothershipApiPINVOKE.StringStringMap_create_iterator_begin(swigCPtr);
+		IntPtr result = MothershipApiPINVOKE.MatchedPlayerSessionMap_create_iterator_begin(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -382,7 +390,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	private string get_next_key(IntPtr swigiterator)
 	{
-		string result = MothershipApiPINVOKE.StringStringMap_get_next_key(swigCPtr, swigiterator);
+		string result = MothershipApiPINVOKE.MatchedPlayerSessionMap_get_next_key(swigCPtr, swigiterator);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -392,7 +400,7 @@ public class StringStringMap : IDisposable, IDictionary<string, string>, ICollec
 
 	private void destroy_iterator(IntPtr swigiterator)
 	{
-		MothershipApiPINVOKE.StringStringMap_destroy_iterator(swigCPtr, swigiterator);
+		MothershipApiPINVOKE.MatchedPlayerSessionMap_destroy_iterator(swigCPtr, swigiterator);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

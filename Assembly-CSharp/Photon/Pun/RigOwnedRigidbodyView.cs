@@ -34,8 +34,8 @@ public class RigOwnedRigidbodyView : MonoBehaviourPun, IPunObservable
 	public void Awake()
 	{
 		m_Body = GetComponent<Rigidbody>();
-		m_NetworkPosition = default(Vector3);
-		m_NetworkRotation = default(Quaternion);
+		m_NetworkPosition = default;
+		m_NetworkRotation = default;
 	}
 
 	public void FixedUpdate()

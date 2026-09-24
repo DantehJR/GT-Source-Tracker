@@ -107,7 +107,7 @@ public class JsonMapper
 		{
 			return;
 		}
-		ObjectMetadata value = default(ObjectMetadata);
+		ObjectMetadata value = default;
 		if (type.GetInterface("System.Collections.IDictionary") != null)
 		{
 			value.IsDictionary = true;
@@ -419,43 +419,43 @@ public class JsonMapper
 
 	private static void RegisterBaseExporters()
 	{
-		base_exporters_table[typeof(byte)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(byte)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write(Convert.ToInt32((byte)obj));
 		};
-		base_exporters_table[typeof(char)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(char)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write(Convert.ToString((char)obj));
 		};
-		base_exporters_table[typeof(DateTime)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(DateTime)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write(Convert.ToString((DateTime)obj, datetime_format));
 		};
-		base_exporters_table[typeof(decimal)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(decimal)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write((decimal)obj);
 		};
-		base_exporters_table[typeof(sbyte)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(sbyte)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write(Convert.ToInt32((sbyte)obj));
 		};
-		base_exporters_table[typeof(short)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(short)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write(Convert.ToInt32((short)obj));
 		};
-		base_exporters_table[typeof(ushort)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(ushort)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write(Convert.ToInt32((ushort)obj));
 		};
-		base_exporters_table[typeof(uint)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(uint)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write(Convert.ToUInt64((uint)obj));
 		};
-		base_exporters_table[typeof(ulong)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(ulong)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write((ulong)obj);
 		};
-		base_exporters_table[typeof(float)] = delegate(object obj, JsonWriter writer)
+		base_exporters_table[typeof(float)] = (object obj, JsonWriter writer) =>
 		{
 			writer.Write((float)obj);
 		};
@@ -685,7 +685,7 @@ public class JsonMapper
 
 	public static void RegisterExporter<T>(ExporterFunc<T> exporter)
 	{
-		ExporterFunc value = delegate(object obj, JsonWriter writer)
+		ExporterFunc value = (object obj, JsonWriter writer) =>
 		{
 			exporter((T)obj, writer);
 		};

@@ -74,7 +74,7 @@ public class GorillaZipline : MonoBehaviour
 		int num = 200;
 		float num2 = 0.001f;
 		float num3 = 1f / (float)num;
-		float3 y = base.transform.InverseTransformPoint(grabPoint);
+		float3 y = transform.InverseTransformPoint(grabPoint);
 		float result = 0f;
 		float num4 = float.PositiveInfinity;
 		for (; i < num; i++)
@@ -110,7 +110,7 @@ public class GorillaZipline : MonoBehaviour
 
 	protected virtual void OnBeforeClimb(GorillaHandClimber hand, GorillaClimbableRef climbRef)
 	{
-		bool num = currentClimber == null;
+		bool flag = currentClimber == null;
 		currentClimber = hand;
 		if ((bool)climbRef)
 		{
@@ -120,11 +120,11 @@ public class GorillaZipline : MonoBehaviour
 		}
 		currentT = FindSlideHelperSpot(climbOffsetHelper.position);
 		slideHelper.transform.localPosition = spline.GetPointLocal(currentT);
-		if (num)
+		if (flag)
 		{
 			Vector3 averagedVelocity = GTPlayer.Instance.AveragedVelocity;
-			float num2 = Vector3.Dot(averagedVelocity.normalized, spline.GetDirection(currentT));
-			currentSpeed = averagedVelocity.magnitude * num2 * currentInheritVelocityMulti;
+			float num = Vector3.Dot(averagedVelocity.normalized, spline.GetDirection(currentT));
+			currentSpeed = averagedVelocity.magnitude * num * currentInheritVelocityMulti;
 		}
 	}
 

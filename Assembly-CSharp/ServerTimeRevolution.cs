@@ -23,6 +23,6 @@ public class ServerTimeRevolution : MonoBehaviour
 		double num = (double)orbit.x * Math.Sin(totalSeconds * speed);
 		double num2 = (double)orbit.y * Math.Cos(totalSeconds * speed);
 		double num3 = (double)orbit.z * Math.Cos(totalSeconds * speed);
-		base.transform.position = pivot.position + pivotOffset + new Vector3((float)num, (float)num2, (float)num3);
+		transform.position = pivot.position + pivotOffset + new Vector3((float)num, (float)num2, (float)num3);
 	}
 }

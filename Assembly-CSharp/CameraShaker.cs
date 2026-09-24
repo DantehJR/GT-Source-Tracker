@@ -22,41 +22,41 @@ public class CameraShaker : MonoBehaviour
 
 	public static void Shake(float duration, float magnitude)
 	{
-		if (CameraShaker.ShakeRequested != null)
+		if (ShakeRequested != null)
 		{
-			CameraShaker.ShakeRequested(duration, magnitude, new Vector2(0.02f, 0.1f), arg4: true, null, 0f);
+			ShakeRequested(duration, magnitude, new Vector2(0.02f, 0.1f), arg4: true, null, 0f);
 		}
 	}
 
 	public static void Shake(float duration, float magnitude, Vector2 freqRange)
 	{
-		if (CameraShaker.ShakeRequested != null)
+		if (ShakeRequested != null)
 		{
-			CameraShaker.ShakeRequested(duration, magnitude, freqRange, arg4: true, null, 0f);
+			ShakeRequested(duration, magnitude, freqRange, arg4: true, null, 0f);
 		}
 	}
 
 	public static void Shake(float duration, float magnitude, Vector2 freqRange, bool rollOffOverDuration)
 	{
-		if (CameraShaker.ShakeRequested != null)
+		if (ShakeRequested != null)
 		{
-			CameraShaker.ShakeRequested(duration, magnitude, freqRange, rollOffOverDuration, null, 0f);
+			ShakeRequested(duration, magnitude, freqRange, rollOffOverDuration, null, 0f);
 		}
 	}
 
 	public static void ShakeInProximity(float duration, float magnitude, Vector2 freqRange, bool rollOffOverDuration, Transform source, float distance)
 	{
-		if (CameraShaker.ShakeRequested != null)
+		if (ShakeRequested != null)
 		{
-			CameraShaker.ShakeRequested(duration, magnitude, freqRange, rollOffOverDuration, source, distance);
+			ShakeRequested(duration, magnitude, freqRange, rollOffOverDuration, source, distance);
 		}
 	}
 
 	public static void Halt()
 	{
-		if (CameraShaker.HaltRequested != null)
+		if (HaltRequested != null)
 		{
-			CameraShaker.HaltRequested();
+			HaltRequested();
 		}
 	}
 
@@ -73,7 +73,7 @@ public class CameraShaker : MonoBehaviour
 		magnitude = _magnitude;
 		freqRange = _freqRange;
 		rollOff = _rollOff;
-		if (!rumbling && (source == null || (base.transform.position - source.transform.position).sqrMagnitude < distance * distance))
+		if (!rumbling && (source == null || (transform.position - source.transform.position).sqrMagnitude < distance * distance))
 		{
 			StartCoroutine(crRumble());
 		}
@@ -106,7 +106,7 @@ public class CameraShaker : MonoBehaviour
 			{
 				vector *= (stopTime - Time.time) / duration;
 			}
-			base.transform.localPosition += vector;
+			transform.localPosition += vector;
 			yield return new WaitForSeconds(UnityEngine.Random.Range(freqRange.x, freqRange.y));
 		}
 		rumbling = false;

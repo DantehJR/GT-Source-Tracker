@@ -11,7 +11,7 @@ public class SteamAuthenticator : MonoBehaviour
 		Callback<GetAuthSessionTicketResponse_t> ticketCallback = null;
 		byte[] ticketBlob = new byte[1024];
 		uint ticketSize = 0u;
-		ticketCallback = Callback<GetAuthSessionTicketResponse_t>.Create(delegate(GetAuthSessionTicketResponse_t response)
+		ticketCallback = Callback<GetAuthSessionTicketResponse_t>.Create((GetAuthSessionTicketResponse_t response) =>
 		{
 			if (!(response.m_hAuthTicket != ticketHandle))
 			{
@@ -32,7 +32,7 @@ public class SteamAuthenticator : MonoBehaviour
 				}
 			}
 		});
-		SteamNetworkingIdentity pSteamNetworkingIdentity = default(SteamNetworkingIdentity);
+		SteamNetworkingIdentity pSteamNetworkingIdentity = default;
 		ticketHandle = SteamUser.GetAuthSessionTicket(ticketBlob, ticketBlob.Length, out ticketSize, ref pSteamNetworkingIdentity);
 		if (ticketHandle == HAuthTicket.Invalid)
 		{
@@ -45,7 +45,7 @@ public class SteamAuthenticator : MonoBehaviour
 	{
 		HAuthTicket ticketHandle = HAuthTicket.Invalid;
 		Callback<GetTicketForWebApiResponse_t> ticketCallback = null;
-		ticketCallback = Callback<GetTicketForWebApiResponse_t>.Create(delegate(GetTicketForWebApiResponse_t response)
+		ticketCallback = Callback<GetTicketForWebApiResponse_t>.Create((GetTicketForWebApiResponse_t response) =>
 		{
 			if (!(response.m_hAuthTicket != ticketHandle))
 			{

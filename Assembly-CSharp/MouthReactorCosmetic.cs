@@ -46,7 +46,7 @@ public class MouthReactorCosmetic : MonoBehaviour, ITickSystemTick
 	{
 		if (reactorTransform == null)
 		{
-			reactorTransform = base.transform;
+			reactorTransform = transform;
 		}
 	}
 

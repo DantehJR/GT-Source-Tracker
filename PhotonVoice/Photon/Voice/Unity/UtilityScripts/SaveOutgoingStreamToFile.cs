@@ -73,9 +73,9 @@ public class SaveOutgoingStreamToFile : VoiceComponent
 		}
 		string filePath = GetFilePath();
 		wavWriter = new WaveWriter(filePath, new WaveFormat(info.SamplingRate, bits, info.Channels));
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Outgoing stream, output file path: {0}", filePath);
+			Logger.LogInfo("Outgoing stream, output file path: {0}", filePath);
 		}
 		if (photonVoiceCreatedParams.Voice is LocalVoiceAudioFloat)
 		{
@@ -96,9 +96,9 @@ public class SaveOutgoingStreamToFile : VoiceComponent
 	private void PhotonVoiceRemoved()
 	{
 		wavWriter.Dispose();
-		if (base.Logger.IsInfoEnabled)
+		if (Logger.IsInfoEnabled)
 		{
-			base.Logger.LogInfo("Recording stopped: Saving wav file.");
+			Logger.LogInfo("Recording stopped: Saving wav file.");
 		}
 	}
 }

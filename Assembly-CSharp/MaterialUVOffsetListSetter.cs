@@ -27,7 +27,7 @@ public class MaterialUVOffsetListSetter : MonoBehaviour, IBuildValidation
 		}
 		else if (matPropertyBlock == null || meshRenderer == null)
 		{
-			Debug.LogError("MaterialUVOffsetListSetter settings are incorrect somehow, please fix", base.gameObject);
+			Debug.LogError("MaterialUVOffsetListSetter settings are incorrect somehow, please fix", gameObject);
 			Awake();
 		}
 		else
@@ -42,12 +42,12 @@ public class MaterialUVOffsetListSetter : MonoBehaviour, IBuildValidation
 	{
 		if (GetComponent<MeshRenderer>() == null)
 		{
-			Debug.LogError("missing a mesh renderer for the materialuvoffsetlistsetter", base.gameObject);
+			Debug.LogError("missing a mesh renderer for the materialuvoffsetlistsetter", gameObject);
 			return false;
 		}
 		if (GetComponentInParent<EdMeshCombinerMono>() != null && GetComponentInParent<EdDoNotMeshCombine>() == null)
 		{
-			Debug.LogError("the meshrenderer is going to getcombined, that will likely cause issues for the materialuvoffsetlistsetter", base.gameObject);
+			Debug.LogError("the meshrenderer is going to getcombined, that will likely cause issues for the materialuvoffsetlistsetter", gameObject);
 			return false;
 		}
 		return true;

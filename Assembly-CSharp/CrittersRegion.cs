@@ -81,14 +81,14 @@ public class CrittersRegion : MonoBehaviour
 	public Vector3 GetSpawnPoint()
 	{
 		float num = scale / 2f;
-		float num2 = base.transform.lossyScale.y * scale;
-		Vector3 vector = base.transform.TransformPoint(new Vector3(Random.Range(0f - num, num), num, Random.Range(0f - num, num)));
-		if (Physics.Raycast(vector, -base.transform.up, out var hitInfo, num2, -1, QueryTriggerInteraction.Ignore))
+		float num2 = transform.lossyScale.y * scale;
+		Vector3 vector = transform.TransformPoint(new Vector3(Random.Range(0f - num, num), num, Random.Range(0f - num, num)));
+		if (Physics.Raycast(vector, -transform.up, out var hitInfo, num2, -1, QueryTriggerInteraction.Ignore))
 		{
 			Debug.DrawLine(vector, hitInfo.point, Color.green, 5f);
 			return hitInfo.point;
 		}
-		Debug.DrawLine(vector, vector - base.transform.up * num2, Color.red, 5f);
+		Debug.DrawLine(vector, vector - transform.up * num2, Color.red, 5f);
 		return vector;
 	}
 }

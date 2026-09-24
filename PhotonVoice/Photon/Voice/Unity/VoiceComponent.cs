@@ -24,7 +24,7 @@ public abstract class VoiceComponent : MonoBehaviour, ILoggableDependent, ILogga
 		{
 			if (logger == null)
 			{
-				logger = new VoiceLogger(this, $"{base.name}.{GetType().Name}", logLevel);
+				logger = new VoiceLogger(this, $"{name}.{GetType().Name}", logLevel);
 			}
 			return logger;
 		}
@@ -82,7 +82,7 @@ public abstract class VoiceComponent : MonoBehaviour, ILoggableDependent, ILogga
 	{
 		if (logger == null)
 		{
-			logger = new VoiceLogger(this, $"{base.name}.{GetType().Name}", logLevel);
+			logger = new VoiceLogger(this, $"{name}.{GetType().Name}", logLevel);
 		}
 	}
 }

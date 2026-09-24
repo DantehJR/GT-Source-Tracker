@@ -64,9 +64,9 @@ public class RandomDispatcher : ScriptableObject
 		if ((double)dispatchTimes[index] < seconds)
 		{
 			index = (index + 1) % dispatchTimes.Count;
-			if (this.Dispatch != null)
+			if (Dispatch != null)
 			{
-				this.Dispatch(this);
+				Dispatch(this);
 			}
 		}
 	}

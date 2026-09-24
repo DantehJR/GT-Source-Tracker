@@ -9,8 +9,8 @@ public class CrittersCageSettings : CrittersActorSettings
 	public override void UpdateActorSettings()
 	{
 		base.UpdateActorSettings();
-		CrittersCage obj = (CrittersCage)parentActor;
-		obj.cagePosition = cagePoint;
-		obj.grabPosition = grabPoint;
+		CrittersCage crittersCage = (CrittersCage)parentActor;
+		crittersCage.cagePosition = cagePoint;
+		crittersCage.grabPosition = grabPoint;
 	}
 }

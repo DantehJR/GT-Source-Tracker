@@ -135,11 +135,11 @@ public class RCDragon : RCVehicle
 	{
 		base.AuthorityBeginDocked();
 		turnRate = 0f;
-		turnAngle = Vector3.SignedAngle(Vector3.forward, Vector3.ProjectOnPlane(base.transform.forward, Vector3.up), Vector3.up);
+		turnAngle = Vector3.SignedAngle(Vector3.forward, Vector3.ProjectOnPlane(transform.forward, Vector3.up), Vector3.up);
 		motorLevel = 0f;
 		if (connectedRemote == null)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 
@@ -345,11 +345,11 @@ public class RCDragon : RCVehicle
 
 	private void FixedUpdate()
 	{
-		if (!base.HasLocalAuthority)
+		if (!HasLocalAuthority)
 		{
 			return;
 		}
-		float x = base.transform.lossyScale.x;
+		float x = transform.lossyScale.x;
 		float fixedDeltaTime = Time.fixedDeltaTime;
 		shouldFlap = false;
 		if (localState == State.Mobilized)
@@ -361,9 +361,9 @@ public class RCDragon : RCVehicle
 			float num5 = 0.5f * x;
 			float num6 = 45f;
 			Vector3 linearVelocity = rb.linearVelocity;
-			Vector3 normalized = new Vector3(base.transform.forward.x, 0f, base.transform.forward.z).normalized;
+			Vector3 normalized = new Vector3(transform.forward.x, 0f, transform.forward.z).normalized;
 			turnAngle = Vector3.SignedAngle(Vector3.forward, normalized, Vector3.up);
-			tiltAngle = Vector3.SignedAngle(normalized, base.transform.forward, base.transform.right);
+			tiltAngle = Vector3.SignedAngle(normalized, transform.forward, transform.right);
 			float target = activeInput.joystick.x * maxTurnRate;
 			turnRate = Mathf.MoveTowards(turnRate, target, turnAccel * fixedDeltaTime);
 			turnAngle += turnRate * fixedDeltaTime;
@@ -371,7 +371,7 @@ public class RCDragon : RCVehicle
 			float t = Mathf.InverseLerp(0f - num2, num2, num7);
 			float target2 = Mathf.Lerp(0f - maxHorizontalTiltAngle, maxHorizontalTiltAngle, t);
 			tiltAngle = Mathf.MoveTowards(tiltAngle, target2, tiltAccel * fixedDeltaTime);
-			base.transform.rotation = Quaternion.Euler(new Vector3(tiltAngle, turnAngle, 0f));
+			transform.rotation = Quaternion.Euler(new Vector3(tiltAngle, turnAngle, 0f));
 			Vector3 vector = new Vector3(linearVelocity.x, 0f, linearVelocity.z);
 			Vector3 vector2 = Vector3.Lerp(normalized * activeInput.joystick.y * num2, vector, Mathf.Exp((0f - horizontalAccelTime) * fixedDeltaTime));
 			rb.AddForce((vector2 - vector) * rb.mass, ForceMode.Impulse);
@@ -382,11 +382,11 @@ public class RCDragon : RCVehicle
 			}
 			bool flag = Mathf.Abs(num7) > num5;
 			bool flag2 = Mathf.Abs(turnRate) > num6;
-			if (flag || flag2)
+			if (flag | flag2)
 			{
 				rb.AddForce(Vector3.up * num4 * rb.mass, ForceMode.Force);
 			}
-			shouldFlap = num8 > 0.01f || flag || flag2;
+			shouldFlap = (num8 > 0.01f) | flag | flag2;
 			if (rb.useGravity)
 			{
 				RCVehicle.AddScaledGravityCompensationForce(rb, x, gravityCompensation);
@@ -402,13 +402,13 @@ public class RCDragon : RCVehicle
 	{
 		bool flag = other.gameObject.IsOnLayer(UnityLayer.GorillaThrowable);
 		bool flag2 = other.gameObject.IsOnLayer(UnityLayer.GorillaHand);
-		if (!other.isTrigger && base.HasLocalAuthority && localState == State.Mobilized)
+		if (!other.isTrigger && HasLocalAuthority && localState == State.Mobilized)
 		{
 			AuthorityBeginCrash();
 		}
 		else
 		{
-			if (!(flag || flag2) || localState != State.Mobilized)
+			if (!(flag | flag2) || localState != State.Mobilized)
 			{
 				return;
 			}
@@ -427,7 +427,7 @@ public class RCDragon : RCVehicle
 			}
 			if (flag || vector.sqrMagnitude > 0.01f)
 			{
-				if (base.HasLocalAuthority)
+				if (HasLocalAuthority)
 				{
 					AuthorityApplyImpact(vector, flag);
 				}

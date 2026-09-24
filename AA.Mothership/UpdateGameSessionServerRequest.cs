@@ -47,12 +47,12 @@ public class UpdateGameSessionServerRequest : MothershipRequest
 		}
 	}
 
-	public StringStringMap extra_properties
+	public StringKeyValueMap extra_properties
 	{
 		get
 		{
 			IntPtr intPtr = MothershipApiPINVOKE.UpdateGameSessionServerRequest_extra_properties_get(swigCPtr);
-			StringStringMap result = ((intPtr == IntPtr.Zero) ? null : new StringStringMap(intPtr, cMemoryOwn: false));
+			StringKeyValueMap result = ((intPtr == IntPtr.Zero) ? null : new StringKeyValueMap(intPtr, cMemoryOwn: false));
 			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 			{
 				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -61,7 +61,7 @@ public class UpdateGameSessionServerRequest : MothershipRequest
 		}
 		set
 		{
-			MothershipApiPINVOKE.UpdateGameSessionServerRequest_extra_properties_set(swigCPtr, StringStringMap.getCPtr(value));
+			MothershipApiPINVOKE.UpdateGameSessionServerRequest_extra_properties_set(swigCPtr, StringKeyValueMap.getCPtr(value));
 			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 			{
 				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

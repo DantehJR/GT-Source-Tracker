@@ -49,7 +49,7 @@ public class CustomMapsGalleryView : MonoBehaviour
 
 		private Action<string> WrapCallback(Action<string> source)
 		{
-			return delegate(string result)
+			return (string result) =>
 			{
 				if (_id == _parent.LatestRequest)
 				{
@@ -85,7 +85,7 @@ public class CustomMapsGalleryView : MonoBehaviour
 		{
 			modTiles[i].SetMod(mods[i], useMapName);
 			int idx = i;
-			dictionary[mods[idx]] = delegate(string count)
+			dictionary[mods[idx]] = (string count) =>
 			{
 				modTiles[idx].PlayerCountText = count;
 			};

@@ -34,7 +34,7 @@ public class HalloweenWatcherEyes : MonoBehaviour
 		playersViewCenterCosAngle = Mathf.Cos(playersViewCenterAngle * (MathF.PI / 180f));
 		watchMinCosAngle = Mathf.Cos(watchMaxAngle * (MathF.PI / 180f));
 		StartCoroutine(CheckIfNearPlayer(UnityEngine.Random.Range(0f, timeBetweenUpdates)));
-		base.enabled = false;
+		enabled = false;
 	}
 
 	private IEnumerator CheckIfNearPlayer(float initialSleep)
@@ -42,8 +42,8 @@ public class HalloweenWatcherEyes : MonoBehaviour
 		yield return new WaitForSeconds(initialSleep);
 		while (true)
 		{
-			base.enabled = (base.transform.position - GTPlayer.Instance.transform.position).sqrMagnitude < watchRange * watchRange;
-			if (!base.enabled)
+			enabled = (transform.position - GTPlayer.Instance.transform.position).sqrMagnitude < watchRange * watchRange;
+			if (!enabled)
 			{
 				LookNormal();
 			}
@@ -53,7 +53,7 @@ public class HalloweenWatcherEyes : MonoBehaviour
 
 	private void Update()
 	{
-		Vector3 normalized = (GTPlayer.Instance.headCollider.transform.position - base.transform.position).normalized;
+		Vector3 normalized = (GTPlayer.Instance.headCollider.transform.position - transform.position).normalized;
 		if (Vector3.Dot(GTPlayer.Instance.headCollider.transform.forward, -normalized) > playersViewCenterCosAngle)
 		{
 			LookNormal();
@@ -63,13 +63,13 @@ public class HalloweenWatcherEyes : MonoBehaviour
 		{
 			return;
 		}
-		if (Vector3.Dot(base.transform.forward, normalized) < watchMinCosAngle)
+		if (Vector3.Dot(transform.forward, normalized) < watchMinCosAngle)
 		{
 			LookNormal();
 			return;
 		}
-		Quaternion b = Quaternion.LookRotation(normalized, base.transform.up);
-		Quaternion rotation = Quaternion.Lerp(base.transform.rotation, b, lerpValue);
+		Quaternion b = Quaternion.LookRotation(normalized, transform.up);
+		Quaternion rotation = Quaternion.Lerp(transform.rotation, b, lerpValue);
 		leftEye.transform.rotation = rotation;
 		rightEye.transform.rotation = rotation;
 		if (lerpDuration > 0f)

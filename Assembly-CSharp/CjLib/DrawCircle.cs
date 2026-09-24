@@ -17,6 +17,6 @@ public class DrawCircle : DrawBase
 
 	protected override void Draw(Color color, DebugUtil.Style style, bool depthTest)
 	{
-		DebugUtil.DrawCircle(base.transform.position, base.transform.rotation * Vector3.back, Radius, NumSegments, color, depthTest, style);
+		DebugUtil.DrawCircle(transform.position, transform.rotation * Vector3.back, Radius, NumSegments, color, depthTest, style);
 	}
 }

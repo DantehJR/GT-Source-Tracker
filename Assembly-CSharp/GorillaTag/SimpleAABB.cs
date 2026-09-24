@@ -19,7 +19,7 @@ public class SimpleAABB : MonoBehaviour
 
 	public bool IsInBounds(Vector3 point)
 	{
-		Vector3 point2 = base.transform.InverseTransformPoint(point);
+		Vector3 point2 = transform.InverseTransformPoint(point);
 		return m_bounds.Contains(point2);
 	}
 }

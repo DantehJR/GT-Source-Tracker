@@ -181,7 +181,7 @@ public class FriendSystem : MonoBehaviour
 				localPlayerPrivacy = PlayerPrivacy.Hidden;
 				break;
 			}
-			this.OnFriendListRefresh?.Invoke(FriendBackendController.Instance.FriendsList);
+			OnFriendListRefresh?.Invoke(FriendBackendController.Instance.FriendsList);
 		}
 	}
 

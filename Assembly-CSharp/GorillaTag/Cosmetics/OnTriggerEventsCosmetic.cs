@@ -88,7 +88,7 @@ public class OnTriggerEventsCosmetic : MonoBehaviour
 		if (components == null || components.Length == 0)
 		{
 			Debug.LogError("OnTriggerEventsCosmetic requires at least one Collider on the same GameObject.");
-			base.enabled = false;
+			enabled = false;
 			return;
 		}
 		bool flag = false;
@@ -103,10 +103,10 @@ public class OnTriggerEventsCosmetic : MonoBehaviour
 		}
 		if (!flag)
 		{
-			Debug.LogWarning("OnTriggerEventsCosmetic: Collider is not set to Trigger. OnTrigger will not fire. Path=" + base.transform.GetPathQ(), base.transform);
+			Debug.LogWarning("OnTriggerEventsCosmetic: Collider is not set to Trigger. OnTrigger will not fire. Path=" + transform.GetPathQ(), transform);
 		}
 		rig = GetComponentInParent<VRRig>();
-		if (rig == null && base.gameObject.GetComponentInParent<GTPlayer>() != null)
+		if (rig == null && gameObject.GetComponentInParent<GTPlayer>() != null)
 		{
 			rig = GorillaTagger.Instance.offlineVRRig;
 		}
@@ -199,10 +199,18 @@ public class OnTriggerEventsCosmetic : MonoBehaviour
 		bool flag = other.TryGetComponent<GorillaGrabber>(out component) && component.enabled;
 		bool flag2 = flag && component.IsLeftHand;
 		bool flag3 = ((parentTransferable != null) ? parentTransferable.InLeftHand() : (myHeldItem?.InLeftHand() ?? false));
-		Vector3 position = ((myCollider != null) ? myCollider.bounds.center : base.transform.position);
+		Vector3 position = ((myCollider != null) ? myCollider.bounds.center : transform.position);
 		foreach (Listener listener in listeners)
 		{
-			bool arg = ((listener.handSource == HandSource.HoldingHand) ? flag3 : (flag ? flag2 : flag3));
+			bool arg;
+			if (listener.handSource == HandSource.HoldingHand)
+			{
+				arg = flag3;
+			}
+			else
+			{
+				arg = (flag ? flag2 : flag3);
+			}
 			if ((listener.syncForEveryoneInRoom || IsMyItem()) && (!listener.fireOnlyWhileHeld || !parentTransferable || parentTransferable.InHand()) && (listener.tagSet == null || listener.tagSet.Count <= 0 || CompareTagAny(other.gameObject, listener.tagSet)) && ((1 << layer) & listener.triggerLayerMask.value) != 0)
 			{
 				listener.listenerComponent?.Invoke(arg, other);

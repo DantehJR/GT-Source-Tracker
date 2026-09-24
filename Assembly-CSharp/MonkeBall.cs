@@ -67,7 +67,7 @@ public class MonkeBall : MonoBehaviourTick
 			}
 			if (_positionFailsafe)
 			{
-				if (base.transform.position.y < -500f || (GameBallManager.Instance.transform.position - base.transform.position).sqrMagnitude > 6400f)
+				if (transform.position.y < -500f || (GameBallManager.Instance.transform.position - transform.position).sqrMagnitude > 6400f)
 				{
 					if (PhotonNetwork.IsConnected)
 					{
@@ -75,7 +75,7 @@ public class MonkeBall : MonoBehaviourTick
 					}
 					else
 					{
-						base.transform.position = GameBallManager.Instance.transform.position;
+						transform.position = GameBallManager.Instance.transform.position;
 					}
 					_positionFailsafe = false;
 					_positionFailsafeTimer = 3f;
@@ -101,7 +101,7 @@ public class MonkeBall : MonoBehaviourTick
 			if (_droppedTimer >= 7.5f)
 			{
 				_droppedTimer = 0f;
-				GameBallManager.Instance.RequestTeleportBall(gameBall.id, base.transform.position, base.transform.rotation, _rigidBody.linearVelocity, _rigidBody.angularVelocity);
+				GameBallManager.Instance.RequestTeleportBall(gameBall.id, transform.position, transform.rotation, _rigidBody.linearVelocity, _rigidBody.angularVelocity);
 			}
 		}
 		if (_justGrabbed)
@@ -118,12 +118,12 @@ public class MonkeBall : MonoBehaviourTick
 			if (_resyncDelay <= 0f)
 			{
 				_resyncPosition = false;
-				GameBallManager.Instance.RequestTeleportBall(gameBall.id, base.transform.position, base.transform.rotation, _rigidBody.linearVelocity, _rigidBody.angularVelocity);
+				GameBallManager.Instance.RequestTeleportBall(gameBall.id, transform.position, transform.rotation, _rigidBody.linearVelocity, _rigidBody.angularVelocity);
 			}
 		}
 		if (_positionFailsafe)
 		{
-			if (base.transform.position.y < -250f || (GameBallManager.Instance.transform.position - base.transform.position).sqrMagnitude > 6400f)
+			if (transform.position.y < -250f || (GameBallManager.Instance.transform.position - transform.position).sqrMagnitude > 6400f)
 			{
 				MonkeBallGame.Instance.LaunchBallNeutral(gameBall.id);
 				_positionFailsafe = false;
@@ -286,7 +286,7 @@ public class MonkeBall : MonoBehaviourTick
 	{
 		if (_visualOffset)
 		{
-			mainRenderer.transform.SetParent(base.transform);
+			mainRenderer.transform.SetParent(transform);
 			mainRenderer.transform.localPosition = Vector3.zero;
 			mainRenderer.transform.localRotation = Quaternion.identity;
 			_visualOffset = false;

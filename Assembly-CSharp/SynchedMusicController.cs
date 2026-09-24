@@ -322,8 +322,8 @@ public class SynchedMusicController : MonoBehaviour, IGorillaSliceableSimple
 		string text = New_Validate();
 		if (text.Length > 0)
 		{
-			Debug.LogError("Disabling SynchedMusicController on \"" + base.name + "\" due to invalid setup: " + text + " Path: " + base.transform.GetPathQ(), this);
-			base.enabled = false;
+			Debug.LogError("Disabling SynchedMusicController on \"" + name + "\" due to invalid setup: " + text + " Path: " + transform.GetPathQ(), this);
+			enabled = false;
 		}
 		if (usingMultipleSources && this.audioSource == null)
 		{

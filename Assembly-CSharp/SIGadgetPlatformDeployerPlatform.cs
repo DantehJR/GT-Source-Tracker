@@ -69,7 +69,7 @@ public class SIGadgetPlatformDeployerPlatform : MonoBehaviour, ISIGameDeployable
 	{
 		if (Time.time > timeToDie)
 		{
-			ObjectPools.instance.Destroy(base.gameObject);
+			ObjectPools.instance.Destroy(gameObject);
 		}
 		else if (isOverlappingHead)
 		{

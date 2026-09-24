@@ -57,7 +57,7 @@ public class VRRigJobManager : MonoBehaviour
 		_instance = this;
 		cachedInput = new NativeArray<VRRigTransformInput>(19, Allocator.Persistent);
 		tAA = new TransformAccessArray(19, 2);
-		job = default(VRRigTransformJob);
+		job = default;
 	}
 
 	private void OnDestroy()

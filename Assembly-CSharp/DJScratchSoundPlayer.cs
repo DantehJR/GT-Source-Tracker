@@ -40,8 +40,16 @@ public class DJScratchSoundPlayer : MonoBehaviour, ISpawnable
 	{
 		if (_events.IsNull())
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((!(myRig != null)) ? null : ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (myRig != null)
+			{
+				netPlayer = ((myRig.creator != null) ? myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);

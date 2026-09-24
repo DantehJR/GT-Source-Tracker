@@ -16,7 +16,7 @@ public class LineRendererUpdateTarget : MonoBehaviourPostTick
 				return;
 			}
 			lineRenderer.enabled = true;
-			lineRenderer.SetPosition(0, base.transform.position);
+			lineRenderer.SetPosition(0, transform.position);
 			lineRenderer.SetPosition(1, targetTransform.position);
 		}
 	}

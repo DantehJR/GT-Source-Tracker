@@ -459,7 +459,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 		if (instance == null)
 		{
 			instance = this;
-			NetworkSystem.Instance.RegisterSceneNetworkItem(base.gameObject);
+			NetworkSystem.Instance.RegisterSceneNetworkItem(gameObject);
 			riseTimeLookup = new float[4] { riseTimeFast, riseTimeMedium, riseTimeSlow, riseTimeExtraSlow };
 			riseTime = riseTimeLookup[(int)nextRoundRiseSpeed];
 			allPlayersInRoom = RoomSystem.PlayersInRoom.ToArray();
@@ -603,7 +603,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 			InfrequentUpdate();
 			lastInfrequentUpdateTime = (float)currentTime;
 		}
-		if (base.IsMine)
+		if (IsMine)
 		{
 			UpdateReliableState(currentTime, ref reliableState);
 		}
@@ -641,7 +641,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 	private void InfrequentUpdate()
 	{
 		allPlayersInRoom = RoomSystem.PlayersInRoom.ToArray();
-		if (base.IsMine)
+		if (IsMine)
 		{
 			for (int num = inGamePlayerCount - 1; num >= 0; num--)
 			{
@@ -660,7 +660,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 					{
 						inGamePlayerStates[num] = inGamePlayerStates[inGamePlayerCount - 1];
 					}
-					inGamePlayerStates[inGamePlayerCount - 1] = default(PlayerGameState);
+					inGamePlayerStates[inGamePlayerCount - 1] = default;
 					inGamePlayerCount--;
 				}
 			}
@@ -1090,7 +1090,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	public void RestartGame()
 	{
-		if (base.IsMine)
+		if (IsMine)
 		{
 			riseTime = riseTimeLookup[(int)nextRoundRiseSpeed];
 			reliableState.state = RisingLiquidState.Erupting;
@@ -1103,7 +1103,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	public void DebugErupt()
 	{
-		if (base.IsMine)
+		if (IsMine)
 		{
 			riseTime = riseTimeLookup[(int)nextRoundRiseSpeed];
 			reliableState.state = RisingLiquidState.Erupting;
@@ -1173,7 +1173,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	private void OnPlayerTagged(NetPlayer taggedPlayer, NetPlayer taggingPlayer)
 	{
-		if (!base.IsMine)
+		if (!IsMine)
 		{
 			return;
 		}
@@ -1245,13 +1245,13 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 	{
 		if (collider == GTPlayer.Instance.bodyCollider)
 		{
-			if (base.IsMine)
+			if (IsMine)
 			{
 				PlayerTouchedLava(NetworkSystem.Instance.LocalPlayer.ActorNumber);
 			}
 			else
 			{
-				base.GetView.RPC("PlayerTouchedLavaRPC", RpcTarget.MasterClient);
+				GetView.RPC("PlayerTouchedLavaRPC", RpcTarget.MasterClient);
 			}
 		}
 	}
@@ -1264,13 +1264,13 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 	{
 		if (collider == GTPlayer.Instance.bodyCollider)
 		{
-			if (base.IsMine)
+			if (IsMine)
 			{
 				PlayerTouchedRefreshWater(NetworkSystem.Instance.LocalPlayer.ActorNumber);
 			}
 			else
 			{
-				base.GetView.RPC("PlayerTouchedRefreshWaterRPC", RpcTarget.MasterClient);
+				GetView.RPC("PlayerTouchedRefreshWaterRPC", RpcTarget.MasterClient);
 			}
 		}
 	}
@@ -1289,7 +1289,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	private void AddLavaRock(int playerId)
 	{
-		if (!base.IsMine || reliableState.state != RisingLiquidState.Drained)
+		if (!IsMine || reliableState.state != RisingLiquidState.Drained)
 		{
 			return;
 		}
@@ -1326,7 +1326,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 				ValidateLocalPlayerWaterBalloonHit(hitPlayer.ActorNumber);
 				return;
 			}
-			base.GetView.RPC("ValidateLocalPlayerWaterBalloonHitRPC", RpcTarget.Others, hitPlayer.ActorNumber);
+			GetView.RPC("ValidateLocalPlayerWaterBalloonHitRPC", RpcTarget.Others, hitPlayer.ActorNumber);
 		}
 	}
 
@@ -1426,7 +1426,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	private void PlayerEnteredGameArea(int pId)
 	{
-		if (!base.IsMine)
+		if (!IsMine)
 		{
 			return;
 		}
@@ -1458,7 +1458,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	private void PlayerExitedGameArea(int playerId)
 	{
-		if (!base.IsMine)
+		if (!IsMine)
 		{
 			return;
 		}
@@ -1494,14 +1494,14 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerTouchedLava(Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerTouchedLava(Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			if ((localAuthorityMask & 1) != 1)
@@ -1512,21 +1512,21 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 					NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerTouchedLava(Fusion.RpcInfo)", num);
 					return;
 				}
-				if (base.Runner.HasAnyActiveConnections())
+				if (Runner.HasAnyActiveConnections())
 				{
-					SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+					SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 					byte* ptr2 = (byte*)ptr + 28;
-					*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
+					*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
 					int num2 = 8;
 					ptr->Offset = num2 * 8;
-					base.Runner.SendRpc(ptr);
+					Runner.SendRpc(ptr);
 				}
 				if ((localAuthorityMask & 1) == 0)
 				{
 					return;
 				}
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		PhotonMessageInfoWrapped infoWrapped = new PhotonMessageInfoWrapped(info);
 		MonkeAgent.IncrementRPCCall(infoWrapped, "PlayerTouchedLavaRPC");
@@ -1535,7 +1535,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	private void PlayerTouchedLava(int playerId)
 	{
-		if (!base.IsMine)
+		if (!IsMine)
 		{
 			return;
 		}
@@ -1572,14 +1572,14 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerTouchedRefreshWater(Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerTouchedRefreshWater(Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			if ((localAuthorityMask & 1) != 1)
@@ -1590,21 +1590,21 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 					NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerTouchedRefreshWater(Fusion.RpcInfo)", num);
 					return;
 				}
-				if (base.Runner.HasAnyActiveConnections())
+				if (Runner.HasAnyActiveConnections())
 				{
-					SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+					SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 					byte* ptr2 = (byte*)ptr + 28;
-					*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 2);
+					*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 2);
 					int num2 = 8;
 					ptr->Offset = num2 * 8;
-					base.Runner.SendRpc(ptr);
+					Runner.SendRpc(ptr);
 				}
 				if ((localAuthorityMask & 1) == 0)
 				{
 					return;
 				}
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		PhotonMessageInfoWrapped infoWrapped = new PhotonMessageInfoWrapped(info);
 		MonkeAgent.IncrementRPCCall(infoWrapped, "PlayerTouchedRefreshWaterRPC");
@@ -1613,7 +1613,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	private void PlayerTouchedRefreshWater(int playerId)
 	{
-		if (!base.IsMine || !RefreshWaterAvailable)
+		if (!IsMine || !RefreshWaterAvailable)
 		{
 			return;
 		}
@@ -1654,14 +1654,14 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 			return;
 		}
 		NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-		if (base.Runner.Stage == SimulationStages.Resimulate)
+		if (Runner.Stage == SimulationStages.Resimulate)
 		{
 			return;
 		}
-		int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+		int localAuthorityMask = Object.GetLocalAuthorityMask();
 		if ((localAuthorityMask & 7) == 0)
 		{
-			NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTag.ScienceExperimentManager::RPC_ValidateLocalPlayerWaterBalloonHit(System.Int32,Fusion.RpcInfo)", base.Object, 7);
+			NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTag.ScienceExperimentManager::RPC_ValidateLocalPlayerWaterBalloonHit(System.Int32,Fusion.RpcInfo)", Object, 7);
 			return;
 		}
 		int num = 8;
@@ -1670,16 +1670,16 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 		{
 			NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GorillaTag.ScienceExperimentManager::RPC_ValidateLocalPlayerWaterBalloonHit(System.Int32,Fusion.RpcInfo)", num);
 		}
-		else if (base.Runner.HasAnyActiveConnections())
+		else if (Runner.HasAnyActiveConnections())
 		{
-			SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+			SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 			byte* ptr2 = (byte*)ptr + 28;
-			*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 3);
+			*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 3);
 			int num2 = 8;
 			*(int*)(ptr2 + num2) = playerId;
 			num2 += 4;
 			ptr->Offset = num2 * 8;
-			base.Runner.SendRpc(ptr);
+			Runner.SendRpc(ptr);
 		}
 	}
 
@@ -1687,12 +1687,12 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 	{
 		if (playerId == NetworkSystem.Instance.LocalPlayer.ActorNumber && !GTPlayer.Instance.InWater)
 		{
-			if (base.IsMine)
+			if (IsMine)
 			{
 				PlayerHitByWaterBalloon(NetworkSystem.Instance.LocalPlayer.ActorNumber);
 				return;
 			}
-			base.GetView.RPC("PlayerHitByWaterBalloonRPC", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
+			GetView.RPC("PlayerHitByWaterBalloonRPC", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber);
 		}
 	}
 
@@ -1713,14 +1713,14 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerHitByWaterBalloon(System.Int32,Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerHitByWaterBalloon(System.Int32,Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			if ((localAuthorityMask & 1) != 1)
@@ -1732,23 +1732,23 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 					NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GorillaTag.ScienceExperimentManager::RPC_PlayerHitByWaterBalloon(System.Int32,Fusion.RpcInfo)", num);
 					return;
 				}
-				if (base.Runner.HasAnyActiveConnections())
+				if (Runner.HasAnyActiveConnections())
 				{
-					SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+					SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 					byte* ptr2 = (byte*)ptr + 28;
-					*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 4);
+					*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 4);
 					int num2 = 8;
 					*(int*)(ptr2 + num2) = playerId;
 					num2 += 4;
 					ptr->Offset = num2 * 8;
-					base.Runner.SendRpc(ptr);
+					Runner.SendRpc(ptr);
 				}
 				if ((localAuthorityMask & 1) == 0)
 				{
 					return;
 				}
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		MonkeAgent.IncrementRPCCall(new PhotonMessageInfoWrapped(info), "PlayerHitByWaterBalloonRPC");
 		PlayerHitByWaterBalloon(playerId);
@@ -1756,7 +1756,7 @@ public class ScienceExperimentManager : NetworkComponent, ITickSystemTick
 
 	private void PlayerHitByWaterBalloon(int playerId)
 	{
-		if (!base.IsMine)
+		if (!IsMine)
 		{
 			return;
 		}

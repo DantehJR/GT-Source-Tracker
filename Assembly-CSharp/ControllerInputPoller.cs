@@ -236,7 +236,7 @@ public class ControllerInputPoller : MonoBehaviour
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 	}
 

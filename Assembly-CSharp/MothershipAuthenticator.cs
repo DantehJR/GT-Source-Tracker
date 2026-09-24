@@ -46,7 +46,7 @@ public class MothershipAuthenticator : MonoBehaviour, IGorillaSliceableSimple
 		}
 		else if (Instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		if (!MothershipClientApiUnity.IsEnabled())
 		{
@@ -57,7 +57,7 @@ public class MothershipAuthenticator : MonoBehaviour, IGorillaSliceableSimple
 		{
 			Instance.SteamAuthenticator = Instance.gameObject.GetOrAddComponent<SteamAuthenticator>();
 		}
-		MothershipClientApiUnity.SetLogCallback(delegate(MothershipLogLevel level, string message)
+		MothershipClientApiUnity.SetLogCallback((MothershipLogLevel level, string message) =>
 		{
 			PersistLog.Log(level switch
 			{
@@ -67,7 +67,7 @@ public class MothershipAuthenticator : MonoBehaviour, IGorillaSliceableSimple
 				_ => LogType.Log, 
 			}, message);
 		});
-		MothershipClientApiUnity.SetAuthRefreshedCallback(delegate
+		MothershipClientApiUnity.SetAuthRefreshedCallback((string id) =>
 		{
 			BeginLoginFlow();
 		});
@@ -81,12 +81,12 @@ public class MothershipAuthenticator : MonoBehaviour, IGorillaSliceableSimple
 
 	private void LogInWithInsecure()
 	{
-		MothershipClientApiUnity.LogInWithInsecure1(TestNickname, TestAccountId, delegate(LoginResponse LoginResponse)
+		MothershipClientApiUnity.LogInWithInsecure1(TestNickname, TestAccountId, (LoginResponse LoginResponse) =>
 		{
 			Debug.Log("Logged in with Mothership Id " + LoginResponse.MothershipPlayerId);
 			MothershipClientApiUnity.OpenNotificationsSocket();
 			OnLoginSuccess?.Invoke();
-		}, delegate(MothershipError MothershipError, int errorCode)
+		}, (MothershipError MothershipError, int errorCode) =>
 		{
 			Debug.LogError($"Failed to log in, error {MothershipError.Message} trace ID: {MothershipError.TraceId} status: {errorCode} Mothership error code: {MothershipError.MothershipErrorCode}");
 			OnLoginAttemptFailure?.Invoke(1);
@@ -96,21 +96,21 @@ public class MothershipAuthenticator : MonoBehaviour, IGorillaSliceableSimple
 
 	private void LogInWithSteam()
 	{
-		MothershipClientApiUnity.StartLoginWithSteam(delegate(PlayerSteamBeginLoginResponse resp)
+		MothershipClientApiUnity.StartLoginWithSteam((PlayerSteamBeginLoginResponse resp) =>
 		{
 			Debug.Log($"Mothership: Steam Login started at {DateTime.Now}");
 			string nonce = resp.Nonce;
 			SteamAuthTicket ticketHandle = HAuthTicket.Invalid;
-			ticketHandle = SteamAuthenticator.GetAuthTicketForWebApi(nonce, delegate(string ticket)
+			ticketHandle = SteamAuthenticator.GetAuthTicketForWebApi(nonce, (string ticket) =>
 			{
 				Debug.Log($"Mothership: Attempting to complete login at {DateTime.Now}");
-				MothershipClientApiUnity.CompleteLoginWithSteam(nonce, ticket, delegate
+				MothershipClientApiUnity.CompleteLoginWithSteam(nonce, ticket, (LoginResponse successResp) =>
 				{
 					ticketHandle.Dispose();
 					Debug.Log("Logged in to Mothership with Steam");
 					MothershipClientApiUnity.OpenNotificationsSocket();
 					OnLoginSuccess?.Invoke();
-				}, delegate(MothershipError MothershipError, int errorCode)
+				}, (MothershipError MothershipError, int errorCode) =>
 				{
 					ticketHandle.Dispose();
 					Debug.LogError($"Couldn't log into Mothership with Steam error {MothershipError.Message} trace ID: {MothershipError.TraceId} status: {errorCode} Mothership error code: {MothershipError.MothershipErrorCode}");
@@ -125,14 +125,14 @@ public class MothershipAuthenticator : MonoBehaviour, IGorillaSliceableSimple
 						LogInWithSteam();
 					}
 				});
-			}, delegate(EResult error)
+			}, (EResult error) =>
 			{
 				string text = $"Couldn't get an auth ticket for logging into Mothership with Steam: {error}";
 				Debug.LogError(text);
 				OnLoginAttemptFailure?.Invoke(1);
 				OnLoginFailure?.Invoke(text, "", "");
 			});
-		}, delegate(MothershipError MothershipError, int errorCode)
+		}, (MothershipError MothershipError, int errorCode) =>
 		{
 			Debug.LogError($"Couldn't start Mothership auth for Steam error {MothershipError.Message} trace ID: {MothershipError.TraceId} status: {errorCode} Mothership error code: {MothershipError.MothershipErrorCode}");
 			OnLoginAttemptFailure?.Invoke(1);

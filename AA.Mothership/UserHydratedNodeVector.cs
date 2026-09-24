@@ -96,10 +96,18 @@ public class UserHydratedNodeVector : IDisposable, IEnumerable, IEnumerable<User
 	{
 		get
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to get an out of bounds element from this vector");
+			}
 			return getitem(index);
 		}
 		set
 		{
+			if (index < 0 || index > Count)
+			{
+				throw new ArgumentOutOfRangeException("Tried to set an out of bounds element from this vector");
+			}
 			setitem(index, value);
 		}
 	}
@@ -119,6 +127,8 @@ public class UserHydratedNodeVector : IDisposable, IEnumerable, IEnumerable<User
 			reserve((uint)value);
 		}
 	}
+
+	public bool IsEmpty => empty();
 
 	public int Count => (int)size();
 
@@ -204,6 +214,80 @@ public class UserHydratedNodeVector : IDisposable, IEnumerable, IEnumerable<User
 		}
 	}
 
+	public void Insert(int index, UserHydratedNodeDefinition value)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insert(index, value);
+	}
+
+	public void InsertRange(int index, UserHydratedNodeVector values)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to insert at an out of bounds index in this vector");
+		}
+		_insertRange(index, values);
+	}
+
+	public void RemoveAt(int index)
+	{
+		if (index < 0 || index > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		_removeAt(index);
+	}
+
+	public void RemoveRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to remove an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("count", "Tried to remove a negative count from this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_removeRange(index, count);
+	}
+
+	public void ReverseRange(int index, int count)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse from an out of bounds index in this vector");
+		}
+		if (count < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to reverse an invalid count in this vector");
+		}
+		if (index < 0 || index > Count || index + count > Count)
+		{
+			throw new ArgumentOutOfRangeException("invalid range");
+		}
+		_reverseRange(index, count);
+	}
+
+	public void SetRange(int index, UserHydratedNodeVector values)
+	{
+		if (index < 0)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		if (index < 0 || index > Count || index + values.Count > Count)
+		{
+			throw new ArgumentOutOfRangeException("index", "Tried to set an out of bounds index in this vector");
+		}
+		_setRange(index, values);
+	}
+
 	public void CopyTo(UserHydratedNodeDefinition[] array)
 	{
 		CopyTo(0, array, 0, Count);
@@ -242,6 +326,10 @@ public class UserHydratedNodeVector : IDisposable, IEnumerable, IEnumerable<User
 		}
 		for (int i = 0; i < count; i++)
 		{
+			if (i > array.Length - 1)
+			{
+				throw new ArgumentOutOfRangeException("Somehow we tried to copy to an array index that's out of bounds");
+			}
 			array.SetValue(getitemcopy(index + i), arrayIndex + i);
 		}
 	}
@@ -266,6 +354,24 @@ public class UserHydratedNodeVector : IDisposable, IEnumerable, IEnumerable<User
 	public UserHydratedNodeVectorEnumerator GetEnumerator()
 	{
 		return new UserHydratedNodeVectorEnumerator(this);
+	}
+
+	public UserHydratedNodeVector()
+		: this(MothershipApiPINVOKE.new_UserHydratedNodeVector__SWIG_0(), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public UserHydratedNodeVector(UserHydratedNodeVector other)
+		: this(MothershipApiPINVOKE.new_UserHydratedNodeVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
+	{
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
 	}
 
 	public void Clear()
@@ -296,6 +402,16 @@ public class UserHydratedNodeVector : IDisposable, IEnumerable, IEnumerable<User
 		return result;
 	}
 
+	private bool empty()
+	{
+		bool result = MothershipApiPINVOKE.UserHydratedNodeVector_empty(swigCPtr);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	private uint capacity()
 	{
 		uint result = MothershipApiPINVOKE.UserHydratedNodeVector_capacity(swigCPtr);
@@ -309,24 +425,6 @@ public class UserHydratedNodeVector : IDisposable, IEnumerable, IEnumerable<User
 	private void reserve(uint n)
 	{
 		MothershipApiPINVOKE.UserHydratedNodeVector_reserve(swigCPtr, n);
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public UserHydratedNodeVector()
-		: this(MothershipApiPINVOKE.new_UserHydratedNodeVector__SWIG_0(), cMemoryOwn: true)
-	{
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-	}
-
-	public UserHydratedNodeVector(UserHydratedNodeVector other)
-		: this(MothershipApiPINVOKE.new_UserHydratedNodeVector__SWIG_1(getCPtr(other)), cMemoryOwn: true)
-	{
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -380,85 +478,63 @@ public class UserHydratedNodeVector : IDisposable, IEnumerable, IEnumerable<User
 		}
 	}
 
-	public UserHydratedNodeVector GetRange(int index, int count)
+	private void _insert(int index, UserHydratedNodeDefinition x)
 	{
-		IntPtr intPtr = MothershipApiPINVOKE.UserHydratedNodeVector_GetRange(swigCPtr, index, count);
-		UserHydratedNodeVector result = ((intPtr == IntPtr.Zero) ? null : new UserHydratedNodeVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
-	}
-
-	public void Insert(int index, UserHydratedNodeDefinition x)
-	{
-		MothershipApiPINVOKE.UserHydratedNodeVector_Insert(swigCPtr, index, UserHydratedNodeDefinition.getCPtr(x));
+		MothershipApiPINVOKE.UserHydratedNodeVector__insert(swigCPtr, index, UserHydratedNodeDefinition.getCPtr(x));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void InsertRange(int index, UserHydratedNodeVector values)
+	private void _insertRange(int index, UserHydratedNodeVector values)
 	{
-		MothershipApiPINVOKE.UserHydratedNodeVector_InsertRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.UserHydratedNodeVector__insertRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveAt(int index)
+	private void _removeAt(int index)
 	{
-		MothershipApiPINVOKE.UserHydratedNodeVector_RemoveAt(swigCPtr, index);
+		MothershipApiPINVOKE.UserHydratedNodeVector__removeAt(swigCPtr, index);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void RemoveRange(int index, int count)
+	private void _removeRange(int index, int count)
 	{
-		MothershipApiPINVOKE.UserHydratedNodeVector_RemoveRange(swigCPtr, index, count);
+		MothershipApiPINVOKE.UserHydratedNodeVector__removeRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
-	}
-
-	public static UserHydratedNodeVector Repeat(UserHydratedNodeDefinition value, int count)
-	{
-		IntPtr intPtr = MothershipApiPINVOKE.UserHydratedNodeVector_Repeat(UserHydratedNodeDefinition.getCPtr(value), count);
-		UserHydratedNodeVector result = ((intPtr == IntPtr.Zero) ? null : new UserHydratedNodeVector(intPtr, cMemoryOwn: true));
-		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
-		{
-			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
-		}
-		return result;
 	}
 
 	public void Reverse()
 	{
-		MothershipApiPINVOKE.UserHydratedNodeVector_Reverse__SWIG_0(swigCPtr);
+		MothershipApiPINVOKE.UserHydratedNodeVector_Reverse(swigCPtr);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void Reverse(int index, int count)
+	private void _reverseRange(int index, int count)
 	{
-		MothershipApiPINVOKE.UserHydratedNodeVector_Reverse__SWIG_1(swigCPtr, index, count);
+		MothershipApiPINVOKE.UserHydratedNodeVector__reverseRange(swigCPtr, index, count);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
 		}
 	}
 
-	public void SetRange(int index, UserHydratedNodeVector values)
+	private void _setRange(int index, UserHydratedNodeVector values)
 	{
-		MothershipApiPINVOKE.UserHydratedNodeVector_SetRange(swigCPtr, index, getCPtr(values));
+		MothershipApiPINVOKE.UserHydratedNodeVector__setRange(swigCPtr, index, getCPtr(values));
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

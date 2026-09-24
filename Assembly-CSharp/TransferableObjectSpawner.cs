@@ -71,11 +71,11 @@ public class TransferableObjectSpawner : MonoBehaviour
 			TransferrableObject componentInChildren = gameObject.GetComponentInChildren<TransferrableObject>();
 			if (componentInChildren.IsNull())
 			{
-				Debug.LogError(base.name + " at path " + this.GetComponentPath() + " has " + gameObject.name + " assigned to TransferrableObjectsToSpawn collection, but it does not have a TransferrableObject component.  It will not spawn.");
+				Debug.LogError(name + " at path " + this.GetComponentPath() + " has " + gameObject.name + " assigned to TransferrableObjectsToSpawn collection, but it does not have a TransferrableObject component.  It will not spawn.");
 			}
 			else if (componentInChildren.worldShareableInstance == null)
 			{
-				Debug.LogError(base.name + " at path " + this.GetComponentPath() + " has " + gameObject.name + " assigned to TransferrableObjectsToSpawn collection, but it's worldShareableInstance is null.");
+				Debug.LogError(name + " at path " + this.GetComponentPath() + " has " + gameObject.name + " assigned to TransferrableObjectsToSpawn collection, but it's worldShareableInstance is null.");
 			}
 		}
 	}
@@ -91,7 +91,7 @@ public class TransferableObjectSpawner : MonoBehaviour
 
 	private bool SpawnOnGround()
 	{
-		if (Physics.Raycast(new Ray(base.transform.position + Random.insideUnitCircle.x0y() * spawnRadius, Vector3.down), out var hitInfo, 3f, groundRaycastMask))
+		if (Physics.Raycast(new Ray(transform.position + Random.insideUnitCircle.x0y() * spawnRadius, Vector3.down), out var hitInfo, 3f, groundRaycastMask))
 		{
 			spawnPosition = hitInfo.point;
 			spawnRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
@@ -102,8 +102,8 @@ public class TransferableObjectSpawner : MonoBehaviour
 
 	private void SpawnAtCurrentLocation()
 	{
-		spawnPosition = base.transform.position;
-		spawnRotation = base.transform.rotation;
+		spawnPosition = transform.position;
+		spawnRotation = transform.rotation;
 	}
 
 	public void SpawnTransferrableObject()

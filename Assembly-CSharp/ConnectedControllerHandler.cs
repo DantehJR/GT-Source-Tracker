@@ -116,7 +116,7 @@ internal class ConnectedControllerHandler : MonoBehaviour, IGorillaSliceableSimp
 		Instance = this;
 		if (leftHandFollower == null || rightHandFollower == null || rightXRController == null || leftXRController == null || snapTurnController == null)
 		{
-			base.enabled = false;
+			enabled = false;
 			return;
 		}
 		rightControllerList = new List<XRController>();

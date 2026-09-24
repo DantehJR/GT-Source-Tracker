@@ -47,6 +47,16 @@ public class GraphicToggleIsOnTransition : MonoBehaviour, IPointerEnterHandler, 
 
 	public void OnValueChanged(bool isOn)
 	{
-		_graphic.color = ((!isOn) ? (isHover ? NormalOffColor : NormalOffColor) : (isHover ? HoverOnColor : HoverOnColor));
+		Graphic graphic = _graphic;
+		Color color;
+		if (isOn)
+		{
+			color = (isHover ? HoverOnColor : HoverOnColor);
+		}
+		else
+		{
+			color = (isHover ? NormalOffColor : NormalOffColor);
+		}
+		graphic.color = color;
 	}
 }

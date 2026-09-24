@@ -2023,9 +2023,9 @@ public class MothershipAutomationApiClient : MothershipApiClient
 		}
 	}
 
-	public bool RegisterGameSession(string titleId, string envId, string gameSessionId, string provider, string gameSessionName, string requiredTags, string ip, int port, int maxPlayerCount, string region, string partition, StringStringMap extraProperties, IntPtr userData)
+	public bool RegisterGameSession(string titleId, string envId, string gameSessionId, string provider, string gameSessionName, string requiredTags, string ip, int port, int maxPlayerCount, string region, string partition, StringKeyValueMap extraProperties, IntPtr userData)
 	{
-		bool result = MothershipApiPINVOKE.MothershipAutomationApiClient_RegisterGameSession(swigCPtr, titleId, envId, gameSessionId, provider, gameSessionName, requiredTags, ip, port, maxPlayerCount, region, partition, StringStringMap.getCPtr(extraProperties), userData);
+		bool result = MothershipApiPINVOKE.MothershipAutomationApiClient_RegisterGameSession(swigCPtr, titleId, envId, gameSessionId, provider, gameSessionName, requiredTags, ip, port, maxPlayerCount, region, partition, StringKeyValueMap.getCPtr(extraProperties), userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -2042,9 +2042,9 @@ public class MothershipAutomationApiClient : MothershipApiClient
 		}
 	}
 
-	public bool UpdateGameSession(string titleId, string envId, string id, string gameSessionId, string provider, string gameSessionName, string ip, int port, int maxPlayerCount, int currentPlayerCount, string region, StringStringMap extraProperties, IntPtr userData)
+	public bool UpdateGameSession(string titleId, string envId, string id, string gameSessionId, string provider, string gameSessionName, string ip, int port, int maxPlayerCount, int currentPlayerCount, string region, StringKeyValueMap extraProperties, IntPtr userData)
 	{
-		bool result = MothershipApiPINVOKE.MothershipAutomationApiClient_UpdateGameSession(swigCPtr, titleId, envId, id, gameSessionId, provider, gameSessionName, ip, port, maxPlayerCount, currentPlayerCount, region, StringStringMap.getCPtr(extraProperties), userData);
+		bool result = MothershipApiPINVOKE.MothershipAutomationApiClient_UpdateGameSession(swigCPtr, titleId, envId, id, gameSessionId, provider, gameSessionName, ip, port, maxPlayerCount, currentPlayerCount, region, StringKeyValueMap.getCPtr(extraProperties), userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

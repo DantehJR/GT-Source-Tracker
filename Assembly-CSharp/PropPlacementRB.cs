@@ -48,9 +48,9 @@ public class PropPlacementRB : MonoBehaviour, IDelayedExecListener
 		{
 			colliders[i].gameObject.SetActive(value: false);
 		}
-		base.transform.position = pos;
-		base.transform.rotation = rot;
-		base.gameObject.SetActive(value: false);
+		transform.position = pos;
+		transform.rotation = rot;
+		gameObject.SetActive(value: false);
 		_isInstantiatingAsync = true;
 		AsyncOperationHandle<GameObject> asyncOperationHandle = propRef.InstantiateAsync();
 		asyncOperationHandle.Completed += OnPropLoaded_NoPool;
@@ -60,8 +60,8 @@ public class PropPlacementRB : MonoBehaviour, IDelayedExecListener
 	{
 		_isInstantiatingAsync = false;
 		_placingProp = handle.Result;
-		_placingProp.transform.position = base.transform.position;
-		_placingProp.transform.rotation = base.transform.rotation;
+		_placingProp.transform.position = transform.position;
+		_placingProp.transform.rotation = transform.rotation;
 		m_rb.linearVelocity = Vector3.zero;
 		m_rb.angularVelocity = Vector3.zero;
 		CosmeticSO debugCosmeticSO = null;
@@ -71,7 +71,7 @@ public class PropPlacementRB : MonoBehaviour, IDelayedExecListener
 			return;
 		}
 		_placingProp.SetActive(value: false);
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		GTDelayedExec.Add(this, 2f, 0);
 	}
 
@@ -95,10 +95,10 @@ public class PropPlacementRB : MonoBehaviour, IDelayedExecListener
 				if (!(sharedMesh == null) && sharedMesh.isReadable)
 				{
 					flag = true;
-					GameObject obj = new GameObject(meshFilter.name + "__PropHuntDecoy_Collider");
-					obj.transform.parent = rb.transform;
-					obj.layer = 30;
-					MeshCollider meshCollider = obj.AddComponent<MeshCollider>();
+					GameObject gameObject = new GameObject(meshFilter.name + "__PropHuntDecoy_Collider");
+					gameObject.transform.parent = rb.transform;
+					gameObject.layer = 30;
+					MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>();
 					meshCollider.convex = true;
 					meshCollider.transform.position = meshFilter.transform.position;
 					meshCollider.transform.rotation = meshFilter.transform.rotation;
@@ -129,10 +129,10 @@ public class PropPlacementRB : MonoBehaviour, IDelayedExecListener
 	{
 		if ((object)_placingProp != null)
 		{
-			_placingProp.transform.position = base.transform.position;
-			_placingProp.transform.rotation = base.transform.rotation;
+			_placingProp.transform.position = transform.position;
+			_placingProp.transform.rotation = transform.rotation;
 			_placingProp.SetActive(value: true);
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 

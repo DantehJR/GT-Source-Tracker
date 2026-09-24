@@ -54,7 +54,7 @@ public class DJScratchtable : MonoBehaviour
 
 	private void OnTriggerStay(Collider collider)
 	{
-		if (!base.enabled)
+		if (!enabled)
 		{
 			return;
 		}
@@ -63,11 +63,11 @@ public class DJScratchtable : MonoBehaviour
 		{
 			return;
 		}
-		Vector3 forward = (base.transform.parent.InverseTransformPoint(collider.transform.position) - base.transform.localPosition).WithY(0f);
+		Vector3 forward = (transform.parent.InverseTransformPoint(collider.transform.position) - transform.localPosition).WithY(0f);
 		float target = Mathf.Atan2(forward.z, forward.x) * 57.29578f;
 		if (isTouching)
 		{
-			base.transform.localRotation = Quaternion.LookRotation(forward) * firstTouchRotation;
+			transform.localRotation = Quaternion.LookRotation(forward) * firstTouchRotation;
 			if (isPlaying)
 			{
 				float num = Mathf.DeltaAngle(lastScratchSoundAngle, target);
@@ -92,7 +92,7 @@ public class DJScratchtable : MonoBehaviour
 		}
 		else
 		{
-			firstTouchRotation = Quaternion.Inverse(Quaternion.LookRotation(base.transform.InverseTransformPoint(collider.transform.position).WithY(0f)));
+			firstTouchRotation = Quaternion.Inverse(Quaternion.LookRotation(transform.InverseTransformPoint(collider.transform.position).WithY(0f)));
 			if (isPlaying)
 			{
 				PauseTrack();
@@ -107,7 +107,7 @@ public class DJScratchtable : MonoBehaviour
 
 	private void OnTriggerExit(Collider collider)
 	{
-		if (base.enabled && !(collider.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
+		if (enabled && !(collider.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
 		{
 			if (isPlaying)
 			{

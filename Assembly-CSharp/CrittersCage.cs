@@ -91,7 +91,7 @@ public class CrittersCage : CrittersActor
 
 	private void SetLidActive(bool active, bool playAudio = true)
 	{
-		if (active != _lidActive && playAudio)
+		if ((active != _lidActive) & playAudio)
 		{
 			sound.GTPlayOneShot(active ? openSound : closeSound);
 		}

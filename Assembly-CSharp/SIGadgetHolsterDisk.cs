@@ -118,7 +118,7 @@ public class SIGadgetHolsterDisk : SIGadget, I_SIDisruptable
 
 	public void GadgetRespawn()
 	{
-		cachedGadget.transform.parent = base.transform;
+		cachedGadget.transform.parent = transform;
 		cachedGadget.transform.localPosition = referenceTransform.localPosition;
 		cachedGadget.transform.localRotation = referenceTransform.localRotation;
 		cachedGadget.gameEntity.pickupable = false;

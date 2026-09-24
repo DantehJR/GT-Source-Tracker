@@ -41,7 +41,7 @@ internal static class CustomTypesUnity
 
 	private static object DeserializeVector3(StreamBuffer inStream, short length)
 	{
-		Vector3 vector = default(Vector3);
+		Vector3 vector = default;
 		if (length != 12)
 		{
 			return vector;
@@ -73,7 +73,7 @@ internal static class CustomTypesUnity
 
 	private static object DeserializeVector2(StreamBuffer inStream, short length)
 	{
-		Vector2 vector = default(Vector2);
+		Vector2 vector = default;
 		if (length != 8)
 		{
 			return vector;

@@ -45,7 +45,7 @@ public class TestManipulatableSpinnerIcons : MonoBehaviour
 		for (int i = 0; i < rollerElementCount; i++)
 		{
 			float x = rollerElementAngle * (float)i + rollerElementAngle * 0.5f;
-			Object.Instantiate(rollerElementTemplate, base.transform).transform.localRotation = Quaternion.Euler(x, 0f, 0f);
+			Object.Instantiate(rollerElementTemplate, transform).transform.localRotation = Quaternion.Euler(x, 0f, 0f);
 			GameObject gameObject = Object.Instantiate(iconElementTemplate, iconCanvas.transform);
 			gameObject.transform.localRotation = Quaternion.Euler(x, 0f, 0f);
 			visibleIcons.Add(gameObject.GetComponentInChildren<Text>());
@@ -89,7 +89,7 @@ public class TestManipulatableSpinnerIcons : MonoBehaviour
 			}
 		}
 		num -= (float)rollerElementCount / 2f * rollerElementAngle;
-		base.transform.localRotation = Quaternion.Euler(num, 0f, 0f);
+		transform.localRotation = Quaternion.Euler(num, 0f, 0f);
 		iconCanvas.transform.localRotation = Quaternion.Euler(num, 0f, 0f);
 		int num2 = rollerElementCount / 2;
 		for (int i = 0; i < visibleIcons.Count; i++)

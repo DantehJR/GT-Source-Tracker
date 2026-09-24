@@ -16,7 +16,7 @@ public class PointedAtGameObjectInfo : MonoBehaviour
 		if (Instance != null)
 		{
 			Debug.LogWarning("PointedAtGameObjectInfo is already featured in the scene, gameobject is destroyed");
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 		Instance = this;
 	}
@@ -50,7 +50,7 @@ public class PointedAtGameObjectInfo : MonoBehaviour
 	{
 		if (focus != null)
 		{
-			base.transform.position = Camera.main.WorldToScreenPoint(focus.position);
+			transform.position = Camera.main.WorldToScreenPoint(focus.position);
 		}
 	}
 }

@@ -36,7 +36,7 @@ public class SIGadgetProjectileStretchVisuals : MonoBehaviourTick
 		maxSizeReached = false;
 		baseVisuals.transform.localPosition = new Vector3(0f, 0f, 0f);
 		baseVisuals.transform.localScale = new Vector3(1f, 1f, 1f);
-		frontDistance = (frontStretch.position - base.transform.position).magnitude;
+		frontDistance = (frontStretch.position - transform.position).magnitude;
 	}
 
 	public override void Tick()

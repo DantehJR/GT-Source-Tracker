@@ -230,7 +230,7 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 				sIDispenserGadgetListEntry.SetStation(this, parentTerminal.zeroZeroImage, parentTerminal.onePointTwoText);
 				gadgetEntries.Add(sIDispenserGadgetListEntry);
 			}
-			if (m_isTryOn && base.isActiveAndEnabled)
+			if (m_isTryOn && isActiveAndEnabled)
 			{
 				g_tryOnOptions = m_tryOnOptions;
 			}
@@ -353,7 +353,17 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 	public void SetScreenVisibility(GadgetDispenserTerminalState currentState, GadgetDispenserTerminalState lastState)
 	{
 		bool flag = IsPopupState(currentState);
-		background.color = ((currentState == GadgetDispenserTerminalState.WaitingForScan) ? Color.white : ((ActivePlayer != null && ActivePlayer.gamePlayer.IsLocal()) ? active : notActive));
+		Image image = background;
+		Color color;
+		if (currentState != GadgetDispenserTerminalState.WaitingForScan)
+		{
+			color = ((ActivePlayer != null && ActivePlayer.gamePlayer.IsLocal()) ? active : notActive);
+		}
+		else
+		{
+			color = Color.white;
+		}
+		image.color = color;
 		foreach (GadgetDispenserTerminalState key in screenData.Keys)
 		{
 			bool flag2 = key == currentState || (flag && key == lastState);

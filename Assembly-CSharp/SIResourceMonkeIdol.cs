@@ -13,6 +13,6 @@ public class SIResourceMonkeIdol : SIResource
 
 	public override void HandleDepositAuth(SIPlayer depositingPlayer)
 	{
-		SIPlayer.LocalPlayer.TriggerIdolDepositedCelebration(base.transform.position);
+		SIPlayer.LocalPlayer.TriggerIdolDepositedCelebration(transform.position);
 	}
 }

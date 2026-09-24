@@ -40,9 +40,9 @@ public class GTRecorder : Recorder, ITickSystemPost
 
 	private IEnumerator DoTestEcho()
 	{
-		base.DebugEchoMode = true;
+		DebugEchoMode = true;
 		yield return new WaitForSeconds(DebugEchoLength);
-		base.DebugEchoMode = false;
+		DebugEchoMode = false;
 		yield return null;
 		_testEchoCoroutine = null;
 	}

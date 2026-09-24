@@ -55,7 +55,7 @@ public class GorillaVelocityTracker : MonoBehaviour, ITickSystemTick
 
 	public void ResetState()
 	{
-		trans = base.transform;
+		trans = transform;
 		localSpaceData = new VelocityDataPoint[maxDataPoints];
 		PopulateArray(localSpaceData);
 		worldSpaceData = new VelocityDataPoint[maxDataPoints];

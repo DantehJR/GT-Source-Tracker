@@ -38,7 +38,7 @@ public class GRFadeAndDestroyLight : MonoBehaviour
 			intensity -= timeSlice * fadeRate;
 			if (intensity <= 0f)
 			{
-				base.gameObject.Destroy();
+				gameObject.Destroy();
 			}
 			else
 			{

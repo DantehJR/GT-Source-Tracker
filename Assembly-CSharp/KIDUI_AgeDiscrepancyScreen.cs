@@ -30,7 +30,7 @@ public class KIDUI_AgeDiscrepancyScreen : MonoBehaviour
 
 	public async Task ShowAgeDiscrepancyScreenWithAwait(string description)
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		CheckLocalizationReferences();
 		_descriptionText.text = description;
 		await WaitForCompletion();
@@ -38,7 +38,7 @@ public class KIDUI_AgeDiscrepancyScreen : MonoBehaviour
 
 	public async Task ShowAgeDiscrepancyScreenWithAwait(int userAge, int accAge, int lowestAge)
 	{
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		CheckLocalizationReferences();
 		_userAgeVar.Value = userAge;
 		_accountAgeVar.Value = accAge;

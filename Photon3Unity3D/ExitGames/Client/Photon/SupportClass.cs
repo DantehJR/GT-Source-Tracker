@@ -71,7 +71,7 @@ public class SupportClass
 			{
 				threadList = new List<Thread>();
 			}
-			Thread thread = new Thread((ThreadStart)delegate
+			Thread thread = new Thread(() =>
 			{
 				try
 				{

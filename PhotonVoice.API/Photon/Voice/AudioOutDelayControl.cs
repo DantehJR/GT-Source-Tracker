@@ -38,7 +38,7 @@ public class AudioOutDelayControl
 }
 public abstract class AudioOutDelayControl<T> : AudioOutDelayControl, IAudioOut<T>
 {
-	private readonly int sizeofT = Marshal.SizeOf(default(T));
+	private readonly int sizeofT = Marshal.SizeOf<T>(default);
 
 	private const int TEMPO_UP_SKIP_GROUP = 6;
 

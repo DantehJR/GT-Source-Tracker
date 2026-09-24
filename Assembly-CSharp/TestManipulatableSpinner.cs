@@ -13,6 +13,6 @@ public class TestManipulatableSpinner : MonoBehaviour
 	private void LateUpdate()
 	{
 		float angle = spinner.angle;
-		base.transform.rotation = Quaternion.Euler(0f, angle * rotationScale, 0f);
+		transform.rotation = Quaternion.Euler(0f, angle * rotationScale, 0f);
 	}
 }

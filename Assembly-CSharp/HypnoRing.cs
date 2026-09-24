@@ -43,7 +43,7 @@ public class HypnoRing : MonoBehaviour, ISpawnable
 	{
 		if ((attachedToLeftHand ? myRig.leftIndex.calcT : myRig.rightIndex.calcT) > 0.5f)
 		{
-			base.transform.localRotation *= Quaternion.AngleAxis(Time.deltaTime * rotationSpeed, Vector3.up);
+			transform.localRotation *= Quaternion.AngleAxis(Time.deltaTime * rotationSpeed, Vector3.up);
 			currentVolume = Mathf.MoveTowards(currentVolume, maxVolume, Time.deltaTime / fadeInDuration);
 			audioSource.volume = currentVolume;
 			if (!audioSource.isPlaying)

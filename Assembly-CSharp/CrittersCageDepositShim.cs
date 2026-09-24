@@ -35,7 +35,7 @@ public class CrittersCageDepositShim : MonoBehaviour
 	[ContextMenu("Copy Deposit Data To Shim")]
 	private CrittersCageDeposit CopySpawnerDataInPrefab()
 	{
-		CrittersCageDeposit component = base.gameObject.GetComponent<CrittersCageDeposit>();
+		CrittersCageDeposit component = gameObject.GetComponent<CrittersCageDeposit>();
 		cageBoxCollider = (BoxCollider)component.gameObject.GetComponent<Collider>();
 		type = component.actorType;
 		disableGrabOnAttach = component.disableGrabOnAttach;

@@ -42,8 +42,8 @@ public class ThrowableSetDressing : TransferrableObject
 	protected override void Start()
 	{
 		base.Start();
-		respawnAtPos = base.transform.position;
-		respawnAtRot = base.transform.rotation;
+		respawnAtPos = transform.position;
+		respawnAtRot = transform.rotation;
 		currentState = PositionState.Dropped;
 	}
 
@@ -100,8 +100,8 @@ public class ThrowableSetDressing : TransferrableObject
 		if (!InHand())
 		{
 			SetWillTeleport();
-			base.transform.position = respawnAtPos;
-			base.transform.rotation = respawnAtRot;
+			transform.position = respawnAtPos;
+			transform.rotation = respawnAtRot;
 			inInitialPose = true;
 			rigidbodyInstance.isKinematic = true;
 		}

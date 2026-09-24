@@ -240,7 +240,19 @@ public class MoonController : MonoBehaviour
 			{
 			}
 			_ = orbitAngle;
-			float num2 = (num ? Mathf.Lerp(MathF.PI, 0f, (timeOfDay - 0.53999996f) / 0.13333333f) : (flag ? Mathf.Lerp(0f, -MathF.PI, (timeOfDay - 13f / 150f) / 0.13333333f) : ((!flag2) ? MathF.PI : 0f)));
+			float num2;
+			if (num)
+			{
+				num2 = Mathf.Lerp(MathF.PI, 0f, (timeOfDay - 0.53999996f) / 0.13333333f);
+			}
+			else if (flag)
+			{
+				num2 = Mathf.Lerp(0f, -MathF.PI, (timeOfDay - 13f / 150f) / 0.13333333f);
+			}
+			else
+			{
+				num2 = ((!flag2) ? MathF.PI : 0f);
+			}
 			if (orbitAngle != num2)
 			{
 				orbitAngle = num2;
@@ -299,9 +311,9 @@ public class MoonController : MonoBehaviour
 		position.y += num;
 		position.x += num2 * Mathf.Cos(restAngle * (MathF.PI / 180f));
 		position.z += num2 * Mathf.Sin(restAngle * (MathF.PI / 180f));
-		base.transform.position = position;
-		base.transform.rotation = Quaternion.LookRotation(referencePoint.position - base.transform.position);
-		base.transform.localScale = Vector3.one * num3;
+		transform.position = position;
+		transform.rotation = Quaternion.LookRotation(referencePoint.position - transform.position);
+		transform.localScale = Vector3.one * num3;
 	}
 
 	public void UpdatePlacementOrbit()
@@ -328,9 +340,9 @@ public class MoonController : MonoBehaviour
 			position2.z += placement.radiusRange.x * Mathf.Sin(placement.restAngle * (MathF.PI / 180f));
 			vector = ((!(Mathf.Abs(orbitAngle) < 0.9424779f)) ? Vector3.Lerp(position2, position, distance) : Vector3.Lerp(position2, vector, distance));
 		}
-		base.transform.position = vector;
-		base.transform.rotation = Quaternion.LookRotation(referencePoint.position - base.transform.position);
-		base.transform.localScale = Vector3.one * Mathf.Lerp(placement.scaleRange.x, placement.scaleRange.y, distance);
+		transform.position = vector;
+		transform.rotation = Quaternion.LookRotation(referencePoint.position - transform.position);
+		transform.localScale = Vector3.one * Mathf.Lerp(placement.scaleRange.x, placement.scaleRange.y, distance);
 		if (debugDrawOrbit)
 		{
 			int num3 = 32;
@@ -345,7 +357,19 @@ public class MoonController : MonoBehaviour
 			if (timeOfDay >= num5)
 			{
 			}
-			Color color = (num8 ? Color.red : (flag2 ? Color.green : (flag ? Color.yellow : Color.blue)));
+			Color color;
+			if (num8)
+			{
+				color = Color.red;
+			}
+			else if (flag2)
+			{
+				color = Color.green;
+			}
+			else
+			{
+				color = (flag ? Color.yellow : Color.blue);
+			}
 			Vector3 v = referencePoint.position + quaternion * new Vector3(Mathf.Cos(0f), 0f, Mathf.Sin(0f)) * num;
 			for (int i = 1; i <= num3; i++)
 			{

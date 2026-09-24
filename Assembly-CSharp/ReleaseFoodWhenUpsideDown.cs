@@ -36,7 +36,7 @@ public class ReleaseFoodWhenUpsideDown : MonoBehaviour
 		{
 			return;
 		}
-		if (Vector3.Angle(base.transform.up, Vector3.down) < angle)
+		if (Vector3.Angle(transform.up, Vector3.down) < angle)
 		{
 			if (latch)
 			{
@@ -49,10 +49,10 @@ public class ReleaseFoodWhenUpsideDown : MonoBehaviour
 				CrittersActor crittersActor = CrittersManager.instance.SpawnActor(CrittersActor.CrittersActorType.Food, foodSubIndex);
 				if (!crittersActor.IsNull())
 				{
-					CrittersFood obj = (CrittersFood)crittersActor;
-					obj.MoveActor(spawnPoint.position, spawnPoint.rotation);
-					obj.SetImpulseVelocity(Vector3.zero, Vector3.zero);
-					obj.SpawnData(maxFood, startingFood, startingSize);
+					CrittersFood crittersFood = (CrittersFood)crittersActor;
+					crittersFood.MoveActor(spawnPoint.position, spawnPoint.rotation);
+					crittersFood.SetImpulseVelocity(Vector3.zero, Vector3.zero);
+					crittersFood.SpawnData(maxFood, startingFood, startingSize);
 				}
 			}
 		}

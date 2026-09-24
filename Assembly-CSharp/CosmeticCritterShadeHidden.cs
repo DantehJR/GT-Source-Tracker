@@ -41,6 +41,6 @@ public class CosmeticCritterShadeHidden : CosmeticCritter
 		float num = (float)GetAliveTime();
 		float f = initialAngle + orbitDegreesPerSecond * num * orbitDirection;
 		float y = verticalBobMagnitude * Mathf.Sin(num * verticalBobFrequency);
-		base.transform.position = orbitCenter + new Vector3(orbitRadius * Mathf.Cos(f), y, orbitRadius * Mathf.Sin(f));
+		transform.position = orbitCenter + new Vector3(orbitRadius * Mathf.Cos(f), y, orbitRadius * Mathf.Sin(f));
 	}
 }

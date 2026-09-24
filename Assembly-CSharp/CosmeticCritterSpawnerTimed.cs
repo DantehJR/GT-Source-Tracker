@@ -34,7 +34,7 @@ public abstract class CosmeticCritterSpawnerTimed : CosmeticCritterSpawnerIndepe
 	protected override void OnEnable()
 	{
 		base.OnEnable();
-		if (base.IsLocal)
+		if (IsLocal)
 		{
 			nextLocalSpawnTime = Time.time + Random.Range(spawnIntervalMinMax.x, spawnIntervalMinMax.y);
 		}

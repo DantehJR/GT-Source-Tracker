@@ -34,7 +34,7 @@ public class CosmeticsProximityReactorManager : MonoBehaviour, IGorillaSliceable
 	{
 		if (_instance != null && _instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		else
 		{
@@ -73,7 +73,7 @@ public class CosmeticsProximityReactorManager : MonoBehaviour, IGorillaSliceable
 		if (!cosmetics.Contains(cosmetic))
 		{
 			cosmetics.Add(cosmetic);
-			CosmeticsProximityReactorManager.OnCosmeticRegistered?.Invoke(cosmetic);
+			OnCosmeticRegistered?.Invoke(cosmetic);
 		}
 		IReadOnlyList<string> types = cosmetic.GetTypes();
 		for (int i = 0; i < types.Count; i++)
@@ -152,14 +152,13 @@ public class CosmeticsProximityReactorManager : MonoBehaviour, IGorillaSliceable
 					continue;
 				}
 				bool flag = false;
-				Vector3 contact = default(Vector3);
+				Vector3 contact = default;
 				for (int k = 0; k < gorillaBodyPart.Count; k++)
 				{
 					CosmeticsProximityReactor cosmeticsProximityReactor2 = gorillaBodyPart[k];
 					if (!(cosmeticsProximityReactor2 == null) && cosmeticsProximityReactor.AcceptsThisSource(cosmeticsProximityReactor2.gorillaBodyParts))
 					{
-						bool any;
-						float sourceThresholdFor = cosmeticsProximityReactor.GetSourceThresholdFor(cosmeticsProximityReactor2, out any);
+						float sourceThresholdFor = cosmeticsProximityReactor.GetSourceThresholdFor(cosmeticsProximityReactor2, out var any);
 						if (any && AreCollidersWithinThreshold(cosmeticsProximityReactor2, cosmeticsProximityReactor, sourceThresholdFor, out var contactPoint))
 						{
 							cosmeticsProximityReactor.OnSourceBelow(contactPoint, cosmeticsProximityReactor2.gorillaBodyParts, cosmeticsProximityReactor2.GetComponentInParent<VRRig>());
@@ -217,11 +216,9 @@ public class CosmeticsProximityReactorManager : MonoBehaviour, IGorillaSliceable
 				{
 					continue;
 				}
-				bool any;
-				float cosmeticPairThresholdWith = cosmeticsProximityReactor.GetCosmeticPairThresholdWith(cosmeticsProximityReactor2, out any);
-				bool any2;
-				float cosmeticPairThresholdWith2 = cosmeticsProximityReactor2.GetCosmeticPairThresholdWith(cosmeticsProximityReactor, out any2);
-				if (!(any || any2))
+				float cosmeticPairThresholdWith = cosmeticsProximityReactor.GetCosmeticPairThresholdWith(cosmeticsProximityReactor2, out var any);
+				float cosmeticPairThresholdWith2 = cosmeticsProximityReactor2.GetCosmeticPairThresholdWith(cosmeticsProximityReactor, out var any2);
+				if (!(any | any2))
 				{
 					continue;
 				}
@@ -279,7 +276,7 @@ public class CosmeticsProximityReactorManager : MonoBehaviour, IGorillaSliceable
 	private bool TryFindAnyCosmeticPartner(CosmeticsProximityReactor a, out CosmeticsProximityReactor partner, out Vector3 contact)
 	{
 		partner = null;
-		contact = default(Vector3);
+		contact = default;
 		IReadOnlyList<string> types = a.GetTypes();
 		for (int i = 0; i < types.Count; i++)
 		{
@@ -295,8 +292,7 @@ public class CosmeticsProximityReactorManager : MonoBehaviour, IGorillaSliceable
 				{
 					continue;
 				}
-				bool any;
-				float cosmeticPairThresholdWith = a.GetCosmeticPairThresholdWith(cosmeticsProximityReactor, out any);
+				float cosmeticPairThresholdWith = a.GetCosmeticPairThresholdWith(cosmeticsProximityReactor, out var any);
 				if (any)
 				{
 					float threshold = cosmeticPairThresholdWith;

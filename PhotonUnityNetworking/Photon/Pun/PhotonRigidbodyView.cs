@@ -31,13 +31,13 @@ public class PhotonRigidbodyView : MonoBehaviourPun, IPunObservable
 	public void Awake()
 	{
 		m_Body = GetComponent<Rigidbody>();
-		m_NetworkPosition = default(Vector3);
-		m_NetworkRotation = default(Quaternion);
+		m_NetworkPosition = default;
+		m_NetworkRotation = default;
 	}
 
 	public void FixedUpdate()
 	{
-		if (!base.photonView.IsMine)
+		if (!photonView.IsMine)
 		{
 			m_Body.position = Vector3.MoveTowards(m_Body.position, m_NetworkPosition, m_Distance * (1f / (float)PhotonNetwork.SerializationRate));
 			m_Body.rotation = Quaternion.RotateTowards(m_Body.rotation, m_NetworkRotation, m_Angle * (1f / (float)PhotonNetwork.SerializationRate));

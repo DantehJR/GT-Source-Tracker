@@ -7,9 +7,9 @@ public class CrittersAttachPointSettings : CrittersActorSettings
 	public override void UpdateActorSettings()
 	{
 		base.UpdateActorSettings();
-		CrittersAttachPoint obj = (CrittersAttachPoint)parentActor;
-		obj.anchorLocation = anchoredLocation;
-		obj.rb.isKinematic = true;
-		obj.isLeft = isLeft;
+		CrittersAttachPoint crittersAttachPoint = (CrittersAttachPoint)parentActor;
+		crittersAttachPoint.anchorLocation = anchoredLocation;
+		crittersAttachPoint.rb.isKinematic = true;
+		crittersAttachPoint.isLeft = isLeft;
 	}
 }

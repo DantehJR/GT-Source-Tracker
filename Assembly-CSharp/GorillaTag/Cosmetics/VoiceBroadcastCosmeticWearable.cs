@@ -69,7 +69,7 @@ public class VoiceBroadcastCosmeticWearable : MonoBehaviour, IGorillaSliceableSi
 		{
 			return;
 		}
-		bool flag = (base.transform.position - playerHeadCollider.transform.position).sqrMagnitude <= headDistance * headDistance;
+		bool flag = (transform.position - playerHeadCollider.transform.position).sqrMagnitude <= headDistance * headDistance;
 		if (flag != toggleState)
 		{
 			toggleState = flag;

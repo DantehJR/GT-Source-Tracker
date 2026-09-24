@@ -79,12 +79,12 @@ public class TextureTransitioner : MonoBehaviour, IResettableItem
 		if (Application.isPlaying && !remapInfo.IsValid())
 		{
 			Debug.LogError("Bad min/max values for remapRanges: " + this.GetComponentPath(), this);
-			base.enabled = false;
+			enabled = false;
 		}
 		if (Application.isPlaying && textures.Length == 0)
 		{
 			Debug.LogError("Textures array is empty: " + this.GetComponentPath(), this);
-			base.enabled = false;
+			enabled = false;
 		}
 		if (Application.isPlaying && iDynamicFloat == null)
 		{
@@ -96,7 +96,7 @@ public class TextureTransitioner : MonoBehaviour, IResettableItem
 			if (iDynamicFloat == null)
 			{
 				Debug.LogError("Component assigned to dynamicFloatComponent does not implement IDynamicFloat: " + this.GetComponentPath(), this);
-				base.enabled = false;
+				enabled = false;
 			}
 		}
 	}

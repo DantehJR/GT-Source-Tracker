@@ -217,7 +217,7 @@ public class MonkeBusinessStation : MonoBehaviour
 			}
 			perPlayerRedemptionSequence.Remove(sender);
 		}
-		if (base.gameObject.activeInHierarchy)
+		if (gameObject.activeInHierarchy)
 		{
 			Coroutine value2 = StartCoroutine(PerformRemotePointRedemptionSequence(sender, redeemedPointCount));
 			perPlayerRedemptionSequence.Add(sender, value2);

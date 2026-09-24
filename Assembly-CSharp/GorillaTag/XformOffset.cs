@@ -25,7 +25,11 @@ public struct XformOffset
 	[Tooltip("The scale of the offset relative to the parent bone.")]
 	public Vector3 scale;
 
-	public static readonly XformOffset Identity;
+	public static readonly XformOffset Identity = new XformOffset
+	{
+		_rotQuat = Quaternion.identity,
+		scale = Vector3.one
+	};
 
 	[Tooltip("The rotation of the offset relative to the parent bone.")]
 	public Quaternion rot
@@ -103,14 +107,5 @@ public struct XformOffset
 			return scale.Approx(other.scale);
 		}
 		return false;
-	}
-
-	static XformOffset()
-	{
-		Identity = new XformOffset
-		{
-			_rotQuat = Quaternion.identity,
-			scale = Vector3.one
-		};
 	}
 }

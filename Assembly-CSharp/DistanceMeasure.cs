@@ -10,11 +10,11 @@ public class DistanceMeasure : MonoBehaviour
 	{
 		if (from == null)
 		{
-			from = base.transform;
+			from = transform;
 		}
 		if (to == null)
 		{
-			to = base.transform;
+			to = transform;
 		}
 	}
 }

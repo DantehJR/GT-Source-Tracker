@@ -44,7 +44,7 @@ public class BuilderDropZone : MonoBehaviour
 
 	private void Awake()
 	{
-		repelDirectionWorld = base.transform.TransformDirection(repelDirectionLocal.normalized);
+		repelDirectionWorld = transform.TransformDirection(repelDirectionLocal.normalized);
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -66,7 +66,7 @@ public class BuilderDropZone : MonoBehaviour
 		if (dropType == DropType.Recycle)
 		{
 			bool flag = piece.state != BuilderPiece.State.Displayed && piece.state != BuilderPiece.State.OnShelf && piece.state != BuilderPiece.State.AttachedAndPlaced;
-			if (!piece.isBuiltIntoTable && flag)
+			if (!piece.isBuiltIntoTable & flag)
 			{
 				table.builderNetworking.RequestRecyclePiece(piece.pieceId, piece.transform.position, piece.transform.rotation, playFX: true, -1);
 			}
@@ -90,7 +90,7 @@ public class BuilderDropZone : MonoBehaviour
 			playingEffect = true;
 			if (sfxPrefab != null)
 			{
-				ObjectPools.instance.Instantiate(sfxPrefab, base.transform.position, base.transform.rotation);
+				ObjectPools.instance.Instantiate(sfxPrefab, transform.position, transform.rotation);
 			}
 			StartCoroutine(DelayedStopEffect());
 		}
@@ -122,7 +122,7 @@ public class BuilderDropZone : MonoBehaviour
 		if (dropType == DropType.Recycle)
 		{
 			bool flag = piece.state != BuilderPiece.State.Displayed && piece.state != BuilderPiece.State.OnShelf && piece.state != BuilderPiece.State.AttachedAndPlaced;
-			if (!piece.isBuiltIntoTable && flag)
+			if (!piece.isBuiltIntoTable & flag)
 			{
 				table.builderNetworking.RequestRecyclePiece(piece.pieceId, piece.transform.position, piece.transform.rotation, playFX: true, -1);
 			}

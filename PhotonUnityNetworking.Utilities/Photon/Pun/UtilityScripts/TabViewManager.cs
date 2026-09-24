@@ -46,7 +46,7 @@ public class TabViewManager : MonoBehaviour
 			{
 				CurrentTab = _tab;
 			}
-			_tab.Toggle.onValueChanged.AddListener(delegate(bool isSelected)
+			_tab.Toggle.onValueChanged.AddListener((bool isSelected) =>
 			{
 				if (isSelected)
 				{

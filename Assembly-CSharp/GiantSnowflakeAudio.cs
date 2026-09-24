@@ -19,7 +19,7 @@ public class GiantSnowflakeAudio : MonoBehaviour
 	{
 		foreach (SnowflakeScaleOverride audioOverride in audioOverrides)
 		{
-			if (base.transform.lossyScale.x < audioOverride.scaleMax)
+			if (transform.lossyScale.x < audioOverride.scaleMax)
 			{
 				GetComponent<GorillaSurfaceOverride>().overrideIndex = audioOverride.newOverrideIndex;
 			}

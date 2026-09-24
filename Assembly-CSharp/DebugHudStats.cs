@@ -130,14 +130,14 @@ public class DebugHudStats : MonoBehaviour
 	{
 		if (_instance != null && _instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		else
 		{
 			_instance = this;
 			fixedWeathers = Enum.GetValues(typeof(BetterDayNightManager.WeatherType));
 		}
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	private void OnDestroy()
@@ -160,11 +160,11 @@ public class DebugHudStats : MonoBehaviour
 	{
 		if (GTPlayerTransform.Instance != null)
 		{
-			base.transform.LookAt(Camera.main.transform.position, GTPlayerTransform.Instance.GravityUp);
+			transform.LookAt(Camera.main.transform.position, GTPlayerTransform.Instance.GravityUp);
 		}
 		else
 		{
-			base.transform.LookAt(Camera.main.transform.position, Vector3.up);
+			transform.LookAt(Camera.main.transform.position, Vector3.up);
 		}
 		if (!ControllerInputPoller.HandTrackingActive())
 		{
@@ -190,19 +190,19 @@ public class DebugHudStats : MonoBehaviour
 				{
 					GorillaComputer.instance.AddSeverTime(flag4 ? (-1440) : 1440);
 				}
-				if (!button5Down && flag5)
+				if (!button5Down & flag5)
 				{
 					ChangeTOD(1);
 				}
-				if (!button6Down && flag6)
+				if (!button6Down & flag6)
 				{
 					ChangeTOD(-1);
 				}
-				if (!button7Down && flag7)
+				if (!button7Down & flag7)
 				{
 					ChangeWeather(1);
 				}
-				if (!button8Down && flag8)
+				if (!button8Down & flag8)
 				{
 					ChangeWeather(-1);
 				}
@@ -388,7 +388,7 @@ public class DebugHudStats : MonoBehaviour
 			btnDownTime += Time.deltaTime / delayUpdateRate;
 			if (btnDownTime >= 15f)
 			{
-				base.gameObject.SetActive(value: false);
+				gameObject.SetActive(value: false);
 			}
 			dismiss.text = $"let go of that button in the next {15f - btnDownTime:0.0} seconds or the debug hud will vanish forever";
 		}

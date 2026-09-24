@@ -72,14 +72,14 @@ public class TakeMyHand_HandLink : HoldableObject, IGorillaSliceableSimple
 
 	public Vector3 TentacleOffset { get; set; }
 
-	public Vector3 LinkPosition => base.transform.position + TentacleOffset;
+	public Vector3 LinkPosition => transform.position + TentacleOffset;
 
 	private void Start()
 	{
 		myOtherHandLink = (isLeftHand ? myRig.rightHandLink : myRig.leftHandLink);
 		if (myRig.isOfflineVRRig)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			IsLocal = true;
 		}
 		if (interactionPoint == null)
@@ -132,16 +132,14 @@ public class TakeMyHand_HandLink : HoldableObject, IGorillaSliceableSimple
 			TakeMyHand_HandLink takeMyHand_HandLink = ((releasingHand == EquipmentInteractor.instance.leftHand) ? VRRig.LocalRig.leftHandLink : VRRig.LocalRig.rightHandLink);
 			bool flag = false;
 			HandLinkAuthorityStatus handLinkAuthorityStatus = GTPlayer.Instance.TakeMyHand_GetSelfHandLinkAuthority();
-			int stepsToAuth;
-			HandLinkAuthorityStatus chainAuthority = takeMyHand_HandLink.GetChainAuthority(out stepsToAuth);
+			HandLinkAuthorityStatus chainAuthority = takeMyHand_HandLink.GetChainAuthority(out var _);
 			if (handLinkAuthorityStatus.type >= HandLinkAuthorityType.ButtGrounded && chainAuthority.type < handLinkAuthorityStatus.type)
 			{
 				flag = true;
 			}
 			else if (takeMyHand_HandLink.myOtherHandLink.grabbedLink != null)
 			{
-				int stepsToAuth2;
-				HandLinkAuthorityStatus chainAuthority2 = takeMyHand_HandLink.myOtherHandLink.GetChainAuthority(out stepsToAuth2);
+				HandLinkAuthorityStatus chainAuthority2 = takeMyHand_HandLink.myOtherHandLink.GetChainAuthority(out var _);
 				if (chainAuthority2.type >= HandLinkAuthorityType.ButtGrounded && chainAuthority.type < chainAuthority2.type)
 				{
 					flag = true;
@@ -242,7 +240,7 @@ public class TakeMyHand_HandLink : HoldableObject, IGorillaSliceableSimple
 			TentacleOffset = Vector3.zero;
 			if (remoteLink.IsTentacleGrab)
 			{
-				remoteLink.TentacleOffset = base.transform.position - remoteLink.transform.position;
+				remoteLink.TentacleOffset = transform.position - remoteLink.transform.position;
 			}
 			else
 			{
@@ -386,10 +384,10 @@ public class TakeMyHand_HandLink : HoldableObject, IGorillaSliceableSimple
 			{
 				(this.grabbedHandIsLeft ? VRRig.LocalRig.leftHandLink : VRRig.LocalRig.rightHandLink).BreakLink();
 			}
-			bool num = grabbedPlayer != null;
+			bool flag = grabbedPlayer != null;
 			grabbedPlayer = null;
 			grabbedLink = null;
-			if (num)
+			if (flag)
 			{
 				OnHandLinkChanged?.Invoke();
 			}
@@ -418,28 +416,28 @@ public class TakeMyHand_HandLink : HoldableObject, IGorillaSliceableSimple
 			NetPlayer player = NetworkSystem.Instance.GetPlayer(grabbedPlayerActorNumber);
 			if (player != null)
 			{
-				bool flag = true;
+				bool flag2 = true;
 				if (player.IsLocal && !isTentacleGrab && !(grabbedHandIsLeft ? VRRig.LocalRig.leftHandLink : VRRig.LocalRig.rightHandLink).IsTentacleGrab)
 				{
-					flag = IsLocalGrabInRange(grabbedHandIsLeft, remoteHandLocalPos, remoteBodyWorldRot, remoteBodyWorldPos, 0.25f);
+					flag2 = IsLocalGrabInRange(grabbedHandIsLeft, remoteHandLocalPos, remoteBodyWorldRot, remoteBodyWorldPos, 0.25f);
 				}
-				if (!flag)
+				if (!flag2)
 				{
 					(grabbedHandIsLeft ? VRRig.LocalRig.leftHandLink : VRRig.LocalRig.rightHandLink).RejectGrabsFor(0.5f);
-					bool num2 = grabbedPlayer != null;
+					bool flag3 = grabbedPlayer != null;
 					grabbedPlayer = null;
 					grabbedLink = null;
-					if (num2)
+					if (flag3)
 					{
 						OnHandLinkChanged?.Invoke();
 					}
 				}
 				else if (player == myRig.OwningNetPlayer)
 				{
-					bool num3 = grabbedPlayer != null;
+					bool flag4 = grabbedPlayer != null;
 					grabbedPlayer = null;
 					grabbedLink = null;
-					if (num3)
+					if (flag4)
 					{
 						OnHandLinkChanged?.Invoke();
 					}
@@ -455,10 +453,10 @@ public class TakeMyHand_HandLink : HoldableObject, IGorillaSliceableSimple
 			}
 			else
 			{
-				bool num4 = grabbedPlayer != null;
+				bool flag5 = grabbedPlayer != null;
 				grabbedPlayer = null;
 				grabbedLink = null;
-				if (num4)
+				if (flag5)
 				{
 					OnHandLinkChanged?.Invoke();
 				}
@@ -545,7 +543,7 @@ public class TakeMyHand_HandLink : HoldableObject, IGorillaSliceableSimple
 				snapPositionCalculatedAtFrame = Time.frameCount;
 				return;
 			}
-			Vector3 position = base.transform.position;
+			Vector3 position = transform.position;
 			Vector3 position2 = grabbedLink.transform.position;
 			Vector3 vector = (position + position2) / 2f;
 			Vector3 vector2 = (isLeftHand ? myRig.leftHand.rigTarget : myRig.rightHand.rigTarget).position - position;

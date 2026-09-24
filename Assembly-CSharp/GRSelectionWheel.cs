@@ -73,7 +73,7 @@ public class GRSelectionWheel : MonoBehaviour, ITickSystemTick
 			TMP_Text tMP_Text = UnityEngine.Object.Instantiate(templateText);
 			tMP_Text.text = shelves[i];
 			shelfNames.Add(tMP_Text);
-			tMP_Text.transform.SetParent(base.transform, worldPositionStays: false);
+			tMP_Text.transform.SetParent(transform, worldPositionStays: false);
 		}
 		UpdateVisuals();
 	}
@@ -141,8 +141,8 @@ public class GRSelectionWheel : MonoBehaviour, ITickSystemTick
 			float num4 = Mathf.Sin(f);
 			Quaternion localRotation = Quaternion.Euler(90f - num2, 180f, 0f);
 			Vector3 position = new Vector3(textHorizOffset, num3 * wheelTextRadius, num4 * wheelTextRadius);
-			shelfNames[i].transform.rotation = base.transform.TransformRotation(localRotation);
-			shelfNames[i].transform.position = base.transform.TransformPoint(position);
+			shelfNames[i].transform.rotation = transform.TransformRotation(localRotation);
+			shelfNames[i].transform.position = transform.TransformPoint(position);
 			shelfNames[i].color = ((Math.Abs(num - (float)i) < 0.5f) ? Color.green : Color.white);
 		}
 	}

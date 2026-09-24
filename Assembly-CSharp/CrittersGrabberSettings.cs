@@ -9,8 +9,8 @@ public class CrittersGrabberSettings : CrittersActorSettings
 	public override void UpdateActorSettings()
 	{
 		base.UpdateActorSettings();
-		CrittersGrabber obj = (CrittersGrabber)parentActor;
-		obj.grabPosition = _grabPosition;
-		obj.grabDistance = _grabDistance;
+		CrittersGrabber crittersGrabber = (CrittersGrabber)parentActor;
+		crittersGrabber.grabPosition = _grabPosition;
+		crittersGrabber.grabDistance = _grabDistance;
 	}
 }

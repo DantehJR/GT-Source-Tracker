@@ -176,7 +176,7 @@ public class OldGorillaRopeSwing : MonoBehaviourPun
 		velocity *= settings.inheritVelocityMultiplier;
 		if (GorillaTagger.hasInstance && (bool)GorillaTagger.Instance.offlineVRRig)
 		{
-			GorillaTagger.Instance.offlineVRRig.grabbedRopeIndex = base.photonView.ViewID;
+			GorillaTagger.Instance.offlineVRRig.grabbedRopeIndex = photonView.ViewID;
 			GorillaTagger.Instance.offlineVRRig.grabbedRopeBoneIndex = boneIndex;
 			GorillaTagger.Instance.offlineVRRig.grabbedRopeIsLeft = xrNode == XRNode.LeftHand;
 			GorillaTagger.Instance.offlineVRRig.grabbedRopeOffset = offset;
@@ -242,7 +242,7 @@ public class OldGorillaRopeSwing : MonoBehaviourPun
 	{
 		if (NetworkSystem.Instance.InRoom)
 		{
-			base.photonView.RPC("SetVelocity", RpcTarget.All, boneIndex, velocity, wholeRope, ropeRotations, ropeVelocities);
+			photonView.RPC("SetVelocity", RpcTarget.All, boneIndex, velocity, wholeRope, ropeRotations, ropeVelocities);
 		}
 		else
 		{

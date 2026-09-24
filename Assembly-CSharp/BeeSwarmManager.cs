@@ -75,7 +75,7 @@ public class BeeSwarmManager : MonoBehaviour
 		bees = new List<AnimatedBee>(numBees);
 		for (int i = 0; i < numBees; i++)
 		{
-			AnimatedBee item = default(AnimatedBee);
+			AnimatedBee item = default;
 			item.InitVisual(beePrefab, this);
 			bees.Add(item);
 		}

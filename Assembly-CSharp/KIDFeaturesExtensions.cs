@@ -17,7 +17,7 @@ public static class KIDFeaturesExtensions
 	{
 		return name.ToLower() switch
 		{
-			"voice-chat" => EKIDFeatures.Voice_Chat, 
+			"voice-chat" => (EKIDFeatures?)EKIDFeatures.Voice_Chat, 
 			"custom-username" => EKIDFeatures.Custom_Nametags, 
 			"multiplayer" => EKIDFeatures.Multiplayer, 
 			"mods" => EKIDFeatures.Mods, 

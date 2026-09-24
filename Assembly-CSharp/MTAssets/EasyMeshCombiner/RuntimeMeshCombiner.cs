@@ -132,7 +132,7 @@ public class RuntimeMeshCombiner : MonoBehaviour
 		{
 			if (showDebugLogs)
 			{
-				Debug.Log("The merge started in Runtime Combiner \"" + base.gameObject.name + "\".");
+				Debug.Log("The merge started in Runtime Combiner \"" + gameObject.name + "\".");
 			}
 			CombineMeshes();
 		}
@@ -144,7 +144,7 @@ public class RuntimeMeshCombiner : MonoBehaviour
 		{
 			if (showDebugLogs)
 			{
-				Debug.Log("The merge started in Runtime Combiner \"" + base.gameObject.name + "\".");
+				Debug.Log("The merge started in Runtime Combiner \"" + gameObject.name + "\".");
 			}
 			CombineMeshes();
 		}
@@ -261,26 +261,26 @@ public class RuntimeMeshCombiner : MonoBehaviour
 		{
 			if (showDebugLogs)
 			{
-				Debug.Log("The Runtime Combiner \"" + base.gameObject.name + "\" meshes are already combined!");
+				Debug.Log("The Runtime Combiner \"" + gameObject.name + "\" meshes are already combined!");
 			}
 			return true;
 		}
 		if (!isTargetMeshesMerged())
 		{
-			if (base.gameObject.GetComponent<MeshFilter>() != null || base.gameObject.GetComponent<MeshRenderer>() != null)
+			if (gameObject.GetComponent<MeshFilter>() != null || gameObject.GetComponent<MeshRenderer>() != null)
 			{
 				if (showDebugLogs)
 				{
-					Debug.LogError("Unable to merge. Apparently the GameObject \"" + base.gameObject.name + "\" already contains the Mesh Filter and/or Mesh Renderer component. The Runtime Mesh Combiner needs a GameObject that does not contain these two components. Please remove them or place the Runtime Mesh Combiner in a new GameObject and try again.");
+					Debug.LogError("Unable to merge. Apparently the GameObject \"" + gameObject.name + "\" already contains the Mesh Filter and/or Mesh Renderer component. The Runtime Mesh Combiner needs a GameObject that does not contain these two components. Please remove them or place the Runtime Mesh Combiner in a new GameObject and try again.");
 				}
 				return false;
 			}
-			originalPosition = base.gameObject.transform.position;
-			originalEulerAngles = base.gameObject.transform.eulerAngles;
-			originalScale = base.gameObject.transform.lossyScale;
-			base.gameObject.transform.position = Vector3.zero;
-			base.gameObject.transform.eulerAngles = Vector3.zero;
-			base.gameObject.transform.localScale = Vector3.one;
+			originalPosition = gameObject.transform.position;
+			originalEulerAngles = gameObject.transform.eulerAngles;
+			originalScale = gameObject.transform.lossyScale;
+			gameObject.transform.position = Vector3.zero;
+			gameObject.transform.eulerAngles = Vector3.zero;
+			gameObject.transform.localScale = Vector3.one;
 			GameObjectWithMesh[] validatedTargetGameObjects = GetValidatedTargetGameObjects();
 			if (validatedTargetGameObjects.Length == 0)
 			{
@@ -309,8 +309,8 @@ public class RuntimeMeshCombiner : MonoBehaviour
 					}
 				}
 			}
-			MeshFilter meshFilter = base.gameObject.AddComponent<MeshFilter>();
-			MeshRenderer meshRenderer = base.gameObject.AddComponent<MeshRenderer>();
+			MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
+			MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
 			int num = 0;
 			GameObjectWithMesh[] array = validatedTargetGameObjects;
 			foreach (GameObjectWithMesh gameObjectWithMesh2 in array)
@@ -362,7 +362,7 @@ public class RuntimeMeshCombiner : MonoBehaviour
 			{
 				mesh2.indexFormat = IndexFormat.UInt32;
 			}
-			mesh2.name = base.gameObject.name + " (Temp Merge)";
+			mesh2.name = gameObject.name + " (Temp Merge)";
 			mesh2.CombineMeshes(list3.ToArray(), mergeSubMeshes: false);
 			mesh2.RecalculateBounds();
 			if (recalculateNormals)
@@ -394,7 +394,7 @@ public class RuntimeMeshCombiner : MonoBehaviour
 				}
 				if (addMeshColliderAfter)
 				{
-					base.gameObject.AddComponent<MeshCollider>();
+					gameObject.AddComponent<MeshCollider>();
 				}
 			}
 			if (afterMerge == AfterMerge.DisableOriginalMeshes)
@@ -407,12 +407,12 @@ public class RuntimeMeshCombiner : MonoBehaviour
 				}
 			}
 			_ = afterMerge;
-			base.gameObject.transform.position = originalPosition;
-			base.gameObject.transform.eulerAngles = originalEulerAngles;
-			base.gameObject.transform.localScale = originalScale;
+			gameObject.transform.position = originalPosition;
+			gameObject.transform.eulerAngles = originalEulerAngles;
+			gameObject.transform.localScale = originalScale;
 			if (showDebugLogs)
 			{
-				Debug.Log("The merge has been successfully completed in Runtime Combiner \"" + base.gameObject.name + "\"!");
+				Debug.Log("The merge has been successfully completed in Runtime Combiner \"" + gameObject.name + "\"!");
 			}
 			if (onDoneMerge != null)
 			{
@@ -430,7 +430,7 @@ public class RuntimeMeshCombiner : MonoBehaviour
 		{
 			if (showDebugLogs)
 			{
-				Debug.Log("The Runtime Combiner \"" + base.gameObject.name + "\" meshes are already uncombined!");
+				Debug.Log("The Runtime Combiner \"" + gameObject.name + "\" meshes are already uncombined!");
 			}
 			return true;
 		}
@@ -475,7 +475,7 @@ public class RuntimeMeshCombiner : MonoBehaviour
 			}
 			if (showDebugLogs)
 			{
-				Debug.Log("The Runtime Combiner \"" + base.gameObject.name + "\" merge was successfully undone!");
+				Debug.Log("The Runtime Combiner \"" + gameObject.name + "\" merge was successfully undone!");
 			}
 			if (onDoneUnmerge != null)
 			{

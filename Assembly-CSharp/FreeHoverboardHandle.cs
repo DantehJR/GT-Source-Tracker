@@ -49,9 +49,9 @@ public class FreeHoverboardHandle : HoldableObject
 			if (hasParentBoard)
 			{
 				FreeHoverboardManager.instance.SendGrabBoardRPC(parentFreeBoard);
-				Transform obj = (flag ? VRRig.LocalRig.leftHand.rigTarget : VRRig.LocalRig.rightHand.rigTarget);
-				Quaternion rot = obj.InverseTransformRotation(base.transform.rotation);
-				Vector3 pos = obj.InverseTransformPoint(base.transform.position);
+				Transform transform = (flag ? VRRig.LocalRig.leftHand.rigTarget : VRRig.LocalRig.rightHand.rigTarget);
+				Quaternion rot = transform.InverseTransformRotation(base.transform.rotation);
+				Vector3 pos = transform.InverseTransformPoint(base.transform.position);
 				GTPlayer.Instance.GrabPersonalHoverboard(flag, pos, rot, parentFreeBoard.boardColor);
 			}
 			else

@@ -18,7 +18,7 @@ public class GREnemyBossMoonColliderHelper : MonoBehaviour
 	{
 		if (ResizeOnAwake)
 		{
-			base.transform.localScale = ResizeCollider;
+			transform.localScale = ResizeCollider;
 		}
 	}
 

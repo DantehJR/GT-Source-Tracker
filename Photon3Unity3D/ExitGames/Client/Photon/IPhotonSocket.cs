@@ -142,7 +142,7 @@ public abstract class IPhotonSocket
 	{
 		State = PhotonSocketState.Disconnecting;
 		peerBase.EnqueueStatusCallback(statusCode);
-		peerBase.EnqueueActionForDispatch(delegate
+		peerBase.EnqueueActionForDispatch(() =>
 		{
 			peerBase.Disconnect();
 		});
@@ -160,8 +160,7 @@ public abstract class IPhotonSocket
 		}
 		bool flag = url.Contains("://");
 		string uriString = (flag ? url : ("net.tcp://" + url));
-		Uri result;
-		bool flag2 = Uri.TryCreate(uriString, UriKind.Absolute, out result);
+		bool flag2 = Uri.TryCreate(uriString, UriKind.Absolute, out var result);
 		if (flag2)
 		{
 			host = result.Host;

@@ -41,13 +41,12 @@ public class RankedMultiplayerStatisticFloat : RankedMultiplayerStatistic
 
 	public override bool TrySetValue(string valAsString)
 	{
-		float result;
-		bool num = float.TryParse(valAsString, out result);
-		if (num)
+		bool flag = float.TryParse(valAsString, out var result);
+		if (flag)
 		{
 			floatValue = Mathf.Clamp(result, minValue, maxValue);
 		}
-		return num;
+		return flag;
 	}
 
 	public void Increment()
@@ -77,11 +76,11 @@ public class RankedMultiplayerStatisticFloat : RankedMultiplayerStatistic
 		switch (serializationType)
 		{
 		case SerializationType.PlayerPrefs:
-			base.IsValid = true;
+			IsValid = true;
 			floatValue = PlayerPrefs.GetFloat(name, floatValue);
 			break;
 		case SerializationType.Mothership:
-			base.IsValid = false;
+			IsValid = false;
 			break;
 		}
 	}

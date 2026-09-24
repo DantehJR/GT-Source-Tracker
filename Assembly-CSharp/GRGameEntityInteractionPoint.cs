@@ -17,39 +17,39 @@ public class GRGameEntityInteractionPoint : MonoBehaviour
 
 	public void Start()
 	{
-		base.transform.parent = targetParent;
+		transform.parent = targetParent;
 	}
 
 	public void OnEnable()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(OnGrabbed));
-		GameEntity obj2 = gameEntity;
-		obj2.OnReleased = (Action)Delegate.Combine(obj2.OnReleased, new Action(OnReleased));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(OnGrabbed));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnReleased = (Action)Delegate.Combine(gameEntity2.OnReleased, new Action(OnReleased));
 	}
 
 	public void OnDisable()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Remove(obj.OnGrabbed, new Action(OnGrabbed));
-		GameEntity obj2 = gameEntity;
-		obj2.OnReleased = (Action)Delegate.Remove(obj2.OnReleased, new Action(OnReleased));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Remove(gameEntity.OnGrabbed, new Action(OnGrabbed));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnReleased = (Action)Delegate.Remove(gameEntity2.OnReleased, new Action(OnReleased));
 	}
 
 	public void OnGrabbed()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnTick = (Action)Delegate.Combine(obj.OnTick, new Action(TickWhileHeld));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnTick = (Action)Delegate.Combine(gameEntity.OnTick, new Action(TickWhileHeld));
 		OnGrabStart?.Invoke();
 	}
 
 	public void OnReleased()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnTick = (Action)Delegate.Remove(obj.OnTick, new Action(TickWhileHeld));
-		gameEntity.transform.parent = targetParent;
-		gameEntity.transform.localRotation = Quaternion.identity;
-		gameEntity.transform.localPosition = Vector3.zero;
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnTick = (Action)Delegate.Remove(gameEntity.OnTick, new Action(TickWhileHeld));
+		this.gameEntity.transform.parent = targetParent;
+		this.gameEntity.transform.localRotation = Quaternion.identity;
+		this.gameEntity.transform.localPosition = Vector3.zero;
 		OnGrabEnd();
 	}
 
@@ -58,7 +58,7 @@ public class GRGameEntityInteractionPoint : MonoBehaviour
 		if (targetParent != null)
 		{
 			Vector3 position = targetParent.transform.position;
-			Vector3 position2 = base.transform.position;
+			Vector3 position2 = transform.position;
 			if (Vector3.Magnitude(position - position2) > autoReleaseDistance)
 			{
 				GamePlayer gamePlayer = GamePlayer.GetGamePlayer(gameEntity.heldByActorNumber);

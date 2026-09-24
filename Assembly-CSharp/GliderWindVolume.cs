@@ -14,7 +14,7 @@ public class GliderWindVolume : MonoBehaviour
 	[SerializeField]
 	private Vector3 localWindDirection = Vector3.up;
 
-	public Vector3 WindDirection => base.transform.TransformDirection(localWindDirection);
+	public Vector3 WindDirection => transform.TransformDirection(localWindDirection);
 
 	public void SetProperties(float speed, float accel, AnimationCurve svaCurve, Vector3 windDirection)
 	{

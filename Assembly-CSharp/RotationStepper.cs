@@ -32,7 +32,7 @@ public class RotationStepper : MonoBehaviour
 		default:
 			return;
 		case ModeEnum.Fixed:
-			base.transform.rotation = Quaternion.Euler(0f, 0f, (Mathf.Repeat(m_phase, 2f) < 1f) ? (-25f) : 25f);
+			transform.rotation = Quaternion.Euler(0f, 0f, (Mathf.Repeat(m_phase, 2f) < 1f) ? (-25f) : 25f);
 			return;
 		case ModeEnum.Random:
 			break;
@@ -40,8 +40,8 @@ public class RotationStepper : MonoBehaviour
 		while (m_phase >= 1f)
 		{
 			Random.InitState(Time.frameCount);
-			base.transform.rotation = Random.rotationUniform;
-			m_phase -= 1f;
+			transform.rotation = Random.rotationUniform;
+			m_phase--;
 		}
 	}
 }

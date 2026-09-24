@@ -64,13 +64,13 @@ public class UseableObject : TransferrableObject
 	protected override void Awake()
 	{
 		base.Awake();
-		_events = base.gameObject.GetOrAddComponent<UseableObjectEvents>();
+		_events = gameObject.GetOrAddComponent<UseableObjectEvents>();
 	}
 
 	internal override void OnEnable()
 	{
 		base.OnEnable();
-		_events.Init(base.myOnlineRig?.creator ?? base.myRig?.creator);
+		_events.Init(myOnlineRig?.creator ?? myRig?.creator);
 		_events.Activate += new Action<int, int, object[], PhotonMessageInfoWrapped>(OnObjectActivated);
 		_events.Deactivate += new Action<int, int, object[], PhotonMessageInfoWrapped>(OnObjectDeactivated);
 	}

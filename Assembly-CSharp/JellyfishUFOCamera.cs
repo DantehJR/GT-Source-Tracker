@@ -20,8 +20,8 @@ public class JellyfishUFOCamera : MonoBehaviour
 		if (!(Target == null))
 		{
 			m_spring.TrackExponential(Target.transform.position, 0.5f, Time.fixedDeltaTime);
-			Vector3 normalized = (m_spring.Value - base.transform.position).normalized;
-			base.transform.rotation = Quaternion.LookRotation(normalized);
+			Vector3 normalized = (m_spring.Value - transform.position).normalized;
+			transform.rotation = Quaternion.LookRotation(normalized);
 		}
 	}
 }

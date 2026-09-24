@@ -40,7 +40,7 @@ public class DrinkableHoldable : TransferrableObject
 	internal override void OnEnable()
 	{
 		base.OnEnable();
-		base.enabled = containerLiquid != null;
+		enabled = containerLiquid != null;
 		itemState = (ItemStates)PackValues(sipSoundCooldown, containerLiquid.fillAmount, coolingDown);
 		myByteArray = new byte[32];
 	}

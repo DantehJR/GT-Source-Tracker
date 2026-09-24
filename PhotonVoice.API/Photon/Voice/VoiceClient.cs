@@ -262,7 +262,7 @@ public class VoiceClient : IDisposable
 				logger.LogInfo("[PV] Creating local voice with source samples type conversion from IAudioPusher float to short.");
 				LocalVoiceAudio<short> localVoice = CreateLocalVoiceAudio<short>(voiceInfo, source, encoder, channelId);
 				FactoryReusableArray<float> bufferFactory = new FactoryReusableArray<float>(0);
-				((IAudioPusher<float>)source).SetCallback(delegate(float[] buf)
+				((IAudioPusher<float>)source).SetCallback((float[] buf) =>
 				{
 					short[] array = localVoice.BufferFactory.New(buf.Length);
 					AudioUtil.Convert(buf, array, buf.Length);
@@ -271,7 +271,7 @@ public class VoiceClient : IDisposable
 				return localVoice;
 			}
 			LocalVoiceAudio<float> localVoice2 = CreateLocalVoiceAudio<float>(voiceInfo, source, encoder, channelId);
-			((IAudioPusher<float>)source).SetCallback(delegate(float[] buf)
+			((IAudioPusher<float>)source).SetCallback((float[] buf) =>
 			{
 				localVoice2.PushDataAsync(buf);
 			}, localVoice2.BufferFactory);
@@ -284,7 +284,7 @@ public class VoiceClient : IDisposable
 				logger.LogInfo("[PV] Creating local voice with source samples type conversion from IAudioPusher short to float.");
 				LocalVoiceAudio<float> localVoice3 = CreateLocalVoiceAudio<float>(voiceInfo, source, encoder, channelId);
 				FactoryReusableArray<short> bufferFactory2 = new FactoryReusableArray<short>(0);
-				((IAudioPusher<short>)source).SetCallback(delegate(short[] buf)
+				((IAudioPusher<short>)source).SetCallback((short[] buf) =>
 				{
 					float[] array = localVoice3.BufferFactory.New(buf.Length);
 					AudioUtil.Convert(buf, array, buf.Length);
@@ -293,7 +293,7 @@ public class VoiceClient : IDisposable
 				return localVoice3;
 			}
 			LocalVoiceAudio<short> localVoice4 = CreateLocalVoiceAudio<short>(voiceInfo, source, encoder, channelId);
-			((IAudioPusher<short>)source).SetCallback(delegate(short[] buf)
+			((IAudioPusher<short>)source).SetCallback((short[] buf) =>
 			{
 				localVoice4.PushDataAsync(buf);
 			}, localVoice4.BufferFactory);

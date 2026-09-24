@@ -18,7 +18,15 @@ public static class MaterialUtils
 			for (int i = 0; i < value.Count; i++)
 			{
 				string trimmedMaterialName = GetTrimmedMaterialName(value[i]);
-				string text = ((!isOnToOff) ? ((meshAndMaterial.offMaterial != null) ? GetTrimmedMaterialName(meshAndMaterial.offMaterial) : null) : ((meshAndMaterial.onMaterial != null) ? GetTrimmedMaterialName(meshAndMaterial.onMaterial) : null));
+				string text;
+				if (isOnToOff)
+				{
+					text = ((meshAndMaterial.onMaterial != null) ? GetTrimmedMaterialName(meshAndMaterial.onMaterial) : null);
+				}
+				else
+				{
+					text = ((meshAndMaterial.offMaterial != null) ? GetTrimmedMaterialName(meshAndMaterial.offMaterial) : null);
+				}
 				if (text != null && trimmedMaterialName == text)
 				{
 					value[i] = (isOnToOff ? meshAndMaterial.offMaterial : meshAndMaterial.onMaterial);

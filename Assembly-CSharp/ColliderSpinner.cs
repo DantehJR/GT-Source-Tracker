@@ -11,13 +11,13 @@ public class ColliderSpinner : MonoBehaviour
 
 	private void Start()
 	{
-		m_targetOffset = ((Target != null) ? (base.transform.position - Target.position) : Vector3.zero);
-		m_spring.Reset(base.transform.position);
+		m_targetOffset = ((Target != null) ? (transform.position - Target.position) : Vector3.zero);
+		m_spring.Reset(transform.position);
 	}
 
 	private void FixedUpdate()
 	{
 		Vector3 targetValue = Target.position + m_targetOffset;
-		base.transform.position = m_spring.TrackExponential(targetValue, 0.02f, Time.fixedDeltaTime);
+		transform.position = m_spring.TrackExponential(targetValue, 0.02f, Time.fixedDeltaTime);
 	}
 }

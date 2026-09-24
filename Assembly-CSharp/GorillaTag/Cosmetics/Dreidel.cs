@@ -300,8 +300,8 @@ public class Dreidel : MonoBehaviour
 		switch (state)
 		{
 		default:
-			base.transform.localPosition = Vector3.zero;
-			base.transform.localRotation = Quaternion.identity;
+			transform.localPosition = Vector3.zero;
+			transform.localRotation = Quaternion.identity;
 			spinTransform.localRotation = Quaternion.identity;
 			spinTransform.localPosition = Vector3.zero;
 			break;
@@ -309,7 +309,7 @@ public class Dreidel : MonoBehaviour
 		{
 			float num12 = ((GTPlayer.Instance != null) ? GTPlayer.Instance.scale : 1f);
 			Vector3 down = Vector3.down;
-			Vector3 origin = base.transform.parent.position - down * 2f * surfaceCheckDistance * num12;
+			Vector3 origin = transform.parent.position - down * 2f * surfaceCheckDistance * num12;
 			float maxDistance = (3f * surfaceCheckDistance + (0f - bottomPointOffset.y)) * num12;
 			if (Physics.Raycast(origin, down, out var hitInfo, maxDistance, surfaceLayers.value, QueryTriggerInteraction.Ignore) && Vector3.Dot(hitInfo.normal, Vector3.up) > surfaceUprightThreshold && Vector3.Dot(hitInfo.normal, spinTransform.up) > surfaceDreidelAngleThreshold)
 			{
@@ -323,8 +323,8 @@ public class Dreidel : MonoBehaviour
 			else
 			{
 				canStartSpin = false;
-				base.transform.localPosition = Vector3.zero;
-				base.transform.localRotation = Quaternion.identity;
+				transform.localPosition = Vector3.zero;
+				transform.localRotation = Quaternion.identity;
 				spinTransform.localRotation = Quaternion.identity;
 				spinTransform.localPosition = Vector3.zero;
 			}
@@ -471,8 +471,8 @@ public class Dreidel : MonoBehaviour
 		stateStartTime = (PhotonNetwork.InRoom ? PhotonNetwork.Time : ((double)Time.time));
 		canStartSpin = false;
 		spinAngle = 0f;
-		base.transform.localPosition = Vector3.zero;
-		base.transform.localRotation = Quaternion.identity;
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
 		spinTransform.localRotation = Quaternion.identity;
 		spinTransform.localPosition = Vector3.zero;
 		tiltFrontBack = 0f;
@@ -490,8 +490,8 @@ public class Dreidel : MonoBehaviour
 		stateStartTime = (PhotonNetwork.InRoom ? PhotonNetwork.Time : ((double)Time.time));
 		canStartSpin = false;
 		spinAngle = 0f;
-		base.transform.localPosition = Vector3.zero;
-		base.transform.localRotation = Quaternion.identity;
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
 		spinTransform.localRotation = Quaternion.identity;
 		spinTransform.localPosition = Vector3.zero;
 		tiltFrontBack = 0f;
@@ -560,7 +560,7 @@ public class Dreidel : MonoBehaviour
 	{
 		Vector3 position = spinTransform.position;
 		dreidelCollider.enabled = true;
-		Vector3 vector = dreidelCollider.ClosestPoint(position - base.transform.up);
+		Vector3 vector = dreidelCollider.ClosestPoint(position - transform.up);
 		dreidelCollider.enabled = false;
 		float num = Vector3.Dot(vector - position, spinTransform.up);
 		if (num > 0f)
@@ -613,8 +613,8 @@ public class Dreidel : MonoBehaviour
 			forward = Quaternion.AngleAxis(90f, axis) * surfacePlaneNormal;
 		}
 		Quaternion rotation = Quaternion.LookRotation(forward, surfacePlaneNormal);
-		base.transform.position = surfacePlanePoint;
-		base.transform.rotation = rotation;
+		transform.position = surfacePlanePoint;
+		transform.rotation = rotation;
 	}
 
 	private void UpdateSpinTransform()
@@ -624,10 +624,10 @@ public class Dreidel : MonoBehaviour
 		Vector3 position2 = groundPointSpring.TrackDampingRatio(groundContactPoint, groundTrackingFrequency, groundTrackingDampingRatio, Time.deltaTime);
 		Vector3 vector = spinTransform.TransformPoint(position2);
 		Quaternion quaternion = Quaternion.AngleAxis(90f * tiltLeftRight, Vector3.forward) * Quaternion.AngleAxis(90f * tiltFrontBack, Vector3.right);
-		spinAxis = base.transform.InverseTransformDirection(base.transform.up);
+		spinAxis = transform.InverseTransformDirection(transform.up);
 		Quaternion quaternion2 = Quaternion.AngleAxis(spinAngle, spinAxis);
 		spinTransform.localRotation = quaternion2 * quaternion;
-		Vector3 vector2 = base.transform.InverseTransformVector(Vector3.Dot(position - vector, base.transform.up) * base.transform.up);
+		Vector3 vector2 = transform.InverseTransformVector(Vector3.Dot(position - vector, transform.up) * transform.up);
 		spinTransform.localPosition = vector2 + pathOffset;
 		spinTransform.TransformPoint(bottomPointOffset);
 	}

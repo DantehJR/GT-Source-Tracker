@@ -46,7 +46,7 @@ public class HandRayController : MonoBehaviour
 	{
 		if (instance != null && instance != this)
 		{
-			Debug.LogErrorFormat(base.gameObject, "[KID::UI::HAND_RAY_CONTROLLER] Duplicate instance of HandRayController");
+			Debug.LogErrorFormat(gameObject, "[KID::UI::HAND_RAY_CONTROLLER] Duplicate instance of HandRayController");
 			Object.DestroyImmediate(this);
 		}
 		else

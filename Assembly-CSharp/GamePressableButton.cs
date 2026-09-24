@@ -32,7 +32,7 @@ public class GamePressableButton : MonoBehaviour, IClickable
 
 	protected void OnTriggerEnter(Collider collider)
 	{
-		if (base.enabled && touchTime + debounceTime < Time.time)
+		if (enabled && touchTime + debounceTime < Time.time)
 		{
 			GorillaTriggerColliderHandIndicator component = collider.gameObject.GetComponent<GorillaTriggerColliderHandIndicator>();
 			if ((bool)component && CheckValidEquippedState(component.isLeftHand))

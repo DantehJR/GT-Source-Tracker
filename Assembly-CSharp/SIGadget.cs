@@ -140,7 +140,7 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 	{
 		if (!ShouldProcessInput())
 		{
-			return default(Vector2);
+			return default;
 		}
 		return ControllerInputPoller.Primary2DAxis((gameEntity.heldByHandIndex == 0 || gameEntity.snappedJoint == SnapJointType.HandL) ? XRNode.LeftHand : XRNode.RightHand);
 	}
@@ -200,32 +200,32 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 	{
 		if (!didApplyId)
 		{
-			GameObject obj = base.gameObject;
-			obj.name = obj.name + "[" + uniqueId + "]";
+			GameObject gameObject = base.gameObject;
+			gameObject.name = gameObject.name + "[" + uniqueId + "]";
 			didApplyId = true;
 			uniqueId++;
 		}
-		GameEntity obj2 = gameEntity;
-		obj2.OnSnapped = (Action)Delegate.Combine(obj2.OnSnapped, new Action(GrabInitialization));
-		GameEntity obj3 = gameEntity;
-		obj3.OnGrabbed = (Action)Delegate.Combine(obj3.OnGrabbed, new Action(GrabInitialization));
-		GameEntity obj4 = gameEntity;
-		obj4.OnReleased = (Action)Delegate.Combine(obj4.OnReleased, new Action(ReleaseInitialization));
-		GameEntity obj5 = gameEntity;
-		obj5.OnUnsnapped = (Action)Delegate.Combine(obj5.OnUnsnapped, new Action(ReleaseInitialization));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnSnapped = (Action)Delegate.Combine(gameEntity.OnSnapped, new Action(GrabInitialization));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnGrabbed = (Action)Delegate.Combine(gameEntity2.OnGrabbed, new Action(GrabInitialization));
+		GameEntity gameEntity3 = this.gameEntity;
+		gameEntity3.OnReleased = (Action)Delegate.Combine(gameEntity3.OnReleased, new Action(ReleaseInitialization));
+		GameEntity gameEntity4 = this.gameEntity;
+		gameEntity4.OnUnsnapped = (Action)Delegate.Combine(gameEntity4.OnUnsnapped, new Action(ReleaseInitialization));
 		timeReleased = Time.time;
 	}
 
 	protected virtual void OnDisable()
 	{
-		GameEntity obj = gameEntity;
-		obj.OnSnapped = (Action)Delegate.Remove(obj.OnSnapped, new Action(GrabInitialization));
-		GameEntity obj2 = gameEntity;
-		obj2.OnGrabbed = (Action)Delegate.Remove(obj2.OnGrabbed, new Action(GrabInitialization));
-		GameEntity obj3 = gameEntity;
-		obj3.OnReleased = (Action)Delegate.Remove(obj3.OnReleased, new Action(ReleaseInitialization));
-		GameEntity obj4 = gameEntity;
-		obj4.OnUnsnapped = (Action)Delegate.Remove(obj4.OnUnsnapped, new Action(ReleaseInitialization));
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnSnapped = (Action)Delegate.Remove(gameEntity.OnSnapped, new Action(GrabInitialization));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnGrabbed = (Action)Delegate.Remove(gameEntity2.OnGrabbed, new Action(GrabInitialization));
+		GameEntity gameEntity3 = this.gameEntity;
+		gameEntity3.OnReleased = (Action)Delegate.Remove(gameEntity3.OnReleased, new Action(ReleaseInitialization));
+		GameEntity gameEntity4 = this.gameEntity;
+		gameEntity4.OnUnsnapped = (Action)Delegate.Remove(gameEntity4.OnUnsnapped, new Action(ReleaseInitialization));
 		LeaveAllExclusionZones();
 	}
 
@@ -398,7 +398,7 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 			SIExclusionType activeExclusionFlags = _activeExclusionFlags;
 			appliedExclusionZones.Add(exclusionZone);
 			_activeExclusionFlags |= exclusionZone.exclusionType;
-			if (activeExclusionFlags == (SIExclusionType)0)
+			if (activeExclusionFlags == 0)
 			{
 				HandleBlockedActionChanged(isBlocked: true);
 			}
@@ -411,7 +411,7 @@ public abstract class SIGadget : MonoBehaviour, IGameEntityComponent, IPrefabReq
 		{
 			appliedExclusionZones.Remove(exclusionZone);
 			RecalcExclusionFlags();
-			if (_activeExclusionFlags == (SIExclusionType)0)
+			if (_activeExclusionFlags == 0)
 			{
 				HandleBlockedActionChanged(isBlocked: false);
 			}

@@ -22,7 +22,7 @@ public class KIDAgeAppeal : MonoBehaviour
 	{
 		_ageSlider = GetComponentInChildren<AgeSliderWithProgressBar>(includeInactive: true);
 		_ageSlider.ControllerActive = true;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		_inputsContainer.SetActive(value: true);
 		_monkeLoader.SetActive(value: false);
 	}
@@ -54,14 +54,14 @@ public class KIDAgeAppeal : MonoBehaviour
 		if (attemptAgeUpdateData.status == SessionStatus.PROHIBITED)
 		{
 			Debug.LogError("[KID::AGE-APPEAL] Age Appeal Status: PROHIBITED");
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			KIDUI_AgeAppealController.Instance.StartTooYoungToPlayScreen();
 		}
 		else
 		{
 			_ageAppealEmailScreen.ShowAgeAppealEmailScreen(attemptAgeUpdateData.status == SessionStatus.CHALLENGE, _ageSlider.CurrentAge);
 			_ageSlider.ControllerActive = false;
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 }

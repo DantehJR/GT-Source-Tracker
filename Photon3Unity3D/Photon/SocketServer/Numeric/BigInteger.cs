@@ -471,7 +471,7 @@ internal class BigInteger
 					return bigInteger;
 				}
 				bool flag3 = true;
-				for (int j = 0; j < bigInteger.dataLength - 1 && flag3; j++)
+				for (int j = 0; (j < bigInteger.dataLength - 1) & flag3; j++)
 				{
 					if (bigInteger.data[j] != 0)
 					{

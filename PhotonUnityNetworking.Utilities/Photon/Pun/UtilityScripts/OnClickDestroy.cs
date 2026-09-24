@@ -18,11 +18,11 @@ public class OnClickDestroy : MonoBehaviourPun, IPointerClickHandler, IEventSyst
 		{
 			if (DestroyByRpc)
 			{
-				base.photonView.RPC("DestroyRpc", RpcTarget.AllBuffered);
+				photonView.RPC("DestroyRpc", RpcTarget.AllBuffered);
 			}
 			else
 			{
-				PhotonNetwork.Destroy(base.gameObject);
+				PhotonNetwork.Destroy(gameObject);
 			}
 		}
 	}
@@ -30,7 +30,7 @@ public class OnClickDestroy : MonoBehaviourPun, IPointerClickHandler, IEventSyst
 	[PunRPC]
 	public IEnumerator DestroyRpc()
 	{
-		Object.Destroy(base.gameObject);
+		Object.Destroy(gameObject);
 		yield return 0;
 	}
 }

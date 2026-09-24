@@ -136,7 +136,7 @@ public class BuilderDispenser : MonoBehaviour
 		hasPiece = true;
 		spawnCount++;
 		spawnCount = Mathf.Max(0, spawnCount);
-		if (table.GetTableState() == BuilderTable.TableState.Ready && playAnimation)
+		if ((table.GetTableState() == BuilderTable.TableState.Ready) & playAnimation)
 		{
 			StartCoroutine(PlayAnimation());
 			if (playFX)

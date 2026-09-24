@@ -102,7 +102,7 @@ public class VoiceConnection : ConnectionHandler, ILoggable
 		{
 			if (logger == null)
 			{
-				logger = new VoiceLogger(this, $"{base.name}.{GetType().Name}", logLevel);
+				logger = new VoiceLogger(this, $"{name}.{GetType().Name}", logLevel);
 			}
 			return logger;
 		}
@@ -433,7 +433,7 @@ public class VoiceConnection : ConnectionHandler, ILoggable
 		base.Awake();
 		if (enableSupportLogger)
 		{
-			supportLoggerComponent = base.gameObject.AddComponent<SupportLogger>();
+			supportLoggerComponent = gameObject.AddComponent<SupportLogger>();
 			supportLoggerComponent.Client = Client;
 			supportLoggerComponent.LogTrafficStats = true;
 		}
@@ -608,11 +608,11 @@ public class VoiceConnection : ConnectionHandler, ILoggable
 			}
 		}
 		cachedRemoteVoices.Add(remoteVoice);
-		if (this.RemoteVoiceAdded != null)
+		if (RemoteVoiceAdded != null)
 		{
-			this.RemoteVoiceAdded(remoteVoice);
+			RemoteVoiceAdded(remoteVoice);
 		}
-		remoteVoice.RemoteVoiceRemoved += delegate
+		remoteVoice.RemoteVoiceRemoved += () =>
 		{
 			if (Logger.IsInfoEnabled)
 			{
@@ -768,13 +768,13 @@ public class VoiceConnection : ConnectionHandler, ILoggable
 				Logger.LogInfo("Speaker linked with remote voice {0}", remoteVoice);
 			}
 			linkedSpeakers.Add(speaker);
-			remoteVoice.RemoteVoiceRemoved += delegate
+			remoteVoice.RemoteVoiceRemoved += () =>
 			{
 				linkedSpeakers.Remove(speaker);
 			};
-			if (this.SpeakerLinked != null)
+			if (SpeakerLinked != null)
 			{
-				this.SpeakerLinked(speaker);
+				SpeakerLinked(speaker);
 			}
 		}
 		else if (Logger.IsWarningEnabled)

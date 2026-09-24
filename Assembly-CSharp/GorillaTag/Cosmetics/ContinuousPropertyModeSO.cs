@@ -121,7 +121,7 @@ public class ContinuousPropertyModeSO : ScriptableObject
 				string[] array = castData[i].whatItSets.Split('|');
 				if (array.Length != 2)
 				{
-					return string.Format("Error! '{0}'s '{1}.{2}' does not have two string separated by '|'.", base.name, castData[i].target, "whatItSets");
+					return string.Format("Error! '{0}'s '{1}.{2}' does not have two string separated by '|'.", name, castData[i].target, "whatItSets");
 				}
 				return array[0] + " the " + castData[i].target.ToString() + " when entering the 'true' part of the range, " + array[1] + " the " + castData[i].target.ToString() + " when entering the 'false' part of the range.";
 			}

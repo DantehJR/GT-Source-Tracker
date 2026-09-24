@@ -14,9 +14,9 @@ public abstract class CustomMapsTerminalScreen : MonoBehaviour
 
 	public virtual void Show()
 	{
-		if (!base.gameObject.activeSelf)
+		if (!gameObject.activeSelf)
 		{
-			base.gameObject.SetActive(value: true);
+			gameObject.SetActive(value: true);
 			terminalKeyboard?.OnKeyPressed.AddListener(PressButton);
 		}
 		showTime = Time.time;
@@ -24,9 +24,9 @@ public abstract class CustomMapsTerminalScreen : MonoBehaviour
 
 	public virtual void Hide()
 	{
-		if (base.gameObject.activeSelf)
+		if (gameObject.activeSelf)
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			terminalKeyboard?.OnKeyPressed.RemoveListener(PressButton);
 		}
 		showTime = 0f;

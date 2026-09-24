@@ -8,7 +8,7 @@ public class DestroyOnAwake : MonoBehaviour
 	{
 		try
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 		catch
 		{
@@ -19,7 +19,7 @@ public class DestroyOnAwake : MonoBehaviour
 	{
 		try
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 		catch
 		{
@@ -30,7 +30,7 @@ public class DestroyOnAwake : MonoBehaviour
 	{
 		try
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 		catch
 		{

@@ -160,9 +160,9 @@ internal class EnetPeer : PeerBase
 		}
 		peerID = (short)(photonPeer.EnableServerTracing ? (-2) : (-1));
 		challenge = SupportClass.ThreadSafeRandom.Next();
-		if (udpBuffer == null || udpBuffer.Length != base.mtu)
+		if (udpBuffer == null || udpBuffer.Length != mtu)
 		{
-			udpBuffer = new byte[base.mtu];
+			udpBuffer = new byte[mtu];
 		}
 		reliableCommandsSent = 0;
 		reliableCommandsRepeated = 0;
@@ -176,15 +176,15 @@ internal class EnetPeer : PeerBase
 		lock (channelArray)
 		{
 			EnetChannel[] array = channelArray;
-			if (array.Length != base.ChannelCount + 1)
+			if (array.Length != ChannelCount + 1)
 			{
-				array = new EnetChannel[base.ChannelCount + 1];
+				array = new EnetChannel[ChannelCount + 1];
 			}
-			for (byte b = 0; b < base.ChannelCount; b++)
+			for (byte b = 0; b < ChannelCount; b++)
 			{
 				array[b] = new EnetChannel(b, commandBufferSize);
 			}
-			array[base.ChannelCount] = new EnetChannel(byte.MaxValue, commandBufferSize);
+			array[ChannelCount] = new EnetChannel(byte.MaxValue, commandBufferSize);
 			channelArray = array;
 		}
 		lock (sentReliableCommands)
@@ -233,10 +233,10 @@ internal class EnetPeer : PeerBase
 	{
 		if (PhotonSocket.Connect())
 		{
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsOutgoing.ControlCommandBytes += 44;
-				base.TrafficStatsOutgoing.ControlCommandCount++;
+				TrafficStatsOutgoing.ControlCommandBytes += 44;
+				TrafficStatsOutgoing.ControlCommandCount++;
 			}
 			peerConnectionState = ConnectionStateValue.Connecting;
 			return true;
@@ -270,17 +270,17 @@ internal class EnetPeer : PeerBase
 				enetChannel.clearAll();
 			}
 		}
-		bool isSimulationEnabled = base.NetworkSimulationSettings.IsSimulationEnabled;
-		base.NetworkSimulationSettings.IsSimulationEnabled = false;
+		bool isSimulationEnabled = NetworkSimulationSettings.IsSimulationEnabled;
+		NetworkSimulationSettings.IsSimulationEnabled = false;
 		NCommand nCommand = nCommandPool.Acquire(this, 4, null, byte.MaxValue);
 		peerConnectionState = ConnectionStateValue.Disconnecting;
 		QueueOutgoingReliableCommand(nCommand);
 		SendOutgoingCommands();
-		if (base.TrafficStatsEnabled)
+		if (TrafficStatsEnabled)
 		{
-			base.TrafficStatsOutgoing.CountControlCommand(nCommand.Size);
+			TrafficStatsOutgoing.CountControlCommand(nCommand.Size);
 		}
-		base.NetworkSimulationSettings.IsSimulationEnabled = isSimulationEnabled;
+		NetworkSimulationSettings.IsSimulationEnabled = isSimulationEnabled;
 		PhotonSocket.Disconnect();
 		peerConnectionState = ConnectionStateValue.Disconnected;
 		EnqueueStatusCallback(StatusCode.Disconnect);
@@ -297,9 +297,9 @@ internal class EnetPeer : PeerBase
 			PhotonSocket.Disconnect();
 		}
 		peerConnectionState = ConnectionStateValue.Disconnected;
-		if (base.Listener != null)
+		if (Listener != null)
 		{
-			base.Listener.OnStatusChanged(StatusCode.Disconnect);
+			Listener.OnStatusChanged(StatusCode.Disconnect);
 		}
 	}
 
@@ -307,7 +307,7 @@ internal class EnetPeer : PeerBase
 	{
 		if (peerConnectionState != ConnectionStateValue.Connected || !ApplicationIsInitialized)
 		{
-			if ((int)base.debugOut >= 3)
+			if ((int)debugOut >= 3)
 			{
 				EnqueueDebugReturn(DebugLevel.INFO, "FetchServerTimestamp() was skipped, as the client is not connected. Current ConnectionState: " + peerConnectionState);
 			}
@@ -435,10 +435,10 @@ internal class EnetPeer : PeerBase
 
 	private int GetFragmentLength()
 	{
-		if (fragmentLength == 0 || base.mtu != fragmentLengthMtuValue)
+		if (fragmentLength == 0 || mtu != fragmentLengthMtuValue)
 		{
-			fragmentLengthMtuValue = base.mtu;
-			fragmentLength = base.mtu - 12 - 36;
+			fragmentLengthMtuValue = mtu;
+			fragmentLength = mtu - 12 - 36;
 			fragmentLengthDatagramEncrypt = ((photonPeer.Encryptor != null) ? photonPeer.Encryptor.CalculateFragmentLength() : 0);
 		}
 		return datagramEncryptedConnection ? fragmentLengthDatagramEncrypt : fragmentLength;
@@ -485,11 +485,11 @@ internal class EnetPeer : PeerBase
 			lock (outgoingAcknowledgementsPool)
 			{
 				num = SerializeAckToBuffer();
-				timeLastSendAck = base.timeInt;
+				timeLastSendAck = timeInt;
 			}
-			if (base.timeInt > timeoutInt && sentReliableCommands.Count > 0)
+			if (timeInt > timeoutInt && sentReliableCommands.Count > 0)
 			{
-				int num2 = base.timeInt + 100;
+				int num2 = timeInt + 100;
 				lock (sentReliableCommands)
 				{
 					int num3 = 0;
@@ -497,14 +497,14 @@ internal class EnetPeer : PeerBase
 					{
 						NCommand nCommand = sentReliableCommands[i];
 						int num4 = nCommand.commandSentTime + nCommand.roundTripTimeout;
-						if (base.timeInt > num4)
+						if (timeInt > num4)
 						{
 							bool flag = SerializeCommandToBuffer(nCommand, commandIsInSentQueue: true);
 							if (flag)
 							{
-								if ((int)base.debugOut >= 5)
+								if ((int)debugOut >= 5)
 								{
-									base.Listener.DebugReturn(DebugLevel.ALL, $"Resending: {nCommand}. now: {base.timeInt} rtt/var: {roundTripTime}/{roundTripTimeVariance} last recv: {base.timeInt - timestampOfLastReceive} didFit: {flag}");
+									Listener.DebugReturn(DebugLevel.ALL, $"Resending: {nCommand}. now: {timeInt} rtt/var: {roundTripTime}/{roundTripTimeVariance} last recv: {timeInt - timestampOfLastReceive} didFit: {flag}");
 								}
 								reliableCommandsRepeated++;
 							}
@@ -512,7 +512,7 @@ internal class EnetPeer : PeerBase
 							{
 								num3++;
 								num2 = timeoutInt;
-								if (base.mtu - udpBufferIndex < 80)
+								if (mtu - udpBufferIndex < 80)
 								{
 									break;
 								}
@@ -531,10 +531,10 @@ internal class EnetPeer : PeerBase
 			{
 				return false;
 			}
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsOutgoing.TotalPacketCount++;
-				base.TrafficStatsOutgoing.TotalCommandsInPackets += udpCommandCount;
+				TrafficStatsOutgoing.TotalPacketCount++;
+				TrafficStatsOutgoing.TotalCommandsInPackets += udpCommandCount;
 			}
 			SendData(udpBuffer, udpBufferIndex);
 			return num > 0;
@@ -556,18 +556,18 @@ internal class EnetPeer : PeerBase
 			int num = 0;
 			udpBufferIndex = CalculateInitialOffset();
 			udpCommandCount = 0;
-			timeLastSendOutgoing = base.timeInt;
+			timeLastSendOutgoing = timeInt;
 			lock (outgoingAcknowledgementsPool)
 			{
 				if (outgoingAcknowledgementsPool.Length > 0)
 				{
 					num = SerializeAckToBuffer();
-					timeLastSendAck = base.timeInt;
+					timeLastSendAck = timeInt;
 				}
 			}
-			if (base.timeInt > timeoutInt && sentReliableCommands.Count > 0)
+			if (timeInt > timeoutInt && sentReliableCommands.Count > 0)
 			{
-				int num2 = base.timeInt + 100;
+				int num2 = timeInt + 100;
 				lock (sentReliableCommands)
 				{
 					int num3 = 0;
@@ -575,16 +575,16 @@ internal class EnetPeer : PeerBase
 					{
 						NCommand nCommand = sentReliableCommands[i];
 						int num4 = nCommand.commandSentTime + nCommand.roundTripTimeout;
-						if (base.timeInt > num4)
+						if (timeInt > num4)
 						{
-							if (nCommand.commandSentCount > photonPeer.SentCountAllowance || base.timeInt > nCommand.timeoutTime)
+							if (nCommand.commandSentCount > photonPeer.SentCountAllowance || timeInt > nCommand.timeoutTime)
 							{
-								if ((int)base.debugOut >= 2)
+								if ((int)debugOut >= 2)
 								{
-									base.Listener.DebugReturn(DebugLevel.WARNING, $"Timeout-disconnect! Command: {nCommand} now: {base.timeInt} challenge: {Convert.ToString(challenge, 16)}");
-									if ((int)base.debugOut >= 3)
+									Listener.DebugReturn(DebugLevel.WARNING, $"Timeout-disconnect! Command: {nCommand} now: {timeInt} challenge: {Convert.ToString(challenge, 16)}");
+									if ((int)debugOut >= 3)
 									{
-										base.Listener.DebugReturn(DebugLevel.INFO, $"QueuedOutgoing: {QueuedOutgoingCommandsCount} channel.LowestUnAckd: {GetChannel(nCommand.commandChannelID).lowestUnacknowledgedSequenceNumber} sentReliableCommands: {sentReliableCommands.Count}");
+										Listener.DebugReturn(DebugLevel.INFO, $"QueuedOutgoing: {QueuedOutgoingCommandsCount} channel.LowestUnAckd: {GetChannel(nCommand.commandChannelID).lowestUnacknowledgedSequenceNumber} sentReliableCommands: {sentReliableCommands.Count}");
 									}
 								}
 								peerConnectionState = ConnectionStateValue.Zombie;
@@ -595,9 +595,9 @@ internal class EnetPeer : PeerBase
 							}
 							if (SerializeCommandToBuffer(nCommand, commandIsInSentQueue: true))
 							{
-								if ((int)base.debugOut >= 5)
+								if ((int)debugOut >= 5)
 								{
-									base.Listener.DebugReturn(DebugLevel.ALL, $"Resending: {nCommand}. now: {base.timeInt} rtt/var: {roundTripTime}/{roundTripTimeVariance} last recv: {base.timeInt - timestampOfLastReceive}");
+									Listener.DebugReturn(DebugLevel.ALL, $"Resending: {nCommand}. now: {timeInt} rtt/var: {roundTripTime}/{roundTripTimeVariance} last recv: {timeInt - timestampOfLastReceive}");
 								}
 								reliableCommandsRepeated++;
 							}
@@ -605,7 +605,7 @@ internal class EnetPeer : PeerBase
 							{
 								num3++;
 								num2 = timeoutInt;
-								if (base.mtu - udpBufferIndex < 80)
+								if (mtu - udpBufferIndex < 80)
 								{
 									break;
 								}
@@ -620,13 +620,13 @@ internal class EnetPeer : PeerBase
 					timeoutInt = num2;
 				}
 			}
-			if (peerConnectionState == ConnectionStateValue.Connected && base.timePingInterval > 0 && sentReliableCommands.Count == 0 && base.timeInt - timeLastAckReceive > base.timePingInterval && CalculatePacketSize(udpBufferIndex + 12) <= base.mtu)
+			if (peerConnectionState == ConnectionStateValue.Connected && timePingInterval > 0 && sentReliableCommands.Count == 0 && timeInt - timeLastAckReceive > timePingInterval && CalculatePacketSize(udpBufferIndex + 12) <= mtu)
 			{
 				NCommand nCommand2 = nCommandPool.Acquire(this, 5, null, byte.MaxValue);
 				QueueOutgoingReliableCommand(nCommand2);
-				if (base.TrafficStatsEnabled)
+				if (TrafficStatsEnabled)
 				{
-					base.TrafficStatsOutgoing.CountControlCommand(nCommand2.Size);
+					TrafficStatsOutgoing.CountControlCommand(nCommand2.Size);
 				}
 			}
 			if (sendWindowUpdateRequired)
@@ -650,10 +650,10 @@ internal class EnetPeer : PeerBase
 			{
 				return false;
 			}
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsOutgoing.TotalPacketCount++;
-				base.TrafficStatsOutgoing.TotalCommandsInPackets += udpCommandCount;
+				TrafficStatsOutgoing.TotalPacketCount++;
+				TrafficStatsOutgoing.TotalCommandsInPackets += udpCommandCount;
 			}
 			SendData(udpBuffer, udpBufferIndex);
 			return num > 0;
@@ -772,20 +772,20 @@ internal class EnetPeer : PeerBase
 			{
 				QueueOutgoingReliableCommand(nCommand);
 				ByteCountLastOperation = nCommand.Size;
-				if (base.TrafficStatsEnabled)
+				if (TrafficStatsEnabled)
 				{
-					base.TrafficStatsOutgoing.CountReliableOpCommand(nCommand.Size);
-					base.TrafficStatsGameLevel.CountOperation(nCommand.Size);
+					TrafficStatsOutgoing.CountReliableOpCommand(nCommand.Size);
+					TrafficStatsGameLevel.CountOperation(nCommand.Size);
 				}
 			}
 			else
 			{
 				QueueOutgoingUnreliableCommand(nCommand);
 				ByteCountLastOperation = nCommand.Size;
-				if (base.TrafficStatsEnabled)
+				if (TrafficStatsEnabled)
 				{
-					base.TrafficStatsOutgoing.CountUnreliableOpCommand(nCommand.Size);
-					base.TrafficStatsGameLevel.CountOperation(nCommand.Size);
+					TrafficStatsOutgoing.CountUnreliableOpCommand(nCommand.Size);
+					TrafficStatsGameLevel.CountOperation(nCommand.Size);
 				}
 			}
 		}
@@ -812,10 +812,10 @@ internal class EnetPeer : PeerBase
 				nCommand2.fragmentOffset = i;
 				QueueOutgoingReliableCommand(nCommand2);
 				ByteCountLastOperation += nCommand2.Size;
-				if (base.TrafficStatsEnabled)
+				if (TrafficStatsEnabled)
 				{
-					base.TrafficStatsOutgoing.CountFragmentOpCommand(nCommand2.Size);
-					base.TrafficStatsGameLevel.CountOperation(nCommand2.Size);
+					TrafficStatsOutgoing.CountFragmentOpCommand(nCommand2.Size);
+					TrafficStatsGameLevel.CountOperation(nCommand2.Size);
 				}
 				num2++;
 			}
@@ -829,16 +829,15 @@ internal class EnetPeer : PeerBase
 		outgoingAcknowledgementsPool.Seek(0L, SeekOrigin.Begin);
 		while (outgoingAcknowledgementsPool.Position + 20 <= outgoingAcknowledgementsPool.Length)
 		{
-			if (CalculatePacketSize(udpBufferIndex + 20) > base.mtu)
+			if (CalculatePacketSize(udpBufferIndex + 20) > mtu)
 			{
-				if ((int)base.debugOut >= 5)
+				if ((int)debugOut >= 5)
 				{
-					base.Listener.DebugReturn(DebugLevel.ALL, "UDP package is full. Commands in Package: " + udpCommandCount + ". bytes left in queue: " + outgoingAcknowledgementsPool.Position);
+					Listener.DebugReturn(DebugLevel.ALL, "UDP package is full. Commands in Package: " + udpCommandCount + ". bytes left in queue: " + outgoingAcknowledgementsPool.Position);
 				}
 				break;
 			}
-			int offset;
-			byte[] bufferAndAdvance = outgoingAcknowledgementsPool.GetBufferAndAdvance(20, out offset);
+			byte[] bufferAndAdvance = outgoingAcknowledgementsPool.GetBufferAndAdvance(20, out var offset);
 			Buffer.BlockCopy(bufferAndAdvance, offset, udpBuffer, udpBufferIndex, 20);
 			udpBufferIndex += 20;
 			udpCommandCount++;
@@ -867,9 +866,9 @@ internal class EnetPeer : PeerBase
 				commandList.Dequeue();
 				continue;
 			}
-			if ((int)base.debugOut >= 5)
+			if ((int)debugOut >= 5)
 			{
-				base.Listener.DebugReturn(DebugLevel.ALL, "UDP package is full. Commands in Package: " + udpCommandCount + " commandList.Count: " + commandList.Count);
+				Listener.DebugReturn(DebugLevel.ALL, "UDP package is full. Commands in Package: " + udpCommandCount + " commandList.Count: " + commandList.Count);
 			}
 			break;
 		}
@@ -882,7 +881,7 @@ internal class EnetPeer : PeerBase
 		{
 			return true;
 		}
-		if (CalculatePacketSize(udpBufferIndex + command.Size) > base.mtu)
+		if (CalculatePacketSize(udpBufferIndex + command.Size) > mtu)
 		{
 			return false;
 		}
@@ -919,7 +918,7 @@ internal class EnetPeer : PeerBase
 			data[2] = (byte)(photonPeer.CrcEnabled ? 204 : 0);
 			data[3] = udpCommandCount;
 			targetOffset = 4;
-			Protocol.Serialize(base.timeInt, data, ref targetOffset);
+			Protocol.Serialize(timeInt, data, ref targetOffset);
 			Protocol.Serialize(challenge, data, ref targetOffset);
 			if (photonPeer.CrcEnabled)
 			{
@@ -932,9 +931,9 @@ internal class EnetPeer : PeerBase
 		}
 		catch (Exception ex)
 		{
-			if ((int)base.debugOut >= 1)
+			if ((int)debugOut >= 1)
 			{
-				base.Listener.DebugReturn(DebugLevel.ERROR, ex.ToString());
+				Listener.DebugReturn(DebugLevel.ERROR, ex.ToString());
 			}
 			SupportClass.WriteStackTrace(ex);
 		}
@@ -948,16 +947,16 @@ internal class EnetPeer : PeerBase
 		{
 			trafficRecorder.Record(data, length, incoming: false, peerID, PhotonSocket);
 		}
-		if (base.NetworkSimulationSettings.IsSimulationEnabled)
+		if (NetworkSimulationSettings.IsSimulationEnabled)
 		{
 			byte[] array = new byte[length];
 			Buffer.BlockCopy(data, 0, array, 0, length);
 			SendNetworkSimulated(array);
 			return;
 		}
-		int num = base.timeInt;
+		int num = timeInt;
 		PhotonSocket.Send(data, length);
-		int num2 = base.timeInt - num;
+		int num2 = timeInt - num;
 		if (num2 > longestSentCall)
 		{
 			longestSentCall = num2;
@@ -966,9 +965,9 @@ internal class EnetPeer : PeerBase
 
 	private void SendDataEncrypted(byte[] data, int length)
 	{
-		if (bufferForEncryption == null || bufferForEncryption.Length != base.mtu)
+		if (bufferForEncryption == null || bufferForEncryption.Length != mtu)
 		{
-			bufferForEncryption = new byte[base.mtu];
+			bufferForEncryption = new byte[mtu];
 		}
 		byte[] array = bufferForEncryption;
 		int targetOffset = 0;
@@ -978,7 +977,7 @@ internal class EnetPeer : PeerBase
 		Protocol.Serialize(challenge, array, ref targetOffset);
 		data[0] = udpCommandCount;
 		int targetOffset2 = 1;
-		Protocol.Serialize(base.timeInt, data, ref targetOffset2);
+		Protocol.Serialize(timeInt, data, ref targetOffset2);
 		int outSize = array.Length - targetOffset;
 		photonPeer.Encryptor.Encrypt2(data, length, array, array, targetOffset, ref outSize);
 		SendToSocket(array, outSize + targetOffset);
@@ -986,11 +985,11 @@ internal class EnetPeer : PeerBase
 
 	internal void QueueSentCommand(NCommand command, bool commandIsAlreadyInSentQueue = false)
 	{
-		command.commandSentTime = base.timeInt;
+		command.commandSentTime = timeInt;
 		if (command.roundTripTimeout == 0)
 		{
 			command.roundTripTimeout = Math.Min(roundTripTime + 4 * roundTripTimeVariance, photonPeer.InitialResendTimeMax);
-			command.timeoutTime = base.timeInt + base.DisconnectTimeout;
+			command.timeoutTime = timeInt + DisconnectTimeout;
 			reliableCommandsSent++;
 		}
 		else if (command.commandSentCount > photonPeer.QuickResendAttempts || sentReliableCommands.Count >= 25)
@@ -1064,15 +1063,14 @@ internal class EnetPeer : PeerBase
 	{
 		lock (outgoingAcknowledgementsPool)
 		{
-			int offset;
-			byte[] bufferAndAdvance = outgoingAcknowledgementsPool.GetBufferAndAdvance(20, out offset);
+			byte[] bufferAndAdvance = outgoingAcknowledgementsPool.GetBufferAndAdvance(20, out var offset);
 			NCommand.CreateAck(bufferAndAdvance, offset, readCommand, sendTime);
 		}
 	}
 
 	internal override void ReceiveIncomingCommands(byte[] inBuff, int inDataLength)
 	{
-		timestampOfLastReceive = base.timeInt;
+		timestampOfLastReceive = timeInt;
 		if (peerConnectionState == ConnectionStateValue.Disconnected)
 		{
 			return;
@@ -1114,7 +1112,7 @@ internal class EnetPeer : PeerBase
 			{
 				if (datagramEncryptedConnection)
 				{
-					if ((int)base.debugOut >= 2)
+					if ((int)debugOut >= 2)
 					{
 						EnqueueDebugReturn(DebugLevel.WARNING, "Ignored received package. Connection requires Datagram Encryption but received unencrypted datagram.");
 					}
@@ -1126,7 +1124,7 @@ internal class EnetPeer : PeerBase
 				if (value2 != challenge)
 				{
 					packetLossByChallenge++;
-					if (peerConnectionState != ConnectionStateValue.Disconnected && (int)base.debugOut >= 5)
+					if (peerConnectionState != ConnectionStateValue.Disconnected && (int)debugOut >= 5)
 					{
 						EnqueueDebugReturn(DebugLevel.ALL, "Ignored received package due to wrong challenge. Received:" + value2 + " local: " + challenge);
 					}
@@ -1142,7 +1140,7 @@ internal class EnetPeer : PeerBase
 					if (value3 != (int)num)
 					{
 						packetLossByCrc++;
-						if (peerConnectionState != ConnectionStateValue.Disconnected && (int)base.debugOut >= 3)
+						if (peerConnectionState != ConnectionStateValue.Disconnected && (int)debugOut >= 3)
 						{
 							EnqueueDebugReturn(DebugLevel.INFO, $"Ignored package due to wrong CRC. Incoming:  {(uint)value3:X} Local: {num:X}");
 						}
@@ -1151,10 +1149,10 @@ internal class EnetPeer : PeerBase
 				}
 				bytesIn += 12L;
 			}
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsIncoming.TotalPacketCount++;
-				base.TrafficStatsIncoming.TotalCommandsInPackets += b2;
+				TrafficStatsIncoming.TotalPacketCount++;
+				TrafficStatsIncoming.TotalCommandsInPackets += b2;
 			}
 			if (b2 > commandBufferSize || b2 <= 0)
 			{
@@ -1179,10 +1177,10 @@ internal class EnetPeer : PeerBase
 				if (nCommand.IsFlaggedReliable)
 				{
 					QueueOutgoingAcknowledgement(nCommand, serverSentTime);
-					if (base.TrafficStatsEnabled)
+					if (TrafficStatsEnabled)
 					{
-						base.TrafficStatsIncoming.TimestampOfLastReliableCommand = base.timeInt;
-						base.TrafficStatsOutgoing.CountControlCommand(20);
+						TrafficStatsIncoming.TimestampOfLastReliableCommand = timeInt;
+						TrafficStatsOutgoing.CountControlCommand(20);
 					}
 				}
 			}
@@ -1193,7 +1191,7 @@ internal class EnetPeer : PeerBase
 		}
 		catch (Exception ex)
 		{
-			if ((int)base.debugOut >= 1)
+			if ((int)debugOut >= 1)
 			{
 				EnqueueDebugReturn(DebugLevel.ERROR, $"Exception while reading commands from incoming data: {ex}");
 			}
@@ -1207,17 +1205,17 @@ internal class EnetPeer : PeerBase
 		{
 		case 2:
 		case 5:
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsIncoming.CountControlCommand(command.Size);
+				TrafficStatsIncoming.CountControlCommand(command.Size);
 			}
 			command.Release();
 			break;
 		case 4:
 		{
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsIncoming.CountControlCommand(command.Size);
+				TrafficStatsIncoming.CountControlCommand(command.Size);
 			}
 			StatusCode statusValue = StatusCode.DisconnectByServerReasonUnknown;
 			if (command.reservedByte == 1)
@@ -1232,9 +1230,9 @@ internal class EnetPeer : PeerBase
 			{
 				statusValue = StatusCode.DisconnectByServerUserLimit;
 			}
-			if ((int)base.debugOut >= 3)
+			if ((int)debugOut >= 3)
 			{
-				base.Listener.DebugReturn(DebugLevel.INFO, "Server " + base.ServerAddress + " sent disconnect. PeerId: " + (ushort)peerID + " RTT/Variance:" + roundTripTime + "/" + roundTripTimeVariance + " reason byte: " + command.reservedByte + " peerConnectionState: " + peerConnectionState);
+				Listener.DebugReturn(DebugLevel.INFO, "Server " + ServerAddress + " sent disconnect. PeerId: " + (ushort)peerID + " RTT/Variance:" + roundTripTime + "/" + roundTripTimeVariance + " reason byte: " + command.reservedByte + " peerConnectionState: " + peerConnectionState);
 			}
 			if (peerConnectionState != ConnectionStateValue.Disconnected && peerConnectionState != ConnectionStateValue.Disconnecting)
 			{
@@ -1247,16 +1245,16 @@ internal class EnetPeer : PeerBase
 		case 1:
 		case 16:
 		{
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsIncoming.TimestampOfLastAck = base.timeInt;
-				base.TrafficStatsIncoming.CountControlCommand(command.Size);
+				TrafficStatsIncoming.TimestampOfLastAck = timeInt;
+				TrafficStatsIncoming.CountControlCommand(command.Size);
 			}
-			timeLastAckReceive = base.timeInt;
-			lastRoundTripTime = base.timeInt - command.ackReceivedSentTime;
+			timeLastAckReceive = timeInt;
+			lastRoundTripTime = timeInt - command.ackReceivedSentTime;
 			if (lastRoundTripTime < 0 || lastRoundTripTime > 10000)
 			{
-				if ((int)base.debugOut >= 3)
+				if ((int)debugOut >= 3)
 				{
 					EnqueueDebugReturn(DebugLevel.INFO, "Measured lastRoundtripTime is suspicious: " + lastRoundTripTime + " for command: " + command);
 				}
@@ -1282,7 +1280,7 @@ internal class EnetPeer : PeerBase
 			{
 				if (lastRoundTripTime <= roundTripTime)
 				{
-					serverTimeOffset = serverSentTime + (lastRoundTripTime >> 1) - base.timeInt;
+					serverTimeOffset = serverSentTime + (lastRoundTripTime >> 1) - timeInt;
 					serverTimeOffsetIsAvailable = true;
 				}
 				else
@@ -1295,11 +1293,11 @@ internal class EnetPeer : PeerBase
 				UpdateRoundTripTimeAndVariance(lastRoundTripTime);
 				if (nCommand.commandType == 4 && peerConnectionState == ConnectionStateValue.Disconnecting)
 				{
-					if ((int)base.debugOut >= 3)
+					if ((int)debugOut >= 3)
 					{
 						EnqueueDebugReturn(DebugLevel.INFO, "Received ACK for previously sent Disconnect command.");
 					}
-					EnqueueActionForDispatch(delegate
+					EnqueueActionForDispatch(() =>
 					{
 						PhotonSocket.Disconnect();
 					});
@@ -1324,15 +1322,15 @@ internal class EnetPeer : PeerBase
 		case 7:
 		case 11:
 		case 14:
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
 				if (command.IsFlaggedReliable)
 				{
-					base.TrafficStatsIncoming.CountReliableOpCommand(command.Size);
+					TrafficStatsIncoming.CountReliableOpCommand(command.Size);
 				}
 				else
 				{
-					base.TrafficStatsIncoming.CountUnreliableOpCommand(command.Size);
+					TrafficStatsIncoming.CountUnreliableOpCommand(command.Size);
 				}
 			}
 			if (peerConnectionState != ConnectionStateValue.Connected || !QueueIncomingCommand(command))
@@ -1348,15 +1346,15 @@ internal class EnetPeer : PeerBase
 				command.Release();
 				break;
 			}
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsIncoming.CountFragmentOpCommand(command.Size);
+				TrafficStatsIncoming.CountFragmentOpCommand(command.Size);
 			}
 			if (command.fragmentNumber > command.fragmentCount || command.fragmentOffset >= command.totalLength || command.fragmentOffset + command.Payload.Length > command.totalLength)
 			{
-				if ((int)base.debugOut >= 1)
+				if ((int)debugOut >= 1)
 				{
-					base.Listener.DebugReturn(DebugLevel.ERROR, "Received fragment has bad size: " + command);
+					Listener.DebugReturn(DebugLevel.ERROR, "Received fragment has bad size: " + command);
 				}
 				command.Release();
 				break;
@@ -1433,9 +1431,9 @@ internal class EnetPeer : PeerBase
 			break;
 		}
 		case 3:
-			if (base.TrafficStatsEnabled)
+			if (TrafficStatsEnabled)
 			{
-				base.TrafficStatsIncoming.CountControlCommand(command.Size);
+				TrafficStatsIncoming.CountControlCommand(command.Size);
 			}
 			if (peerConnectionState == ConnectionStateValue.Connecting)
 			{
@@ -1462,9 +1460,9 @@ internal class EnetPeer : PeerBase
 		EnetChannel channel = GetChannel(command.commandChannelID);
 		if (channel == null)
 		{
-			if ((int)base.debugOut >= 1)
+			if ((int)debugOut >= 1)
 			{
-				base.Listener.DebugReturn(DebugLevel.ERROR, "Received command for non-existing channel: " + command.commandChannelID);
+				Listener.DebugReturn(DebugLevel.ERROR, "Received command for non-existing channel: " + command.commandChannelID);
 			}
 			return false;
 		}
@@ -1476,17 +1474,17 @@ internal class EnetPeer : PeerBase
 			}
 			if (command.reliableSequenceNumber <= channel.incomingReliableSequenceNumber)
 			{
-				if ((int)base.debugOut >= 5)
+				if ((int)debugOut >= 5)
 				{
-					base.Listener.DebugReturn(DebugLevel.ALL, "incoming command " + command?.ToString() + " is old (not saving it). Dispatched incomingReliableSequenceNumber: " + channel.incomingReliableSequenceNumber);
+					Listener.DebugReturn(DebugLevel.ALL, "incoming command " + command?.ToString() + " is old (not saving it). Dispatched incomingReliableSequenceNumber: " + channel.incomingReliableSequenceNumber);
 				}
 				return false;
 			}
 			if (channel.ContainsReliableSequenceNumber(command.reliableSequenceNumber))
 			{
-				if ((int)base.debugOut >= 5)
+				if ((int)debugOut >= 5)
 				{
-					base.Listener.DebugReturn(DebugLevel.ALL, "Info: command was received before! Old/New: " + channel.FetchReliableSequenceNumber(command.reliableSequenceNumber)?.ToString() + "/" + command?.ToString() + " inReliableSeq#: " + channel.incomingReliableSequenceNumber);
+					Listener.DebugReturn(DebugLevel.ALL, "Info: command was received before! Old/New: " + channel.FetchReliableSequenceNumber(command.reliableSequenceNumber)?.ToString() + "/" + command?.ToString() + " inReliableSeq#: " + channel.incomingReliableSequenceNumber);
 				}
 				return false;
 			}
@@ -1498,26 +1496,26 @@ internal class EnetPeer : PeerBase
 			if (command.reliableSequenceNumber < channel.incomingReliableSequenceNumber)
 			{
 				photonPeer.CountDiscarded++;
-				if ((int)base.debugOut >= 5)
+				if ((int)debugOut >= 5)
 				{
-					base.Listener.DebugReturn(DebugLevel.ALL, "incoming reliable-seq# < Dispatched-rel-seq#. not saved.");
+					Listener.DebugReturn(DebugLevel.ALL, "incoming reliable-seq# < Dispatched-rel-seq#. not saved.");
 				}
 				return false;
 			}
 			if (command.unreliableSequenceNumber <= channel.incomingUnreliableSequenceNumber)
 			{
 				photonPeer.CountDiscarded++;
-				if ((int)base.debugOut >= 5)
+				if ((int)debugOut >= 5)
 				{
-					base.Listener.DebugReturn(DebugLevel.ALL, "incoming unreliable-seq# < Dispatched-unrel-seq#. not saved.");
+					Listener.DebugReturn(DebugLevel.ALL, "incoming unreliable-seq# < Dispatched-unrel-seq#. not saved.");
 				}
 				return false;
 			}
 			if (channel.ContainsUnreliableSequenceNumber(command.unreliableSequenceNumber))
 			{
-				if ((int)base.debugOut >= 5)
+				if ((int)debugOut >= 5)
 				{
-					base.Listener.DebugReturn(DebugLevel.ALL, "command was received before! Old/New: " + channel.incomingUnreliableCommandsList[command.unreliableSequenceNumber]?.ToString() + "/" + command);
+					Listener.DebugReturn(DebugLevel.ALL, "command was received before! Old/New: " + channel.incomingUnreliableCommandsList[command.unreliableSequenceNumber]?.ToString() + "/" + command);
 				}
 				return false;
 			}
@@ -1564,7 +1562,7 @@ internal class EnetPeer : PeerBase
 			{
 				sentReliableCommands.Remove(nCommand);
 			}
-			else if ((int)base.debugOut >= 5 && peerConnectionState != ConnectionStateValue.Connected && peerConnectionState != ConnectionStateValue.Disconnecting)
+			else if ((int)debugOut >= 5 && peerConnectionState != ConnectionStateValue.Connected && peerConnectionState != ConnectionStateValue.Disconnecting)
 			{
 				EnqueueDebugReturn(DebugLevel.ALL, $"No sent command for ACK (Ch: {ackReceivedReliableSequenceNumber} Sq#: {ackReceivedChannel}). PeerState: {peerConnectionState}.");
 			}
@@ -1574,7 +1572,7 @@ internal class EnetPeer : PeerBase
 
 	internal string CommandListToString(NCommand[] list)
 	{
-		if ((int)base.debugOut < 5)
+		if ((int)debugOut < 5)
 		{
 			return string.Empty;
 		}

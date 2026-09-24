@@ -68,13 +68,13 @@ public class PhotonHandler : ConnectionHandler, IInRoomCallbacks, IMatchmakingCa
 			Debug.LogError("PhotonHandler is a singleton but there are multiple instances. this != Instance.");
 			return;
 		}
-		base.Client = PhotonNetwork.NetworkingClient;
+		Client = PhotonNetwork.NetworkingClient;
 		if (PhotonNetwork.PhotonServerSettings.EnableSupportLogger)
 		{
-			SupportLogger supportLogger = base.gameObject.GetComponent<SupportLogger>();
+			SupportLogger supportLogger = gameObject.GetComponent<SupportLogger>();
 			if (supportLogger == null)
 			{
-				supportLogger = base.gameObject.AddComponent<SupportLogger>();
+				supportLogger = gameObject.AddComponent<SupportLogger>();
 			}
 			if (supportLoggerComponent != null && supportLogger.GetInstanceID() != supportLoggerComponent.GetInstanceID())
 			{
@@ -91,7 +91,7 @@ public class PhotonHandler : ConnectionHandler, IInRoomCallbacks, IMatchmakingCa
 
 	protected void Start()
 	{
-		SceneManager.sceneLoaded += delegate
+		SceneManager.sceneLoaded += (Scene scene, LoadSceneMode loadingMode) =>
 		{
 		};
 	}
@@ -129,7 +129,7 @@ public class PhotonHandler : ConnectionHandler, IInRoomCallbacks, IMatchmakingCa
 			SendAsap = false;
 			bool flag = true;
 			int num2 = 0;
-			while (PhotonNetwork.IsMessageQueueRunning && flag && num2 < MaxDatagrams)
+			while ((PhotonNetwork.IsMessageQueueRunning & flag) && num2 < MaxDatagrams)
 			{
 				flag = PhotonNetwork.NetworkingClient.LoadBalancingPeer.SendOutgoingCommands();
 				num2++;
@@ -148,7 +148,7 @@ public class PhotonHandler : ConnectionHandler, IInRoomCallbacks, IMatchmakingCa
 		bool flag = true;
 		Exception ex = null;
 		int num = 0;
-		while (PhotonNetwork.IsMessageQueueRunning && flag)
+		while (PhotonNetwork.IsMessageQueueRunning & flag)
 		{
 			try
 			{

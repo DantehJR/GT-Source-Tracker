@@ -49,17 +49,17 @@ public class BushFieldReactorFieldMain : MonoBehaviour
 		{
 			for (int i = 0; i < NumBushes; i++)
 			{
-				GameObject obj = UnityEngine.Object.Instantiate(Bush);
+				GameObject gameObject = UnityEngine.Object.Instantiate(Bush);
 				float num = UnityEngine.Random.Range(BushScaleRange.x, BushScaleRange.y);
-				obj.transform.position = new Vector3(UnityEngine.Random.Range(-0.5f * FieldBounds.x, 0.5f * FieldBounds.x), 0.2f * num, UnityEngine.Random.Range(-0.5f * FieldBounds.y, 0.5f * FieldBounds.y));
-				obj.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
-				obj.transform.localScale = num * Vector3.one;
-				BoingReactorFieldCPUSampler component = obj.GetComponent<BoingReactorFieldCPUSampler>();
+				gameObject.transform.position = new Vector3(UnityEngine.Random.Range(-0.5f * FieldBounds.x, 0.5f * FieldBounds.x), 0.2f * num, UnityEngine.Random.Range(-0.5f * FieldBounds.y, 0.5f * FieldBounds.y));
+				gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+				gameObject.transform.localScale = num * Vector3.one;
+				BoingReactorFieldCPUSampler component = gameObject.GetComponent<BoingReactorFieldCPUSampler>();
 				if (component != null)
 				{
 					component.ReactorField = ReactorField;
 				}
-				BoingReactorFieldGPUSampler component2 = obj.GetComponent<BoingReactorFieldGPUSampler>();
+				BoingReactorFieldGPUSampler component2 = gameObject.GetComponent<BoingReactorFieldGPUSampler>();
 				if (component2 != null)
 				{
 					component2.ReactorField = ReactorField;
@@ -83,20 +83,20 @@ public class BushFieldReactorFieldMain : MonoBehaviour
 		}
 		for (int l = 0; l < NumBlossoms; l++)
 		{
-			GameObject obj2 = UnityEngine.Object.Instantiate(Blossom);
+			GameObject gameObject2 = UnityEngine.Object.Instantiate(Blossom);
 			float num3 = UnityEngine.Random.Range(BlossomScaleRange.x, BlossomScaleRange.y);
-			obj2.transform.position = new Vector3(UnityEngine.Random.Range(-0.5f * FieldBounds.x, 0.5f * FieldBounds.y), 0.2f * num3, UnityEngine.Random.Range(-0.5f * FieldBounds.y, 0.5f * FieldBounds.y));
-			obj2.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
-			obj2.transform.localScale = num3 * Vector3.one;
-			obj2.GetComponent<BoingReactorFieldCPUSampler>().ReactorField = ReactorField;
+			gameObject2.transform.position = new Vector3(UnityEngine.Random.Range(-0.5f * FieldBounds.x, 0.5f * FieldBounds.y), 0.2f * num3, UnityEngine.Random.Range(-0.5f * FieldBounds.y, 0.5f * FieldBounds.y));
+			gameObject2.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+			gameObject2.transform.localScale = num3 * Vector3.one;
+			gameObject2.GetComponent<BoingReactorFieldCPUSampler>().ReactorField = ReactorField;
 		}
 		m_aSphere = new List<BoingEffector>(NumSpheresPerCircle * NumCircles);
 		for (int m = 0; m < NumCircles; m++)
 		{
 			for (int n = 0; n < NumSpheresPerCircle; n++)
 			{
-				GameObject gameObject = UnityEngine.Object.Instantiate(Sphere);
-				m_aSphere.Add(gameObject.GetComponent<BoingEffector>());
+				GameObject gameObject3 = UnityEngine.Object.Instantiate(Sphere);
+				m_aSphere.Add(gameObject3.GetComponent<BoingEffector>());
 			}
 		}
 		BoingReactorField component3 = ReactorField.GetComponent<BoingReactorField>();

@@ -74,8 +74,7 @@ public class WaterCurrent : MonoBehaviour
 		for (int i = 0; i < splines.Count; i++)
 		{
 			CatmullRomSpline catmullRomSpline = splines[i];
-			Vector3 linePoint;
-			float closestEvaluationOnSpline = catmullRomSpline.GetClosestEvaluationOnSpline(worldPoint, out linePoint);
+			float closestEvaluationOnSpline = catmullRomSpline.GetClosestEvaluationOnSpline(worldPoint, out var linePoint);
 			Vector3 vector3 = catmullRomSpline.Evaluate(closestEvaluationOnSpline);
 			Vector3 vector4 = vector3 - worldPoint;
 			if (!(vector4.sqrMagnitude < num))

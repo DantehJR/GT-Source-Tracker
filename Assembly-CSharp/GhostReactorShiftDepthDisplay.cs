@@ -174,7 +174,7 @@ public class GhostReactorShiftDepthDisplay
 				break;
 			}
 		}
-		if (shiftManager.ShiftActive && flag && flag2 && flag3 && flag4)
+		if (shiftManager.ShiftActive & flag & flag2 & flag3 & flag4)
 		{
 			shiftManager.authorizedToDelveDeeper = true;
 		}

@@ -12,7 +12,7 @@ public class BuilderAttachEdge : MonoBehaviour
 	{
 		if (center == null)
 		{
-			center = base.transform;
+			center = transform;
 		}
 	}
 

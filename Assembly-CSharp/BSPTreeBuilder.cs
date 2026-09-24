@@ -233,8 +233,7 @@ public static class BSPTreeBuilder
 			rightChildIndex = -1
 		};
 		nodeList.Add(serializableBSPNode);
-		int bestSplitValue;
-		SerializableBSPNode.Axis axis2 = (serializableBSPNode.axis = FindBestAxis(boxes, bounds, axis, out bestSplitValue));
+		SerializableBSPNode.Axis axis2 = (serializableBSPNode.axis = FindBestAxis(boxes, bounds, axis, out var bestSplitValue));
 		serializableBSPNode.splitValue = (float)bestSplitValue / 1000f;
 		Debug.Log($"Best axis: {axis2}, split value: {bestSplitValue}");
 		BoundsInt boundsInt = bounds;
@@ -273,7 +272,7 @@ public static class BSPTreeBuilder
 
 	private static SerializableBSPNode.Axis FindBestAxis(List<BoxMetadata> boxes, BoundsInt bounds, SerializableBSPNode.Axis preferredAxis, out int bestSplitValue)
 	{
-		SerializableBSPNode.Axis[] obj = new SerializableBSPNode.Axis[3]
+		SerializableBSPNode.Axis[] array = new SerializableBSPNode.Axis[3]
 		{
 			preferredAxis,
 			GetNextAxis(preferredAxis),
@@ -282,11 +281,10 @@ public static class BSPTreeBuilder
 		SerializableBSPNode.Axis axis = preferredAxis;
 		int num = int.MaxValue;
 		bestSplitValue = GetFallbackSplit(bounds, preferredAxis);
-		SerializableBSPNode.Axis[] array = obj;
-		foreach (SerializableBSPNode.Axis axis2 in array)
+		SerializableBSPNode.Axis[] array2 = array;
+		foreach (SerializableBSPNode.Axis axis2 in array2)
 		{
-			int bestScore;
-			int num2 = FindOptimalSplit(boxes, bounds, axis2, out bestScore);
+			int num2 = FindOptimalSplit(boxes, bounds, axis2, out var bestScore);
 			Debug.Log($"Axis {axis2}: split={num2:F3}, score={bestScore}");
 			if (bestScore < num)
 			{
@@ -488,7 +486,7 @@ public static class BSPTreeBuilder
 	{
 		if (boxes.Count == 0)
 		{
-			return default(BoundsInt);
+			return default;
 		}
 		BoundsInt bounds = boxes[0].bounds;
 		for (int i = 1; i < boxes.Count; i++)

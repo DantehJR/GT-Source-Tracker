@@ -90,12 +90,12 @@ public class GhostReactorLevelGenerator : MonoBehaviourTick
 		GameObject gameObject = new GameObject("TestColliderA");
 		testColliderA = gameObject.AddComponent<BoxCollider>();
 		testColliderA.isTrigger = true;
-		gameObject.transform.SetParent(base.transform);
+		gameObject.transform.SetParent(transform);
 		gameObject.gameObject.SetActive(value: false);
 		GameObject gameObject2 = new GameObject("TestColliderB");
 		testColliderB = gameObject2.AddComponent<BoxCollider>();
 		testColliderB.isTrigger = true;
-		gameObject2.transform.SetParent(base.transform);
+		gameObject2.transform.SetParent(transform);
 		gameObject2.gameObject.SetActive(value: false);
 		nextVisCheckNodeIndex = 0;
 	}
@@ -325,7 +325,7 @@ public class GhostReactorLevelGenerator : MonoBehaviourTick
 				{
 					int num7 = node2.anchorOrder[l];
 					bool flag = spawnedHubHashSet.Contains(hubs[num5].gameObject.name);
-					if (node2.children[num7] != null || node2.attachAnchorIndex == num7 || flag)
+					if ((node2.children[num7] != null || node2.attachAnchorIndex == num7) | flag)
 					{
 						continue;
 					}

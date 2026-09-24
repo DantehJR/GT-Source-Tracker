@@ -7,7 +7,7 @@ public static class EnumerableExtensions
 {
 	public static TValue MinBy<TValue, TKey>(this IEnumerable<TValue> ts, Func<TValue, TKey> keyGetter) where TKey : struct, IComparable<TKey>
 	{
-		TValue result = default(TValue);
+		TValue result = default;
 		TKey? val = null;
 		foreach (TValue t in ts)
 		{

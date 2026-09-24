@@ -200,6 +200,48 @@ public class MothershipNormalizedOffer : IDisposable
 		}
 	}
 
+	public string DisplayName
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipNormalizedOffer_DisplayName_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipNormalizedOffer_DisplayName_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
+	public string DisplayDescription
+	{
+		get
+		{
+			string result = MothershipApiPINVOKE.MothershipNormalizedOffer_DisplayDescription_get(swigCPtr);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+			return result;
+		}
+		set
+		{
+			MothershipApiPINVOKE.MothershipNormalizedOffer_DisplayDescription_set(swigCPtr, value);
+			if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+			{
+				throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+			}
+		}
+	}
+
 	public int DisplayIndex
 	{
 		get

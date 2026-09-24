@@ -90,6 +90,15 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 	private string mapAutoDownloadingString = "DOWNLOADING...";
 
 	[SerializeField]
+	private string mapDownloadingProgressString = "DOWNLOADING:";
+
+	[SerializeField]
+	private string mapInstallingString = "INSTALLING...";
+
+	[SerializeField]
+	private string mapInstallingProgressString = "INSTALLING:";
+
+	[SerializeField]
 	private string mapDownloadQueuedString = "DOWNLOAD QUEUED";
 
 	[SerializeField]
@@ -126,6 +135,10 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 		{
 			ModFileState.Downloading,
 			"DOWNLOADING"
+		},
+		{
+			ModFileState.Downloaded,
+			"DOWNLOADED"
 		},
 		{
 			ModFileState.Installing,
@@ -282,7 +295,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 
 	private void HandleModManagementEvent(Mod mod, Modfile modfile, ModInstallationManagement.OperationType jobType, ModInstallationManagement.OperationPhase jobPhase)
 	{
-		if (base.isActiveAndEnabled && hasModProfile && GetModId() == mod.Id)
+		if (isActiveAndEnabled && hasModProfile && GetModId() == mod.Id)
 		{
 			UpdateStatus(jobPhase == ModInstallationManagement.OperationPhase.Cancelled || jobPhase == ModInstallationManagement.OperationPhase.Failed);
 			if (jobPhase == ModInstallationManagement.OperationPhase.Failed)
@@ -298,7 +311,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 
 	private void Update()
 	{
-		if (base.isActiveAndEnabled && GetModId().IsValid() && ModInstallationManagement.CurrentOperationOnMod != null && ModInstallationManagement.CurrentOperationOnMod.Id == GetModId() && ModInstallationManagement.CurrentOperationOnMod.File.State != ModFileState.Installed && modStatusStrings.TryGetValue(ModInstallationManagement.CurrentOperationOnMod.File.State, out var value))
+		if (isActiveAndEnabled && GetModId().IsValid() && ModInstallationManagement.CurrentOperationOnMod != null && ModInstallationManagement.CurrentOperationOnMod.Id == GetModId() && ModInstallationManagement.CurrentOperationOnMod.File.State != ModFileState.Installed && modStatusStrings.TryGetValue(ModInstallationManagement.CurrentOperationOnMod.File.State, out var value))
 		{
 			float f = currentMapMod.File.FileStateProgress * 100f;
 			modStatusText.text = value + $" {Mathf.RoundToInt(f)}%";
@@ -326,7 +339,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 			currentMapMod.OnModUpdated += OnModUpdated;
 			isFavorite = ModIOManager.IsModFavorited(mod.Id);
 			favoriteToggleButton.SetButtonActive(isFavorite);
-			PlayerCountHelper.GetPlayerCount(currentMapMod, delegate(string count)
+			PlayerCountHelper.GetPlayerCount(currentMapMod, (string count) =>
 			{
 				playerCountText.text = count;
 			});
@@ -341,7 +354,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 			return;
 		}
 		GTDev.Log("[CustomMapsDetailsScreen::PressButton] Is Driver: " + CustomMapsTerminal.IsDriver + ", Button Pressed: " + buttonPressed);
-		if (!base.isActiveAndEnabled || !CustomMapsTerminal.IsDriver)
+		if (!isActiveAndEnabled || !CustomMapsTerminal.IsDriver)
 		{
 			return;
 		}
@@ -404,11 +417,11 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 			loadingMapLabelText.gameObject.SetActive(value: false);
 			loadingMapMessageText.gameObject.SetActive(value: false);
 			modDescriptionText.gameObject.SetActive(value: true);
-			ModIOManager.RefreshUserProfile(delegate
+			ModIOManager.RefreshUserProfile((bool result) =>
 			{
 				if (currentMapMod.IsSubscribed)
 				{
-					ModIOManager.UnsubscribeFromMod(GetModId(), delegate(Error error)
+					ModIOManager.UnsubscribeFromMod(GetModId(), (Error error) =>
 					{
 						if (!error)
 						{
@@ -418,7 +431,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 				}
 				else
 				{
-					ModIOManager.SubscribeToMod(GetModId(), delegate(Error error)
+					ModIOManager.SubscribeToMod(GetModId(), (Error error) =>
 					{
 						if (!error)
 						{
@@ -447,13 +460,18 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 			else
 			{
 				ModFileState state = currentMapMod.File.State;
-				if (state == ModFileState.Queued || state == ModFileState.None)
+				if (state == ModFileState.Queued || state == ModFileState.None || state == ModFileState.Downloaded || state == ModFileState.FileOperationFailed)
 				{
-					ModIOManager.DownloadMod(GetModId(), delegate(bool modDownloadStarted)
+					CustomMapManager.TrackMapDownload(GetModId());
+					ModIOManager.DownloadMod(GetModId(), (bool modDownloadStarted) =>
 					{
 						if (modDownloadStarted)
 						{
 							UpdateStatus();
+						}
+						else
+						{
+							CustomMapManager.StopTrackingMapDownload();
 						}
 					});
 				}
@@ -477,7 +495,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 			}
 			else if (!IsCurrentModHidden())
 			{
-				ModIOManager.AddFavorite(currentMapMod.Id, delegate
+				ModIOManager.AddFavorite(currentMapMod.Id, (Error error) =>
 				{
 					isFavorite = ModIOManager.IsModFavorited(currentMapMod.Id);
 					favoriteToggleButton.SetButtonActive(isFavorite);
@@ -501,15 +519,22 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 					if (state == ModFileState.Queued || state == ModFileState.Installed)
 					{
 						flag = true;
-						goto IL_03ec;
+						goto IL_03ff;
 					}
 				}
 			}
 			flag = false;
-			goto IL_03ec;
+			goto IL_03ff;
 		}
-		goto IL_0403;
-		IL_0403:
+		goto IL_0416;
+		IL_03ff:
+		if (flag)
+		{
+			currentMapMod.UninstallOtherUserMod(force: true);
+			UpdateStatus();
+		}
+		goto IL_0416;
+		IL_0416:
 		if (buttonPressed == CustomMapKeyboardBinding.rateUp)
 		{
 			currentMapMod.RateMod((currentMapMod.CurrentUserRating != ModRating.Positive) ? ModRating.Positive : ModRating.None);
@@ -518,14 +543,6 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 		{
 			currentMapMod.RateMod((currentMapMod.CurrentUserRating != ModRating.Negative) ? ModRating.Negative : ModRating.None);
 		}
-		return;
-		IL_03ec:
-		if (flag)
-		{
-			currentMapMod.UninstallOtherUserMod(force: true);
-			UpdateStatus();
-		}
-		goto IL_0403;
 	}
 
 	private void RefreshCurrentMapMod()
@@ -575,13 +592,22 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 		loadingText.gameObject.SetActive(value: true);
 		if (CustomMapLoader.IsMapLoaded() || CustomMapManager.IsLoading() || CustomMapManager.IsUnloading())
 		{
-			ModId modId = new ModId(CustomMapLoader.IsMapLoaded() ? ((long)CustomMapLoader.LoadedMapModId) : (CustomMapManager.IsLoading() ? CustomMapManager.LoadingMapId : CustomMapManager.UnloadingMapId));
+			long id;
+			if (CustomMapLoader.IsMapLoaded())
+			{
+				id = CustomMapLoader.LoadedMapModId;
+			}
+			else
+			{
+				id = (CustomMapManager.IsLoading() ? CustomMapManager.LoadingMapId : CustomMapManager.UnloadingMapId);
+			}
+			ModId modId = new ModId(id);
 			if (hasModProfile && GetModId() == modId)
 			{
 				UpdateMapDetails();
 				return;
 			}
-			RetrieveModFromModIO(modId, forceUpdate: false, delegate(Error error, Mod mod)
+			RetrieveModFromModIO(modId, forceUpdate: false, (Error error, Mod mod) =>
 			{
 				OnProfileReceived(error, mod);
 			});
@@ -646,7 +672,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 				OnMapLoadComplete_UIUpdate();
 				return;
 			}
-			RetrieveModFromModIO(modId, forceUpdate: false, delegate(Error error, Mod mod)
+			RetrieveModFromModIO(modId, forceUpdate: false, (Error error, Mod mod) =>
 			{
 				OnProfileReceived(error, mod);
 			});
@@ -695,7 +721,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 
 	private async Task UpdateStatus(bool errorEncountered = false)
 	{
-		if (!base.isActiveAndEnabled || currentMapMod == null)
+		if (!isActiveAndEnabled || currentMapMod == null)
 		{
 			return;
 		}
@@ -764,7 +790,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 		if (currentMapMod != null)
 		{
 			playerCountText.gameObject.SetActive(value: true);
-			PlayerCountHelper.GetPlayerCount(currentMapMod, delegate(string count)
+			PlayerCountHelper.GetPlayerCount(currentMapMod, (string count) =>
 			{
 				playerCountText.text = count;
 			});
@@ -804,7 +830,8 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 		}
 		deleteButton.gameObject.SetActive(value: false);
 		subscriptionToggleButton.gameObject.SetActive(value: false);
-		networkObject.LoadMapSynced(GetModId());
+		GTMapLoadSource loadSource = ((CustomMapsTerminal.PreviousScreen == CustomMapsTerminal.ScreenType.SearchMods) ? GTMapLoadSource.terminal_search : GTMapLoadSource.terminal_browse);
+		networkObject.LoadMapSynced(GetModId(), loadSource);
 	}
 
 	private void UnloadMap()
@@ -892,7 +919,20 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 		switch (loadStatus)
 		{
 		case MapLoadStatus.Downloading:
-			loadingMapLabelText.text = mapAutoDownloadingString;
+			loadingMapLabelText.text = ((progress > 0) ? (mapDownloadingProgressString + " " + progress + "%") : mapAutoDownloadingString);
+			loadingMapLabelText.gameObject.SetActive(value: true);
+			loadingMapMessageText.gameObject.SetActive(value: false);
+			loadingMapMessageText.text = "";
+			break;
+		case MapLoadStatus.None:
+			if (!mapLoadError)
+			{
+				loadingMapLabelText.gameObject.SetActive(value: false);
+				loadingMapMessageText.gameObject.SetActive(value: false);
+			}
+			break;
+		case MapLoadStatus.Installing:
+			loadingMapLabelText.text = ((progress > 0) ? (mapInstallingProgressString + " " + progress + "%") : mapInstallingString);
 			loadingMapLabelText.gameObject.SetActive(value: true);
 			loadingMapMessageText.gameObject.SetActive(value: false);
 			loadingMapMessageText.text = "";

@@ -102,7 +102,7 @@ public class HeadModel : MonoBehaviour, IDelayedExecListener
 						playFabId = playFabId,
 						prefabAssetRef = cosmeticPart.prefabAssetRef,
 						attachInfo = attachInfo,
-						loadOp = cosmeticPart.prefabAssetRef.InstantiateAsync(base.transform),
+						loadOp = cosmeticPart.prefabAssetRef.InstantiateAsync(transform),
 						xform = null
 					};
 					item.loadOp.Completed += _HandleLoadOpOnCompleted;
@@ -145,7 +145,7 @@ public class HeadModel : MonoBehaviour, IDelayedExecListener
 			if (cosmeticPartLoadInfo.loadOp.Status == AsyncOperationStatus.Failed)
 			{
 				cosmeticPartLoadInfo.loadOp.Completed += _HandleLoadOpOnCompleted;
-				cosmeticPartLoadInfo.loadOp = cosmeticPartLoadInfo.prefabAssetRef.InstantiateAsync(base.transform);
+				cosmeticPartLoadInfo.loadOp = cosmeticPartLoadInfo.prefabAssetRef.InstantiateAsync(transform);
 				_loadOp_to_partInfoIndex[cosmeticPartLoadInfo.loadOp] = partLoadInfosIndex;
 			}
 		}

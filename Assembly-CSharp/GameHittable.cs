@@ -30,19 +30,19 @@ public class GameHittable : MonoBehaviour
 
 	private void OnEnable()
 	{
-		if (gameEntity != null)
+		if (this.gameEntity != null)
 		{
-			GameEntity obj = gameEntity;
-			obj.OnTick = (Action)Delegate.Combine(obj.OnTick, new Action(OnUpdate));
+			GameEntity gameEntity = this.gameEntity;
+			gameEntity.OnTick = (Action)Delegate.Combine(gameEntity.OnTick, new Action(OnUpdate));
 		}
 	}
 
 	private void OnDisable()
 	{
-		if (gameEntity != null)
+		if (this.gameEntity != null)
 		{
-			GameEntity obj = gameEntity;
-			obj.OnTick = (Action)Delegate.Remove(obj.OnTick, new Action(OnUpdate));
+			GameEntity gameEntity = this.gameEntity;
+			gameEntity.OnTick = (Action)Delegate.Remove(gameEntity.OnTick, new Action(OnUpdate));
 		}
 	}
 

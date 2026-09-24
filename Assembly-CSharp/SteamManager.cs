@@ -46,7 +46,7 @@ public class SteamManager : MonoBehaviour
 	{
 		if (s_instance != null)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 			return;
 		}
 		s_instance = this;
@@ -54,7 +54,7 @@ public class SteamManager : MonoBehaviour
 		{
 			throw new Exception("Tried to Initialize the SteamAPI twice in one session!");
 		}
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+		UnityEngine.Object.DontDestroyOnLoad(gameObject);
 		if (!Packsize.Test())
 		{
 			Debug.LogError("[Steamworks.NET] Packsize Test returned false, the wrong version of Steamworks.NET is being run in this platform.", this);
@@ -81,7 +81,7 @@ public class SteamManager : MonoBehaviour
 		m_bInitialized = SteamAPI.Init();
 		if (!m_bInitialized)
 		{
-			Debug.LogError("[Steamworks.NET] SteamAPI_Init() failed. Refer to Valve's documentation or the comment above this line for more information.", this);
+			Debug.LogError("[STEAMWORKS] SteamAPI_Init() failed. Refer to Valve's documentation or the comment above this line for more information.", this);
 		}
 		else
 		{

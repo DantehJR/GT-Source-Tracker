@@ -31,9 +31,9 @@ public class GameObjectScheduler : MonoBehaviour, IGorillaSliceableSimple
 	{
 		schedule.Validate();
 		List<GameObject> list = new List<GameObject>();
-		for (int i = 0; i < base.transform.childCount; i++)
+		for (int i = 0; i < transform.childCount; i++)
 		{
-			list.Add(base.transform.GetChild(i).gameObject);
+			list.Add(transform.GetChild(i).gameObject);
 		}
 		scheduledGameObject = list.ToArray();
 		for (int j = 0; j < scheduledGameObject.Length; j++)

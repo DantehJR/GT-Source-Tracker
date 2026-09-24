@@ -652,7 +652,7 @@ public class BuilderRenderer : MonoBehaviourPostTick
 	{
 		if (built && showing)
 		{
-			renderData.setupInstancesJobs = default(JobHandle);
+			renderData.setupInstancesJobs = default;
 			SetupIndirectBatchArgs(renderData.staticBatch, renderData.subMeshes);
 			SetupInstanceDataForMeshStatic jobData = new SetupInstanceDataForMeshStatic
 			{
@@ -924,7 +924,7 @@ public class BuilderRenderer : MonoBehaviourPostTick
 					break;
 				}
 			}
-			if (flag && isStatic)
+			if (flag & isStatic)
 			{
 				int num6 = renderData.staticBatch.totalInstances + 1;
 				for (int num7 = num2; num7 < num6; num7++)

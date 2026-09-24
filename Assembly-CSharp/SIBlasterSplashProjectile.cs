@@ -78,13 +78,7 @@ public class SIBlasterSplashProjectile : MonoBehaviour, SIGadgetProjectileType
 				SplashHitLocalPlayer(array2[i]);
 			}
 		}
-		projectile.parentBlaster.SendClientToClientRPC(1, new object[4]
-		{
-			projectile.projectileId,
-			base.transform.position,
-			array,
-			array2
-		});
+		projectile.parentBlaster.SendClientToClientRPC(1, new object[4] { projectile.projectileId, transform.position, array, array2 });
 	}
 
 	public void NetworkedProjectileHit(object[] data)
@@ -100,7 +94,7 @@ public class SIBlasterSplashProjectile : MonoBehaviour, SIGadgetProjectileType
 				return;
 			}
 		}
-		if (dataAsType3.Length > VRRigCache.Instance.GetAllRigs().Length || dataAsType3.Length != dataAsType4.Length || (base.transform.position - dataAsType2).magnitude > projectile.parentBlaster.maxLagDistance)
+		if (dataAsType3.Length > VRRigCache.Instance.GetAllRigs().Length || dataAsType3.Length != dataAsType4.Length || (transform.position - dataAsType2).magnitude > projectile.parentBlaster.maxLagDistance)
 		{
 			return;
 		}
@@ -117,11 +111,11 @@ public class SIBlasterSplashProjectile : MonoBehaviour, SIGadgetProjectileType
 		}
 		if (flag)
 		{
-			SIGadgetBlasterProjectile.SpawnExplosion(projectile.hitEffectPlayer, dataAsType2, base.transform.rotation);
+			SIGadgetBlasterProjectile.SpawnExplosion(projectile.hitEffectPlayer, dataAsType2, transform.rotation);
 		}
 		else
 		{
-			SIGadgetBlasterProjectile.SpawnExplosion(projectile.hitEffect, dataAsType2, base.transform.rotation);
+			SIGadgetBlasterProjectile.SpawnExplosion(projectile.hitEffect, dataAsType2, transform.rotation);
 		}
 	}
 

@@ -42,10 +42,10 @@ public class IDCardScanner : MonoBehaviour
 		{
 			bool num = !requireSpecificPlayer || (restrictToPlayer != null && restrictToPlayer.ActorNumber == component.heldByActorNumber && component.heldByActorNumber == PhotonNetwork.LocalPlayer.ActorNumber);
 			bool flag = !requireAuthority || component.manager.IsAuthority();
-			if (num && flag)
+			if (num & flag)
 			{
 				onCardSwipedByPlayer?.Invoke(component.heldByActorNumber);
-				this.OnPlayerCardSwipe?.Invoke(component.heldByActorNumber);
+				OnPlayerCardSwipe?.Invoke(component.heldByActorNumber);
 			}
 		}
 	}

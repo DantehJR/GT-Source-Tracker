@@ -56,8 +56,16 @@ public class SeedPacketHoldable : MonoBehaviour
 	{
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((transferrableObject.myOnlineRig != null) ? transferrableObject.myOnlineRig.creator : ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (transferrableObject.myOnlineRig != null)
+			{
+				netPlayer = transferrableObject.myOnlineRig.creator;
+			}
+			else
+			{
+				netPlayer = ((transferrableObject.myRig != null) ? (transferrableObject.myRig.creator ?? NetworkSystem.Instance.LocalPlayer) : null);
+			}
 			if (netPlayer != null)
 			{
 				_events.Init(netPlayer);
@@ -90,10 +98,10 @@ public class SeedPacketHoldable : MonoBehaviour
 		{
 			return;
 		}
-		if (!isPouring && Vector3.Angle(base.transform.up, Vector3.down) <= pouringAngle)
+		if (!isPouring && Vector3.Angle(transform.up, Vector3.down) <= pouringAngle)
 		{
 			StartPouring();
-			if (Physics.Raycast(base.transform.position, Vector3.down, out var hitInfo, pouringRaycastDistance, raycastLayerMask))
+			if (Physics.Raycast(transform.position, Vector3.down, out var hitInfo, pouringRaycastDistance, raycastLayerMask))
 			{
 				hitPoint = hitInfo.point;
 				Invoke("SpawnEffect", hitInfo.distance * placeEffectDelayMultiplier);
@@ -117,9 +125,9 @@ public class SeedPacketHoldable : MonoBehaviour
 
 	private void SpawnEffect()
 	{
-		GameObject obj = ObjectPools.instance.Instantiate(flowerEffectHash);
-		obj.transform.position = hitPoint;
-		if (obj.TryGetComponent<SeedPacketTriggerHandler>(out var component))
+		GameObject gameObject = ObjectPools.instance.Instantiate(flowerEffectHash);
+		gameObject.transform.position = hitPoint;
+		if (gameObject.TryGetComponent<SeedPacketTriggerHandler>(out var component))
 		{
 			pooledObjects.Add(component);
 			component.onTriggerEntered.AddListener(SyncTriggerEffectForOthers);

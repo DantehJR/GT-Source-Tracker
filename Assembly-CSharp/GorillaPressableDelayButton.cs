@@ -35,13 +35,13 @@ public class GorillaPressableDelayButton : GorillaPressableButton, IGorillaSlice
 
 	private new void OnTriggerEnter(Collider collider)
 	{
-		if (base.enabled && touchTime + debounceTime < Time.time && !touching && !(collider.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
+		if (enabled && touchTime + debounceTime < Time.time && !touching && !(collider.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
 		{
 			touching = collider;
 			pressStartTime = Time.unscaledTime;
 			progress = 0f;
 			UpdateFillBar();
-			this.onPressBegin?.Invoke();
+			onPressBegin?.Invoke();
 		}
 	}
 
@@ -52,7 +52,7 @@ public class GorillaPressableDelayButton : GorillaPressableButton, IGorillaSlice
 			touching = null;
 			progress = 0f;
 			UpdateFillBar();
-			this.onPressAbort?.Invoke();
+			onPressAbort?.Invoke();
 		}
 	}
 
@@ -71,7 +71,17 @@ public class GorillaPressableDelayButton : GorillaPressableButton, IGorillaSlice
 		if (!(touching == null))
 		{
 			float num = Time.unscaledTime - pressStartTime;
-			progress = ((delayTime > 0f) ? Mathf.Clamp01(num / delayTime) : ((num > 0f) ? 1f : 0f));
+			ref float reference = ref progress;
+			float num2;
+			if (delayTime > 0f)
+			{
+				num2 = Mathf.Clamp01(num / delayTime);
+			}
+			else
+			{
+				num2 = ((num > 0f) ? 1f : 0f);
+			}
+			reference = num2;
 			if (num > delayTime)
 			{
 				base.OnTriggerEnter(touching);

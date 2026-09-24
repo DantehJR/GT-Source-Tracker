@@ -19,6 +19,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.CloudScriptModels;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -143,9 +144,9 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		protected void OnSetActivated(CosmeticSet prevSet, CosmeticSet currentSet, NetPlayer netPlayer)
 		{
-			if (this.onSetActivatedEvent != null)
+			if (onSetActivatedEvent != null)
 			{
-				this.onSetActivatedEvent(prevSet, currentSet, netPlayer);
+				onSetActivatedEvent(prevSet, currentSet, netPlayer);
 			}
 		}
 
@@ -1157,6 +1158,10 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	private BundleList bundleList = new BundleList();
 
+	private const string mothershipRewardsGrantedKey = "mshipRewardsGranted";
+
+	private const string gtfcBundleGrantedKey = "gtfcBundleGranted";
+
 	public string BundleSkuName = "2024_i_lava_you_pack";
 
 	public string BundlePlayfabItemName = "LSABG.";
@@ -1328,7 +1333,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			CosmeticInfoV2 value = v2_allCosmetics[j];
 			string playFabID = value.playFabID;
 			_allCosmeticsDictV2[playFabID] = value;
-			CosmeticItem cosmeticItem = new CosmeticItem
+			CosmeticItem item = new CosmeticItem
 			{
 				itemName = playFabID,
 				itemCategory = value.category,
@@ -1338,14 +1343,12 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 				overrideDisplayName = value.displayName,
 				bothHandsHoldable = value.usesBothHandSlots,
 				isNullItem = false,
-				collectionParentLinks = value.collectionParentLinks
+				collectionParentLinks = value.collectionParentLinks,
+				collectionSlotCount = (value.collectionSlots?.Length ?? 0),
+				collectionIsCycling = value.collectionIsCycling,
+				collectionUsesIndexTargeting = value.collectionUsesIndexTargeting,
+				appliedCosmeticPlayFabID = (value.appliedCosmeticPlayFabID ?? string.Empty)
 			};
-			CosmeticCollectionSlotDefinition[] collectionSlots = value.collectionSlots;
-			cosmeticItem.collectionSlotCount = ((collectionSlots != null) ? collectionSlots.Length : 0);
-			cosmeticItem.collectionIsCycling = value.collectionIsCycling;
-			cosmeticItem.collectionUsesIndexTargeting = value.collectionUsesIndexTargeting;
-			cosmeticItem.appliedCosmeticPlayFabID = value.appliedCosmeticPlayFabID ?? string.Empty;
-			CosmeticItem item = cosmeticItem;
 			_allCosmetics.Add(item);
 		}
 		collectablesByParentID = new Dictionary<string, List<CosmeticItem>>();
@@ -1446,8 +1449,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		{
 			return 0;
 		}
-		List<CosmeticItem> value2;
-		int num = ((!value.collectionIsCycling) ? value.collectionSlotCount : (collectablesByParentID.TryGetValue(parentPlayFabID, out value2) ? value2.Count : 0)) - GetOwnedCollectableCount(parentPlayFabID);
+		int num = ((!value.collectionIsCycling) ? value.collectionSlotCount : (collectablesByParentID.TryGetValue(parentPlayFabID, out var value2) ? value2.Count : 0)) - GetOwnedCollectableCount(parentPlayFabID);
 		if (num <= 0)
 		{
 			return 0;
@@ -1485,9 +1487,8 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			return;
 		}
 		result.AddRange(value);
-		CosmeticInfoV2 cosmeticInfo;
-		bool seriesOrder = TryGetCosmeticInfoV2(parentPlayFabID, out cosmeticInfo) && cosmeticInfo.collectionIsCycling && cosmeticInfo.collectionUsesSeriesOrder;
-		result.Sort(delegate(CosmeticItem a, CosmeticItem b)
+		bool seriesOrder = TryGetCosmeticInfoV2(parentPlayFabID, out var cosmeticInfo) && cosmeticInfo.collectionIsCycling && cosmeticInfo.collectionUsesSeriesOrder;
+		result.Sort((CosmeticItem a, CosmeticItem b) =>
 		{
 			if (seriesOrder)
 			{
@@ -1543,9 +1544,9 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			for (int i = 0; i < scratchCanonicalCollectables.Count; i++)
 			{
 				CosmeticItem item = scratchCanonicalCollectables[i];
-				bool num = instance.IsOwnedByPlayFabID(item.itemName);
-				bool flag2 = flag && item.itemName == cosmeticItem.itemName;
-				if (num || flag2)
+				bool flag2 = instance.IsOwnedByPlayFabID(item.itemName);
+				bool flag3 = flag && item.itemName == cosmeticItem.itemName;
+				if (flag2 | flag3)
 				{
 					list.Add(item);
 				}
@@ -1601,15 +1602,15 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 			return;
 		}
 		V2Awake();
-		if (base.gameObject.activeSelf)
+		if (gameObject.activeSelf)
 		{
 			catalog = "DLC";
 			currencyName = "SR";
-			nullItem = default(CosmeticItem);
+			nullItem = default;
 			nullItem.itemName = "null";
 			nullItem.displayName = "NOTHING";
 			nullItem.itemPicture = Resources.Load<Sprite>("CosmeticNull_Icon");
@@ -1659,10 +1660,10 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	public void Start()
 	{
-		PlayFabTitleDataCache.Instance.GetTitleData("BundleData", delegate(string data)
+		PlayFabTitleDataCache.Instance.GetTitleData("BundleData", (string data) =>
 		{
 			bundleList.FromJson(data);
-		}, delegate(PlayFabError e)
+		}, (PlayFabError e) =>
 		{
 			Debug.LogError($"Error getting bundle data: {e}");
 		});
@@ -1925,8 +1926,11 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		else
 		{
 			CosmeticSlots cosmeticSlots5 = CategoryToNonTransferrableSlot(newItem.itemCategory);
-			int slotIdx2 = (int)cosmeticSlots5;
-			ApplyCosmeticToSet(set, newItem, slotIdx2, cosmeticSlots5, applyToPlayerPrefs, appliedSlots);
+			if (cosmeticSlots5 != CosmeticSlots.Count)
+			{
+				int slotIdx2 = (int)cosmeticSlots5;
+				ApplyCosmeticToSet(set, newItem, slotIdx2, cosmeticSlots5, applyToPlayerPrefs, appliedSlots);
+			}
 		}
 	}
 
@@ -2401,13 +2405,19 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			code = bundleToPurchase.nexusCreatorCode.Code;
 			groups = new NexusGroupId[1] { bundleToPurchase.nexusCreatorCode.GroupId };
 		}
+		BundleData bundleData = ((SubscriptionManager.IsLocalSubscribed() && bundleList.TryGetBundle(bundleToPurchase.playfabBundleID, out var bundle)) ? bundle : default(BundleData));
+		string text = (bundleData.playFabItemNameGTFC.IsNullOrEmpty() ? bundleToPurchase.playfabBundleID : bundleData.playFabItemNameGTFC);
+		if (bundleData.skuNameGTFC.IsNullOrEmpty())
+		{
+			_ = bundleToPurchase.bundleSKU;
+		}
 		if (code.IsNullOrEmpty())
 		{
-			itemToPurchase = bundleToPurchase.playfabBundleID;
+			itemToPurchase = text;
 			SteamPurchase();
 			return;
 		}
-		itemToPurchase = bundleToPurchase.playfabBundleID;
+		itemToPurchase = text;
 		NexusManager.MemberCode memberCode = await CreatorCodes.CheckValidationCoroutineJIT(ccp.TerminalId, code, groups);
 		if (memberCode != null)
 		{
@@ -2556,7 +2566,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			Price = itemToBuy.cost,
 			VirtualCurrency = currencyName,
 			CatalogVersion = catalog
-		}, delegate(PurchaseItemResult result)
+		}, (PurchaseItemResult result) =>
 		{
 			if (result.Items.Count > 0)
 			{
@@ -2592,14 +2602,14 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 				currentPurchaseItemStage = PurchaseItemStages.Failure;
 				ProcessPurchaseItemState(null, isLeftHand: false);
 			}
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 			currentPurchaseItemStage = PurchaseItemStages.Failure;
 			ProcessPurchaseItemState(null, isLeftHand: false);
 		});
 	}
 
-	private void UnlockItem(string itemIdToUnlock, bool relock = false)
+	public void UnlockItem(string itemIdToUnlock, bool relock = false)
 	{
 		int num = allCosmetics.FindIndex((CosmeticItem x) => itemIdToUnlock == x.itemName);
 		if (num <= -1)
@@ -2696,7 +2706,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			{
 				Keys = new List<string> { "Inventory" },
 				SharedGroupId = NetworkSystem.Instance.LocalPlayer.UserId + "Inventory"
-			}, delegate(GetSharedGroupDataResult result)
+			}, (GetSharedGroupDataResult result) =>
 			{
 				attempts++;
 				foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> datum in result.Data)
@@ -2714,7 +2724,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 				{
 					UpdateWornCosmetics(sync: true);
 				}
-			}, delegate(PlayFabError error)
+			}, (PlayFabError error) =>
 			{
 				attempts++;
 				ReauthOrBan(error);
@@ -3005,7 +3015,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	public void Initialize()
 	{
-		if (!base.gameObject.activeSelf)
+		if (!gameObject.activeSelf)
 		{
 			return;
 		}
@@ -3028,7 +3038,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	public void GetLastDailyLogin()
 	{
-		PlayFabClientAPI.GetUserReadOnlyData(new PlayFab.ClientModels.GetUserDataRequest(), delegate(GetUserDataResult result)
+		PlayFabClientAPI.GetUserReadOnlyData(new PlayFab.ClientModels.GetUserDataRequest(), (GetUserDataResult result) =>
 		{
 			if (result.Data.TryGetValue("DailyLogin", out userDataRecord))
 			{
@@ -3039,7 +3049,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 				lastDailyLogin = "NONE";
 				StartCoroutine(GetMyDaily());
 			}
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.Log("Got error getting read-only user data:");
 			Debug.Log(error.GenerateErrorReport());
@@ -3116,11 +3126,11 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 	private IEnumerator GetMyDaily()
 	{
 		yield return new WaitForSecondsRealtime(10f);
-		GorillaServer.Instance.TryDistributeCurrency(delegate
+		GorillaServer.Instance.TryDistributeCurrency((ExecuteFunctionResult result) =>
 		{
 			GetCurrencyBalance();
 			GetLastDailyLogin();
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			if (error.Error == PlayFabErrorCode.NotAuthenticated)
 			{
@@ -3161,14 +3171,64 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		GetCosmeticsPlayFabCatalogDataInternal();
 	}
 
+	internal bool TryGetBundleMapping(string idOrSku, out BundleData bundleMapping)
+	{
+		return bundleList.TryGetBundle(idOrSku, out bundleMapping);
+	}
+
+	private void ReconcileBundleRewardsIfNeeded(List<ItemInstance> inventory)
+	{
+		if (inventory != null && bundleList.IsLoaded)
+		{
+			bool flag = false;
+			foreach (ItemInstance item in inventory)
+			{
+				if (bundleList.TryGetBundle(item.ItemId, out var bundle) && bundle.playFabItemNameGTFC == item.ItemId)
+				{
+					if (item.CustomData == null || !item.CustomData.ContainsKey("gtfcBundleGranted"))
+					{
+						flag = true;
+						break;
+					}
+				}
+				else if (bundleList.HasMothershipRewards(item.ItemId) && (item.CustomData == null || !item.CustomData.ContainsKey("mshipRewardsGranted")))
+				{
+					flag = true;
+					break;
+				}
+			}
+			if (!flag)
+			{
+				return;
+			}
+		}
+		if (GorillaServer.Instance == null)
+		{
+			Debug.LogWarning("ReconcileBundleRewards skipped: GorillaServer.Instance is null");
+			return;
+		}
+		GorillaServer.Instance.ReconcileBundleRewards((GorillaServer.ReconcileBundleRewardsResponse response) =>
+		{
+			if (response.grantedBundles.Count > 0)
+			{
+				Debug.Log("ReconcileBundleRewards granted: " + string.Join(", ", response.grantedBundles));
+				GetCosmeticsPlayFabCatalogData();
+			}
+		}, (string error) =>
+		{
+			Debug.LogWarning("ReconcileBundleRewards failed: " + error);
+		});
+	}
+
 	private void GetCosmeticsPlayFabCatalogDataInternal()
 	{
-		PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), delegate(GetUserInventoryResult result)
+		PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (GetUserInventoryResult result) =>
 		{
+			ReconcileBundleRewardsIfNeeded(result.Inventory);
 			PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest
 			{
 				CatalogVersion = catalog
-			}, delegate(GetCatalogItemsResult getCatalogItemsResult)
+			}, (GetCatalogItemsResult getCatalogItemsResult) =>
 			{
 				try
 				{
@@ -3255,9 +3315,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 					}
 					foreach (KeyValuePair<string, StoreBundle> item2 in BundleManager.instance.storeBundlesById)
 					{
-						item2.Deconstruct(out var key, out var value2);
-						string key2 = key;
-						StoreBundle bundleData = value2;
+						var (key, bundleData) = item2;
 						int num3 = _allCosmetics.FindIndex((CosmeticItem x) => bundleData.playfabBundleID == x.itemName);
 						if (num3 > 0 && _allCosmetics[num3].bundledItems != null)
 						{
@@ -3280,13 +3338,21 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 							num3 = catalogItems.FindIndex((CatalogItem ci) => ci.Bundle != null && ci.ItemId == bundleData.playfabBundleID);
 							if (num3 > 0)
 							{
-								if (catalogItems[num3].VirtualCurrencyPrices.TryGetValue("RM", out var value3))
+								if (catalogItems[num3].VirtualCurrencyPrices.TryGetValue("RM", out var value2))
 								{
-									BundleManager.instance.storeBundlesById[key2].TryUpdatePrice(value3);
+									BundleManager.instance.storeBundlesById[key].TryUpdatePrice(value2);
 								}
 								else
 								{
-									BundleManager.instance.storeBundlesById[key2].TryUpdatePrice();
+									BundleManager.instance.storeBundlesById[key].TryUpdatePrice();
+								}
+								if (bundleList.TryGetBundle(bundleData.playfabBundleID, out var bundleMapping) && !bundleMapping.playFabItemNameGTFC.IsNullOrEmpty())
+								{
+									int num4 = catalogItems.FindIndex((CatalogItem ci) => ci.ItemId == bundleMapping.playFabItemNameGTFC);
+									if (num4 > -1 && catalogItems[num4].VirtualCurrencyPrices.TryGetValue("RM", out var value3))
+									{
+										BundleManager.instance.storeBundlesById[key].TryUpdateGtfcPrice(value3);
+									}
 								}
 							}
 						}
@@ -3409,7 +3475,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 				{
 					CompleteGetCosmeticsPlayFabCatalogData();
 				}
-			}, delegate(PlayFabError error)
+			}, (PlayFabError error) =>
 			{
 				if (error.Error == PlayFabErrorCode.NotAuthenticated)
 				{
@@ -3437,7 +3503,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 					CompleteGetCosmeticsPlayFabCatalogData();
 				}
 			});
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			if (error.Error == PlayFabErrorCode.NotAuthenticated)
 			{
@@ -3529,7 +3595,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	private void ProcessSteamCallback(MicroTxnAuthorizationResponse_t callBackResponse)
 	{
-		if (SubscriptionKiosk.ProcessingSubscriptionPurchase)
+		if (SubscriptionKiosk.ProcessingSubscriptionPurchase || GeodeAtm.ProcessingGeodePurchase)
 		{
 			return;
 		}
@@ -3540,14 +3606,14 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		}
 		if (buyingBundle)
 		{
-			PlayFabClientAPI.ConfirmPurchase(GetConfirmBundlePurchaseRequest(), delegate
+			PlayFabClientAPI.ConfirmPurchase(GetConfirmBundlePurchaseRequest(), (ConfirmPurchaseResult confirmPurchaseResult) =>
 			{
 				ProcessConfirmPurchaseSuccess();
 			}, ProcessConfirmPurchaseError);
 		}
 		else
 		{
-			PlayFabClientAPI.ConfirmPurchase(GetConfirmATMPurchaseRequest(), delegate
+			PlayFabClientAPI.ConfirmPurchase(GetConfirmATMPurchaseRequest(), (ConfirmPurchaseResult confirmPurchaseResult) =>
 			{
 				ProcessConfirmPurchaseSuccess();
 			}, ProcessConfirmPurchaseError);
@@ -3711,12 +3777,12 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	public void GetCurrencyBalance()
 	{
-		PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), delegate(GetUserInventoryResult result)
+		PlayFabClientAPI.GetUserInventory(new GetUserInventoryRequest(), (GetUserInventoryResult result) =>
 		{
 			currencyBalance = result.VirtualCurrency[currencyName];
 			UpdateCurrencyBoards();
 			OnGetCurrency?.Invoke();
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			if (error.Error == PlayFabErrorCode.NotAuthenticated)
 			{
@@ -3791,7 +3857,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		{
 			Keys = new List<string> { "Inventory" },
 			SharedGroupId = PhotonNetwork.LocalPlayer.UserId + "Inventory"
-		}, delegate(GetSharedGroupDataResult result)
+		}, (GetSharedGroupDataResult result) =>
 		{
 			bool flag = true;
 			foreach (KeyValuePair<string, PlayFab.ClientModels.SharedGroupDataRecord> datum in result.Data)
@@ -3813,7 +3879,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			{
 				updateCosmeticsRetries = 0;
 			}
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			ReauthOrBan(error);
 			CheckCosmeticsSharedGroup();
@@ -4123,7 +4189,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		for (int i = 0; i < 16; i++)
 		{
 			CosmeticSlots cosmeticSlots = (CosmeticSlots)i;
-			if ((cosmeticSlots != CosmeticSlots.ArmLeft && cosmeticSlots != CosmeticSlots.ArmRight) || flag)
+			if ((cosmeticSlots != CosmeticSlots.ArmLeft && cosmeticSlots != CosmeticSlots.ArmRight) | flag)
 			{
 				ApplyNewItem(outfit, i);
 			}

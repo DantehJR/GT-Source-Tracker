@@ -122,8 +122,7 @@ public class DrillFX : MonoBehaviour
 		if (!appIsQuitting)
 		{
 			Transform transform = base.transform;
-			RaycastHit hitInfo;
-			Vector3 position = (Physics.Linecast(transform.TransformPoint(lineCastStart), transform.TransformPoint(lineCastEnd), out hitInfo, lineCastLayerMask, QueryTriggerInteraction.Ignore) ? hitInfo.point : lineCastEnd);
+			Vector3 position = (Physics.Linecast(transform.TransformPoint(lineCastStart), transform.TransformPoint(lineCastEnd), out var hitInfo, lineCastLayerMask, QueryTriggerInteraction.Ignore) ? hitInfo.point : lineCastEnd);
 			Vector3 vector = transform.InverseTransformPoint(position);
 			float num = Mathf.Clamp01(Vector3.Distance(lineCastStart, vector) / maxDepth);
 			if (hasFX)
@@ -154,7 +153,7 @@ public class DrillFX : MonoBehaviour
 		if (Application.isPlaying)
 		{
 			Debug.Log("DrillFX: lineCastStart and End are too close together. Disabling component.", this);
-			base.enabled = false;
+			enabled = false;
 		}
 		return false;
 	}

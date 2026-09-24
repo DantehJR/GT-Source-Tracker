@@ -7,6 +7,6 @@ public class LookAtTransform : MonoBehaviour
 
 	private void Update()
 	{
-		base.transform.rotation = Quaternion.LookRotation(lookAt.position - base.transform.position);
+		transform.rotation = Quaternion.LookRotation(lookAt.position - transform.position);
 	}
 }

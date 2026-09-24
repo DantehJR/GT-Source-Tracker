@@ -327,30 +327,30 @@ public class GREnemyBossMoon : MonoBehaviour, IGameEntityComponent, IGameEntityS
 		SetupAbility(Behavior.Idle, abilityIdle, agent, anim, audioSource, null, null, null);
 		SetupAbility(Behavior.Exposed, abilityExposed, agent, anim, audioSource, null, null, null);
 		SetupAbility(Behavior.ExposedIdle, abilityExposedIdle, agent, anim, audioSource, null, null, null);
-		SetupAbility(Behavior.AttackTongue, abilityAttackTongue01, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackTongueSwipe, abilityAttackTongueSwipe01, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackTentacle00, abilityAttackTentacle00, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackTentacle01, abilityAttackTentacle01, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackTentacle02, abilityAttackTentacle02, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackTentacle03, abilityAttackTentacle03, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackTentacle04, abilityAttackTentacle04, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackTentacle05, abilityAttackTentacle05, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackQuickTentacle00, abilityAttackQuickTentacle00, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackQuickTentacle01, abilityAttackQuickTentacle01, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackQuickTentacle02, abilityAttackQuickTentacle02, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.AttackQuickTentacle03, abilityAttackQuickTentacle03, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.SummonStart, abilitySummonStart, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.SummonEnd, abilitySummonEnd, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.Summon01, abilitySummon01, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.Summon02, abilitySummon02, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.Summon03, abilitySummon03, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.Summon04, abilitySummon04, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.RetreatStart, abilityRetreatStart, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.RetreatEnd, abilityRetreatEnd, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.RetreatIdle, abilityRetreatIdle, agent, anim, audioSource, base.transform, headTransform, null);
-		SetupAbility(Behavior.Dying, abilityDie, agent, anim, audioSource, base.transform, null, null);
-		SetupAbility(Behavior.DyingIdle, abilityDieIdle, agent, anim, audioSource, base.transform, null, null);
-		SetupAbility(Behavior.Runaway, abilityRunaway, agent, anim, audioSource, base.transform, null, null);
+		SetupAbility(Behavior.AttackTongue, abilityAttackTongue01, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackTongueSwipe, abilityAttackTongueSwipe01, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackTentacle00, abilityAttackTentacle00, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackTentacle01, abilityAttackTentacle01, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackTentacle02, abilityAttackTentacle02, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackTentacle03, abilityAttackTentacle03, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackTentacle04, abilityAttackTentacle04, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackTentacle05, abilityAttackTentacle05, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackQuickTentacle00, abilityAttackQuickTentacle00, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackQuickTentacle01, abilityAttackQuickTentacle01, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackQuickTentacle02, abilityAttackQuickTentacle02, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.AttackQuickTentacle03, abilityAttackQuickTentacle03, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.SummonStart, abilitySummonStart, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.SummonEnd, abilitySummonEnd, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.Summon01, abilitySummon01, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.Summon02, abilitySummon02, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.Summon03, abilitySummon03, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.Summon04, abilitySummon04, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.RetreatStart, abilityRetreatStart, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.RetreatEnd, abilityRetreatEnd, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.RetreatIdle, abilityRetreatIdle, agent, anim, audioSource, transform, headTransform, null);
+		SetupAbility(Behavior.Dying, abilityDie, agent, anim, audioSource, transform, null, null);
+		SetupAbility(Behavior.DyingIdle, abilityDieIdle, agent, anim, audioSource, transform, null, null);
+		SetupAbility(Behavior.Runaway, abilityRunaway, agent, anim, audioSource, transform, null, null);
 		SetupAbility(Behavior.NextPhase, abilityIdle, agent, anim, audioSource, null, null, null);
 		senseNearby.Setup(headTransform, entity);
 		Setup(entity.createData);
@@ -475,7 +475,7 @@ public class GREnemyBossMoon : MonoBehaviour, IGameEntityComponent, IGameEntityS
 	{
 		if (newBehavior < Behavior.HiddenIdle || (int)newBehavior >= abilities.Length)
 		{
-			Debug.LogErrorFormat("New Behavior Index is invalid {0} {1} {2}", (int)newBehavior, newBehavior, base.gameObject.name);
+			Debug.LogErrorFormat("New Behavior Index is invalid {0} {1} {2}", (int)newBehavior, newBehavior, gameObject.name);
 			return;
 		}
 		GRAbilityBase gRAbilityBase = abilities[(int)newBehavior];
@@ -836,8 +836,7 @@ public class GREnemyBossMoon : MonoBehaviour, IGameEntityComponent, IGameEntityS
 		tempRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 		senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-		float outDistanceSq;
-		VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+		VRRig vRRig = senseNearby.PickClosest(out var _);
 		agent.RequestTarget((vRRig == null) ? null : vRRig.OwningNetPlayer);
 		if (currAbility != null)
 		{
@@ -1211,7 +1210,7 @@ public class GREnemyBossMoon : MonoBehaviour, IGameEntityComponent, IGameEntityS
 		}
 		lastSeenTargetPosition = toolPosition;
 		lastSeenTargetTime = Time.timeAsDouble;
-		Vector3 vector = lastSeenTargetPosition - base.transform.position;
+		Vector3 vector = lastSeenTargetPosition - transform.position;
 		vector.y = 0f;
 		searchPosition = lastSeenTargetPosition + vector.normalized * 1.5f;
 	}
@@ -1247,7 +1246,7 @@ public class GREnemyBossMoon : MonoBehaviour, IGameEntityComponent, IGameEntityS
 	{
 		return behavior switch
 		{
-			Behavior.AttackTentacle00 => abilityAttackTentacle00, 
+			Behavior.AttackTentacle00 => (GRAbilityBase)abilityAttackTentacle00, 
 			Behavior.AttackTentacle01 => abilityAttackTentacle01, 
 			Behavior.AttackTentacle02 => abilityAttackTentacle02, 
 			Behavior.AttackTentacle03 => abilityAttackTentacle03, 
@@ -1273,7 +1272,7 @@ public class GREnemyBossMoon : MonoBehaviour, IGameEntityComponent, IGameEntityS
 		if (component != null)
 		{
 			GameHittable component2 = GetComponent<GameHittable>();
-			component.BlockHittable(headTransform.position, base.transform.forward, component2);
+			component.BlockHittable(headTransform.position, transform.forward, component2);
 			return;
 		}
 		Rigidbody attachedRigidbody = collider.attachedRigidbody;
@@ -1367,7 +1366,7 @@ public class GREnemyBossMoon : MonoBehaviour, IGameEntityComponent, IGameEntityS
 		vector2 = (player.transform.position - knockbackTransform.position).normalized * knockbackImpulse;
 		goto IL_00f4;
 		IL_00f4:
-		GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, base.transform.position, vector2);
+		GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, transform.position, vector2);
 		cameraShaker.Shake();
 		float magnitude = vector2.magnitude;
 		GorillaTagger.Instance.StartVibration(forLeftController: true, magnitude, 0.333f);
@@ -1439,12 +1438,12 @@ public class GREnemyBossMoon : MonoBehaviour, IGameEntityComponent, IGameEntityS
 		if (playerHit)
 		{
 			Vector3 vector = player.HeadCenterPosition - slamPosition;
-			float num = Vector3.Angle(base.transform.forward, Vector3.up);
+			float num = Vector3.Angle(transform.forward, Vector3.up);
 			vector = Vector3.RotateTowards(vector.normalized, Vector3.up, Mathf.Clamp(num - upwardsAngleBoost, 0f, upwardsAngleBoost) * (MathF.PI / 180f), 0f);
 			GorillaTagger.Instance.StartVibration(forLeftController: true, GorillaTagger.Instance.tapHapticStrength * 5f, 0.75f);
 			GorillaTagger.Instance.StartVibration(forLeftController: false, GorillaTagger.Instance.tapHapticStrength * 5f, 0.75f);
 			player.ApplyKnockback(vector, hitVelocity, forceOffTheGround: true);
-			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, GRPlayer.GetLocal(), base.transform.position, vector.normalized * hitVelocity);
+			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, GRPlayer.GetLocal(), transform.position, vector.normalized * hitVelocity);
 		}
 	}
 

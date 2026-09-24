@@ -19,7 +19,7 @@ public class SurfaceImpactFX : MonoBehaviour
 		if (particleFX == null)
 		{
 			Debug.LogError("SurfaceImpactFX: No ParticleSystem found! Disabling component.", this);
-			base.enabled = false;
+			enabled = false;
 		}
 		else
 		{
@@ -30,6 +30,6 @@ public class SurfaceImpactFX : MonoBehaviour
 	public void SetScale(float scale)
 	{
 		fxMainModule.gravityModifierMultiplier = startingGravityModifier * scale;
-		base.transform.localScale = startingScale * scale;
+		transform.localScale = startingScale * scale;
 	}
 }

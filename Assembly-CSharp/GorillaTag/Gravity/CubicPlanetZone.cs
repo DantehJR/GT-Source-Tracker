@@ -41,7 +41,7 @@ public class CubicPlanetZone : PlanetZone
 
 	private void CalculateDependentVars()
 	{
-		inverseRotation = Quaternion.Inverse(base.transform.rotation);
+		inverseRotation = Quaternion.Inverse(transform.rotation);
 	}
 
 	protected override Vector3 GetGravityVectorAtPoint(in Vector3 worldPosition, in MonkeGravityController controller)

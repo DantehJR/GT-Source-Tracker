@@ -18,7 +18,7 @@ public class GRTransformLook : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		base.transform.LookAt(lookTarget);
-		base.transform.rotation *= Quaternion.Euler(offsetRotation);
+		transform.LookAt(lookTarget);
+		transform.rotation *= Quaternion.Euler(offsetRotation);
 	}
 }

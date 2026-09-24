@@ -13,9 +13,17 @@ public class ArcingProjectileLauncher : ElfLauncher
 	protected override void ShootShared(Vector3 origin, Vector3 direction)
 	{
 		shootAudio.Play();
-		Vector3 lossyScale = base.transform.lossyScale;
+		Vector3 lossyScale = transform.lossyScale;
 		float num = Vector3.Dot(direction, Vector3.up);
-		Vector3 vector = ((!((double)num > 0.99999) && !((double)num < -0.99999)) ? Vector3.ProjectOnPlane(direction, Vector3.up) : ((!(parentHoldable.myRig != null)) ? Vector3.forward : parentHoldable.myRig.transform.forward));
+		Vector3 vector;
+		if (!((double)num > 0.99999) && !((double)num < -0.99999))
+		{
+			vector = Vector3.ProjectOnPlane(direction, Vector3.up);
+		}
+		else
+		{
+			vector = ((!(parentHoldable.myRig != null)) ? Vector3.forward : parentHoldable.myRig.transform.forward);
+		}
 		vector.Normalize();
 		Vector3 axis = Vector3.Cross(vector, Vector3.up);
 		float num2 = Vector3.SignedAngle(vector, direction, axis);

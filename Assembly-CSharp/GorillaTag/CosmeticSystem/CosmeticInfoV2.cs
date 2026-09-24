@@ -291,7 +291,7 @@ public struct CosmeticInfoV2 : ISerializationCallbackReceiver
 		collectionParentLinks = Array.Empty<CosmeticCollectionParentLink>();
 		collectionParentPlayFabID = string.Empty;
 		collectionTargetSlotIndex = -1;
-		anchorAntiIntersectOffsets = default(CosmeticAnchorAntiIntersectOffsets);
+		anchorAntiIntersectOffsets = default;
 		debugCosmeticSOName = "__UNINITIALIZED__";
 		throwableMaterialGrabIndices = new int[0];
 		throwableIndex = -1;

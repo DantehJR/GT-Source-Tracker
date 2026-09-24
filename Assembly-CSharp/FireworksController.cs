@@ -184,7 +184,7 @@ public class FireworksController : MonoBehaviour
 			if (ev.active && !((double)ev.timeSince < ev.delay))
 			{
 				DoExplosion(ev);
-				_explosionQueue[i] = default(ExplosionEvent);
+				_explosionQueue[i] = default;
 			}
 		}
 	}

@@ -16,7 +16,7 @@ public class D20_ShaderManager : MonoBehaviour
 	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
-		lastPosition = base.transform.position;
+		lastPosition = transform.position;
 		Renderer component = GetComponent<Renderer>();
 		material = component.material;
 		material.SetVector("_Velocity", velocity);
@@ -27,7 +27,7 @@ public class D20_ShaderManager : MonoBehaviour
 	{
 		while (true)
 		{
-			Vector3 position = base.transform.position;
+			Vector3 position = transform.position;
 			velocity = (position - lastPosition) / updateInterval;
 			lastPosition = position;
 			material.SetVector("_Velocity", velocity);

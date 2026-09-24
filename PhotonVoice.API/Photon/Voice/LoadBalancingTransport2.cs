@@ -11,13 +11,13 @@ public class LoadBalancingTransport2 : LoadBalancingTransport
 	public LoadBalancingTransport2(ILogger logger = null, ConnectionProtocol connectionProtocol = ConnectionProtocol.Udp)
 		: base(logger, connectionProtocol)
 	{
-		base.LoadBalancingPeer.UseByteArraySlicePoolForEvents = true;
-		base.LoadBalancingPeer.ReuseEventInstance = true;
+		LoadBalancingPeer.UseByteArraySlicePoolForEvents = true;
+		LoadBalancingPeer.ReuseEventInstance = true;
 	}
 
 	public override void SendFrame(ArraySegment<byte> data, FrameFlags flags, byte evNumber, byte voiceId, int channelId, int targetPlayerId, bool reliable, LocalVoice localVoice)
 	{
-		ByteArraySlice byteArraySlice = base.LoadBalancingPeer.ByteArraySlicePool.Acquire(data.Count + 4);
+		ByteArraySlice byteArraySlice = LoadBalancingPeer.ByteArraySlicePool.Acquire(data.Count + 4);
 		byteArraySlice.Buffer[0] = 4;
 		byteArraySlice.Buffer[1] = voiceId;
 		byteArraySlice.Buffer[2] = evNumber;
@@ -34,7 +34,7 @@ public class LoadBalancingTransport2 : LoadBalancingTransport
 		switch (targetPlayerId)
 		{
 		case -1:
-			raiseEventOptions.TargetActors = new int[1] { base.LocalPlayer.ActorNumber };
+			raiseEventOptions.TargetActors = new int[1] { LocalPlayer.ActorNumber };
 			break;
 		default:
 			raiseEventOptions.TargetActors = new int[1] { targetPlayerId };
@@ -48,7 +48,7 @@ public class LoadBalancingTransport2 : LoadBalancingTransport
 		}
 		raiseEventOptions.InterestGroup = localVoice.InterestGroup;
 		OpRaiseEvent(203, byteArraySlice, raiseEventOptions, sendOptions);
-		while (base.LoadBalancingPeer.SendOutgoingCommands())
+		while (LoadBalancingPeer.SendOutgoingCommands())
 		{
 		}
 	}
@@ -57,7 +57,7 @@ public class LoadBalancingTransport2 : LoadBalancingTransport
 	{
 		if (ev.Code == 203)
 		{
-			onVoiceFrameEvent(ev[245], 0, ev.Sender, base.LocalPlayer.ActorNumber);
+			onVoiceFrameEvent(ev[245], 0, ev.Sender, LocalPlayer.ActorNumber);
 		}
 		else
 		{

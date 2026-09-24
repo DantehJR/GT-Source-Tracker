@@ -94,7 +94,7 @@ public class KIDMessagingController : MonoBehaviour
 		messageBox.RightButton = result;
 		messageBox.gameObject.SetActive(value: true);
 		HandRayController.Instance.EnableHandRays();
-		PrivateUIRoom.AddUI(base.transform);
+		PrivateUIRoom.AddUI(transform);
 		do
 		{
 			if (token.IsCancellationRequested)
@@ -104,7 +104,7 @@ public class KIDMessagingController : MonoBehaviour
 			await Task.Yield();
 		}
 		while (!_closeMessageBox);
-		PrivateUIRoom.RemoveUI(base.transform);
+		PrivateUIRoom.RemoveUI(transform);
 		HandRayController.Instance.DisableHandRays();
 		messageBox.gameObject.SetActive(value: false);
 		await KIDManager.TrySetHasConfirmedStatus();
@@ -147,11 +147,11 @@ public class KIDMessagingController : MonoBehaviour
 	{
 		int state = 0;
 		string bodyText = string.Empty;
-		PlayFabTitleDataCache.Instance.GetTitleData("KIDData", delegate(string res)
+		PlayFabTitleDataCache.Instance.GetTitleData("KIDData", (string res) =>
 		{
 			state = 1;
 			bodyText = GetConfirmMessageFromTitleDataJson(res);
-		}, delegate(PlayFabError err)
+		}, (PlayFabError err) =>
 		{
 			state = -1;
 			Debug.LogError("[KID_MANAGER] Something went wrong trying to get title data for key: [KIDData]. Error:\n" + err.ErrorMessage);

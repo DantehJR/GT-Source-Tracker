@@ -48,8 +48,8 @@ public class GTPosRotConstraints : MonoBehaviour, ISpawnable
 			}
 			if (!gorillaPosRotConstraint.follower)
 			{
-				Debug.LogError(string.Format("{0}: Disabling component! At index {1}, Transform `follower` is ", "GTPosRotConstraints", i) + "null. Affected component path: " + base.transform.GetPathQ() + "\n- Affected component path: " + base.transform.GetPathQ(), this);
-				base.enabled = false;
+				Debug.LogError(string.Format("{0}: Disabling component! At index {1}, Transform `follower` is ", "GTPosRotConstraints", i) + "null. Affected component path: " + transform.GetPathQ() + "\n- Affected component path: " + transform.GetPathQ(), this);
+				enabled = false;
 				return;
 			}
 			if ((GTHardCodedBones.EBone)gorillaPosRotConstraint.sourceGorillaBone == GTHardCodedBones.EBone.None)
@@ -58,14 +58,14 @@ public class GTPosRotConstraints : MonoBehaviour, ISpawnable
 				{
 					if (string.IsNullOrEmpty(gorillaPosRotConstraint.sourceRelativePath))
 					{
-						Debug.LogError(string.Format("{0}: Disabling component! At index {1} Transform `source` is ", "GTPosRotConstraints", i) + "null, not EBone, and `sourceRelativePath` is null or empty.\n- Affected component path: " + base.transform.GetPathQ(), this);
-						base.enabled = false;
+						Debug.LogError(string.Format("{0}: Disabling component! At index {1} Transform `source` is ", "GTPosRotConstraints", i) + "null, not EBone, and `sourceRelativePath` is null or empty.\n- Affected component path: " + transform.GetPathQ(), this);
+						enabled = false;
 						return;
 					}
-					if (!base.transform.TryFindByPath(gorillaPosRotConstraint.sourceRelativePath, out gorillaPosRotConstraint.source))
+					if (!transform.TryFindByPath(gorillaPosRotConstraint.sourceRelativePath, out gorillaPosRotConstraint.source))
 					{
-						Debug.LogError(string.Format("{0}: Disabling component! At index {1} Transform `source` is ", "GTPosRotConstraints", i) + "null, not EBone, and could not find by path: \"" + gorillaPosRotConstraint.sourceRelativePath + "\"\n- Affected component path: " + base.transform.GetPathQ(), this);
-						base.enabled = false;
+						Debug.LogError(string.Format("{0}: Disabling component! At index {1} Transform `source` is ", "GTPosRotConstraints", i) + "null, not EBone, and could not find by path: \"" + gorillaPosRotConstraint.sourceRelativePath + "\"\n- Affected component path: " + transform.GetPathQ(), this);
+						enabled = false;
 						return;
 					}
 				}
@@ -74,27 +74,27 @@ public class GTPosRotConstraints : MonoBehaviour, ISpawnable
 			}
 			if ((object)rig == null)
 			{
-				Debug.LogError("GTPosRotConstraints: Disabling component! `VRRig` could not be found in parents, but " + $"bone at index {i} is set to use EBone `{gorillaPosRotConstraint.sourceGorillaBone}` but without `VRRig` it cannot " + "be resolved.\n- Affected component path: " + base.transform.GetPathQ(), this);
-				base.enabled = false;
+				Debug.LogError("GTPosRotConstraints: Disabling component! `VRRig` could not be found in parents, but " + $"bone at index {i} is set to use EBone `{gorillaPosRotConstraint.sourceGorillaBone}` but without `VRRig` it cannot " + "be resolved.\n- Affected component path: " + transform.GetPathQ(), this);
+				enabled = false;
 				return;
 			}
 			int boneIndex = GTHardCodedBones.GetBoneIndex(gorillaPosRotConstraint.sourceGorillaBone);
 			if (boneIndex <= 0)
 			{
-				Debug.LogError(string.Format("{0}: (should never happen) Disabling component! At index {1}, could ", "GTPosRotConstraints", i) + $"not find EBone `{gorillaPosRotConstraint.sourceGorillaBone}`.\n" + "- Affected component path: " + base.transform.GetPathQ(), this);
-				base.enabled = false;
+				Debug.LogError(string.Format("{0}: (should never happen) Disabling component! At index {1}, could ", "GTPosRotConstraints", i) + $"not find EBone `{gorillaPosRotConstraint.sourceGorillaBone}`.\n" + "- Affected component path: " + transform.GetPathQ(), this);
+				enabled = false;
 				return;
 			}
 			gorillaPosRotConstraint.source = outBoneXforms[boneIndex];
 			if (!gorillaPosRotConstraint.source)
 			{
-				Debug.LogError(string.Format("{0}: Disabling component! At index {1}, bone {2} was ", "GTPosRotConstraints", i, gorillaPosRotConstraint.sourceGorillaBone) + "not present in `VRRig` path: " + rig.transform.GetPathQ() + "\n- Affected component path: " + base.transform.GetPathQ(), this);
-				base.enabled = false;
+				Debug.LogError(string.Format("{0}: Disabling component! At index {1}, bone {2} was ", "GTPosRotConstraints", i, gorillaPosRotConstraint.sourceGorillaBone) + "not present in `VRRig` path: " + rig.transform.GetPathQ() + "\n- Affected component path: " + transform.GetPathQ(), this);
+				enabled = false;
 				return;
 			}
 			constraints[i] = gorillaPosRotConstraint;
 		}
-		if (base.isActiveAndEnabled && !_registerOnEnable)
+		if (isActiveAndEnabled && !_registerOnEnable)
 		{
 			GTPosRotConstraintManager.Register(this);
 		}

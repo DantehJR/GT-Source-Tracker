@@ -74,7 +74,7 @@ public class GorillaPlayerLineButton : MonoBehaviour, IClickable
 
 	private void OnTriggerEnter(Collider collider)
 	{
-		if (base.enabled && !(touchTime + debounceTime >= Time.time))
+		if (enabled && !(touchTime + debounceTime >= Time.time))
 		{
 			GorillaTriggerColliderHandIndicator component = collider.GetComponent<GorillaTriggerColliderHandIndicator>();
 			if (!(component == null))

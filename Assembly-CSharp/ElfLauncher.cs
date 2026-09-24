@@ -52,8 +52,20 @@ public class ElfLauncher : MonoBehaviour
 	{
 		if (_events == null)
 		{
-			_events = base.gameObject.GetOrAddComponent<RubberDuckEvents>();
-			NetPlayer netPlayer = ((parentHoldable.myOnlineRig != null) ? parentHoldable.myOnlineRig.creator : ((!(parentHoldable.myRig != null)) ? null : ((parentHoldable.myRig.creator != null) ? parentHoldable.myRig.creator : NetworkSystem.Instance.LocalPlayer)));
+			_events = gameObject.GetOrAddComponent<RubberDuckEvents>();
+			NetPlayer netPlayer;
+			if (parentHoldable.myOnlineRig != null)
+			{
+				netPlayer = parentHoldable.myOnlineRig.creator;
+			}
+			else if (parentHoldable.myRig != null)
+			{
+				netPlayer = ((parentHoldable.myRig.creator != null) ? parentHoldable.myRig.creator : NetworkSystem.Instance.LocalPlayer);
+			}
+			else
+			{
+				netPlayer = null;
+			}
 			if (netPlayer != null)
 			{
 				m_player = netPlayer;
@@ -140,11 +152,11 @@ public class ElfLauncher : MonoBehaviour
 	protected virtual void ShootShared(Vector3 origin, Vector3 direction)
 	{
 		shootAudio.Play();
-		Vector3 lossyScale = base.transform.lossyScale;
-		GameObject obj = ObjectPools.instance.Instantiate(elfProjectileHash);
-		obj.transform.position = origin;
-		obj.transform.rotation = Quaternion.LookRotation(direction);
-		obj.transform.localScale = lossyScale;
-		obj.GetComponent<Rigidbody>().linearVelocity = direction * muzzleVelocity * lossyScale.x;
+		Vector3 lossyScale = transform.lossyScale;
+		GameObject gameObject = ObjectPools.instance.Instantiate(elfProjectileHash);
+		gameObject.transform.position = origin;
+		gameObject.transform.rotation = Quaternion.LookRotation(direction);
+		gameObject.transform.localScale = lossyScale;
+		gameObject.GetComponent<Rigidbody>().linearVelocity = direction * muzzleVelocity * lossyScale.x;
 	}
 }

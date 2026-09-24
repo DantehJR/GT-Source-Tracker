@@ -158,13 +158,13 @@ public class GorillaPlayerScoreboardLine : MonoBehaviour
 		muteButton.gameObject.SetActive(value: true);
 		isMuteManual = PlayerPrefs.HasKey(linePlayer.UserId);
 		mute = PlayerPrefs.GetInt(linePlayer.UserId, 0);
-		muteButton.isOn = ((mute != 0) ? true : false);
+		muteButton.isOn = mute != 0;
 		muteButton.isAutoOn = false;
 		muteButton.UpdateColor();
 		if (rigContainer != null)
 		{
 			rigContainer.hasManualMute = isMuteManual;
-			rigContainer.SetMuted(RigContainer.MuteReason.Manual, (mute != 0) ? true : false);
+			rigContainer.SetMuted(RigContainer.MuteReason.Manual, mute != 0);
 		}
 		_parentConfirmButton = null;
 		_attemptingKick = false;
@@ -303,7 +303,7 @@ public class GorillaPlayerScoreboardLine : MonoBehaviour
 
 	public bool IsLineActive()
 	{
-		return base.gameObject.activeInHierarchy;
+		return gameObject.activeInHierarchy;
 	}
 
 	public bool IsPlayerInRoom()
@@ -349,7 +349,7 @@ public class GorillaPlayerScoreboardLine : MonoBehaviour
 				if (rigContainer != null)
 				{
 					rigContainer.hasManualMute = isMuteManual;
-					rigContainer.SetMuted(RigContainer.MuteReason.Manual, (mute != 0) ? true : false);
+					rigContainer.SetMuted(RigContainer.MuteReason.Manual, mute != 0);
 				}
 				PlayerPrefs.Save();
 				muteButton.UpdateColor();

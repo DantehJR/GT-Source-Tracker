@@ -40,7 +40,7 @@ public class RadialBounds : MonoBehaviour
 		}
 	}
 
-	public Vector3 center => base.transform.TransformPoint(_localCenter);
+	public Vector3 center => transform.TransformPoint(_localCenter);
 
-	public float radius => MathUtils.GetScaledRadius(_localRadius, base.transform.lossyScale);
+	public float radius => MathUtils.GetScaledRadius(_localRadius, transform.lossyScale);
 }

@@ -29,7 +29,7 @@ public class PlayerNumbering : MonoBehaviourPunCallbacks
 		instance = this;
 		if (dontDestroyOnLoad)
 		{
-			Object.DontDestroyOnLoad(base.gameObject);
+			Object.DontDestroyOnLoad(gameObject);
 		}
 		RefreshData();
 	}
@@ -71,9 +71,9 @@ public class PlayerNumbering : MonoBehaviourPunCallbacks
 		if (PhotonNetwork.LocalPlayer.GetPlayerNumber() >= 0)
 		{
 			SortedPlayers = PhotonNetwork.CurrentRoom.Players.Values.OrderBy((Player p) => p.GetPlayerNumber()).ToArray();
-			if (PlayerNumbering.OnPlayerNumberingChanged != null)
+			if (OnPlayerNumberingChanged != null)
 			{
-				PlayerNumbering.OnPlayerNumberingChanged();
+				OnPlayerNumberingChanged();
 			}
 			return;
 		}
@@ -105,9 +105,9 @@ public class PlayerNumbering : MonoBehaviourPunCallbacks
 			hashSet.Add(playerNumber);
 		}
 		SortedPlayers = PhotonNetwork.CurrentRoom.Players.Values.OrderBy((Player p) => p.GetPlayerNumber()).ToArray();
-		if (PlayerNumbering.OnPlayerNumberingChanged != null)
+		if (OnPlayerNumberingChanged != null)
 		{
-			PlayerNumbering.OnPlayerNumberingChanged();
+			OnPlayerNumberingChanged();
 		}
 	}
 }

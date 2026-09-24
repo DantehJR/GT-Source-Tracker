@@ -215,7 +215,7 @@ public class BuilderPiece : MonoBehaviour
 	{
 		if (fXInfo == null)
 		{
-			Debug.LogErrorFormat("BuilderPiece {0} is missing Effect Info", base.gameObject.name);
+			Debug.LogErrorFormat("BuilderPiece {0} is missing Effect Info", gameObject.name);
 		}
 		materialType = -1;
 		pieceType = -1;
@@ -334,7 +334,7 @@ public class BuilderPiece : MonoBehaviour
 		SetBehavioursEnabled(onlyWhenPlacedBehaviours, enabled: false);
 		preventSnapUntilMoved = 0;
 		preventSnapUntilMovedFromPos = Vector3.zero;
-		base.transform.localScale = Vector3.one;
+		transform.localScale = Vector3.one;
 		if (isArmShelf)
 		{
 			if (armShelf != null)
@@ -673,7 +673,7 @@ public class BuilderPiece : MonoBehaviour
 		{
 			parent = ((newParentAttachIndex < 0) ? newParentPiece.transform : newParentPiece.gridPlanes[newParentAttachIndex].transform);
 		}
-		base.transform.SetParent(parent, worldPositionStays: true);
+		transform.SetParent(parent, worldPositionStays: true);
 		requestedParentPiece = null;
 		tableOwner.UpdatePieceData(this);
 	}
@@ -693,7 +693,7 @@ public class BuilderPiece : MonoBehaviour
 		attachIndex = -1;
 		parentPiece = null;
 		parentAttachIndex = -1;
-		base.transform.SetParent(null, worldPositionStays: true);
+		transform.SetParent(null, worldPositionStays: true);
 		requestedParentPiece = null;
 		tableOwner.UpdatePieceData(this);
 		if (!ignoreSnaps)
@@ -782,7 +782,7 @@ public class BuilderPiece : MonoBehaviour
 		this.heldByPlayerActorNumber = heldByPlayerActorNumber;
 		this.parentHeld = parentHeld;
 		this.heldInLeftHand = heldInLeftHand;
-		base.transform.SetParent(parentHeld);
+		transform.SetParent(parentHeld);
 		tableOwner.UpdatePieceData(this);
 		if (heldByPlayerActorNumber != -1)
 		{
@@ -806,7 +806,7 @@ public class BuilderPiece : MonoBehaviour
 			heldByPlayerActorNumber = -1;
 			parentHeld = null;
 			heldInLeftHand = false;
-			base.transform.SetParent(parentHeld);
+			transform.SetParent(parentHeld);
 			tableOwner.UpdatePieceData(this);
 			OnReleasedAsRoot();
 		}
@@ -1052,14 +1052,14 @@ public class BuilderPiece : MonoBehaviour
 		}
 		else if (!kinematic && rigidBody == null)
 		{
-			rigidBody = base.gameObject.GetComponent<Rigidbody>();
+			rigidBody = gameObject.GetComponent<Rigidbody>();
 			if (rigidBody != null)
 			{
 				Debug.LogErrorFormat("We should never already have a rigid body here {0} {1}", pieceId, pieceType);
 			}
 			if (rigidBody == null)
 			{
-				rigidBody = base.gameObject.AddComponent<Rigidbody>();
+				rigidBody = gameObject.AddComponent<Rigidbody>();
 			}
 			if (rigidBody != null)
 			{
@@ -1257,7 +1257,7 @@ public class BuilderPiece : MonoBehaviour
 
 	private void PlayFX(GameObject fx)
 	{
-		ObjectPools.instance.Instantiate(fx, base.transform.position);
+		ObjectPools.instance.Instantiate(fx, transform.position);
 	}
 
 	public static BuilderPiece GetBuilderPieceFromCollider(Collider collider)
@@ -1514,23 +1514,23 @@ public class BuilderPiece : MonoBehaviour
 	{
 		float gridSize = tableOwner.gridSize;
 		BuilderAttachGridPlane builderAttachGridPlane = gridPlanes[potentialAttachIndex];
-		bool num = (long)(twist % 2) == 1;
+		bool flag = (long)(twist % 2) == 1;
 		Transform center = potentialParentGridPlane.center;
 		Vector3 position = center.position;
 		Quaternion rotation = center.rotation;
-		float num2 = (num ? builderAttachGridPlane.lengthOffset : builderAttachGridPlane.widthOffset);
-		float num3 = (num ? builderAttachGridPlane.widthOffset : builderAttachGridPlane.lengthOffset);
-		float num4 = num2 - potentialParentGridPlane.widthOffset;
-		float num5 = num3 - potentialParentGridPlane.lengthOffset;
+		float num = (flag ? builderAttachGridPlane.lengthOffset : builderAttachGridPlane.widthOffset);
+		float num2 = (flag ? builderAttachGridPlane.widthOffset : builderAttachGridPlane.lengthOffset);
+		float num3 = num - potentialParentGridPlane.widthOffset;
+		float num4 = num2 - potentialParentGridPlane.lengthOffset;
 		Quaternion quaternion = Quaternion.Euler(0f, (float)(int)twist * 90f, 0f);
 		Quaternion quaternion2 = rotation * quaternion;
-		float x = (float)xOffset * gridSize + num4;
-		float z = (float)zOffset * gridSize + num5;
+		float x = (float)xOffset * gridSize + num3;
+		float z = (float)zOffset * gridSize + num4;
 		Vector3 vector = new Vector3(x, 0f, z);
 		Vector3 vector2 = position + rotation * vector;
 		Transform center2 = builderAttachGridPlane.center;
 		Quaternion quaternion3 = quaternion2 * Quaternion.Inverse(center2.localRotation);
-		Vector3 vector3 = base.transform.InverseTransformPoint(center2.position);
+		Vector3 vector3 = transform.InverseTransformPoint(center2.position);
 		Vector3 vector4 = vector2 - quaternion3 * vector3;
 		localPosition = potentialParentGridPlane.transform.InverseTransformPoint(vector4);
 		localRotation = quaternion * Quaternion.Inverse(center2.localRotation);
@@ -1564,7 +1564,7 @@ public class BuilderPiece : MonoBehaviour
 		{
 			return 0;
 		}
-		Quaternion localRotation = base.transform.localRotation;
+		Quaternion localRotation = transform.localRotation;
 		BuilderAttachGridPlane builderAttachGridPlane = gridPlanes[attachIndex];
 		Quaternion quaternion = localRotation * builderAttachGridPlane.transform.localRotation;
 		float num = 0.866f;
@@ -1573,7 +1573,7 @@ public class BuilderPiece : MonoBehaviour
 		float num3 = Vector3.Dot(lhs, Vector3.right);
 		bool flag = Mathf.Abs(num2) > num;
 		bool flag2 = Mathf.Abs(num3) > num;
-		if (!(flag || flag2))
+		if (!(flag | flag2))
 		{
 			return 0;
 		}
@@ -1592,15 +1592,15 @@ public class BuilderPiece : MonoBehaviour
 		float gridSize = tableOwner.gridSize;
 		BuilderAttachGridPlane builderAttachGridPlane = gridPlanes[attachIndex];
 		BuilderAttachGridPlane builderAttachGridPlane2 = parentPiece.gridPlanes[parentAttachIndex];
-		bool num = (long)(twist % 2) == 1;
-		float num2 = (num ? builderAttachGridPlane.lengthOffset : builderAttachGridPlane.widthOffset);
-		float num3 = (num ? builderAttachGridPlane.widthOffset : builderAttachGridPlane.lengthOffset);
-		float num4 = num2 - builderAttachGridPlane2.widthOffset;
-		float num5 = num3 - builderAttachGridPlane2.lengthOffset;
+		bool flag = (long)(twist % 2) == 1;
+		float num = (flag ? builderAttachGridPlane.lengthOffset : builderAttachGridPlane.widthOffset);
+		float num2 = (flag ? builderAttachGridPlane.widthOffset : builderAttachGridPlane.lengthOffset);
+		float num3 = num - builderAttachGridPlane2.widthOffset;
+		float num4 = num2 - builderAttachGridPlane2.lengthOffset;
 		Vector3 position = builderAttachGridPlane.center.position;
 		Vector3 position2 = builderAttachGridPlane2.center.position;
 		Vector3 vector = Quaternion.Inverse(builderAttachGridPlane2.center.rotation) * (position - position2);
-		xOffset = (sbyte)Mathf.RoundToInt((vector.x - num4) / gridSize);
-		zOffset = (sbyte)Mathf.RoundToInt((vector.z - num5) / gridSize);
+		xOffset = (sbyte)Mathf.RoundToInt((vector.x - num3) / gridSize);
+		zOffset = (sbyte)Mathf.RoundToInt((vector.z - num4) / gridSize);
 	}
 }

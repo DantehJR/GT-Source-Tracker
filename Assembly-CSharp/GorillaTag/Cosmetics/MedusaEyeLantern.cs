@@ -126,7 +126,7 @@ public class MedusaEyeLantern : MonoBehaviour
 	{
 		if (rotatingObjectTransform == null)
 		{
-			rotatingObjectTransform = base.transform;
+			rotatingObjectTransform = transform;
 		}
 		initialRotation = rotatingObjectTransform.localRotation;
 		SwitchState(State.DORMANT);
@@ -246,7 +246,7 @@ public class MedusaEyeLantern : MonoBehaviour
 		case State.DORMANT:
 			warmupCounter = 0f;
 			petrificationStarted = float.PositiveInfinity;
-			if (targetRig != null && (targetRig.transform.position - base.transform.position).IsShorterThan(distanceChecker.distanceThreshold))
+			if (targetRig != null && (targetRig.transform.position - transform.position).IsShorterThan(distanceChecker.distanceThreshold))
 			{
 				SwitchState(State.TRACKING);
 			}

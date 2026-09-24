@@ -38,12 +38,12 @@ public class BushFieldReactorMain : MonoBehaviour
 		UnityEngine.Random.InitState(0);
 		for (int i = 0; i < NumBushes; i++)
 		{
-			GameObject obj = UnityEngine.Object.Instantiate(Bush);
+			GameObject gameObject = UnityEngine.Object.Instantiate(Bush);
 			float num = UnityEngine.Random.Range(BushScaleRange.x, BushScaleRange.y);
-			obj.transform.position = new Vector3(UnityEngine.Random.Range(-0.5f * FieldBounds.x, 0.5f * FieldBounds.x), 0.2f * num, UnityEngine.Random.Range(-0.5f * FieldBounds.y, 0.5f * FieldBounds.y));
-			obj.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
-			obj.transform.localScale = num * Vector3.one;
-			BoingBehavior component = obj.GetComponent<BoingBehavior>();
+			gameObject.transform.position = new Vector3(UnityEngine.Random.Range(-0.5f * FieldBounds.x, 0.5f * FieldBounds.x), 0.2f * num, UnityEngine.Random.Range(-0.5f * FieldBounds.y, 0.5f * FieldBounds.y));
+			gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+			gameObject.transform.localScale = num * Vector3.one;
+			BoingBehavior component = gameObject.GetComponent<BoingBehavior>();
 			if (component != null)
 			{
 				component.Reboot();
@@ -51,12 +51,12 @@ public class BushFieldReactorMain : MonoBehaviour
 		}
 		for (int j = 0; j < NumBlossoms; j++)
 		{
-			GameObject obj2 = UnityEngine.Object.Instantiate(Blossom);
+			GameObject gameObject2 = UnityEngine.Object.Instantiate(Blossom);
 			float num2 = UnityEngine.Random.Range(BlossomScaleRange.x, BlossomScaleRange.y);
-			obj2.transform.position = new Vector3(UnityEngine.Random.Range(-0.5f * FieldBounds.x, 0.5f * FieldBounds.y), 0.2f * num2, UnityEngine.Random.Range(-0.5f * FieldBounds.y, 0.5f * FieldBounds.y));
-			obj2.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
-			obj2.transform.localScale = num2 * Vector3.one;
-			BoingBehavior component2 = obj2.GetComponent<BoingBehavior>();
+			gameObject2.transform.position = new Vector3(UnityEngine.Random.Range(-0.5f * FieldBounds.x, 0.5f * FieldBounds.y), 0.2f * num2, UnityEngine.Random.Range(-0.5f * FieldBounds.y, 0.5f * FieldBounds.y));
+			gameObject2.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+			gameObject2.transform.localScale = num2 * Vector3.one;
+			BoingBehavior component2 = gameObject2.GetComponent<BoingBehavior>();
 			if (component2 != null)
 			{
 				component2.Reboot();

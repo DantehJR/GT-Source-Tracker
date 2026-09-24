@@ -352,7 +352,7 @@ public class CosmeticCollectionDisplay : MonoBehaviour
 		}
 		AsyncOperationHandle<GameObject> item = prefabAssetRef.InstantiateAsync(anchor);
 		loadOps.Add(item);
-		item.Completed += delegate(AsyncOperationHandle<GameObject> handle)
+		item.Completed += (AsyncOperationHandle<GameObject> handle) =>
 		{
 			if (handle.Status == AsyncOperationStatus.Succeeded)
 			{
@@ -383,7 +383,7 @@ public class CosmeticCollectionDisplay : MonoBehaviour
 			{
 				int num = ((i < canonicalIndices.Count) ? canonicalIndices[i] : i);
 				bool flag = num < 0 || num >= 32 || (visibleMask & (1 << num)) != 0;
-				bool active = isVisible && flag && (!isCycling || i == activeIndex);
+				bool active = (isVisible & flag) && (!isCycling || i == activeIndex);
 				spawnedAnchors[i].SetActive(active);
 			}
 		}

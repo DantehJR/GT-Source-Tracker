@@ -7,6 +7,6 @@ public class CrittersSpawnPoint : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.blue;
-		Gizmos.DrawSphere(base.transform.position, 0.1f);
+		Gizmos.DrawSphere(transform.position, 0.1f);
 	}
 }

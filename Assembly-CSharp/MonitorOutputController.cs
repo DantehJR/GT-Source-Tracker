@@ -95,7 +95,7 @@ public class MonitorOutputController : MonoBehaviour
 
 	private void FindShoulderCamera()
 	{
-		if (!(_shoulderCamera != null) && GorillaTagger.hasInstance && base.isActiveAndEnabled)
+		if (!(_shoulderCamera != null) && GorillaTagger.hasInstance && isActiveAndEnabled)
 		{
 			_shoulderCamera = GorillaTagger.Instance.thirdPersonCamera.GetComponentInChildren<Camera>();
 			_shoulderCameraFov = _shoulderCamera.fieldOfView;

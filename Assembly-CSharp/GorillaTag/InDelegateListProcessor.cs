@@ -17,14 +17,14 @@ public class InDelegateListProcessor<T> : DelegateListProcessorPlusMinus<InDeleg
 	{
 		m_data = data;
 		ProcessListSafe();
-		m_data = default(T);
+		m_data = default;
 	}
 
 	public void Invoke(in T data)
 	{
 		m_data = data;
 		ProcessList();
-		m_data = default(T);
+		m_data = default;
 	}
 
 	protected override void ProcessItem(in InAction<T> item)
@@ -74,7 +74,7 @@ public class InDelegateListProcessor<T1, T2> : DelegateListProcessorPlusMinus<In
 
 	private void ResetData()
 	{
-		m_data1 = default(T1);
-		m_data2 = default(T2);
+		m_data1 = default;
+		m_data2 = default;
 	}
 }

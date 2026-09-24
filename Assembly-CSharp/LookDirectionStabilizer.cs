@@ -27,13 +27,13 @@ public class LookDirectionStabilizer : MonoBehaviour, ISpawnable
 		if (Vector3.Dot(rigTarget.forward, up) < 0f)
 		{
 			Quaternion b = Quaternion.LookRotation(rigTarget.up.ProjectOntoPlane(up), up);
-			Quaternion rotation = base.transform.parent.rotation;
+			Quaternion rotation = transform.parent.rotation;
 			float value = Vector3.Dot(rigTarget.up, up);
-			base.transform.rotation = Quaternion.Lerp(rotation, b, Mathf.InverseLerp(1f, 0.7f, value));
+			transform.rotation = Quaternion.Lerp(rotation, b, Mathf.InverseLerp(1f, 0.7f, value));
 		}
 		else
 		{
-			base.transform.localRotation = Quaternion.identity;
+			transform.localRotation = Quaternion.identity;
 		}
 	}
 }

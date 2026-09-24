@@ -20,7 +20,7 @@ public class TappableBell : Tappable
 			winnerRig = GorillaGameManager.StaticFindRigForPlayer(info.Sender);
 			if ((object)winnerRig != null)
 			{
-				this.OnTapped?.Invoke(winnerRig);
+				OnTapped?.Invoke(winnerRig);
 			}
 		}
 	}

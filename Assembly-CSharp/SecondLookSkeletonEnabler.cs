@@ -28,7 +28,7 @@ public class SecondLookSkeletonEnabler : Tappable
 			{
 				skele.tapped = true;
 			}
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			isTapped = true;
 			playOnDisappear.GTPlay();
 			particles.Play();

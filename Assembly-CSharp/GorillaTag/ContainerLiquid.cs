@@ -147,8 +147,8 @@ public class ContainerLiquid : MonoBehaviour
 	{
 		if (Application.isPlaying)
 		{
-			base.enabled = useLiquidShader && IsValidLiquidSurfaceValues();
-			if (base.enabled)
+			enabled = useLiquidShader && IsValidLiquidSurfaceValues();
+			if (enabled)
 			{
 				InitializeLiquidSurface();
 			}

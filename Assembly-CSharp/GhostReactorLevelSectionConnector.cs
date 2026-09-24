@@ -47,7 +47,7 @@ public class GhostReactorLevelSectionConnector : MonoBehaviour
 		GetComponentsInChildren(renderers);
 		if (boundingCollider == null)
 		{
-			Debug.LogWarningFormat("Missing Bounding Collider for section {0}", base.gameObject.name);
+			Debug.LogWarningFormat("Missing Bounding Collider for section {0}", gameObject.name);
 		}
 	}
 

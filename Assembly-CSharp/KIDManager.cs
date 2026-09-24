@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GorillaNetworking;
 using KID.Model;
+using Modio;
 using Newtonsoft.Json;
 using PlayFab;
 using UnityEngine;
@@ -206,8 +207,8 @@ public class KIDManager : MonoBehaviour
 	{
 		if (_instance != null)
 		{
-			Debug.LogError("Trying to create new instance of [KIDManager], but one already exists. Destroying object [" + base.gameObject.name + "].");
-			UnityEngine.Object.Destroy(base.gameObject);
+			Debug.LogError("Trying to create new instance of [KIDManager], but one already exists. Destroying object [" + gameObject.name + "].");
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		else
 		{
@@ -570,9 +571,9 @@ public class KIDManager : MonoBehaviour
 		int num = 0;
 		try
 		{
-			bool num2 = !(await WaitForAuthentication());
+			bool flag = !(await WaitForAuthentication());
 			UGCPermissionManager.UsePlayFabSafety();
-			if (!num2 && _useKid)
+			if (!flag && _useKid)
 			{
 				GorillaSnapTurn.DisableSnapTurn();
 				snapTurnDisabled = true;
@@ -595,8 +596,8 @@ public class KIDManager : MonoBehaviour
 					else
 					{
 						HasOptedInToKID = newSessionData.responseType != GetSessionResponseType.NOT_FOUND;
-						bool flag = await CheckWarningScreensOptedIn();
-						if (!_requestCancellationSource.IsCancellationRequested && flag)
+						bool flag2 = await CheckWarningScreensOptedIn();
+						if (!_requestCancellationSource.IsCancellationRequested && flag2)
 						{
 							PreviousStatus = (SessionStatus)PlayerPrefs.GetInt(PreviousStatusPlayerPrefRef, 0);
 							TMPSession newSession = newSessionData.session;
@@ -615,25 +616,25 @@ public class KIDManager : MonoBehaviour
 							else
 							{
 								TMPSession session = newSessionData.session;
-								int num3;
+								int num2;
 								if (session == null)
 								{
-									num3 = 1;
+									num2 = 1;
 								}
 								else
 								{
 									_ = session.AgeStatus;
-									num3 = 0;
+									num2 = 0;
 								}
-								if (num3 != 0)
+								if (num2 != 0)
 								{
 									PrivateUIRoom.ForceStartOverlay(PrivateUIRoom.OverlaySource.KID);
-									(AgeStatusType, TMPSession) obj2 = await AgeGateFlow(newSessionData);
-									_ = obj2.Item1;
-									TMPSession item = obj2.Item2;
+									(AgeStatusType, TMPSession) tuple = await AgeGateFlow(newSessionData);
+									_ = tuple.Item1;
+									TMPSession item = tuple.Item2;
 									if (_requestCancellationSource.IsCancellationRequested)
 									{
-										goto IL_06bd;
+										goto IL_074a;
 									}
 									newSession = item;
 								}
@@ -642,7 +643,7 @@ public class KIDManager : MonoBehaviour
 									await LegalAgreements.instance.StartLegalAgreements();
 									if (_requestCancellationSource.IsCancellationRequested)
 									{
-										goto IL_06bd;
+										goto IL_074a;
 									}
 								}
 								if (UpdatePermissions(newSession) && CurrentSession != null)
@@ -654,32 +655,40 @@ public class KIDManager : MonoBehaviour
 									if (!_requestCancellationSource.IsCancellationRequested)
 									{
 										UGCPermissionManager.UseKID();
-										await KIDUI_Controller.Instance.StartKIDScreens(_requestCancellationSource.Token);
-										while (!_requestCancellationSource.IsCancellationRequested)
+										Error error = await ModIOManager.ShowTermsOfUseAtGameLoad();
+										if ((bool)error)
 										{
-											await Task.Yield();
-											if (KIDUI_Controller.IsKIDUIActive)
+											Debug.LogError($"[KID::MANAGER] Failed to show Mod.io Terms of Use at game load: {error}");
+										}
+										if (!_requestCancellationSource.IsCancellationRequested)
+										{
+											await KIDUI_Controller.Instance.StartKIDScreens(_requestCancellationSource.Token);
+											while (!_requestCancellationSource.IsCancellationRequested)
 											{
-												continue;
+												await Task.Yield();
+												if (KIDUI_Controller.IsKIDUIActive)
+												{
+													continue;
+												}
+												if (_requestCancellationSource.IsCancellationRequested)
+												{
+													break;
+												}
+												if (CurrentSession == null)
+												{
+													Debug.LogError("[KID::MANAGER] PHASE SEVEN -- FAILURE -- CurrentSession is NULL, should at least have a default session!");
+													Debug.Log($"[KID::MANAGER] Safeties is: [{PlayFabAuthenticator.instance.GetSafety()}");
+													break;
+												}
+												if (!newSessionData.HasConfirmedSetup)
+												{
+													await KIDMessagingController.StartKIDConfirmationScreen(_requestCancellationSource.Token);
+												}
+												PlayerPrefs.SetInt(PreviousStatusPlayerPrefRef, (int)PreviousStatus);
+												PlayerPrefs.Save();
+												InitialisationSuccessful = true;
+												goto end_IL_0064;
 											}
-											if (_requestCancellationSource.IsCancellationRequested)
-											{
-												break;
-											}
-											if (CurrentSession == null)
-											{
-												Debug.LogError("[KID::MANAGER] PHASE SEVEN -- FAILURE -- CurrentSession is NULL, should at least have a default session!");
-												Debug.Log($"[KID::MANAGER] Safeties is: [{PlayFabAuthenticator.instance.GetSafety()}");
-												break;
-											}
-											if (!newSessionData.HasConfirmedSetup)
-											{
-												await KIDMessagingController.StartKIDConfirmationScreen(_requestCancellationSource.Token);
-											}
-											PlayerPrefs.SetInt(PreviousStatusPlayerPrefRef, (int)PreviousStatus);
-											PlayerPrefs.Save();
-											InitialisationSuccessful = true;
-											goto end_IL_00b2;
 										}
 									}
 								}
@@ -688,14 +697,14 @@ public class KIDManager : MonoBehaviour
 					}
 				}
 			}
-			goto IL_06bd;
-			IL_06bd:
+			goto IL_074a;
+			IL_074a:
 			num = 1;
-			end_IL_00b2:;
+			end_IL_0064:;
 		}
-		catch (object obj3)
+		catch (object obj2)
 		{
-			obj = obj3;
+			obj = obj2;
 		}
 		InitialisationComplete = true;
 		if (!InitialisationSuccessful)
@@ -714,10 +723,10 @@ public class KIDManager : MonoBehaviour
 			}
 			PrivateUIRoom.StopForcedOverlay(PrivateUIRoom.OverlaySource.KID);
 		}
-		object obj4 = obj;
-		if (obj4 != null)
+		object obj3 = obj;
+		if (obj3 != null)
 		{
-			ExceptionDispatchInfo.Capture((obj4 as Exception) ?? throw obj4).Throw();
+			ExceptionDispatchInfo.Capture((obj3 as Exception) ?? throw obj3).Throw();
 		}
 		if (num != 1)
 		{
@@ -813,11 +822,11 @@ public class KIDManager : MonoBehaviour
 		}
 		int state = 0;
 		bool isEnabled = false;
-		PlayFabTitleDataCache.Instance.GetTitleData("KIDData", delegate(string res)
+		PlayFabTitleDataCache.Instance.GetTitleData("KIDData", (string res) =>
 		{
 			state = 1;
 			isEnabled = GetIsEnabled(res);
-		}, delegate(PlayFabError err)
+		}, (PlayFabError err) =>
 		{
 			state = -1;
 			Debug.LogError("[KID_MANAGER::UseKID] Something went wrong trying to get title data for key: [KIDData]. Error:\n" + err.ErrorMessage);
@@ -827,7 +836,7 @@ public class KIDManager : MonoBehaviour
 			await Task.Yield();
 		}
 		while (state == 0);
-		if (PlayFabAuthenticator.instance.postAuthSetSafety && isEnabled)
+		if (PlayFabAuthenticator.instance.postAuthSetSafety & isEnabled)
 		{
 			PlayFabAuthenticator.instance.DefaultSafetiesByAgeCategory();
 		}
@@ -842,11 +851,11 @@ public class KIDManager : MonoBehaviour
 		}
 		int state = 0;
 		int phase = 0;
-		PlayFabTitleDataCache.Instance.GetTitleData("KIDData", delegate(string res)
+		PlayFabTitleDataCache.Instance.GetTitleData("KIDData", (string res) =>
 		{
 			state = 1;
 			phase = GetPhase(res);
-		}, delegate(PlayFabError err)
+		}, (PlayFabError err) =>
 		{
 			state = -1;
 			Debug.LogError("[KID_MANAGER] Something went wrong trying to get title data for key: [KIDData]. Error:\n" + err.ErrorMessage);
@@ -867,11 +876,11 @@ public class KIDManager : MonoBehaviour
 		}
 		int state = 0;
 		DateTime? newPlayerDateTime = null;
-		PlayFabTitleDataCache.Instance.GetTitleData("KIDData", delegate(string res)
+		PlayFabTitleDataCache.Instance.GetTitleData("KIDData", (string res) =>
 		{
 			state = 1;
 			newPlayerDateTime = GetNewPlayerDateTime(res);
-		}, delegate(PlayFabError err)
+		}, (PlayFabError err) =>
 		{
 			state = -1;
 			Debug.LogError("[KID_MANAGER] Something went wrong trying to get title data for key: [KIDData]. Error:\n" + err.ErrorMessage);
@@ -1069,9 +1078,9 @@ public class KIDManager : MonoBehaviour
 	private static async Task<GetPlayerData_Data> Server_GetPlayerData(bool forceRefresh, Action failureCallback)
 	{
 		string queryParams = string.Format("sessionRefresh={0}", forceRefresh ? "true" : "false");
-		(long, GetPlayerDataResponse, string) obj = await KIDServerWebRequest<GetPlayerDataResponse, KIDRequestData>("GetPlayerData", "GET", null, queryParams, 3);
-		long item = obj.Item1;
-		GetPlayerDataResponse item2 = obj.Item2;
+		(long, GetPlayerDataResponse, string) tuple = await KIDServerWebRequest<GetPlayerDataResponse, KIDRequestData>("GetPlayerData", "GET", null, queryParams, 3);
+		long item = tuple.Item1;
+		GetPlayerDataResponse item2 = tuple.Item2;
 		GetSessionResponseType type = GetSessionResponseType.ERROR;
 		switch (item)
 		{
@@ -1121,9 +1130,9 @@ public class KIDManager : MonoBehaviour
 
 	private static async Task<VerifyAgeData> Server_VerifyAge(VerifyAgeRequest request, Action failureCallback)
 	{
-		(long, VerifyAgeResponse, string) obj = await KIDServerWebRequest<VerifyAgeResponse, VerifyAgeRequest>("VerifyAge", "POST", request);
-		long item = obj.Item1;
-		VerifyAgeData result = new VerifyAgeData(obj.Item2);
+		(long, VerifyAgeResponse, string) tuple = await KIDServerWebRequest<VerifyAgeResponse, VerifyAgeRequest>("VerifyAge", "POST", request);
+		long item = tuple.Item1;
+		VerifyAgeData result = new VerifyAgeData(tuple.Item2);
 		if (item < 200 || item >= 300)
 		{
 			failureCallback?.Invoke();
@@ -1259,9 +1268,9 @@ public class KIDManager : MonoBehaviour
 
 	private static async Task<GetRequirementsData> Server_GetRequirements()
 	{
-		(long, GetRequirementsResponse, string) obj = await KIDServerWebRequest<GetRequirementsResponse, KIDRequestData>("GetRequirements", "GET", null, null, 3);
-		long item = obj.Item1;
-		GetRequirementsResponse item2 = obj.Item2;
+		(long, GetRequirementsResponse, string) tuple = await KIDServerWebRequest<GetRequirementsResponse, KIDRequestData>("GetRequirements", "GET", null, null, 3);
+		long item = tuple.Item1;
+		GetRequirementsResponse item2 = tuple.Item2;
 		GetRequirementsData result = new GetRequirementsData
 		{
 			AgeGateRequirements = item2

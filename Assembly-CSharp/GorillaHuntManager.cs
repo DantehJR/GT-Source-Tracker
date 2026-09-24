@@ -488,7 +488,7 @@ public sealed class GorillaHuntManager : GorillaGameManager
 	public override object OnSerializeWrite()
 	{
 		CopyHuntDataListToArray();
-		HuntData huntData = default(HuntData);
+		HuntData huntData = default;
 		huntData.currentHuntedArray.CopyFrom(currentHuntedArray, 0, currentHuntedArray.Length);
 		huntData.currentTargetArray.CopyFrom(currentTargetArray, 0, currentTargetArray.Length);
 		huntData.huntStarted = huntStarted;

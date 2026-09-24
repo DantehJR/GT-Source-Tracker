@@ -278,12 +278,12 @@ public class PlantableObject : TransferrableObject
 		{
 			respawnAtTimestamp = Time.time + respawnAfterDuration;
 		}
-		GorillaGameManager.OnInstanceReady(delegate
+		GorillaGameManager.OnInstanceReady(() =>
 		{
 			VRRig vRRig = GorillaGameManager.instance.FindPlayerVRRig(toPlayer);
 			if (!(vRRig == null))
 			{
-				vRRig.OnColorInitialized(delegate(Color color1)
+				vRRig.OnColorInitialized((Color color1) =>
 				{
 					colorG = color1;
 				});

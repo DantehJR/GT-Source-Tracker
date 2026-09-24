@@ -6,7 +6,7 @@ public class GorillaSceneCamera : MonoBehaviour
 
 	public void SetSceneCamera(int sceneIndex)
 	{
-		base.transform.position = sceneTransforms[sceneIndex].scenePosition;
-		base.transform.eulerAngles = sceneTransforms[sceneIndex].sceneRotation;
+		transform.position = sceneTransforms[sceneIndex].scenePosition;
+		transform.eulerAngles = sceneTransforms[sceneIndex].sceneRotation;
 	}
 }

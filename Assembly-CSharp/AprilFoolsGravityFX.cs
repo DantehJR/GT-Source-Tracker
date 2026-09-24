@@ -7,7 +7,7 @@ public class AprilFoolsGravityFX : MonoBehaviour
 {
 	private void Start()
 	{
-		PersonalGravityZone personalGravityZone = base.gameObject.AddComponent<PersonalGravityZone>();
+		PersonalGravityZone personalGravityZone = gameObject.AddComponent<PersonalGravityZone>();
 		MonkeGravityController component = GetComponent<MonkeGravityController>();
 		personalGravityZone.AddTarget(component);
 		component.SetPersonalGravityDirection(Random.insideUnitCircle.x0y().WithY(-0.5f).normalized);

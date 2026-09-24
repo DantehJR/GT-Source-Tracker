@@ -138,7 +138,7 @@ public class GorillaTagCompetitiveManager : GorillaTagManager
 			{
 				UpdateState();
 			}
-			GorillaTagCompetitiveManager.onUpdateRemainingTime?.Invoke(stateRemainingTime);
+			onUpdateRemainingTime?.Invoke(stateRemainingTime);
 		}
 		base.Tick();
 		if (NetworkSystem.Instance.IsMasterClient)
@@ -182,7 +182,7 @@ public class GorillaTagCompetitiveManager : GorillaTagManager
 			object value;
 			if (NetworkSystem.Instance.IsMasterClient)
 			{
-				GorillaTagCompetitiveServerApi.Instance.RequestCreateMatchId(delegate(string id)
+				GorillaTagCompetitiveServerApi.Instance.RequestCreateMatchId((string id) =>
 				{
 					Hashtable propertiesToSet = new Hashtable { { "matchId", id } };
 					PhotonNetwork.CurrentRoom.SetCustomProperties(propertiesToSet);
@@ -190,7 +190,7 @@ public class GorillaTagCompetitiveManager : GorillaTagManager
 			}
 			else if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("matchId", out value))
 			{
-				GorillaTagCompetitiveServerApi.Instance.RequestValidateMatchJoin((string)value, delegate(bool valid)
+				GorillaTagCompetitiveServerApi.Instance.RequestValidateMatchJoin((string)value, (bool valid) =>
 				{
 					if (!valid)
 					{
@@ -200,7 +200,7 @@ public class GorillaTagCompetitiveManager : GorillaTagManager
 				});
 			}
 		}
-		GorillaTagCompetitiveManager.onPlayerJoined?.Invoke(newPlayer);
+		onPlayerJoined?.Invoke(newPlayer);
 		if (VRRigCache.Instance.TryGetVrrig(newPlayer, out var playerRig))
 		{
 			playerRig.Rig.EnableRankedTimerWatch(on: true);
@@ -210,7 +210,7 @@ public class GorillaTagCompetitiveManager : GorillaTagManager
 	public override void OnPlayerLeftRoom(NetPlayer otherPlayer)
 	{
 		base.OnPlayerLeftRoom(otherPlayer);
-		GorillaTagCompetitiveManager.onPlayerLeft?.Invoke(otherPlayer);
+		onPlayerLeft?.Invoke(otherPlayer);
 		if (VRRigCache.Instance.TryGetVrrig(otherPlayer, out var playerRig))
 		{
 			playerRig.Rig.EnableRankedTimerWatch(on: false);
@@ -292,7 +292,7 @@ public class GorillaTagCompetitiveManager : GorillaTagManager
 				AddLastTagged(taggedPlayer, taggingPlayer);
 				currentInfected.Add(taggedPlayer);
 			}
-			GorillaTagCompetitiveManager.onTagOccurred?.Invoke(taggedPlayer, taggingPlayer);
+			onTagOccurred?.Invoke(taggedPlayer, taggingPlayer);
 		}
 	}
 
@@ -317,15 +317,15 @@ public class GorillaTagCompetitiveManager : GorillaTagManager
 				EnterStatePostRound();
 				break;
 			}
-			GorillaTagCompetitiveManager.onStateChanged?.Invoke(this.gameState);
-			GorillaTagCompetitiveManager.onUpdateRemainingTime?.Invoke(stateRemainingTime);
+			onStateChanged?.Invoke(this.gameState);
+			onUpdateRemainingTime?.Invoke(stateRemainingTime);
 			if (this.gameState == GameState.Playing)
 			{
-				GorillaTagCompetitiveManager.onRoundStart?.Invoke();
+				onRoundStart?.Invoke();
 			}
 			else if (gameState == GameState.Playing)
 			{
-				GorillaTagCompetitiveManager.onRoundEnd?.Invoke();
+				onRoundEnd?.Invoke();
 			}
 			GTDev.Log($"!! Competitive SetState: {this.gameState} at: {Time.time}");
 		}
@@ -492,7 +492,7 @@ public class GorillaTagCompetitiveManager : GorillaTagManager
 	{
 		if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("matchId", out var value))
 		{
-			GorillaTagCompetitiveServerApi.Instance.RequestPingRoom((string)value, delegate
+			GorillaTagCompetitiveServerApi.Instance.RequestPingRoom((string)value, () =>
 			{
 				ShowDebugPing = true;
 			});

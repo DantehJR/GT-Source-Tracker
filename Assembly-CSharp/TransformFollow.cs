@@ -17,35 +17,35 @@ public class TransformFollow : MonoBehaviour
 
 	private void Awake()
 	{
-		prevPos = base.transform.position;
-		if (rotationOnly && base.transform.parent != null && base.transform.parent.GetComponent<TransformFollow>() != null)
+		prevPos = transform.position;
+		if (rotationOnly && transform.parent != null && transform.parent.GetComponent<TransformFollow>() != null)
 		{
 			forRigRecording = true;
 		}
 		if (forRigRecording)
 		{
-			parentFollow = base.transform.parent.GetComponent<TransformFollow>();
+			parentFollow = transform.parent.GetComponent<TransformFollow>();
 		}
 	}
 
 	private void LateUpdate()
 	{
-		prevPos = base.transform.position;
+		prevPos = transform.position;
 		if (rotationOnly)
 		{
 			if (forRigRecording)
 			{
-				base.transform.localRotation = Quaternion.Inverse(parentFollow.transformToFollow.rotation) * transformToFollow.rotation;
+				transform.localRotation = Quaternion.Inverse(parentFollow.transformToFollow.rotation) * transformToFollow.rotation;
 			}
 			else
 			{
-				base.transform.rotation = transformToFollow.rotation;
+				transform.rotation = transformToFollow.rotation;
 			}
 		}
 		else
 		{
 			transformToFollow.GetPositionAndRotation(out var position, out var rotation);
-			base.transform.SetPositionAndRotation(position + rotation * offset, rotation);
+			transform.SetPositionAndRotation(position + rotation * offset, rotation);
 		}
 	}
 }

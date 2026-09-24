@@ -62,7 +62,7 @@ public class CrittersRigActorSetup : MonoBehaviour
 
 	public void CheckUpdate(ref List<object> refActorData, bool forceCheck = false)
 	{
-		if (!base.gameObject.activeInHierarchy)
+		if (!gameObject.activeInHierarchy)
 		{
 			return;
 		}

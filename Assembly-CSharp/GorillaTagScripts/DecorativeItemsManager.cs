@@ -74,7 +74,7 @@ public class DecorativeItemsManager : NetworkComponent
 		base.Awake();
 		if (_instance != null && _instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		else
 		{
@@ -139,7 +139,7 @@ public class DecorativeItemsManager : NetworkComponent
 		{
 			shouldRunUpdate = true;
 		}
-		if (!shouldRunUpdate || !base.IsMine)
+		if (!shouldRunUpdate || !IsMine)
 		{
 			return;
 		}
@@ -199,14 +199,14 @@ public class DecorativeItemsManager : NetworkComponent
 		else
 		{
 			NetworkBehaviourUtils.ThrowIfBehaviourNotInitialized(this);
-			if (base.Runner.Stage == SimulationStages.Resimulate)
+			if (Runner.Stage == SimulationStages.Resimulate)
 			{
 				return;
 			}
-			int localAuthorityMask = base.Object.GetLocalAuthorityMask();
+			int localAuthorityMask = Object.GetLocalAuthorityMask();
 			if ((localAuthorityMask & 7) == 0)
 			{
-				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTagScripts.DecorativeItemsManager::RPC_RespawnItem(System.Int32,UnityEngine.Vector3,UnityEngine.Quaternion,Fusion.RpcInfo)", base.Object, 7);
+				NetworkBehaviourUtils.NotifyLocalSimulationNotAllowedToSendRpc("System.Void GorillaTagScripts.DecorativeItemsManager::RPC_RespawnItem(System.Int32,UnityEngine.Vector3,UnityEngine.Quaternion,Fusion.RpcInfo)", Object, 7);
 				return;
 			}
 			int num = 8;
@@ -218,11 +218,11 @@ public class DecorativeItemsManager : NetworkComponent
 				NetworkBehaviourUtils.NotifyRpcPayloadSizeExceeded("System.Void GorillaTagScripts.DecorativeItemsManager::RPC_RespawnItem(System.Int32,UnityEngine.Vector3,UnityEngine.Quaternion,Fusion.RpcInfo)", num);
 				return;
 			}
-			if (base.Runner.HasAnyActiveConnections())
+			if (Runner.HasAnyActiveConnections())
 			{
-				SimulationMessage* ptr = SimulationMessage.Allocate(base.Runner.Simulation, num);
+				SimulationMessage* ptr = SimulationMessage.Allocate(Runner.Simulation, num);
 				byte* ptr2 = (byte*)ptr + 28;
-				*(RpcHeader*)ptr2 = RpcHeader.Create(base.Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
+				*(RpcHeader*)ptr2 = RpcHeader.Create(Object.Id, ((NetworkBehaviour)this).ObjectIndex, 1);
 				int num2 = 8;
 				*(int*)(ptr2 + num2) = index;
 				num2 += 4;
@@ -231,13 +231,13 @@ public class DecorativeItemsManager : NetworkComponent
 				*(Quaternion*)(ptr2 + num2) = _transformRot;
 				num2 += 16;
 				ptr->Offset = num2 * 8;
-				base.Runner.SendRpc(ptr);
+				Runner.SendRpc(ptr);
 			}
 			if ((localAuthorityMask & 7) == 0)
 			{
 				return;
 			}
-			info = RpcInfo.FromLocal(base.Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
+			info = RpcInfo.FromLocal(Runner, RpcChannel.Reliable, RpcHostMode.SourceIsServer);
 		}
 		RespawnItemShared(index, _transformPos, _transformRot, info);
 	}
@@ -294,7 +294,7 @@ public class DecorativeItemsManager : NetworkComponent
 
 	private void OnRequestToRespawn(DecorativeItem item)
 	{
-		if (base.IsMine && !(item == null))
+		if (IsMine && !(item == null))
 		{
 			int index = itemsList.IndexOf(item);
 			SpawnItem(index);

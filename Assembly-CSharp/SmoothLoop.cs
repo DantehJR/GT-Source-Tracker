@@ -22,7 +22,7 @@ public class SmoothLoop : MonoBehaviour, IGorillaSliceableSimple, IBuildValidati
 	{
 		if (source == null)
 		{
-			Debug.LogError("missing audio source, this will fail", base.gameObject);
+			Debug.LogError("missing audio source, this will fail", gameObject);
 			return false;
 		}
 		return true;
@@ -47,7 +47,7 @@ public class SmoothLoop : MonoBehaviour, IGorillaSliceableSimple, IBuildValidati
 
 	public void SliceUpdate()
 	{
-		if (base.enabled && source.time > source.clip.length * loopEnd)
+		if (enabled && source.time > source.clip.length * loopEnd)
 		{
 			source.time = loopStart;
 		}
@@ -75,8 +75,8 @@ public class SmoothLoop : MonoBehaviour, IGorillaSliceableSimple, IBuildValidati
 	{
 		if (!source || !source.clip)
 		{
-			Debug.LogError("SmoothLoop: Disabling because AudioSource is null or has no clip assigned. Path: " + base.transform.GetPathQ(), this);
-			base.enabled = false;
+			Debug.LogError("SmoothLoop: Disabling because AudioSource is null or has no clip assigned. Path: " + transform.GetPathQ(), this);
+			enabled = false;
 			StopAllCoroutines();
 			return false;
 		}

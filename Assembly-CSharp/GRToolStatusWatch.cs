@@ -53,16 +53,16 @@ public class GRToolStatusWatch : MonoBehaviour, IGameEntityComponent
 
 	public void OnEntityInit()
 	{
-		if (gameEntity == null)
+		if (this.gameEntity == null)
 		{
-			gameEntity = GetComponent<GameEntity>();
+			this.gameEntity = GetComponent<GameEntity>();
 		}
 		UpdateVisuals();
-		progression = gameEntity.manager.GetComponent<GhostReactorManager>().reactor.toolProgression;
-		GameEntity obj = gameEntity;
-		obj.OnSnapped = (Action)Delegate.Combine(obj.OnSnapped, new Action(UpdateSnappedPlayer));
-		GameEntity obj2 = gameEntity;
-		obj2.OnUnsnapped = (Action)Delegate.Combine(obj2.OnUnsnapped, new Action(RemoveSnappedPlayer));
+		progression = this.gameEntity.manager.GetComponent<GhostReactorManager>().reactor.toolProgression;
+		GameEntity gameEntity = this.gameEntity;
+		gameEntity.OnSnapped = (Action)Delegate.Combine(gameEntity.OnSnapped, new Action(UpdateSnappedPlayer));
+		GameEntity gameEntity2 = this.gameEntity;
+		gameEntity2.OnUnsnapped = (Action)Delegate.Combine(gameEntity2.OnUnsnapped, new Action(RemoveSnappedPlayer));
 	}
 
 	public void OnEntityDestroy()

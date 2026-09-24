@@ -107,7 +107,7 @@ public abstract class GorillaKeyButton<TBinding> : MonoBehaviour where TBinding 
 
 	public virtual void PressButtonColourUpdate()
 	{
-		if (base.gameObject.activeInHierarchy)
+		if (gameObject.activeInHierarchy)
 		{
 			propBlock.SetColor(ShaderProps._BaseColor, ButtonColorSettings.PressedColor);
 			propBlock.SetColor(ShaderProps._Color, ButtonColorSettings.PressedColor);

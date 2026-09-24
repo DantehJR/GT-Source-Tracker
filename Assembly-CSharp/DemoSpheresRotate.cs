@@ -25,31 +25,31 @@ public class DemoSpheresRotate : TimeSliceLodBehaviour
 	{
 		_renderer.material = _red;
 		SwapToTimeSlicer(0);
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnLod1Enter()
 	{
 		_renderer.material = _green;
 		SwapToTimeSlicer(1);
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnLod2Enter()
 	{
 		_renderer.material = _black;
 		SwapToTimeSlicer(2);
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 
 	public void OnLodExit()
 	{
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	public override void SliceUpdate(float deltaTime)
 	{
-		base.transform.Rotate(Vector3.up * _rotationSpeed * deltaTime);
+		transform.Rotate(Vector3.up * _rotationSpeed * deltaTime);
 	}
 
 	private void SwapToTimeSlicer(int index)

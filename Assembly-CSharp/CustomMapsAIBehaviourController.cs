@@ -89,7 +89,7 @@ public class CustomMapsAIBehaviourController : MonoBehaviour, IGameEntityCompone
 
 	private void InitAnimators()
 	{
-		animators = base.gameObject.GetComponentsInChildren<Animator>();
+		animators = gameObject.GetComponentsInChildren<Animator>();
 	}
 
 	private void UpdateAnimators()
@@ -160,7 +160,7 @@ public class CustomMapsAIBehaviourController : MonoBehaviour, IGameEntityCompone
 
 	public void StopMoving()
 	{
-		RequestDestination(base.transform.position);
+		RequestDestination(transform.position);
 	}
 
 	public void RequestDestination(Vector3 destination)
@@ -240,7 +240,7 @@ public class CustomMapsAIBehaviourController : MonoBehaviour, IGameEntityCompone
 				return;
 			}
 			GTDev.LogError("CustomMapsAIBehaviourController::OnEntityInit could not spawn enemy");
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 
@@ -255,7 +255,7 @@ public class CustomMapsAIBehaviourController : MonoBehaviour, IGameEntityCompone
 		if (component.IsNull())
 		{
 			GTDev.LogError("nav mesh agent is null");
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 			return;
 		}
 		component.agentTypeID = GetNavAgentType(newEnemy.navAgentType);
@@ -296,7 +296,7 @@ public class CustomMapsAIBehaviourController : MonoBehaviour, IGameEntityCompone
 		tempRigs.Clear();
 		tempRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(tempRigs);
-		Vector3 rhs = base.transform.rotation * Vector3.forward;
+		Vector3 rhs = transform.rotation * Vector3.forward;
 		for (int i = 0; i < tempRigs.Count; i++)
 		{
 			GRPlayer component = tempRigs[i].GetComponent<GRPlayer>();
@@ -333,7 +333,7 @@ public class CustomMapsAIBehaviourController : MonoBehaviour, IGameEntityCompone
 		int num = Physics.RaycastNonAlloc(new Ray(startPos, target.transform.position - startPos), visibilityHits, Mathf.Min(Vector3.Distance(target.transform.position, startPos), maxDist), visibilityLayerMask.value, QueryTriggerInteraction.Ignore);
 		for (int i = 0; i < num; i++)
 		{
-			if (visibilityHits[i].transform != base.transform && !visibilityHits[i].transform.IsChildOf(base.transform))
+			if (visibilityHits[i].transform != transform && !visibilityHits[i].transform.IsChildOf(transform))
 			{
 				return false;
 			}

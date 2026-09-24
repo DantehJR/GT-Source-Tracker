@@ -22,7 +22,7 @@ public class OnClickRpc : MonoBehaviourPun, IPointerClickHandler, IEventSystemHa
 	{
 		if (PhotonNetwork.InRoom && (ModifierKey == KeyCode.None || Input.GetKey(ModifierKey)) && eventData.button == Button)
 		{
-			base.photonView.RPC("ClickRpc", Target);
+			photonView.RPC("ClickRpc", Target);
 		}
 	}
 
@@ -42,7 +42,7 @@ public class OnClickRpc : MonoBehaviourPun, IPointerClickHandler, IEventSystemHa
 		originalMaterial = GetComponent<Renderer>().material;
 		if (!originalMaterial.HasProperty("_EmissionColor"))
 		{
-			Debug.LogWarning("Doesn't have emission, can't flash " + base.gameObject);
+			Debug.LogWarning("Doesn't have emission, can't flash " + gameObject);
 			yield break;
 		}
 		bool wasEmissive = originalMaterial.IsKeywordEnabled("_EMISSION");

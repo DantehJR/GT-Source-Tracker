@@ -37,7 +37,7 @@ public class ConsensusGravityZone : BasicGravityZone
 
 	protected override Vector3 GetGravityVectorAtPoint(in Vector3 worldPosition, in MonkeGravityController controller)
 	{
-		return base.transform.TransformVector(new Vector3(Mathf.Sin(currentRot * (MathF.PI / 180f)), Mathf.Cos(currentRot * (MathF.PI / 180f)), 0f));
+		return transform.TransformVector(new Vector3(Mathf.Sin(currentRot * (MathF.PI / 180f)), Mathf.Cos(currentRot * (MathF.PI / 180f)), 0f));
 	}
 
 	private void FixedUpdate()
@@ -56,7 +56,7 @@ public class ConsensusGravityZone : BasicGravityZone
 		if (num > 0)
 		{
 			Vector3 position2 = zero / num;
-			Vector3 vector = base.transform.InverseTransformPoint(position2);
+			Vector3 vector = transform.InverseTransformPoint(position2);
 			idealRot = Mathf.Atan2(vector.x, vector.y) * 57.29578f;
 		}
 		float num2 = (idealRot - currentRot) * weightForce - currentRot * centeringForce;

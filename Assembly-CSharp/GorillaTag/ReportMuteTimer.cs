@@ -50,7 +50,7 @@ internal class ReportMuteTimer : TickSystemTimerAbstract, ObjectPoolEvents
 
 	void ObjectPoolEvents.OnReturned()
 	{
-		if (base.Running)
+		if (Running)
 		{
 			OnTimedEvent();
 		}

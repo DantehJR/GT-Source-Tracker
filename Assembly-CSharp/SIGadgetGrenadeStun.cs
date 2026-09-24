@@ -82,13 +82,13 @@ public class SIGadgetGrenadeStun : SIGadgetGrenade
 
 	private void TriggerExplosion()
 	{
-		Collider[] array = Physics.OverlapSphere(base.transform.position, explosionRadius, UnityLayer.GorillaTagCollider.ToLayerMask());
+		Collider[] array = Physics.OverlapSphere(transform.position, explosionRadius, UnityLayer.GorillaTagCollider.ToLayerMask());
 		for (int i = 0; i < array.Length; i++)
 		{
 			VRRig componentInParent = array[i].GetComponentInParent<VRRig>();
 			if (componentInParent != null)
 			{
-				Vector3 vector = componentInParent.transform.position - base.transform.position;
+				Vector3 vector = componentInParent.transform.position - transform.position;
 				float magnitude = vector.magnitude;
 				float num = 1f - magnitude / explosionRadius;
 				float num2 = knockbackStrength * num;

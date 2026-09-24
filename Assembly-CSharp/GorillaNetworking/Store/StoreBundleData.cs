@@ -18,11 +18,11 @@ public class StoreBundleData : ScriptableObject
 	{
 		if (playfabBundleID.Contains(' '))
 		{
-			Debug.LogError("ERROR THERE IS A SPACE IN THE PLAYFAB BUNDLE ID " + base.name);
+			Debug.LogError("ERROR THERE IS A SPACE IN THE PLAYFAB BUNDLE ID " + name);
 		}
 		if (bundleSKU.Contains(' '))
 		{
-			Debug.LogError("ERROR THERE IS A SPACE IN THE BUNDLE SKU " + base.name);
+			Debug.LogError("ERROR THERE IS A SPACE IN THE BUNDLE SKU " + name);
 		}
 	}
 }

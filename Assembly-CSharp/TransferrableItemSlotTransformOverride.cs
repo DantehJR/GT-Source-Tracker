@@ -120,7 +120,7 @@ public class TransferrableItemSlotTransformOverride : MonoBehaviour, IGorillaSli
 			Transform value = null;
 			foreach (SlotTransformOverride item2 in transformOverridesDeprecated)
 			{
-				if ((item2.positionState & item) != TransferrableObject.PositionState.None)
+				if ((item2.positionState & item) != 0)
 				{
 					value = item2.overrideTransform;
 					break;
@@ -192,7 +192,7 @@ public class TransferrableItemSlotTransformOverride : MonoBehaviour, IGorillaSli
 				SubGrabPoint subGrabPoint2 = item.multiPoints[i];
 				if (!(subGrabPoint2.gripPoint == null))
 				{
-					float num2 = subGrabPoint2.EvaluateScore(base.transform, handTransform, targetDock);
+					float num2 = subGrabPoint2.EvaluateScore(transform, handTransform, targetDock);
 					if (num2 < num)
 					{
 						subGrabPoint = subGrabPoint2;
@@ -201,7 +201,7 @@ public class TransferrableItemSlotTransformOverride : MonoBehaviour, IGorillaSli
 					}
 				}
 			}
-			AdvancedItemState advancedItemStateFromHand = subGrabPoint.GetAdvancedItemStateFromHand(base.transform, handTransform, targetDock, item);
+			AdvancedItemState advancedItemStateFromHand = subGrabPoint.GetAdvancedItemStateFromHand(transform, handTransform, targetDock, item);
 			advancedItemStateFromHand.index = index;
 			return advancedItemStateFromHand;
 		}

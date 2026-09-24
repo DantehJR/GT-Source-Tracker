@@ -115,13 +115,13 @@ public class RaycastLineRenderer : MonoBehaviour, ITickSystemPost
 		}
 		Vector3 position = origin.position;
 		Vector3 rayDirection = GetRayDirection();
-		bool num = Physics.Raycast(position, rayDirection, out hit, maxDistance, hitLayers, QueryTriggerInteraction.Ignore);
-		bool flag = Physics.Raycast(position, rayDirection, out impactHit, maxDistance, impactLayers, QueryTriggerInteraction.Ignore);
-		Vector3 position2 = (num ? hit.point : (position + rayDirection * maxDistance));
+		bool flag = Physics.Raycast(position, rayDirection, out hit, maxDistance, hitLayers, QueryTriggerInteraction.Ignore);
+		bool flag2 = Physics.Raycast(position, rayDirection, out impactHit, maxDistance, impactLayers, QueryTriggerInteraction.Ignore);
+		Vector3 position2 = (flag ? hit.point : (position + rayDirection * maxDistance));
 		lineRenderer.positionCount = 2;
 		lineRenderer.SetPosition(0, position);
 		lineRenderer.SetPosition(1, position2);
-		if (num && surfaceEffectSpawner != null)
+		if (flag && surfaceEffectSpawner != null)
 		{
 			surfaceEffectSpawner.RequestSpawn(hit.point, hit.normal);
 		}
@@ -129,7 +129,7 @@ public class RaycastLineRenderer : MonoBehaviour, ITickSystemPost
 		{
 			return;
 		}
-		if (flag)
+		if (flag2)
 		{
 			impactFx.transform.position = impactHit.point;
 			if (orientImpactToSurface)

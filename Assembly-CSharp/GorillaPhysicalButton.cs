@@ -77,8 +77,8 @@ public class GorillaPhysicalButton : MonoBehaviour
 				moveableChildrenStartPositions.Add(moveableChildren[i].position);
 			}
 		}
-		startButtonPosition = base.transform.position;
-		base.enabled = true;
+		startButtonPosition = transform.position;
+		enabled = true;
 	}
 
 	private void OnEnable()
@@ -97,17 +97,17 @@ public class GorillaPhysicalButton : MonoBehaviour
 		}
 		SphereCollider sphereCollider = collider as SphereCollider;
 		float num = (sphereCollider ? sphereCollider.radius : 0f);
-		float num2 = base.transform.localScale.z * 0.5f;
-		if (Vector3.Distance(collider.transform.position, base.transform.position) > (base.transform.localScale.magnitude * 0.5f + num) * 1.5f)
+		float num2 = transform.localScale.z * 0.5f;
+		if (Vector3.Distance(collider.transform.position, transform.position) > (transform.localScale.magnitude * 0.5f + num) * 1.5f)
 		{
 			return 1f;
 		}
-		return Vector3.Dot(base.transform.position - collider.transform.position, -base.transform.forward) - num - num2;
+		return Vector3.Dot(transform.position - collider.transform.position, -transform.forward) - num - num2;
 	}
 
 	protected void OnTriggerEnter(Collider other)
 	{
-		if (base.enabled && !(other.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
+		if (enabled && !(other.GetComponentInParent<GorillaTriggerColliderHandIndicator>() == null))
 		{
 			recentFingerCollider = other;
 			if (buttonTestCoroutine == null)
@@ -122,7 +122,7 @@ public class GorillaPhysicalButton : MonoBehaviour
 		while (true)
 		{
 			UpdateButtonFromCollider();
-			if (!base.enabled || recentFingerCollider == null)
+			if (!enabled || recentFingerCollider == null)
 			{
 				break;
 			}
@@ -170,7 +170,7 @@ public class GorillaPhysicalButton : MonoBehaviour
 			if (!(component == null))
 			{
 				onPressButtonOn?.Invoke();
-				this.onPressedOn?.Invoke(this, component.isLeftHand);
+				onPressedOn?.Invoke(this, component.isLeftHand);
 				ButtonPressedOn();
 				ButtonPressedOnWithHand(component.isLeftHand);
 				GorillaTagger.Instance.offlineVRRig.PlayHandTapLocal(pressButtonSoundIndex, component.isLeftHand, 0.05f);
@@ -193,7 +193,7 @@ public class GorillaPhysicalButton : MonoBehaviour
 			if (!(component2 == null))
 			{
 				onPressButtonToggleOff?.Invoke();
-				this.onToggledOff?.Invoke(this, component2.isLeftHand);
+				onToggledOff?.Invoke(this, component2.isLeftHand);
 				ButtonToggledOff();
 				ButtonToggledOffWithHand(component2.isLeftHand);
 				GorillaTagger.Instance.offlineVRRig.PlayHandTapLocal(pressButtonSoundIndex, component2.isLeftHand, 0.05f);
@@ -213,12 +213,12 @@ public class GorillaPhysicalButton : MonoBehaviour
 		{
 			num = Mathf.Max(buttonDepthForTrigger, num);
 		}
-		base.transform.position = startButtonPosition - base.transform.forward * num;
+		transform.position = startButtonPosition - transform.forward * num;
 		if (moveableChildren != null)
 		{
 			for (int i = 0; i < moveableChildren.Count; i++)
 			{
-				moveableChildren[i].position = moveableChildrenStartPositions[i] - base.transform.forward * num;
+				moveableChildren[i].position = moveableChildrenStartPositions[i] - transform.forward * num;
 			}
 		}
 		UpdateColorWithState(isOn);

@@ -24,7 +24,7 @@ public class MagicIngredient : TransferrableObject
 	private void ReParent()
 	{
 		Transform transform = anchor.transform;
-		base.gameObject.transform.parent = transform;
+		gameObject.transform.parent = transform;
 		transform.parent = grabPtInitParent;
 	}
 
@@ -36,6 +36,6 @@ public class MagicIngredient : TransferrableObject
 		{
 			item.OnDisable();
 		}
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 }

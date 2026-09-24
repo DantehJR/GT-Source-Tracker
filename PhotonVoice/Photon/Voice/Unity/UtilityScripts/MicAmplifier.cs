@@ -99,9 +99,9 @@ public class MicAmplifier : VoiceComponent
 			shortProcessor = new MicAmplifierShort((short)AmplificationFactor, (short)BoostValue);
 			obj2.AddPostProcessor(shortProcessor);
 		}
-		else if (base.Logger.IsErrorEnabled)
+		else if (Logger.IsErrorEnabled)
 		{
-			base.Logger.LogError("LocalVoice object has unexpected value/type: {0}", (p.Voice == null) ? "null" : p.Voice.GetType().ToString());
+			Logger.LogError("LocalVoice object has unexpected value/type: {0}", (p.Voice == null) ? "null" : p.Voice.GetType().ToString());
 		}
 	}
 }

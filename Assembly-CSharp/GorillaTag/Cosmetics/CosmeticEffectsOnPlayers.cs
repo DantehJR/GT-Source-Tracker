@@ -203,7 +203,7 @@ public class CosmeticEffectsOnPlayers : MonoBehaviour, ISpawnable
 
 	public void ApplyAllEffects()
 	{
-		ApplyAllEffectsByDistance(base.transform.position);
+		ApplyAllEffectsByDistance(transform.position);
 	}
 
 	public void ApplyAllEffectsByDistance(Transform _transform)
@@ -359,7 +359,7 @@ public class CosmeticEffectsOnPlayers : MonoBehaviour, ISpawnable
 			{
 				effect.Value.EffectDuration = effect.Value.effectDurationOwner;
 			}
-			Vector3 vector = vrRig.transform.position - base.transform.position;
+			Vector3 vector = vrRig.transform.position - transform.position;
 			float num = (1f / vector.magnitude * effect.Value.knockbackStrength * effect.Value.knockbackStrengthMultiplier).ClampSafe(effect.Value.minKnockbackStrength, effect.Value.maxKnockbackStrength);
 			if (effect.Value.applyScaleToKnockbackStrength)
 			{

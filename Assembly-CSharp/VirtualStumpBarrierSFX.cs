@@ -23,7 +23,7 @@ public class VirtualStumpBarrierSFX : MonoBehaviour
 		}
 		else if (other.gameObject.TryGetComponent<VRRig>(out component) && !component.isLocal)
 		{
-			bool value = other.gameObject.transform.position.z < base.gameObject.transform.position.z;
+			bool value = other.gameObject.transform.position.z < gameObject.transform.position.z;
 			trackedGameObjects.Add(other.gameObject, value);
 			OnTriggerStay(other);
 		}
@@ -33,7 +33,7 @@ public class VirtualStumpBarrierSFX : MonoBehaviour
 	{
 		if (trackedGameObjects.TryGetValue(other.gameObject, out var value))
 		{
-			bool flag = other.gameObject.transform.position.z < base.gameObject.transform.position.z;
+			bool flag = other.gameObject.transform.position.z < gameObject.transform.position.z;
 			if (value != flag)
 			{
 				PlaySFX();
@@ -46,7 +46,7 @@ public class VirtualStumpBarrierSFX : MonoBehaviour
 	{
 		if (trackedGameObjects.TryGetValue(other.gameObject, out var value))
 		{
-			bool flag = other.gameObject.transform.position.z < base.gameObject.transform.position.z;
+			bool flag = other.gameObject.transform.position.z < gameObject.transform.position.z;
 			if (value != flag)
 			{
 				PlaySFX();

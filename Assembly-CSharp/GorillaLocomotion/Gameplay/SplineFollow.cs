@@ -60,7 +60,7 @@ public sealed class SplineFollow : MonoBehaviour
 
 	public void Start()
 	{
-		base.transform.rotation *= _rotationFix;
+		transform.rotation *= _rotationFix;
 		_smoothRotationTrackingRateExp = Mathf.Exp(_smoothRotationTrackingRate);
 		_progress = _splineProgressOffset;
 		_progressPerFixedUpdate = Time.fixedDeltaTime / _duration;
@@ -114,9 +114,9 @@ public sealed class SplineFollow : MonoBehaviour
 			_progress = (_progress + _progressPerFixedUpdate) % 1f;
 		}
 		SplineNode splineNode = EvaluateSpline(_progress);
-		base.transform.position = splineNode.Position;
+		transform.position = splineNode.Position;
 		Quaternion a = Quaternion.LookRotation(splineNode.Tangent) * _rotationFix;
-		base.transform.rotation = Quaternion.Slerp(a, base.transform.rotation, Mathf.Exp((0f - _smoothRotationTrackingRateExp) * Time.deltaTime));
+		transform.rotation = Quaternion.Slerp(a, transform.rotation, Mathf.Exp((0f - _smoothRotationTrackingRateExp) * Time.deltaTime));
 	}
 
 	private SplineNode EvaluateSpline(float t)

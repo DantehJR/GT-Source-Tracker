@@ -88,14 +88,14 @@ public class SIGadgetBlaster : SIGadget, ITickSystemTick
 		blasterType = GetComponent<SIGadgetBlasterType>();
 		lastFired = 0f;
 		environmentLayerMask = GTPlayer.Instance.locomotionEnabledLayers;
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(StartGrabbing));
-		GameEntity obj2 = gameEntity;
-		obj2.OnSnapped = (Action)Delegate.Combine(obj2.OnSnapped, new Action(StartGrabbing));
-		GameEntity obj3 = gameEntity;
-		obj3.OnReleased = (Action)Delegate.Combine(obj3.OnReleased, new Action(StopGrabbing));
-		GameEntity obj4 = gameEntity;
-		obj4.OnUnsnapped = (Action)Delegate.Combine(obj4.OnUnsnapped, new Action(StopGrabbing));
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(StartGrabbing));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnSnapped = (Action)Delegate.Combine(gameEntity2.OnSnapped, new Action(StartGrabbing));
+		GameEntity gameEntity3 = base.gameEntity;
+		gameEntity3.OnReleased = (Action)Delegate.Combine(gameEntity3.OnReleased, new Action(StopGrabbing));
+		GameEntity gameEntity4 = base.gameEntity;
+		gameEntity4.OnUnsnapped = (Action)Delegate.Combine(gameEntity4.OnUnsnapped, new Action(StopGrabbing));
 		TickSystem<object>.AddTickCallback(this);
 	}
 

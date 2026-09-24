@@ -281,7 +281,7 @@ public class UserStats
 
 	public static Leaderboard GetLeaderboardScore(int index)
 	{
-		LeaderboardEntry_t pLeaderboardEntry = default(LeaderboardEntry_t);
+		LeaderboardEntry_t pLeaderboardEntry = default;
 		pLeaderboardEntry.m_nGlobalRank = 0;
 		pLeaderboardEntry.m_nScore = 0;
 		pLeaderboardEntry.m_pUserName = "";

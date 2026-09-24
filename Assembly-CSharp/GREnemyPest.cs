@@ -166,17 +166,17 @@ public class GREnemyPest : MonoBehaviour, IGameEntityComponent, IGameEntitySeria
 
 	public void OnEntityInit()
 	{
-		abilityIdle.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityChase.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityAttack.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityWander.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityDie.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityGrabbed.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityThrown.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityStagger.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityFlashed.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityInvestigate.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
-		abilityJump.Setup(agent, anim, audioSource, base.transform, headTransform, senseLineOfSight);
+		abilityIdle.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityChase.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityAttack.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityWander.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityDie.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityGrabbed.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityThrown.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityStagger.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityFlashed.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityInvestigate.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
+		abilityJump.Setup(agent, anim, audioSource, transform, headTransform, senseLineOfSight);
 		SetBehavior(Behavior.Wander);
 		if ((bool)entity && (bool)entity.manager && (bool)entity.manager.ghostReactorManager && (bool)entity.manager.ghostReactorManager.reactor)
 		{
@@ -359,8 +359,7 @@ public class GREnemyPest : MonoBehaviour, IGameEntityComponent, IGameEntitySeria
 		tempRigs.Add(VRRig.LocalRig);
 		VRRigCache.Instance.GetAllUsedRigs(tempRigs);
 		senseNearby.UpdateNearby(tempRigs, senseLineOfSight);
-		float outDistanceSq;
-		VRRig vRRig = senseNearby.PickClosest(out outDistanceSq);
+		VRRig vRRig = senseNearby.PickClosest(out var _);
 		agent.RequestTarget((vRRig == null) ? null : vRRig.OwningNetPlayer);
 		switch (currBehavior)
 		{
@@ -393,7 +392,7 @@ public class GREnemyPest : MonoBehaviour, IGameEntityComponent, IGameEntitySeria
 			SetBehavior(Behavior.Chase);
 			return;
 		}
-		investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(base.transform.position, hearingRadius, investigateLocation);
+		investigateLocation = AbilityHelperFunctions.GetLocationToInvestigate(transform.position, hearingRadius, investigateLocation);
 		if (investigateLocation.HasValue)
 		{
 			abilityInvestigate.SetTargetPos(investigateLocation.Value);
@@ -436,7 +435,7 @@ public class GREnemyPest : MonoBehaviour, IGameEntityComponent, IGameEntitySeria
 			if (gRPlayer != null)
 			{
 				float num = attackRange * attackRange;
-				if ((gRPlayer.transform.position - base.transform.position).sqrMagnitude < num)
+				if ((gRPlayer.transform.position - transform.position).sqrMagnitude < num)
 				{
 					SetBehavior(Behavior.Attack);
 				}
@@ -620,7 +619,7 @@ public class GREnemyPest : MonoBehaviour, IGameEntityComponent, IGameEntitySeria
 				SetBodyState(BodyState.Bones);
 				if (tool.gameEntity.IsHeldByLocalPlayer())
 				{
-					PlayerGameEvents.MiscEvent("GRArmorBreak_" + base.name);
+					PlayerGameEvents.MiscEvent("GRArmorBreak_" + name);
 				}
 				if (tool.HasUpgradeInstalled(GRToolProgressionManager.ToolParts.FlashDamage3))
 				{
@@ -660,7 +659,7 @@ public class GREnemyPest : MonoBehaviour, IGameEntityComponent, IGameEntitySeria
 		{
 			Vector3 enemyAttackDirection = abilityAttack.targetPos - abilityAttack.initialPos;
 			GameHittable component2 = GetComponent<GameHittable>();
-			component.BlockHittable(base.transform.position, enemyAttackDirection, component2);
+			component.BlockHittable(transform.position, enemyAttackDirection, component2);
 			return;
 		}
 		Rigidbody attachedRigidbody = collider.attachedRigidbody;
@@ -701,7 +700,7 @@ public class GREnemyPest : MonoBehaviour, IGameEntityComponent, IGameEntitySeria
 		if (currBehavior == Behavior.Attack && player != null && player.gamePlayer.IsLocal() && Time.time > lastHitPlayerTime + minTimeBetweenHits)
 		{
 			lastHitPlayerTime = Time.time;
-			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, base.transform.position);
+			GhostReactorManager.Get(entity).RequestEnemyHitPlayer(GhostReactor.EnemyType.Chaser, entity.id, player, transform.position);
 		}
 	}
 
@@ -763,7 +762,7 @@ public class GREnemyPest : MonoBehaviour, IGameEntityComponent, IGameEntitySeria
 	{
 		strings = new List<string>();
 		strings.Add($"State: <color=\"yellow\">{currBehavior.ToString()}<color=\"white\"> HP: <color=\"yellow\">{hp}<color=\"white\">");
-		float magnitude = (GRSenseNearby.GetRigTestLocation(VRRig.LocalRig) - base.transform.position).magnitude;
+		float magnitude = (GRSenseNearby.GetRigTestLocation(VRRig.LocalRig) - transform.position).magnitude;
 		bool flag = GRSenseLineOfSight.HasGeoLineOfSight(headTransform.position, GRSenseNearby.GetRigTestLocation(VRRig.LocalRig), senseLineOfSight.sightDist, senseLineOfSight.visibilityMask);
 		strings.Add($"player rig dis: {magnitude} has los: {flag}");
 	}

@@ -27,13 +27,21 @@ public class ModIOTermsOfUse_v2 : LegalAgreements
 		if (modioTermsInstance != null)
 		{
 			Debug.LogError("Trying to set [LegalAgreements] instance but it is not null", this);
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			return;
 		}
 		modioTermsInstance = this;
 		stickHeldDuration = 0f;
 		scrollSpeed = _minScrollSpeed;
-		base.enabled = false;
+		enabled = false;
+	}
+
+	private void OnDestroy()
+	{
+		if (modioTermsInstance == this)
+		{
+			modioTermsInstance = null;
+		}
 	}
 
 	public async Task<Error> ShowTerms()
@@ -58,7 +66,7 @@ public class ModIOTermsOfUse_v2 : LegalAgreements
 			GTDev.LogError($"[ModIOTermsOfUse::ShowTerms] Failed to get full Privacy Policy Agreement from Mod.io: {error}");
 			return error;
 		}
-		base.enabled = true;
+		enabled = true;
 		await StartLegalAgreements();
 		return Error.None;
 	}
@@ -78,7 +86,7 @@ public class ModIOTermsOfUse_v2 : LegalAgreements
 			scrollBar.value = 1f;
 			PrivateUIRoom.StopForcedOverlay(PrivateUIRoom.OverlaySource.ModIO);
 			PrivateUIRoom.RemoveUI(uiParent);
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 	}
 

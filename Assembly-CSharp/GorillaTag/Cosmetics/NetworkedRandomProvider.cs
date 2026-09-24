@@ -229,7 +229,7 @@ public class NetworkedRandomProvider : MonoBehaviour
 	{
 		if (parentTransferable == null)
 		{
-			string s = base.gameObject.scene.name + "/" + GetHierarchyPath(base.transform) + GetType();
+			string s = gameObject.scene.name + "/" + GetHierarchyPath(transform) + GetType();
 			OwnerID = s.GetStaticHash();
 		}
 		else if (parentTransferable.IsLocalObject())

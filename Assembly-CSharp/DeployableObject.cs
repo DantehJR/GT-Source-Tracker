@@ -63,7 +63,7 @@ public class DeployableObject : TransferrableObject
 		m_VRRig = componentInParent;
 		m_VRRig.rigContainer.RigEvents.disableEvent.Add(new Action<RigContainer>(OnRigPreDisable));
 		base.OnEnable();
-		if (base.gameObject.activeInHierarchy)
+		if (gameObject.activeInHierarchy)
 		{
 			itemState &= (ItemStates)(-2);
 		}
@@ -120,9 +120,9 @@ public class DeployableObject : TransferrableObject
 		}
 		bool isLeftHand = releasingHand == EquipmentInteractor.instance.leftHand;
 		GorillaVelocityTracker interactPointVelocityTracker = GTPlayer.Instance.GetInteractPointVelocityTracker(isLeftHand);
-		Transform obj = base.transform;
-		Vector3 vector = obj.TransformPoint(Vector3.zero);
-		Quaternion rotation = obj.rotation;
+		Transform transform = base.transform;
+		Vector3 vector = transform.TransformPoint(Vector3.zero);
+		Quaternion rotation = transform.rotation;
 		Vector3 averageVelocity = interactPointVelocityTracker.GetAverageVelocity(worldSpace: true);
 		DeployLocal(vector, rotation, averageVelocity);
 		_deploySignal.Raise(ReceiverGroup.Others, BitPackUtils.PackWorldPosForNetwork(vector), BitPackUtils.PackQuaternionForNetwork(rotation), BitPackUtils.PackWorldPosForNetwork(averageVelocity * 100f));

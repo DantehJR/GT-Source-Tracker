@@ -331,20 +331,18 @@ internal class CMSSerializer : GorillaSerializer
 
 	private void ActivateTrigger(byte triggerID, double triggerTime = -1.0, bool originatedLocally = false)
 	{
-		CMSTrigger trigger;
-		bool flag = TryGetRegisteredTrigger(triggerID, out trigger);
+		bool flag = TryGetRegisteredTrigger(triggerID, out var trigger);
 		if (!double.IsFinite(triggerTime))
 		{
 			triggerTime = -1.0;
 		}
-		byte value;
-		bool num = triggerCounts.TryGetValue(triggerID, out value);
-		bool flag2 = !flag || trigger.numAllowedTriggers > 0;
-		if (num)
+		bool flag2 = triggerCounts.TryGetValue(triggerID, out var value);
+		bool flag3 = !flag || trigger.numAllowedTriggers > 0;
+		if (flag2)
 		{
 			triggerCounts[triggerID] = ((value == byte.MaxValue) ? byte.MaxValue : ((byte)(value + 1)));
 		}
-		else if (flag2)
+		else if (flag3)
 		{
 			triggerCounts.Add(triggerID, 1);
 		}

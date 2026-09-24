@@ -35,7 +35,7 @@ public class TimeSliceLodBehaviour : ATimeSliceBehaviour, ILod
 	protected void Start()
 	{
 		_updateIfDisabled = true;
-		_transform = base.transform;
+		_transform = transform;
 	}
 
 	protected void SetLod(int newLod)

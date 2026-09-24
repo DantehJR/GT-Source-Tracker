@@ -4,6 +4,6 @@ public class SIBlasterExplosion : MonoBehaviour
 {
 	private void OnDisable()
 	{
-		SIGadgetBlasterProjectile.DespawnExplosion(base.gameObject);
+		SIGadgetBlasterProjectile.DespawnExplosion(gameObject);
 	}
 }

@@ -27,7 +27,7 @@ public class SIGameEntityStealthVisibility : MonoBehaviour
 	private void LateUpdate()
 	{
 		Vector3 position = GTPlayer.Instance.transform.position;
-		float num = Vector3.SqrMagnitude(base.transform.position - position);
+		float num = Vector3.SqrMagnitude(transform.position - position);
 		if (isStealthed && num < revealRange * revealRange)
 		{
 			SetVisibility(visible: true);

@@ -81,7 +81,7 @@ public class WorldShareableItem : NetworkComponent, IRequestableOwnershipGuardCa
 		base.Awake();
 		guard = GetComponent<RequestableOwnershipGuard>();
 		teleportSerializer = GetComponent<TransformViewTeleportSerializer>();
-		NetworkSystem.Instance.RegisterSceneNetworkItem(base.gameObject);
+		NetworkSystem.Instance.RegisterSceneNetworkItem(gameObject);
 	}
 
 	internal override void OnEnable()
@@ -92,7 +92,7 @@ public class WorldShareableItem : NetworkComponent, IRequestableOwnershipGuardCa
 			base.OnEnable();
 			guard.AddCallbackTarget(this);
 			WorldShareableItemManager.Register(this);
-			NetworkSystem.Instance.RegisterSceneNetworkItem(base.gameObject);
+			NetworkSystem.Instance.RegisterSceneNetworkItem(gameObject);
 		}
 	}
 
@@ -153,7 +153,7 @@ public class WorldShareableItem : NetworkComponent, IRequestableOwnershipGuardCa
 	{
 		if (target != null)
 		{
-			Debug.LogError("ERROR!!!  WorldShareableItem.SetupSharableObject: target is expected to be null before this call. In scene path = \"" + base.transform.GetPathQ() + "\"", this);
+			Debug.LogError("ERROR!!!  WorldShareableItem.SetupSharableObject: target is expected to be null before this call. In scene path = \"" + transform.GetPathQ() + "\"", this);
 			return;
 		}
 		target = WorldTargetItem.GenerateTargetFromPlayerAndID(owner, itemIDx);
@@ -166,7 +166,7 @@ public class WorldShareableItem : NetworkComponent, IRequestableOwnershipGuardCa
 		if (!validShareable)
 		{
 			Debug.LogError($"tried to setup an invalid shareable {owner} {itemIDx} {targetXform.GetPath()}");
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 			Invalidate();
 		}
 		else
@@ -199,11 +199,11 @@ public class WorldShareableItem : NetworkComponent, IRequestableOwnershipGuardCa
 			if (guard.isTrulyMine)
 			{
 				target.targetObject.GetPositionAndRotation(out var position, out var rotation);
-				base.transform.SetPositionAndRotation(position, rotation);
+				transform.SetPositionAndRotation(position, rotation);
 			}
-			else if (!base.IsMine && EnableRemoteSync)
+			else if (!IsMine && EnableRemoteSync)
 			{
-				base.transform.GetPositionAndRotation(out var position2, out var rotation2);
+				transform.GetPositionAndRotation(out var position2, out var rotation2);
 				target.targetObject.SetPositionAndRotation(position2, rotation2);
 			}
 		}
@@ -212,7 +212,7 @@ public class WorldShareableItem : NetworkComponent, IRequestableOwnershipGuardCa
 	public void SyncToSceneObject(TransferrableObject transferrableObject)
 	{
 		target = WorldTargetItem.GenerateTargetFromWorldSharableItem(null, -2, transferrableObject.transform);
-		base.transform.parent = null;
+		transform.parent = null;
 	}
 
 	public void SetupSceneObjectOnNetwork(NetPlayer owner)

@@ -30,7 +30,7 @@ public class GRBossEyeStare : MonoBehaviour, IGorillaSliceableSimple
 
 	private void OnEnable()
 	{
-		lastLocalRot = base.transform.localEulerAngles;
+		lastLocalRot = transform.localEulerAngles;
 		GorillaSlicerSimpleManager.RegisterSliceable(this);
 	}
 
@@ -43,17 +43,17 @@ public class GRBossEyeStare : MonoBehaviour, IGorillaSliceableSimple
 	{
 		if (boss.CurrAbility != lastAbility)
 		{
-			lastLocalRot = base.transform.localEulerAngles;
+			lastLocalRot = transform.localEulerAngles;
 		}
 		if (noUpdateAbilities.Contains(boss.CurrAbility))
 		{
-			lastLocalRot = base.transform.localEulerAngles;
+			lastLocalRot = transform.localEulerAngles;
 			lastAbility = boss.CurrAbility;
 			return;
 		}
-		if (base.transform.localEulerAngles != lastLocalRot)
+		if (transform.localEulerAngles != lastLocalRot)
 		{
-			lastLocalRot = base.transform.localEulerAngles;
+			lastLocalRot = transform.localEulerAngles;
 			if (!noUpdateAbilities.Contains(boss.CurrAbility))
 			{
 				noUpdateAbilities.Add(boss.CurrAbility);
@@ -67,7 +67,7 @@ public class GRBossEyeStare : MonoBehaviour, IGorillaSliceableSimple
 			float num = float.MaxValue;
 			for (int i = 0; i < rigs.Count; i++)
 			{
-				float sqrMagnitude = (base.transform.position - rigs[i].transform.position).sqrMagnitude;
+				float sqrMagnitude = (transform.position - rigs[i].transform.position).sqrMagnitude;
 				if (sqrMagnitude < num)
 				{
 					num = sqrMagnitude;
@@ -79,8 +79,8 @@ public class GRBossEyeStare : MonoBehaviour, IGorillaSliceableSimple
 		lastAbility = boss.CurrAbility;
 		if (!(closestPlayer == null))
 		{
-			base.transform.rotation = Quaternion.Slerp(base.transform.rotation, Quaternion.LookRotation(Vector3.up, (closestPlayer.position - base.transform.position).normalized) * Quaternion.Euler(rotOffset), lerpAmount);
-			lastLocalRot = base.transform.localEulerAngles;
+			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.up, (closestPlayer.position - transform.position).normalized) * Quaternion.Euler(rotOffset), lerpAmount);
+			lastLocalRot = transform.localEulerAngles;
 		}
 	}
 }

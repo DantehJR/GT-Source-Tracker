@@ -12,7 +12,7 @@ public class GorillaScoreCounter : MonoBehaviour
 
 	private void Awake()
 	{
-		text = base.gameObject.GetComponent<Text>();
+		text = gameObject.GetComponent<Text>();
 		if (isRedTeam)
 		{
 			attribute = "redScore";

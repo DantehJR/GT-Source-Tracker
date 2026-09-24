@@ -24,7 +24,7 @@ public class PhotonVoiceLagSimulationGui : MonoBehaviour
 		if (components == null || components.Length == 0)
 		{
 			Debug.LogError("No VoiceConnection component found, PhotonVoiceStatsGui disabled", this);
-			base.enabled = false;
+			enabled = false;
 			return;
 		}
 		if (components.Length > 1)

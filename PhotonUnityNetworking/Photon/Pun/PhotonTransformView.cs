@@ -31,7 +31,7 @@ public class PhotonTransformView : MonoBehaviourPun, IPunObservable
 
 	public void Awake()
 	{
-		m_StoredPosition = base.transform.localPosition;
+		m_StoredPosition = transform.localPosition;
 		m_NetworkPosition = Vector3.zero;
 		m_NetworkRotation = Quaternion.identity;
 	}
@@ -49,7 +49,7 @@ public class PhotonTransformView : MonoBehaviourPun, IPunObservable
 	public void Update()
 	{
 		Transform transform = base.transform;
-		if (!base.photonView.IsMine && IsValid(m_NetworkPosition) && IsValid(m_NetworkRotation))
+		if (!photonView.IsMine && IsValid(m_NetworkPosition) && IsValid(m_NetworkRotation))
 		{
 			if (m_UseLocal)
 			{

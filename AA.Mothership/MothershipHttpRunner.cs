@@ -33,7 +33,7 @@ public class MothershipHttpRunner : MonoBehaviour
 		if (_instance != null)
 		{
 			_instance = null;
-			UnityEngine.Object.DestroyImmediate(base.gameObject);
+			UnityEngine.Object.DestroyImmediate(gameObject);
 		}
 	}
 

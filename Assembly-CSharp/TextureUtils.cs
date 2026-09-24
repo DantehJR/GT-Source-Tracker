@@ -22,7 +22,7 @@ public static class TextureUtils
 	{
 		if (tex == null)
 		{
-			return default(Color32);
+			return default;
 		}
 		Color32[] pixels = tex.GetPixels32();
 		int num = pixels.Length;
@@ -53,7 +53,7 @@ public static class TextureUtils
 		RenderTexture resizeRT = RenderTexture.GetTemporary(width, height, 0);
 		Graphics.Blit(source, resizeRT);
 		NativeArray<byte> narray = new NativeArray<byte>(width * height * 4, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
-		AsyncGPUReadbackRequest asyncGPUReadbackRequest = AsyncGPUReadback.RequestIntoNativeArray(ref narray, resizeRT, 0, delegate(AsyncGPUReadbackRequest request)
+		AsyncGPUReadbackRequest asyncGPUReadbackRequest = AsyncGPUReadback.RequestIntoNativeArray(ref narray, resizeRT, 0, (AsyncGPUReadbackRequest request) =>
 		{
 			if (!request.hasError)
 			{

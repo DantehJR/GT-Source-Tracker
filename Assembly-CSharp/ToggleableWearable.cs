@@ -90,7 +90,7 @@ public class ToggleableWearable : MonoBehaviour
 		if (ownerRig == null)
 		{
 			Debug.LogError("TriggerToggler: Disabling cannot find VRRig.");
-			base.enabled = false;
+			enabled = false;
 			return;
 		}
 		Renderer[] array = renderers;
@@ -99,7 +99,7 @@ public class ToggleableWearable : MonoBehaviour
 			if (renderer == null)
 			{
 				Debug.LogError("TriggerToggler: Disabling because a renderer is null.");
-				base.enabled = false;
+				enabled = false;
 				break;
 			}
 			renderer.enabled = startOn;

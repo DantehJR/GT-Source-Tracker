@@ -55,7 +55,7 @@ public class PlaySoundOnEnable : MonoBehaviour
 
 	private IEnumerator DoLoop()
 	{
-		while (base.enabled)
+		while (enabled)
 		{
 			_source.clip = _clips[Random.Range(0, _clips.Length)];
 			_source.GTPlay();

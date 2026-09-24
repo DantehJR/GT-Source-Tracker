@@ -63,7 +63,7 @@ public class NoncontrollableBroomstick : MonoBehaviour, IGorillaGrabable
 		if (unitySpline != null)
 		{
 			nativeSpline.Evaluate(progress, out var position, out var tangent, out var _);
-			base.transform.position = position;
+			transform.position = position;
 			if (lookForward)
 			{
 				a = Quaternion.LookRotation(new Vector3(tangent.x, tangent.y, tangent.z));
@@ -72,7 +72,7 @@ public class NoncontrollableBroomstick : MonoBehaviour, IGorillaGrabable
 		else if (spline != null)
 		{
 			Vector3 point = spline.GetPoint(progress, constantVelocity);
-			base.transform.position = point;
+			transform.position = point;
 			if (lookForward)
 			{
 				a = Quaternion.LookRotation(spline.GetDirection(progress, constantVelocity));
@@ -80,7 +80,7 @@ public class NoncontrollableBroomstick : MonoBehaviour, IGorillaGrabable
 		}
 		if (lookForward)
 		{
-			base.transform.rotation = Quaternion.Slerp(a, base.transform.rotation, Mathf.Exp((0f - smoothRotationTrackingRateExp) * Time.deltaTime));
+			transform.rotation = Quaternion.Slerp(a, transform.rotation, Mathf.Exp((0f - smoothRotationTrackingRateExp) * Time.deltaTime));
 		}
 	}
 
@@ -91,8 +91,8 @@ public class NoncontrollableBroomstick : MonoBehaviour, IGorillaGrabable
 
 	void IGorillaGrabable.OnGrabbed(GorillaGrabber g, out Transform grabbedObject, out Vector3 grabbedLocalPosition)
 	{
-		grabbedObject = base.transform;
-		grabbedLocalPosition = base.transform.InverseTransformPoint(g.transform.position);
+		grabbedObject = transform;
+		grabbedLocalPosition = transform.InverseTransformPoint(g.transform.position);
 	}
 
 	void IGorillaGrabable.OnGrabReleased(GorillaGrabber g)

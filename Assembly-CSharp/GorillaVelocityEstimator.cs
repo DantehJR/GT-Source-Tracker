@@ -43,10 +43,12 @@ public class GorillaVelocityEstimator : MonoBehaviour
 		currentFrame = 0;
 		for (int i = 0; i < history.Length; i++)
 		{
-			history[i] = default(VelocityHistorySample);
+			history[i] = default;
 		}
-		lastPos = base.transform.position;
-		lastRotation = base.transform.rotation;
+		linearVelocity = Vector3.zero;
+		angularVelocity = Vector3.zero;
+		lastPos = transform.position;
+		lastRotation = transform.rotation;
 		GorillaVelocityEstimatorManager.Register(this);
 	}
 
@@ -62,7 +64,7 @@ public class GorillaVelocityEstimator : MonoBehaviour
 
 	public void TriggeredLateUpdate()
 	{
-		base.transform.GetPositionAndRotation(out var position, out var rotation);
+		transform.GetPositionAndRotation(out var position, out var rotation);
 		Vector3 vector = Vector3.zero;
 		if (!useGlobalSpace)
 		{

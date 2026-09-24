@@ -32,7 +32,7 @@ public class RCCosmeticNetworkSync : MonoBehaviourPun, IPunObservable, IPunInsta
 			DestroyThis();
 			return;
 		}
-		if (info.Sender != base.photonView.Owner || base.photonView.IsRoomView)
+		if (info.Sender != photonView.Owner || photonView.IsRoomView)
 		{
 			MonkeAgent.instance.SendReport("spoofed rc instantiate", info.Sender.UserId, info.Sender.NickName);
 			DestroyThis();
@@ -61,7 +61,7 @@ public class RCCosmeticNetworkSync : MonoBehaviourPun, IPunObservable, IPunInsta
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
-		if (info.Sender != base.photonView.Owner)
+		if (info.Sender != photonView.Owner)
 		{
 			return;
 		}
@@ -106,13 +106,13 @@ public class RCCosmeticNetworkSync : MonoBehaviourPun, IPunObservable, IPunInsta
 
 	private void DestroyThis()
 	{
-		if (base.photonView.IsMine)
+		if (photonView.IsMine)
 		{
-			PhotonNetwork.Destroy(base.gameObject);
+			PhotonNetwork.Destroy(gameObject);
 		}
 		else
 		{
-			base.gameObject.SetActive(value: false);
+			gameObject.SetActive(value: false);
 		}
 	}
 }

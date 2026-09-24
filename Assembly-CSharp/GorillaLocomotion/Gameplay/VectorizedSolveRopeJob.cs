@@ -120,23 +120,23 @@ public struct VectorizedSolveRopeJob : IJob
 					float4 zVals = data.posZ[num] - data.posZ[num + 1];
 					length4(ref xVals, ref yVals, ref zVals, ref output);
 					float4 float8 = math.abs(output - nodeDistance);
-					float4 obj = math.sign(output - nodeDistance);
+					float4 float9 = math.sign(output - nodeDistance);
 					output += float6 - float5;
 					output += 0.01f;
-					float4 float9 = xVals / output;
-					float4 float10 = yVals / output;
-					float4 float11 = zVals / output;
-					float4 float12 = obj * float9 * float8;
-					float4 float13 = obj * float10 * float8;
-					float4 float14 = obj * float11 * float8;
-					float4 float15 = data.nodeMass[num] / (data.nodeMass[num] + data.nodeMass[num + 1]);
-					float4 float16 = data.nodeMass[num + 1] / (data.nodeMass[num] + data.nodeMass[num + 1]);
-					data.posX[num] -= float12 * float7 * float15;
-					data.posY[num] -= float13 * float7 * float15;
-					data.posZ[num] -= float14 * float7 * float15;
-					data.posX[num + 1] += float12 * float7 * float16;
-					data.posY[num + 1] += float13 * float7 * float16;
-					data.posZ[num + 1] += float14 * float7 * float16;
+					float4 float10 = xVals / output;
+					float4 float11 = yVals / output;
+					float4 float12 = zVals / output;
+					float4 float13 = float9 * float10 * float8;
+					float4 float14 = float9 * float11 * float8;
+					float4 float15 = float9 * float12 * float8;
+					float4 float16 = data.nodeMass[num] / (data.nodeMass[num] + data.nodeMass[num + 1]);
+					float4 float17 = data.nodeMass[num + 1] / (data.nodeMass[num] + data.nodeMass[num + 1]);
+					data.posX[num] -= float13 * float7 * float16;
+					data.posY[num] -= float14 * float7 * float16;
+					data.posZ[num] -= float15 * float7 * float16;
+					data.posX[num + 1] += float13 * float7 * float17;
+					data.posY[num + 1] += float14 * float7 * float17;
+					data.posZ[num + 1] += float15 * float7 * float17;
 				}
 			}
 		}
@@ -159,18 +159,18 @@ public struct VectorizedSolveRopeJob : IJob
 				float4 zVals = data.posZ[num] - data.posZ[num + 1];
 				length4(ref xVals, ref yVals, ref zVals, ref output);
 				float4 float7 = math.abs(output - nodeDistance);
-				float4 obj = math.sign(output - nodeDistance);
+				float4 float8 = math.sign(output - nodeDistance);
 				output += data.validNodes[num] - float5;
 				output += 0.01f;
-				float4 float8 = xVals / output;
-				float4 float9 = yVals / output;
-				float4 float10 = zVals / output;
-				float4 float11 = obj * float8 * float7;
-				float4 float12 = obj * float9 * float7;
-				float4 float13 = obj * float10 * float7;
-				data.posX[num + 1] += float11 * float6;
-				data.posY[num + 1] += float12 * float6;
-				data.posZ[num + 1] += float13 * float6;
+				float4 float9 = xVals / output;
+				float4 float10 = yVals / output;
+				float4 float11 = zVals / output;
+				float4 float12 = float8 * float9 * float7;
+				float4 float13 = float8 * float10 * float7;
+				float4 float14 = float8 * float11 * float7;
+				data.posX[num + 1] += float12 * float6;
+				data.posY[num + 1] += float13 * float6;
+				data.posZ[num + 1] += float14 * float6;
 			}
 		}
 	}

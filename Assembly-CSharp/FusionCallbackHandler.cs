@@ -281,15 +281,15 @@ public class FusionCallbackHandler : SimulationBehaviour, INetworkRunnerCallback
 	{
 		byte* ptr = (byte*)message + 28;
 		int num = 8;
-		byte num2 = ptr[num];
+		byte b = ptr[num];
 		num += 4 & -4;
-		byte eventCode = num2;
+		byte eventCode = b;
 		byte[] array = new byte[*(int*)(ptr + num)];
 		num += 4;
 		num = ((Native.CopyToArray(array, ptr + num) + 3) & -4) + num;
-		bool num3 = ReadWriteUtilsForWeaver.ReadBoolean((int*)(ptr + num));
+		bool flag = ReadWriteUtilsForWeaver.ReadBoolean((int*)(ptr + num));
 		num += 4;
-		bool hasOps = num3;
+		bool hasOps = flag;
 		byte[] array2 = new byte[*(int*)(ptr + num)];
 		num += 4;
 		_ = ((Native.CopyToArray(array2, ptr + num) + 3) & -4) + num;
@@ -305,15 +305,15 @@ public class FusionCallbackHandler : SimulationBehaviour, INetworkRunnerCallback
 	{
 		byte* ptr = (byte*)message + 28;
 		int num = 8;
-		byte num2 = ptr[num];
+		byte b = ptr[num];
 		num += 4 & -4;
-		byte eventCode = num2;
+		byte eventCode = b;
 		byte[] array = new byte[*(int*)(ptr + num)];
 		num += 4;
 		num = ((Native.CopyToArray(array, ptr + num) + 3) & -4) + num;
-		bool num3 = ReadWriteUtilsForWeaver.ReadBoolean((int*)(ptr + num));
+		bool flag = ReadWriteUtilsForWeaver.ReadBoolean((int*)(ptr + num));
 		num += 4;
-		bool hasOps = num3;
+		bool hasOps = flag;
 		byte[] array2 = new byte[*(int*)(ptr + num)];
 		num += 4;
 		_ = ((Native.CopyToArray(array2, ptr + num) + 3) & -4) + num;

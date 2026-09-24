@@ -28,7 +28,7 @@ public class SportGoalTrigger : MonoBehaviour
 	{
 		foreach (SportBall item in ballsPendingTriggerExit)
 		{
-			if ((item.transform.position - base.transform.position).sqrMagnitude > ballTriggerExitDistanceFallback * ballTriggerExitDistanceFallback)
+			if ((item.transform.position - transform.position).sqrMagnitude > ballTriggerExitDistanceFallback * ballTriggerExitDistanceFallback)
 			{
 				ballsPendingTriggerExit.Remove(item);
 			}

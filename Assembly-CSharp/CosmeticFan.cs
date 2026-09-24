@@ -35,14 +35,14 @@ public class CosmeticFan : MonoBehaviour
 		targetSpeed = maxSpeed;
 		if (spinUpDuration > 0f)
 		{
-			base.enabled = true;
+			enabled = true;
 			currentAccelRate = spinUpRate;
 		}
 		else
 		{
 			currentSpeed = maxSpeed;
 		}
-		base.enabled = true;
+		enabled = true;
 	}
 
 	public void Stop()
@@ -50,7 +50,7 @@ public class CosmeticFan : MonoBehaviour
 		targetSpeed = 0f;
 		if (spinDownDuration > 0f)
 		{
-			base.enabled = true;
+			enabled = true;
 			currentAccelRate = spinDownRate;
 		}
 		else
@@ -63,16 +63,16 @@ public class CosmeticFan : MonoBehaviour
 	{
 		targetSpeed = 0f;
 		currentSpeed = 0f;
-		base.enabled = false;
+		enabled = false;
 	}
 
 	private void Update()
 	{
 		currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, currentAccelRate * Time.deltaTime);
-		base.transform.localRotation = base.transform.localRotation * Quaternion.AngleAxis(currentSpeed * Time.deltaTime, axis);
+		transform.localRotation *= Quaternion.AngleAxis(currentSpeed * Time.deltaTime, axis);
 		if (currentSpeed == 0f && targetSpeed == 0f)
 		{
-			base.enabled = false;
+			enabled = false;
 		}
 	}
 }

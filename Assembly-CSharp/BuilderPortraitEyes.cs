@@ -16,7 +16,7 @@ public class BuilderPortraitEyes : MonoBehaviour, IGorillaSliceableSimple
 	public void OnEnable()
 	{
 		GorillaSlicerSimpleManager.RegisterSliceable(this, GorillaSlicerSimpleManager.UpdateStep.LateUpdate);
-		scale = base.transform.lossyScale.x;
+		scale = transform.lossyScale.x;
 	}
 
 	public void OnDisable()

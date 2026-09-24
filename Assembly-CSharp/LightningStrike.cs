@@ -34,8 +34,8 @@ public class LightningStrike : MonoBehaviour
 		{
 			Initialize();
 		}
-		base.transform.position = p1;
-		base.transform.rotation = Quaternion.LookRotation(p1 - p2);
+		transform.position = p1;
+		transform.rotation = Quaternion.LookRotation(p1 - p2);
 		psShape.radius = Vector3.Distance(p1, p2) * 0.5f;
 		psShape.position = new Vector3(0f, 0f, 0f - psShape.radius);
 		psShape.randomPositionAmount = Mathf.Clamp(psShape.radius / 50f, 0f, 1f);
@@ -43,6 +43,6 @@ public class LightningStrike : MonoBehaviour
 		psTrails.colorOverLifetime = colorOverLifetime;
 		psMain.duration = duration;
 		audioSource.volume = Mathf.Clamp(psShape.radius / 5f, 0f, 1f) * audioVolume;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 	}
 }

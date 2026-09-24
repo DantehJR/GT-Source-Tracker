@@ -10,11 +10,11 @@ public class CollisionEventNotifier : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		this.CollisionEnterEvent?.Invoke(this, collision);
+		CollisionEnterEvent?.Invoke(this, collision);
 	}
 
 	private void OnCollisionExit(Collision collision)
 	{
-		this.CollisionExitEvent?.Invoke(this, collision);
+		CollisionExitEvent?.Invoke(this, collision);
 	}
 }

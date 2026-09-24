@@ -82,9 +82,9 @@ public class GRBadge : MonoBehaviour, IGameEntityComponent
 		{
 			flag |= Time.timeAsDouble < gRPlayer.lastLeftWithBadgeAttachedTime + 60.0;
 		}
-		if (gRPlayer != null && flag)
+		if ((gRPlayer != null) & flag)
 		{
-			base.transform.position = gRPlayer.badgeBodyAnchor.position;
+			transform.position = gRPlayer.badgeBodyAnchor.position;
 			gRPlayer.AttachBadge(this);
 		}
 		RefreshText(player);
@@ -136,16 +136,16 @@ public class GRBadge : MonoBehaviour, IGameEntityComponent
 
 	private IEnumerator RetractCoroutine()
 	{
-		base.transform.localRotation = Quaternion.identity;
-		Vector3 localPosition = base.transform.localPosition;
+		transform.localRotation = Quaternion.identity;
+		Vector3 localPosition = transform.localPosition;
 		for (float sqrMagnitude = localPosition.sqrMagnitude; sqrMagnitude > 1E-05f; sqrMagnitude = localPosition.sqrMagnitude)
 		{
 			localPosition = Vector3.MoveTowards(localPosition, Vector3.zero, retractSpeed * Time.deltaTime);
-			base.transform.localPosition = localPosition;
+			transform.localPosition = localPosition;
 			yield return null;
-			localPosition = base.transform.localPosition;
+			localPosition = transform.localPosition;
 		}
-		base.transform.localPosition = Vector3.zero;
+		transform.localPosition = Vector3.zero;
 	}
 
 	private void PlayAttachFx()

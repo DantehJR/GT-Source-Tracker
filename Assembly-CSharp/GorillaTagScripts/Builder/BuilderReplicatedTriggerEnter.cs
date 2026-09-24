@@ -114,7 +114,7 @@ public class BuilderReplicatedTriggerEnter : MonoBehaviour, IBuilderPieceCompone
 		if (rig != null)
 		{
 			float num = 1.5f * rig.scaleFactor;
-			if (!((rig.transform.position - base.transform.position).sqrMagnitude > num * num))
+			if (!((rig.transform.position - transform.position).sqrMagnitude > num * num))
 			{
 				GTPlayer.Instance.SetMaximumSlipThisFrame();
 				GTPlayer.Instance.ApplyKnockback(knockbackDirection.forward, knockbackVelocity * rig.scaleFactor);

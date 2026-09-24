@@ -26,7 +26,7 @@ public class TitleDataFeatureFlags
 
 	public void FetchFeatureFlags()
 	{
-		PlayFabTitleDataCache.Instance.GetTitleData(TitleDataKey, delegate(string json)
+		PlayFabTitleDataCache.Instance.GetTitleData(TitleDataKey, (string json) =>
 		{
 			try
 			{
@@ -52,7 +52,7 @@ public class TitleDataFeatureFlags
 			{
 				ready = true;
 			}
-		}, delegate(PlayFabError e)
+		}, (PlayFabError e) =>
 		{
 			Debug.LogError("Error fetching rollout feature flags: " + e.ErrorMessage);
 			ready = true;
@@ -74,7 +74,7 @@ public class TitleDataFeatureFlags
 		bool value3;
 		if (!flagValueByName.TryGetValue(flagName, out var value2))
 		{
-			return defaults.TryGetValue(flagName, out value3) && value3;
+			return defaults.TryGetValue(flagName, out value3) & value3;
 		}
 		if (value2 <= 0)
 		{
@@ -96,7 +96,7 @@ public class TitleDataFeatureFlags
 		bool value3;
 		if (!flagValueByName.TryGetValue(flagName, out var value2))
 		{
-			return defaults.TryGetValue(flagName, out value3) && value3;
+			return defaults.TryGetValue(flagName, out value3) & value3;
 		}
 		return value2 > 0;
 	}

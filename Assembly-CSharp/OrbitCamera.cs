@@ -14,7 +14,7 @@ public class OrbitCamera : MonoBehaviour
 	public void Update()
 	{
 		m_phase += kOrbitSpeed * MathUtil.TwoPi * Time.deltaTime;
-		base.transform.position = new Vector3(-4f * Mathf.Cos(m_phase), 6f, 4f * Mathf.Sin(m_phase));
-		base.transform.rotation = Quaternion.LookRotation((new Vector3(0f, 3f, 0f) - base.transform.position).normalized);
+		transform.position = new Vector3(-4f * Mathf.Cos(m_phase), 6f, 4f * Mathf.Sin(m_phase));
+		transform.rotation = Quaternion.LookRotation((new Vector3(0f, 3f, 0f) - transform.position).normalized);
 	}
 }

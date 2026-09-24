@@ -24,6 +24,10 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	public delegate void ZoneClearEvent(GTZone zoneId);
 
+	public delegate void AuthorityChangeEvent(NetPlayer fromPlayer, NetPlayer toPlayer);
+
+	public delegate void ZoneActiveChangeEvent(bool active);
+
 	private enum ZoneState
 	{
 		WaitingToEnterZone,
@@ -255,6 +259,10 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	public event ZoneClearEvent onZoneClear;
 
+	public event AuthorityChangeEvent OnAuthorityChanged;
+
+	public event ZoneActiveChangeEvent OnZoneActiveChanged;
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -298,11 +306,11 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		BuildFactory();
 		allManagers.Add(this);
 		managersByZone[(int)zone] = this;
-		if (base.transform.parent != null)
+		if (transform.parent != null)
 		{
-			base.transform.SetParent(null, worldPositionStays: true);
+			transform.SetParent(null, worldPositionStays: true);
 		}
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+		UnityEngine.Object.DontDestroyOnLoad(gameObject);
 	}
 
 	internal void RegisterScenePlacedEntities()
@@ -329,8 +337,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		{
 			return;
 		}
-		XSceneRefTarget component;
-		int num = ((!entity.TryGetComponent<XSceneRefTarget>(out component) || component.UniqueID <= 0) ? ComputeNetIdFromHierarchyForCustomMaps(entity.transform) : NetIdFromXSceneRefId(component.UniqueID));
+		int num = ((!entity.TryGetComponent<XSceneRefTarget>(out var component) || component.UniqueID <= 0) ? ComputeNetIdFromHierarchyForCustomMaps(entity.transform) : NetIdFromXSceneRefId(component.UniqueID));
 		if (netIdToIndex.TryGetValue(num, out var value))
 		{
 			GameEntity gameEntity = ((value >= 0 && value < entities.Count) ? entities[value] : null);
@@ -416,9 +423,9 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	private static void ResetScenePlacedTransform(GameEntity entity, in ScenePlacedRecord record)
 	{
-		bool num = entity.transform.parent != null;
-		bool flag = entity.IsHeld() || entity.snappedByActorNumber != -1;
-		if (num || flag)
+		bool flag = entity.transform.parent != null;
+		bool flag2 = entity.IsHeld() || entity.snappedByActorNumber != -1;
+		if (flag | flag2)
 		{
 			if (entity.manager != null)
 			{
@@ -656,7 +663,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		int num = FindNewEntityIndex();
 		entities[num] = gameEntity;
 		entitiesActiveCount++;
-		gameEntityData.Add(default(GameEntityData));
+		gameEntityData.Add(default);
 		gameEntity.id = new GameEntityId
 		{
 			index = num
@@ -854,12 +861,12 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	public virtual bool IsValidClientRPC(Player sender)
 	{
-		bool num = IsAuthorityPlayer(sender);
-		bool flag = IsZoneActive();
-		bool flag2 = sender.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
-		if (num)
+		bool flag = IsAuthorityPlayer(sender);
+		bool flag2 = IsZoneActive();
+		bool flag3 = sender.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
+		if (flag)
 		{
-			return flag || flag2;
+			return flag2 | flag3;
 		}
 		return false;
 	}
@@ -1012,7 +1019,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		Vector3 position = VRRig.LocalRig.transform.position;
 		int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
 		bool flag = true;
-		for (int i = 0; i < zoneComponents.Count && flag; i++)
+		for (int i = 0; (i < zoneComponents.Count) & flag; i++)
 		{
 			flag &= zoneComponents[i].ValidateMigratedGameEntity(GetNetIdFromEntityId(entity.id), entity.typeId, position, Quaternion.identity, entity.createData, actorNumber);
 		}
@@ -1022,7 +1029,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 	private void BuildFactory()
 	{
 		using Utf16ValueStringBuilder utf16ValueStringBuilder = ZString.CreateStringBuilder(notNested: true);
-		string value = "[GT/GameEntityManager]  BuildFactory: Entity names and typeIds for manager \"" + base.name + "\":";
+		string value = "[GT/GameEntityManager]  BuildFactory: Entity names and typeIds for manager \"" + name + "\":";
 		utf16ValueStringBuilder.AppendLine(value);
 		foreach (IGameEntityZoneComponent zoneComponent in zoneComponents)
 		{
@@ -1383,7 +1390,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 				return true;
 			}
 		}
-		record = default(ScenePlacedRecord);
+		record = default;
 		return false;
 	}
 
@@ -1402,15 +1409,13 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		{
 			return;
 		}
-		float value;
-		bool flag = playerZoneJoinTimes.TryGetValue(joiningActorNum, out value) && Time.unscaledTime - value < 10f;
-		GamePlayer joiningPlayer;
-		bool num = GamePlayer.TryGetGamePlayer(joiningActorNum, out joiningPlayer);
-		bool flag2 = !isAuthority && GetAuthorityPlayer()?.ActorNumber != info.Sender.ActorNumber;
-		bool flag3 = isAuthority && info.Sender.ActorNumber != joiningActorNum;
-		bool flag4 = stateData == null || stateData.Length >= 255;
-		bool flag5 = num && joiningPlayer.DidJoinWithItems && !flag;
-		if (!num || flag2 || flag3 || flag4 || flag5 || !IsInZone())
+		bool flag = playerZoneJoinTimes.TryGetValue(joiningActorNum, out var value) && Time.unscaledTime - value < 10f;
+		bool flag2 = GamePlayer.TryGetGamePlayer(joiningActorNum, out var joiningPlayer);
+		bool flag3 = !isAuthority && GetAuthorityPlayer()?.ActorNumber != info.Sender.ActorNumber;
+		bool flag4 = isAuthority && info.Sender.ActorNumber != joiningActorNum;
+		bool flag5 = stateData == null || stateData.Length >= 255;
+		bool flag6 = flag2 && joiningPlayer.DidJoinWithItems && !flag;
+		if ((!flag2 | flag3 | flag4 | flag5 | flag6) || !IsInZone())
 		{
 			return;
 		}
@@ -1419,7 +1424,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			joiningPlayer.DidJoinWithItems = true;
 		}
 		Action createItemsCallback = null;
-		createItemsCallback = delegate
+		createItemsCallback = () =>
 		{
 			try
 			{
@@ -1427,14 +1432,14 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 				gamePlayer2.OnPlayerInitialized = (Action)Delegate.Remove(gamePlayer2.OnPlayerInitialized, createItemsCallback);
 				using MemoryStream input = new MemoryStream(GZipStream.UncompressBuffer(stateData));
 				using BinaryReader binaryReader = new BinaryReader(input);
-				int num2 = binaryReader.ReadInt32();
-				if (num2 <= 4 && (isAuthority || netIds.Length == num2))
+				int num = binaryReader.ReadInt32();
+				if (num <= 4 && (isAuthority || netIds.Length == num))
 				{
 					if (isAuthority)
 					{
-						netIds = new int[num2];
+						netIds = new int[num];
 					}
-					for (int i = 0; i < num2; i++)
+					for (int i = 0; i < num; i++)
 					{
 						_JoinWithItems_ReadOne(binaryReader, out var entityTypeId, out var localPos, out var localRot, out var createData, out var createdByEntityNetId, out var slotIndex);
 						if (!joiningPlayer.TryGetSlotXform(slotIndex, out var slotXform))
@@ -1452,12 +1457,12 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 							Vector3 pos = slotXform.TransformPoint(localPos);
 							if (localPos.IsValid(10000f) && localRot.IsValid() && FactoryHasEntity(entityTypeId) && IsPositionInManagerBounds(pos))
 							{
-								bool flag6 = true;
-								for (int j = 0; j < zoneComponents.Count && flag6; j++)
+								bool flag7 = true;
+								for (int j = 0; (j < zoneComponents.Count) & flag7; j++)
 								{
-									flag6 &= zoneComponents[j].ValidateMigratedGameEntity(netId, entityTypeId, joiningPlayer.rig.transform.position, Quaternion.identity, createData, joiningActorNum);
+									flag7 &= zoneComponents[j].ValidateMigratedGameEntity(netId, entityTypeId, joiningPlayer.rig.transform.position, Quaternion.identity, createData, joiningActorNum);
 								}
-								if (flag6)
+								if (flag7)
 								{
 									GameEntityId gameEntityId = CreateAndInitItemLocal(netId, entityTypeId, joiningPlayer.rig.transform.position, Quaternion.identity, createData, createdByEntityNetId);
 									bool isLeftHand = slotIndex == 0;
@@ -1761,7 +1766,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		}
 		bool flag2 = gamePlayer.IsHoldingEntity(entityIdFromNetId, isLeftHand: false) || gamePlayer.IsHoldingEntity(entityIdFromNetId, isLeftHand: true);
 		bool flag3 = gameEntity.lastHeldByActorNumber == info.Sender.ActorNumber;
-		if (!flag && (flag2 || flag3))
+		if (!flag && (flag2 | flag3))
 		{
 			if (component4 != null)
 			{
@@ -1779,15 +1784,15 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		if (!flag)
 		{
 			bool flag4 = gameEntity.snappedByActorNumber == gamePlayer.rig.OwningNetPlayer.ActorNumber;
-			if (gameEntity.canHoldingPlayerUpdateState && flag2)
+			if (gameEntity.canHoldingPlayerUpdateState & flag2)
 			{
 				flag = true;
 			}
-			else if (gameEntity.canLastHoldingPlayerUpdateState && flag3)
+			else if (gameEntity.canLastHoldingPlayerUpdateState & flag3)
 			{
 				flag = true;
 			}
-			else if (gameEntity.canSnapPlayerUpdateState && flag4)
+			else if (gameEntity.canSnapPlayerUpdateState & flag4)
 			{
 				flag = true;
 			}
@@ -1899,7 +1904,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			int num = out_gamePlayer2.FindHandIndex(gameEntityId);
 			bool flag = gameEntity.heldByActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
 			out_gamePlayer2.ClearGrabbedIfHeld(gameEntityId, this);
-			if (num != -1 && flag)
+			if ((num != -1) & flag)
 			{
 				GamePlayerLocal.instance.ClearGrabbed(num);
 			}
@@ -2071,7 +2076,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	private static bool SegmentHitsBounds(Bounds bounds, Vector3 a, Vector3 b, out Vector3 hitPoint, out float distance)
 	{
-		hitPoint = default(Vector3);
+		hitPoint = default;
 		distance = float.MaxValue;
 		Vector3 vector = b - a;
 		float magnitude = vector.magnitude;
@@ -2349,10 +2354,10 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		{
 			gameEntity.gravityController.SetPersonalGravityDirection(vRRig.transform.up);
 		}
-		bool num = thrownByPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
+		bool flag = thrownByPlayer.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber;
 		int handIndex = GamePlayer.GetHandIndex(isLeftHand);
 		RigContainer playerRig;
-		if (num)
+		if (flag)
 		{
 			GamePlayerLocal.instance.gamePlayer.ClearGrabbed(handIndex);
 			GamePlayerLocal.instance.ClearGrabbed(handIndex);
@@ -2806,11 +2811,11 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		bool flag = true;
 		if (player != null && player.rig != null)
 		{
-			if (isLeftHand || checkBothHands)
+			if (isLeftHand | checkBothHands)
 			{
 				flag = (worldPosition - player.rig.leftHandTransform.position).sqrMagnitude < acceptableRadius * acceptableRadius;
 			}
-			if (!isLeftHand || checkBothHands)
+			if (!isLeftHand | checkBothHands)
 			{
 				float sqrMagnitude = (worldPosition - player.rig.rightHandTransform.position).sqrMagnitude;
 				flag = flag && sqrMagnitude < acceptableRadius * acceptableRadius;
@@ -2848,7 +2853,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			dataAsType = (T)obj;
 			return true;
 		}
-		dataAsType = default(T);
+		dataAsType = default;
 		return false;
 	}
 
@@ -3202,7 +3207,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	private void UpdateAuthority(List<VRRig> allRigs)
 	{
-		if (!PhotonNetwork.InRoom && base.IsMine)
+		if (!PhotonNetwork.InRoom && IsMine)
 		{
 			if (!IsAuthority())
 			{
@@ -3418,7 +3423,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		{
 			_lastUpdateZoneStateAuthLogSig = num;
 		}
-		if (flag && inRoom)
+		if (flag & inRoom)
 		{
 			SetZoneState(ZoneState.Active);
 			for (int i = 0; i < zoneComponents.Count; i++)
@@ -3513,17 +3518,18 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		{
 			return;
 		}
+		bool flag = IsZoneActive();
 		zoneStateData.state = newState;
 		zoneStateData.stateStartTime = Time.timeAsDouble;
 		switch (zoneStateData.state)
 		{
 		case ZoneState.WaitingToEnterZone:
 		{
-			bool num = ShouldClearZone();
-			bool flag = zoneClearReason == ZoneClearReason.MigrateGameEntityZone;
-			bool flag2 = zoneClearReason == ZoneClearReason.Disconnect;
-			bool ignoreHeldGadgets = !num && !flag && !flag2;
-			if (flag2 && activeManager == this)
+			bool flag2 = ShouldClearZone();
+			bool flag3 = zoneClearReason == ZoneClearReason.MigrateGameEntityZone;
+			bool flag4 = zoneClearReason == ZoneClearReason.Disconnect;
+			bool ignoreHeldGadgets = !flag2 && !flag3 && !flag4;
+			if (flag4 && activeManager == this)
 			{
 				activeManager = null;
 				GamePlayerLocal.instance.currGameEntityManager = null;
@@ -3590,8 +3596,11 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			}
 			break;
 		}
-		case ZoneState.WaitingToRequestState:
-			break;
+		}
+		bool flag5 = IsZoneActive();
+		if (flag5 != flag)
+		{
+			OnZoneActiveChanged?.Invoke(flag5);
 		}
 	}
 
@@ -3736,6 +3745,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	public void OnOwnershipTransferred(NetPlayer toPlayer, NetPlayer fromPlayer)
 	{
+		OnAuthorityChanged?.Invoke(fromPlayer, toPlayer);
 		if (toPlayer == null || !toPlayer.IsLocal || fromPlayer == null || fromPlayer.InRoom || !GamePlayer.TryGetGamePlayer(fromPlayer.ActorNumber, out var out_gamePlayer))
 		{
 			return;
@@ -3818,14 +3828,14 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		s_scenePlacedEntities.Remove(scene.name);
 	}
 
-	private string GetZoneSceneName()
+	internal string GetZoneSceneName()
 	{
 		if (string.IsNullOrEmpty(cachedZoneSceneName))
 		{
 			cachedZoneSceneName = ((ZoneManagement.instance != null) ? ZoneManagement.instance.GetSceneNameForZone(zone) : null);
 			if (string.IsNullOrEmpty(cachedZoneSceneName))
 			{
-				cachedZoneSceneName = base.gameObject.scene.name;
+				cachedZoneSceneName = gameObject.scene.name;
 			}
 		}
 		return cachedZoneSceneName;

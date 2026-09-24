@@ -18,7 +18,7 @@ public class GorillaKeyWrapper<TBinding> : MonoBehaviour where TBinding : Enum
 	{
 		if (!defineButtonsManually)
 		{
-			FindMatchingButtons(base.gameObject);
+			FindMatchingButtons(gameObject);
 		}
 		else
 		{

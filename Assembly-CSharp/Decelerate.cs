@@ -16,7 +16,7 @@ public class Decelerate : MonoBehaviour
 
 	public void Restart()
 	{
-		base.enabled = true;
+		enabled = true;
 	}
 
 	private void Update()
@@ -29,7 +29,7 @@ public class Decelerate : MonoBehaviour
 			{
 				_rigidbody.linearVelocity = Vector3.zero;
 				onStop?.Invoke();
-				base.enabled = false;
+				enabled = false;
 			}
 			else
 			{

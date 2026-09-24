@@ -75,22 +75,22 @@ public class CosmeticCritterCatcherShade : CosmeticCritterCatcher
 		}
 		if (critter is CosmeticCritterShadeFleeing)
 		{
-			if ((catchAction & CosmeticCritterAction.Despawn) != CosmeticCritterAction.None && (critter.transform.position - catchOrigin.position).sqrMagnitude <= catchRadius * catchRadius + 1f && targetHoldTime >= minSecondsLockedToCatch * 0.8f)
+			if ((catchAction & CosmeticCritterAction.Despawn) != 0 && (critter.transform.position - catchOrigin.position).sqrMagnitude <= catchRadius * catchRadius + 1f && targetHoldTime >= minSecondsLockedToCatch * 0.8f)
 			{
 				return true;
 			}
-			if ((catchAction & CosmeticCritterAction.ShadeHeartbeat) != CosmeticCritterAction.None && shadeRevealer.CritterWithinBeamThreshold(critter, ShadeRevealer.State.LOCKED, 2f))
+			if ((catchAction & CosmeticCritterAction.ShadeHeartbeat) != 0 && shadeRevealer.CritterWithinBeamThreshold(critter, ShadeRevealer.State.LOCKED, 2f))
 			{
 				return true;
 			}
 		}
 		else if (critter is CosmeticCritterShadeHidden)
 		{
-			if ((catchAction & (CosmeticCritterAction.Despawn | CosmeticCritterAction.SpawnLinked)) != CosmeticCritterAction.None && targetHoldTime >= secondsToReveal * 0.8f)
+			if ((catchAction & (CosmeticCritterAction.Despawn | CosmeticCritterAction.SpawnLinked)) != 0 && targetHoldTime >= secondsToReveal * 0.8f)
 			{
 				return true;
 			}
-			if ((catchAction & CosmeticCritterAction.ShadeHeartbeat) != CosmeticCritterAction.None && shadeRevealer.CritterWithinBeamThreshold(critter, ShadeRevealer.State.TRACKING, 2f))
+			if ((catchAction & CosmeticCritterAction.ShadeHeartbeat) != 0 && shadeRevealer.CritterWithinBeamThreshold(critter, ShadeRevealer.State.TRACKING, 2f))
 			{
 				return true;
 			}
@@ -107,7 +107,7 @@ public class CosmeticCritterCatcherShade : CosmeticCritterCatcher
 		if (critter is CosmeticCritterShadeFleeing)
 		{
 			maxHoldTime = minSecondsLockedToCatch;
-			if ((catchAction & CosmeticCritterAction.Despawn) != CosmeticCritterAction.None)
+			if ((catchAction & CosmeticCritterAction.Despawn) != 0)
 			{
 				shadeRevealer.ShadeCaught();
 				currentTarget = null;
@@ -117,7 +117,7 @@ public class CosmeticCritterCatcherShade : CosmeticCritterCatcher
 		else if (critter is CosmeticCritterShadeHidden)
 		{
 			maxHoldTime = secondsToReveal;
-			if ((catchAction & (CosmeticCritterAction.Despawn | CosmeticCritterAction.SpawnLinked)) != CosmeticCritterAction.None)
+			if ((catchAction & (CosmeticCritterAction.Despawn | CosmeticCritterAction.SpawnLinked)) != 0)
 			{
 				(optionalLinkedSpawner as CosmeticCritterSpawnerShadeFleeing).SetSpawnPosition(critter.transform.position);
 				currentTarget = null;
@@ -147,14 +147,14 @@ public class CosmeticCritterCatcherShade : CosmeticCritterCatcher
 			targetHoldTime = Mathf.Min(targetHoldTime + Time.deltaTime, maxHoldTime);
 			if (currentTarget is CosmeticCritterShadeFleeing)
 			{
-				if (!base.IsLocal || heartbeatCooldown > 0.4f)
+				if (!IsLocal || heartbeatCooldown > 0.4f)
 				{
 					shadeRevealer.SetBestBeamState(ShadeRevealer.State.LOCKED);
 				}
 				Vector3 normalized = (catchOrigin.position - currentTarget.transform.position).normalized;
 				(currentTarget as CosmeticCritterShadeFleeing).pullVector += vacuumSpeed * Time.deltaTime * normalized;
 			}
-			else if (currentTarget is CosmeticCritterShadeHidden && (!base.IsLocal || heartbeatCooldown > 0.4f))
+			else if (currentTarget is CosmeticCritterShadeHidden && (!IsLocal || heartbeatCooldown > 0.4f))
 			{
 				shadeRevealer.SetBestBeamState(ShadeRevealer.State.TRACKING);
 			}

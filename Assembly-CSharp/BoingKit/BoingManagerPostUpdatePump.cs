@@ -6,16 +6,16 @@ public class BoingManagerPostUpdatePump : MonoBehaviour
 {
 	private void Start()
 	{
-		Object.DontDestroyOnLoad(base.gameObject);
+		Object.DontDestroyOnLoad(gameObject);
 	}
 
 	private bool TryDestroyDuplicate()
 	{
-		if (BoingManager.s_managerGo == base.gameObject)
+		if (BoingManager.s_managerGo == gameObject)
 		{
 			return false;
 		}
-		Object.Destroy(base.gameObject);
+		Object.Destroy(gameObject);
 		return true;
 	}
 

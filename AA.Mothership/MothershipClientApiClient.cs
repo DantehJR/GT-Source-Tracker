@@ -145,6 +145,26 @@ public class MothershipClientApiClient : MothershipApiClient
 		return result;
 	}
 
+	public bool LoginWithPSN(string authCode, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_LoginWithPSN(swigCPtr, authCode, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public bool LoginWithSynthesisVR(long deviceId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_LoginWithSynthesisVR(swigCPtr, deviceId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	public long GetServerTime(string callerId)
 	{
 		long result = MothershipApiPINVOKE.MothershipClientApiClient_GetServerTime(swigCPtr, callerId);
@@ -338,6 +358,25 @@ public class MothershipClientApiClient : MothershipApiClient
 	public bool PurchaseOffer(string callerId, string offerDisplayId, string offerId, int displayIndex, IntPtr userData)
 	{
 		bool result = MothershipApiPINVOKE.MothershipClientApiClient_PurchaseOffer(swigCPtr, callerId, offerDisplayId, offerId, displayIndex, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetConsumeConsumableCompleteClientDelegateWrapper(ClientConsumeConsumableCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetConsumeConsumableCompleteClientDelegateWrapper(swigCPtr, ClientConsumeConsumableCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ConsumeConsumable(string callerId, string entitlementId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ConsumeConsumable(swigCPtr, callerId, entitlementId, userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
@@ -583,6 +622,82 @@ public class MothershipClientApiClient : MothershipApiClient
 		return result;
 	}
 
+	public void SetFinalizeGooglePurchaseCompleteDelegateWrapper(FinalizeGooglePurchaseCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetFinalizeGooglePurchaseCompleteDelegateWrapper(swigCPtr, FinalizeGooglePurchaseCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool FinalizeGooglePurchase(string callerId, string purchaseToken, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_FinalizeGooglePurchase(swigCPtr, callerId, purchaseToken, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetFinalizeApplePurchaseCompleteDelegateWrapper(FinalizeApplePurchaseCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetFinalizeApplePurchaseCompleteDelegateWrapper(swigCPtr, FinalizeApplePurchaseCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool FinalizeApplePurchase(string callerId, string appleTransactionId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_FinalizeApplePurchase(swigCPtr, callerId, appleTransactionId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetInitSteamPurchaseCompleteDelegateWrapper(InitSteamPurchaseCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetInitSteamPurchaseCompleteDelegateWrapper(swigCPtr, InitSteamPurchaseCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool InitSteamPurchase(string callerId, string offerDisplayId, string offerId, int displayIndex, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_InitSteamPurchase(swigCPtr, callerId, offerDisplayId, offerId, displayIndex, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetFinalizeSteamPurchaseCompleteDelegateWrapper(FinalizeSteamPurchaseCompleteDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetFinalizeSteamPurchaseCompleteDelegateWrapper(swigCPtr, FinalizeSteamPurchaseCompleteDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool FinalizeSteamPurchase(string callerId, string steamOrderId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_FinalizeSteamPurchase(swigCPtr, callerId, steamOrderId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
 	public void SetWriteEventsCompleteClientDelegateWrapper(WriteEventsCompleteClientDelegateWrapper wrapper)
 	{
 		MothershipApiPINVOKE.MothershipClientApiClient_SetWriteEventsCompleteClientDelegateWrapper(swigCPtr, WriteEventsCompleteClientDelegateWrapper.getCPtr(wrapper));
@@ -776,6 +891,63 @@ public class MothershipClientApiClient : MothershipApiClient
 	public bool ClientGetFileByNameOrAliasAndVersion(string callerId, string fileNameOrAlias, string versionOrLatest, IntPtr userData)
 	{
 		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientGetFileByNameOrAliasAndVersion(swigCPtr, callerId, fileNameOrAlias, versionOrLatest, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetClientStartMatchmakingCompleteDelegateWrapper(StartMatchmakingCompleteClientDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetClientStartMatchmakingCompleteDelegateWrapper(swigCPtr, StartMatchmakingCompleteClientDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ClientStartMatchmaking(string callerId, string gamemode, MatchmakingPlayerVector players, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientStartMatchmaking(swigCPtr, callerId, gamemode, MatchmakingPlayerVector.getCPtr(players), userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetClientGetMatchmakingStatusCompleteDelegateWrapper(GetMatchmakingStatusCompleteClientDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetClientGetMatchmakingStatusCompleteDelegateWrapper(swigCPtr, GetMatchmakingStatusCompleteClientDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ClientGetMatchmakingStatus(string callerId, string ticketId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientGetMatchmakingStatus(swigCPtr, callerId, ticketId, userData);
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+		return result;
+	}
+
+	public void SetClientStopMatchmakingCompleteDelegateWrapper(StopMatchmakingCompleteClientDelegateWrapper wrapper)
+	{
+		MothershipApiPINVOKE.MothershipClientApiClient_SetClientStopMatchmakingCompleteDelegateWrapper(swigCPtr, StopMatchmakingCompleteClientDelegateWrapper.getCPtr(wrapper));
+		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
+		{
+			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();
+		}
+	}
+
+	public bool ClientStopMatchmaking(string callerId, string ticketId, IntPtr userData)
+	{
+		bool result = MothershipApiPINVOKE.MothershipClientApiClient_ClientStopMatchmaking(swigCPtr, callerId, ticketId, userData);
 		if (MothershipApiPINVOKE.SWIGPendingException.Pending)
 		{
 			throw MothershipApiPINVOKE.SWIGPendingException.Retrieve();

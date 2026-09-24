@@ -34,7 +34,7 @@ public class PlantableFlagManager : MonoBehaviourPun, IPunObservable
 		{
 			if (!plantableObject.IsMyItem())
 			{
-				plantableObject.worldShareableInstance.GetComponent<RequestableOwnershipGuard>().RequestOwnershipImmediately(delegate
+				plantableObject.worldShareableInstance.GetComponent<RequestableOwnershipGuard>().RequestOwnershipImmediately(() =>
 				{
 				});
 			}
@@ -90,7 +90,7 @@ public class PlantableFlagManager : MonoBehaviourPun, IPunObservable
 			PlantableObject plantableObject = flags[j];
 			if (plantableObject.IsMyItem())
 			{
-				Vector3.SqrMagnitude(plantableObject.flagTip.position - base.transform.position);
+				Vector3.SqrMagnitude(plantableObject.flagTip.position - transform.position);
 			}
 		}
 	}

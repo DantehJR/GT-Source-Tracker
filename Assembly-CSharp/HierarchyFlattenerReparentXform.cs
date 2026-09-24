@@ -9,7 +9,7 @@ public class HierarchyFlattenerReparentXform : MonoBehaviour
 
 	protected void Awake()
 	{
-		if (base.enabled)
+		if (enabled)
 		{
 			_DoIt();
 		}
@@ -26,7 +26,7 @@ public class HierarchyFlattenerReparentXform : MonoBehaviour
 		{
 			if (newParent != null)
 			{
-				base.transform.SetParent(newParent, worldPositionStays: true);
+				transform.SetParent(newParent, worldPositionStays: true);
 			}
 			Object.Destroy(this);
 		}

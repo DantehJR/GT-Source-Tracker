@@ -178,7 +178,7 @@ public class ArtilleryCannonState : NetworkComponent
 			return false;
 		}
 		reference.holderActorNr = LocalActorNr;
-		crankIndex == 0 ? ref pitchPendingGrabTime : ref yawPendingGrabTime = Time.time;
+		(crankIndex == 0 ? ref pitchPendingGrabTime : ref yawPendingGrabTime) = Time.time;
 		if (PhotonNetwork.InRoom)
 		{
 			SendRPC("RPC_ArtilleryMessage", RpcTarget.MasterClient, (!isLeftHand) ? ((byte)1) : ((byte)0), (byte)crankIndex, 0f);
@@ -191,7 +191,7 @@ public class ArtilleryCannonState : NetworkComponent
 		ref CrankSyncState reference = ref crankIndex == 0 ? ref pitchCrankSync : ref yawCrankSync;
 		reference.holderActorNr = -1;
 		reference.angle = finalAngle;
-		crankIndex == 0 ? ref pitchPendingGrabTime : ref yawPendingGrabTime = 0f;
+		(crankIndex == 0 ? ref pitchPendingGrabTime : ref yawPendingGrabTime) = 0f;
 		if (PhotonNetwork.InRoom)
 		{
 			SendRPC("RPC_ArtilleryMessage", RpcTarget.All, (byte)2, (byte)crankIndex, finalAngle);
@@ -208,7 +208,7 @@ public class ArtilleryCannonState : NetworkComponent
 		{
 			currentYaw += degrees * degreesPerCrankDegree;
 		}
-		this.onRotationChanged?.Invoke();
+		onRotationChanged?.Invoke();
 		if (PhotonNetwork.InRoom)
 		{
 			float num = ((crankIndex == 0) ? currentPitch : currentYaw);
@@ -268,7 +268,7 @@ public class ArtilleryCannonState : NetworkComponent
 				{
 					currentYaw = floatParam;
 				}
-				this.onRotationChanged?.Invoke();
+				onRotationChanged?.Invoke();
 			}
 			break;
 		case ArtilleryMsg.Fire:
@@ -276,7 +276,7 @@ public class ArtilleryCannonState : NetworkComponent
 			int actorNumber = info.Sender.ActorNumber;
 			if (pitchCrankSync.holderActorNr == actorNumber || yawCrankSync.holderActorNr == actorNumber)
 			{
-				this.onFired?.Invoke();
+				onFired?.Invoke();
 			}
 			break;
 		}
@@ -310,7 +310,7 @@ public class ArtilleryCannonState : NetworkComponent
 		{
 			currentYaw = num2;
 		}
-		this.onRotationChanged?.Invoke();
+		onRotationChanged?.Invoke();
 	}
 
 	private void ReadCrankSyncPUN(PhotonStream stream, ref CrankSyncState crank, ref float pendingTime, int localActor)
@@ -371,7 +371,7 @@ public class ArtilleryCannonState : NetworkComponent
 		{
 			currentYaw = fusionData.yaw;
 		}
-		this.onRotationChanged?.Invoke();
+		onRotationChanged?.Invoke();
 	}
 
 	private void ReadCrankSyncFusion(ref CrankSyncState crank, ref float pendingTime, int localActor, int incomingHolder, bool incomingLeftHand, float incomingAngle)

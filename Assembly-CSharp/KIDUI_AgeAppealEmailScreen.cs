@@ -31,7 +31,7 @@ public class KIDUI_AgeAppealEmailScreen : MonoBehaviour
 	public void ShowAgeAppealEmailScreen(bool receivedChallenge, int newAge)
 	{
 		newAgeToAppeal = newAge;
-		base.gameObject.SetActive(value: true);
+		gameObject.SetActive(value: true);
 		hasChallenge = receivedChallenge;
 		_enterEmailText.text = (hasChallenge ? PARENT_EMAIL_DESCRIPTION : VERIFY_AGE_EMAIL_DESCRIPTION);
 		if ((bool)_parentPermissionNotice)
@@ -75,7 +75,7 @@ public class KIDUI_AgeAppealEmailScreen : MonoBehaviour
 			return;
 		}
 		_confirmationScreen.ShowAgeAppealConfirmationScreen(hasChallenge, newAgeToAppeal, _emailText.text);
-		base.gameObject.SetActive(value: false);
+		gameObject.SetActive(value: false);
 	}
 
 	public void OnDisable()

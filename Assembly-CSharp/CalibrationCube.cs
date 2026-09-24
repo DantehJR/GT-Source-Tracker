@@ -67,17 +67,27 @@ public class CalibrationCube : MonoBehaviour
 	{
 		lastCalibratedLength = calibratedLength;
 		calibratedLength = (rightController.transform.position - leftController.transform.position).magnitude;
-		calibratedLength = ((calibratedLength > maxLength) ? maxLength : ((calibratedLength < minLength) ? minLength : calibratedLength));
-		float num = calibratedLength / lastCalibratedLength;
+		ref float reference = ref calibratedLength;
+		float num;
+		if (calibratedLength > maxLength)
+		{
+			num = maxLength;
+		}
+		else
+		{
+			num = ((calibratedLength < minLength) ? minLength : calibratedLength);
+		}
+		reference = num;
+		float num2 = calibratedLength / lastCalibratedLength;
 		Vector3 localScale = playerBody.transform.localScale;
 		playerBody.GetComponentInChildren<RigBuilder>().Clear();
 		playerBody.transform.localScale = new Vector3(1f, 1f, 1f);
 		playerBody.GetComponentInChildren<TransformReset>().ResetTransforms();
-		playerBody.transform.localScale = num * localScale;
+		playerBody.transform.localScale = num2 * localScale;
 		playerBody.GetComponentInChildren<RigBuilder>().Build();
 		playerBody.GetComponentInChildren<VRRig>().SetHeadBodyOffset();
-		GorillaPlaySpace.Instance.bodyColliderOffset *= num;
-		GorillaPlaySpace.Instance.bodyCollider.gameObject.transform.localScale *= num;
+		GorillaPlaySpace.Instance.bodyColliderOffset *= num2;
+		GorillaPlaySpace.Instance.bodyCollider.gameObject.transform.localScale *= num2;
 	}
 
 	private void OnCollisionEnter(Collision collision)

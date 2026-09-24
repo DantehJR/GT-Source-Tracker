@@ -28,35 +28,35 @@ public class SlingshotProjectileHitNotifier : BaseGuidedRefTargetMono
 	{
 		if (!(projectileType != "") || !(projectile.tag != projectileType))
 		{
-			this.OnProjectileHit?.Invoke(projectile, collision);
+			OnProjectileHit?.Invoke(projectile, collision);
 		}
 	}
 
 	public void InvokeHit(PaperPlaneProjectile projectile, Collider collider)
 	{
-		this.OnPaperPlaneHit?.Invoke(projectile, collider);
+		OnPaperPlaneHit?.Invoke(projectile, collider);
 	}
 
 	public void InvokeCollisionStay(SlingshotProjectile projectile, Collision collision)
 	{
-		this.OnProjectileCollisionStay?.Invoke(projectile, collision);
+		OnProjectileCollisionStay?.Invoke(projectile, collision);
 	}
 
 	public void InvokeTriggerEnter(SlingshotProjectile projectile, Collider collider)
 	{
-		this.OnProjectileTriggerEnter?.Invoke(projectile, collider);
+		OnProjectileTriggerEnter?.Invoke(projectile, collider);
 	}
 
 	public void InvokeTriggerExit(SlingshotProjectile projectile, Collider collider)
 	{
-		this.OnProjectileTriggerExit?.Invoke(projectile, collider);
+		OnProjectileTriggerExit?.Invoke(projectile, collider);
 	}
 
 	private new void OnDestroy()
 	{
-		this.OnProjectileHit = null;
-		this.OnProjectileCollisionStay = null;
-		this.OnProjectileTriggerEnter = null;
-		this.OnProjectileTriggerExit = null;
+		OnProjectileHit = null;
+		OnProjectileCollisionStay = null;
+		OnProjectileTriggerEnter = null;
+		OnProjectileTriggerExit = null;
 	}
 }

@@ -175,7 +175,7 @@ public class GameBallPlayerLocal : MonoBehaviour
 	private void UpdateInput(int handIndex)
 	{
 		XRNode xRNode = GetXRNode(handIndex);
-		InputDataMotion data = default(InputDataMotion);
+		InputDataMotion data = default;
 		InputDevice deviceAtXRNode = InputDevices.GetDeviceAtXRNode(xRNode);
 		deviceAtXRNode.TryGetFeatureValue(CommonUsages.devicePosition, out data.position);
 		deviceAtXRNode.TryGetFeatureValue(CommonUsages.deviceRotation, out data.rotation);
@@ -258,7 +258,7 @@ public class GameBallPlayerLocal : MonoBehaviour
 		{
 			bool flag2 = IsLeftHand(handIndex);
 			BodyDockPositions myBodyDockPositions = GorillaTagger.Instance.offlineVRRig.myBodyDockPositions;
-			Transform obj = (flag2 ? myBodyDockPositions.leftHandTransform : myBodyDockPositions.rightHandTransform);
+			Transform transform = (flag2 ? myBodyDockPositions.leftHandTransform : myBodyDockPositions.rightHandTransform);
 			GameBall gameBall = GameBallManager.Instance.GetGameBall(gameBallId);
 			Vector3 position2 = gameBall.transform.position;
 			Vector3 vector = gameBall.transform.position - position;
@@ -266,9 +266,9 @@ public class GameBallPlayerLocal : MonoBehaviour
 			{
 				position2 = position + vector.normalized * num2;
 			}
-			Vector3 localPosition = obj.InverseTransformPoint(position2);
-			Quaternion localRotation = Quaternion.Inverse(obj.rotation) * gameBall.transform.rotation;
-			obj.InverseTransformPoint(gameBall.transform.position);
+			Vector3 localPosition = transform.InverseTransformPoint(position2);
+			Quaternion localRotation = Quaternion.Inverse(transform.rotation) * gameBall.transform.rotation;
+			transform.InverseTransformPoint(gameBall.transform.position);
 			GameBallManager.Instance.RequestGrabBall(gameBallId, flag2, localPosition, localRotation);
 		}
 	}

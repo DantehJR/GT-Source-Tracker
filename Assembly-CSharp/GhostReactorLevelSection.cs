@@ -145,7 +145,7 @@ public class GhostReactorLevelSection : MonoBehaviour
 		{
 			if (patrolPaths[j] == null)
 			{
-				Debug.LogErrorFormat("Why does {0} have a null patrol path at index {1}", base.gameObject.name, j);
+				Debug.LogErrorFormat("Why does {0} have a null patrol path at index {1}", gameObject.name, j);
 			}
 			else
 			{
@@ -170,7 +170,7 @@ public class GhostReactorLevelSection : MonoBehaviour
 		}
 		if (boundingCollider == null)
 		{
-			Debug.LogWarningFormat("Missing Bounding Collider for section {0}", base.gameObject.name);
+			Debug.LogWarningFormat("Missing Bounding Collider for section {0}", gameObject.name);
 		}
 	}
 
@@ -204,13 +204,13 @@ public class GhostReactorLevelSection : MonoBehaviour
 			return;
 		}
 		GhostReactorSpawnConfig ghostReactorSpawnConfig = spawnConfigs[randomGenerator.NextInt(spawnConfigs.Count)];
-		Debug.LogFormat("Spawn Ghost Reactor Level Section {0} {1}", base.gameObject.name, ghostReactorSpawnConfig.name);
+		Debug.LogFormat("Spawn Ghost Reactor Level Section {0} {1}", gameObject.name, ghostReactorSpawnConfig.name);
 		for (int i = 0; i < spawnPointGroups.Count; i++)
 		{
 			spawnPointGroups[i].CurrentIndex = 0;
 			spawnPointGroups[i].NeedsRandomization = true;
 		}
-		GhostReactor.EnemyEntityCreateData enemyEntityCreateData = default(GhostReactor.EnemyEntityCreateData);
+		GhostReactor.EnemyEntityCreateData enemyEntityCreateData = default;
 		for (int j = 0; j < ghostReactorSpawnConfig.entitySpawnGroups.Count; j++)
 		{
 			int spawnCount = ghostReactorSpawnConfig.entitySpawnGroups[j].spawnCount;
@@ -297,7 +297,7 @@ public class GhostReactorLevelSection : MonoBehaviour
 			int staticHash2 = prePlacedGameEntities[l].gameObject.name.GetStaticHash();
 			if (!gameEntityManager.FactoryHasEntity(staticHash2))
 			{
-				Debug.LogErrorFormat("Cannot Find Entity in Factory {0} {1} Trying to spawn in {2}", prePlacedGameEntities[l].gameObject.name, staticHash2, base.gameObject.name);
+				Debug.LogErrorFormat("Cannot Find Entity in Factory {0} {1} Trying to spawn in {2}", prePlacedGameEntities[l].gameObject.name, staticHash2, gameObject.name);
 				continue;
 			}
 			GameEntityCreateData item2 = new GameEntityCreateData

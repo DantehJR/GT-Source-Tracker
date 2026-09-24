@@ -202,28 +202,28 @@ public class SIGadgetDashYoyo : SIGadget
 	private void Start()
 	{
 		_stateMaterials = m_baseStateMats;
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(_HandleStartInteraction));
-		GameEntity obj2 = gameEntity;
-		obj2.OnSnapped = (Action)Delegate.Combine(obj2.OnSnapped, new Action(_HandleStartInteraction));
-		GameEntity obj3 = gameEntity;
-		obj3.OnReleased = (Action)Delegate.Combine(obj3.OnReleased, new Action(_HandleStopInteraction));
-		GameEntity obj4 = gameEntity;
-		obj4.OnUnsnapped = (Action)Delegate.Combine(obj4.OnUnsnapped, new Action(_HandleStopInteraction));
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(_HandleStartInteraction));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnSnapped = (Action)Delegate.Combine(gameEntity2.OnSnapped, new Action(_HandleStartInteraction));
+		GameEntity gameEntity3 = base.gameEntity;
+		gameEntity3.OnReleased = (Action)Delegate.Combine(gameEntity3.OnReleased, new Action(_HandleStopInteraction));
+		GameEntity gameEntity4 = base.gameEntity;
+		gameEntity4.OnUnsnapped = (Action)Delegate.Combine(gameEntity4.OnUnsnapped, new Action(_HandleStopInteraction));
 	}
 
 	private void OnDestroy()
 	{
 		if (!ApplicationQuittingState.IsQuitting)
 		{
-			GameEntity obj = gameEntity;
-			obj.OnGrabbed = (Action)Delegate.Remove(obj.OnGrabbed, new Action(_HandleStartInteraction));
-			GameEntity obj2 = gameEntity;
-			obj2.OnSnapped = (Action)Delegate.Remove(obj2.OnSnapped, new Action(_HandleStartInteraction));
-			GameEntity obj3 = gameEntity;
-			obj3.OnReleased = (Action)Delegate.Remove(obj3.OnReleased, new Action(_HandleStopInteraction));
-			GameEntity obj4 = gameEntity;
-			obj4.OnUnsnapped = (Action)Delegate.Remove(obj4.OnUnsnapped, new Action(_HandleStopInteraction));
+			GameEntity gameEntity = base.gameEntity;
+			gameEntity.OnGrabbed = (Action)Delegate.Remove(gameEntity.OnGrabbed, new Action(_HandleStartInteraction));
+			GameEntity gameEntity2 = base.gameEntity;
+			gameEntity2.OnSnapped = (Action)Delegate.Remove(gameEntity2.OnSnapped, new Action(_HandleStartInteraction));
+			GameEntity gameEntity3 = base.gameEntity;
+			gameEntity3.OnReleased = (Action)Delegate.Remove(gameEntity3.OnReleased, new Action(_HandleStopInteraction));
+			GameEntity gameEntity4 = base.gameEntity;
+			gameEntity4.OnUnsnapped = (Action)Delegate.Remove(gameEntity4.OnUnsnapped, new Action(_HandleStopInteraction));
 			if (_attachedVRRig != null)
 			{
 				VRRig attachedVRRig = _attachedVRRig;
@@ -516,7 +516,7 @@ public class SIGadgetDashYoyo : SIGadget
 	private void _LaunchYoYoShared(Vector3 velocity, Vector3 angVelocity, Vector3 targetPosition, Quaternion targetRotation)
 	{
 		m_yoyoTargetRB.transform.parent = null;
-		float x = base.transform.lossyScale.x;
+		float x = transform.lossyScale.x;
 		m_yoyoTargetRB.transform.localScale = new Vector3(x, x, x);
 		m_yoyoTargetRB.transform.position = targetPosition;
 		m_yoyoTargetRB.transform.rotation = targetRotation;
@@ -536,11 +536,11 @@ public class SIGadgetDashYoyo : SIGadget
 
 	internal void OnHitPlayer_Authority(SuperInfectionGame siTagGameManager, NetPlayer victimNetPlayer)
 	{
-		bool num = siTagGameManager.IsInfected(_attachedNetPlayer);
-		bool flag = siTagGameManager.IsInfected(victimNetPlayer);
-		if (num != flag)
+		bool flag = siTagGameManager.IsInfected(_attachedNetPlayer);
+		bool flag2 = siTagGameManager.IsInfected(victimNetPlayer);
+		if (flag != flag2)
 		{
-			if (_hasTagUpgrade && !flag)
+			if (_hasTagUpgrade && !flag2)
 			{
 				siTagGameManager.ReportTag(victimNetPlayer, _attachedNetPlayer);
 				return;
@@ -612,7 +612,17 @@ public class SIGadgetDashYoyo : SIGadget
 
 	private void _OnTagStateOrUpgradesChanged()
 	{
-		_stateMaterials = ((!_hasTagUpgrade) ? m_baseStateMats : (_isTagged ? m_tagUpgradeStateMatsWhileTagged : m_tagUpgradeStateMatsWhileUntagged));
+		ref StateMaterialsInfo stateMaterials = ref _stateMaterials;
+		StateMaterialsInfo stateMaterialsInfo;
+		if (_hasTagUpgrade)
+		{
+			stateMaterialsInfo = (_isTagged ? m_tagUpgradeStateMatsWhileTagged : m_tagUpgradeStateMatsWhileUntagged);
+		}
+		else
+		{
+			stateMaterialsInfo = m_baseStateMats;
+		}
+		stateMaterials = stateMaterialsInfo;
 		switch (_state)
 		{
 		case EState.Idle:

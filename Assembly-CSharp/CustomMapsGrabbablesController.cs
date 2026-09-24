@@ -37,12 +37,12 @@ public class CustomMapsGrabbablesController : MonoBehaviour, IGameEntityComponen
 		{
 			return;
 		}
-		base.transform.parent = MapSpawnManager.instance.transform;
+		transform.parent = MapSpawnManager.instance.transform;
 		GrabbableEntity.UnpackCreateData(entity.createData, out var entityTypeID, out luaAgentID);
 		if (!MapSpawnManager.instance.SpawnEntity(entityTypeID, out MapEntity newEnemy))
 		{
 			GTDev.LogError("CustomMapsGrabbablesController::OnEntityInit could not spawn grabbable");
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 			return;
 		}
 		GrabbableEntity grabbableEntity = (GrabbableEntity)newEnemy;
@@ -58,7 +58,7 @@ public class CustomMapsGrabbablesController : MonoBehaviour, IGameEntityComponen
 			entity.catchSoundVolume = grabbableEntity.catchSoundVolume;
 			entity.throwSound = grabbableEntity.throwSound;
 			entity.throwSoundVolume = grabbableEntity.throwSoundVolume;
-			Collider[] componentsInChildren = base.gameObject.GetComponentsInChildren<Collider>();
+			Collider[] componentsInChildren = gameObject.GetComponentsInChildren<Collider>();
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
 				componentsInChildren[i].gameObject.layer = LayerMask.NameToLayer("Prop");

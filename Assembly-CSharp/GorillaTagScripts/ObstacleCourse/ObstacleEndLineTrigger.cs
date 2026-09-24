@@ -12,7 +12,7 @@ public class ObstacleEndLineTrigger : MonoBehaviour
 	{
 		if (other.attachedRigidbody.gameObject.TryGetComponent<VRRig>(out var component))
 		{
-			this.OnPlayerTriggerEnter?.Invoke(component);
+			OnPlayerTriggerEnter?.Invoke(component);
 		}
 	}
 }

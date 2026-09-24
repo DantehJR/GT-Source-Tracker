@@ -2,6 +2,7 @@ using System;
 using ExitGames.Client.Photon;
 using GorillaNetworking;
 using Photon.Pun;
+using PlayFab;
 using UnityEngine;
 
 public class PUNErrorLogging : MonoBehaviour
@@ -46,7 +47,7 @@ public class PUNErrorLogging : MonoBehaviour
 	private void Start()
 	{
 		PhotonNetwork.InternalEventError = (Action<EventData, Exception>)Delegate.Combine(PhotonNetwork.InternalEventError, new Action<EventData, Exception>(PUNError));
-		PlayFabTitleDataCache.Instance.GetTitleData("PUNErrorLogging", delegate(string data)
+		PlayFabTitleDataCache.Instance.GetTitleData("PUNErrorLogging", (string data) =>
 		{
 			if (int.TryParse(data, out var result))
 			{
@@ -60,7 +61,7 @@ public class PUNErrorLogging : MonoBehaviour
 				m_logDestroy = logFlags.HasFlag(LogFlags.Destroy);
 				m_logDestroyPlayer = logFlags.HasFlag(LogFlags.DestroyPlayer);
 			}
-		}, delegate
+		}, (PlayFabError error) =>
 		{
 		});
 	}

@@ -55,7 +55,7 @@ public class GameObjectSchedule : ScriptableObject
 	public int GetCurrentNodeIndex(DateTime currentDate, out DateTime startDate)
 	{
 		int i = -1;
-		startDate = default(DateTime);
+		startDate = default;
 		for (; i < nodes.Length - 1; i++)
 		{
 			if (currentDate < nodes[i + 1].DateTime)

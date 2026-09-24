@@ -30,7 +30,7 @@ internal static class GTAudioOneShot
 					Vector3 position = ((reference.xform != null) ? reference.xform.TransformPoint(reference.pos) : reference.pos);
 					Play(reference.sound, position, reference.volume, reference.pitch);
 				}
-				reference = default(DelayedPlayData);
+				reference = default;
 				_delayedFreeNext[contextId] = _delayedFreeHead;
 				_delayedFreeHead = contextId;
 			}

@@ -70,7 +70,7 @@ public class ConnectAndJoin : MonoBehaviour, IConnectionCallbacks, IMatchmakingC
 	{
 		if (voiceConnection.PrimaryRecorder == null)
 		{
-			voiceConnection.PrimaryRecorder = base.gameObject.AddComponent<Recorder>();
+			voiceConnection.PrimaryRecorder = gameObject.AddComponent<Recorder>();
 		}
 		if (autoTransmit)
 		{

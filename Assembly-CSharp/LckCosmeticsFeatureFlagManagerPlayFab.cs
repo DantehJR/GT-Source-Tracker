@@ -46,7 +46,7 @@ public class LckCosmeticsFeatureFlagManagerPlayFab : ILckCosmeticsFeatureFlagMan
 				continue;
 			}
 			TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
-			PlayFabTitleDataCache.Instance.GetTitleData("EnableLckCosmetics", delegate(string data)
+			PlayFabTitleDataCache.Instance.GetTitleData("EnableLckCosmetics", (string data) =>
 			{
 				if (bool.TryParse(data, out var result))
 				{
@@ -58,7 +58,7 @@ public class LckCosmeticsFeatureFlagManagerPlayFab : ILckCosmeticsFeatureFlagMan
 					Debug.LogError("LCK: Failed to parse feature flag 'EnableLckCosmetics' from value '" + data + "'. Defaulting to 'true'.");
 					tcs.TrySetResult(result: true);
 				}
-			}, delegate(PlayFabError error)
+			}, (PlayFabError error) =>
 			{
 				Debug.LogError("LCK: Error fetching feature flag 'EnableLckCosmetics': " + error.ErrorMessage + ". Defaulting to 'true'.");
 				tcs.TrySetResult(result: true);

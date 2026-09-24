@@ -105,7 +105,7 @@ public class KIDUI_Controller : MonoBehaviour
 			await Task.Yield();
 		}
 		HandRayController.Instance.EnableHandRays();
-		PrivateUIRoom.AddUI(base.transform);
+		PrivateUIRoom.AddUI(transform);
 		EMainScreenStatus screenStatusFromSession = GetScreenStatusFromSession();
 		_mainKIDScreen.ShowMainScreen(screenStatusFromSession, _showReason);
 		_isKidUIActive = true;
@@ -118,9 +118,9 @@ public class KIDUI_Controller : MonoBehaviour
 		_isKidUIActive = false;
 		_mainKIDScreen.HideMainScreen();
 		KIDAudioManager.Instance?.PlaySoundWithDelay(KIDAudioManager.KIDSoundType.PageTransition);
-		PrivateUIRoom.RemoveUI(base.transform);
+		PrivateUIRoom.RemoveUI(transform);
 		HandRayController.Instance.DisableHandRays();
-		UnityEngine.Object.DestroyImmediate(base.gameObject);
+		UnityEngine.Object.DestroyImmediate(gameObject);
 		KIDManager.onEmailResultReceived = (KIDManager.OnEmailResultReceived)Delegate.Remove(KIDManager.onEmailResultReceived, new KIDManager.OnEmailResultReceived(NotifyOfEmailResult));
 	}
 

@@ -146,7 +146,7 @@ public class FortuneTeller : MonoBehaviourPunCallbacks
 		base.OnPlayerEnteredRoom(newPlayer);
 		if (PhotonNetwork.InRoom && PhotonNetwork.LocalPlayer.IsMasterClient)
 		{
-			base.photonView.RPC("TriggerUpdateFortuneRPC", newPlayer, (int)latestFortune.fortuneType, latestFortune.resultIndex);
+			photonView.RPC("TriggerUpdateFortuneRPC", newPlayer, (int)latestFortune.fortuneType, latestFortune.resultIndex);
 		}
 	}
 
@@ -168,13 +168,13 @@ public class FortuneTeller : MonoBehaviourPunCallbacks
 
 	private void HandlePressedButton(GorillaPressableButton button, bool isLeft)
 	{
-		if (base.photonView.IsMine)
+		if (photonView.IsMine)
 		{
 			SendNewFortune();
 		}
 		else if (PhotonNetwork.InRoom)
 		{
-			base.photonView.RPC("RequestFortuneRPC", RpcTarget.MasterClient);
+			photonView.RPC("RequestFortuneRPC", RpcTarget.MasterClient);
 		}
 	}
 
@@ -200,7 +200,7 @@ public class FortuneTeller : MonoBehaviourPunCallbacks
 			UpdateFortune(latestFortune, newFortune: true);
 			if (PhotonNetwork.InRoom)
 			{
-				base.photonView.RPC("TriggerNewFortuneRPC", RpcTarget.Others, (int)latestFortune.fortuneType, latestFortune.resultIndex);
+				photonView.RPC("TriggerNewFortuneRPC", RpcTarget.Others, (int)latestFortune.fortuneType, latestFortune.resultIndex);
 			}
 		}
 	}
@@ -261,7 +261,7 @@ public class FortuneTeller : MonoBehaviourPunCallbacks
 	{
 		if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
 		{
-			base.photonView.RPC("TriggerAttractAnimRPC", RpcTarget.All);
+			photonView.RPC("TriggerAttractAnimRPC", RpcTarget.All);
 		}
 	}
 

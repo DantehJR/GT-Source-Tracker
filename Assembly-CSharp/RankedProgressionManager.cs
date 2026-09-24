@@ -197,7 +197,7 @@ public class RankedProgressionManager : MonoBehaviour
 	{
 		if ((bool)Instance)
 		{
-			GTDev.LogError("Duplicate RankedProgressionManager detected. Destroying self.", base.gameObject);
+			GTDev.LogError("Duplicate RankedProgressionManager detected. Destroying self.", gameObject);
 			UnityEngine.Object.Destroy(this);
 		}
 		else
@@ -245,7 +245,7 @@ public class RankedProgressionManager : MonoBehaviour
 
 	public void RequestUnlockCompetitiveQueue(bool unlock)
 	{
-		GorillaTagCompetitiveServerApi.Instance.RequestUnlockCompetitiveQueue(unlock, delegate
+		GorillaTagCompetitiveServerApi.Instance.RequestUnlockCompetitiveQueue(unlock, () =>
 		{
 			AcquireLocalPlayerRankInformation();
 		});
@@ -402,7 +402,7 @@ public class RankedProgressionManager : MonoBehaviour
 
 	public void SetEloScore(float val)
 	{
-		GorillaTagCompetitiveServerApi.Instance.RequestSetEloValue(val, delegate
+		GorillaTagCompetitiveServerApi.Instance.RequestSetEloValue(val, () =>
 		{
 			AcquireLocalPlayerRankInformation();
 		});

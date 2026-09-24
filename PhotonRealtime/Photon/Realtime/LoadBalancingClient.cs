@@ -173,9 +173,9 @@ public class LoadBalancingClient : IPhotonPeerListener
 			{
 				ClientState arg = state;
 				state = value;
-				if (this.StateChanged != null)
+				if (StateChanged != null)
 				{
-					this.StateChanged(arg, state);
+					StateChanged(arg, state);
 				}
 			}
 		}
@@ -497,12 +497,12 @@ public class LoadBalancingClient : IPhotonPeerListener
 		if (State == ClientState.ConnectedToNameServer)
 		{
 			CloudRegion = region;
-			bool num = CallAuthenticate();
-			if (num)
+			bool flag = CallAuthenticate();
+			if (flag)
 			{
 				State = ClientState.Authenticating;
 			}
-			return num;
+			return flag;
 		}
 		LoadBalancingPeer.Disconnect();
 		if (!string.IsNullOrEmpty(region) && !region.Contains("/"))
@@ -775,13 +775,13 @@ public class LoadBalancingClient : IPhotonPeerListener
 		{
 			lobby = TypedLobby.Default;
 		}
-		bool num = LoadBalancingPeer.OpJoinLobby(lobby);
-		if (num)
+		bool flag = LoadBalancingPeer.OpJoinLobby(lobby);
+		if (flag)
 		{
 			CurrentLobby = lobby;
 			State = ClientState.JoiningLobby;
 		}
-		return num;
+		return flag;
 	}
 
 	public bool OpLeaveLobby()
@@ -806,13 +806,13 @@ public class LoadBalancingClient : IPhotonPeerListener
 		enterRoomParamsCache = new EnterRoomParams();
 		enterRoomParamsCache.Lobby = opJoinRandomRoomParams.TypedLobby;
 		enterRoomParamsCache.ExpectedUsers = opJoinRandomRoomParams.ExpectedUsers;
-		bool num = LoadBalancingPeer.OpJoinRandomRoom(opJoinRandomRoomParams);
-		if (num)
+		bool flag = LoadBalancingPeer.OpJoinRandomRoom(opJoinRandomRoomParams);
+		if (flag)
 		{
 			lastJoinType = JoinType.JoinRandomRoom;
 			State = ClientState.Joining;
 		}
-		return num;
+		return flag;
 	}
 
 	public bool OpJoinRandomOrCreateRoom(OpJoinRandomRoomParams opJoinRandomRoomParams, EnterRoomParams createRoomParams)
@@ -833,13 +833,13 @@ public class LoadBalancingClient : IPhotonPeerListener
 		enterRoomParamsCache = createRoomParams;
 		enterRoomParamsCache.Lobby = opJoinRandomRoomParams.TypedLobby;
 		enterRoomParamsCache.ExpectedUsers = opJoinRandomRoomParams.ExpectedUsers;
-		bool num = LoadBalancingPeer.OpJoinRandomOrCreateRoom(opJoinRandomRoomParams, createRoomParams);
-		if (num)
+		bool flag = LoadBalancingPeer.OpJoinRandomOrCreateRoom(opJoinRandomRoomParams, createRoomParams);
+		if (flag)
 		{
 			lastJoinType = JoinType.JoinRandomOrCreateRoom;
 			State = ClientState.Joining;
 		}
-		return num;
+		return flag;
 	}
 
 	public bool OpCreateRoom(EnterRoomParams enterRoomParams)
@@ -852,13 +852,13 @@ public class LoadBalancingClient : IPhotonPeerListener
 		{
 			enterRoomParamsCache = enterRoomParams;
 		}
-		bool num = LoadBalancingPeer.OpCreateRoom(enterRoomParams);
-		if (num)
+		bool flag = LoadBalancingPeer.OpCreateRoom(enterRoomParams);
+		if (flag)
 		{
 			lastJoinType = JoinType.CreateRoom;
 			State = ClientState.Joining;
 		}
-		return num;
+		return flag;
 	}
 
 	public bool OpJoinOrCreateRoom(EnterRoomParams enterRoomParams)
@@ -874,13 +874,13 @@ public class LoadBalancingClient : IPhotonPeerListener
 		{
 			enterRoomParamsCache = enterRoomParams;
 		}
-		bool num = LoadBalancingPeer.OpJoinRoom(enterRoomParams);
-		if (num)
+		bool flag2 = LoadBalancingPeer.OpJoinRoom(enterRoomParams);
+		if (flag2)
 		{
 			lastJoinType = JoinType.JoinOrCreateRoom;
 			State = ClientState.Joining;
 		}
-		return num;
+		return flag2;
 	}
 
 	public bool OpJoinRoom(EnterRoomParams enterRoomParams)
@@ -893,13 +893,13 @@ public class LoadBalancingClient : IPhotonPeerListener
 		{
 			enterRoomParamsCache = enterRoomParams;
 		}
-		bool num = LoadBalancingPeer.OpJoinRoom(enterRoomParams);
-		if (num)
+		bool flag = LoadBalancingPeer.OpJoinRoom(enterRoomParams);
+		if (flag)
 		{
 			lastJoinType = ((enterRoomParams.JoinMode != JoinMode.CreateIfNotExists) ? JoinType.JoinRoom : JoinType.JoinOrCreateRoom);
 			State = ClientState.Joining;
 		}
-		return num;
+		return flag;
 	}
 
 	public bool OpRejoinRoom(string roomName)
@@ -913,13 +913,13 @@ public class LoadBalancingClient : IPhotonPeerListener
 		enterRoomParams.RoomName = roomName;
 		enterRoomParams.OnGameServer = onGameServer;
 		enterRoomParams.JoinMode = JoinMode.RejoinOnly;
-		bool num = LoadBalancingPeer.OpJoinRoom(enterRoomParams);
-		if (num)
+		bool flag = LoadBalancingPeer.OpJoinRoom(enterRoomParams);
+		if (flag)
 		{
 			lastJoinType = JoinType.JoinRoom;
 			State = ClientState.Joining;
 		}
-		return num;
+		return flag;
 	}
 
 	public bool OpLeaveRoom(bool becomeInactive, bool sendAuthCookie = false)
@@ -993,8 +993,8 @@ public class LoadBalancingClient : IPhotonPeerListener
 			DebugReturn(DebugLevel.ERROR, "OpSetPropertiesOfActor() failed. actorProperties must not be null nor empty.");
 			return false;
 		}
-		bool num = LoadBalancingPeer.OpSetPropertiesOfActor(actorNr, actorProperties, expectedProperties, webFlags);
-		if (num && !CurrentRoom.BroadcastPropertiesChangeToAll && (expectedProperties == null || expectedProperties.Count == 0))
+		bool flag = LoadBalancingPeer.OpSetPropertiesOfActor(actorNr, actorProperties, expectedProperties, webFlags);
+		if (flag && !CurrentRoom.BroadcastPropertiesChangeToAll && (expectedProperties == null || expectedProperties.Count == 0))
 		{
 			Player player = CurrentRoom.GetPlayer(actorNr);
 			if (player != null)
@@ -1003,7 +1003,7 @@ public class LoadBalancingClient : IPhotonPeerListener
 				InRoomCallbackTargets.OnPlayerPropertiesUpdate(player, actorProperties);
 			}
 		}
-		return num;
+		return flag;
 	}
 
 	public bool OpSetCustomPropertiesOfRoom(Hashtable propertiesToSet, Hashtable expectedProperties = null, WebFlags webFlags = null)
@@ -1041,13 +1041,13 @@ public class LoadBalancingClient : IPhotonPeerListener
 			DebugReturn(DebugLevel.ERROR, "OpSetPropertiesOfRoom() failed. gameProperties must not be null nor empty.");
 			return false;
 		}
-		bool num = LoadBalancingPeer.OpSetPropertiesOfRoom(gameProperties, expectedProperties, webFlags);
-		if (num && !CurrentRoom.BroadcastPropertiesChangeToAll && (expectedProperties == null || expectedProperties.Count == 0))
+		bool flag = LoadBalancingPeer.OpSetPropertiesOfRoom(gameProperties, expectedProperties, webFlags);
+		if (flag && !CurrentRoom.BroadcastPropertiesChangeToAll && (expectedProperties == null || expectedProperties.Count == 0))
 		{
 			CurrentRoom.InternalCacheProperties(gameProperties);
 			InRoomCallbackTargets.OnRoomPropertiesUpdate(gameProperties);
 		}
-		return num;
+		return flag;
 	}
 
 	public virtual bool OpRaiseEvent(byte eventCode, object customEventContent, RaiseEventOptions raiseEventOptions, SendOptions sendOptions)
@@ -1663,9 +1663,9 @@ public class LoadBalancingClient : IPhotonPeerListener
 			WebRpcCallbackTargets.OnWebRpcResponse(operationResponse);
 			break;
 		}
-		if (this.OpResponseReceived != null)
+		if (OpResponseReceived != null)
 		{
-			this.OpResponseReceived(operationResponse);
+			OpResponseReceived(operationResponse);
 		}
 	}
 
@@ -1741,7 +1741,7 @@ public class LoadBalancingClient : IPhotonPeerListener
 			bool flag = CurrentRoom != null;
 			CurrentRoom = null;
 			ChangeLocalID(-1);
-			if (Server == ServerConnection.GameServer && flag)
+			if ((Server == ServerConnection.GameServer) & flag)
 			{
 				MatchMakingCallbackTargets.OnLeftRoom();
 			}
@@ -1757,7 +1757,7 @@ public class LoadBalancingClient : IPhotonPeerListener
 				EnableProtocolFallback = false;
 				LoadBalancingPeer.TransportProtocol = ((LoadBalancingPeer.TransportProtocol != ConnectionProtocol.Tcp) ? ConnectionProtocol.Tcp : ConnectionProtocol.Udp);
 				NameServerPortInAppSettings = 0;
-				ServerPortOverrides = default(PhotonPortDefinition);
+				ServerPortOverrides = default;
 				if (LoadBalancingPeer.Connect(NameServerAddress, ProxyServerAddress, AppId, TokenForInit))
 				{
 					State = ClientState.ConnectingToNameServer;
@@ -2025,9 +2025,9 @@ public class LoadBalancingClient : IPhotonPeerListener
 			break;
 		}
 		UpdateCallbackTargets();
-		if (this.EventReceived != null)
+		if (EventReceived != null)
 		{
-			this.EventReceived(photonEvent);
+			EventReceived(photonEvent);
 		}
 	}
 

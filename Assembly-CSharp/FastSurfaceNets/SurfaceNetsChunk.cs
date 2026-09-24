@@ -47,7 +47,7 @@ public class SurfaceNetsChunk : MonoBehaviour
 		if (sdf.IsCreated)
 		{
 			sdf.Dispose();
-			sdf = default(NativeArray<byte>);
+			sdf = default;
 		}
 	}
 
@@ -59,7 +59,7 @@ public class SurfaceNetsChunk : MonoBehaviour
 		if (sdf.IsCreated)
 		{
 			sdf.Dispose();
-			sdf = default(NativeArray<byte>);
+			sdf = default;
 		}
 		sdf = new NativeArray<byte>(num, Allocator.Persistent);
 		FillChunk();
@@ -72,7 +72,7 @@ public class SurfaceNetsChunk : MonoBehaviour
 			await UniTask.Yield();
 		}
 		handle.Complete();
-		Debug.Log($"{base.name} generated {buffer.Vertices.Length} vertices, {buffer.Normals.Length} normals, {buffer.Triangles.Length / 3}({buffer.Triangles.Length}) triangles.", this);
+		Debug.Log($"{name} generated {buffer.Vertices.Length} vertices, {buffer.Normals.Length} normals, {buffer.Triangles.Length / 3}({buffer.Triangles.Length}) triangles.", this);
 		if (buffer.Triangles.Length != 0)
 		{
 			if (parameters.customNormals)
@@ -115,7 +115,7 @@ public class SurfaceNetsChunk : MonoBehaviour
 			mesh.RecalculateBounds();
 			buffer.Dispose();
 			GetComponent<MeshFilter>().sharedMesh = mesh;
-			base.gameObject.GetOrAddComponent<MeshCollider>().sharedMesh = mesh;
+			gameObject.GetOrAddComponent<MeshCollider>().sharedMesh = mesh;
 		}
 	}
 
@@ -178,7 +178,7 @@ public class SurfaceNetsChunk : MonoBehaviour
 			Vector3[] normals = mesh.normals;
 			for (int i = 0; i < vertexCount; i++)
 			{
-				Gizmos.DrawLine(base.transform.position + vertices[i], base.transform.position + vertices[i] + normals[i] * 0.25f);
+				Gizmos.DrawLine(transform.position + vertices[i], transform.position + vertices[i] + normals[i] * 0.25f);
 			}
 		}
 	}

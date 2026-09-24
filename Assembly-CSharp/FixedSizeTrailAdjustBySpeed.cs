@@ -83,7 +83,7 @@ public class FixedSizeTrailAdjustBySpeed : MonoBehaviour
 		_rawSpeed = 0f;
 		_speed = 0f;
 		_lastSpeed = 0f;
-		_lastPosition = base.transform.position;
+		_lastPosition = transform.position;
 		if ((bool)trail)
 		{
 			trail.length = minLength;
@@ -94,7 +94,7 @@ public class FixedSizeTrailAdjustBySpeed : MonoBehaviour
 
 	private void Setup()
 	{
-		_lastPosition = base.transform.position;
+		_lastPosition = transform.position;
 		_rawVelocity = Vector3.zero;
 		_rawSpeed = 0f;
 		_speed = 0f;
@@ -129,7 +129,7 @@ public class FixedSizeTrailAdjustBySpeed : MonoBehaviour
 	private void Update()
 	{
 		float deltaTime = Time.deltaTime;
-		Vector3 position = base.transform.position;
+		Vector3 position = transform.position;
 		_rawVelocity = (position - _lastPosition) / deltaTime;
 		_rawSpeed = _rawVelocity.magnitude;
 		if (_rawSpeed > retractMin)

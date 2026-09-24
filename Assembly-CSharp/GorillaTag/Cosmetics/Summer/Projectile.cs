@@ -58,9 +58,9 @@ public class Projectile : MonoBehaviour, IProjectile
 
 	public void Launch(Vector3 startPosition, Quaternion startRotation, Vector3 velocity, float chargeFrac, VRRig ownerRig, int progressStep)
 	{
-		Transform obj = base.transform;
-		obj.SetPositionAndRotation(startPosition, startRotation);
-		obj.localScale = Vector3.one * ownerRig.scaleFactor;
+		Transform transform = base.transform;
+		transform.SetPositionAndRotation(startPosition, startRotation);
+		transform.localScale = Vector3.one * ownerRig.scaleFactor;
 		if (rigidbody != null)
 		{
 			rigidbody.isKinematic = false;
@@ -112,11 +112,19 @@ public class Projectile : MonoBehaviour, IProjectile
 	private void GetColliderHitInfo(Collider other, out Vector3 position, out Vector3 normal)
 	{
 		Vector3 vector = Time.fixedDeltaTime * 2f * rigidbody.linearVelocity;
-		Vector3 origin = base.transform.position - vector;
+		Vector3 origin = transform.position - vector;
 		float magnitude = vector.magnitude;
-		other.Raycast(new Ray(origin, vector / magnitude), out var hitInfo, 2f * magnitude);
-		position = hitInfo.point;
-		normal = hitInfo.normal;
+		Vector3 direction = ((magnitude > 0f) ? (vector / magnitude) : Vector3.zero);
+		if (other.Raycast(new Ray(origin, direction), out var hitInfo, 2f * magnitude))
+		{
+			position = hitInfo.point;
+			normal = hitInfo.normal;
+		}
+		else
+		{
+			position = transform.position;
+			normal = Vector3.up;
+		}
 	}
 
 	private void OnCollisionEnter(Collision other)
@@ -148,9 +156,9 @@ public class Projectile : MonoBehaviour, IProjectile
 		if (prefab != null)
 		{
 			Vector3 position2 = position + normal * impactEffectOffset;
-			GameObject obj = ObjectPools.instance.Instantiate(prefab, position2);
-			obj.transform.up = normal;
-			obj.transform.position = position2;
+			GameObject gameObject = ObjectPools.instance.Instantiate(prefab, position2);
+			gameObject.transform.up = normal;
+			gameObject.transform.position = position2;
 		}
 		onImpactShared.Invoke();
 		if (spawnWorldEffects != null)
@@ -166,13 +174,13 @@ public class Projectile : MonoBehaviour, IProjectile
 		{
 			forceComponent.enabled = false;
 		}
-		if (ObjectPools.instance.DoesPoolExist(base.gameObject))
+		if (ObjectPools.instance.DoesPoolExist(gameObject))
 		{
-			ObjectPools.instance.Destroy(base.gameObject);
+			ObjectPools.instance.Destroy(gameObject);
 		}
 		else
 		{
-			Object.Destroy(base.gameObject);
+			Object.Destroy(gameObject);
 		}
 	}
 }

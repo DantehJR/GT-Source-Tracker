@@ -86,7 +86,7 @@ public class OnCollisionEventsCosmetic : MonoBehaviour
 		if (myCollider == null)
 		{
 			Debug.LogError("OnCollisionEventsCosmetic requires a Collider on the same GameObject.");
-			base.enabled = false;
+			enabled = false;
 			return;
 		}
 		if (myCollider.isTrigger)
@@ -194,11 +194,19 @@ public class OnCollisionEventsCosmetic : MonoBehaviour
 		bool flag = collider != null && collider.TryGetComponent<GorillaGrabber>(out component) && component.enabled;
 		bool flag2 = flag && component.IsLeftHand;
 		bool flag3 = ((parentTransferable != null) ? parentTransferable.InLeftHand() : (myHeldItem?.InLeftHand() ?? false));
-		Vector3 position = ((myCollider != null) ? myCollider.bounds.center : base.transform.position);
+		Vector3 position = ((myCollider != null) ? myCollider.bounds.center : transform.position);
 		Vector3 arg = ((collision.contactCount <= 0) ? collider.ClosestPoint(position) : collision.GetContact(0).point);
 		foreach (Listener listener in listeners)
 		{
-			bool arg2 = ((listener.handSource == HandSource.HoldingHand) ? flag3 : (flag ? flag2 : flag3));
+			bool arg2;
+			if (listener.handSource == HandSource.HoldingHand)
+			{
+				arg2 = flag3;
+			}
+			else
+			{
+				arg2 = (flag ? flag2 : flag3);
+			}
 			if ((listener.syncForEveryoneInRoom || IsMyItem()) && (!listener.fireOnlyWhileHeld || !parentTransferable || parentTransferable.InHand()) && (listener.tagSet == null || listener.tagSet.Count <= 0 || CompareTagAny(gameObject, listener.tagSet)) && ((1 << layer) & listener.collisionLayerMask.value) != 0)
 			{
 				if (listener.listenerComponent != null)

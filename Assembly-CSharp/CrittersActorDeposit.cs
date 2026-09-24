@@ -56,7 +56,7 @@ public class CrittersActorDeposit : MonoBehaviour
 		CrittersActor grabbingActor = attachPoint;
 		bool positionOverride = snapOnAttach;
 		bool disableGrabbing = disableGrabOnAttach;
-		depositedActor.GrabbedBy(grabbingActor, positionOverride, default(Quaternion), default(Vector3), disableGrabbing);
+		depositedActor.GrabbedBy(grabbingActor, positionOverride, default, default, disableGrabbing);
 	}
 
 	protected virtual void HandleDetach(CrittersActor detachingActor)

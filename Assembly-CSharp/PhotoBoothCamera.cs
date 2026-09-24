@@ -77,7 +77,7 @@ public class PhotoBoothCamera : MonoBehaviour
 			Graphics.CopyTexture(rt[i], 0, 0, 0, 0, rt[i].width, rt[i].height, print, 0, 0, 0, rt[i].height * i);
 		}
 		NativeArray<Color32> narray = new NativeArray<Color32>(print.width * print.height, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
-		AsyncGPUReadback.RequestIntoNativeArray(ref narray, print, 0, delegate(AsyncGPUReadbackRequest request)
+		AsyncGPUReadback.RequestIntoNativeArray(ref narray, print, 0, (AsyncGPUReadbackRequest request) =>
 		{
 			if (!request.hasError)
 			{

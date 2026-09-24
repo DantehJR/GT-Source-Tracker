@@ -320,14 +320,14 @@ public class GameLightingManager : MonoBehaviourTick, IGorillaSliceableSimple
 		int num = Mathf.Min(gameLights.Count, maxUseTestLights);
 		if (num > 0)
 		{
-			bool num2 = CustomMapLoader.IsMapLoaded();
+			bool flag = CustomMapLoader.IsMapLoaded();
 			lightDataBuffer.SetData(lightData, 0, 0, num);
-			if (num2)
+			if (flag)
 			{
 				lightDataBufferLegacy.SetData(lightDataLegacy);
 			}
 			Shader.SetGlobalBuffer(_shaderPropId_GameLight_LightsPacked, lightDataBuffer);
-			if (num2)
+			if (flag)
 			{
 				Shader.SetGlobalBuffer(_shaderPropId_GameLight_Lights, lightDataBufferLegacy);
 			}
@@ -433,7 +433,7 @@ public class GameLightingManager : MonoBehaviourTick, IGorillaSliceableSimple
 			int count = gameLights.Count;
 			if (count < 50)
 			{
-				lightDataLegacy[count] = default(LightDataLegacy);
+				lightDataLegacy[count] = default;
 			}
 		}
 	}
@@ -500,7 +500,7 @@ public class GameLightingManager : MonoBehaviourTick, IGorillaSliceableSimple
 
 	private void ResetLight(int lightIndex)
 	{
-		lightData[lightIndex] = default(LightDataPacked);
-		lightDataLegacy[lightIndex] = default(LightDataLegacy);
+		lightData[lightIndex] = default;
+		lightDataLegacy[lightIndex] = default;
 	}
 }

@@ -15,7 +15,7 @@ public class GorillaComputerTerminal : MonoBehaviour, IBuildValidation
 	{
 		if (myScreenText == null || myFunctionText == null || monitorMesh == null)
 		{
-			Debug.LogErrorFormat(base.gameObject, "gorilla computer terminal {0} is missing screen text, function text, or monitor mesh. this will break lots of computer stuff", base.gameObject.name);
+			Debug.LogErrorFormat(gameObject, "gorilla computer terminal {0} is missing screen text, function text, or monitor mesh. this will break lots of computer stuff", gameObject.name);
 			return false;
 		}
 		return true;

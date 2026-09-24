@@ -60,7 +60,7 @@ public class ZoneEntityBSP : MonoBehaviour, IGorillaSliceableSimple
 		{
 			return;
 		}
-		ZoneDef zoneDef = ZoneGraphBSP.Instance.FindZoneAtPoint(base.transform.position);
+		ZoneDef zoneDef = ZoneGraphBSP.Instance.FindZoneAtPoint(transform.position);
 		if (!zoneDef.IsSameZone(currentNode))
 		{
 			lastExitedNode = currentNode;
@@ -74,7 +74,7 @@ public class ZoneEntityBSP : MonoBehaviour, IGorillaSliceableSimple
 			GTZone gTZone2 = (zoneDef ? zoneDef.zoneId : GTZone.none);
 			if (gTZone != gTZone2)
 			{
-				ZoneEntityBSP.onPlayerZoneChange?.Invoke(_entityRig, gTZone, gTZone2);
+				onPlayerZoneChange?.Invoke(_entityRig, gTZone, gTZone2);
 			}
 			if (_emitTelemetry)
 			{

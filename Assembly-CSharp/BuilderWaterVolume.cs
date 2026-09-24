@@ -32,7 +32,7 @@ public class BuilderWaterVolume : MonoBehaviour, IBuilderPieceComponent
 
 	public void OnPiecePlacementDeserialized()
 	{
-		bool flag = (double)Vector3.Dot(Vector3.up, base.transform.up) > 0.5 && !piece.IsPieceMoving();
+		bool flag = (double)Vector3.Dot(Vector3.up, transform.up) > 0.5 && !piece.IsPieceMoving();
 		waterVolume.SetActive(flag);
 		waterMesh.SetActive(flag);
 		if (floatingObjects != null)
@@ -43,7 +43,7 @@ public class BuilderWaterVolume : MonoBehaviour, IBuilderPieceComponent
 
 	public void OnPieceActivate()
 	{
-		bool flag = (double)Vector3.Dot(Vector3.up, base.transform.up) > 0.5 && !piece.IsPieceMoving();
+		bool flag = (double)Vector3.Dot(Vector3.up, transform.up) > 0.5 && !piece.IsPieceMoving();
 		waterVolume.SetActive(flag);
 		waterMesh.SetActive(flag);
 		if (floatingObjects != null)

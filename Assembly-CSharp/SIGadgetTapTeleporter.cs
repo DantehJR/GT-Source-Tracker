@@ -75,17 +75,17 @@ public class SIGadgetTapTeleporter : SIGadget
 
 	public override void OnEntityInit()
 	{
-		gameEntity.OnStateChanged += HandleStateChanged;
-		gameEntity.onEntityDestroyed += HandleOnDestroyed;
-		GameEntity obj = gameEntity;
-		obj.OnGrabbed = (Action)Delegate.Combine(obj.OnGrabbed, new Action(HandleHandAttached));
-		GameEntity obj2 = gameEntity;
-		obj2.OnSnapped = (Action)Delegate.Combine(obj2.OnSnapped, new Action(HandleHandAttached));
-		GameEntity obj3 = gameEntity;
-		obj3.OnReleased = (Action)Delegate.Combine(obj3.OnReleased, new Action(HandleHandDetach));
-		GameEntity obj4 = gameEntity;
-		obj4.OnUnsnapped = (Action)Delegate.Combine(obj4.OnUnsnapped, new Action(HandleHandDetach));
-		identifierColor = GenerateColor(gameEntity.GetNetId());
+		base.gameEntity.OnStateChanged += HandleStateChanged;
+		base.gameEntity.onEntityDestroyed += HandleOnDestroyed;
+		GameEntity gameEntity = base.gameEntity;
+		gameEntity.OnGrabbed = (Action)Delegate.Combine(gameEntity.OnGrabbed, new Action(HandleHandAttached));
+		GameEntity gameEntity2 = base.gameEntity;
+		gameEntity2.OnSnapped = (Action)Delegate.Combine(gameEntity2.OnSnapped, new Action(HandleHandAttached));
+		GameEntity gameEntity3 = base.gameEntity;
+		gameEntity3.OnReleased = (Action)Delegate.Combine(gameEntity3.OnReleased, new Action(HandleHandDetach));
+		GameEntity gameEntity4 = base.gameEntity;
+		gameEntity4.OnUnsnapped = (Action)Delegate.Combine(gameEntity4.OnUnsnapped, new Action(HandleHandDetach));
+		identifierColor = GenerateColor(base.gameEntity.GetNetId());
 		ApplyIdentifierColor();
 		UpdateNextSelectionDisplay();
 	}
@@ -182,7 +182,7 @@ public class SIGadgetTapTeleporter : SIGadget
 			SendClientToAuthorityRPC(0, new object[4]
 			{
 				position,
-				Quaternion.LookRotation(normal, base.transform.forward),
+				Quaternion.LookRotation(normal, transform.forward),
 				nextSelectionId,
 				hasInfiniteDuration ? (-1f) : portalDefaultDuration
 			});
@@ -208,7 +208,7 @@ public class SIGadgetTapTeleporter : SIGadget
 
 	public override void ProcessClientToAuthorityRPC(PhotonMessageInfo info, int rpcID, object[] data)
 	{
-		if (rpcID == 0 && data != null && data.Length == 4 && GameEntityManager.ValidateDataType<Vector3>(data[0], out var dataAsType) && GameEntityManager.ValidateDataType<Quaternion>(data[1], out var dataAsType2) && GameEntityManager.ValidateDataType<int>(data[2], out var dataAsType3) && dataAsType3 >= 0 && dataAsType3 <= 100 && GameEntityManager.ValidateDataType<float>(data[3], out var dataAsType4) && gameEntity.IsAttachedToPlayer(NetPlayer.Get(info.Sender)) && !(Vector3.Distance(dataAsType, base.transform.position) > placementCheckDistance) && CheckValidTeleporterPlacement(dataAsType, dataAsType2 * Vector3.forward))
+		if (rpcID == 0 && data != null && data.Length == 4 && GameEntityManager.ValidateDataType<Vector3>(data[0], out var dataAsType) && GameEntityManager.ValidateDataType<Quaternion>(data[1], out var dataAsType2) && GameEntityManager.ValidateDataType<int>(data[2], out var dataAsType3) && dataAsType3 >= 0 && dataAsType3 <= 100 && GameEntityManager.ValidateDataType<float>(data[3], out var dataAsType4) && gameEntity.IsAttachedToPlayer(NetPlayer.Get(info.Sender)) && !(Vector3.Distance(dataAsType, transform.position) > placementCheckDistance) && CheckValidTeleporterPlacement(dataAsType, dataAsType2 * Vector3.forward))
 		{
 			RemoveTeleporter(dataAsType3);
 			PlaceNewTapTeleporter(dataAsType, dataAsType2, dataAsType3, dataAsType4);

@@ -49,7 +49,7 @@ public class WaterSplashEffect : MonoBehaviour
 		DeactivateParticleSystems(bigSplashParticleSystems);
 		DeactivateParticleSystems(smallSplashParticleSystems);
 		waterVolume = null;
-		ObjectPools.instance.Destroy(base.gameObject);
+		ObjectPools.instance.Destroy(gameObject);
 	}
 
 	public void PlayEffect(bool isBigSplash, bool isEntry, float scale, WaterVolume volume = null)
@@ -82,8 +82,8 @@ public class WaterSplashEffect : MonoBehaviour
 	{
 		if (waterVolume != null && !waterVolume.isStationary && waterVolume.surfacePlane != null)
 		{
-			Vector3 vector = Vector3.Dot(base.transform.position - waterVolume.surfacePlane.position, waterVolume.surfacePlane.up) * waterVolume.surfacePlane.up;
-			base.transform.position = base.transform.position - vector;
+			Vector3 vector = Vector3.Dot(transform.position - waterVolume.surfacePlane.position, waterVolume.surfacePlane.up) * waterVolume.surfacePlane.up;
+			transform.position -= vector;
 		}
 		if ((Time.time - startTime) / lifeTime >= 1f)
 		{

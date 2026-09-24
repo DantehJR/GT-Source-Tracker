@@ -48,10 +48,10 @@ public class GorillaHandNode : MonoBehaviour
 		{
 			return false;
 		}
-		bool num = PollThumb() >= 0.25f;
-		bool flag = PollIndex() >= 0.25f;
-		bool flag2 = PollMiddle() >= 0.25f;
-		return num && flag && flag2;
+		bool flag = PollThumb() >= 0.25f;
+		bool flag2 = PollIndex() >= 0.25f;
+		bool flag3 = PollMiddle() >= 0.25f;
+		return flag & flag2 & flag3;
 	}
 
 	private void Setup()
@@ -74,14 +74,14 @@ public class GorillaHandNode : MonoBehaviour
 			vrThumb = (_isLeftHand ? rig.leftThumb : rig.rightThumb);
 			vrMiddle = (_isLeftHand ? rig.leftMiddle : rig.rightMiddle);
 		}
-		_isLeftHand = base.name.Contains("left", StringComparison.OrdinalIgnoreCase);
-		_isRightHand = base.name.Contains("right", StringComparison.OrdinalIgnoreCase);
+		_isLeftHand = name.Contains("left", StringComparison.OrdinalIgnoreCase);
+		_isRightHand = name.Contains("right", StringComparison.OrdinalIgnoreCase);
 		int num = 0;
 		num |= 0x400;
 		num |= 0x200000;
 		num |= 0x1000000;
-		base.gameObject.SetTag(_isLeftHand ? UnityTag.GorillaHandLeft : UnityTag.GorillaHandRight);
-		base.gameObject.SetLayer(UnityLayer.GorillaHand);
+		gameObject.SetTag(_isLeftHand ? UnityTag.GorillaHandLeft : UnityTag.GorillaHandRight);
+		gameObject.SetLayer(UnityLayer.GorillaHand);
 		rigidbody.includeLayers = num;
 		rigidbody.excludeLayers = ~num;
 		rigidbody.isKinematic = true;

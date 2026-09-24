@@ -14,7 +14,7 @@ public class SmoothSyncMovement : MonoBehaviourPun, IPunObservable
 	public void Awake()
 	{
 		bool flag = false;
-		foreach (Component observedComponent in base.photonView.ObservedComponents)
+		foreach (Component observedComponent in photonView.ObservedComponents)
 		{
 			if (observedComponent == this)
 			{
@@ -32,8 +32,8 @@ public class SmoothSyncMovement : MonoBehaviourPun, IPunObservable
 	{
 		if (stream.IsWriting)
 		{
-			stream.SendNext(base.transform.position);
-			stream.SendNext(base.transform.rotation);
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
 		}
 		else
 		{
@@ -44,10 +44,10 @@ public class SmoothSyncMovement : MonoBehaviourPun, IPunObservable
 
 	public void Update()
 	{
-		if (!base.photonView.IsMine)
+		if (!photonView.IsMine)
 		{
-			base.transform.position = Vector3.Lerp(base.transform.position, correctPlayerPos, Time.deltaTime * SmoothingDelay);
-			base.transform.rotation = Quaternion.Lerp(base.transform.rotation, correctPlayerRot, Time.deltaTime * SmoothingDelay);
+			transform.position = Vector3.Lerp(transform.position, correctPlayerPos, Time.deltaTime * SmoothingDelay);
+			transform.rotation = Quaternion.Lerp(transform.rotation, correctPlayerRot, Time.deltaTime * SmoothingDelay);
 		}
 	}
 }

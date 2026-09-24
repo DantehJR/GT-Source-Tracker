@@ -8,6 +8,7 @@ using GorillaExtensions;
 using JetBrains.Annotations;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.CloudScriptModels;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -183,7 +184,7 @@ public class PlayFabAuthenticator : MonoBehaviour
 		}
 		else if (instance != this)
 		{
-			UnityEngine.Object.Destroy(base.gameObject);
+			UnityEngine.Object.Destroy(gameObject);
 		}
 		if (instance.photonAuthenticator == null)
 		{
@@ -216,17 +217,17 @@ public class PlayFabAuthenticator : MonoBehaviour
 		else if (instance.mothershipAuthenticator == null)
 		{
 			instance.mothershipAuthenticator = MothershipAuthenticator.Instance ?? instance.gameObject.GetOrAddComponent<MothershipAuthenticator>();
-			MothershipAuthenticator obj = instance.mothershipAuthenticator;
-			obj.OnLoginSuccess = (Action)Delegate.Combine(obj.OnLoginSuccess, (Action)delegate
+			MothershipAuthenticator mothershipAuthenticator = instance.mothershipAuthenticator;
+			mothershipAuthenticator.OnLoginSuccess = (Action)Delegate.Combine(mothershipAuthenticator.OnLoginSuccess, (Action)(() =>
 			{
 				instance.AuthenticateWithPlayFab();
-			});
-			MothershipAuthenticator obj2 = instance.mothershipAuthenticator;
-			obj2.OnLoginFailure = (Action<string, string, string>)Delegate.Combine(obj2.OnLoginFailure, (Action<string, string, string>)delegate(string errorMessage, string errorCode, string traceId)
+			}));
+			MothershipAuthenticator mothershipAuthenticator2 = instance.mothershipAuthenticator;
+			mothershipAuthenticator2.OnLoginFailure = (Action<string, string, string>)Delegate.Combine(mothershipAuthenticator2.OnLoginFailure, (Action<string, string, string>)((string errorMessage, string errorCode, string traceId) =>
 			{
 				SetLoginFailed();
 				ShowMothershipAuthErrorMessage(errorMessage, errorCode, traceId);
-			});
+			}));
 			instance.mothershipAuthenticator.BeginLoginFlow();
 		}
 	}
@@ -317,7 +318,7 @@ public class PlayFabAuthenticator : MonoBehaviour
 		{
 			userID = SteamUser.GetSteamID().ToString();
 			Debug.Log("trying to auth with steam");
-			steamAuthTicketForPlayFab = steamAuthenticator.GetAuthTicket(delegate(string ticket)
+			steamAuthTicketForPlayFab = steamAuthenticator.GetAuthTicket((string ticket) =>
 			{
 				Debug.Log("Got steam auth session ticket!");
 				PlayFabClientAPI.LoginWithSteam(new LoginWithSteamRequest
@@ -325,14 +326,14 @@ public class PlayFabAuthenticator : MonoBehaviour
 					CreateAccount = true,
 					SteamTicket = ticket
 				}, OnLoginWithSteamResponse, OnPlayFabError);
-			}, delegate
+			}, (EResult result) =>
 			{
 				StartCoroutine(DisplayGeneralFailureMessageOnGorillaComputerAfter1Frame());
 			});
 		}
 		else
 		{
-			StartCoroutine(DisplayGeneralFailureMessageOnGorillaComputerAfter1Frame());
+			StartCoroutine(DisplayGeneralFailureMessageOnGorillaComputerAfter1FrameDiffernetError());
 		}
 	}
 
@@ -361,6 +362,21 @@ public class PlayFabAuthenticator : MonoBehaviour
 		else
 		{
 			Debug.LogError("PlayFabAuthenticator: gorillaComputer is null, so could not set GeneralFailureMessage notifying user that the steam account could not be authenticated.", this);
+		}
+	}
+
+	private IEnumerator DisplayGeneralFailureMessageOnGorillaComputerAfter1FrameDiffernetError()
+	{
+		yield return null;
+		if (gorillaComputer != null)
+		{
+			gorillaComputer.GeneralFailureMessage("UNABLE TO AUTHENTICATE YOUR STEAM ACCOUNT! STEAM MANAGER NEVER INITIAZLIZED");
+			gorillaComputer.screenText.Set("UNABLE TO AUTHENTICATE YOUR STEAM ACCOUNT! STEAM MANAGER NEVER INITIAZLIZED");
+			Debug.Log("Couldn't authenticate steam account");
+		}
+		else
+		{
+			Debug.LogError("UNABLE TO AUTHENTICATE YOUR STEAM ACCOUNT! STEAM MANAGER NEVER INITIAZLIZED", this);
 		}
 	}
 
@@ -402,12 +418,12 @@ public class PlayFabAuthenticator : MonoBehaviour
 	private void AdvanceLogin()
 	{
 		LogMessage("PlayFab authenticated ... Getting Nonce");
-		RefreshSteamAuthTicketForPhoton(delegate(string ticket)
+		RefreshSteamAuthTicketForPhoton((string ticket) =>
 		{
 			_nonce = ticket;
 			Debug.Log("Got nonce!  Authenticating...");
 			AuthenticateWithPhoton();
-		}, delegate
+		}, (EResult result) =>
 		{
 			Debug.LogWarning("Failed to get nonce!");
 			AuthenticateWithPhoton();
@@ -442,14 +458,14 @@ public class PlayFabAuthenticator : MonoBehaviour
 			}
 		});
 		GetPlayerDisplayName(_playFabPlayerIdCache);
-		GorillaServer.Instance.AddOrRemoveDLCOwnership(delegate
+		GorillaServer.Instance.AddOrRemoveDLCOwnership((ExecuteFunctionResult result) =>
 		{
 			Debug.Log("got results! updating!");
 			if (GorillaTagger.Instance != null)
 			{
 				GorillaTagger.Instance.offlineVRRig.GetCosmeticsPlayFabCatalogData();
 			}
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.Log("Got error retrieving user data:");
 			Debug.Log(error.GenerateErrorReport());
@@ -554,10 +570,10 @@ public class PlayFabAuthenticator : MonoBehaviour
 			{
 				ShowDisplayName = true
 			}
-		}, delegate(GetPlayerProfileResult result)
+		}, (GetPlayerProfileResult result) =>
 		{
 			_displayName = result.PlayerProfile.DisplayName;
-		}, delegate(PlayFabError error)
+		}, (PlayFabError error) =>
 		{
 			Debug.LogError(error.GenerateErrorReport());
 		});
@@ -570,10 +586,10 @@ public class PlayFabAuthenticator : MonoBehaviour
 			PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest
 			{
 				DisplayName = playerName
-			}, delegate
+			}, (UpdateUserTitleDisplayNameResult result) =>
 			{
 				_displayName = playerName;
-			}, delegate(PlayFabError error)
+			}, (PlayFabError error) =>
 			{
 				Debug.LogError("Error with name: " + playerName + ". Error is " + error.GenerateErrorReport());
 			});
@@ -655,6 +671,16 @@ public class PlayFabAuthenticator : MonoBehaviour
 
 	private void ShowMothershipAuthErrorMessage(string errorMessage, string errorCode, string traceId)
 	{
+		StartCoroutine(ShowMothershipAuthErrorMessageCoroutine(errorMessage, errorCode, traceId));
+	}
+
+	private IEnumerator ShowMothershipAuthErrorMessageCoroutine(string errorMessage, string errorCode, string traceId)
+	{
+		WaitForEndOfFrame frameYield = new WaitForEndOfFrame();
+		while (gorillaComputer == null)
+		{
+			yield return frameYield;
+		}
 		try
 		{
 			StringBuilder stringBuilder = new StringBuilder("UNABLE TO AUTHENTICATE WITH MOTHERSHIP.\nREASON: " + errorMessage);
