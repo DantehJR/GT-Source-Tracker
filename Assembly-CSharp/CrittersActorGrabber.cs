@@ -112,6 +112,8 @@ public class CrittersActorGrabber : MonoBehaviour
 		{
 			transform.position = transformToFollow.position;
 			transform.rotation = transformToFollow.rotation;
+			rb.position = transform.position;
+			rb.rotation = transform.rotation;
 		}
 		if (grabber == null)
 		{

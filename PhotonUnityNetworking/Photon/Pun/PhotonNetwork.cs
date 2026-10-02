@@ -2286,10 +2286,9 @@ public static class PhotonNetwork
 						}
 						int timestamp = (int)rpcData[keyByteTwo];
 						num6++;
-						object obj3 = methodInfo.Invoke(monoBehaviour, new object[1]
-						{
-							new PhotonMessageInfo(sender, timestamp, photonView)
-						});
+						object[] array3 = ReusableObjectArray.GetArray(1);
+						array3[0] = new PhotonMessageInfo(sender, timestamp, photonView);
+						object obj3 = methodInfo.Invoke(monoBehaviour, array3);
 						if (RunRpcCoroutines && obj3 is IEnumerator routine2)
 						{
 							PhotonHandler.Instance.StartCoroutine(routine2);
@@ -2301,10 +2300,10 @@ public static class PhotonNetwork
 						if (flag)
 						{
 							int timestamp2 = (int)rpcData[keyByteTwo];
-							object[] array3 = new object[array.Length + 1];
-							array.CopyTo(array3, 0);
-							array3[^1] = new PhotonMessageInfo(sender, timestamp2, photonView);
-							parameters = array3;
+							object[] array4 = ReusableObjectArray.GetArray(array.Length + 1);
+							array.CopyTo(array4, 0);
+							array4[^1] = new PhotonMessageInfo(sender, timestamp2, photonView);
+							parameters = array4;
 						}
 						num6++;
 						object obj4 = methodInfo.Invoke(monoBehaviour, parameters);

@@ -1099,7 +1099,7 @@ public class LoadBalancingClient : IPhotonPeerListener
 			if (num != 0)
 			{
 				Hashtable hashtable2 = (Hashtable)actorProperties[key];
-				string actorName = (string)hashtable2[byte.MaxValue];
+				string actorName = (hashtable2[byte.MaxValue] as string) ?? string.Empty;
 				Player player2 = CurrentRoom.GetPlayer(num);
 				if (player2 == null)
 				{

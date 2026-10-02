@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -44,7 +45,10 @@ public class MothershipHttpClientUnity : MothershipSendHTTPRequestDelegateWrappe
 			{
 				Debug.Log($"Mothership: Request to {request.Path} status {Response.statusCode}");
 			}
-			client.ReceiveHttpResponse(Response);
+			if (!(MothershipApiClient.getCPtr(client).Handle == IntPtr.Zero))
+			{
+				client.ReceiveHttpResponse(Response);
+			}
 		});
 		return true;
 	}

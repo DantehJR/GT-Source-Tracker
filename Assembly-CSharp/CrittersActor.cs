@@ -828,6 +828,8 @@ public class CrittersActor : MonoBehaviour
 				UpdateImpulses(local: false, updateImpulseTime);
 			}
 		}
+		rb.position = transform.position;
+		rb.rotation = transform.rotation;
 		if (!isKinematic)
 		{
 			TogglePhysics(enable: true);
