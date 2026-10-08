@@ -35,7 +35,7 @@ public class PhotonHandler : ConnectionHandler, IInRoomCallbacks, IMatchmakingCa
 		{
 			if (instance == null)
 			{
-				instance = UnityEngine.Object.FindObjectOfType<PhotonHandler>();
+				instance = UnityEngine.Object.FindAnyObjectByType<PhotonHandler>();
 				if (instance == null)
 				{
 					instance = new GameObject

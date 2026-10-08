@@ -357,7 +357,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 		}
 		if (buttonPressed == CustomMapKeyboardBinding.goback)
 		{
-			if (CustomMapManager.IsLoading() || CustomMapManager.IsUnloading())
+			if ((CustomMapManager.IsLoading() && !CustomMapLoader.IsAwaitingPlayerEntry()) || CustomMapManager.IsUnloading())
 			{
 				return;
 			}
@@ -368,7 +368,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 				CustomMapManager.ClearRoomMap();
 				ResetToDefaultView();
 			}
-			else if (CustomMapLoader.IsMapLoaded() || CustomMapManager.GetRoomMapId() != ModId.Null)
+			else if (CustomMapLoader.IsMapLoaded() || CustomMapLoader.IsAwaitingPlayerEntry() || CustomMapManager.GetRoomMapId() != ModId.Null)
 			{
 				if (!CanChangeMapState(load: false, out var disallowedReason))
 				{
@@ -516,22 +516,15 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 					if (state == ModFileState.Queued || state == ModFileState.Installed)
 					{
 						flag = true;
-						goto IL_03ff;
+						goto IL_040d;
 					}
 				}
 			}
 			flag = false;
-			goto IL_03ff;
+			goto IL_040d;
 		}
-		goto IL_0416;
-		IL_03ff:
-		if (flag)
-		{
-			currentMapMod.UninstallOtherUserMod(force: true);
-			UpdateStatus();
-		}
-		goto IL_0416;
-		IL_0416:
+		goto IL_0424;
+		IL_0424:
 		if (buttonPressed == CustomMapKeyboardBinding.rateUp)
 		{
 			currentMapMod.RateMod((currentMapMod.CurrentUserRating != ModRating.Positive) ? ModRating.Positive : ModRating.None);
@@ -540,6 +533,14 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 		{
 			currentMapMod.RateMod((currentMapMod.CurrentUserRating != ModRating.Negative) ? ModRating.Negative : ModRating.None);
 		}
+		return;
+		IL_040d:
+		if (flag)
+		{
+			currentMapMod.UninstallOtherUserMod(force: true);
+			UpdateStatus();
+		}
+		goto IL_0424;
 	}
 
 	private void RefreshCurrentMapMod()
@@ -930,6 +931,7 @@ public class CustomMapsDetailsScreen : CustomMapsTerminalScreen
 			loadingMapLabelText.gameObject.SetActive(value: true);
 			loadingMapMessageText.text = message;
 			loadingMapMessageText.gameObject.SetActive(value: true);
+			unloadPromptText.gameObject.SetActive(CustomMapLoader.IsAwaitingPlayerEntry());
 			break;
 		case MapLoadStatus.Unloading:
 			mapReadyText.gameObject.SetActive(value: false);

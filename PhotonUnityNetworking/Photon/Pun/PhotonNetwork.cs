@@ -1980,7 +1980,7 @@ public static class PhotonNetwork
 	public static HashSet<GameObject> FindGameObjectsWithComponent(Type type)
 	{
 		HashSet<GameObject> hashSet = new HashSet<GameObject>();
-		Component[] array = (Component[])UnityEngine.Object.FindObjectsOfType(type);
+		Component[] array = (Component[])UnityEngine.Object.FindObjectsByType(type, FindObjectsSortMode.None);
 		for (int i = 0; i < array.Length; i++)
 		{
 			if (array[i] != null)

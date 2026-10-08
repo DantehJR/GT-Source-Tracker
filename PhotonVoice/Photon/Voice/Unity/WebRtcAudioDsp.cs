@@ -819,7 +819,7 @@ public class WebRtcAudioDsp : VoiceComponent
 		}
 		if ((object)audioListener == null)
 		{
-			AudioOutCapture[] array = UnityEngine.Object.FindObjectsOfType<AudioOutCapture>();
+			AudioOutCapture[] array = UnityEngine.Object.FindObjectsByType<AudioOutCapture>(FindObjectsSortMode.None);
 			if (array.Length > 1 && Logger.IsDebugEnabled)
 			{
 				Logger.LogDebug("{0} AudioOutCapture components found, is this expected?", array.Length);
@@ -832,7 +832,7 @@ public class WebRtcAudioDsp : VoiceComponent
 					return true;
 				}
 			}
-			AudioListener[] array2 = UnityEngine.Object.FindObjectsOfType<AudioListener>();
+			AudioListener[] array2 = UnityEngine.Object.FindObjectsByType<AudioListener>(FindObjectsSortMode.None);
 			if (array2.Length == 0)
 			{
 				if (Logger.IsErrorEnabled)
