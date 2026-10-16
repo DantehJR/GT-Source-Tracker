@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace GorillaTag.Cosmetics;
 
-public class SprayCanCosmeticNetworked : MonoBehaviour
+public class SprayCanCosmeticNetworked : MonoBehaviour, PrefabNameSerialized
 {
 	[SerializeField]
 	private TransferrableObject transferrableObject;
@@ -18,6 +18,21 @@ public class SprayCanCosmeticNetworked : MonoBehaviour
 	public UnityEvent HandleOnShakeStart;
 
 	public UnityEvent HandleOnShakeEnd;
+
+	[SerializeField]
+	private string m_prefabName;
+
+	public string PrefabName
+	{
+		get
+		{
+			return m_prefabName;
+		}
+		set
+		{
+			m_prefabName = value;
+		}
+	}
 
 	private void OnEnable()
 	{
@@ -35,7 +50,7 @@ public class SprayCanCosmeticNetworked : MonoBehaviour
 			}
 			if (netPlayer != null)
 			{
-				_events.Init(netPlayer);
+				_events.Init(netPlayer, m_prefabName);
 			}
 		}
 		if (_events != null)

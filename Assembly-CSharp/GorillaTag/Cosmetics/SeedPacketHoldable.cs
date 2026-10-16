@@ -7,7 +7,7 @@ using UnityEngine;
 namespace GorillaTag.Cosmetics;
 
 [RequireComponent(typeof(TransferrableObject))]
-public class SeedPacketHoldable : MonoBehaviour
+public class SeedPacketHoldable : MonoBehaviour, PrefabNameSerialized
 {
 	[SerializeField]
 	private float cooldown;
@@ -46,6 +46,21 @@ public class SeedPacketHoldable : MonoBehaviour
 
 	private RubberDuckEvents _events;
 
+	[SerializeField]
+	private string m_prefabName;
+
+	public string PrefabName
+	{
+		get
+		{
+			return m_prefabName;
+		}
+		set
+		{
+			m_prefabName = value;
+		}
+	}
+
 	private void Awake()
 	{
 		transferrableObject = GetComponent<TransferrableObject>();
@@ -68,7 +83,7 @@ public class SeedPacketHoldable : MonoBehaviour
 			}
 			if (netPlayer != null)
 			{
-				_events.Init(netPlayer);
+				_events.Init(netPlayer, m_prefabName);
 			}
 		}
 		if (_events != null)

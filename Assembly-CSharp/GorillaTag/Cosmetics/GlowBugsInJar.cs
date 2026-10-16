@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GorillaTag.Cosmetics;
 
-public class GlowBugsInJar : MonoBehaviour
+public class GlowBugsInJar : MonoBehaviour, PrefabNameSerialized
 {
 	[SerializeField]
 	private TransferrableObject transferrableObject;
@@ -42,6 +42,21 @@ public class GlowBugsInJar : MonoBehaviour
 
 	private CallLimiter callLimiter = new CallLimiter(10, 2f);
 
+	[SerializeField]
+	private string m_prefabName;
+
+	public string PrefabName
+	{
+		get
+		{
+			return m_prefabName;
+		}
+		set
+		{
+			m_prefabName = value;
+		}
+	}
+
 	private void OnEnable()
 	{
 		shakeStarted = false;
@@ -60,7 +75,7 @@ public class GlowBugsInJar : MonoBehaviour
 			}
 			if (netPlayer != null)
 			{
-				_events.Init(netPlayer);
+				_events.Init(netPlayer, m_prefabName);
 			}
 		}
 		if (_events != null)

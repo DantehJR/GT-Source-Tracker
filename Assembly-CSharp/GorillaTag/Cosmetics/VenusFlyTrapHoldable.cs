@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GorillaTag.Cosmetics;
 
 [RequireComponent(typeof(TransferrableObject))]
-public class VenusFlyTrapHoldable : MonoBehaviour, ITickSystemTick
+public class VenusFlyTrapHoldable : MonoBehaviour, ITickSystemTick, PrefabNameSerialized
 {
 	private enum VenusState
 	{
@@ -75,7 +75,22 @@ public class VenusFlyTrapHoldable : MonoBehaviour, ITickSystemTick
 
 	private TransferrableObject transferrableObject;
 
+	[SerializeField]
+	private string m_prefabName;
+
 	public bool TickRunning { get; set; }
+
+	public string PrefabName
+	{
+		get
+		{
+			return m_prefabName;
+		}
+		set
+		{
+			m_prefabName = value;
+		}
+	}
 
 	private void Awake()
 	{
@@ -103,7 +118,7 @@ public class VenusFlyTrapHoldable : MonoBehaviour, ITickSystemTick
 			}
 			if (netPlayer != null)
 			{
-				_events.Init(netPlayer);
+				_events.Init(netPlayer, m_prefabName);
 			}
 		}
 		if (_events != null)

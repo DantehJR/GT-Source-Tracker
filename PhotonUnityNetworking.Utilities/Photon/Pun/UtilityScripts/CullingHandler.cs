@@ -36,7 +36,7 @@ public class CullingHandler : MonoBehaviour, IPunObservable
 		}
 		if (cullArea == null)
 		{
-			cullArea = Object.FindObjectOfType<CullArea>();
+			cullArea = Object.FindAnyObjectByType<CullArea>();
 		}
 		previousActiveCells = new List<byte>(0);
 		activeCells = new List<byte>(0);

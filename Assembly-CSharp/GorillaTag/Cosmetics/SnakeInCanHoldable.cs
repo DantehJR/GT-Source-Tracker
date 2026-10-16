@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GorillaTag.Cosmetics;
 
-public class SnakeInCanHoldable : TransferrableObject
+public class SnakeInCanHoldable : TransferrableObject, PrefabNameSerialized
 {
 	[SerializeField]
 	private float jumpSpeed;
@@ -30,6 +30,21 @@ public class SnakeInCanHoldable : TransferrableObject
 	private Vector3 originalTopRigPosition;
 
 	private RubberDuckEvents _events;
+
+	[SerializeField]
+	private string m_prefabName;
+
+	public string PrefabName
+	{
+		get
+		{
+			return m_prefabName;
+		}
+		set
+		{
+			m_prefabName = value;
+		}
+	}
 
 	protected override void Awake()
 	{
@@ -63,7 +78,7 @@ public class SnakeInCanHoldable : TransferrableObject
 			}
 			if (netPlayer != null)
 			{
-				_events.Init(netPlayer);
+				_events.Init(netPlayer, m_prefabName);
 			}
 		}
 		if (_events != null)

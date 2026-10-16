@@ -6,12 +6,27 @@ using UnityEngine;
 
 namespace GorillaTag.Cosmetics;
 
-public class DreidelHoldable : TransferrableObject
+public class DreidelHoldable : TransferrableObject, PrefabNameSerialized
 {
 	[SerializeField]
 	private Dreidel dreidelAnimation;
 
 	private RubberDuckEvents _events;
+
+	[SerializeField]
+	private string m_prefabName;
+
+	public string PrefabName
+	{
+		get
+		{
+			return m_prefabName;
+		}
+		set
+		{
+			m_prefabName = value;
+		}
+	}
 
 	internal override void OnEnable()
 	{
@@ -30,7 +45,7 @@ public class DreidelHoldable : TransferrableObject
 			}
 			if (netPlayer != null)
 			{
-				_events.Init(netPlayer);
+				_events.Init(netPlayer, m_prefabName);
 			}
 			else
 			{

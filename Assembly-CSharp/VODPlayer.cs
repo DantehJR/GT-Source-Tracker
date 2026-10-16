@@ -788,7 +788,7 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 			Debug.LogError("Crash(\"No schedule data\")");
 			return;
 		}
-		VODStreamSchedule subSchedule = default;
+		VODStreamSchedule subSchedule;
 		try
 		{
 			subSchedule = JsonConvert.DeserializeObject<VODStreamSchedule>(s);
@@ -796,6 +796,12 @@ public class VODPlayer : MonoBehaviour, IGorillaSliceableSimple
 		catch (Exception ex)
 		{
 			Debug.LogError("Crash(\"Malformed schedule data\") :: " + ex.Message + " :: " + s);
+			return;
+		}
+		if (subSchedule.hourly == null)
+		{
+			Debug.LogError("Crash(\"Schedule data has no hourly entries\") :: " + s);
+			return;
 		}
 		for (int i = 0; i < subSchedule.hourly.Length; i++)
 		{

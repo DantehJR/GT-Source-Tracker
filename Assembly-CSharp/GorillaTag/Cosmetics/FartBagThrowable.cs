@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GorillaTag.Cosmetics;
 
-public class FartBagThrowable : MonoBehaviour, IProjectile
+public class FartBagThrowable : MonoBehaviour, IProjectile, PrefabNameSerialized
 {
 	[SerializeField]
 	private GameObject deflationEffect;
@@ -47,7 +47,22 @@ public class FartBagThrowable : MonoBehaviour, IProjectile
 
 	private RubberDuckEvents _events;
 
+	[SerializeField]
+	private string m_prefabName;
+
 	public TransferrableObject ParentTransferable { get; set; }
+
+	public string PrefabName
+	{
+		get
+		{
+			return m_prefabName;
+		}
+		set
+		{
+			m_prefabName = value;
+		}
+	}
 
 	public event Action<IProjectile> OnDeflated;
 
@@ -99,7 +114,7 @@ public class FartBagThrowable : MonoBehaviour, IProjectile
 			}
 			if (_events != null && netPlayer != null)
 			{
-				_events.Init(netPlayer);
+				_events.Init(netPlayer, m_prefabName);
 			}
 		}
 		if (_events != null)

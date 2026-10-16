@@ -40,7 +40,7 @@ public class PhotonTeamsManager : MonoBehaviour, IMatchmakingCallbacks, IInRoomC
 		{
 			if (instance == null)
 			{
-				instance = UnityEngine.Object.FindObjectOfType<PhotonTeamsManager>();
+				instance = UnityEngine.Object.FindFirstObjectByType<PhotonTeamsManager>();
 				if (instance == null)
 				{
 					instance = new GameObject

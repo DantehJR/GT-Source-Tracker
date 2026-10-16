@@ -2,10 +2,11 @@ using System;
 using GorillaExtensions;
 using GorillaLocomotion;
 using GorillaLocomotion.Climbing;
+using GorillaTag;
 using Photon.Pun;
 using UnityEngine;
 
-public class CrankableToyCarHoldable : TransferrableObject
+public class CrankableToyCarHoldable : TransferrableObject, PrefabNameSerialized
 {
 	[SerializeField]
 	private TransferrableObjectHoldablePart_Crank crank;
@@ -61,6 +62,21 @@ public class CrankableToyCarHoldable : TransferrableObject
 
 	private RubberDuckEvents _events;
 
+	[SerializeField]
+	private string m_prefabName;
+
+	public string PrefabName
+	{
+		get
+		{
+			return m_prefabName;
+		}
+		set
+		{
+			m_prefabName = value;
+		}
+	}
+
 	protected override void Start()
 	{
 		base.Start();
@@ -91,7 +107,7 @@ public class CrankableToyCarHoldable : TransferrableObject
 			}
 			if (netPlayer != null && _events != null)
 			{
-				_events.Init(netPlayer);
+				_events.Init(netPlayer, m_prefabName);
 				_events.Activate += new Action<int, int, object[], PhotonMessageInfoWrapped>(OnDeployRPC);
 			}
 			else

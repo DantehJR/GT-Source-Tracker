@@ -3442,7 +3442,7 @@ public static class PhotonNetwork
 				{
 					int key = (int)hashtable[keyByteZero];
 					PhotonView val = null;
-					if (photonViewList.TryGetValue(key, out val))
+					if (photonViewList.TryGetValue(key, out val) && val.isRuntimeInstantiated)
 					{
 						RemoveInstantiatedGO(val.gameObject, localOnly: true);
 					}

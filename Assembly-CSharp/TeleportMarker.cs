@@ -11,14 +11,32 @@ public class TeleportMarker : MonoBehaviour
 	[SerializeField]
 	private bool maintainVelocity;
 
+	[Tooltip("Zone to make active after teleporting to the mark. None = leave zones unchanged.")]
+	[SerializeField]
+	private GTZone teleportToZone = GTZone.none;
+
+	private void OnEnable()
+	{
+	}
+
 	public void SetMarkAtLocalPlayer()
 	{
-		Transform transform = GTPlayer.Instance.mainCamera.transform;
-		base.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
+		if (enabled)
+		{
+			Transform transform = GTPlayer.Instance.mainCamera.transform;
+			base.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
+		}
 	}
 
 	public void TeleportLocalPlayerToMark()
 	{
-		GTPlayer.Instance.TeleportTo(transform, matchRotation, maintainVelocity);
+		if (enabled)
+		{
+			GTPlayer.Instance.TeleportTo(transform, matchRotation, maintainVelocity);
+			if (teleportToZone != GTZone.none)
+			{
+				ZoneManagement.SetActiveZone(teleportToZone);
+			}
+		}
 	}
 }
