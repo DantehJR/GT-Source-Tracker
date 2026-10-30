@@ -110,6 +110,8 @@ public class PlayFabAuthenticator : MonoBehaviour
 
 	private string _playFabPlayerIdCache;
 
+	private DateTime _playFabAccountCreationDateCache = DateTime.UtcNow;
+
 	private string _sessionTicket;
 
 	private string _displayName;
@@ -281,9 +283,9 @@ public class PlayFabAuthenticator : MonoBehaviour
 			PlayFabSettings.staticPlayer = new PlayFabAuthenticationContext(response.SessionTicket, response.EntityToken, response.PlayFabId, response.EntityId, response.EntityType);
 			_playFabPlayerIdCache = response.PlayFabId;
 			_sessionTicket = response.SessionTicket;
-			if (DateTime.TryParse(response.AccountCreationIsoTimestamp, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var result))
+			if (DateTime.TryParse(response.AccountCreationIsoTimestamp, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out _playFabAccountCreationDateCache))
 			{
-				StartCoroutine(VerifyKidAuthenticated(result));
+				StartCoroutine(VerifyKidAuthenticated(_playFabAccountCreationDateCache));
 			}
 			AdvanceLogin();
 		}
@@ -397,9 +399,9 @@ public class PlayFabAuthenticator : MonoBehaviour
 		if (response != null)
 		{
 			steamAuthIdForPhoton = response.SteamAuthIdForPhoton;
-			if (DateTime.TryParse(response.AccountCreationIsoTimestamp, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var result))
+			if (DateTime.TryParse(response.AccountCreationIsoTimestamp, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out _playFabAccountCreationDateCache))
 			{
-				StartCoroutine(VerifyKidAuthenticated(result));
+				StartCoroutine(VerifyKidAuthenticated(_playFabAccountCreationDateCache));
 			}
 			Debug.Log("Successfully cached PlayFab Id.  Continuing!");
 			AdvanceLogin();
@@ -604,7 +606,7 @@ public class PlayFabAuthenticator : MonoBehaviour
 
 	public IEnumerator PlayfabAuthenticate(PlayfabAuthRequestData data, Action<PlayfabAuthResponseData> callback)
 	{
-		UnityWebRequest request = new UnityWebRequest(PlayFabAuthenticatorSettings.AuthApiBaseUrl + "/api/PlayFabAuthentication", "POST");
+		UnityWebRequest request = new UnityWebRequest(BackendApiUrl.Build(PlayFabAuthenticatorSettings.AuthApiBaseUrl, "/api/PlayFabAuthentication"), "POST");
 		byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
 		bool retry = false;
 		request.uploadHandler = new UploadHandlerRaw(bytes);
@@ -738,7 +740,7 @@ public class PlayFabAuthenticator : MonoBehaviour
 	public IEnumerator CachePlayFabId(CachePlayFabIdRequest data, Action<CachePlayFabIdResponse> callback)
 	{
 		Debug.Log("Trying to cache playfab Id");
-		UnityWebRequest request = new UnityWebRequest(PlayFabAuthenticatorSettings.AuthApiBaseUrl + "/api/CachePlayFabId", "POST");
+		UnityWebRequest request = new UnityWebRequest(BackendApiUrl.Build(PlayFabAuthenticatorSettings.AuthApiBaseUrl, "/api/CachePlayFabId"), "POST");
 		byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
 		bool retry = false;
 		request.uploadHandler = new UploadHandlerRaw(bytes);
@@ -839,6 +841,11 @@ public class PlayFabAuthenticator : MonoBehaviour
 	public string GetPlayFabPlayerId()
 	{
 		return _playFabPlayerIdCache;
+	}
+
+	public DateTime GetPlayFabAccountCreationDate()
+	{
+		return _playFabAccountCreationDateCache;
 	}
 
 	public bool GetSafety()

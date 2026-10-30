@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Critters.Scripts;
-using Fusion;
 using GorillaExtensions;
 using GorillaNetworking;
 using Photon.Pun;
 using PlayFab;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using Utilities;
 
-[NetworkBehaviourWeaved(0)]
+[AddComponentMenu("GorillaTag/Critters/Critters Manager")]
 public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallbacks, IBuildValidation, ITickSystemTick
 {
 	[Flags]
@@ -373,14 +373,12 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 
 	private new void OnEnable()
 	{
-		NetworkBehaviourUtils.InternalOnEnable(this);
 		base.OnEnable();
 		TickSystem<object>.AddTickCallback(this);
 	}
 
 	private new void OnDisable()
 	{
-		NetworkBehaviourUtils.InternalOnDisable(this);
 		base.OnDisable();
 		TickSystem<object>.RemoveTickCallback(this);
 	}
@@ -1041,7 +1039,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 	[PunRPC]
 	public void RequestDataInitialization(PhotonMessageInfo info)
 	{
-		if (NetworkSystem.Instance.InRoom && LocalAuthority())
+		if (NetworkSystem.Instance.InRoom && LocalAuthority() && localInZone)
 		{
 			if (updatingPlayers == null)
 			{
@@ -1115,7 +1113,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 	[PunRPC]
 	public void RemoteCritterActorReleased(int releasedActorID, bool keepWorldPosition, Quaternion rotation, Vector3 position, Vector3 velocity, Vector3 angularVelocity, PhotonMessageInfo info)
 	{
-		if (LocalAuthority() && VRRigCache.Instance.TryGetVrrig(info.Sender, out var _) && rotation.IsValid() && position.IsValid(10000f) && velocity.IsValid(10000f) && angularVelocity.IsValid(10000f))
+		if (LocalAuthority() && localInZone && VRRigCache.Instance.TryGetVrrig(info.Sender, out var _) && rotation.IsValid() && position.IsValid(10000f) && velocity.IsValid(10000f) && angularVelocity.IsValid(10000f))
 		{
 			CheckValidRemoteActorRelease(releasedActorID, keepWorldPosition, rotation, position, velocity, angularVelocity, info);
 		}
@@ -1141,7 +1139,7 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 	[PunRPC]
 	public void RemoteCrittersActorGrabbedby(int grabbedActorID, int grabberActorID, Quaternion offsetRotation, Vector3 offsetPosition, bool isGrabDisabled, PhotonMessageInfo info)
 	{
-		if (LocalAuthority() && VRRigCache.Instance.TryGetVrrig(info.Sender, out var _) && offsetRotation.IsValid() && offsetPosition.IsValid(10000f))
+		if (LocalAuthority() && localInZone && VRRigCache.Instance.TryGetVrrig(info.Sender, out var _) && offsetRotation.IsValid() && offsetPosition.IsValid(10000f))
 		{
 			CheckValidRemoteActorGrab(grabbedActorID, grabberActorID, offsetRotation, offsetPosition, isGrabDisabled, info);
 		}
@@ -1228,14 +1226,6 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 			}
 		}
 		return null;
-	}
-
-	public override void WriteDataFusion()
-	{
-	}
-
-	public override void ReadDataFusion()
-	{
 	}
 
 	public void PopulatePools()
@@ -1387,12 +1377,12 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 	{
 		if (actorById.TryGetValue(releasedActorID, out var value))
 		{
-			CrittersActor crittersActor = TopLevelCritterGrabber(value);
+			CrittersActor rootActor = CrittersActor.GetRootActor(value.parentActorId);
 			rotation.SetValueSafe(in rotation);
 			position.SetValueSafe(in position);
 			velocity.SetValueSafe(in velocity);
 			angularVelocity.SetValueSafe(in angularVelocity);
-			if (crittersActor != null && crittersActor is CrittersGrabber && crittersActor.isOnPlayer && crittersActor.rigPlayerId == info.Sender.ActorNumber)
+			if (rootActor != null && rootActor is CrittersGrabber && rootActor.isOnPlayer && rootActor.rigPlayerId == info.Sender.ActorNumber)
 			{
 				value.Released(keepWorldPosition, rotation, position, velocity, angularVelocity);
 			}
@@ -1401,7 +1391,23 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 
 	private void CheckValidRemoteActorGrab(int actorBeingGrabbedActorID, int grabbingActorID, Quaternion offsetRotation, Vector3 offsetPosition, bool isGrabDisabled, PhotonMessageInfo info)
 	{
-		if (actorById.TryGetValue(actorBeingGrabbedActorID, out var value) && actorById.TryGetValue(grabbingActorID, out var value2))
+		if (!actorById.TryGetValue(actorBeingGrabbedActorID, out var value) || !actorById.TryGetValue(grabbingActorID, out var value2) || actorBeingGrabbedActorID == grabbingActorID)
+		{
+			return;
+		}
+		CrittersActor value3 = value2;
+		for (int i = 0; i < 20; i++)
+		{
+			if (value3.parentActorId < 0)
+			{
+				break;
+			}
+			if (value3.parentActorId == actorBeingGrabbedActorID || !actorById.TryGetValue(value3.parentActorId, out value3))
+			{
+				return;
+			}
+		}
+		if (value3.parentActorId < 0)
 		{
 			offsetRotation.SetValueSafe(in offsetRotation);
 			offsetPosition.SetValueSafe(in offsetPosition);
@@ -1410,17 +1416,6 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 				value.GrabbedBy(value2, positionOverride: true, offsetRotation, offsetPosition, isGrabDisabled);
 			}
 		}
-	}
-
-	private CrittersActor TopLevelCritterGrabber(CrittersActor baseActor)
-	{
-		CrittersActor value = null;
-		actorById.TryGetValue(baseActor.parentActorId, out value);
-		while (value != null && value.parentActorId != -1)
-		{
-			actorById.TryGetValue(value.parentActorId, out value);
-		}
-		return value;
 	}
 
 	public static CapsuleCollider DuplicateCapsuleCollider(Transform targetTransform, CapsuleCollider sourceCollider)
@@ -1571,17 +1566,5 @@ public class CrittersManager : NetworkComponent, IRequestableOwnershipGuardCallb
 
 	public void OnMyCreatorLeft()
 	{
-	}
-
-	[WeaverGenerated]
-	public override void CopyBackingFieldsToState(bool P_0)
-	{
-		base.CopyBackingFieldsToState(P_0);
-	}
-
-	[WeaverGenerated]
-	public override void CopyStateToBackingFields()
-	{
-		base.CopyStateToBackingFields();
 	}
 }

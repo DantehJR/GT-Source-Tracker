@@ -56,6 +56,17 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		Arms,
 		Pants,
 		TagEffect,
+		Ears,
+		Nose,
+		Glasses,
+		Eyes,
+		Mouth,
+		Hair,
+		FacialHair,
+		Neck,
+		Hoverboard,
+		Glider,
+		Tattoo,
 		Count,
 		Set,
 		Collectable
@@ -79,11 +90,30 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		Back,
 		Arms,
 		TagEffect,
+		EarLeft,
+		EarRight,
+		EarBoth,
+		NoseLeft,
+		NoseRight,
+		NoseBoth,
+		GlassesLeft,
+		GlassesRight,
+		GlassesBoth,
+		EyeLeft,
+		EyeRight,
+		EyeBoth,
+		Mouth,
+		Hair,
+		FacialHair,
+		Neck,
+		Hoverboard,
+		Glider,
+		Tattoo,
 		Count
 	}
 
 	[Serializable]
-	public class CosmeticSet
+	public class CosmeticSet : ISerializationCallbackReceiver
 	{
 		public delegate void OnSetActivatedHandler(CosmeticSet prevSet, CosmeticSet currentSet, NetPlayer netPlayer);
 
@@ -91,9 +121,9 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public CosmeticItem[] items;
 
-		public string[] returnArray = new string[16];
+		public string[] returnArray = new string[35];
 
-		private static int[][] intArrays = new int[22][]
+		private static int[][] intArrays = new int[40][]
 		{
 			new int[0],
 			new int[1],
@@ -116,7 +146,25 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			new int[18],
 			new int[19],
 			new int[20],
-			new int[21]
+			new int[21],
+			new int[22],
+			new int[23],
+			new int[24],
+			new int[25],
+			new int[26],
+			new int[27],
+			new int[28],
+			new int[29],
+			new int[30],
+			new int[31],
+			new int[32],
+			new int[33],
+			new int[34],
+			new int[35],
+			new int[36],
+			new int[37],
+			new int[38],
+			new int[39]
 		};
 
 		private static CosmeticSet _emptySet;
@@ -129,7 +177,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			{
 				if (_emptySet == null)
 				{
-					string[] array = new string[16];
+					string[] array = new string[35];
 					for (int i = 0; i < array.Length; i++)
 					{
 						array[i] = "NOTHING";
@@ -152,12 +200,12 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public CosmeticSet()
 		{
-			items = new CosmeticItem[16];
+			items = new CosmeticItem[35];
 		}
 
 		public CosmeticSet(string[] itemNames, CosmeticsController controller)
 		{
-			items = new CosmeticItem[16];
+			items = new CosmeticItem[35];
 			for (int i = 0; i < itemNames.Length; i++)
 			{
 				string displayName = itemNames[i];
@@ -168,11 +216,15 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public CosmeticSet(int[] itemNamesPacked, CosmeticsController controller)
 		{
-			items = new CosmeticItem[16];
+			items = new CosmeticItem[35];
 			int num = ((itemNamesPacked.Length != 0) ? itemNamesPacked[0] : 0);
 			int num2 = 1;
 			for (int i = 0; i < items.Length; i++)
 			{
+				if (i > 31)
+				{
+					continue;
+				}
 				if ((num & (1 << i)) != 0)
 				{
 					int num3 = itemNamesPacked[num2];
@@ -199,6 +251,23 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			}
 		}
 
+		void ISerializationCallbackReceiver.OnBeforeSerialize()
+		{
+		}
+
+		void ISerializationCallbackReceiver.OnAfterDeserialize()
+		{
+			int num = 35;
+			if (items == null)
+			{
+				items = new CosmeticItem[num];
+			}
+			else if (items.Length < num)
+			{
+				Array.Resize(ref items, num);
+			}
+		}
+
 		public void CopyItems(CosmeticSet other)
 		{
 			for (int i = 0; i < items.Length; i++)
@@ -220,7 +289,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public void MergeSets(CosmeticSet tryOn, CosmeticSet current)
 		{
-			for (int i = 0; i < 16; i++)
+			for (int i = 0; i < 35; i++)
 			{
 				if (tryOn == null)
 				{
@@ -235,7 +304,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public void MergeInSets(CosmeticSet playerPref, CosmeticSet tempOverrideSet, Predicate<string> predicate)
 		{
-			int num = 16;
+			int num = 35;
 			for (int i = 0; i < num; i++)
 			{
 				_ = ref tempOverrideSet.items[i];
@@ -246,7 +315,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public void ClearSet(CosmeticItem nullItem)
 		{
-			for (int i = 0; i < 16; i++)
+			for (int i = 0; i < 35; i++)
 			{
 				items[i] = nullItem;
 			}
@@ -254,7 +323,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public bool IsActive(string name)
 		{
-			int num = 16;
+			int num = 35;
 			for (int i = 0; i < num; i++)
 			{
 				if (items[i].displayName == name)
@@ -267,7 +336,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public bool HasItemOfCategory(CosmeticCategory category)
 		{
-			int num = 16;
+			int num = 35;
 			for (int i = 0; i < num; i++)
 			{
 				if (!items[i].isNullItem && items[i].itemCategory == category)
@@ -280,7 +349,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public bool HasItem(string name)
 		{
-			int num = 16;
+			int num = 35;
 			for (int i = 0; i < num; i++)
 			{
 				if (!items[i].isNullItem && items[i].displayName == name)
@@ -309,18 +378,18 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public static bool IsSlotLeftHanded(CosmeticSlots slot)
 		{
-			if (slot != CosmeticSlots.ArmLeft && slot != CosmeticSlots.BackLeft)
+			if (slot != CosmeticSlots.ArmLeft && slot != CosmeticSlots.BackLeft && slot != CosmeticSlots.HandLeft && slot != CosmeticSlots.EarLeft && slot != CosmeticSlots.NoseLeft && slot != CosmeticSlots.GlassesLeft)
 			{
-				return slot == CosmeticSlots.HandLeft;
+				return slot == CosmeticSlots.EyeLeft;
 			}
 			return true;
 		}
 
 		public static bool IsSlotRightHanded(CosmeticSlots slot)
 		{
-			if (slot != CosmeticSlots.ArmRight && slot != CosmeticSlots.BackRight)
+			if (slot != CosmeticSlots.ArmRight && slot != CosmeticSlots.BackRight && slot != CosmeticSlots.HandRight && slot != CosmeticSlots.EarRight && slot != CosmeticSlots.NoseRight && slot != CosmeticSlots.GlassesRight)
 			{
-				return slot == CosmeticSlots.HandRight;
+				return slot == CosmeticSlots.EyeRight;
 			}
 			return true;
 		}
@@ -350,6 +419,23 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 				CosmeticSlots.Back => CosmeticSlots.Back, 
 				CosmeticSlots.Arms => CosmeticSlots.Arms, 
 				CosmeticSlots.TagEffect => CosmeticSlots.TagEffect, 
+				CosmeticSlots.EarLeft => CosmeticSlots.EarRight, 
+				CosmeticSlots.EarRight => CosmeticSlots.EarLeft, 
+				CosmeticSlots.EarBoth => CosmeticSlots.EarBoth, 
+				CosmeticSlots.NoseLeft => CosmeticSlots.NoseRight, 
+				CosmeticSlots.NoseRight => CosmeticSlots.NoseLeft, 
+				CosmeticSlots.NoseBoth => CosmeticSlots.NoseBoth, 
+				CosmeticSlots.GlassesLeft => CosmeticSlots.GlassesRight, 
+				CosmeticSlots.GlassesRight => CosmeticSlots.GlassesLeft, 
+				CosmeticSlots.GlassesBoth => CosmeticSlots.GlassesBoth, 
+				CosmeticSlots.EyeLeft => CosmeticSlots.EyeRight, 
+				CosmeticSlots.EyeRight => CosmeticSlots.EyeLeft, 
+				CosmeticSlots.EyeBoth => CosmeticSlots.EyeBoth, 
+				CosmeticSlots.Mouth => CosmeticSlots.Mouth, 
+				CosmeticSlots.Hair => CosmeticSlots.Hair, 
+				CosmeticSlots.FacialHair => CosmeticSlots.FacialHair, 
+				CosmeticSlots.Neck => CosmeticSlots.Neck, 
+				CosmeticSlots.Hoverboard => CosmeticSlots.Hoverboard, 
 				_ => CosmeticSlots.Count, 
 			};
 		}
@@ -448,7 +534,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public void ActivateCosmetics(CosmeticSet prevSet, VRRig rig, BodyDockPositions bDock, CosmeticItemRegistry cosmeticsObjectRegistry)
 		{
-			int num = 16;
+			int num = 35;
 			for (int i = 0; i < num; i++)
 			{
 				ActivateCosmetic(prevSet, rig, i, cosmeticsObjectRegistry, bDock);
@@ -544,7 +630,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		public void DeactivateAllCosmetcs(BodyDockPositions bDock, CosmeticItem nullItem, CosmeticItemRegistry cosmeticObjectRegistry)
 		{
 			bDock.DisableAllTransferableItems();
-			int num = 16;
+			int num = 35;
 			for (int i = 0; i < num; i++)
 			{
 				CosmeticItem cosmeticItem = items[i];
@@ -559,7 +645,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public void LoadFromPlayerPreferences(CosmeticsController controller)
 		{
-			int num = 16;
+			int num = 35;
 			for (int i = 0; i < num; i++)
 			{
 				CosmeticSlots slot = (CosmeticSlots)i;
@@ -604,7 +690,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 				GTDev.LogError("CosmeticsController ParseSetFromString: null string");
 				return;
 			}
-			int num = 16;
+			int num = 35;
 			OutfitData outfitData = new OutfitData();
 			try
 			{
@@ -668,7 +754,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public string[] ToDisplayNameArray()
 		{
-			int num = 16;
+			int num = 35;
 			for (int i = 0; i < num; i++)
 			{
 				returnArray[i] = (string.IsNullOrEmpty(items[i].displayName) ? "null" : items[i].displayName);
@@ -680,10 +766,10 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		{
 			int num = 0;
 			int num2 = 0;
-			int num3 = 16;
+			int num3 = 35;
 			for (int i = 0; i < num3; i++)
 			{
-				if (!items[i].isNullItem && !string.IsNullOrEmpty(items[i].itemName) && (items[i].itemName.Length == 6 || items[i].itemName == "Slingshot"))
+				if (i <= 31 && !items[i].isNullItem && (items[i].itemName.Length == 6 || items[i].itemName == "Slingshot"))
 				{
 					num |= 1 << i;
 					num2++;
@@ -698,7 +784,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			int num4 = 1;
 			for (int j = 0; j < num3; j++)
 			{
-				if ((num & (1 << j)) != 0)
+				if (j <= 31 && (num & (1 << j)) != 0)
 				{
 					string itemName = items[j].itemName;
 					if (itemName == "Slingshot")
@@ -717,7 +803,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public string[] HoldableDisplayNames(bool leftHoldables)
 		{
-			int num = 16;
+			int num = 35;
 			int num2 = 0;
 			for (int i = 0; i < num; i++)
 			{
@@ -760,7 +846,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 		public bool[] ToOnRightSideArray()
 		{
-			int num = 16;
+			int num = 35;
 			bool[] array = new bool[num];
 			for (int i = 0; i < num; i++)
 			{
@@ -918,6 +1004,46 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 	}
 
 	[Serializable]
+	public struct CosmeticAutoGrant
+	{
+		public CosmeticSO cosmeticItem;
+
+		[SerializeField]
+		private string reqAccountCreationDate;
+
+		private DateTime? reqAccountCreationDateTime;
+
+		public int reqAccountDays;
+
+		public CosmeticAutoGrantTitleDataCheck titleDataCheck;
+
+		public DateTime ReqAccountCreationDate
+		{
+			get
+			{
+				if (reqAccountCreationDateTime.HasValue)
+				{
+					return reqAccountCreationDateTime.Value;
+				}
+				if (DateTime.TryParse(reqAccountCreationDate, out var result))
+				{
+					reqAccountCreationDateTime = result;
+					return reqAccountCreationDateTime.Value;
+				}
+				return GorillaComputer.instance.GetServerTime();
+			}
+		}
+	}
+
+	[Serializable]
+	public struct CosmeticAutoGrantTitleDataCheck
+	{
+		public string key;
+
+		public float value;
+	}
+
+	[Serializable]
 	public class IAPRequestBody
 	{
 		public string sku;
@@ -965,7 +1091,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		public OutfitData()
 		{
 			version = 1;
-			itemIDs = new List<string>(16);
+			itemIDs = new List<string>(35);
 			color = defaultColor;
 		}
 
@@ -1001,6 +1127,9 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 	[FormerlySerializedAs("allCosmetics")]
 	[SerializeField]
 	private List<CosmeticItem> _allCosmetics;
+
+	[SerializeField]
+	private List<CosmeticAutoGrant> cosmeticAutoGrants = new List<CosmeticAutoGrant>();
 
 	public Dictionary<string, CosmeticItem> _allCosmeticsDict = new Dictionary<string, CosmeticItem>(2048);
 
@@ -1089,9 +1218,27 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	public List<CosmeticItem> unlockedThrowables = new List<CosmeticItem>(512);
 
-	public int[] cosmeticsPages = new int[11];
+	public List<CosmeticItem> unlockedEars = new List<CosmeticItem>(512);
 
-	private List<CosmeticItem>[] itemLists = new List<CosmeticItem>[11];
+	public List<CosmeticItem> unlockedNoses = new List<CosmeticItem>(512);
+
+	public List<CosmeticItem> unlockedGlasses = new List<CosmeticItem>(512);
+
+	public List<CosmeticItem> unlockedEyes = new List<CosmeticItem>(512);
+
+	public List<CosmeticItem> unlockedMouths = new List<CosmeticItem>(512);
+
+	public List<CosmeticItem> unlockedHair = new List<CosmeticItem>(512);
+
+	public List<CosmeticItem> unlockedFacialHair = new List<CosmeticItem>(512);
+
+	public List<CosmeticItem> unlockedNeck = new List<CosmeticItem>(512);
+
+	public List<CosmeticItem> unlockedHoverboards = new List<CosmeticItem>(512);
+
+	public int[] cosmeticsPages = new int[19];
+
+	private List<CosmeticItem>[] itemLists = new List<CosmeticItem>[20];
 
 	private int wardrobeType;
 
@@ -1192,9 +1339,13 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	private ValidatedCreatorCode validatedCreatorCode;
 
+	private Dictionary<string, float> CosmeticAutoGrantTitleDataChecks;
+
+	private int CosmeticAutoGrantTitleDataCheckCount;
+
 	private Callback<MicroTxnAuthorizationResponse_t> _steamMicroTransactionAuthorizationResponse;
 
-	private static readonly List<CosmeticSlots> _g_default_outAppliedSlotsList_for_applyCosmeticItemToSet = new List<CosmeticSlots>(16);
+	private static readonly List<CosmeticSlots> _g_default_outAppliedSlotsList_for_applyCosmeticItemToSet = new List<CosmeticSlots>(35);
 
 	[SerializeField]
 	private CosmeticOutfitSystemConfig outfitSystemConfig;
@@ -1628,6 +1779,33 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			UnityEngine.Object.Destroy(gameObject);
 			return;
 		}
+		foreach (CosmeticAutoGrant cag in cosmeticAutoGrants)
+		{
+			if (cag.titleDataCheck.key.IsNullOrEmpty())
+			{
+				continue;
+			}
+			if (CosmeticAutoGrantTitleDataChecks == null)
+			{
+				CosmeticAutoGrantTitleDataChecks = new Dictionary<string, float>();
+			}
+			CosmeticAutoGrantTitleDataCheckCount++;
+			PlayFabTitleDataCache.RegisterOnLoad((PlayFabTitleDataCache cache) =>
+			{
+				cache.GetTitleData(cag.titleDataCheck.key, (string data) =>
+				{
+					float result = 1f;
+					float.TryParse(data, out result);
+					CosmeticAutoGrantTitleDataChecks.AddOrUpdate(cag.titleDataCheck.key, result);
+					CosmeticAutoGrantTitleDataCheckCount--;
+				}, (PlayFabError e) =>
+				{
+					Debug.LogError($"Error getting autogrant data: {e}");
+					CosmeticAutoGrantTitleDataChecks.AddOrUpdate(cag.titleDataCheck.key, 1f);
+					CosmeticAutoGrantTitleDataCheckCount--;
+				});
+			});
+		}
 		V2Awake();
 		if (gameObject.activeSelf)
 		{
@@ -1646,11 +1824,15 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			_allCosmeticsDict[nullItem.itemName] = nullItem;
 			_allCosmeticsItemIDsfromDisplayNamesDict[nullItem.displayName] = nullItem.itemName;
 			tryOnCollectableItem = nullItem;
-			for (int i = 0; i < 16; i++)
+			for (int num = 0; num < 35; num++)
 			{
-				tryOnSet.items[i] = nullItem;
-				tempUnlockedSet.items[i] = nullItem;
-				activeMergedSet.items[i] = nullItem;
+				tryOnSet.items[num] = nullItem;
+				tempUnlockedSet.items[num] = nullItem;
+				activeMergedSet.items[num] = nullItem;
+			}
+			if (cosmeticsPages == null || cosmeticsPages.Length < 19)
+			{
+				cosmeticsPages = new int[19];
 			}
 			cosmeticsPages[0] = 0;
 			cosmeticsPages[1] = 0;
@@ -1663,6 +1845,14 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			cosmeticsPages[8] = 0;
 			cosmeticsPages[9] = 0;
 			cosmeticsPages[10] = 0;
+			cosmeticsPages[11] = 0;
+			cosmeticsPages[12] = 0;
+			cosmeticsPages[13] = 0;
+			cosmeticsPages[14] = 0;
+			cosmeticsPages[15] = 0;
+			cosmeticsPages[16] = 0;
+			cosmeticsPages[17] = 0;
+			cosmeticsPages[18] = 0;
 			itemLists[0] = unlockedHats;
 			itemLists[1] = unlockedFaces;
 			itemLists[2] = unlockedBadges;
@@ -1674,6 +1864,15 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			itemLists[8] = unlockedBacks;
 			itemLists[9] = unlockedChests;
 			itemLists[10] = unlockedTagFX;
+			itemLists[11] = unlockedEars;
+			itemLists[12] = unlockedNoses;
+			itemLists[13] = unlockedGlasses;
+			itemLists[14] = unlockedEyes;
+			itemLists[15] = unlockedMouths;
+			itemLists[16] = unlockedHair;
+			itemLists[17] = unlockedFacialHair;
+			itemLists[18] = unlockedNeck;
+			itemLists[19] = unlockedHoverboards;
 			updateCosmeticsRetries = 0;
 			maxUpdateCosmeticsRetries = 5;
 			StartCoroutine(CheckCanGetDaily());
@@ -1750,6 +1949,40 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			return CosmeticSlots.Pants == slot;
 		case CosmeticCategory.TagEffect:
 			return CosmeticSlots.TagEffect == slot;
+		case CosmeticCategory.Ears:
+			if (slot != CosmeticSlots.EarLeft && slot != CosmeticSlots.EarRight)
+			{
+				return slot == CosmeticSlots.EarBoth;
+			}
+			return true;
+		case CosmeticCategory.Nose:
+			if (slot != CosmeticSlots.NoseLeft && slot != CosmeticSlots.NoseRight)
+			{
+				return slot == CosmeticSlots.NoseBoth;
+			}
+			return true;
+		case CosmeticCategory.Glasses:
+			if (slot != CosmeticSlots.GlassesLeft && slot != CosmeticSlots.GlassesRight)
+			{
+				return slot == CosmeticSlots.GlassesBoth;
+			}
+			return true;
+		case CosmeticCategory.Eyes:
+			if (slot != CosmeticSlots.EyeLeft && slot != CosmeticSlots.EyeRight)
+			{
+				return slot == CosmeticSlots.EyeBoth;
+			}
+			return true;
+		case CosmeticCategory.Mouth:
+			return CosmeticSlots.Mouth == slot;
+		case CosmeticCategory.Hair:
+			return CosmeticSlots.Hair == slot;
+		case CosmeticCategory.FacialHair:
+			return CosmeticSlots.FacialHair == slot;
+		case CosmeticCategory.Neck:
+			return CosmeticSlots.Neck == slot;
+		case CosmeticCategory.Hoverboard:
+			return CosmeticSlots.Hoverboard == slot;
 		default:
 			return false;
 		}
@@ -1770,6 +2003,15 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			CosmeticCategory.Chest => CosmeticSlots.Chest, 
 			CosmeticCategory.Pants => CosmeticSlots.Pants, 
 			CosmeticCategory.TagEffect => CosmeticSlots.TagEffect, 
+			CosmeticCategory.Ears => CosmeticSlots.EarBoth, 
+			CosmeticCategory.Nose => CosmeticSlots.NoseBoth, 
+			CosmeticCategory.Glasses => CosmeticSlots.GlassesBoth, 
+			CosmeticCategory.Eyes => CosmeticSlots.EyeBoth, 
+			CosmeticCategory.Mouth => CosmeticSlots.Mouth, 
+			CosmeticCategory.Hair => CosmeticSlots.Hair, 
+			CosmeticCategory.FacialHair => CosmeticSlots.FacialHair, 
+			CosmeticCategory.Neck => CosmeticSlots.Neck, 
+			CosmeticCategory.Hoverboard => CosmeticSlots.Hoverboard, 
 			_ => CosmeticSlots.Count, 
 		};
 	}
@@ -1841,7 +2083,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	public void SaveCurrentItemPreferences()
 	{
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < 35; i++)
 		{
 			CosmeticSlots slot = (CosmeticSlots)i;
 			CosmeticItem newItem = currentWornSet.items[i];
@@ -2016,7 +2258,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 	public void RemoveCosmeticItemFromSet(CosmeticSet set, string itemName, bool applyToPlayerPrefs)
 	{
 		cachedSet.CopyItems(set);
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < 35; i++)
 		{
 			if (set.items[i].displayName == itemName)
 			{
@@ -2151,7 +2393,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			GorillaTelemetry.PostShopEvent(GorillaTagger.Instance.offlineVRRig, GTShopEventType.cart_item_remove, pressedStand.thisCosmeticItem);
 			currentCart.RemoveAt(searchIndex);
 			pressedStand.isOn = false;
-			for (int i = 0; i < 16; i++)
+			for (int i = 0; i < 35; i++)
 			{
 				if (pressedStand.thisCosmeticItem.itemName == tryOnSet.items[i].itemName)
 				{
@@ -2317,6 +2559,62 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			}
 			wardrobeType = 10;
 			break;
+		case "ears":
+			if (wardrobeType == 11)
+			{
+				return;
+			}
+			wardrobeType = 11;
+			break;
+		case "nose":
+			if (wardrobeType == 12)
+			{
+				return;
+			}
+			wardrobeType = 12;
+			break;
+		case "glasses":
+			if (wardrobeType == 13)
+			{
+				return;
+			}
+			wardrobeType = 13;
+			break;
+		case "eyes":
+			if (wardrobeType == 14)
+			{
+				return;
+			}
+			wardrobeType = 14;
+			break;
+		case "mouth":
+			if (wardrobeType == 15)
+			{
+				return;
+			}
+			wardrobeType = 15;
+			break;
+		case "hair":
+			if (wardrobeType == 16)
+			{
+				return;
+			}
+			wardrobeType = 16;
+			break;
+		case "facialHair":
+			if (wardrobeType == 17)
+			{
+				return;
+			}
+			wardrobeType = 17;
+			break;
+		case "neck":
+			if (wardrobeType == 18)
+			{
+				return;
+			}
+			wardrobeType = 18;
+			break;
 		}
 		UpdateWardrobeModelsAndButtons();
 		OnCosmeticsUpdated?.Invoke();
@@ -2340,7 +2638,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		if (searchIndex != -1)
 		{
 			currentCart.RemoveAt(searchIndex);
-			for (int i = 0; i < 16; i++)
+			for (int i = 0; i < 35; i++)
 			{
 				if (cosmeticItem.itemName == tryOnSet.items[i].itemName)
 				{
@@ -2699,6 +2997,33 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		case CosmeticCategory.TagEffect:
 			ModifyUnlockList(unlockedTagFX, num, relock);
 			break;
+		case CosmeticCategory.Ears:
+			ModifyUnlockList(unlockedEars, num, relock);
+			break;
+		case CosmeticCategory.Nose:
+			ModifyUnlockList(unlockedNoses, num, relock);
+			break;
+		case CosmeticCategory.Glasses:
+			ModifyUnlockList(unlockedGlasses, num, relock);
+			break;
+		case CosmeticCategory.Eyes:
+			ModifyUnlockList(unlockedEyes, num, relock);
+			break;
+		case CosmeticCategory.Mouth:
+			ModifyUnlockList(unlockedMouths, num, relock);
+			break;
+		case CosmeticCategory.Hair:
+			ModifyUnlockList(unlockedHair, num, relock);
+			break;
+		case CosmeticCategory.FacialHair:
+			ModifyUnlockList(unlockedFacialHair, num, relock);
+			break;
+		case CosmeticCategory.Neck:
+			ModifyUnlockList(unlockedNeck, num, relock);
+			break;
+		case CosmeticCategory.Hoverboard:
+			ModifyUnlockList(unlockedHoverboards, num, relock);
+			break;
 		case CosmeticCategory.Set:
 		{
 			string[] bundledItems = allCosmetics[num].bundledItems;
@@ -2708,6 +3033,8 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			}
 			break;
 		}
+		case CosmeticCategory.Glider:
+		case CosmeticCategory.Tattoo:
 		case CosmeticCategory.Count:
 		case CosmeticCategory.Collectable:
 			break;
@@ -2825,6 +3152,15 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			CosmeticCategory.Back => 8, 
 			CosmeticCategory.Chest => 9, 
 			CosmeticCategory.TagEffect => 10, 
+			CosmeticCategory.Ears => 11, 
+			CosmeticCategory.Nose => 12, 
+			CosmeticCategory.Glasses => 13, 
+			CosmeticCategory.Eyes => 14, 
+			CosmeticCategory.Mouth => 15, 
+			CosmeticCategory.Hair => 16, 
+			CosmeticCategory.FacialHair => 17, 
+			CosmeticCategory.Neck => 18, 
+			CosmeticCategory.Hoverboard => 19, 
 			_ => 0, 
 		};
 	}
@@ -3269,7 +3605,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest
 			{
 				CatalogVersion = catalog
-			}, (GetCatalogItemsResult getCatalogItemsResult) =>
+			}, async (GetCatalogItemsResult getCatalogItemsResult) =>
 			{
 				try
 				{
@@ -3286,6 +3622,15 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 					unlockedChests.Clear();
 					unlockedTagFX.Clear();
 					unlockedThrowables.Clear();
+					unlockedEars.Clear();
+					unlockedNoses.Clear();
+					unlockedGlasses.Clear();
+					unlockedEyes.Clear();
+					unlockedMouths.Clear();
+					unlockedHair.Clear();
+					unlockedFacialHair.Clear();
+					unlockedNeck.Clear();
+					unlockedHoverboards.Clear();
 					catalogItems = getCatalogItemsResult.Catalog;
 					foreach (CatalogItem catalogItem in catalogItems)
 					{
@@ -3354,9 +3699,9 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 							}
 						}
 					}
-					foreach (KeyValuePair<string, StoreBundle> item2 in BundleManager.instance.storeBundlesById)
+					foreach (KeyValuePair<string, StoreBundle> item3 in BundleManager.instance.storeBundlesById)
 					{
-						var (key, bundleData) = item2;
+						var (key, bundleData) = item3;
 						int num3 = _allCosmetics.FindIndex((CosmeticItem x) => bundleData.playfabBundleID == x.itemName);
 						if (num3 > 0 && _allCosmetics[num3].bundledItems != null)
 						{
@@ -3405,14 +3750,32 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 					}
 					_allCosmeticsDict["Slingshot"] = _allCosmetics[searchIndex];
 					_allCosmeticsItemIDsfromDisplayNamesDict[_allCosmetics[searchIndex].displayName] = _allCosmetics[searchIndex].itemName;
+					while (CosmeticAutoGrantTitleDataCheckCount > 0)
+					{
+						await Task.Yield();
+					}
+					DateTime playFabAccountCreationDate = PlayFabAuthenticator.instance.GetPlayFabAccountCreationDate();
+					int num5 = Mathf.RoundToInt((float)(GorillaComputer.instance.GetServerTime() - playFabAccountCreationDate).TotalDays);
+					foreach (CosmeticAutoGrant cag in cosmeticAutoGrants)
+					{
+						searchIndex = allCosmetics.FindIndex((CosmeticItem x) => cag.cosmeticItem.info.playFabID == x.itemName);
+						if (searchIndex > -1)
+						{
+							CosmeticItem item = allCosmetics[searchIndex];
+							if (!unlockedCosmetics.Contains(item) && num5 >= cag.reqAccountDays && playFabAccountCreationDate <= cag.ReqAccountCreationDate && (cag.titleDataCheck.key.IsNullOrEmpty() || (CosmeticAutoGrantTitleDataChecks.ContainsKey(cag.titleDataCheck.key) && cag.titleDataCheck.value <= CosmeticAutoGrantTitleDataChecks[cag.titleDataCheck.key])))
+							{
+								unlockedCosmetics.Add(item);
+							}
+						}
+					}
 					allCosmeticsDict_isInitialized = true;
 					allCosmeticsItemIDsfromDisplayNamesDict_isInitialized = true;
 					Dictionary<string, string> dictionary = new Dictionary<string, string>();
-					foreach (ItemInstance item in result.Inventory)
+					foreach (ItemInstance item2 in result.Inventory)
 					{
-						if (!BuilderSetManager.IsItemIDBuilderItem(item.ItemId))
+						if (!BuilderSetManager.IsItemIDBuilderItem(item2.ItemId))
 						{
-							if (item.ItemId == m_earlyAccessSupporterPackCosmeticSO.info.playFabID)
+							if (item2.ItemId == m_earlyAccessSupporterPackCosmeticSO.info.playFabID)
 							{
 								CosmeticSO[] setCosmetics = m_earlyAccessSupporterPackCosmeticSO.info.setCosmetics;
 								foreach (CosmeticSO cosmeticSO in setCosmetics)
@@ -3423,13 +3786,13 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 									}
 								}
 							}
-							BundleManager.instance.MarkBundleOwnedByPlayFabID(item.ItemId);
-							if (!dictionary.ContainsKey(item.ItemId))
+							BundleManager.instance.MarkBundleOwnedByPlayFabID(item2.ItemId);
+							if (!dictionary.ContainsKey(item2.ItemId))
 							{
-								searchIndex = allCosmetics.FindIndex((CosmeticItem x) => item.ItemId == x.itemName);
+								searchIndex = allCosmetics.FindIndex((CosmeticItem x) => item2.ItemId == x.itemName);
 								if (searchIndex > -1)
 								{
-									dictionary[item.ItemId] = item.ItemId;
+									dictionary[item2.ItemId] = item2.ItemId;
 									unlockedCosmetics.Add(allCosmetics[searchIndex]);
 								}
 							}
@@ -3488,6 +3851,42 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 						{
 							unlockedTagFX.Add(unlockedCosmetic);
 						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.Ears && !unlockedEars.Contains(unlockedCosmetic))
+						{
+							unlockedEars.Add(unlockedCosmetic);
+						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.Nose && !unlockedNoses.Contains(unlockedCosmetic))
+						{
+							unlockedNoses.Add(unlockedCosmetic);
+						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.Glasses && !unlockedGlasses.Contains(unlockedCosmetic))
+						{
+							unlockedGlasses.Add(unlockedCosmetic);
+						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.Eyes && !unlockedEyes.Contains(unlockedCosmetic))
+						{
+							unlockedEyes.Add(unlockedCosmetic);
+						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.Mouth && !unlockedMouths.Contains(unlockedCosmetic))
+						{
+							unlockedMouths.Add(unlockedCosmetic);
+						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.Hair && !unlockedHair.Contains(unlockedCosmetic))
+						{
+							unlockedHair.Add(unlockedCosmetic);
+						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.FacialHair && !unlockedFacialHair.Contains(unlockedCosmetic))
+						{
+							unlockedFacialHair.Add(unlockedCosmetic);
+						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.Neck && !unlockedNeck.Contains(unlockedCosmetic))
+						{
+							unlockedNeck.Add(unlockedCosmetic);
+						}
+						else if (unlockedCosmetic.itemCategory == CosmeticCategory.Hoverboard && !unlockedHoverboards.Contains(unlockedCosmetic))
+						{
+							unlockedHoverboards.Add(unlockedCosmetic);
+						}
 						concatStringCosmeticsAllowed += unlockedCosmetic.itemName;
 					}
 					BuilderSetManager.instance.OnGotInventoryItems(result, getCatalogItemsResult);
@@ -3518,60 +3917,41 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 				}
 			}, (PlayFabError error) =>
 			{
-				if (error.Error == PlayFabErrorCode.NotAuthenticated)
-				{
-					PlayFabAuthenticator.instance.AuthenticateWithPlayFab();
-				}
-				else if (error.Error == PlayFabErrorCode.AccountBanned)
-				{
-					Application.Quit();
-					NetworkSystem.Instance.ReturnToSinglePlayer();
-					UnityEngine.Object.DestroyImmediate(PhotonNetworkController.Instance);
-					UnityEngine.Object.DestroyImmediate(GTPlayer.Instance);
-					GameObject[] array = UnityEngine.Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
-					for (int i = 0; i < array.Length; i++)
-					{
-						UnityEngine.Object.Destroy(array[i]);
-					}
-				}
-				if (!tryGetCatalogTwice)
-				{
-					tryGetCatalogTwice = true;
-					GetCosmeticsPlayFabCatalogDataInternal();
-				}
-				else
-				{
-					CompleteGetCosmeticsPlayFabCatalogData();
-				}
+				PlayfabErrorHandling(error);
 			});
 		}, (PlayFabError error) =>
 		{
-			if (error.Error == PlayFabErrorCode.NotAuthenticated)
-			{
-				PlayFabAuthenticator.instance.AuthenticateWithPlayFab();
-			}
-			else if (error.Error == PlayFabErrorCode.AccountBanned)
-			{
-				Application.Quit();
-				NetworkSystem.Instance.ReturnToSinglePlayer();
-				UnityEngine.Object.DestroyImmediate(PhotonNetworkController.Instance);
-				UnityEngine.Object.DestroyImmediate(GTPlayer.Instance);
-				GameObject[] array = UnityEngine.Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
-				for (int i = 0; i < array.Length; i++)
-				{
-					UnityEngine.Object.Destroy(array[i]);
-				}
-			}
-			if (!tryGetCatalogTwice)
-			{
-				tryGetCatalogTwice = true;
-				GetCosmeticsPlayFabCatalogDataInternal();
-			}
-			else
-			{
-				CompleteGetCosmeticsPlayFabCatalogData();
-			}
+			PlayfabErrorHandling(error);
 		});
+	}
+
+	private void PlayfabErrorHandling(PlayFabError error)
+	{
+		if (error.Error == PlayFabErrorCode.NotAuthenticated)
+		{
+			PlayFabAuthenticator.instance.AuthenticateWithPlayFab();
+		}
+		else if (error.Error == PlayFabErrorCode.AccountBanned)
+		{
+			Application.Quit();
+			NetworkSystem.Instance.ReturnToSinglePlayer();
+			UnityEngine.Object.DestroyImmediate(PhotonNetworkController.Instance);
+			UnityEngine.Object.DestroyImmediate(GTPlayer.Instance);
+			GameObject[] array = UnityEngine.Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+			for (int i = 0; i < array.Length; i++)
+			{
+				UnityEngine.Object.Destroy(array[i]);
+			}
+		}
+		if (!tryGetCatalogTwice)
+		{
+			tryGetCatalogTwice = true;
+			GetCosmeticsPlayFabCatalogDataInternal();
+		}
+		else
+		{
+			CompleteGetCosmeticsPlayFabCatalogData();
+		}
 	}
 
 	private void CompleteGetCosmeticsPlayFabCatalogData()
@@ -3647,14 +4027,14 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		}
 		if (buyingBundle)
 		{
-			PlayFabClientAPI.ConfirmPurchase(GetConfirmBundlePurchaseRequest(), (ConfirmPurchaseResult confirmPurchaseResult) =>
+			PlayFabClientAPI.ConfirmPurchase(GetConfirmBundlePurchaseRequest(), (ConfirmPurchaseResult _) =>
 			{
 				ProcessConfirmPurchaseSuccess();
 			}, ProcessConfirmPurchaseError);
 		}
 		else
 		{
-			PlayFabClientAPI.ConfirmPurchase(GetConfirmATMPurchaseRequest(), (ConfirmPurchaseResult confirmPurchaseResult) =>
+			PlayFabClientAPI.ConfirmPurchase(GetConfirmATMPurchaseRequest(), (ConfirmPurchaseResult _) =>
 			{
 				ProcessConfirmPurchaseSuccess();
 			}, ProcessConfirmPurchaseError);
@@ -4023,6 +4403,33 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		case CosmeticCategory.TagEffect:
 			ModifyUnlockList(unlockedTagFX, num, relock: false);
 			break;
+		case CosmeticCategory.Ears:
+			ModifyUnlockList(unlockedEars, num, relock: false);
+			break;
+		case CosmeticCategory.Nose:
+			ModifyUnlockList(unlockedNoses, num, relock: false);
+			break;
+		case CosmeticCategory.Glasses:
+			ModifyUnlockList(unlockedGlasses, num, relock: false);
+			break;
+		case CosmeticCategory.Eyes:
+			ModifyUnlockList(unlockedEyes, num, relock: false);
+			break;
+		case CosmeticCategory.Mouth:
+			ModifyUnlockList(unlockedMouths, num, relock: false);
+			break;
+		case CosmeticCategory.Hair:
+			ModifyUnlockList(unlockedHair, num, relock: false);
+			break;
+		case CosmeticCategory.FacialHair:
+			ModifyUnlockList(unlockedFacialHair, num, relock: false);
+			break;
+		case CosmeticCategory.Neck:
+			ModifyUnlockList(unlockedNeck, num, relock: false);
+			break;
+		case CosmeticCategory.Hoverboard:
+			ModifyUnlockList(unlockedHoverboards, num, relock: false);
+			break;
 		case CosmeticCategory.Set:
 		{
 			string[] bundledItems = allCosmetics[num].bundledItems;
@@ -4032,6 +4439,8 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			}
 			break;
 		}
+		case CosmeticCategory.Glider:
+		case CosmeticCategory.Tattoo:
 		case CosmeticCategory.Count:
 			break;
 		}
@@ -4086,6 +4495,33 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		case CosmeticCategory.TagEffect:
 			ModifyUnlockList(unlockedTagFX, num, relock: true);
 			break;
+		case CosmeticCategory.Ears:
+			ModifyUnlockList(unlockedEars, num, relock: true);
+			break;
+		case CosmeticCategory.Nose:
+			ModifyUnlockList(unlockedNoses, num, relock: true);
+			break;
+		case CosmeticCategory.Glasses:
+			ModifyUnlockList(unlockedGlasses, num, relock: true);
+			break;
+		case CosmeticCategory.Eyes:
+			ModifyUnlockList(unlockedEyes, num, relock: true);
+			break;
+		case CosmeticCategory.Mouth:
+			ModifyUnlockList(unlockedMouths, num, relock: true);
+			break;
+		case CosmeticCategory.Hair:
+			ModifyUnlockList(unlockedHair, num, relock: true);
+			break;
+		case CosmeticCategory.FacialHair:
+			ModifyUnlockList(unlockedFacialHair, num, relock: true);
+			break;
+		case CosmeticCategory.Neck:
+			ModifyUnlockList(unlockedNeck, num, relock: true);
+			break;
+		case CosmeticCategory.Hoverboard:
+			ModifyUnlockList(unlockedHoverboards, num, relock: true);
+			break;
 		case CosmeticCategory.Set:
 		{
 			string[] bundledItems = allCosmetics[num].bundledItems;
@@ -4095,6 +4531,8 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			}
 			break;
 		}
+		case CosmeticCategory.Glider:
+		case CosmeticCategory.Tattoo:
 		case CosmeticCategory.Count:
 			break;
 		}
@@ -4132,7 +4570,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		}
 		int num = 0;
 		int num2 = packed[0];
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i <= 31; i++)
 		{
 			if ((num2 & (1 << i)) != 0)
 			{
@@ -4227,7 +4665,7 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 		PlayerPrefs.Save();
 		CosmeticSet outfit = savedOutfits[selectedOutfit];
 		bool flag = true;
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < 35; i++)
 		{
 			CosmeticSlots cosmeticSlots = (CosmeticSlots)i;
 			if ((cosmeticSlots != CosmeticSlots.ArmLeft && cosmeticSlots != CosmeticSlots.ArmRight) | flag)

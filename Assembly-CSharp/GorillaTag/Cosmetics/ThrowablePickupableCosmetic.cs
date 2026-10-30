@@ -54,8 +54,9 @@ public class ThrowablePickupableCosmetic : TransferrableObject, PrefabNameSerial
 		}
 	}
 
-	private new void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		transferrableObject = GetComponent<TransferrableObject>();
 	}
 
@@ -236,25 +237,23 @@ public class ThrowablePickupableCosmetic : TransferrableObject, PrefabNameSerial
 	private float DistanceToDock()
 	{
 		float result = 0f;
-		if (currentState == PositionState.OnRightShoulder)
+		switch (currentState)
 		{
+		case PositionState.OnRightShoulder:
 			result = Vector3.Distance(ownerRig.myBodyDockPositions.rightBackTransform.position, transform.position);
-		}
-		else if (currentState == PositionState.OnLeftShoulder)
-		{
+			break;
+		case PositionState.OnLeftShoulder:
 			result = Vector3.Distance(ownerRig.myBodyDockPositions.leftBackTransform.position, transform.position);
-		}
-		else if (currentState == PositionState.OnRightArm)
-		{
+			break;
+		case PositionState.OnRightArm:
 			result = Vector3.Distance(ownerRig.myBodyDockPositions.rightArmTransform.position, transform.position);
-		}
-		else if (currentState == PositionState.OnLeftArm)
-		{
+			break;
+		case PositionState.OnLeftArm:
 			result = Vector3.Distance(ownerRig.myBodyDockPositions.leftArmTransform.position, transform.position);
-		}
-		else if (currentState == PositionState.OnChest)
-		{
+			break;
+		case PositionState.OnChest:
 			result = Vector3.Distance(ownerRig.myBodyDockPositions.chestTransform.position, transform.position);
+			break;
 		}
 		return result;
 	}

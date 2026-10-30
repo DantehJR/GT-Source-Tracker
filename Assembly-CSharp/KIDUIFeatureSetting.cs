@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[AddComponentMenu("GorillaTag/KID/KIDUI Feature Setting")]
 public class KIDUIFeatureSetting : MonoBehaviour
 {
 	[SerializeField]
@@ -87,7 +88,7 @@ public class KIDUIFeatureSetting : MonoBehaviour
 		_featureName = result;
 		SetFeatureName();
 		GameObject gameObject = base.gameObject;
-		gameObject.name = gameObject.name + "_" + feature.featureName;
+		gameObject.name = gameObject.name + "_" + (object)feature.featureName;
 		_permissionName = feature.permissionName;
 		_featureToggle.gameObject.SetActive(featureToggleEnabled);
 		AlwaysCheckFeatureSetting = alwaysCheckFeatureSetting;

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Fusion;
 using GorillaExtensions;
 using GorillaGameModes;
 using GorillaLocomotion;
@@ -28,7 +27,7 @@ using UnityEngine.Serialization;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDisable, IUserCosmeticsCallback, IGorillaSliceableSimple, ITickSystemPost, IEyeScannable
+public class VRRig : MonoBehaviour, IWrappedSerializable, IPreDisable, IUserCosmeticsCallback, IGorillaSliceableSimple, ITickSystemPost, IEyeScannable
 {
 	public enum PartyMemberStatus
 	{
@@ -270,7 +269,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public CosmeticsController.CosmeticSet prevSet;
 
 	[NonSerialized]
-	public readonly List<GameObject> activeCosmetics = new List<GameObject>(16);
+	public readonly List<GameObject> activeCosmetics = new List<GameObject>(35);
 
 	private int cosmeticRetries = 2;
 
@@ -319,6 +318,8 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public NonCosmeticHandItem nonCosmeticRightHandItem;
 
 	public HoverboardVisual hoverboardVisual;
+
+	public string heldBoardSkinDisplayName;
 
 	private int hoverboardEnabledCount;
 
@@ -669,6 +670,8 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	private Quaternion tempQuat;
 
 	public Action<int, int> OnMaterialIndexChanged;
+
+	public Action<VRRig> OnCosmeticsActivated;
 
 	[SerializeField]
 	private ParticleSystem cosmeticsActivationPS;
@@ -1065,7 +1068,10 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	internal void SetTaggedBy(VRRig taggingRig)
 	{
-		taggedById = taggingRig.OwningNetPlayer.ActorNumber;
+		if (!(taggingRig == null) && taggingRig.Creator != null)
+		{
+			taggedById = taggingRig.Creator.ActorNumber;
+		}
 	}
 
 	public int CheckCosmeticAge(string pfID)
@@ -1313,9 +1319,9 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		else if (!(time < _nextUpdateTime))
 		{
 			_nextUpdateTime = time + 1f;
-			if (RoomSystem.JoinedRoom && NetworkSystem.Instance.IsMasterClient && GorillaGameModes.GameMode.ActiveNetworkHandler.IsNull())
+			if (RoomSystem.JoinedRoom && NetworkSystem.Instance.IsMasterClient && GameMode.ActiveNetworkHandler.IsNull())
 			{
-				GorillaGameModes.GameMode.LoadGameModeFromProperty();
+				GameMode.LoadGameModeFromProperty();
 			}
 		}
 	}
@@ -1958,7 +1964,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		result.taggedById = (short)taggedById;
 		int num = Mathf.RoundToInt(Mathf.Clamp01(SpeakingLoudness) * 255f);
 		bool flag = leftHandLink.IsLinkActive() || rightHandLink.IsLinkActive();
-		GorillaGameManager activeGameMode = GorillaGameModes.GameMode.ActiveGameMode;
+		GorillaGameManager activeGameMode = GameMode.ActiveGameMode;
 		bool flag2 = (object)activeGameMode != null && activeGameMode.GameType() == GameModeType.PropHunt;
 		int packedFields = 0 + ((justTeleportedSendsRemaining > 0) ? 256 : 0) + (remoteUseReplacementVoice ? 512 : 0) + ((grabbedRopeIndex != -1) ? 1024 : 0) + (grabbedRopeIsPhotonView ? 2048 : 0) + (flag ? 4096 : 0) + (hoverboardVisual.IsHeld ? 8192 : 0) + (hoverboardVisual.IsLeftHanded ? 16384 : 0) + ((mountedMovingSurfaceId != -1) ? 32768 : 0) + (flag2 ? 65536 : 0) + (propHuntHandFollower.IsLeftHand ? 131072 : 0) + (leftHandLink.CanBeGrabbed() ? 262144 : 0) + (rightHandLink.CanBeGrabbed() ? 524288 : 0) + (leftHandLink.IsTentacleGrab ? 1048576 : 0) + (rightHandLink.IsTentacleGrab ? 2097152 : 0) + (ShowGoldNameTag ? 4194304 : 0) + (portalShenanigansBit ? 8388608 : 0) + (num << 24);
 		result.packedFields = packedFields;
@@ -2087,7 +2093,12 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 			Color boardColor = BitPackUtils.UnpackColorFromNetwork(data.hoverboardColor);
 			if (handRot.IsValid())
 			{
+				bool flag4 = !hoverboardVisual.IsHeld;
 				hoverboardVisual.SetIsHeld(isHeldLeftHanded, localPos.ClampMagnitudeSafe(1f), handRot, boardColor);
+				if (flag4)
+				{
+					hoverboardVisual.ApplySkin(heldBoardSkinDisplayName);
+				}
 			}
 		}
 		else if (hoverboardVisual.gameObject.activeSelf)
@@ -2246,20 +2257,6 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		data.packedGTPlayerStats = (long)stream.ReceiveNext();
 		data.gtPlayerStatsFlags = (int)stream.ReceiveNext();
 		data.serverTimeStamp = info.SentServerTime;
-		SerializeReadShared(data);
-	}
-
-	public object OnSerializeWrite()
-	{
-		InputStruct inputStruct = SerializeWriteShared();
-		double serverTimeStamp = (double)(uint)NetworkSystem.Instance.SimTick / 1000.0;
-		inputStruct.serverTimeStamp = serverTimeStamp;
-		return inputStruct;
-	}
-
-	public void OnSerializeRead(object objectData)
-	{
-		InputStruct data = (InputStruct)objectData;
 		SerializeReadShared(data);
 	}
 
@@ -2512,9 +2509,9 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		TagEffectPack tagEffectPack = null;
 		quaternion quaternion2 = transform.rotation;
 		TagEffectsLibrary.EffectType effectType = ((!(LocalRig == this)) ? TagEffectsLibrary.EffectType.THIRD_PERSON : TagEffectsLibrary.EffectType.FIRST_PERSON);
-		if (GorillaGameManager.instance != null && OwningNetPlayer != null)
+		if (GorillaGameManager.instance != null && creator != null)
 		{
-			GorillaGameManager.instance.lastTaggedActorNr.TryGetValue(OwningNetPlayer.ActorNumber, out taggedById);
+			GorillaGameManager.instance.lastTaggedActorNr.TryGetValue(creator.ActorNumber, out taggedById);
 		}
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(taggedById);
 		if (player != null && VRRigCache.Instance.TryGetVrrig(player, out var playerRig))
@@ -2556,49 +2553,31 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	public void UpdateMatParticles(int materialIndex)
 	{
-		if (lavaParticleSystem != null)
+		if (!isOfflineVRRig)
 		{
-			if (!isOfflineVRRig && materialIndex == 2 && lavaParticleSystem.isStopped)
+			SetMatParticlePlaying(rockParticleSystem, materialIndex == 1);
+			SetMatParticlePlaying(lavaParticleSystem, materialIndex == 2);
+			SetMatParticlePlaying(iceParticleSystem, materialIndex == 3);
+			SetMatParticlePlaying(snowFlakeParticleSystem, materialIndex == 14);
+		}
+	}
+
+	private void SetMatParticlePlaying(ParticleSystem ps, bool shouldPlay)
+	{
+		if (ps == null)
+		{
+			return;
+		}
+		if (shouldPlay)
+		{
+			if (!ps.isEmitting)
 			{
-				lavaParticleSystem.Play();
-			}
-			else if (!isOfflineVRRig && lavaParticleSystem.isPlaying)
-			{
-				lavaParticleSystem.Stop();
+				ps.Play();
 			}
 		}
-		if (rockParticleSystem != null)
+		else if (ps.isPlaying)
 		{
-			if (!isOfflineVRRig && materialIndex == 1 && rockParticleSystem.isStopped)
-			{
-				rockParticleSystem.Play();
-			}
-			else if (!isOfflineVRRig && rockParticleSystem.isPlaying)
-			{
-				rockParticleSystem.Stop();
-			}
-		}
-		if (iceParticleSystem != null)
-		{
-			if (!isOfflineVRRig && materialIndex == 3 && rockParticleSystem.isStopped)
-			{
-				iceParticleSystem.Play();
-			}
-			else if (!isOfflineVRRig && iceParticleSystem.isPlaying)
-			{
-				iceParticleSystem.Stop();
-			}
-		}
-		if (snowFlakeParticleSystem != null)
-		{
-			if (!isOfflineVRRig && materialIndex == 14 && snowFlakeParticleSystem.isStopped)
-			{
-				snowFlakeParticleSystem.Play();
-			}
-			else if (!isOfflineVRRig && snowFlakeParticleSystem.isPlaying)
-			{
-				snowFlakeParticleSystem.Stop();
-			}
+			ps.Stop();
 		}
 	}
 
@@ -2885,7 +2864,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		}
 		else
 		{
-			value = ((RoomSystem.JoinedRoom && GorillaGameModes.GameMode.ActiveGameMode.IsNotNull()) ? GorillaGameModes.GameMode.ActiveGameMode.SpecialHandFX(creator, rigContainer) : (-1));
+			value = ((RoomSystem.JoinedRoom && GameMode.ActiveGameMode.IsNotNull()) ? GameMode.ActiveGameMode.SpecialHandFX(creator, rigContainer) : (-1));
 		}
 		prefabHashes[1] = value;
 		effectContext.soundFX = (handTapOverrides.overrideSound ? handTapOverrides.tapSound : handSurfaceData.audio);
@@ -2941,32 +2920,6 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		else
 		{
 			MonkeAgent.instance.SendReport("inappropriate tag data being sent splash effect", player.UserId, player.NickName);
-		}
-	}
-
-	[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-	public void RPC_EnableNonCosmeticHandItem(bool enable, bool isLeftHand, RpcInfo info = default(RpcInfo))
-	{
-		PhotonMessageInfoWrapped info2 = new PhotonMessageInfoWrapped(info);
-		IncrementRPC(info2, "EnableNonCosmeticHandItem");
-		if (info2.Sender == creator)
-		{
-			senderRig = GorillaGameManager.StaticFindRigForPlayer(info2.Sender);
-			if (!(senderRig == null))
-			{
-				if (isLeftHand && (bool)nonCosmeticLeftHandItem)
-				{
-					senderRig.nonCosmeticLeftHandItem.EnableItem(enable);
-				}
-				else if (!isLeftHand && (bool)nonCosmeticRightHandItem)
-				{
-					senderRig.nonCosmeticRightHandItem.EnableItem(enable);
-				}
-			}
-		}
-		else
-		{
-			MonkeAgent.instance.SendReport("inappropriate tag data being sent Enable Non Cosmetic Hand Item", info2.Sender.UserId, info2.Sender.NickName);
 		}
 	}
 
@@ -3121,7 +3074,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	{
 		IncrementRPC(info, "RPC_UpdateCosmeticsWithTryon");
 		NetPlayer player = NetworkSystem.Instance.GetPlayer(info.senderID);
-		if (info.Sender == netView.Owner && currentItems.Length == 16 && tryOnItems.Length == 16)
+		if (info.Sender == netView.Owner && currentItems.Length == 35 && tryOnItems.Length == 35)
 		{
 			CosmeticsController.CosmeticSet newSet = new CosmeticsController.CosmeticSet(currentItems, CosmeticsController.instance);
 			CosmeticsController.CosmeticSet newTryOnSet = new CosmeticsController.CosmeticSet(tryOnItems, CosmeticsController.instance);
@@ -3285,6 +3238,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		mergedSet.MergeSets(inTryOnRoom ? tryOnSet : null, cosmeticSet);
 		BodyDockPositions component = GetComponent<BodyDockPositions>();
 		mergedSet.ActivateCosmetics(prevSet, this, component, cosmeticsObjectRegistry);
+		OnCosmeticsActivated?.Invoke(this);
 		if (playfx)
 		{
 			if (cosmeticsActivationPS != null)
@@ -3301,6 +3255,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 	public void RefreshCosmetics()
 	{
 		mergedSet.ActivateCosmetics(mergedSet, this, myBodyDockPositions, cosmeticsObjectRegistry);
+		OnCosmeticsActivated?.Invoke(this);
 	}
 
 	public void GetCosmeticsPlayFabCatalogData(Action onInventoryLoaded = null)
@@ -3634,9 +3589,9 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 
 	private bool IsInRankedMode()
 	{
-		if (GorillaGameModes.GameMode.ActiveGameMode != null)
+		if (GameMode.ActiveGameMode != null)
 		{
-			return GorillaGameModes.GameMode.ActiveGameMode.GameType() == GameModeType.InfectionCompetitive;
+			return GameMode.ActiveGameMode.GameType() == GameModeType.InfectionCompetitive;
 		}
 		return false;
 	}
@@ -3673,7 +3628,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		{
 			HandHold.HandPositionRequestOverride += HandHold_HandPositionRequestOverride;
 			HandHold.HandPositionReleaseOverride += HandHold_HandPositionReleaseOverride;
-			GorillaGameModes.GameMode.OnStartGameMode += SendScoresToGameModeRoom;
+			GameMode.OnStartGameMode += SendScoresToGameModeRoom;
 			RoomSystem.JoinedRoomEvent += new Action(SendScoresToRoom);
 			RoomSystem.PlayerJoinedEvent += new Action<NetPlayer>(SendScoresToNewPlayer);
 		}
@@ -3802,7 +3757,7 @@ public class VRRig : MonoBehaviour, IWrappedSerializable, INetworkStruct, IPreDi
 		{
 			HandHold.HandPositionRequestOverride -= HandHold_HandPositionRequestOverride;
 			HandHold.HandPositionReleaseOverride -= HandHold_HandPositionReleaseOverride;
-			GorillaGameModes.GameMode.OnStartGameMode -= SendScoresToGameModeRoom;
+			GameMode.OnStartGameMode -= SendScoresToGameModeRoom;
 			RoomSystem.JoinedRoomEvent -= new Action(SendScoresToRoom);
 			RoomSystem.PlayerJoinedEvent -= new Action<NetPlayer>(SendScoresToNewPlayer);
 		}

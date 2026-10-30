@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+[AddComponentMenu("GorillaTag/Super Infection/SI Gadget Dispenser")]
 public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 {
 	public enum GadgetDispenserTerminalState
@@ -438,7 +439,7 @@ public class SIGadgetDispenser : MonoBehaviour, ITouchScreenStation
 		}
 		else
 		{
-			if (actorNr != ActivePlayer.ActorNr)
+			if (ActivePlayer == null || actorNr != ActivePlayer.ActorNr)
 			{
 				return;
 			}

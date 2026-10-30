@@ -6,6 +6,7 @@ using Modio.Unity;
 using TMPro;
 using UnityEngine;
 
+[AddComponentMenu("GorillaTag/Virtual Stump/Custom Maps Mod Tile")]
 public class CustomMapsModTile : CustomMapsScreenTouchPoint
 {
 	[SerializeField]

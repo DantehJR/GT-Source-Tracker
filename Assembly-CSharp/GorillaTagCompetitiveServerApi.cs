@@ -179,7 +179,7 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 
 	private IEnumerator GetRankInformation(RankedModeProgressionRequestData data, Action<RankedModeProgressionData> callback)
 	{
-		UnityWebRequest request = new UnityWebRequest(PlayFabAuthenticatorSettings.MmrApiBaseUrl + "/api/GetTier", "GET");
+		UnityWebRequest request = new UnityWebRequest(BackendApiUrl.Build(PlayFabAuthenticatorSettings.MmrApiBaseUrl, "/api/GetTier"), "GET");
 		byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
 		bool retry = false;
 		request.uploadHandler = new UploadHandlerRaw(bytes);
@@ -299,7 +299,7 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 
 	private IEnumerator CreateMatchId(RankedModeRequestDataPlatformed data, Action<string> callback)
 	{
-		UnityWebRequest request = new UnityWebRequest(PlayFabAuthenticatorSettings.MmrApiBaseUrl + "/api/CreateMatchId", "POST");
+		UnityWebRequest request = new UnityWebRequest(BackendApiUrl.Build(PlayFabAuthenticatorSettings.MmrApiBaseUrl, "/api/CreateMatchId"), "POST");
 		byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
 		bool retry = false;
 		request.uploadHandler = new UploadHandlerRaw(bytes);
@@ -403,7 +403,7 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 
 	private IEnumerator ValidateMatchJoin(RankedModeRequestDataWithMatchId data, Action<bool> callback)
 	{
-		UnityWebRequest request = new UnityWebRequest(PlayFabAuthenticatorSettings.MmrApiBaseUrl + "/api/ValidateMatchJoin", "POST");
+		UnityWebRequest request = new UnityWebRequest(BackendApiUrl.Build(PlayFabAuthenticatorSettings.MmrApiBaseUrl, "/api/ValidateMatchJoin"), "POST");
 		byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
 		bool retry = false;
 		request.uploadHandler = new UploadHandlerRaw(bytes);
@@ -523,7 +523,7 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 
 	private IEnumerator SubmitMatchScores(RankedModeSubmitMatchScoresRequestData data)
 	{
-		UnityWebRequest request = new UnityWebRequest(PlayFabAuthenticatorSettings.MmrApiBaseUrl + "/api/SubmitMatchScores", "POST");
+		UnityWebRequest request = new UnityWebRequest(BackendApiUrl.Build(PlayFabAuthenticatorSettings.MmrApiBaseUrl, "/api/SubmitMatchScores"), "POST");
 		byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
 		bool retry = false;
 		request.uploadHandler = new UploadHandlerRaw(bytes);
@@ -663,7 +663,7 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 
 	private IEnumerator PingRoom(RankedModeRequestDataWithMatchId data, Action callback)
 	{
-		UnityWebRequest request = new UnityWebRequest(PlayFabAuthenticatorSettings.MmrApiBaseUrl + "/api/PingRoom", "POST");
+		UnityWebRequest request = new UnityWebRequest(BackendApiUrl.Build(PlayFabAuthenticatorSettings.MmrApiBaseUrl, "/api/PingRoom"), "POST");
 		byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
 		bool retry = false;
 		request.uploadHandler = new UploadHandlerRaw(bytes);
@@ -768,7 +768,7 @@ public class GorillaTagCompetitiveServerApi : MonoBehaviour
 
 	private IEnumerator UnlockCompetitiveQueue(RankedModeUnlockCompetitiveQueueRequestData data, Action callback)
 	{
-		UnityWebRequest request = new UnityWebRequest(PlayFabAuthenticatorSettings.MmrApiBaseUrl + "/api/UnlockCompetitiveQueue", "POST");
+		UnityWebRequest request = new UnityWebRequest(BackendApiUrl.Build(PlayFabAuthenticatorSettings.MmrApiBaseUrl, "/api/UnlockCompetitiveQueue"), "POST");
 		byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.ToJson(data));
 		bool retry = false;
 		request.uploadHandler = new UploadHandlerRaw(bytes);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Fusion;
 using GorillaExtensions;
 using UnityEngine;
 
@@ -22,9 +21,6 @@ public class GameMode : MonoBehaviour
 
 	[OnEnterPlay_Clear]
 	public static Dictionary<string, int> gameModeKeyByName;
-
-	[OnEnterPlay_Clear]
-	private static Dictionary<int, FusionGameModeData> fusionTypeTable;
 
 	[OnEnterPlay_Clear]
 	public static List<GorillaGameManager> gameModes;
@@ -125,7 +121,6 @@ public class GameMode : MonoBehaviour
 	{
 		gameModeTable = new Dictionary<int, GorillaGameManager>();
 		gameModeKeyByName = new Dictionary<string, int>();
-		fusionTypeTable = new Dictionary<int, FusionGameModeData>();
 		gameModes = new List<GorillaGameManager>(10);
 		gameModeNames = new List<string>(10);
 		activatedGameModes = new List<GorillaGameManager>(13);
@@ -240,10 +235,7 @@ public class GameMode : MonoBehaviour
 			GTDev.LogError("Unable to find game mode prefab to spawn");
 			return false;
 		}
-		if (NetworkSystem.Instance.NetInstantiate(prefab, Vector3.zero, Quaternion.identity, isRoomObject: true, 0, new object[1] { key }, (NetworkRunner runner, NetworkObject no) =>
-		{
-			no.GetComponent<GameModeSerializer>().Init(key);
-		}).IsNull())
+		if (NetworkSystem.Instance.NetInstantiate(prefab, Vector3.zero, Quaternion.identity, isRoomObject: true, 0, new object[1] { key }).IsNull())
 		{
 			GTDev.LogWarning("Unable to create GameManager with key " + key);
 			return false;
