@@ -271,6 +271,10 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 
 	private static List<GameObject> placeholderReplacements = new List<GameObject>();
 
+	private static HashSet<int> gameAudioClipIds = new HashSet<int>();
+
+	private static HashSet<AudioClip> mapAudioClips = new HashSet<AudioClip>();
+
 	private static GameObject customMapATM = null;
 
 	private static GameObject customMapGeodeATM = null;
@@ -402,6 +406,18 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 
 	public const long LocalMapModId = 999999999L;
 
+	private const float AudioWatchdogDuration = 30f;
+
+	private const float AudioStallThreshold = 0.5f;
+
+	private const float AudioStallResetDelay = 3f;
+
+	private const bool AudioStallAutoReset = true;
+
+	private static Coroutine audioWatchdogCoroutine;
+
+	private static float audioWatchdogStartTime;
+
 	public static bool KeepTunnelDoorOpen
 	{
 		get
@@ -494,6 +510,9 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		lightmaps = null;
 		lightmapsToKeep = new List<Texture2D>();
 		placeholderReplacements = new List<GameObject>();
+		gameAudioClipIds = new HashSet<int>();
+		mapAudioClips = new HashSet<AudioClip>();
+		audioWatchdogCoroutine = null;
 		customMapATM = null;
 		customMapGeodeATM = null;
 		storeCheckouts = new List<GameObject>();
@@ -657,6 +676,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		mapLoadProgressCallback?.Invoke(MapLoadStatus.Loading, 3, "PACKAGE INFO LOADED");
 		string path = Path.GetDirectoryName(packageInfoFilePath) + "/" + loadedMapPackageInfo.pcFileName;
 		mapLoadProgressCallback?.Invoke(MapLoadStatus.Loading, 4, "LOADING MAP ASSET BUNDLE");
+		SnapshotGameAudioClips();
 		AssetBundleCreateRequest loadBundleRequest = AssetBundle.LoadFromFileAsync(path);
 		yield return loadBundleRequest;
 		mapBundle = loadBundleRequest.assetBundle;
@@ -1033,6 +1053,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		pendingSceneActivation = null;
 		if (shouldAbortSceneLoad)
 		{
+			SilenceSceneAudio(SceneManager.GetSceneByName(sceneName));
 			yield return AbortSceneLoad(sceneIndex);
 			OnLoadComplete(LoadResult.Aborted, "");
 			yield break;
@@ -2603,7 +2624,8 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 
 	private static IEnumerator UnloadMapCoroutine()
 	{
-		GTDev.Log("[CML.UnloadMap_Co] Unloading Custom Map...");
+		GTDev.Log("[CML.UnloadMap_Co] Unloading Custom Map, " + AudioClockStamp());
+		StartAudioWatchdog();
 		if (zoneLoadingCoroutine != null)
 		{
 			queuedLoadZoneRequests.Clear();
@@ -2632,13 +2654,18 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		yield return ResetLightmaps();
 		SetZoneDynamicLighting(enable: false);
 		GameLightingManager.instance.SetAmbientLightDynamic(Color.black);
-		yield return WaitForLoadingAudioClips();
+		GTDev.Log("[CML.UnloadMap_Co] Scenes unloaded, releasing map audio, " + AudioClockStamp());
+		yield return WaitForAudioRelease();
+		yield return ReleaseMapAudioData();
+		GTDev.Log("[CML.UnloadMap_Co] Unloading map bundle, " + AudioClockStamp());
 		if (mapBundle != null)
 		{
 			mapBundle.Unload(unloadAllLoadedObjects: true);
 		}
 		mapBundle = null;
-		Resources.UnloadUnusedAssets();
+		mapAudioClips.Clear();
+		gameAudioClipIds.Clear();
+		GTDev.Log("[CML.UnloadMap_Co] Map bundle unloaded, " + AudioClockStamp());
 		cachedLuauScript = "";
 		devModeEnabled = false;
 		disableHoldingHandsAllModes = false;
@@ -2684,35 +2711,201 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		}
 	}
 
-	private static IEnumerator WaitForLoadingAudioClips()
+	private static void SilenceSceneAudio(Scene scene)
 	{
-		List<AudioClip> loadingClips = new List<AudioClip>();
+		if (!scene.IsValid() || !scene.isLoaded)
+		{
+			return;
+		}
+		int num = 0;
+		int num2 = 0;
+		GameObject[] rootGameObjects = scene.GetRootGameObjects();
+		for (int i = 0; i < rootGameObjects.Length; i++)
+		{
+			AudioSource[] componentsInChildren = rootGameObjects[i].GetComponentsInChildren<AudioSource>(includeInactive: true);
+			for (int j = 0; j < componentsInChildren.Length; j++)
+			{
+				AudioClip clip = componentsInChildren[j].clip;
+				if (clip != null && !gameAudioClipIds.Contains(clip.GetInstanceID()))
+				{
+					mapAudioClips.Add(clip);
+				}
+				componentsInChildren[j].Stop();
+				componentsInChildren[j].clip = null;
+			}
+			num += componentsInChildren.Length;
+			AudioListener[] componentsInChildren2 = rootGameObjects[i].GetComponentsInChildren<AudioListener>(includeInactive: true);
+			for (int k = 0; k < componentsInChildren2.Length; k++)
+			{
+				componentsInChildren2[k].enabled = false;
+			}
+			num2 += componentsInChildren2.Length;
+		}
+		GTDev.Log($"[CML.SilenceSceneAudio] {scene.name}: stopped {num} AudioSources, disabled " + $"{num2} AudioListeners, {mapAudioClips.Count} map clips tracked, {AudioClockStamp()}");
+	}
+
+	private static void SnapshotGameAudioClips()
+	{
+		gameAudioClipIds.Clear();
+		mapAudioClips.Clear();
 		AudioClip[] array = Resources.FindObjectsOfTypeAll<AudioClip>();
 		for (int i = 0; i < array.Length; i++)
 		{
-			if (array[i] != null && array[i].loadState == AudioDataLoadState.Loading)
-			{
-				loadingClips.Add(array[i]);
-			}
+			gameAudioClipIds.Add(array[i].GetInstanceID());
 		}
-		if (loadingClips.Count == 0)
+	}
+
+	private static IEnumerator ReleaseMapAudioData()
+	{
+		if (mapAudioClips.Count == 0)
 		{
 			yield break;
 		}
 		float startTime = Time.realtimeSinceStartup;
-		GTDev.Log($"[CML.WaitForLoadingAudioClips] Waiting on {loadingClips.Count} audio clips still loading before unloading the map bundle");
-		while (loadingClips.Count > 0 && Time.realtimeSinceStartup - startTime < 5f)
+		List<AudioClip> pendingClips = new List<AudioClip>(mapAudioClips.Count);
+		foreach (AudioClip mapAudioClip in mapAudioClips)
 		{
-			yield return null;
-			for (int num = loadingClips.Count - 1; num >= 0; num--)
+			if (!(mapAudioClip == null))
 			{
-				if (loadingClips[num] == null || loadingClips[num].loadState != AudioDataLoadState.Loading)
+				if (mapAudioClip.loadState != AudioDataLoadState.Unloaded)
 				{
-					loadingClips.RemoveAt(num);
+					mapAudioClip.UnloadAudioData();
 				}
+				pendingClips.Add(mapAudioClip);
 			}
 		}
-		GTDev.Log($"[CML.WaitForLoadingAudioClips] Waited {Time.realtimeSinceStartup - startTime:F2}s, {loadingClips.Count} still loading");
+		mapAudioClips.Clear();
+		while (pendingClips.Count > 0 && Time.realtimeSinceStartup - startTime < 2f)
+		{
+			for (int num = pendingClips.Count - 1; num >= 0; num--)
+			{
+				if (pendingClips[num] == null || pendingClips[num].loadState == AudioDataLoadState.Unloaded || pendingClips[num].loadState == AudioDataLoadState.Failed)
+				{
+					pendingClips.RemoveAt(num);
+				}
+			}
+			if (pendingClips.Count > 0)
+			{
+				yield return null;
+			}
+		}
+		GTDev.Log($"[CML.ReleaseMapAudioData] Took {Time.realtimeSinceStartup - startTime:F2}s, " + $"{pendingClips.Count} clips still not unloaded, {AudioClockStamp()}");
+		yield return WaitForAudioRelease();
+	}
+
+	private static IEnumerator WaitForAudioRelease()
+	{
+		yield return null;
+		yield return new WaitForSecondsRealtime(0.1f);
+	}
+
+	private static void StartAudioWatchdog()
+	{
+		if (hasInstance)
+		{
+			audioWatchdogStartTime = Time.realtimeSinceStartup;
+			if (audioWatchdogCoroutine == null)
+			{
+				audioWatchdogCoroutine = instance.StartCoroutine(AudioWatchdogCoroutine());
+			}
+		}
+	}
+
+	private static string AudioClockStamp()
+	{
+		return $"t={Time.realtimeSinceStartup:F2} dsp={AudioSettings.dspTime:F3}";
+	}
+
+	private static IEnumerator AudioWatchdogCoroutine()
+	{
+		GTDev.Log("[CML.AudioWatchdog] Started, " + AudioClockStamp());
+		double lastDspTime = AudioSettings.dspTime;
+		float lastDspAdvanceTime = Time.realtimeSinceStartup;
+		float stallStartTime = -1f;
+		bool resetAttempted = false;
+		float driftBaseRealTime = Time.realtimeSinceStartup;
+		double driftBaseDspTime = AudioSettings.dspTime;
+		double maxDrift = 0.0;
+		bool driftReported = false;
+		while (Time.realtimeSinceStartup - audioWatchdogStartTime < 30f || stallStartTime >= 0f)
+		{
+			yield return null;
+			if (!Application.isFocused)
+			{
+				lastDspTime = AudioSettings.dspTime;
+				lastDspAdvanceTime = Time.realtimeSinceStartup;
+				driftBaseDspTime = lastDspTime;
+				driftBaseRealTime = lastDspAdvanceTime;
+				continue;
+			}
+			float realtimeSinceStartup = Time.realtimeSinceStartup;
+			double dspTime = AudioSettings.dspTime;
+			double num = (double)(realtimeSinceStartup - driftBaseRealTime) - (dspTime - driftBaseDspTime);
+			if (num > maxDrift)
+			{
+				maxDrift = num;
+			}
+			if (!driftReported && num > 0.5)
+			{
+				driftReported = true;
+				GTDev.LogError($"[CML.AudioWatchdog] Mixer running SLOW: dspTime {num:F2}s behind real time " + $"({realtimeSinceStartup - audioWatchdogStartTime:F2}s after unload start), {AudioClockStamp()}");
+			}
+			if (dspTime > lastDspTime)
+			{
+				if (stallStartTime >= 0f)
+				{
+					GTDev.Log($"[CML.AudioWatchdog] Mixer resumed after {realtimeSinceStartup - stallStartTime:F2}s stall " + $"(reset attempted: {resetAttempted}), {AudioClockStamp()}");
+					stallStartTime = -1f;
+					resetAttempted = false;
+				}
+				lastDspTime = dspTime;
+				lastDspAdvanceTime = realtimeSinceStartup;
+				continue;
+			}
+			if (stallStartTime < 0f && realtimeSinceStartup - lastDspAdvanceTime > 0.5f)
+			{
+				stallStartTime = lastDspAdvanceTime;
+				GTDev.LogError($"[CML.AudioWatchdog] Mixer STALLED: dspTime stuck at {dspTime:F3} since " + $"t={stallStartTime:F2} ({realtimeSinceStartup - audioWatchdogStartTime:F2}s after unload start), " + AudioClockStamp());
+			}
+			if (stallStartTime >= 0f && !resetAttempted && realtimeSinceStartup - stallStartTime > 3f)
+			{
+				resetAttempted = true;
+				ResetStalledAudio();
+				driftBaseRealTime = Time.realtimeSinceStartup;
+				driftBaseDspTime = AudioSettings.dspTime;
+			}
+			if (!resetAttempted || !(realtimeSinceStartup - stallStartTime > 8f))
+			{
+				continue;
+			}
+			GTDev.LogError("[CML.AudioWatchdog] Mixer still stalled after reset, giving up, " + AudioClockStamp());
+			break;
+		}
+		GTDev.Log($"[CML.AudioWatchdog] Stopped, max dspTime drift {maxDrift:F2}s, {AudioClockStamp()}");
+		audioWatchdogCoroutine = null;
+	}
+
+	private static void ResetStalledAudio()
+	{
+		AudioSource[] array = UnityEngine.Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+		List<AudioSource> list = new List<AudioSource>();
+		for (int i = 0; i < array.Length; i++)
+		{
+			if (array[i].isPlaying && array[i].loop)
+			{
+				list.Add(array[i]);
+			}
+		}
+		GTDev.LogError($"[CML.AudioWatchdog] Resetting audio system, {list.Count} looping sources to " + "restart, " + AudioClockStamp());
+		bool flag = AudioSettings.Reset(AudioSettings.GetConfiguration());
+		for (int j = 0; j < list.Count; j++)
+		{
+			if (list[j] != null && list[j].isActiveAndEnabled)
+			{
+				list[j].Play();
+			}
+		}
+		GTDev.Log($"[CML.AudioWatchdog] AudioSettings.Reset returned {flag}, {AudioClockStamp()}");
 	}
 
 	private static IEnumerator AbortSceneLoad(int sceneIndex)
@@ -2757,7 +2950,7 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 		{
 			yield return null;
 		}
-		UnloadSceneOptions options = UnloadSceneOptions.UnloadAllEmbeddedSceneObjects;
+		UnloadSceneOptions unloadSceneOptions = UnloadSceneOptions.UnloadAllEmbeddedSceneObjects;
 		string scenePathWithExtension = assetBundleSceneFilePaths[sceneIndex];
 		string[] array = scenePathWithExtension.Split(".");
 		string text = "";
@@ -2770,20 +2963,26 @@ public class CustomMapLoader : MonoBehaviour, IBuildValidation
 				sceneName = Path.GetFileName(text);
 			}
 		}
-		Scene sceneByName = SceneManager.GetSceneByName(text);
-		if (!sceneByName.IsValid() || !sceneByName.isLoaded)
+		Scene sceneToUnload = SceneManager.GetSceneByName(text);
+		if (!sceneToUnload.IsValid() || !sceneToUnload.isLoaded)
 		{
 			yield break;
 		}
-		RemoveUnloadingStorePrefabs(sceneByName);
+		SilenceSceneAudio(sceneToUnload);
+		yield return WaitForAudioRelease();
+		if (isUnloading)
+		{
+			yield return ReleaseMapAudioData();
+		}
+		RemoveUnloadingStorePrefabs(sceneToUnload);
 		for (int num = teleporters.Count - 1; num >= 0; num--)
 		{
-			if (teleporters[num].gameObject.scene == sceneByName)
+			if (teleporters[num].gameObject.scene == sceneToUnload)
 			{
 				teleporters.RemoveAt(num);
 			}
 		}
-		yield return SceneManager.UnloadSceneAsync(scenePathWithExtension, options);
+		yield return SceneManager.UnloadSceneAsync(scenePathWithExtension, unloadSceneOptions);
 		loadedSceneFilePaths.Remove(scenePathWithExtension);
 		loadedSceneNames.Remove(sceneName);
 		loadedSceneIndexes.Remove(sceneIndex);

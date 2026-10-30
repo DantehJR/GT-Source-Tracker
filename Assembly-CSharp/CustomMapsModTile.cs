@@ -32,6 +32,8 @@ public class CustomMapsModTile : CustomMapsScreenTouchPoint
 
 	private Sprite defaultLogo;
 
+	private Sprite logoSprite;
+
 	private bool isDownloadingThumbnail;
 
 	private bool newDownloadRequest;
@@ -113,7 +115,7 @@ public class CustomMapsModTile : CustomMapsScreenTouchPoint
 	{
 		_playerCountText.text = "-";
 		ActivateTile(useMapName);
-		touchPointRenderer.sprite = defaultLogo;
+		ResetLogo();
 		highlight.SetActive(value: false);
 		currentMod = mod;
 		if (IsCurrentModHidden())
@@ -147,7 +149,7 @@ public class CustomMapsModTile : CustomMapsScreenTouchPoint
 		}
 		isDownloadingThumbnail = true;
 		Error error = new Error(ErrorCode.NONE);
-		Texture2D tex = new Texture2D(320, 180);
+		Texture2D tex = null;
 		try
 		{
 			(error, tex) = await mod.Logo.DownloadAsTexture2D(Mod.LogoResolution.X320_Y180);
@@ -162,19 +164,26 @@ public class CustomMapsModTile : CustomMapsScreenTouchPoint
 			newDownloadRequest = false;
 			SetMod(currentMod, useMapName);
 		}
-		else if ((bool)error)
+		else if ((bool)error || tex == null)
 		{
 			GTDev.LogError($"CustomMapsListScreen::DownloadThumbnail {error}");
 		}
 		else
 		{
-			touchPointRenderer.sprite = Sprite.Create(tex, new Rect(0f, 0f, 320f, 180f), new Vector2(0.5f, 0.5f));
+			ResetLogo();
+			logoSprite = Sprite.Create(tex, new Rect(0f, 0f, 320f, 180f), new Vector2(0.5f, 0.5f));
+			touchPointRenderer.sprite = logoSprite;
 		}
 	}
 
 	public void ResetLogo()
 	{
 		touchPointRenderer.sprite = defaultLogo;
+		if (logoSprite != null)
+		{
+			UnityEngine.Object.Destroy(logoSprite);
+			logoSprite = null;
+		}
 	}
 
 	public void ShowDetails()
