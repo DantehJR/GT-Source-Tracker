@@ -1343,6 +1343,8 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 
 	private int CosmeticAutoGrantTitleDataCheckCount;
 
+	private readonly HashSet<string> cosmeticAutoGrantClaimsRequested = new HashSet<string>();
+
 	private Callback<MicroTxnAuthorizationResponse_t> _steamMicroTransactionAuthorizationResponse;
 
 	private static readonly List<CosmeticSlots> _g_default_outAppliedSlotsList_for_applyCosmeticItemToSet = new List<CosmeticSlots>(35);
@@ -1878,6 +1880,50 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 			StartCoroutine(CheckCanGetDaily());
 		}
 		CreatorCodes.Initialize();
+	}
+
+	private void ApplyCosmeticAutoGrant(string playFabID, List<ItemInstance> inventory)
+	{
+		if (GorillaTagger.Instance != null && GorillaTagger.Instance.offlineVRRig != null)
+		{
+			GorillaTagger.Instance.offlineVRRig.AddCosmetic(playFabID);
+		}
+		if ((inventory != null && inventory.Exists((ItemInstance item) => item.ItemId == playFabID)) || GorillaServer.Instance == null || !cosmeticAutoGrantClaimsRequested.Add(playFabID))
+		{
+			return;
+		}
+		GorillaServer.Instance.ClaimItem(playFabID, (GorillaServer.ClaimItemResponse response) =>
+		{
+			if (!response.granted)
+			{
+				Debug.LogError("CosmeticAutoGrant: server refused ClaimItem for " + playFabID);
+			}
+			else
+			{
+				UpdateMyCosmetics();
+				StartCoroutine(CheckIfMyCosmeticsUpdated(playFabID));
+			}
+		}, (string error) =>
+		{
+			cosmeticAutoGrantClaimsRequested.Remove(playFabID);
+			Debug.LogError("CosmeticAutoGrant: ClaimItem failed for " + playFabID + ": " + error);
+		});
+	}
+
+	public bool IsGlobalCosmeticAutoGrant(string playFabID)
+	{
+		if (CosmeticAutoGrantTitleDataChecks == null || CosmeticAutoGrantTitleDataCheckCount > 0 || GorillaComputer.instance == null)
+		{
+			return false;
+		}
+		foreach (CosmeticAutoGrant cosmeticAutoGrant in cosmeticAutoGrants)
+		{
+			if (!(cosmeticAutoGrant.cosmeticItem == null) && !(cosmeticAutoGrant.cosmeticItem.info.playFabID != playFabID) && !cosmeticAutoGrant.titleDataCheck.key.IsNullOrEmpty() && cosmeticAutoGrant.reqAccountDays <= 0 && !(cosmeticAutoGrant.ReqAccountCreationDate < GorillaComputer.instance.GetServerTime()) && CosmeticAutoGrantTitleDataChecks.TryGetValue(cosmeticAutoGrant.titleDataCheck.key, out var value) && cosmeticAutoGrant.titleDataCheck.value <= value)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void Start()
@@ -3762,9 +3808,13 @@ public class CosmeticsController : MonoBehaviour, IGorillaSliceableSimple, IBuil
 						if (searchIndex > -1)
 						{
 							CosmeticItem item = allCosmetics[searchIndex];
-							if (!unlockedCosmetics.Contains(item) && num5 >= cag.reqAccountDays && playFabAccountCreationDate <= cag.ReqAccountCreationDate && (cag.titleDataCheck.key.IsNullOrEmpty() || (CosmeticAutoGrantTitleDataChecks.ContainsKey(cag.titleDataCheck.key) && cag.titleDataCheck.value <= CosmeticAutoGrantTitleDataChecks[cag.titleDataCheck.key])))
+							if (num5 >= cag.reqAccountDays && playFabAccountCreationDate <= cag.ReqAccountCreationDate && (cag.titleDataCheck.key.IsNullOrEmpty() || (CosmeticAutoGrantTitleDataChecks.ContainsKey(cag.titleDataCheck.key) && cag.titleDataCheck.value <= CosmeticAutoGrantTitleDataChecks[cag.titleDataCheck.key])))
 							{
-								unlockedCosmetics.Add(item);
+								if (!unlockedCosmetics.Contains(item))
+								{
+									unlockedCosmetics.Add(item);
+								}
+								ApplyCosmeticAutoGrant(item.itemName, result.Inventory);
 							}
 						}
 					}
