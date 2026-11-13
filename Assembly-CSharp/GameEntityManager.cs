@@ -110,6 +110,8 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	public const float MAX_ENTITY_DIST = 16f;
 
+	public const float MAX_THROW_SPEED = 40f;
+
 	public const float MAX_THROW_SPEED_SQ = 1600f;
 
 	public const int MAX_ENTITY_COUNT_PER_TYPE = 100;
@@ -216,6 +218,8 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 
 	public CallLimitersList<CallLimiter, RPC> m_RpcSpamChecks = new CallLimitersList<CallLimiter, RPC>();
 
+	private bool m_tableDataLogErrorOnce;
+
 	private bool scenePlacedEntitiesRegistered;
 
 	private float scenePlacedBoundsCheckTimer;
@@ -233,6 +237,8 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 	private static List<GameEntity> tempEntitiesToSerialize = new List<GameEntity>(512);
 
 	private static List<AttachmentData> tempAttachments = new List<AttachmentData>(512);
+
+	private static List<int> alreadyExisted = new List<int>();
 
 	private byte[] tempSerializeGameState = new byte[15360];
 
@@ -1242,13 +1248,13 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 	[PunRPC]
 	public void CreateItemsRPC(int zoneId, byte[] stateData, PhotonMessageInfo info)
 	{
-		if (!IsValidClientRPC(info.Sender) || stateData == null || stateData.Length >= 15360 || m_RpcSpamChecks.IsSpamming(RPC.CreateItems))
+		if (!IsValidClientRPC(info.Sender) || stateData == null || stateData.Length >= 15360 || m_RpcSpamChecks.IsSpamming(RPC.CreateItems) || !Utils.GZipTryUncompressBuffer(stateData, 30720, out var result))
 		{
 			return;
 		}
 		try
 		{
-			using MemoryStream input = new MemoryStream(GZipStream.UncompressBuffer(stateData));
+			using MemoryStream input = new MemoryStream(result);
 			using BinaryReader binaryReader = new BinaryReader(input);
 			int num = binaryReader.ReadInt32();
 			for (int i = 0; i < zoneComponents.Count; i++)
@@ -1439,7 +1445,11 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			{
 				GamePlayer gamePlayer2 = joiningPlayer;
 				gamePlayer2.OnPlayerInitialized = (Action)Delegate.Remove(gamePlayer2.OnPlayerInitialized, createItemsCallback);
-				using MemoryStream input = new MemoryStream(GZipStream.UncompressBuffer(stateData));
+				if (!Utils.GZipTryUncompressBuffer(stateData, 15360, out var result))
+				{
+					return;
+				}
+				using MemoryStream input = new MemoryStream(result);
 				using BinaryReader binaryReader = new BinaryReader(input);
 				int num = binaryReader.ReadInt32();
 				if (num <= 4 && (isAuthority || netIds.Length == num))
@@ -2187,7 +2197,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		return null;
 	}
 
-	private bool ValidateGrab(GameEntity gameEntity, int playerActorNumber, bool isLeftHand)
+	internal bool ValidateGrab(GameEntity gameEntity, int playerActorNumber, bool isLeftHand)
 	{
 		if (gameEntity == null || !gameEntity.pickupable)
 		{
@@ -3079,7 +3089,11 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			zoneComponents[i].DeserializeZoneData(binaryReader);
 		}
 		int num = binaryReader.ReadInt32();
-		Span<bool> span = stackalloc bool[num];
+		if (num > 1000)
+		{
+			return;
+		}
+		alreadyExisted.Clear();
 		for (int j = 0; j < num; j++)
 		{
 			int netId = binaryReader.ReadInt32();
@@ -3091,7 +3105,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			GameEntity gameEntityFromNetId = GetGameEntityFromNetId(netId);
 			if (gameEntityFromNetId != null)
 			{
-				span[j] = true;
+				alreadyExisted.AddIfNew(j);
 				if (gameEntityFromNetId.IsScenePlaced)
 				{
 					gameEntityFromNetId.transform.SetPositionAndRotation(position, rotation);
@@ -3100,7 +3114,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			}
 			if (IsScenePlacedNetId(netId))
 			{
-				span[j] = true;
+				alreadyExisted.AddIfNew(j);
 				continue;
 			}
 			bool flag = false;
@@ -3126,7 +3140,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 			GameEntity gameEntityFromNetId2 = GetGameEntityFromNetId(num2);
 			if (gameEntityFromNetId2 != null)
 			{
-				if (!span[l])
+				if (!alreadyExisted.Contains(l))
 				{
 					InitItemLocal(gameEntityFromNetId2, createData, createdByEntityNetId);
 					gameEntityFromNetId2.SetState(state);
@@ -3361,7 +3375,7 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 	[PunRPC]
 	public void SendTableDataRPC(int packetNum, int totalBytes, byte[] bytes, PhotonMessageInfo info)
 	{
-		if (!IsAuthorityPlayer(info.Sender) || m_RpcSpamChecks.IsSpamming(RPC.SendTableData) || bytes == null || bytes.Length >= 15360 || zoneStateData.state != ZoneState.WaitingForState)
+		if (!IsAuthorityPlayer(info.Sender) || m_RpcSpamChecks.IsSpamming(RPC.SendTableData) || bytes == null || bytes.Length >= 15360 || totalBytes > 307200 || zoneStateData.state != ZoneState.WaitingForState)
 		{
 			return;
 		}
@@ -3401,11 +3415,21 @@ public class GameEntityManager : NetworkComponent, IRequestableOwnershipGuardCal
 		RegisterScenePlacedEntities();
 		try
 		{
-			byte[] array = GZipStream.UncompressBuffer(zoneStateData.recievedStateBytes);
-			int numBytes = array.Length;
-			DeserializeTableState(array, numBytes);
-			RecalculateNextNetId();
-			SetZoneState(ZoneState.Active);
+			if (!Utils.GZipTryUncompressBuffer(zoneStateData.recievedStateBytes, 1048576, out var result))
+			{
+				if (!m_tableDataLogErrorOnce)
+				{
+					Debug.LogError("ResolveTableData - error: failed to decompress data, too large");
+					m_tableDataLogErrorOnce = true;
+				}
+			}
+			else
+			{
+				int numBytes = result.Length;
+				DeserializeTableState(result, numBytes);
+				RecalculateNextNetId();
+				SetZoneState(ZoneState.Active);
+			}
 		}
 		catch (Exception exception)
 		{

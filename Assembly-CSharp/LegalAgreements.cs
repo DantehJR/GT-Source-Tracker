@@ -192,6 +192,12 @@ public class LegalAgreements : MonoBehaviour
 			}
 		}
 		enabled = false;
+		if ((bool)tmpBody)
+		{
+			UnityEngine.Object.Destroy(tmpBody.gameObject);
+		}
+		tmpBody = null;
+		cachedText = null;
 		await SubmitAcceptedAgreements(agreementResults);
 	}
 

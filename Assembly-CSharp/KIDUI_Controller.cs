@@ -194,6 +194,12 @@ public class KIDUI_Controller : MonoBehaviour
 			}
 		}
 		Debug.Log("[KID::UI::CONTROLLER] K-ID Session has been found and is proceeding ");
+		if (IsForceKIDHandling())
+		{
+			Debug.LogWarning("[KID::UI::CONTROLLER] k-ID Handling is FORCE - always showing k-ID settings screen");
+			_showReason = Metrics_ShowReason.None;
+			return true;
+		}
 		if (KIDManager.HasAllPermissions())
 		{
 			return false;
@@ -240,6 +246,11 @@ public class KIDUI_Controller : MonoBehaviour
 			_showReason = Metrics_ShowReason.Permissions_Changed;
 			return true;
 		}
+		return false;
+	}
+
+	private static bool IsForceKIDHandling()
+	{
 		return false;
 	}
 

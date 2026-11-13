@@ -135,7 +135,6 @@ public class KIDUI_MainScreen : MonoBehaviour
 
 	private void Awake()
 	{
-		_featuresList.Clear();
 		if (_setupKidScreen == null)
 		{
 			Debug.LogErrorFormat("[KID::UI::Setup] Setup K-ID Screen is NULL");
@@ -308,6 +307,7 @@ public class KIDUI_MainScreen : MonoBehaviour
 			Debug.Log("[KID::MAIN_SCREEN] Already Initialised");
 			return;
 		}
+		_featuresList.Clear();
 		ConstructFeatureSettings();
 		_declinedStatus.SetActive(value: false);
 		_timeoutStatus.SetActive(value: false);
@@ -387,17 +387,14 @@ public class KIDUI_MainScreen : MonoBehaviour
 		switch (showStatus)
 		{
 		default:
-			if (!_hasAllPermissions)
-			{
-				_missingStatus.SetActive(value: true);
-			}
-			else if (_hasAllPermissions)
+			_screenStatus = showStatus;
+			if (_hasAllPermissions)
 			{
 				_fullPlayerControlStatus.SetActive(value: true);
 			}
 			else
 			{
-				_screenStatus = showStatus;
+				_missingStatus.SetActive(value: true);
 			}
 			break;
 		case EMainScreenStatus.Declined:
@@ -428,6 +425,7 @@ public class KIDUI_MainScreen : MonoBehaviour
 			break;
 		case EMainScreenStatus.FullControl:
 			_fullPlayerControlStatus.SetActive(value: true);
+			_screenStatus = showStatus;
 			break;
 		}
 		SetButtonContainersVisibility(GetPermissionState());
