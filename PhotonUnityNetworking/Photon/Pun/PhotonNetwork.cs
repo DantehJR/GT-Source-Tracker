@@ -2323,39 +2323,6 @@ public static class PhotonNetwork
 					}
 				}
 			}
-			if (num6 == 1)
-			{
-				return;
-			}
-			string text2 = string.Empty;
-			if (array2 != null)
-			{
-				_ = array2.Length;
-				foreach (Type type2 in array2)
-				{
-					if (text2 != string.Empty)
-					{
-						text2 += ", ";
-					}
-					text2 = ((!(type2 == null)) ? (text2 + type2.Name) : (text2 + "null"));
-				}
-			}
-			GameObject context = ((photonView != null) ? photonView.gameObject : null);
-			if (num6 == 0)
-			{
-				if (num7 == 0)
-				{
-					UnityEngine.Debug.LogErrorFormat(context, "RPC method '{0}({2})' not found on object with PhotonView {1}. Implement as non-static. Apply [PunRPC]. Components on children are not found. Return type must be void or IEnumerator (if you enable RunRpcCoroutines). RPCs are a one-way message.. Sender is " + sender.UserId, text, num, text2);
-				}
-				else
-				{
-					UnityEngine.Debug.LogErrorFormat(context, "RPC method '{0}' found on object with PhotonView {1} but has wrong parameters. Implement as '{0}({2})'. PhotonMessageInfo is optional as final parameter.Return type must be void or IEnumerator (if you enable RunRpcCoroutines).. Sender is " + sender.UserId, text, num, text2);
-				}
-			}
-			else
-			{
-				UnityEngine.Debug.LogErrorFormat(context, "RPC method '{0}({2})' found {3}x on object with PhotonView {1}. Only one component should implement it.Return type must be void or IEnumerator (if you enable RunRpcCoroutines).. Sender is " + sender.UserId, text, num, text2, num7);
-			}
 		}
 	}
 
