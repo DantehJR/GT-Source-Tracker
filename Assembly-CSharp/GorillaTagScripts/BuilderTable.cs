@@ -226,6 +226,9 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 	[SerializeField]
 	private string SharedMapConfigTitleDataKey = "SharedBlocksStartingMapConfig";
 
+	[SerializeField]
+	private SMBFeaturedMaps.FeaturedSlot featuredSlot;
+
 	public BuilderTableNetworking builderNetworking;
 
 	public BuilderRenderer builderRenderer;
@@ -1553,6 +1556,10 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 			{
 				GTDev.LogWarning("Invalid map to load");
 				OnMapLoadFailed?.Invoke("Invalid Map ID");
+			}
+			else if (IsFeaturedTable())
+			{
+				OnMapLoadFailed?.Invoke("FEATURED MAP CANNOT BE CHANGED");
 			}
 			else if (tableState != TableState.Ready && tableState != TableState.BadData)
 			{
@@ -5110,7 +5117,58 @@ public class BuilderTable : MonoBehaviour, ITickSystemTick
 		}
 	}
 
+	public bool IsFeaturedTable()
+	{
+		return featuredSlot != SMBFeaturedMaps.FeaturedSlot.None;
+	}
+
 	private void FindStartingMap()
+	{
+		if (IsFeaturedTable())
+		{
+			FindFeaturedStartingMap();
+		}
+		else
+		{
+			FindNormalStartingMap();
+		}
+	}
+
+	private void FindFeaturedStartingMap()
+	{
+		if (!getStartingMapInProgress)
+		{
+			getStartingMapInProgress = true;
+			SMBFeaturedMaps.FeaturedSlot slot = featuredSlot;
+			SMBFeaturedMaps.RequestFeaturedMapId(slot, (string mapID) =>
+			{
+				OnFeaturedMapIdResolved(slot, mapID);
+			});
+		}
+	}
+
+	private void OnFeaturedMapIdResolved(SMBFeaturedMaps.FeaturedSlot slot, string mapID)
+	{
+		getStartingMapInProgress = false;
+		if (tableState == TableState.WaitForInitialBuildMaster)
+		{
+			if (!SharedBlocksManager.IsMapIDValid(mapID))
+			{
+				GTDev.LogError($"BuilderTable {tableZone} has no valid featured map for slot {slot}, using the normal starting map");
+				FindNormalStartingMap();
+				return;
+			}
+			getStartingMapInProgress = true;
+			hasStartingMap = false;
+			startingMap = new SharedBlocksManager.SharedBlocksMap
+			{
+				MapID = mapID
+			};
+			SharedBlocksManager.instance.RequestMapDataFromID(mapID, FoundTopMapData);
+		}
+	}
+
+	private void FindNormalStartingMap()
 	{
 		if (hasStartingMap && Time.timeAsDouble < startingMapCacheTime + 60.0)
 		{

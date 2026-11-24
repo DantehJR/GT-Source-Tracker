@@ -116,9 +116,6 @@ public class CustomMapsListScreen : CustomMapsTerminalScreen
 	private int numModsPerRequest = 24;
 
 	[SerializeField]
-	private int maxModListItemLength = 25;
-
-	[SerializeField]
 	private string communityMapsTag = "Community";
 
 	[SerializeField]

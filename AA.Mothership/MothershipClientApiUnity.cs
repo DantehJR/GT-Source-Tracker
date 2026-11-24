@@ -198,7 +198,7 @@ public static class MothershipClientApiUnity
 		{
 			Debug.LogError("Tried to tick Mothership SDK, but Mothership is not enabled!");
 		}
-		else
+		else if (client != null)
 		{
 			client.Tick(deltaTime);
 		}

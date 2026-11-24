@@ -60,7 +60,7 @@ public class TitleDataAnimatorControl : MonoBehaviour, IBuildValidation
 		{
 			await Task.Delay(100);
 		}
-		PlayFabTitleDataCache.Instance.GetTitleData(titleDataKey, async (string value) =>
+		PlayFabTitleDataCache.Instance.GetTitleData(titleDataKey, (string value) =>
 		{
 			if (float.TryParse(value, out var result))
 			{

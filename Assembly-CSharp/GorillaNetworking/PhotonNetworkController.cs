@@ -302,7 +302,7 @@ public class PhotonNetworkController : MonoBehaviour
 			else
 			{
 				_ = roomJoinType;
-				if ((!filterSubscribed || (PhotonNetwork.CurrentRoom != null && PhotonNetwork.CurrentRoom.MaxPlayers > 10)) && (NetworkSystem.Instance.GameModeString.StartsWith(desiredGameMode) || triggeredTrigger.SameZoneAsOverride()))
+				if ((!filterSubscribed || (PhotonNetwork.CurrentRoom != null && PhotonNetwork.CurrentRoom.MaxPlayers > 10)) && (NetworkSystem.Instance.GameModeString == desiredGameMode || triggeredTrigger.SameZoneAsOverride()))
 				{
 					return;
 				}
@@ -555,9 +555,10 @@ public class PhotonNetworkController : MonoBehaviour
 		else if (currentJoinType != JoinType.FollowingParty)
 		{
 			bool flag = false;
+			string text = GameModeString.ZoneFromPropertyString(NetworkSystem.Instance.GameModeString);
 			for (int i = 0; i < GorillaComputer.instance.allowedMapsToJoin.Length; i++)
 			{
-				if (NetworkSystem.Instance.GameModeString.StartsWith(GorillaComputer.instance.allowedMapsToJoin[i]))
+				if (string.Equals(text, GorillaComputer.instance.allowedMapsToJoin[i], StringComparison.Ordinal))
 				{
 					flag = true;
 					break;
@@ -568,7 +569,7 @@ public class PhotonNetworkController : MonoBehaviour
 				GorillaNetworkJoinTrigger joinTriggerFromFullGameModeString = GorillaComputer.instance.GetJoinTriggerFromFullGameModeString(NetworkSystem.Instance.GameModeString);
 				if (joinTriggerFromFullGameModeString.groupJoinRequiredZonesAB != default(GroupJoinZoneAB) && !joinTriggerFromFullGameModeString.groupJoinRequiredZonesAB.HasAnyFlag(VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB))
 				{
-					Debug.Log($"NOT ALLOWED IN ROOM: Joined {ParseZoneFromGameMode(NetworkSystem.Instance.GameModeString)} room but physically in {VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB} zone");
+					Debug.Log($"NOT ALLOWED IN ROOM: Joined {text} room but physically in {VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB} zone");
 					PersistLog.Log($"NOT ALLOWED IN ROOM - FAILED JOIN: [PlayerZone:{VRRig.LocalRig.zoneEntity.currentNode.groupZoneAB} TriggerZone:{joinTriggerFromFullGameModeString.groupJoinRequiredZonesAB}  Trigger:{joinTriggerFromFullGameModeString.name}]");
 					flag = false;
 				}
@@ -741,22 +742,6 @@ public class PhotonNetworkController : MonoBehaviour
 		{
 			NetworkSystem.Instance?.ReturnToSinglePlayer();
 		}
-	}
-
-	private GTZone ParseZoneFromGameMode(string gameMode)
-	{
-		if (string.IsNullOrEmpty(gameMode))
-		{
-			return GTZone.none;
-		}
-		foreach (GTZone value in Enum.GetValues(typeof(GTZone)))
-		{
-			if (value != GTZone.none && gameMode.StartsWith(value.ToString(), StringComparison.OrdinalIgnoreCase))
-			{
-				return value;
-			}
-		}
-		return GTZone.none;
 	}
 
 	public void SetFriendIDList(List<GorillaFriendCollider.TouchingPlayerInfo> sourceList)
